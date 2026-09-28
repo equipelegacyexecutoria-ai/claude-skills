@@ -53,3 +53,6 @@ e sincronizam sozinhos (ao abrir a conversa e ao fim de cada resposta).
   2. Só começa quando o usuário pedir ("edita os vídeos do Claude"), de qualquer PC ou do celular.
   3. Todo card da coluna CLAUDE é editado **no PC de render** (testes avulsos podem ser em outro PC).
   4. Pronto: anexar o vídeo final em MATERIAL FINALIZADO e mover o card para **Aprovação**.
+  5. Correções: o usuário escreve no campo **CORREÇÕES (Claude)** do card (com o tempo do vídeo) e move
+     o card para a coluna **Correções (Claude)**; o PC de render faz a v2, v3.
+- O passo a passo completo está na skill `fila-de-render`.
