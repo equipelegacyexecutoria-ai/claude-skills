@@ -16,3 +16,11 @@ nvidia-cudnn-cu12==9.26.0.51
 nvidia-cuda-nvrtc-cu12==12.9.86
 
 # Alinhador: venv SEPARADA (torch não convive com esta), ver requirements-alinhador.txt
+
+# Usados pelas skills cortes-podcast-instagram/corte-viral e reels-tela-dividida-clailton na mesma venv
+PyYAML==6.0.3
+jsonschema==4.26.0
+yt-dlp==2026.8.19
+ddgs==9.16.0
+httpx==0.28.1
+curl_cffi==0.16.3

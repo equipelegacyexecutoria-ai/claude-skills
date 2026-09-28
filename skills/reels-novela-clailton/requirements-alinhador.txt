@@ -9,3 +9,6 @@
 # O modelo jonatasgrosman/wav2vec2-large-xlsr-53-portuguese (1,2 GB) baixa sozinho no 1º uso
 # para %USERPROFILE%\.cache\huggingface.
 whisperx==3.8.6
+# Usados pela reels-tela-dividida-clailton nesta venv (CLIP e detector de marca d'água)
+transformers==4.57.6
+timm==1.0.30
