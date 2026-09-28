@@ -42,9 +42,10 @@ aparece no painel do Canva = px × 0,75) de cada linha, `altura_bloco` e as posi
   com `tres_caixas.tops` (left 50.64). Pronto, sem ajuste manual.
 - Template com as 3 linhas **na mesma caixa** (situação atual): o conector só aplica um tamanho na
   caixa inteira (limite em `template.md`). Aplicar `caixa_unica.format_text_px` (o da linha mais
-  larga, assim nenhuma quebra), `position_element` top = `caixa_unica.top` (left 50.64) e, na
-  entrega, passar ao usuário os valores `ajuste_manual_ui` das linhas 1 e 2 (selecionar a linha →
-  campo de tamanho da fonte). Nunca passar px para o usuário: o painel mostra px × 0,75.
+  larga, assim nenhuma quebra), `position_element` top = `caixa_unica.top` (left 50.64) e, depois do
+  commit, acertar cada linha no editor do Canva com o `ajuste_manual_ui` (selecionar a linha → campo
+  de tamanho da fonte; o painel mostra px × 0,75). Entregar capa com larguras diferentes e "ajuste à
+  mão" como nota foi reprovado pelo usuário (28/09/2026): a capa só está pronta com as 3 linhas iguais.
 
 O mesmo comando devolve a posição do degradê e da foto da capa e a faixa onde o sujeito da foto
 precisa estar (`sujeito_entre_pct`); as `operacoes` já vêm prontas.
@@ -110,7 +111,10 @@ azul**: trocar o trecho branco e o azul (texto exato em `template.md`), `format_
 `imagens.md`; IA e banco pago não levam crédito).
 - Pág. 3: `" & @clailtonluiz"` → `"\nFonte: X, 2026. · Foto: Y"` (com dupla assinatura:
   `"@clailtonluiz"` → `"@clailtonluiz\nFoto: Y"`). Linha longa: `resize_element` do handle com
-  `width` 850 (a seta começa em x 926).
+  `width` 850 (a seta começa em x 926). Se `Fonte · Foto` passar de ~850 px (Poppins Bold 24 em
+  caixa-alta: `medir.largura_em(t.upper(), "poppins_bold", 0.07) * 24`, +5% de folga), a fonte sobe
+  para a 1ª linha e a foto fica na 2ª: `" & @clailtonluiz"` → `" · Fonte: X, 2026.\nFoto: Y"`
+  (usado em 28/09/2026 com créditos da Agência Brasil; mantém o crédito completo na imagem).
 - Pág. 2: `"@legacyexecutoria"` → `"@legacyexecutoria\nFoto: Y"` + `resize_element` width 850 +
   `format_text` `text_align: "start"` (o handle dessa página é centralizado).
 - Capa: `"@legacyexecutoria"` → `"@legacyexecutoria\nFotos: Y e Z"` + `resize_element` width 900 +

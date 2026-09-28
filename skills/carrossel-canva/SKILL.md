@@ -99,8 +99,11 @@ Capa LEGACY (detalhe em `copy.md`):
 - H1, H2 e H3 em **caixas separadas** no template → `format_text` com o `px_inteiro` de cada linha +
   `position_element` com `tres_caixas.tops` (left 50.64). Sai pronta.
 - H1, H2 e H3 **na mesma caixa** (situação atual do template) → `format_text` com
-  `caixa_unica.format_text_px` + `position_element` top = `caixa_unica.top`; na entrega, passar ao
-  usuário os valores `ajuste_manual_ui` das linhas 1 e 2 (número do painel do Canva = px × 0,75).
+  `caixa_unica.format_text_px` + `position_element` top = `caixa_unica.top`. **Não entregar assim**:
+  o usuário reprovou (28/09/2026) capa com linhas de larguras diferentes e "ajuste manual" como nota.
+  O conector não muda o tamanho de uma linha só; depois do commit, acertar no **editor do Canva**
+  (navegador logado no Canva): selecionar cada linha e digitar o `ajuste_manual_ui` no campo de
+  tamanho (número do painel = px × 0,75). Sem editor logado → avisar **antes** de mostrar a prévia.
 
 Armadilhas (detalhes em `template.md`):
 - CTA LEGACY: `{{P1}}` **sem `\n`** (1º parágrafo); o resto do bloco preto vai em `{{P1B}}`.
@@ -116,7 +119,7 @@ imagens, mandar os links, um por card) e perguntar se pode salvar. Com o ok:
 - de onde veio cada imagem (real/banco/IA) e a linha de créditos pronta para a legenda do post;
 - "trocar foto": só as vagas sem imagem boa (CLAILTON: nenhuma), com a melhor opção achada;
 - ajustes feitos para caber (ex.: "card 5 com o corpo em 36 px") e os `aviso` do script;
-- capa em caixa única: tamanho de cada linha para o usuário acertar no painel do Canva.
+- capa em caixa única: só entregar depois de acertar as 3 linhas no editor (ver passo 5).
 
 Ajustes depois do commit ("troca a foto do card 4", "usa foto real no card 3"):
 `read-design open_transaction` + `edit-design` nas páginas citadas, prévia, commit.
@@ -127,7 +130,8 @@ Ajustes depois do commit ("troca a foto do card 4", "usa foto real no card 3"):
   `references/` e nos scripts. Só reler um template se um `find_and_replace_text` falhar.
 - Uma leitura de estrutura (passo 3); as miniaturas vêm das próprias edições.
 - Chamadas independentes sempre na mesma mensagem (montagem, buscas, gerações, uploads).
-- Sem subagentes e sem editor do Canva. IA: `count: 1` por vaga (2 só no card mais importante).
+- Sem subagentes e sem editor do Canva (exceção: tamanho por linha da capa enquanto o template tiver
+  caixa única). IA: `count: 1` por vaga (2 só no card mais importante).
 
 ## Manutenção dos templates
 
@@ -138,5 +142,8 @@ do anterior) e atualizar `references/template.md`. Nunca redigitar a página do 
 Se mudar a foto, o degradê ou as molduras, atualizar as medidas de `PAG` no `medir.py`/`medir.mjs`
 (lidas pelo `read-design` com transação). Passo a passo completo em `references/recriar-templates.md`.
 
-Pendente (feito pelo usuário no editor do Canva): separar a manchete da capa LEGACY em 3 caixas
-(`{{H1}}`, `{{H2}}`, `{{H3}}`), para a capa sair pronta sem ajuste manual.
+Pendente, **aprovado pelo usuário em 28/09/2026** (fazer no PC com o Canva logado no navegador):
+separar a manchete da capa LEGACY em 3 caixas (`{{H1}}`, `{{H2}}`, `{{H3}}`), para a capa sair pronta
+pelo conector. No editor: selecionar a caixa da manchete, `Ctrl+D` duas vezes, deixar em cada cópia
+só o seu marcador (sem apagar a cor do trecho) e empilhar; depois `read-design` com transação para
+conferir os 3 elementos, atualizar a linha da pág. 1 em `references/template.md` e apagar este aviso.

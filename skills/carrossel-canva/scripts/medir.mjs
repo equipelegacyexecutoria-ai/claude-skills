@@ -148,7 +148,7 @@ function corpo(pars, px = 40, larg = 974) {
   };
   const [n, orf, ls] = medir(larg);
   const out = { linhas: n, orfas: orf };
-  if (orf.length) for (const l of [960, 945, 930, 920, 900]) {
+  if (orf.length) for (const l of [960, 945, 930, 920, 900, 880, 860, 850]) {
     const [n2, o2] = medir(l);
     if (!o2.length && n2 <= n) { out.sugestao_largura = l; break; }
   }

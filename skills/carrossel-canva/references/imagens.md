@@ -56,6 +56,12 @@ sujeito fica (sujeito_entre_pct do medir) · evitar` + 2 a 4 buscas curtas.
    original (tira o `-1200x675` do endereço), com legenda e crédito, e marca as de outras matérias
    como `[fora do assunto?]`. Pessoa ou marca: `python3 scripts/imagens.py wikimedia "Nome"` →
    original, tamanho, licença e crédito pronto.
+   **Agência Brasil** (agenciabrasil.ebc.com.br) é a melhor fonte para card de economia: foto real,
+   brasileira, uso livre com crédito, original de 4000–6000 px. O `coletar` volta vazio lá (o site
+   recusa download sem Referer). Caminho testado em 28/09/2026: web_search com `allowed_domains`
+   no site → na página, o `og:image` traz o original depois de `/1600x800/`
+   (`…/sites/default/files/…jpg`) → `curl -e "https://agenciabrasil.ebc.com.br/" -o foto.jpg URL`.
+   Crédito = atributo `title` da imagem na página (`Nome/Agência Brasil`).
 3. Sem rede na execução de código: ler a matéria com web_fetch e procurar o endereço da imagem
    principal (og:image, `.jpg/.webp` do texto) e a legenda "Foto: …"; tirar o sufixo de tamanho do
    endereço. Wikimedia pelo web_fetch:

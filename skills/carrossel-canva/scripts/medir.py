@@ -210,7 +210,7 @@ def corpo(pars, px=40.0, larg=974.0):
     n, orf, ls = medir(larg)
     out = {"linhas": n, "orfas": orf}
     if orf:
-        for l in (960, 945, 930, 920, 900):
+        for l in (960, 945, 930, 920, 900, 880, 860, 850):
             n2, o2, _ = medir(l)
             if not o2 and n2 <= n:
                 out["sugestao_largura"] = l

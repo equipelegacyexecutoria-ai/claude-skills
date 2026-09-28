@@ -116,7 +116,9 @@ o `merge-designs` falha com ele).
   nos cards (a seta começa em x 926) e ~900 na capa. Crédito mais longo que isso vai na legenda.
 - Subir imagem: `upload-asset-from-url` (só endereço público; usado em 26/09 para as fotos de
   exemplo) ou `create-upload-url` + POST dos bytes crus (`Content-Type: application/octet-stream`)
-  → `{"mediaId": "…"}` (Claude Code: 7 imagens de até 4 MB em 28/09, sem erro).
+  → `{"mediaId": "…"}` (Claude Code: 7 imagens de até 4 MB em 28/09, sem erro). Enviar com `curl`:
+  pelo `urllib` do Python o Canva devolve 403 (o endereço continua valendo; refazer com curl). No
+  Windows, endereço lido de arquivo gerado pelo Python leva `\r` no fim: limpar com `tr -d '\r'`.
 - `get-assets` devolve a miniatura (~200 px) de cada imagem, visível para o Claude, com largura e
   altura: serve de "folha de contato" quando não há Python/rede (testado em 27/09).
 - `crop_media` (ajustar o enquadramento dentro da moldura) existe mas não foi testado: para centralizar
