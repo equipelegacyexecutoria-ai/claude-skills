@@ -31,12 +31,14 @@ git -C ~/.claude log --oneline -- skills/<skill>              # histórico de um
 
 Dois PCs mudaram o mesmo trecho. A versão do outro PC está no ramo `origin/conflito/<PC>`;
 nada foi perdido.
-1. `git -C ~/.claude fetch origin` e `git -C ~/.claude diff main origin/conflito/<PC> -- <arquivos>`.
+A outra versão é `origin/main` quando o aviso diz "este PC" (a versão deste PC está aqui), ou
+`origin/conflito/<PC>` quando o aviso é "pendente de outro PC".
+1. `git -C ~/.claude fetch origin` e `git -C ~/.claude diff HEAD <outra versão> -- <arquivos>`.
 2. Mostre ao usuário, em linguagem simples, as duas versões do trecho e pergunte: ficar com a
    deste PC, com a do outro, ou juntar as duas (proponha o texto juntado).
-3. Com a resposta: `git -C ~/.claude merge --no-commit origin/conflito/<PC>`, deixe os arquivos
-   como o usuário escolheu, `git add` e `git commit -m "junta conflito/<PC>"`, depois rode o
-   `sync.ps1 -Modo agora`. O ramo de conflito some sozinho quando o outro PC sincronizar.
+3. Com a resposta: `git -C ~/.claude merge --no-commit <outra versão>`, deixe os arquivos
+   como o usuário escolheu, `git add` e `git commit -m "junta conflito"`, depois rode o
+   `sync.ps1 -Modo agora`. O ramo `conflito/<PC>` some sozinho depois da junção.
 Se aparecer "juncao pela metade" (MERGE_HEAD): termine a junção como acima ou `git merge --abort`.
 
 ## Voltar uma versão
