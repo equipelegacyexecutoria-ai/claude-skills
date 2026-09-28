@@ -38,3 +38,18 @@ e sincronizam sozinhos (ao abrir a conversa e ao fim de cada resposta).
   Exceção: skills que também vivem no claude.ai (carrossel-canva, corte-viral) precisam de reenvio manual lá.
 - Linha começando com `SYNC:` na abertura da conversa: seguir `~/.claude/sync/LEIA-ME.md`.
 - Pedido de edição de vídeo sem dizer onde: perguntar "aqui ou no PC de render?".
+
+## Quadro de vídeos no Notion (fila do Claude)
+
+- Quadro: base "🗓️ CALENDÁRIO EDITORIAL | Legacy", visão **Audiovisual** (quadro por ANDAMENTO):
+  https://app.notion.com/p/73ac9747efab8374a5b5812011259272?v=c7bc9747efab821ea98b88388c677927
+  (fonte de dados `collection://f0cc9747-efab-822b-8678-07f92372d6b7`).
+- Os vídeos para o Claude editar entram na coluna **CLAUDE** (valor `CLAUDE` do status ANDAMENTO).
+- Cada card: PAUTA (título; `Reels_Clailton_TD_*` = tela dividida, `NV` = novela), FORMATO, PERFIL,
+  PRIORIDADE, DATA D/ CONCLUSÃO, DATA D/ PUBLICACÃO, IDEIA (instruções extras, ex.: "máximo 2min59"),
+  MATERIAL NECESSÁRIO, MATERIAL FINALIZADO, RESPONSÁVEL; roteiro no corpo do card.
+- Fluxo combinado com o usuário (28/09/2026):
+  1. O bruto vem em MATERIAL NECESSÁRIO (na prática, link do Google Drive; pode ser arquivo anexado).
+  2. Só começa quando o usuário pedir ("edita os vídeos do Claude"), de qualquer PC ou do celular.
+  3. Todo card da coluna CLAUDE é editado **no PC de render** (testes avulsos podem ser em outro PC).
+  4. Pronto: anexar o vídeo final em MATERIAL FINALIZADO e mover o card para **Aprovação**.
