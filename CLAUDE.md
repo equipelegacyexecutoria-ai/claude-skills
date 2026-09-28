@@ -56,3 +56,6 @@ e sincronizam sozinhos (ao abrir a conversa e ao fim de cada resposta).
   5. Correções: o usuário escreve no campo **CORREÇÕES (Claude)** do card (com o tempo do vídeo) e move
      o card para a coluna **Correções (Claude)**; o PC de render faz a v2, v3.
 - O passo a passo completo está na skill `fila-de-render`.
+- De qualquer PC: se o usuário pedir para "ativar/mandar o PC de render" editar, entregue o pedido à
+  conversa **"Central de Render"** do PC de render (`ListAgents` + `SendMessage`), como na skill.
+- Todo card lido: o briefing (IDEIA, corpo, comentários) manda sobre o estilo do título; ler sempre, mesmo fora dos formatos.

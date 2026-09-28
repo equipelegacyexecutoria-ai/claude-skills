@@ -12,6 +12,22 @@ conversa do PC de render (Controle Remoto, no celular ou em claude.ai/code).
 
 O usuário não é técnico: relatórios curtos, pelo dia a dia dele (ver CLAUDE.md global).
 
+## Pedido vindo de outro PC ou do celular
+
+A conversa que trabalha no PC de render se chama **"Central de Render"** (pasta `C:\Render`, modo
+Automático, Controle Remoto ligado).
+- **Celular ou navegador:** o usuário abre o app do Claude (ou claude.ai/code), entra na conversa
+  "Central de Render" e escreve o pedido. Nada a fazer do seu lado.
+- **Claude de outro PC** recebeu "manda o PC de render editar", "ativa o PC de render", "edita os vídeos
+  do Claude" (e o usuário quer que seja lá): use `ListAgents`, ache a sessão cujo nome contém
+  "Central de Render" e mande com `SendMessage` o pedido do usuário (ex.: "edita os vídeos do Claude",
+  ou "edita só o card <PAUTA>"). Responda ao usuário que o pedido foi entregue e que o resultado
+  aparece no Notion (cards em Aprovação) e na própria Central de Render.
+  Se a Central não aparecer na lista: o PC de render está desligado, o app está fechado ou o
+  Controle Remoto caiu. Diga isso ao usuário e peça para alguém abrir o app lá (o Claude abre sozinho
+  quando o PC liga) e reabrir a conversa "Central de Render".
+- Você não liga o PC de render à distância: ele precisa estar ligado (não dorme, o Claude abre com o Windows).
+
 ## Onde está cada coisa
 
 | Item | Onde |
@@ -36,17 +52,32 @@ das colunas e campos. Se a coluna "Correções (Claude)" não existir, avise o u
 Um card por vez, do começo ao fim. Leia o **card inteiro** (`notion-fetch` na página: campos, corpo e
 comentários com `notion-get-comments`) — às vezes há mais informação, às vezes menos.
 
-## Passo 1 — qual edição (pelo título da PAUTA)
+## Passo 1 — ler o briefing e decidir a edição
+
+**Primeiro o briefing, depois o estilo.** Antes de escolher a skill, leia com atenção a IDEIA, o corpo
+do card e os comentários e anote em `C:\Render\_trabalho\<slug>\briefing.md` cada orientação
+(formato, duração máxima, partes, ângulos, o que mostrar, quem é o cliente, material que falta).
+Isso vale para **todo** card, inclusive os que não se encaixam nos formatos de sempre (Case,
+depoimento, aniversário...). O briefing manda sobre o padrão da skill e sobre o título.
+
+Estilo pelo título da PAUTA, **a não ser que o briefing diga outra coisa**:
 
 | No título | Skill |
 | --- | --- |
 | `_TD_` | `reels-tela-dividida-clailton` |
 | `_NV_` ou `_Novela_` | `reels-novela-clailton` |
 | `_ES_` | Edição Simples — **ainda não existe skill**: não edite; comente no card "Edição Simples ainda não está pronta no PC de render" e deixe o card onde está |
-| outro (Case, depoimento, cortes...) | não adivinhe: comente perguntando qual estilo e pule o card |
+| outro (Case, depoimento...) | use o que o briefing pede (ex.: "é para ser no formato tela dividida" → tela dividida); sem indicação, a skill mais próxima do material (1 pessoa falando para a câmera → novela; com imagens de apoio → tela dividida) |
 
-A IDEIA manda sobre o padrão da skill quando pede algo específico (ex.: "gravado em 16:9, usar como
-tela dividida", "máximo 2min59", "tem parte 1 e parte 2").
+Exemplos de orientação que mudam a edição: "gravado em 16:9, redimensionar para 9:16", "máximo
+2min59", "tem parte 1 e parte 2, a parte 2 em outro ângulo" (junte as partes na ordem e trate a troca
+de ângulo como emenda), "usar imagens do Instagram do cliente".
+
+Material que o briefing diz que **ainda vai chegar** (ex.: "vou pedir o Instagram da pastelaria"):
+se dá para editar bem sem ele, edite e diga no comentário o que ficou provisório; se é essencial,
+comente "AGUARDANDO: <o quê>" e pule o card. Dúvida que muda a edição inteira: comente "DÚVIDA: ..." e pule.
+
+No comentário de entrega, liste em 1 linha as orientações do briefing que você seguiu.
 
 ## Passo 2 — pegar o bruto
 
