@@ -529,6 +529,7 @@ def gerar(plano: dict, palavras: list[dict], rosto: list[dict] | None = None, co
 
 
 def main() -> None:
+    global Y_CENTRO, TOPO_MIN, BASE_MAX
     ap = argparse.ArgumentParser()
     ap.add_argument("--plano", required=True)
     ap.add_argument("--palavras", required=True)
@@ -537,7 +538,14 @@ def main() -> None:
     ap.add_argument("--layout-out")
     ap.add_argument("--corte", help="corte.json: a CTA entra exatamente no fim da imagem (duracao_fala)")
     ap.add_argument("--sem-cta", action="store_true")
+    # posição do bloco em outros formatos (edição simples: tela cheia, legenda no peito)
+    ap.add_argument("--y-centro", type=float, help=f"centro vertical do bloco (padrão {Y_CENTRO:.0f})")
+    ap.add_argument("--topo-min", type=float, help=f"o bloco não sobe além disso (padrão {TOPO_MIN:.0f})")
+    ap.add_argument("--base-max", type=float, help=f"o bloco não desce além disso (padrão {BASE_MAX:.0f})")
     a = ap.parse_args()
+    Y_CENTRO = a.y_centro if a.y_centro is not None else Y_CENTRO
+    TOPO_MIN = a.topo_min if a.topo_min is not None else TOPO_MIN
+    BASE_MAX = a.base_max if a.base_max is not None else BASE_MAX
     plano, palavras = carregar(Path(a.plano), Path(a.palavras))
     rosto = json.loads(Path(a.rosto).read_text(encoding="utf-8")) if a.rosto else None
     fim = None

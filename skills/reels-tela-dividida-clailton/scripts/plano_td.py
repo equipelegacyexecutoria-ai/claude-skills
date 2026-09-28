@@ -100,6 +100,8 @@ def ler_plano(p: Path) -> dict:
             pl["cta"] = False
         elif up.startswith("SEMZOOM"):
             pl["auto_zoom"] = False
+        elif up.startswith("SEMABERTURA"):
+            pl["sem_abertura"] = True
         elif up.startswith("ESTILO"):
             m_ = re.search(r"([\d.,]+)", linha)
             pl["estilo"] = float(m_.group(1).replace(",", ".")) if m_ else 1.0
@@ -184,15 +186,18 @@ def montar(T: Path) -> dict:
 
     # ---------------- abertura
     ab = pl["abertura"]
-    if ab is None:                              # padrão: 1ª frase (até ~6 s)
+    if pl.get("sem_abertura"):                  # edição simples: começa direto no Clailton em tela cheia
+        ab = {"i0": 0, "i1": -1}
+        pl["topo"] = []
+    elif ab is None:                            # padrão: 1ª frase (até ~6 s)
         i1 = 0
         while i1 < N - 1 and not fim_de_frase(pal[i1]["texto"]) and pal[i1 + 1]["inicio"] < 6.0:
             i1 += 1
         ab = {"i0": 0, "i1": i1}
         avisos.append(f"ABERTURA não definida: usei @0-{i1} ({txt(0, i1)[:50]})")
-    ab_f1 = fim_item(ab["i1"])
+    ab_f1 = fim_item(ab["i1"]) if ab["i1"] >= 0 else 0
     topo = sorted(pl["topo"], key=lambda x: x["i0"])
-    if not topo:
+    if not topo and ab_f1 > 0:
         avisos.append("abertura sem TOPO: a tela dividida precisa de imagem em cima")
     camadas = []
     for k, it in enumerate(topo):
@@ -298,7 +303,7 @@ def montar(T: Path) -> dict:
              "imagens": n_img, "imagens_por_min": round(60 * n_img / dur, 1), "telas_legenda": len(telas)}
     if cob > 0.45:
         avisos.append(f"imagem em {cob:.0%} do tempo: o melhor reel tem ~1/3 (o pior tinha 58%)")
-    if cob < 0.15 and n_img < 5:
+    if cob < 0.15 and n_img < 5 and not pl.get("sem_abertura"):
         avisos.append(f"pouca imagem ({cob:.0%}): tela dividida sem imagem rende 0,48x")
     tl = {"fps": FPS, "frames_fala": F_FALA, "cta": pl["cta"], "estilo": pl.get("estilo"), "abertura": {"f0": 0, "f1": ab_f1, "i1": ab["i1"],
           "etiqueta": pl["etiqueta"], "saida": "flash"}, "segmentos_f0": seg_f0, "planos": planos,

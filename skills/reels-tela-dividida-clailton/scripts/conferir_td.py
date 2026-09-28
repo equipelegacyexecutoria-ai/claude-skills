@@ -145,7 +145,8 @@ def main() -> None:
                 avisos.append(f"{c['id']}: possível marca d'água (detector {m.get('marca', 0):.2f}): conferir em tamanho real")
             if m.get("logo"):
                 avisos.append(f"{c['id']}: logo de canal/streaming no canto do trecho (LOGO?): troque ou aceite")
-    folha.save(qa / "folha_imagens.jpg", quality=86)
+    if folha.width and folha.height:          # edição simples (sem imagens): não há folha de imagens
+        folha.save(qa / "folha_imagens.jpg", quality=86)
 
     # ---------------- fundo mais claro atrás da legenda (regra do usuário)
     piores = []

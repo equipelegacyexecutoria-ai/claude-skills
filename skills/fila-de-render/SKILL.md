@@ -71,7 +71,7 @@ Estilo pelo título da PAUTA:
 | --- | --- |
 | `_TD_` | `reels-tela-dividida-clailton` |
 | `_NV_` ou `_Novela_` | `reels-novela-clailton` |
-| `_ES_` | Edição Simples — **ainda não existe skill**: não edite; comente no card "Edição Simples ainda não está pronta no PC de render" e deixe o card onde está |
+| `_ES_` | `reels-edicao-simples-clailton` |
 | sem NV/TD/ES (Case, depoimento...) | o briefing decide (ex.: "é para ser no formato tela dividida" → tela dividida); sem indicação, a skill mais próxima do material (1 pessoa falando para a câmera → novela; com imagens de apoio → tela dividida) |
 
 Exemplos de orientação que mudam a edição: "gravado em 16:9, redimensionar para 9:16", "máximo

@@ -355,10 +355,11 @@ def main() -> None:
 
     ab_f1 = tl["abertura"]["f1"]
     flash = {}
-    for k, g in enumerate(reversed(FLASH_ANTES)):
-        flash[ab_f1 - 1 - k] = g
-    for k, g in enumerate(FLASH_DEPOIS):
-        flash[ab_f1 + k] = g
+    if ab_f1 > 0:                                            # sem abertura (edição simples): sem flash
+        for k, g in enumerate(reversed(FLASH_ANTES)):
+            flash[ab_f1 - 1 - k] = g
+        for k, g in enumerate(FLASH_DEPOIS):
+            flash[ab_f1 + k] = g
 
     planos = tl["planos"]
     pi = 0
