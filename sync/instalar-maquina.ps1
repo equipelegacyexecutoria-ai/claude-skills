@@ -16,9 +16,9 @@ function Alerta($t) { Write-Host "   atenção: $t" -ForegroundColor Yellow }
 function TemComando($n) { return [bool](Get-Command $n -ErrorAction SilentlyContinue) }
 function AtualizaPath { $env:Path = [Environment]::GetEnvironmentVariable('Path', 'Machine') + ';' + [Environment]::GetEnvironmentVariable('Path', 'User') }
 function Confere($msg) { if ($LASTEXITCODE -ne 0) { throw $msg } }
-function Winget($id) {
-  if (-not (TemComando winget)) { throw "o winget não existe neste PC: atualize o 'Instalador de Aplicativo' na Microsoft Store e rode de novo." }
-  winget install -e --id $id --accept-package-agreements --accept-source-agreements --silent
+function InstalaDaLoja($id) {
+  if (-not (TemComando winget.exe)) { throw "o winget não existe neste PC: atualize o 'Instalador de Aplicativo' na Microsoft Store e rode de novo." }
+  winget.exe install -e --id $id --accept-package-agreements --accept-source-agreements --silent
   AtualizaPath
 }
 
@@ -46,11 +46,11 @@ try {
     Passo '3 Programas: Python 3.12, ffmpeg e Node'
     $temPy = $false
     try { & py -3.12 --version | Out-Null; if ($LASTEXITCODE -eq 0) { $temPy = $true } } catch {}
-    if (-not $temPy) { Winget 'Python.Python.3.12' }
+    if (-not $temPy) { InstalaDaLoja 'Python.Python.3.12' }
     & py -3.12 --version; Confere 'Python 3.12 não apareceu. Feche esta janela e rode o instalador de novo.'
-    if (-not (TemComando ffmpeg)) { Winget 'Gyan.FFmpeg' }
+    if (-not (TemComando ffmpeg)) { InstalaDaLoja 'Gyan.FFmpeg' }
     & ffmpeg -hide_banner -version | Select-Object -First 1
-    if (-not (TemComando node)) { Winget 'OpenJS.NodeJS.LTS' }
+    if (-not (TemComando node)) { InstalaDaLoja 'OpenJS.NodeJS.LTS' }
     if (TemComando nvidia-smi) { Ok ((& nvidia-smi --query-gpu=name,driver_version --format=csv,noheader) -join ' ') } else { Alerta 'placa NVIDIA não encontrada: vai funcionar, só que bem mais devagar' }
 
     Passo "4 Ambiente principal de vídeo ($venv) — ~2 GB"
