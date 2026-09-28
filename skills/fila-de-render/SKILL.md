@@ -12,12 +12,27 @@ conversa do PC de render (Controle Remoto, no celular ou em claude.ai/code).
 
 O usuário não é técnico: relatórios curtos, pelo dia a dia dele (ver CLAUDE.md global).
 
+## Quem faz o trabalho: a tarefa "fila-de-render" (conversa nova a cada rodada)
+
+Para não acumular contexto, **a fila nunca roda dentro da conversa "Render central"**. Ela roda na
+tarefa agendada **`fila-de-render`** do app do PC de render (pasta `C:\Render`, modo Automático):
+cada execução abre uma conversa nova, processa a fila com esta skill e encerra.
+- **Se você é a "Render central"** (a recepcionista, com Controle Remoto) e chegou "edita os vídeos
+  do Claude", "processa a fila", "faz as correções": chame `run_scheduled_task` com `taskId`
+  `fila-de-render` e responda numa linha ("Rodada iniciada; os cards vão para Aprovação no Notion").
+  Se recusar porque já há uma rodada em andamento, diga isso; os cards novos entram na próxima.
+  Não edite nada na própria Render central. Para ver como andou: `list_task_runs`.
+- **Se você é a execução da tarefa** (conversa nova em `C:\Render`): siga do "Passo 0" em diante,
+  processe todos os cards e termine com o relatório final.
+- A tarefa sem horário só roda quando chamada; os horários automáticos (quando o usuário definir)
+  são o `cronExpression` dessa mesma tarefa (`update_scheduled_task`).
+
 ## Pedido vindo de outro PC ou do celular
 
-A conversa que trabalha no PC de render se chama **"Central de Render"** (pasta `C:\Render`, modo
-Automático, Controle Remoto ligado).
+A conversa de recepção no PC de render se chama **"Render central"** (ou "Central de Render"; pasta
+`C:\Render`, modo Automático, Controle Remoto ligado).
 - **Celular ou navegador:** o usuário abre o app do Claude (ou claude.ai/code), entra na conversa
-  "Central de Render" e escreve o pedido. Nada a fazer do seu lado.
+  "Render central" e escreve o pedido; ela dispara a tarefa `fila-de-render`.
 - **Claude de outro PC** recebeu "manda o PC de render editar", "ativa o PC de render", "edita os vídeos
   do Claude" (e o usuário quer que seja lá): use `ListAgents`, ache a sessão do PC de render (nome com "Central de Render" ou
   "Render central") e mande com `SendMessage` o pedido do usuário (ex.: "edita os vídeos do Claude",
