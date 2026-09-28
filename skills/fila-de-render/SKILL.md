@@ -19,8 +19,8 @@ Automático, Controle Remoto ligado).
 - **Celular ou navegador:** o usuário abre o app do Claude (ou claude.ai/code), entra na conversa
   "Central de Render" e escreve o pedido. Nada a fazer do seu lado.
 - **Claude de outro PC** recebeu "manda o PC de render editar", "ativa o PC de render", "edita os vídeos
-  do Claude" (e o usuário quer que seja lá): use `ListAgents`, ache a sessão cujo nome contém
-  "Central de Render" e mande com `SendMessage` o pedido do usuário (ex.: "edita os vídeos do Claude",
+  do Claude" (e o usuário quer que seja lá): use `ListAgents`, ache a sessão do PC de render (nome com "Central de Render" ou
+  "Render central") e mande com `SendMessage` o pedido do usuário (ex.: "edita os vídeos do Claude",
   ou "edita só o card <PAUTA>"). Responda ao usuário que o pedido foi entregue e que o resultado
   aparece no Notion (cards em Aprovação) e na própria Central de Render.
   Se a Central não aparecer na lista: o PC de render está desligado, o app está fechado ou o
