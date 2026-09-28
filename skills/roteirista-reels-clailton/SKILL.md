@@ -6,17 +6,17 @@ argument-hint: "[ideia | link ou transcrição de referência | regravar #id | a
 
 # Roteirista de Reels do Clailton · fluxo rápido
 
-Você é o **orquestrador**. Não escreve nem julga roteiro: coordena agentes que já têm o playbook embutido e entrega o resultado. Meta: **roteiro auditado em até 5 min**. Não leia `C:\Users\NOT - LIVE\.claude\skills\roteirista-reels-clailton\references\` no fluxo padrão (elas servem ao modo profundo e ao Analista mensal).
+Você é o **orquestrador**. Não escreve nem julga roteiro: coordena agentes que já têm o playbook embutido e entrega o resultado. Meta: **roteiro auditado em até 5 min**. Não leia `~/.claude/skills/roteirista-reels-clailton/references/` no fluxo padrão (elas servem ao modo profundo e ao Analista mensal).
 
 Os dois formatos pedem copys diferentes: **NOVELA** (monólogo-tese; hook que vira título; 170 a 260 palavras) e **TELA DIVIDIDA** (roteiro ilustrável com imagem em cada bloco; 280 a 460 palavras). O Diretor escolhe o formato sozinho; o usuário não é consultado no meio do fluxo.
 
 **Locais fixos** (a skill e os agentes ficam no seu usuário e funcionam em qualquer pasta):
-- **Raiz** (dados e entregas): `C:\Users\NOT - LIVE\Desktop\Projetos Edições\Roteirista de Reels` · pastas `dados\` e `roteiros\`.
-- **Skill** (scripts e referências): `C:\Users\NOT - LIVE\.claude\skills\roteirista-reels-clailton` · a Raiz dos scripts vem de `scripts\raiz-do-projeto.txt` (para mudar o projeto de lugar, edite só esse arquivo).
-- **Agentes**: `C:\Users\NOT - LIVE\.claude\agents\`.
+- **Raiz** (dados e entregas): a pasta `Projetos Edições\Roteirista de Reels` na Área de Trabalho deste PC. Descubra o caminho absoluto com `powershell -NoProfile -ExecutionPolicy Bypass -File "$HOME/.claude/skills/roteirista-reels-clailton/scripts/raiz.ps1"` · pastas `dados\` e `roteiros\`.
+- **Skill** (scripts e referências): `~/.claude/skills/roteirista-reels-clailton` · a Raiz dos scripts vem de `scripts\raiz.ps1` (para usar outra pasta neste PC, grave o caminho em `scripts\raiz-do-projeto.txt`, que não sincroniza).
+- **Agentes**: `~/.claude/agents/`.
 ## Fluxo padrão
 
-**0. Preparação (sem ferramenta).** Defina data e slug curto sem acento. Pasta de trabalho: `C:\Users\NOT - LIVE\Desktop\Projetos Edições\Roteirista de Reels\roteiros\_trabalho\<aaaa-mm-dd>-<slug>` (os agentes criam a pasta ao gravar). Em todo pedido, passe a Raiz e a Pasta em caminho absoluto.
+**0. Preparação (sem ferramenta).** Defina data e slug curto sem acento. Pasta de trabalho: `<Raiz>\roteiros\_trabalho\<aaaa-mm-dd>-<slug>` (os agentes criam a pasta ao gravar). Em todo pedido, passe a Raiz e a Pasta em caminho absoluto.
 
 **1. Pauta.** Agent `diretor-de-pauta`:
 ```
@@ -36,7 +36,7 @@ Responda com o conteúdo completo da pauta.
 - Agent `checador-de-fatos`: `Raiz · Pasta`. **Só se** o roteirista informou afirmações fora do banco; sem afirmações, ou todas [BANCO], pule.
 
 **4. Finalizar.** PowerShell (de qualquer pasta):
-`powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\NOT - LIVE\.claude\skills\roteirista-reels-clailton\scripts\finalizar-roteiro.ps1" -Pasta "<pasta>"`
+`powershell -NoProfile -ExecutionPolicy Bypass -File "$HOME/.claude/skills/roteirista-reels-clailton/scripts/finalizar-roteiro.ps1" -Pasta "<pasta>"`
 - **Código 0**: entregue.
 - **Código 1** (lint com FALHA na entrega): corrija a frase apontada com Edit no arquivo final e rode o lint de novo.
 - **Código 2** (REPENSA): chame o mesmo roteirista uma vez com `Reescreva 03-roteiro.md. Diagnóstico do Auditor: <riscos e subnotas>`, depois o Auditor, depois finalize (+~2 min). Se ainda der REPENSA, entregue a melhor versão avisando a nota.
@@ -56,7 +56,7 @@ Medido em 26/09/2026 (novela "funcionário que só cumpre o combinado"): pauta 3
 | Regravação | "regravar o #140" | Diretor com o caminho do reel antigo; roteirista com `-SemCorpus` |
 | Auditoria | "audita esse roteiro" | Grave o texto em `03-roteiro.md` (template do formato, só com `## ROTEIRO FALADO` preenchido), chame o Auditor e mostre veredito, nota e correções. Não finalize, salvo pedido |
 | Rascunho | "só um rascunho", "rapidinho" | Sem agentes: leia o arquivo do roteirista do formato (o playbook está nele), escreva no template, rode o lint e marque **NÃO AUDITADO** |
-| Profundo | "modo profundo", peça de campanha | Fluxo padrão + nova chamada ao Auditor sobre o arquivo final pedindo relatório completo (espectador frio detalhado); pode consultar `C:\Users\NOT - LIVE\.claude\skills\roteirista-reels-clailton\references\` |
+| Profundo | "modo profundo", peça de campanha | Fluxo padrão + nova chamada ao Auditor sobre o arquivo final pedindo relatório completo (espectador frio detalhado); pode consultar `~/.claude/skills/roteirista-reels-clailton/references/` |
 | Mensal | "atualizar a base com <arquivo>" | `analista-de-performance`; se ele pedir backtest, rode o Auditor em modo backtest nos arquivos indicados |
 
 ## Regras gerais
@@ -68,9 +68,9 @@ Medido em 26/09/2026 (novela "funcionário que só cumpre o combinado"): pauta 3
 
 ## Scripts (PowerShell 5.1; rodam de qualquer pasta)
 ```
-powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\NOT - LIVE\.claude\skills\roteirista-reels-clailton\scripts\finalizar-roteiro.ps1" -Pasta "<pasta>" [-SemRegistro]
-powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\NOT - LIVE\.claude\skills\roteirista-reels-clailton\scripts\lint-roteiro.ps1" -Arquivo "<roteiro>" -Formato <novela|tela_dividida> [-Objetivo ...] [-Referencia ...] [-SemCorpus]
-powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\NOT - LIVE\.claude\skills\roteirista-reels-clailton\scripts\stats-formatos.ps1" [-Saida dados\stats-formatos.md] [-Ate dd/mm/aaaa]
-powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\NOT - LIVE\.claude\skills\roteirista-reels-clailton\scripts\gerar-corpus.ps1"
-powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\NOT - LIVE\.claude\skills\roteirista-reels-clailton\scripts\importar-mes.ps1" -Entrada "<json|csv|docx>"   # depois: -Etapa mesclar -Lote "<lote>"
+powershell -NoProfile -ExecutionPolicy Bypass -File "$HOME/.claude/skills/roteirista-reels-clailton/scripts/finalizar-roteiro.ps1" -Pasta "<pasta>" [-SemRegistro]
+powershell -NoProfile -ExecutionPolicy Bypass -File "$HOME/.claude/skills/roteirista-reels-clailton/scripts/lint-roteiro.ps1" -Arquivo "<roteiro>" -Formato <novela|tela_dividida> [-Objetivo ...] [-Referencia ...] [-SemCorpus]
+powershell -NoProfile -ExecutionPolicy Bypass -File "$HOME/.claude/skills/roteirista-reels-clailton/scripts/stats-formatos.ps1" [-Saida dados\stats-formatos.md] [-Ate dd/mm/aaaa]
+powershell -NoProfile -ExecutionPolicy Bypass -File "$HOME/.claude/skills/roteirista-reels-clailton/scripts/gerar-corpus.ps1"
+powershell -NoProfile -ExecutionPolicy Bypass -File "$HOME/.claude/skills/roteirista-reels-clailton/scripts/importar-mes.ps1" -Entrada "<json|csv|docx>"   # depois: -Etapa mesclar -Lote "<lote>"
 ```

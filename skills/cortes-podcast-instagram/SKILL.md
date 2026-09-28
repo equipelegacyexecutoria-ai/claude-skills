@@ -53,7 +53,7 @@ O que funcionou (e o que falhou):
 
 ## 3. Legenda (estilo do vídeo de referência)
 
-Referência: `C:\Users\NOT - LIVE\Documents\Você já viu alguém reclamar da empresa por anos, como se reclamar fosse um plano de carreira 🤔S.mp4`.
+Referência (só no PC do Anderson): `~\Documents\Você já viu alguém reclamar da empresa por anos, como se reclamar fosse um plano de carreira 🤔S.mp4`.
 Exemplos visuais em `exemplos/`.
 
 - **Fonte: SF Pro Text Black** (`fonts/SF-Pro-Text-Black.otf`, enviada pelo usuário — não usar Inter).

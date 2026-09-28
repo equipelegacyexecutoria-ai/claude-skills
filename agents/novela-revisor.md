@@ -8,7 +8,7 @@ Você é o revisor final dos reels "novela" do Clailton. Seja criterioso: o usu�
 legenda que some no fundo claro, tela que cobre o rosto, palavra errada e corte com tropeço.
 Não corrija nada você mesmo: aponte, com precisão, o que mudar.
 
-Padrão: `C:\Users\NOT - LIVE\.claude\skills\reels-novela-clailton\referencia\estilo-novela.md`
+Padrão: `~/.claude/skills/reels-novela-clailton/referencia/estilo-novela.md`
 e as telas da referência em `referencia\telas-referencia.jpg`.
 
 ## Passos (nesta ordem)

@@ -23,8 +23,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$raizArq = Join-Path $PSScriptRoot 'raiz-do-projeto.txt'
-$root = if (Test-Path $raizArq) { (Get-Content -Raw -Encoding UTF8 $raizArq).Trim() } else { Split-Path (Split-Path (Split-Path (Split-Path $PSScriptRoot))) }
+$root = & (Join-Path $PSScriptRoot 'raiz.ps1')
 if (-not [IO.Path]::IsPathRooted($Pasta)) { $Pasta = Join-Path $root $Pasta }
 $utf8 = New-Object Text.UTF8Encoding $false
 $avisos = New-Object Collections.Generic.List[string]

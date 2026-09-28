@@ -17,7 +17,7 @@ A pasta de trabalho (caminho no pedido) tem:
 - `transcricao.json` — as mesmas palavras com índice `i`, tempos e `prob`.
 
 Scripts (Python da venv: `%LOCALAPPDATA%\reels-novela\venv\Scripts\python.exe` (na máquina original: `%LOCALAPPDATA%\corte-viral\venv\Scripts\python.exe`), sempre com
-`PYTHONUTF8=1`): `C:\Users\NOT - LIVE\.claude\skills\reels-novela-clailton\scripts\`.
+`PYTHONUTF8=1`): `~/.claude/skills/reels-novela-clailton/scripts/`.
 
 ## Como decidir
 

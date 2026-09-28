@@ -89,8 +89,8 @@ preparar e no montar quando existe roteiro e grava `T\roteiro_x_fala.txt`:
   `$USERPROFILE/.claude/skills/reels-novela-clailton/scripts`).
 - **Antes do 1º vídeo de um lote:** `P S\verificar.py` (módulos, Whisper GPU, alinhador,
   ffmpeg/filtros, fontes, modelo de rosto, agentes).
-- Agentes: a cópia ORIGINAL é `agentes/` desta skill; `~/.claude/agents/` é a instalada
-  (o `verificar.py` compara). Se o tipo de agente não estiver disponível na sessão, crie um
+- Agentes: ficam só em `~/.claude/agents/`, que sincroniza entre os PCs
+  (o `verificar.py` confere se estão lá). Se o tipo de agente não estiver disponível na sessão, crie um
   agente general-purpose com o conteúdo do `.md` como instrução (e `model` do cabeçalho).
 - **Outro computador:** o pacote fica em `Projetos Edições\SKILLS\reels-novela-clailton\`
   (`reels-novela-clailton.zip` + instruções). Descompacte e rode `INSTALAR.cmd`. Ele copia a skill e
@@ -153,7 +153,7 @@ decupagem (~5 min) e legenda (~5 min). `T = <projeto>\_trabalho\<slug>`.
    Leia `roteiro_corte.txt`: nada de repetição, falso começo ou fala para a equipe. Leia também
    os avisos.
 4. **Legenda** — **escreva você mesmo** (o orquestrador), em uma passada, seguindo
-   `agentes/novela-legendista-rapido.md`. Leia `palavras_legenda.txt` e o tempo alinhado de
+   `~/.claude/agents/novela-legendista-rapido.md`. Leia `palavras_legenda.txt` e o tempo alinhado de
    cada palavra (`palavras_corte.json`), para planejar telas de 0,6–3 s. Grave `legenda.txt` no
    formato compacto e valide com `legenda_novela.py` até zerar os avisos (no vídeo 2: 5,5 min,
    passou de primeira).

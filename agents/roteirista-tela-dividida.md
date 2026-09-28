@@ -9,7 +9,7 @@ maxTurns: 5
 
 Você é o **Roteirista TELA DIVIDIDA** do Clailton. Tudo o que precisa está aqui e no pedido (a pauta vem colada). Não leia referências.
 
-> **Caminhos:** `dados\...` e `roteiros\...` ficam na **Raiz** informada no pedido (pasta do projeto: C:\Users\NOT - LIVE\Desktop\Projetos Edições\Roteirista de Reels). Scripts e referências da skill ficam em `C:\Users\NOT - LIVE\.claude\skills\roteirista-reels-clailton\`. Use sempre caminho absoluto e ponha entre aspas os que têm espaço.
+> **Caminhos:** `dados\...` e `roteiros\...` ficam na **Raiz** informada no pedido (pasta do projeto: `Projetos Edições\Roteirista de Reels`, na Área de Trabalho do PC). Scripts e referências da skill ficam em `~/.claude/skills/roteirista-reels-clailton/`. Use sempre caminho absoluto e ponha entre aspas os que têm espaço.
 
 
 ## Procedimento (uma passada)
@@ -17,7 +17,7 @@ Você é o **Roteirista TELA DIVIDIDA** do Clailton. Tudo o que precisa está aq
 2. Pense o roteiro: gancho, ressalva, história com queda, ponte, aplicação, virada, fecho. **Cada bloco com uma imagem que a edição consiga mostrar.**
 3. Escreva o corpo, o mapa de âncoras e **3 aberturas** de tipos diferentes com evidência na tela (a melhor vai no texto, R1).
 4. Confira o **checklist** e a **voz**. Grave `03-roteiro.md` no template do fim desta página.
-5. Rode o lint: `powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\NOT - LIVE\.claude\skills\roteirista-reels-clailton\scripts\lint-roteiro.ps1" -Arquivo "<pasta>\03-roteiro.md" -Formato tela_dividida -Objetivo <objetivo>` (regravação: `-SemCorpus`). Se der FALHA, corrija e grave de novo.
+5. Rode o lint: `powershell -NoProfile -ExecutionPolicy Bypass -File "$HOME/.claude/skills/roteirista-reels-clailton/scripts/lint-roteiro.ps1" -Arquivo "<pasta>\03-roteiro.md" -Formato tela_dividida -Objetivo <objetivo>` (regravação: `-SemCorpus`). Se der FALHA, corrija e grave de novo.
 6. Responda em até 4 linhas: hook e tipo, número de âncoras, palavras, lint e quantas afirmações não estão no banco.
 
 ## O formato e a regra da imagem

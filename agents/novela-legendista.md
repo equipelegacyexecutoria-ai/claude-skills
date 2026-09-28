@@ -8,7 +8,7 @@ Você escreve a legenda dos reels "novela" do Clailton. O visual (fonte, tamanho
 animação, posição exata) é calculado pelo script; **você decide o texto de cada tela, onde
 quebrar, qual é o destaque e o layout**. É o que mais pesa no resultado — capriche.
 
-Antes de começar, leia `C:\Users\NOT - LIVE\.claude\skills\reels-novela-clailton\referencia\estilo-novela.md`
+Antes de começar, leia `~/.claude/skills/reels-novela-clailton/referencia/estilo-novela.md`
 (seções 3, 4 e 5: as 38 telas da referência) e olhe `referencia\telas-referencia.jpg`.
 
 ## Entrada
@@ -90,7 +90,7 @@ devem ser curtas (até 3 linhas pequenas/médias).
 Rode (Python da venv, `PYTHONUTF8=1`):
 
 ```
-python "C:\Users\NOT - LIVE\.claude\skills\reels-novela-clailton\scripts\legenda_novela.py" --plano <trabalho>\legenda.json --palavras <trabalho>\palavras_corte.json --rosto <trabalho>\rosto_corte.json --corte <trabalho>\corte.json --out <trabalho>\legenda.ass --layout-out <trabalho>\layout.json
+python "$HOME/.claude/skills/reels-novela-clailton/scripts/legenda_novela.py" --plano <trabalho>\legenda.json --palavras <trabalho>\palavras_corte.json --rosto <trabalho>\rosto_corte.json --corte <trabalho>\corte.json --out <trabalho>\legenda.ass --layout-out <trabalho>\layout.json
 ```
 
 Inclua sempre `--corte <trabalho>\corte.json` (a última tela vai até o fim exato da imagem,

@@ -7,7 +7,7 @@
 - ffmpeg com libass (filtro "ass" por palavra inteira: "lowpass"/"bass" enganam busca por trecho),
   libx264, silencedetect, ebur128, alimiter; NVDEC (cuda) é opcional
 - fontes e modelo de rosto da skill
-- agentes instalados em ~/.claude/agents iguais à cópia ORIGINAL em <skill>/agentes
+- agentes da novela presentes em ~/.claude/agents (a única cópia, que sincroniza)
 
 Uso: python verificar.py   (sai com 1 se faltar algo obrigatório)
 """
@@ -85,14 +85,12 @@ for f in ("SF-Pro-Text-Black.otf", "Inter_28pt-ExtraBold.ttf"):
     (linha("ok", f"fonte {f}") if (FONTS / f).exists() else falha(f"fonte {FONTS / f}"))
 (linha("ok", "modelo YuNet") if MODELO_ROSTO.exists() else falha(f"modelo {MODELO_ROSTO}"))
 
-for ag in sorted((SKILL / "agentes").glob("*.md")):
-    inst = AGENTES_USUARIO / ag.name
-    if not inst.exists():
-        falha(f"agente {ag.stem} não instalado: copie {ag} para {AGENTES_USUARIO}")
-    elif inst.read_bytes() != ag.read_bytes():
-        linha("aviso", f"agente {ag.stem} instalado difere da cópia original da skill: copie {ag} para {AGENTES_USUARIO}")
+for nome in ("novela-decupador", "novela-legendista", "novela-legendista-rapido",
+             "novela-revisao-decupagem", "novela-revisor"):
+    if (AGENTES_USUARIO / f"{nome}.md").exists():
+        linha("ok", f"agente {nome}")
     else:
-        linha("ok", f"agente {ag.stem}")
+        falha(f"agente {nome} ausente em {AGENTES_USUARIO}: rode a sincronia (sync.ps1 -Modo agora)")
 
 print("PRONTO" if ok else "FALTA ALGO — corrija antes de editar")
 sys.exit(0 if ok else 1)

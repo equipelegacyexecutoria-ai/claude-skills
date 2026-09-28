@@ -34,8 +34,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $pt = [Globalization.CultureInfo]'pt-BR'
-$raizArq = Join-Path $PSScriptRoot 'raiz-do-projeto.txt'
-$root = if (Test-Path $raizArq) { (Get-Content -Raw -Encoding UTF8 $raizArq).Trim() } else { Split-Path (Split-Path (Split-Path (Split-Path $PSScriptRoot))) }
+$root = & (Join-Path $PSScriptRoot 'raiz.ps1')
 if (-not $Base) { $Base = Join-Path $root 'dados\reels_base.json' }
 $utf8 = New-Object Text.UTF8Encoding $false
 function Abs([string]$p) { if (-not $p) { return $p }; if ([IO.Path]::IsPathRooted($p)) { return $p }; return (Join-Path $root $p) }

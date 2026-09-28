@@ -52,7 +52,7 @@ def main() -> None:
     r = subprocess.run([python_principal(), "-m", "yt_dlp", "--version"], capture_output=True, text=True)
     item(f"yt-dlp {r.stdout.strip()}", r.returncode == 0, "python verificar_td.py --instalar")
     item("agente td-planejador instalado", (Path.home() / ".claude" / "agents" / "td-planejador.md").exists(),
-         f"copie {SKILL / 'agentes' / 'td-planejador.md'} para ~/.claude/agents/")
+         "rode a sincronia (sync.ps1 -Modo agora)")
     print("TUDO OK" if ok else "FALTA ALGO (ver acima)")
     sys.exit(0 if ok else 1)
 

@@ -11,8 +11,9 @@ from pathlib import Path
 
 import yaml
 
-SK = Path(r"C:\Users\NOT - LIVE\AppData\Roaming\Claude\local-agent-mode-sessions\skills-plugin"
-          r"\9120283d-e4e9-43b8-9f03-34432aeed1ad\01aa1494-2237-435c-a60d-cb968be6d887\skills\corte-viral")
+SK = Path.home() / ".claude" / "skills" / "corte-viral"
+if not SK.exists():
+    SK = next((Path.home() / ".claude" / "skills" / "synced").glob("*/corte-viral"), SK)
 sys.path.insert(0, str(SK))
 from scripts.render import render_clip  # noqa: E402
 from scripts.subtitles import build_caption_files  # noqa: E402

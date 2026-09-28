@@ -22,8 +22,9 @@ from pathlib import Path
 
 import numpy as np
 
-SK = Path(r"C:\Users\NOT - LIVE\AppData\Roaming\Claude\local-agent-mode-sessions\skills-plugin"
-          r"\9120283d-e4e9-43b8-9f03-34432aeed1ad\01aa1494-2237-435c-a60d-cb968be6d887\skills\corte-viral")
+SK = Path.home() / ".claude" / "skills" / "corte-viral"
+if not SK.exists():
+    SK = next((Path.home() / ".claude" / "skills" / "synced").glob("*/corte-viral"), SK)
 sys.path.insert(0, str(SK))
 sys.path.insert(0, str(Path(__file__).parent))
 from scripts import active_speaker as AS  # noqa: E402
