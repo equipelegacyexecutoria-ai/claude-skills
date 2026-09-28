@@ -1,0 +1,25 @@
+{
+  "SessionStart": [
+    {
+      "matcher": "startup|resume|clear",
+      "hooks": [
+        {
+          "type": "command",
+          "timeout": 40,
+          "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"$HOME/.claude/sync/sync.ps1\" -Modo inicio"
+        }
+      ]
+    }
+  ],
+  "Stop": [
+    {
+      "hooks": [
+        {
+          "type": "command",
+          "async": true,
+          "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"$HOME/.claude/sync/sync.ps1\" -Modo fim"
+        }
+      ]
+    }
+  ]
+}
