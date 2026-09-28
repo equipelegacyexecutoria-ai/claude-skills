@@ -12,32 +12,31 @@ conversa do PC de render (Controle Remoto, no celular ou em claude.ai/code).
 
 O usuário não é técnico: relatórios curtos, pelo dia a dia dele (ver CLAUDE.md global).
 
-## Quem faz o trabalho: a tarefa "fila-de-render" (conversa nova a cada rodada)
+## Quem faz o trabalho: a própria conversa que recebe o gatilho (regra do usuário, 28/09/2026)
 
-Para não acumular contexto, **a fila nunca roda dentro da conversa "Render central"**. Ela roda na
-tarefa agendada **`fila-de-render`** do app do PC de render (pasta `C:\Render`, modo Automático):
-cada execução abre uma conversa nova, processa a fila com esta skill e encerra.
-- **Se você é a "Render central"** (a recepcionista, com Controle Remoto) e chegou "edita os vídeos
-  do Claude", "processa a fila", "faz as correções": chame `run_scheduled_task` com `taskId`
-  `fila-de-render` e responda numa linha ("Rodada iniciada; os cards vão para Aprovação no Notion").
-  Se recusar porque já há uma rodada em andamento, diga isso; os cards novos entram na próxima.
-  Não edite nada na própria Render central. Para ver como andou: `list_task_runs`.
-- **Se você é a execução da tarefa** (conversa nova em `C:\Render`): siga do "Passo 0" em diante,
-  processe todos os cards e termine com o relatório final.
-- A tarefa sem horário só roda quando chamada; os horários automáticos (quando o usuário definir)
-  são o `cronExpression` dessa mesma tarefa (`update_scheduled_task`).
+**Sem horário automático e sem tarefa agendada.** A fila só começa quando o usuário manda o gatilho
+("edita os vídeos do Claude", "processa a fila", "faz as correções"), nesta conversa ou de outro PC.
+- **Quem recebe o gatilho edita:** a conversa "Render central" (ou "Central de Render") do PC de render
+  começa na hora, do "Passo 0" em diante, e vai contando o andamento ao usuário em linhas curtas.
+- **Se o usuário pedir outra conversa** ("faz num chat novo", "usa a conversa X"): o trabalho vai para
+  ela. Conversa nova **sempre no modo Automático** — confira e, se não estiver, ajuste
+  (`set_session_permission_mode`) ou peça ao usuário para ligar antes de começar.
+- A tarefa agendada `fila-de-render` ficou **desligada** (as rodadas automáticas se atropelavam: a
+  nova cortava a anterior no meio). Não religue nem dispare sem o usuário pedir.
+- Conversa ficando pesada: sugira ao usuário abrir uma nova (no Automático) e continue lá.
 
 ## Pedido vindo de outro PC ou do celular
 
 A conversa de recepção no PC de render se chama **"Render central"** (ou "Central de Render"; pasta
 `C:\Render`, modo Automático, Controle Remoto ligado).
 - **Celular ou navegador:** o usuário abre o app do Claude (ou claude.ai/code), entra na conversa
-  "Render central" e escreve o pedido; ela dispara a tarefa `fila-de-render`.
+  "Render central" e escreve o pedido; ela mesma começa a editar.
 - **Claude de outro PC** recebeu "manda o PC de render editar", "ativa o PC de render", "edita os vídeos
   do Claude" (e o usuário quer que seja lá): use `ListAgents`, ache a sessão do PC de render (nome com "Central de Render" ou
   "Render central") e mande com `SendMessage` o pedido do usuário (ex.: "edita os vídeos do Claude",
-  ou "edita só o card <PAUTA>"). Responda ao usuário que o pedido foi entregue e que o resultado
-  aparece no Notion (cards em Aprovação) e na própria Central de Render.
+  ou "edita só o card <PAUTA>"; se o usuário pediu outra conversa, diga qual). Mande só o pedido,
+  sem instruções técnicas (nada de "dispare a tarefa"). Responda ao usuário que o pedido foi entregue
+  e que o resultado aparece no Notion (cards em Aprovação) e na própria Central de Render.
   Se a Central não aparecer na lista: o PC de render está desligado, o app está fechado ou o
   Controle Remoto caiu. Diga isso ao usuário e peça para alguém abrir o app lá (o Claude abre sozinho
   quando o PC liga) e reabrir a conversa "Central de Render".
