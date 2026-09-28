@@ -58,16 +58,21 @@ comentários com `notion-get-comments`) — às vezes há mais informação, às
 do card e os comentários e anote em `C:\Render\_trabalho\<slug>\briefing.md` cada orientação
 (formato, duração máxima, partes, ângulos, o que mostrar, quem é o cliente, material que falta).
 Isso vale para **todo** card, inclusive os que não se encaixam nos formatos de sempre (Case,
-depoimento, aniversário...). O briefing manda sobre o padrão da skill e sobre o título.
+depoimento, aniversário...).
 
-Estilo pelo título da PAUTA, **a não ser que o briefing diga outra coisa**:
+**Hierarquia (regra do usuário):** o **estilo** vem sempre do **nome da task** quando ele tem NV/Novela,
+TD ou ES — o briefing não troca o estilo. O briefing é lido de qualquer forma e manda nos **detalhes**
+dentro daquele estilo (duração, partes, ângulo, o que mostrar, material pendente). Só quando o nome
+não tem NV, TD nem ES é que o briefing decide o estilo.
+
+Estilo pelo título da PAUTA:
 
 | No título | Skill |
 | --- | --- |
 | `_TD_` | `reels-tela-dividida-clailton` |
 | `_NV_` ou `_Novela_` | `reels-novela-clailton` |
 | `_ES_` | Edição Simples — **ainda não existe skill**: não edite; comente no card "Edição Simples ainda não está pronta no PC de render" e deixe o card onde está |
-| outro (Case, depoimento...) | use o que o briefing pede (ex.: "é para ser no formato tela dividida" → tela dividida); sem indicação, a skill mais próxima do material (1 pessoa falando para a câmera → novela; com imagens de apoio → tela dividida) |
+| sem NV/TD/ES (Case, depoimento...) | o briefing decide (ex.: "é para ser no formato tela dividida" → tela dividida); sem indicação, a skill mais próxima do material (1 pessoa falando para a câmera → novela; com imagens de apoio → tela dividida) |
 
 Exemplos de orientação que mudam a edição: "gravado em 16:9, redimensionar para 9:16", "máximo
 2min59", "tem parte 1 e parte 2, a parte 2 em outro ângulo" (junte as partes na ordem e trate a troca
