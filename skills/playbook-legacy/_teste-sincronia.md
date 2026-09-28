@@ -1,3 +1,3 @@
 linha 1
-linha 2 original
+linha 2 mudada no PC-B
 linha 3
