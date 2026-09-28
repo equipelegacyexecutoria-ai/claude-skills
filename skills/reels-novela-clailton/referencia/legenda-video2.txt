@@ -1,0 +1,72 @@
+# Reels_Clailton_NV_Torcer_contra_você — legenda (formato compacto)
+# d2: TORCE CONTRA (gancho e retorno), O IMPOSSÍVEL, NÃO ACONTEÇA | d3: COMEMORE
+correcao | i=26 whisper=Peça legenda=PENSA motivo=deslize de articulação (soa "peça", confirmado no modelo acústico); o sentido é o recurso retórico "Pensa comigo"
+
+esquerda | VOCÊ DEVERIA @0 / *FICAR FELIZ @2
+centro   | COM QUEM @4 / **TORCE CONTRA @6 / VOCÊ @8
+esquerda | PORQUE TALVEZ @9 / *NINGUÉM ACREDITE @11
+escada   | TANTO NA @13 / *POSSIBILIDADE @15 / DE VOCÊ CONSEGUIR @16
+esquerda | QUANTO QUEM ESTÁ @19 / TORCENDO PARA VOCÊ @22 / *FRACASSAR @25
+centro   | PENSA COMIGO @26
+direita  | SE UMA PESSOA @28 / *REALMENTE @31 / ACREDITASSE @32
+esquerda | QUE VOCÊ NÃO TEM @33 / *CHANCE NENHUMA @37
+escada   | ELA NÃO PRECISARIA @39 / NEM TORCER @42 / *CONTRA VOCÊ @44
+centro   | ERA SÓ @46 / *ESPERAR @48
+escada   | PORQUE QUEM @49 / ACREDITA QUE VOCÊ @51 / *VAI CAIR @54
+esquerda | NÃO PRECISA TENTAR @56 / *TE DERRUBAR @59
+centro   | É ISSO QUE @61 / TORNA A TORCIDA @64 / CONTRA VOCÊ @67
+centro   | *TÃO INTERESSANTE @69
+esquerda | TALVEZ VOCÊ OLHE @71 / PARA ELA E PENSE @74
+direita  | ESSA PESSOA @78 / *NÃO ACREDITA @80 / EM MIM @82
+esquerda | MAS TALVEZ EXISTA @84 / UMA LEITURA @87
+centro   | MUITO MAIS @89 / *PODEROSA @91
+escada   | ELA ACREDITA @92 / TANTO NA @94 / *POSSIBILIDADE @96
+centro   | DE VOCÊ @97 / *CONSEGUIR @99
+escada   | QUE PREFERE @100 / VER VOCÊ @102 / *FRACASSAR @104
+esquerda | TORCER PARA VOCÊ @105 / *FRACASSAR @108
+centro   | PORQUE NINGUÉM @109 / TORCE CONTRA @111 / **O IMPOSSÍVEL @113
+esquerda | NINGUÉM ESPERA @115 / *ANSIOSAMENTE @117
+centro   | PELA @118 / *DERROTA @119 / DE ALGO QUE ELA @120
+centro   | CONSIDERA @124 / *SEM CHANCE @125
+esquerda | A TORCIDA CONTRA @127 / *COMEÇA @130
+centro   | QUANDO EXISTE UMA @131 / *POSSIBILIDADE REAL @134
+esquerda | QUANDO AQUILO QUE @136 / VOCÊ ESTÁ FAZENDO @139
+direita  | DEIXA DE PARECER @142 / APENAS @145 / *UMA TENTATIVA @146
+centro   | E COMEÇA @148 / A APARECER @150
+escada   | NOS @152 / *OLHOS @153 / DAS PESSOAS @154
+centro   | QUE PODE @156 / *FUNCIONAR @158
+centro   | E TEM UMA @159 / *IRONIA @162 / MARAVILHOSA NISSO @163
+esquerda | ÀS VEZES VOCÊ @165 / AINDA ESTÁ @168 / *CHEIO DE DÚVIDA @170
+esquerda | AINDA ESTÁ @173 / SE PERGUNTANDO @175
+centro   | SERÁ QUE @177 / *EU CONSIGO? @179
+escada   | ENQUANTO ALGUÉM @181 / DO OUTRO LADO @183 / JÁ ESTÁ PENSANDO @186
+centro   | TOMARA QUE ELE @189 / *NÃO CONSIGA @192
+centro   | *PERCEBE? @194
+esquerda | TALVEZ ESSA PESSOA @195 / JÁ TENHA ENXERGADO @198
+centro   | UMA @201 / *POSSIBILIDADE @202
+esquerda | QUE AINDA VOCÊ @203 / NÃO TEM ENXERGADO @206
+escada   | ENTÃO PARE @209 / DE TRATAR @211
+centro   | QUEM @213 / **TORCE CONTRA @214 / VOCÊ @216
+centro   | COMO MOTIVO PARA @217 / *DESANIMAR @220
+esquerda | NÃO SE @221 / *EXPLIQUE @223
+esquerda | NÃO TENTE @224 / *CONVENCER @226
+esquerda | NÃO GASTE @227 / *ENERGIA @229
+centro   | QUERENDO @230 / *PROVAR NADA @231
+centro   | SÓ @233 / *CONTINUE @234
+escada   | CONTINUE @235 / *TRABALHANDO @236
+escada   | CONTINUE @237 / *APARECENDO @238
+escada   | CONTINUE @239 / *CONSTRUINDO @240
+esquerda | PORQUE EXISTE @241 / UM MOMENTO @243 / EM QUE VOCÊ @245
+centro   | DEIXA DE SER @248 / *IGNORADO @251
+centro   | E COMEÇA @252 / A SER @254 / *TORCIDO CONTRA @256
+centro   | E ISSO JÁ DIZ @258 / *ALGUMA COISA @262
+esquerda | ENTÃO @264 / DA PRÓXIMA VEZ @265 / QUE ALGUÉM @268
+esquerda | TORCER PARA VOCÊ @270 / *FRACASSAR @273
+escada   | NÃO FIQUE @274 / *CHATEADO @276
+centro   | ***COMEMORE @277
+esquerda | TALVEZ AQUELA @278 / PESSOA ESTEJA @280
+direita  | APENAS @282 / *CONFIRMANDO @283
+centro   | UMA COISA @284 / *MUITO IMPORTANTE @286
+esquerda | O QUE VOCÊ @288 / ESTÁ FAZENDO @291
+escada   | JÁ PARECE @293 / *POSSÍVEL @295 / O SUFICIENTE @296
+centro   | PARA ALGUÉM @298 / DESEJAR QUE @300 / **NÃO ACONTEÇA @302

@@ -1,0 +1,11 @@
+# Venv do alinhador forçado (WhisperX + wav2vec2 português), chamada pelo montar_corte.py:
+#   %LOCALAPPDATA%\reels-novela\venv-align  (Python 3.12)
+#
+# Instalação (nesta ordem — o whisperx troca o torch CUDA pelo de CPU, por isso o passo 3):
+#   1) python -m venv %LOCALAPPDATA%\reels-novela\venv-align
+#   2) <venv>\Scripts\pip install -r requirements-alinhador.txt
+#   3) <venv>\Scripts\pip install --no-deps --force-reinstall torch==2.8.0 torchaudio==2.8.0 torchvision==0.23.0 --index-url https://download.pytorch.org/whl/cu128
+#   4) conferir: <venv>\Scripts\python -c "import torch, whisperx; print(torch.cuda.is_available())"  -> True
+# O modelo jonatasgrosman/wav2vec2-large-xlsr-53-portuguese (1,2 GB) baixa sozinho no 1º uso
+# para %USERPROFILE%\.cache\huggingface.
+whisperx==3.8.6

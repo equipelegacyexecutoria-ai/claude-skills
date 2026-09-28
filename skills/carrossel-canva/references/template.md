@@ -1,0 +1,127 @@
+# Templates-mestre no Canva
+
+Criados em 2026-09-26/27 a partir dos carrosséis mais recentes do usuário. **Não editar o texto dos
+marcadores nem reordenar/apagar páginas** — a skill depende da ordem das páginas e dos `{{...}}`.
+Trocar a foto de exemplo de uma página-modelo é seguro.
+
+## LEGACY — `DAHWWhuFIEI` (1080×1440, escuro, foto por card)
+
+Link: https://www.canva.com/d/NlwpU8NbKEt6BL9 · Origem: SER DONO É SABER COBRAR (`DAHWCDizSTE`
+p1, p2, p10, p11) + 5 MATÉRIAS (`DAHWJAVgBic` p3).
+
+| Pág. | Tipo | Elemento(s) de texto e marcadores | Observações de layout |
+| --- | --- | --- | --- |
+| 1 | CAPA | 1 elemento: `{{H1}}` branco · `\n` · `{{H2}}` branco · `\n` · `{{H3}}` dourado `#e7aa51` (Bebas, centralizado, lh 0.95, ls −0.02, x=51 y=780 w=981). Os tamanhos do template (185/150/124) não valem: tamanho e posição vêm do `scripts/medir.py capa` (regra em `copy.md`). As quebras `\n` guardam um azul `#17adfd` escondido | FOTO 1104×1142 em (−10.8, −10); DEGRADE 1158×748 em (−51.39, 386.8); **CIRCULO** (shape redondo com foto, borda branca 5 px, x=589.5 y=277.7, 432.8×432.8, colado da capa "O Digital…" `DAHWJFMPkkY` em 2026-09-27); pill "Arraste para o lado" y=1270; `@legacyexecutoria` x=388.7 y=1357 w=305 (centralizado pela posição) |
+| 2 | CORPO | 1 elemento: `{{BRANCO}}` branco · `\n\n` · `{{CINZA}}` `#858489` — Poppins bold 53 px, lh 1.4, x=64 w=974, **ancorado embaixo** (base fixa em y≈1290: texto longo cresce para cima, sobre o degradê) | FOTO 1109×1210 em (−14.3, −17.47); DEGRADE 1109×769 em (−13.19, 472.23); handle x=64 y=1354 w=301 (alinhado ao centro); seta x=926 y=1340 |
+| 3 | CORPO COM TÍTULO | 2 elementos: `{{TITULO}}` Bebas 80 px (x=64 y=777; altura 96 px com 1 linha, 176 px com 2) · `{{CORPO}}` Poppins bold 40 px (x=68 y=885 w=974, cresce para baixo) | FOTO 1109×943 em (−14.3, −17.47); DEGRADE 1109×813 em (0, 333.65); handle `@legacyexecutoria & @clailtonluiz` (1 trecho só, w=568) |
+| 4 | CTA | 1 elemento, x=56 y=87 w=968, lh 1.1: `{{TITULO}}` azul `#013e6a` 46 px (renderiza em caixa-alta) · `{{P1}}` · `{{P1B}}` · `{{A1}}` · `{{P2}}` · `{{A2}}` · `{{P3}}` (P = preto 37 px, A = azul 37 px com degradê). Texto da página: `{{TITULO}}\n\n{{P1}}\n\n{{P1B}}\n\n{{A1}} \n\n{{P2}}\n\n{{A2}} \n\n{{P3}}` | fundo claro; handle preto; seta preta |
+| 5 | BÔNUS 1% | fixo: "Se você faz parte do 1% que chegou até aqui, " + "nós temos um presente para você..." (azul `#17adfd`), Bebas 93 px, 1 elemento x=71 y=576 w=938, centralizado | fundo escuro; pill "Arrasta para o lado"; sem handle. Também serve de card de reflexão em fundo preto (trocar os dois trechos) |
+
+## CLAILTON — `DAHWW8zqYcQ` (1080×1350, branco, post do X)
+
+Link: https://www.canva.com/d/DmWX9pJp8ro6gbZ · Origem: "Nenhum funcionário se importa"
+(`DAHWNGXt-To` p1, p2, p10), redimensionado de 2160×2700 (backup 2160: `DAHWWof0Xf8`, não usar —
+o `merge-designs` falha com ele).
+
+| Pág. | Tipo | Marcadores | Observações |
+| --- | --- | --- | --- |
+| 1 | CAPA | `{{H}}` Bebas 96 px lh 0.99 (x=58 y=521 w=963) · `{{SUB}}` Poppins medium 40 px (y=851) · contador `01/{{T}}` | header agrupado y=339 (avatar 117 px, "Clailton Luiz", selo, `@clailtonluiz`, contador Bebas 40 px op. 0.5) |
+| 2 | CORPO | 1 elemento x=76 y=546 w=928, Poppins 40 px lh 1.4: `{{P1}} ` medium · `{{B1}}` bold · `\n\n` · `{{P2}} ` medium · `{{B2}}` bold · contador `{{N}}/{{T}}` | header y=364; texto cresce para baixo (até ~12 linhas) |
+| 3 | CORPO LONGO | 1 elemento x=76 y=304: `{{P1}}` medium · `\n\n` · `{{B1}}` bold · `\n\n` · `{{P2}}` medium · contador `{{N}}/{{T}}` | header no topo y=122; cabe ~16 linhas |
+
+## Comportamento da API (testado em 2026-09-26/27 — seguir à risca)
+
+**Montagem**
+- `merge-designs` aceita **uma operação por chamada**. `create_new_design` + `insert_pages` com
+  `page_numbers` repetidos (ex.: `[1,2,2,2,3,4]`) funciona → é assim que o carrossel é montado.
+- `copy-design` **não** aceita página repetida (erro enganoso "Design not found").
+- Páginas mescladas ganham **IDs novos** de página e elemento → sempre um `read-design`
+  (`open_transaction: true`, `fields: ["design_content"]`) no design novo. O texto dos marcadores
+  identifica cada elemento; não precisa de thumbnail nessa leitura.
+
+**Troca de texto (`find_and_replace_text`)**
+- Substituição dentro de **um único trecho** mantém fonte, tamanho, cor e peso do trecho. ✅
+- Substituição que **atravessa trechos** de estilos diferentes aplica o estilo do primeiro trecho a
+  tudo (ex.: o azul vira preto). ❌ Nunca buscar um texto que cruze duas cores/pesos — exceção útil:
+  `"{{H1}}\n"` → `""` apaga uma linha da capa sem efeito colateral.
+- Quebra de linha `\n` dentro do texto novo cria parágrafos novos que **copiam os atributos do
+  parágrafo anterior**. Por isso o `{{P1}}` do CTA (logo abaixo do título em caixa-alta) aceita
+  **só um parágrafo, sem `\n`** — os demais parágrafos do primeiro bloco preto vão em `{{P1B}}`
+  (que aceita `\n`). Todos os outros marcadores aceitam `\n` normalmente.
+- ` ` (quebra suave) vira espaço — não usar.
+- Marcador sem conteúdo: trocar por `""`. Para não sobrar linha em branco, apagar junto a quebra
+  **que esteja no mesmo trecho** (ex.: `"\n\n{{P1B}}"` → `""`, tudo preto; `"{{H1}}\n"` → `""`).
+  No CTA, `"{{P1}}\n\n{{P1B}}\n\n"` é um trecho só: trocar por `""` tira os dois de uma vez.
+- Não começar uma busca na quebra `\n` da capa: ela carrega o azul escondido e pinta a linha
+  seguinte de azul (ex.: `"\n{{H3}}"`).
+- Emoji funciona (🎁 👉).
+
+**Ajuste de caber**
+- `format_text` com só `font_size` muda o elemento inteiro e **preserva as cores de cada trecho**.
+- **Não existe tamanho por linha**: `format_text` vale para a caixa toda e a troca de texto só
+  reaproveita estilos que já existem na caixa. Com as 3 linhas numa caixa só, a capa sai com o
+  tamanho da linha mais larga e o usuário acerta as outras duas no Canva (valores `ui` do script).
+  A solução definitiva é o template ter H1/H2/H3 em 3 caixas — separar exige o editor do Canva
+  (o conector não duplica elemento nem cria texto em Bebas).
+- Número do painel do Canva = px × 0,75 (72 px aparece como 54). O conector trabalha em px.
+- Altura da caixa Bebas (lh 0.95) com tamanhos t1, t2, t3: 0,95 × (t1+t2+t3) + 0,149 × t1 + 0,088 × t3
+  (confere em 4 capas reais, ±2 px). Uma linha a mais que o previsto = quebrou.
+- Imagem redonda não se cria pelo conector: `insert_shape` só aceita cor (o `update_fill` falha:
+  "no editable fill") e `replace_shape` não funciona em imagem inserida com `insert_fill`. O círculo
+  do template foi colado no editor; nas capas ele vem junto com a página.
+- Corpo com título (pág. 3) com mais de 8 linhas: manter 40 px e ancorar embaixo à mão —
+  CORPO top = 1317 − (47 + 55 × (linhas − 1)); TITULO top = CORPO top − 12 − altura do título.
+  Testado: 8 linhas → posição do template; 10 → CORPO 775 / TITULO 587; 11 → 720 / 532.
+  O `medir.py pag3` faz essa conta; se o título passar acima de y 350, o corpo vai a 36 px, e se nem
+  assim couber, avisa (card longo demais: contar na entrega). Quando o texto cobre quase o card todo,
+  devolve `foto_util: false` e apaga a foto.
+- Palavra sozinha na última linha de um parágrafo: estreitar a caixa do corpo com `resize_element`
+  (só `width`, ex.: 920) muda a quebra sem mexer na fonte.
+- Pág. 5 como card de reflexão: ~270 caracteres a 68 px = 11 linhas (altura 721) → top = 720 − altura/2.
+- Medidas: `references/metricas.json` tem a largura de cada caractere da Bebas e da Poppins Bold
+  medida no editor do Canva (2026-09-27); `scripts/medir.py` usa essa tabela. A quebra do corpo em
+  Poppins leva um fator de 1,1% (calibrado: cards de 8, 10 e 11 linhas quebraram igual ao Canva).
+- Corpo LEGACY (pág. 2) está ancorado embaixo: até 6 linhas a 53 px fica igual ao original; de 7 a
+  9 linhas → `font_size` 44; 10+ linhas → 40 (teste: 10 linhas a 40 px ficaram perfeitas).
+- `edit-design` devolve JSON + thumbnail a cada chamada: agrupar **todas** as operações de uma
+  página numa chamada. `update_title` também exige `page_index`.
+- A fonte não pode ser escolhida pela API → tudo parte das páginas-modelo, nunca de `add_text`.
+- `format_text` só aceita `font_size` inteiro: o `medir.py` já devolve `format_text_px`/`px_inteiro`.
+
+**Imagens, degradê e foto (lidos no template em 2026-09-27)**
+- Como achar cada elemento no `read-design` (os IDs mudam a cada montagem):
+  - FOTO = `shape` com `fill.media` e `isMediaReplaceable: true`, ~1104–1109 de largura, top −10
+    (capa) ou −17.47 (cards);
+  - CIRCULO = `shape` com o caminho `M32 0A32 32 0 1 0 32 64…`, em x≈590 y≈278 (só na capa);
+  - DEGRADE = `rect` com a imagem `MAFuE1lvpvY` (FADE.png, preto com transparência 1080×1350);
+  - ignorar o `rect` 21×17.5 em (179, 172) dos cards e a seta (`MAFiAyIMtaY`).
+- Curva do degradê (FADE.png, em `metricas.json`): transparente até ~49% da altura da imagem,
+  54% de escuro a ~67%, 91% a ~80%, preto a partir de ~89%. Na pág. 3 do template: 14% em y 537,
+  54% em y 681, **~76% no topo do título (y 776.6)**, 91% em y 860.
+- **Regra**: o topo do texto (título na pág. 3, primeira linha na pág. 2, manchete na capa) fica
+  onde o degradê está pelo menos tão escuro quanto no template (~76%; capa 70%). Texto que sobe →
+  o DEGRADE sobe junto (`position_element`); se o fim do degradê ficar acima do fim da foto, a FOTO
+  sobe o mesmo tanto (senão aparece uma faixa clara da foto atrás do corpo). Nunca descer. O
+  `medir.py` (`capa`, `pag3`, `pag2`) calcula tudo e devolve as `operacoes` prontas.
+- Simulação com as fotos do teste e o degradê real: parado, o card 6 ficou com o título em
+  "atenção" (luz 31, variação 32); acompanhando o texto, os 5 cards ficaram "ok" (luz 3–23 de 255).
+- `update_fill` troca a imagem de FOTO/CIRCULO (`asset_type: "image"`, `asset_id`, `alt_text`).
+  **Testado em 28/09 no carrossel da Chilli Beans** (capa, círculo e cards 2 a 6): a imagem entra
+  centralizada, cobrindo a moldura (o `imageBox` é recalculado). Na mesma chamada funcionaram
+  `position_element` no DEGRADE e na FOTO e, no handle, `find_and_replace_text` com `\n`,
+  `resize_element` (width) e `format_text` (`text_align`). Em shape criado com `insert_shape` (só
+  cor) o `update_fill` dá "no editable fill". Se falhar numa moldura, deixar a foto de exemplo e
+  mandar o link da imagem escolhida na lista "trocar foto".
+- Texto do handle é Poppins Bold 24 px em caixa-alta com espaçamento 0,07: cabe ~850 px por linha
+  nos cards (a seta começa em x 926) e ~900 na capa. Crédito mais longo que isso vai na legenda.
+- Subir imagem: `upload-asset-from-url` (só endereço público; usado em 26/09 para as fotos de
+  exemplo) ou `create-upload-url` + POST dos bytes crus (`Content-Type: application/octet-stream`)
+  → `{"mediaId": "…"}` (Claude Code: 7 imagens de até 4 MB em 28/09, sem erro).
+- `get-assets` devolve a miniatura (~200 px) de cada imagem, visível para o Claude, com largura e
+  altura: serve de "folha de contato" quando não há Python/rede (testado em 27/09).
+- `crop_media` (ajustar o enquadramento dentro da moldura) existe mas não foi testado: para centralizar
+  o sujeito, recortar antes no Magnific (`images_crop`) ou localmente.
+- Editar designs pelo conector no modo automático do Claude Code pode ser bloqueado pelo
+  classificador de permissões ("Modify Shared Resources"), até em rascunho descartado, quando o
+  usuário não pediu aquela edição. Com o pedido explícito dele na conversa ("coloca as imagens no
+  carrossel"), passou. Nunca contornar um bloqueio.

@@ -1,0 +1,13 @@
+{
+ "_doc": "Termos que viram LINHA GRANDE na legenda (estilo da referência). Casam por sequência de palavras normalizada. Número sempre é destaque.",
+ "01": ["20 milhões", "obra vendida", "não quebrou", "falta de venda", "muita venda", "fluxo de caixa", "crédito", "falta de gestão", "faturar alto", "lucro", "gestão no processo"],
+ "02": ["dívida", "olhar ruim", "horrível", "depende", "crescimento", "ótimo", "banco", "emprestando dinheiro", "25 milhões", "um real", "mais de um real", "endividamento saudável", "previsibilidade", "juros", "estratégia", "planejamento", "gestão"],
+ "03": ["soluções", "dentro de ti", "gestão", "escrava", "própria empresa", "processo", "refém", "maior bem", "mata ela", "conhecimento", "não serve pra nada", "praticar", "vai te matar"],
+ "04": ["puxador", "nem manda", "mais barato", "não vai comprar", "qualidade melhor", "igual a água", "manutenção", "posicionamento", "muito mais caro", "esperam chegar", "mais barata", "valor", "funcionalidade"],
+ "05": ["100%", "ganhar dinheiro", "markup", "200%", "margem", "custo do produto", "imposto", "comissão", "perda", "muito apertada", "gordura", "erro de projeto", "erro de estimativa"],
+ "06": ["mudança de vida", "gigante", "outra pessoa", "autoconhecimento", "todos os lugares", "confiar nas pessoas", "números", "minhas filhas", "trabalham", "exemplo", "mãe doida", "ser igual"],
+ "07": ["recuso venda", "construtoras", "garantir", "prometendo", "guarda-corpo", "20 andares", "certificado", "outro lugar", "vida de pessoas", "risco"],
+ "08": ["gestores", "ninguém", "gestor", "confio", "meritocrático", "preparou", "confiança", "competência", "caráter", "meritocracia", "sem números", "justo", "achismo"],
+ "09": ["quebrei", "amex", "20 anos", "gastando", "fluxo de caixa", "falência", "bradesco", "cultura de gestão", "na minha vida", "primeira empresa", "dificuldades", "piloto automático", "operação", "fazer gestão"],
+ "10": ["ano passado", "239%", "componente", "alumínio", "perfil", "muito mais simples", "burocrático", "mais complexo", "mais difícil", "evitando", "continua", "disciplina", "no difícil", "poucas pessoas"]
+}

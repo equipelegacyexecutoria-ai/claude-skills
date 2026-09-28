@@ -1,0 +1,418 @@
+<!-- Exemplo aprovado: Playbook do JEV Lab no formato de ENTRADA (o que você escreve antes do montar.mjs).
+     As capturas foram embutidas com --capturas; aqui só aparecem as chaves (data-shot). -->
+<script type="application/json" id="playbook-dados">{
+  "nome": "JEV Lab",
+  "artigo": "do",
+  "area": "Marketing e conteúdo",
+  "atualizado": "27/09/2026",
+  "lead": "O guia passo a passo para usar o JEV Lab, feito para quem nunca abriu o programa. Siga na ordem e, em poucos minutos, você terá uma planilha com os posts de qualquer perfil do Instagram.",
+  "faixa": [
+    "Feito para quem nunca usou",
+    "Roda no seu computador"
+  ],
+  "contexto": "Contexto JEV Lab.md",
+  "ajuda": "quem cuida do JEV"
+}</script>
+
+<section class="chapter" id="comece" data-grupo="Comece aqui" data-toc="O caminho em 7 passos">
+  <span class="eyebrow">comece aqui</span>
+  <h2 class="title">O caminho em <span class="hl">7 passos</span></h2>
+  <p class="lead">Estes são os passos para tirar os posts de um perfil do Instagram e levar tudo para uma planilha, um documento do Word e uma pasta com as imagens. Clique num passo para ir direto a ele.</p>
+  <div class="road">
+    <a href="#passo-1"><strong>Ligar o programa</strong><span>abrir a janela preta e digitar npm start</span></a>
+    <a href="#passo-2"><strong>Abrir e entrar</strong><span>localhost:3777 no Chrome + senha</span></a>
+    <a href="#passo-3"><strong>Conectar o Instagram</strong><span>só na primeira vez</span></a>
+    <a href="#passo-4"><strong>Preencher o pedido</strong><span>perfis, período e tipo de post</span></a>
+    <a href="#passo-5"><strong>Iniciar e acompanhar</strong><span>o JEV faz o trabalho sozinho</span></a>
+    <a href="#passo-6"><strong>Ler os resultados</strong><span>uma linha por post</span></a>
+    <a href="#passo-7"><strong>Exportar os arquivos</strong><span>planilha, Word e imagens</span></a>
+  </div>
+</section>
+
+<section class="chapter" id="o-que-e" data-toc="O que é o JEV Lab">
+  <span class="eyebrow">entenda</span>
+  <h2 class="title">O que é o <span class="hl">JEV Lab</span></h2>
+  <p class="lead">O JEV Lab é um programa da Legacy que roda no seu computador e usa inteligência artificial para estudar conteúdo de redes sociais. No menu à esquerda ficam as ferramentas:</p>
+  <div class="cards">
+    <div class="card main">
+      <span class="tag">a mais usada</span>
+      <h4>Extrator de perfil</h4>
+      <p>Você informa um ou vários perfis do Instagram e um período. O JEV puxa <b>todos os posts</b> com as métricas, a fala de cada vídeo e o texto de cada card dos carrosséis. Tudo sai em planilha, documento do Word e pastas com as imagens.</p>
+    </div>
+    <div class="card">
+      <span class="tag">tendências</span>
+      <h4>Radar de vídeos</h4>
+      <p>Mostra o que está em alta agora num nicho e num país: anúncios e vídeos do TikTok, Reels e anúncios da Meta. A IA explica <b>por que</b> os primeiros colocados estão funcionando.</p>
+    </div>
+    <div class="card">
+      <span class="tag">referência</span>
+      <h4>Como funciona e Playground</h4>
+      <p><b>Como funciona</b> explica o Radar. O <b>Playground</b> é uma área técnica para testar a IA: você não precisa dela no dia a dia.</p>
+    </div>
+  </div>
+  <div class="note info">
+    <b class="h">Onde ele roda</b>
+    <p>O JEV Lab funciona no próprio computador, pelo endereço <code>localhost:3777</code> no navegador. Ele só fica no ar enquanto a <b>janela preta</b> (o terminal) estiver aberta. Isso é explicado no <a href="#passo-1">Passo 1</a>.</p>
+  </div>
+</section>
+
+<section class="chapter" id="antes" data-toc="Antes de começar">
+  <span class="eyebrow">checklist</span>
+  <h2 class="title">Antes de <span class="hl">começar</span></h2>
+  <p class="lead">Confira se você tem tudo isto. Pode ir marcando:</p>
+  <ul class="check">
+    <li>Um computador com a pasta do projeto. Neste computador ela fica em <b>Área de Trabalho → PROJETOS ANTIGRAVIDADE → JARVIS EXTRATOR DE PERFIS</b>.</li>
+    <li>O <b>Google Chrome</b> instalado.</li>
+    <li>O <b>Node.js</b> instalado (é o que faz o programa rodar).</li>
+    <li>A <b>senha de acesso</b> do JEV Lab. Peça a quem cuida do JEV.</li>
+    <li>Uma <b>conta secundária do Instagram</b>, nunca a conta principal da empresa (o motivo está no <a href="#passo-3">Passo 3</a>).</li>
+    <li><b>Créditos no OpenRouter</b>, o serviço de IA. Só são gastos quando a IA transcreve vídeos ou lê textos. Veja <a href="#custos">Quanto custa</a>.</li>
+  </ul>
+  <div class="note tip">
+    <b class="h">Neste computador já está tudo pronto</b>
+    <p>O Node.js, o Chrome e o ffmpeg (usado nos vídeos longos) já estão instalados, e uma conta do Instagram já está conectada. Se for usar aqui, pode ir direto para o <a href="#passo-1">Passo 1</a>.</p>
+  </div>
+  <details class="faq">
+    <summary>Vou instalar num computador novo. O que eu faço?</summary>
+    <ol class="plain">
+      <li>Instale o Google Chrome.</li>
+      <li>Baixe o Node.js em <b>nodejs.org</b> (botão da versão <b>LTS</b>) e instale clicando em "Avançar" até o fim.</li>
+      <li>Copie a pasta do projeto para o computador. Ela precisa ter o arquivo <code>.env</code>, que guarda a chave de IA e a senha: peça a quem cuida do JEV.</li>
+      <li>Abra a janela preta dentro da pasta (veja o <a href="#passo-1">Passo 1</a>) e rode <b>uma vez só</b>:</li>
+    </ol>
+    <div class="cmd"><code>npm install</code></div>
+    <p>Opcional, para transcrever vídeos com mais de ~2,5 minutos: instale o ffmpeg com o comando abaixo e feche e abra a janela preta de novo.</p>
+    <div class="cmd"><code>winget install Gyan.FFmpeg</code></div>
+  </details>
+</section>
+
+<section class="chapter" id="passo-1" data-passo="1" data-grupo="Extrator de perfil" data-toc="Ligar o programa">
+  <span class="eyebrow">passo 1</span>
+  <h2 class="title">Ligar o <span class="hl">programa</span></h2>
+  <p class="lead">O JEV Lab liga por uma janela de comandos (a "janela preta"). Escolha um dos dois jeitos abaixo.</p>
+
+  <h3>Jeito A: pelo VS Code (o programa azul de código)</h3>
+  <ol class="steps">
+    <li><b>Abra o VS Code.</b></li>
+    <li><b>Abra a pasta do projeto.</b> Menu <span class="ui">File</span> → <span class="ui">Open Folder</span> (Arquivo → Abrir pasta) e escolha <b>JARVIS EXTRATOR DE PERFIS</b>. Se ela já aparece aberta à esquerda, pule este passo.</li>
+    <li><b>Abra o terminal.</b> Menu <span class="ui">Terminal</span> → <span class="ui">New Terminal</span> (Novo terminal). Uma área de texto abre na parte de baixo.</li>
+    <li><b>Digite o comando e aperte <kbd>Enter</kbd>:</b>
+      <div class="cmd"><code>npm start</code></div>
+    </li>
+    <li><b>Espere a mensagem de pronto.</b> Quando aparecer <code>JEV Lab rodando em http://localhost:3777</code>, o programa está ligado.</li>
+  </ol>
+
+  <h3>Jeito B: sem o VS Code</h3>
+  <ol class="steps">
+    <li><b>Abra a pasta JARVIS EXTRATOR DE PERFIS.</b> Use o Explorador de Arquivos (o ícone de pasta amarela).</li>
+    <li><b>Clique na barra de endereço.</b> É a barra lá em cima, onde aparece o caminho da pasta. Apague o que estiver escrito, digite <code>cmd</code> e aperte <kbd>Enter</kbd>: abre uma janela preta já dentro da pasta.</li>
+    <li><b>Digite <code>npm start</code> e aperte <kbd>Enter</kbd>.</b> Espere a mensagem <code>JEV Lab rodando em http://localhost:3777</code>.</li>
+  </ol>
+
+  <div class="note warn">
+    <b class="h">Não feche a janela preta</b>
+    <p>Enquanto você usa o JEV, ela precisa ficar aberta (pode minimizar). Se ela fechar, o programa desliga. Para desligar de propósito, clique nela e aperte <kbd>Ctrl</kbd> + <kbd>C</kbd>.</p>
+  </div>
+  <div class="note tip">
+    <b class="h">Use npm start, não npm run dev</b>
+    <p>O <code>npm run dev</code> é o modo de quem mexe no código: ele reinicia o programa sempre que um arquivo do projeto é salvo, e isso interrompe uma extração no meio. Para o dia a dia, use sempre <code>npm start</code>.</p>
+  </div>
+</section>
+
+<section class="chapter" id="passo-2" data-passo="2" data-toc="Abrir e entrar">
+  <span class="eyebrow">passo 2</span>
+  <h2 class="title">Abrir e <span class="hl">entrar</span></h2>
+  <ol class="steps">
+    <li><b>Abra o Google Chrome.</b></li>
+    <li><b>Digite <code>localhost:3777</code> e aperte <kbd>Enter</kbd>.</b> Use a barra de endereço, lá em cima.</li>
+    <li><b>Digite a senha de acesso e clique em <span class="ui">Entrar</span>.</b></li>
+    <li><b>Na primeira vez abre um vídeo tutorial de 1 minuto.</b> Pode assistir ou fechar: dá para rever depois no menu, em <b>Tutorial em vídeo</b>.</li>
+  </ol>
+  <figure class="shot browser">
+    <img data-shot="login" alt="Tela de entrada do JEV Lab com o campo Senha de acesso e o botão Entrar" />
+    <figcaption><b>Tela de entrada.</b> Digite a senha no campo e clique em Entrar. Clique em qualquer imagem deste guia para ampliar.</figcaption>
+  </figure>
+  <div class="note info">
+    <b class="h">Deixe nos favoritos</b>
+    <p>Salve <code>localhost:3777</code> nos favoritos do Chrome (<kbd>Ctrl</kbd> + <kbd>D</kbd>). Para sair do app, use <b>Sair</b>, no pé do menu à esquerda.</p>
+  </div>
+</section>
+
+<section class="chapter" id="passo-3" data-passo="3" data-toc="Conectar o Instagram">
+  <span class="eyebrow">passo 3 · só na primeira vez</span>
+  <h2 class="title">Conectar o <span class="hl">Instagram</span></h2>
+  <p class="lead">O JEV lê o Instagram como uma pessoa faria: abre o perfil num Chrome próprio, já logado numa conta. Essa conta precisa ser conectada uma vez.</p>
+  <ol class="steps">
+    <li><b>Clique em Extrator de perfil.</b> Fica no menu à esquerda.</li>
+    <li><b>Olhe o quadro "Instagram", no topo da tela.</b> Se estiver escrito <span class="ui ok">conectado</span> em verde, pule para o <a href="#passo-4">Passo 4</a>.</li>
+    <li><b>Se não estiver, clique em <span class="ui">CONECTAR</span>.</b> Uma janela do Chrome abre sozinha, já na página de login do Instagram.</li>
+    <li><b>Entre com a conta secundária.</b> Digite usuário e senha. Se o Instagram pedir um código de verificação, digite na mesma janela.</li>
+    <li><b>Espere a janela fechar sozinha.</b> Isso acontece quando o login é detectado (você tem até 6 minutos). O quadro passa a mostrar <span class="ui ok">conectado</span>.</li>
+  </ol>
+  <div class="note danger">
+    <b class="h">Use uma conta secundária</b>
+    <p>Automação vai contra as regras do Instagram e pode levar a bloqueios. Nunca conecte a conta principal da empresa ou de um cliente. O JEV não curte, não comenta e não segue ninguém: ele só lê.</p>
+  </div>
+  <div class="note info">
+    <b class="h">Trocar ou desconectar a conta</b>
+    <p>O login fica salvo só neste computador. Ainda não existe botão para desconectar: para trocar de conta, peça a quem cuida do JEV.</p>
+  </div>
+</section>
+
+<section class="chapter" id="passo-4" data-passo="4" data-toc="Preencher o pedido">
+  <span class="eyebrow">passo 4</span>
+  <h2 class="title">Preencher o <span class="hl">pedido</span></h2>
+  <p class="lead">Na tela do Extrator de perfil, preencha o formulário de cima para baixo.</p>
+  <figure class="shot">
+    <img data-shot="formulario" alt="Formulário do Extrator de perfil preenchido com dois perfis, período, todas do período marcado, tipo carrosséis e transcrever marcado" />
+    <figcaption><b>Exemplo preenchido:</b> dois perfis, uma semana, todos os carrosséis do período, com a leitura do texto dos cards.</figcaption>
+  </figure>
+  <ol class="steps">
+    <li><b>PERFIS.</b> Digite o @ do perfil, por exemplo <code>@clailtonluiz</code>. Para vários de uma vez, separe por vírgula: <code>@clailtonluiz, @legacyexecutoria</code>. Também pode colar o link do perfil (<code>instagram.com/perfil</code>). O limite é de 20 perfis por vez.</li>
+    <li><b>DE e ATÉ.</b> O período, pela data em que os posts foram publicados. Clique no campo e escolha no calendário.</li>
+    <li><b>LIMITE DE POSTS (por perfil).</b> O máximo de posts de cada perfil (o padrão é 100). Se o período tiver mais, ficam os mais recentes e a tela avisa.</li>
+    <li><b>TODAS DO PERÍODO.</b> Marque para pegar <b>tudo</b> do período, sem limite. Em períodos longos (vários meses) pode demorar alguns minutos.</li>
+    <li><b>TIPO DE POST.</b> Escolha um: <span class="ui">TODOS</span>, <span class="ui">REELS</span> (Reels e vídeos do feed), <span class="ui">CARROSSÉIS</span> ou <span class="ui">FOTOS</span>.</li>
+    <li><b>TRANSCREVER VÍDEOS E CARROSSÉIS.</b> Ligado, a IA escreve palavra por palavra a fala de cada vídeo e lê o texto escrito em cada card dos carrosséis. <b>Gasta créditos.</b> Desligado, sai todo o resto (métricas, legendas, links e imagens) e o custo é zero.</li>
+  </ol>
+  <h3>Exemplos prontos</h3>
+  <table>
+    <thead><tr><th>Você quer…</th><th>Preencha assim</th></tr></thead>
+    <tbody>
+      <tr><td>Todos os carrosséis de setembro do Clailton e da Legacy, com o texto de cada card</td><td>PERFIS <code>@clailtonluiz, @legacyexecutoria</code> · DE 01/09 · ATÉ 30/09 · ☑ todas do período · <span class="ui">CARROSSÉIS</span> · ☑ transcrever</td></tr>
+      <tr><td>Só os números dos Reels da última semana, sem gastar créditos</td><td>PERFIS <code>@perfil</code> · os últimos 7 dias · <span class="ui">REELS</span> · ☐ transcrever</td></tr>
+      <tr><td>A fala completa de todos os vídeos de um concorrente no mês</td><td>PERFIS <code>@concorrente</code> · o mês · ☑ todas do período · <span class="ui">REELS</span> · ☑ transcrever</td></tr>
+      <tr><td>Um teste rápido antes de uma extração grande</td><td>LIMITE <b>5</b> · período de 7 dias · ☐ transcrever</td></tr>
+    </tbody>
+  </table>
+  <div class="note tip">
+    <b class="h">Leia a linha de baixo dos botões</b>
+    <p>Logo abaixo dos botões, o JEV resume o que vai fazer: quantos perfis, de onde vêm os dados e alertas (em vermelho) como "em períodos longos pode levar bastante tempo".</p>
+  </div>
+</section>
+
+<section class="chapter" id="passo-5" data-passo="5" data-toc="Iniciar e acompanhar">
+  <span class="eyebrow">passo 5</span>
+  <h2 class="title">Iniciar e <span class="hl">acompanhar</span></h2>
+  <ol class="steps">
+    <li><b>Clique em <span class="ui go">INICIAR</span>.</b></li>
+    <li><b>Uma janela do Chrome abre sozinha.</b> Ela rola o perfil: é o JEV trabalhando. Não mexa nela e não feche; ela fecha sozinha no fim.</li>
+    <li><b>Acompanhe o quadro ANDAMENTO.</b> Cada linha é uma etapa: perfil lido, quantos seguidores, carrosséis encontrados, avisos. As linhas mais novas aparecem em cima. Linhas em <b>vermelho</b> são alertas; as outras são informação.</li>
+    <li><b>Veja os números no topo.</b> Posts no período, vídeos, transcritos, views somadas, tempo e <b>custo (US$)</b>, o gasto real de IA desta extração.</li>
+    <li><b>Terminou quando aparece "concluído" no ANDAMENTO.</b> Na mesma linha vem o resumo do que foi feito.</li>
+  </ol>
+  <figure class="shot">
+    <img data-shot="andamento" alt="Números do topo e quadro Andamento mostrando uma extração concluída em 39 segundos" />
+    <figcaption><b>Extração concluída:</b> 8 carrosséis de 2 perfis em 39 segundos, com o texto de todos os cards lido pela IA por cerca de 3 centavos de dólar.</figcaption>
+  </figure>
+  <div class="note info">
+    <b class="h">Precisa parar no meio?</b>
+    <p>Clique em <span class="ui">PARAR</span>. O que já foi coletado continua na tela e pode ser exportado normalmente.</p>
+  </div>
+  <table>
+    <thead><tr><th>Exemplo de extração</th><th>Tempo</th><th>Custo de IA</th></tr></thead>
+    <tbody>
+      <tr><td>2 perfis · 1 semana · carrosséis · lendo o texto dos cards</td><td>~40 s</td><td>~US$ 0,03</td></tr>
+      <tr><td>2 perfis · 2 meses · carrosséis · sem transcrever (107 carrosséis)</td><td>~3 min</td><td>US$ 0</td></tr>
+      <tr><td>Transcrição de vídeos</td><td>10 a 30 s por vídeo, 3 de cada vez</td><td>~US$ 0,0075 por minuto de vídeo</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="chapter" id="passo-6" data-passo="6" data-toc="Ler os resultados">
+  <span class="eyebrow">passo 6</span>
+  <h2 class="title">Ler os <span class="hl">resultados</span></h2>
+  <p class="lead">A tabela embaixo tem <b>uma linha por post</b>. Com vários perfis, o @ aparece embaixo da data.</p>
+  <figure class="shot">
+    <img data-shot="tabela" alt="Tabela de posts com data, tipo, legenda, views, curtidas, comentários, compartilhamentos, salvos, reposts, transcrição e link" />
+    <figcaption><b>A tabela.</b> O traço (—) quer dizer que o Instagram não mostra aquele número publicamente, o que é diferente de zero.</figcaption>
+  </figure>
+  <ol class="steps">
+    <li><b>Clique numa linha para abrir os detalhes.</b> Aparecem a legenda completa, a transcrição (ou a copy de cada card) e as observações daquele post.</li>
+    <li><b>Clique em <span class="ui">abrir ↗</span> para ver o post no Instagram.</b></li>
+    <li><b>Clique de novo na linha para fechar os detalhes.</b></li>
+  </ol>
+  <figure class="shot">
+    <img data-shot="detalhe" alt="Linha aberta mostrando a legenda completa e a copy slide a slide de um carrossel" />
+    <figcaption><b>Linha aberta:</b> à esquerda a legenda; à direita a copy de cada card, slide a slide. No rodapé, as observações e o link.</figcaption>
+  </figure>
+
+  <h3>O que cada número quer dizer</h3>
+  <table>
+    <thead><tr><th>Coluna</th><th>O que é</th><th>Quando fica vazia (—)</th></tr></thead>
+    <tbody>
+      <tr><td><b>views</b></td><td>Quantas vezes o vídeo foi reproduzido</td><td>Em carrosséis e fotos: o Instagram não mostra views deles</td></tr>
+      <tr><td><b>curtidas</b></td><td>Curtidas do post</td><td>Quando o autor escondeu as curtidas</td></tr>
+      <tr><td><b>coment.</b></td><td>Comentários</td><td>Só se os comentários estiverem desativados</td></tr>
+      <tr><td><b>compart.</b></td><td>Compartilhamentos</td><td>Em perfis de outras pessoas: o Instagram não divulga</td></tr>
+      <tr><td><b>salvos</b></td><td>Quantas pessoas salvaram</td><td>Em perfis de outras pessoas: nunca é público</td></tr>
+      <tr><td><b>reposts</b></td><td>Quantas pessoas repostaram no próprio perfil</td><td>Quando o Instagram não informa</td></tr>
+      <tr><td><b>transcrição</b></td><td>Situação da leitura pela IA</td><td><b>transcrito</b> = pronto · <b>sem fala</b> = vídeo só com música · <b>sem texto</b> = card sem nada escrito · <b>falhou</b> = erro · <b>não solicitada</b> = transcrever estava desligado</td></tr>
+    </tbody>
+  </table>
+  <div class="note info">
+    <b class="h">Posts em collab (feitos por dois perfis juntos)</b>
+    <p>Um post em collab aparece no perfil de todos os autores, mas o JEV coloca ele <b>só no perfil de quem postou</b>, para não duplicar. No outro perfil, o ANDAMENTO avisa, por exemplo: "3 collabs postados por @clailtonluiz ficaram de fora". Para ter esses posts, inclua também o @ de quem postou.</p>
+  </div>
+  <div class="note tip">
+    <b class="h">Salvamentos e compartilhamentos dos perfis da Legacy</b>
+    <p>Esses números só existem para o dono da conta. O JEV consegue buscá-los pela API oficial do Instagram, mas isso exige um "token" de cada perfil próprio configurado por quem cuida do JEV. Sem o token, as colunas ficam vazias.</p>
+  </div>
+</section>
+
+<section class="chapter" id="passo-7" data-passo="7" data-toc="Exportar os arquivos">
+  <span class="eyebrow">passo 7</span>
+  <h2 class="title">Exportar os <span class="hl">arquivos</span></h2>
+  <p class="lead">Quando terminar, os quatro botões ao lado de <span class="ui go">INICIAR</span> ficam ativos. Cada um baixa um tipo de arquivo.</p>
+  <figure class="shot">
+    <img data-shot="botoes" alt="Botões INICIAR, EXPORTAR CSV, EXPORTAR DOCX, ZIP DOS CARROSSÉIS e PACOTE COMPLETO .ZIP" />
+    <figcaption><b>Os botões de exportar</b>, ao lado de INICIAR.</figcaption>
+  </figure>
+  <table>
+    <thead><tr><th>Botão</th><th>O que você recebe</th><th>Melhor para</th></tr></thead>
+    <tbody>
+      <tr><td><span class="ui">EXPORTAR CSV</span></td><td>Uma <b>planilha</b> (abre no Excel): uma linha por post, com data, link, métricas, legenda, transcrição e a pasta das imagens</td><td>Analisar números, filtrar, ordenar, montar gráficos</td></tr>
+      <tr><td><span class="ui">EXPORTAR DOCX</span></td><td>Um <b>documento do Word</b>: um bloco por post com métricas, legenda, transcrição e as imagens de cada card</td><td>Ler, estudar e mandar para o time</td></tr>
+      <tr><td><span class="ui">ZIP DOS CARROSSÉIS</span></td><td>Só as <b>imagens</b>: uma pasta por carrossel, com cada card em tamanho original e um <code>copy.txt</code> com o texto</td><td>Ver o design e a copy card a card</td></tr>
+      <tr><td><span class="ui">PACOTE COMPLETO .ZIP</span></td><td><b>Tudo junto</b>: documento, planilha e imagens</td><td>Arquivar ou enviar tudo de uma vez</td></tr>
+    </tbody>
+  </table>
+  <ol class="steps">
+    <li><b>Clique no botão do arquivo que você quer.</b> Nos .zip, espere a barra de progresso: as imagens são baixadas uma a uma.</li>
+    <li><b>O arquivo vai para a pasta Downloads do computador.</b> O nome diz o perfil, o período e o tipo, por exemplo <code>instagram-clailtonluiz-2026-09-01_2026-09-30-carrosseis.csv</code>. Com vários perfis, fica <code>instagram-2-perfis-…</code>.</li>
+    <li><b>Para abrir a planilha, dê dois cliques no .csv.</b> Ela abre no Excel com acentos e colunas certos.</li>
+    <li><b>Para abrir um .zip, clique nele com o botão direito.</b> Escolha <span class="ui">Extrair tudo</span> → <span class="ui">Extrair</span>.</li>
+  </ol>
+  <div class="note warn">
+    <b class="h">Exporte as imagens no mesmo dia</b>
+    <p>Os links das imagens que o Instagram entrega expiram depois de um tempo. Se um .zip vier com imagens faltando, rode a extração de novo e exporte em seguida. O arquivo <code>LEIA-ME.txt</code> dentro do .zip avisa quando faltou algo.</p>
+  </div>
+</section>
+
+<section class="chapter" id="imagens" data-tipo="extra" data-toc="Ligar números e imagens">
+  <span class="eyebrow">extra</span>
+  <h2 class="title">Ligar números e <span class="hl">imagens</span></h2>
+  <p class="lead">Cada carrossel tem uma <b>pasta com nome fixo</b>, que aparece igual na planilha, no documento e nos .zip. Assim você sabe exatamente de qual design são aquelas curtidas.</p>
+  <pre class="tree"><span class="d">instagram-2-perfis-2026-09-20_2026-09-27-carrosseis-imagens.zip</span>
+├─ LEIA-ME.txt                      <span class="c">← explica a organização</span>
+└─ <span class="d">carrosseis/</span>
+   ├─ <span class="d">clailtonluiz/</span>                   <span class="c">← uma pasta por perfil</span>
+   │  └─ <span class="d">2026-09-26 - Ddw81HtHyJD/</span>     <span class="c">← data + código do post</span>
+   │     ├─ card-01.jpg              <span class="c">← cada card em tamanho original</span>
+   │     ├─ card-02.jpg … card-11.jpg
+   │     └─ copy.txt                 <span class="c">← link, métricas, legenda e copy</span>
+   └─ <span class="d">legacyexecutoria/</span>
+      └─ <span class="d">2026-09-25 - Ddt6d9okWPe/</span> …</pre>
+  <ol class="steps">
+    <li><b>Na planilha.</b> A coluna <code>pasta_imagens</code> mostra o caminho exato da pasta daquele carrossel (ex.: <code>carrosseis/clailtonluiz/2026-09-26 - Ddw81HtHyJD</code>).</li>
+    <li><b>No documento do Word.</b> Cada carrossel tem a linha "Pasta das imagens" e, no começo, um índice com todas as pastas. Cada imagem vem com o nome do arquivo (ex.: "Card 3 · card-03.jpg").</li>
+    <li><b>No .zip.</b> Abra a pasta com esse nome: estão lá as imagens de todos os cards e o <code>copy.txt</code> com os números.</li>
+  </ol>
+</section>
+
+<section class="chapter" id="radar" data-tipo="extra" data-grupo="Mais" data-marca="◎" data-toc="Radar de vídeos">
+  <span class="eyebrow">outra ferramenta</span>
+  <h2 class="title">Radar de <span class="hl">vídeos</span></h2>
+  <p class="lead">O Radar ("em alta agora") busca o que está viralizando e performando num nicho e num país. Depois, a IA assiste os primeiros colocados e explica o que eles têm em comum: gancho, formato, primeiro segundo e emoção.</p>
+  <figure class="shot browser">
+    <img data-shot="radar" alt="Tela do Radar de vídeos com as contas, o formulário de nicho, país, período e as quatro plataformas" />
+    <figcaption><b>Radar de vídeos.</b> Em cima, as contas conectadas; no meio, o pedido; embaixo, o navegador ao vivo e as explicações.</figcaption>
+  </figure>
+  <ol class="steps">
+    <li><b>Clique em Radar de vídeos, no menu.</b></li>
+    <li><b>Confira as contas, no topo.</b> O TikTok orgânico precisa da conta do TikTok e os Reels precisam da conta do Instagram (use <span class="ui">CONECTAR</span>, como no <a href="#passo-3">Passo 3</a>). Os anúncios do TikTok e da Meta funcionam sem login; conectar o TikTok Ads mostra mais anúncios por nicho. O botão <span class="ui">IMPORTAR</span> só é usado na versão online.</li>
+    <li><b>Preencha o pedido.</b> Em NICHO / TERMO, escreva o assunto, por exemplo "curso de inglês" (obrigatório para anúncios da Meta). Depois escolha o PAÍS, o PERÍODO (7 ou 30 dias) e POR PLATAFORMA (quantos resultados de cada, padrão 20).</li>
+    <li><b>Escolha as plataformas.</b> Clique nos quatro quadros para ligar ou desligar (os escuros estão ligados): TikTok anúncios, TikTok orgânico, Instagram Reels e Anúncios Meta.</li>
+    <li><b>Escolha quantos vídeos a IA vai explicar.</b> Em EXPLICAR OS TOP: 3, 5 ou 10 de cada plataforma. Mais vídeos = mais tempo e mais custo.</li>
+    <li><b>Clique em <span class="ui go">INICIAR</span>.</b> O navegador trabalhando aparece ao vivo no painel.</li>
+    <li><b>Leia os resultados.</b> "Por que está funcionando", "virais agora", "estilos que mais performam", "copies que funcionam" e "palavras-chave da categoria". O botão <span class="ui">CSV</span> baixa a lista e <span class="ui">TELA CHEIA</span> serve para apresentar.</li>
+  </ol>
+  <div class="note info">
+    <b class="h">O que não existe publicamente</b>
+    <p>Cliques, CTR, vendas, gasto e público de anúncios de terceiros não são divulgados pela Meta nem pelo TikTok. O Radar usa sinais indiretos: dias no ar, número de versões, posição por impressões, índice de CTR do Creative Center e views e curtidas do orgânico.</p>
+  </div>
+</section>
+
+<section class="chapter" id="custos" data-toc="Quanto custa">
+  <span class="eyebrow">dinheiro</span>
+  <h2 class="title">Quanto <span class="hl">custa</span></h2>
+  <p class="lead">O JEV só gasta créditos quando a <b>inteligência artificial trabalha</b>. Esses créditos ficam no <b>OpenRouter</b>, o serviço que dá acesso à IA. Abrir o programa, ler perfis e exportar arquivos não custa nada.</p>
+  <table>
+    <thead><tr><th>O que a IA faz</th><th>Custo aproximado</th></tr></thead>
+    <tbody>
+      <tr><td>Transcrever a fala de um vídeo</td><td>~US$ 0,0075 por minuto de vídeo</td></tr>
+      <tr><td>Ler o texto dos cards de um carrossel</td><td>~US$ 0,0003 por card (100 carrosséis de 8 cards ≈ US$ 0,25)</td></tr>
+      <tr><td>Extrair <b>sem</b> transcrever</td><td><b>US$ 0</b></td></tr>
+      <tr><td>Radar: explicar os vídeos do topo</td><td>alguns centavos por busca</td></tr>
+    </tbody>
+  </table>
+  <ul class="plain">
+    <li>O quadro <b>custo (US$)</b> mostra quanto aquela execução gastou de verdade.</li>
+    <li>O saldo fica no site do OpenRouter (<b>openrouter.ai</b> → Credits). Quando ele acaba, a transcrição para e a tela avisa. Peça a recarga para quem cuida do JEV.</li>
+  </ul>
+  <div class="note tip">
+    <b class="h">Três jeitos de economizar</b>
+    <ul class="plain">
+      <li>Antes de uma extração grande, faça um <b>teste pequeno</b> (limite 5, uma semana).</li>
+      <li>Se você só precisa dos números, <b>desmarque "transcrever"</b>.</li>
+      <li>Escolha o <b>tipo de post</b> certo: só carrosséis, por exemplo, não transcreve os vídeos à toa.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="chapter" id="boas-praticas" data-toc="Boas práticas">
+  <span class="eyebrow">jeito certo</span>
+  <h2 class="title">Boas <span class="hl">práticas</span></h2>
+  <div class="cards praticas">
+    <div class="card"><h4>Conta secundária</h4><p>Conecte sempre uma conta secundária do Instagram, nunca a da empresa ou a de um cliente.</p></div>
+    <div class="card"><h4>npm start</h4><p>Ligue o programa com <code>npm start</code> e não feche a janela preta nem a aba do Chrome durante uma extração.</p></div>
+    <div class="card"><h4>Uma coisa por vez</h4><p>O Chrome do JEV faz uma tarefa de cada vez. Espere uma extração terminar antes de começar outra ou de conectar uma conta.</p></div>
+    <div class="card"><h4>Divida os pedidos grandes</h4><p>Para muitos perfis grandes ou períodos de vários meses, divida em partes. É mais rápido de conferir e menos chamativo para o Instagram.</p></div>
+    <div class="card"><h4>Guarde os arquivos</h4><p>Mova os arquivos exportados da pasta Downloads para a pasta do cliente ou do projeto.</p></div>
+    <div class="card"><h4>Senha é segredo</h4><p>Não compartilhe a senha do app nem o arquivo <code>.env</code>: eles dão acesso aos créditos de IA.</p></div>
+  </div>
+</section>
+
+<section class="chapter" id="problemas" data-toc="Problemas comuns">
+  <span class="eyebrow">socorro</span>
+  <h2 class="title">Problemas comuns e como <span class="hl">resolver</span></h2>
+  <p class="lead">Clique na pergunta para ver a resposta.</p>
+  <details class="faq"><summary>Digitei localhost:3777 e a página não abre</summary><p>O programa está desligado. Faça o <a href="#passo-1">Passo 1</a> (<code>npm start</code>), espere a mensagem "JEV Lab rodando" e recarregue a página com <kbd>F5</kbd>. A janela preta precisa continuar aberta.</p></details>
+  <details class="faq"><summary>Apareceu "npm ERR! enoent … package.json"</summary><p>A janela preta foi aberta na pasta errada. Feche, abra a pasta <b>JARVIS EXTRATOR DE PERFIS</b> e abra a janela preta de dentro dela (<a href="#passo-1">Passo 1</a>, jeito B). Se a pasta tiver só um arquivo .zip, extraia o .zip primeiro.</p></details>
+  <details class="faq"><summary>"npm" não é reconhecido como um comando</summary><p>O Node.js não está instalado. Instale a versão LTS em <b>nodejs.org</b>, feche e abra a janela preta de novo.</p></details>
+  <details class="faq"><summary>A tela diz que o Instagram não está conectado</summary><p>Faça o <a href="#passo-3">Passo 3</a>. Se a conta foi desconectada pelo Instagram (acontece de vez em quando), é só conectar de novo.</p></details>
+  <details class="faq"><summary>Aviso de que o navegador "está em uso"</summary><p>Outra extração ou uma conexão de conta está rodando no Chrome do JEV. Espere terminar, ou clique em <span class="ui">PARAR</span> na outra tarefa, e tente de novo.</p></details>
+  <details class="faq"><summary>O Instagram pediu verificação, código ou captcha</summary><p>Resolva na janela do Chrome que o JEV abriu (digite o código ou marque o captcha). A extração continua sozinha depois disso.</p></details>
+  <details class="faq"><summary>O perfil é privado</summary><p>Perfil privado só pode ser lido se a conta conectada seguir esse perfil. Nos outros casos, o JEV pula o perfil com um aviso e continua com os demais.</p></details>
+  <details class="faq"><summary>As curtidas vieram em branco</summary><p>O autor escondeu as curtidas do post, e o Instagram não mostra o número para ninguém além do dono. A observação do post diz "o autor oculta as curtidas". Não é erro.</p></details>
+  <details class="faq"><summary>Os carrosséis e as fotos não têm views</summary><p>O Instagram não mostra publicamente views de carrosséis e fotos, só de Reels e vídeos. Para carrosséis, use curtidas, comentários e reposts.</p></details>
+  <details class="faq"><summary>Faltou um post que eu sei que está no perfil</summary><p>Veja no ANDAMENTO se há um aviso de "collabs postados por @… ficaram de fora". Post em collab entra só no perfil de quem postou: inclua esse @ na lista de perfis. Confira também o período, que conta pela data de publicação, e o tipo de post escolhido.</p></details>
+  <details class="faq"><summary>A extração parou no meio ou a página recarregou sozinha</summary><p>Se o programa foi ligado com <code>npm run dev</code>, salvar qualquer arquivo do projeto reinicia o servidor: use <code>npm start</code>. Se o Instagram limitou a coleta, o ANDAMENTO mostra um aviso em vermelho; espere um pouco e tente de novo.</p></details>
+  <details class="faq"><summary>A transcrição falhou para todos os posts</summary><p>Provavelmente os créditos do OpenRouter acabaram (a tela avisa). Peça a recarga. Enquanto isso, dá para extrair com "transcrever" desmarcado.</p></details>
+  <details class="faq"><summary>Um vídeo longo não foi transcrito</summary><p>Vídeos com mais de ~2,5 minutos precisam do ffmpeg para ser comprimidos. Neste computador ele já está instalado; em outro, veja o quadro "computador novo" em <a href="#antes">Antes de começar</a>.</p></details>
+  <details class="faq"><summary>Não acho os arquivos que exportei</summary><p>Estão na pasta <b>Downloads</b> do Windows (no Chrome, <kbd>Ctrl</kbd> + <kbd>J</kbd> mostra os downloads). O nome começa com <code>instagram-</code>.</p></details>
+  <details class="faq"><summary>O .zip veio com imagens faltando</summary><p>Os links das imagens do Instagram expiram. Rode a extração de novo e exporte logo em seguida. O <code>LEIA-ME.txt</code> do .zip diz quantos arquivos faltaram.</p></details>
+</section>
+
+<section class="chapter" id="glossario" data-toc="Glossário">
+  <span class="eyebrow">palavras</span>
+  <h2 class="title"><span class="hl">Glossário</span></h2>
+  <dl class="gloss">
+    <dt>Reel</dt><dd>Vídeo curto e vertical do Instagram.</dd>
+    <dt>Carrossel</dt><dd>Post com várias imagens ou vídeos que a pessoa passa para o lado.</dd>
+    <dt>Card (ou slide)</dt><dd>Cada imagem de um carrossel.</dd>
+    <dt>Copy</dt><dd>O texto do conteúdo: a fala do vídeo ou o que está escrito nos cards.</dd>
+    <dt>Legenda</dt><dd>O texto escrito embaixo do post.</dd>
+    <dt>Transcrição</dt><dd>A fala de um vídeo escrita palavra por palavra pela IA.</dd>
+    <dt>Collab</dt><dd>Post feito em parceria, que aparece no perfil de dois ou mais autores.</dd>
+    <dt>Views</dt><dd>Quantas vezes um vídeo foi reproduzido.</dd>
+    <dt>Reposts</dt><dd>Quantas pessoas repostaram o post no próprio perfil.</dd>
+    <dt>CSV</dt><dd>Arquivo de planilha que abre no Excel ou no Google Planilhas.</dd>
+    <dt>DOCX</dt><dd>Documento do Word (abre também no Google Docs).</dd>
+    <dt>ZIP</dt><dd>Pasta compactada: clique com o botão direito → Extrair tudo.</dd>
+    <dt>Terminal (janela preta)</dt><dd>A janela onde você digita <code>npm start</code> para ligar o programa.</dd>
+    <dt>localhost:3777</dt><dd>O endereço do JEV Lab no seu próprio computador.</dd>
+    <dt>OpenRouter</dt><dd>O serviço que fornece a inteligência artificial e guarda os créditos.</dd>
+    <dt>Conta secundária</dt><dd>Uma conta do Instagram criada só para usar com o JEV, separada das contas importantes.</dd>
+  </dl>
+</section>

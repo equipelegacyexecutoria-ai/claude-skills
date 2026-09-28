@@ -1,0 +1,63 @@
+# Legenda APROVADA pelo usuário: vídeo 1 (Parar hábito), formato compacto. Referência de estilo.
+# Os @índices valem para o palavras_corte.json daquele vídeo.
+
+esquerda | TALVEZ O @0 / *HÁBITO @2
+escada   | QUE MAIS VAI @3 / *MUDAR A TUA VIDA @6
+esquerda | SEJA JUSTAMENTE @10 / AQUILO @12
+centro   | QUE VOCÊ TEM QUE @13 / **PARAR AGORA @17
+centro   | PORQUE VEJA SÓ @19
+escada   | NÃO ADIANTA VOCÊ @22 / COLOCAR UMA @25 / *COISA BOA @27
+centro   | NA TUA VIDA @29
+direita  | ENQUANTO VOCÊ @32 / *CONTINUA @34 / MANTENDO @35
+escada   | AQUILO QUE @36 / **ANULA @38 / ESSE RESULTADO @39
+centro   | ESSA COISA BOA @41
+esquerda | POR EXEMPLO @44 / NÃO ADIANTA VOCÊ @46 / FAZER UM PLANO @49
+centro   | *DE 6 MESES @52 / NA ACADEMIA @55
+esquerda | SE VOCÊ TEM O @58 / *PÉSSIMO HÁBITO @61
+centro   | DE @63 / *ABANDONAR TUDO @64
+centro   | DEPOIS DE @66 / *2 SEMANAS @68
+esquerda | NÃO ADIANTA VOCÊ @70 / GANHAR @73 / *MAIS DINHEIRO @74
+esquerda | SE VOCÊ TEM O @76 / *PÉSSIMO HÁBITO @80
+centro   | DE @82 / *GASTAR POR IMPULSO @83
+esquerda | NÃO ADIANTA VOCÊ @86 / COMPRAR @89 / *MAIS UM LIVRO @90
+esquerda | SE VOCÊ TEM O @93 / HÁBITO @97
+centro   | DE @98 / *NUNCA TERMINAR @99
+centro   | UM LIVRO QUE @101 / *VOCÊ COMEÇA @104
+escada   | É COMO TENTAR @106 / ENCHER UM @109 / *BALDE FURADO @111
+centro   | *O HÁBITO NOVO @113 / É A ÁGUA @116
+escada   | VOCÊ FAZ O PLANO @119 / DE 6 MESES @123 / NA ACADEMIA @126
+centro   | *MAIS ÁGUA @128
+esquerda | ENCONTRA UM JEITO @130 / DE GANHAR DINHEIRO @133
+centro   | *MAIS ÁGUA @136
+centro   | COMPRA MAIS UM LIVRO @138
+centro   | *MAIS ÁGUA @142
+esquerda | SÓ QUE EXISTE UM @144 / **HÁBITO RUIM @148 / FAZENDO TUDO ISSO @150
+escada   | *VAZAR @153 / PELO FUNDO @154 / DESSE BALDE @156
+escada   | E VOCÊ @158 / *CONTINUA @160 / COLOCANDO MAIS ÁGUA @161
+esquerda | SEM ENTENDER POR QUE @164 / O NÍVEL DA ÁGUA @168
+centro   | NESSE BALDE @172 / *NUNCA SOBE @174
+escada   | TALVEZ O PROBLEMA @176 / NÃO SEJA @179 / *A FALTA DE ÁGUA @181
+esquerda | TALVEZ VOCÊ PRECISE @185 / *CONSERTAR O FURO @188
+centro   | *ANTES @191 / DE COLOCAR MAIS ÁGUA @192
+escada   | E SABE POR QUE @196 / TANTA GENTE PREFERE @200
+esquerda | COMEÇAR UM @203 / *HÁBITO NOVO @205
+esquerda | DO QUE PARAR UM @207 / *HÁBITO RUIM? @211
+escada   | PORQUE COMEÇAR @213 / ALGUMA COISA NOVA @215 / *É GOSTOSO @218
+esquerda | DÁ A SENSAÇÃO @220 / *DE PROGRESSO @223
+esquerda | DÁ AQUELA IMPRESSÃO @225 / *DE AGORA VAI @228
+centro   | CONSERTAR O FURO @231 / *É MAIS CHATO @234
+escada   | PORQUE SIGNIFICA @237 / *ENCARAR @239 / AQUILO QUE VOCÊ @240
+centro   | *JÁ SABE @243 / QUE ESTÁ PREJUDICANDO @245
+escada   | COMEÇAR @248 / UMA COISA NOVA @249
+centro   | *DÁ ENTUSIASMO @252
+escada   | PARAR ALGUMA COISA @254 / EXIGE @257
+centro   | ***RENÚNCIA @258
+escada   | TALVEZ @260 / *A PERGUNTA @261 / NÃO SEJA @263
+direita  | QUAL HÁBITO NOVO @265 / *PODE MUDAR @269 / A MINHA VIDA? @271
+centro   | *TALVEZ SEJA... @274
+direita  | QUAL HÁBITO ESTÁ @276 / **IMPEDINDO @280 / A MINHA VIDA @281
+centro   | *DE MUDAR? @284
+escada   | PORQUE @286 / *ANTES @287 / DE COLOCAR MAIS ÁGUA @288
+centro   | NO SEU BALDE @292
+esquerda | VOCÊ PRECISA @295 / *CONSERTAR @297
+centro   | **OS FUROS @298 / QUE TEM NELE @300

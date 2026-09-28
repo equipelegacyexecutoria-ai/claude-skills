@@ -1,0 +1,18 @@
+# Ambiente principal da skill reels-novela-clailton (Python 3.12), versões validadas em 2026-09-26.
+# Instalação pelo pacote: %LOCALAPPDATA%\reels-novela\venv (o INSTALAR.cmd cria e instala).
+# Na máquina original a skill usa a venv %LOCALAPPDATA%\corte-viral\venv (mesmas versões).
+# À mão: py -3.12 -m venv <pasta> && <pasta>\Scripts\python -m pip install -r requirements.txt
+faster-whisper==1.2.1
+ctranslate2==4.8.2
+onnxruntime==1.30.0
+opencv-contrib-python==4.10.0.84
+numpy==2.5.3
+pillow==12.3.0
+fonttools==4.66.0
+uharfbuzz==0.56.2
+# Whisper na GPU NVIDIA: DLLs do CUDA 12 que o ctranslate2 procura (comum.whisper() registra as pastas)
+nvidia-cublas-cu12==12.9.2.10
+nvidia-cudnn-cu12==9.26.0.51
+nvidia-cuda-nvrtc-cu12==12.9.86
+
+# Alinhador: venv SEPARADA (torch não convive com esta), ver requirements-alinhador.txt
