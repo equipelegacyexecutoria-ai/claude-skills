@@ -28,6 +28,12 @@ Como decidir as imagens: `referencia/regras-plano-visual.md`** (leia antes de es
 **Portão:** o 1º vídeo de um lote é mostrado ao usuário antes dos outros (com `--geral`), incluindo
 `qa/fundo_mais_claro.png` (regra global: legenda testada no fundo mais claro).
 
+**Sem música e nada na nuvem:** música entra depois, pelo usuário. Gemini (plugin /watch)
+foi testado em 27/09 e descartado "por enquanto" (lento, falhou com 503, e manda o vídeo
+para fora); não propor de novo sem ele pedir. Lacuna que o teste mostrou e as folhas de
+revisão não pegam: imagem que contradiz a fala, legenda branca sobre imagem branca e
+palavra faltando no áudio — confira isso a olho na revisão.
+
 ## Ambiente (Windows)
 
 - `P = %LOCALAPPDATA%\reels-novela\venv\Scripts\python.exe` (ou `...\corte-viral\venv\...`), sempre com

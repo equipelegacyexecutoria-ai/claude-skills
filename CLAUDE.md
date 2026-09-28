@@ -18,6 +18,13 @@ Padrão aprovado — "sombra v3", duas camadas discretas, sem contorno duro e se
 - Detalhes, scripts e o restante do padrão de legenda: skill `cortes-podcast-instagram`
   (`~/.claude/skills/cortes-podcast-instagram`).
 
+## Como falar com o usuário
+
+Ele não é técnico. Explique propostas pelo dia a dia dele: o que ele faz, onde pede, o que
+recebe, o que cada PC precisa ter, com exemplo concreto ("você diz X → acontece Y → recebe Z").
+Evite termos como repositório, commit, hook e merge. Em mudança grande, converse e tire as
+dúvidas antes; só execute quando ele pedir. Objetivo dele: produtividade, não complicação.
+
 ## Skills sincronizadas entre os PCs
 
 Skills, agentes e este arquivo ficam no cofre privado `equipelegacyexecutoria-ai/claude-skills`
@@ -27,5 +34,7 @@ e sincronizam sozinhos (ao abrir a conversa e ao fim de cada resposta).
 - Nunca escrever caminho com o nome de usuário do Windows em skills e agentes; usar `~/.claude/...` ou `$HOME`.
 - Apagar skill ou arquivo só com `git rm` dentro de `~/.claude`; apagar pelo Explorer é revertido.
 - Pacote Python novo instalado para uma skill entra no requirements dela.
+- Não gerar mais zips de skill em `Desktop\Projetos Edições\SKILLS` (virou arquivo antigo); a sincronia distribui.
+  Exceção: skills que também vivem no claude.ai (carrossel-canva, corte-viral) precisam de reenvio manual lá.
 - Linha começando com `SYNC:` na abertura da conversa: seguir `~/.claude/sync/LEIA-ME.md`.
 - Pedido de edição de vídeo sem dizer onde: perguntar "aqui ou no PC de render?".

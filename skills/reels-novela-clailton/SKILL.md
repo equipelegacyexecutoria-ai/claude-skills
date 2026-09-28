@@ -28,6 +28,16 @@ referência: `referencia/telas-referencia.jpg`. Legendas de exemplo no formato c
 ANTES de editar os outros. Regra global do usuário: testar a legenda no trecho de fundo mais
 claro e mostrar antes de gerar em lote (`qa/fundo_mais_claro.png` sai da conferência).
 
+**Enquadramento (regra do usuário, 28/09):** o recorte fica **fixo** no vídeo todo. Só
+reenquadre um trecho se o rosto do Clailton **sair do quadro ou for cortado** pela borda;
+fora isso, qualquer reenquadramento é desnecessário. Mudança de zoom da câmera no bruto é
+proposital: não iguale o tamanho do rosto nem ofereça "aproximar o trecho".
+Pendente: o `enquadrar.py` ainda desliza o recorte quando o rosto se afasta 8% do centro
+(`crops_segmento`); o certo é só deslizar quando o rosto encosta ou passa da borda.
+
+**Nada na nuvem:** Gemini, ElevenLabs, TwelveLabs e afins não foram aprovados (mandariam o
+vídeo do cliente para fora). Tudo roda neste PC.
+
 ## Entrada: bruto + roteiro
 
 O usuário manda o **bruto** (arquivo do vídeo) e, sempre que possível, o **roteiro** (texto
