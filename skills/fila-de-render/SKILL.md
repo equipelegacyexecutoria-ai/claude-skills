@@ -21,6 +21,10 @@ conversa do PC de render (Controle Remoto, no celular ou em claude.ai/code).
   usuário e combine a subida (ele arrasta para a pasta EDITADO do mês no Drive; depois você cola o link
   em MATERIAL FINALIZADO, comenta e move para Aprovação). Não mova o card sem o link do vídeo.
 - Traga as correções aplicadas na conversa (o usuário pede "me traga por aqui") além do comentário no card.
+- O PC NOT-LIVE-LAIR já tem o Google Drive para computador (G:) desde 28/09/2026: a entrega segue o Passo 4.
+- Quando o usuário diz "deixa eu conferir", mostre o vídeo na conversa e **só suba no Drive / mexa no
+  Notion depois do ok**. Cada versão nova entra ao lado das anteriores em MATERIAL FINALIZADO (v1, v2, v3...).
+- Arquivo final leve (CRF 18, ~200 MB para 2:30): o de 1,2 GB (CRF 10) foi reprovado ("não pode ser tão pesado").
 
 O usuário não é técnico: relatórios curtos, pelo dia a dia dele (ver CLAUDE.md global).
 
