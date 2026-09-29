@@ -42,7 +42,10 @@ Regras de decupagem, grafia, destaques, ritmo (nada de pausa dramática) e "nada
    - **na lateral, não segue a cabeça**: fechado centrado no aberto (seguir a lateral cortou o rosto
      em 0:49–0:52 na v2);
    - o fechado fica **parado** até o próximo corte (nada de ajuste no meio do plano); na volta, o
-     aberto padrão (os olhos já estão na altura padrão).
+     aberto padrão (os olhos já estão na altura padrão);
+   - **trava da testa**: se, com os olhos na linha, ele levantar a cabeça no plano e os olhos subirem
+     acima de 20% da altura (`OLHO_MIN_FECHADO`), esse trecho fica no aberto padrão (aviso "virou
+     aberto"). No "GPS" foram 4 fechados longos (v2 cortou a testa em 0:49).
    Conferência: `qa/zoom_olhos.jpg` (6 entradas de zoom mais longe da linha; linha vermelha = padrão).
 
 Vale também na tela dividida (pedido do usuário). Como decide (`plano_td.auto_zoom_cortes`, padrão;
