@@ -70,6 +70,7 @@ ZOOM_SUAVE_INTERVALO = 6.0   # s: no mínimo isso entre dois zooms animados
 PLANO_MIN = 0.6              # s: nenhum plano (aberto/fechado) menor que isso
 FECHADO_MAX = 4.0            # s: fechado mais longo que isso volta ao aberto na 1ª emenda possível
 ABERTO_MAX = 7.0             # s: aberto mais longo que isso fecha na 1ª emenda boa
+OLHO_MIN_FECHADO = 0.20      # no fechado, os olhos nunca acima de 20% da altura (testa no quadro)
 
 # ---------------- transições ----------------
 FLASH_ANTES = [1.35, 1.6, 1.75]   # ganho de brilho nos 3 quadros antes do corte (saída da abertura)

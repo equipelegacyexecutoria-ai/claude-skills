@@ -34,7 +34,7 @@ import unicodedata
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from td_comum import (ABERTO_MAX, FECHADO_MAX, FPS, LEAD, LEG_MAX_CHARS, LEG_MAX_PALAVRAS,  # noqa: E402
+from td_comum import (ABERTO_MAX, FECHADO_MAX, FPS, LEAD, LEG_MAX_CHARS, LEG_MAX_PALAVRAS, OLHO_MIN_FECHADO,  # noqa: E402
                       PLANO_MIN,
                       ZOOM_SUAVE, ZOOM_SUAVE_INTERVALO, ZOOM_SUAVE_RAMPA, gravar_json, ler_json, suave)
 from td_comum import H as H_SAIDA, W as W_SAIDA  # noqa: E402
@@ -637,12 +637,24 @@ def olhos_na_linha(planos: list[dict], enq: dict, medir=None) -> tuple[list[str]
             _, _, w, h = segs[p["seg"]]["fechado"]
             _, ey = medir(p["seg"], p["f0"] / FPS)          # olhos no 1º quadro depois do corte
             y = min(max(ey - linha / H_SAIDA * h, 0.0), rh - h)
+            # trava: se ele levanta a cabeça durante o plano, a testa não pode sair do quadro (v2, 0:49)
+            amostras = [a[2] for a in segs[p["seg"]].get("olhos_t", [])
+                        if p["f0"] / FPS - 0.1 <= a[0] <= p["f1"] / FPS]
+            y_max = min([ey] + amostras) - OLHO_MIN_FECHADO * h
+            if y > y_max:
+                desvio = (ey - max(y_max, 0.0)) / h * H_SAIDA - linha
+                if desvio > 60:                             # não dá: esse trecho fica no enquadramento padrão
+                    p["zoom"] = "aberto"
+                    avisos.append(f"olhos: fechado em {p['f0'] / FPS:.2f}s virou aberto (ele levanta a cabeça "
+                                  f"no plano: com os olhos na linha, a testa sairia do quadro)")
+                    continue
+                y = max(y_max, 0.0)
             x = min(max(cx - w / 2, 0.0), rw - w)
             p["rect"] = [round(x, 1), round(y, 1), w, h]
             erro = abs((ey - y) / h * H_SAIDA - linha)
             if erro > 40:
                 avisos.append(f"olhos: fechado em {p['f0'] / FPS:.2f}s fica {erro:.0f}px fora da linha padrão "
-                              f"(o bruto não deixa subir/descer mais)")
+                              f"(o bruto não deixa subir/descer mais, ou a trava da testa)")
     return avisos, round(linha, 1)
 
 
