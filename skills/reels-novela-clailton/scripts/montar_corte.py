@@ -210,6 +210,47 @@ def acha_fala(en: Energia, pal, i0, i1, dur, desde: float | None = None):
     return ini, fim
 
 
+SIL_CORTE = 0.12        # s: pausa (voz a voz) maior que isso é cortada
+MARGEM_VOZ_INI = 0.02   # s: folga antes do ataque da voz (o quadro arredonda para mais)
+MARGEM_VOZ_FIM = 0.03   # s: folga depois do fim da onda
+
+
+def aparar(segs: list[dict], trabalho: Path, fonte: str, avisos: list[str]) -> list[dict]:
+    """Cada segmento é recortado nos trechos de voz exatos (borda_voz.VozFina); pausa interna >=
+    SIL_CORTE vira emenda. Nunca passa dos limites do segmento original (não invade fala vizinha);
+    o último segmento mantém o respiro final antes da CTA."""
+    from borda_voz import VozFina
+    vf = VozFina(trabalho, fonte)
+    novos, cortes, antes = [], 0, sum(s["frames"] for s in segs)
+    for k, s in enumerate(segs):
+        f0, f1 = s["frame_in"], s["frame_in"] + s["frames"]
+        rs = vf.regioes(f0 / FPS, f1 / FPS)
+        blocos = []
+        for a, b in rs:
+            if blocos and a - blocos[-1][1] < SIL_CORTE:
+                blocos[-1][1] = b
+            else:
+                blocos.append([a, b])
+        if not blocos:
+            novos.append(s)
+            continue
+        for j, (a, b) in enumerate(blocos):
+            n_in = max(f0, int(math.floor((a - MARGEM_VOZ_INI) * FPS)))
+            n_out = min(f1, int(math.ceil((b + MARGEM_VOZ_FIM) * FPS)))
+            if k == len(segs) - 1 and j == len(blocos) - 1:
+                n_out = f1                                   # respiro final antes da CTA
+            if n_out - n_in < 3:
+                continue
+            novos.append({**s, "frame_in": n_in, "frames": n_out - n_in, "src_in": round(n_in / FPS, 4),
+                          "src_out": round(n_out / FPS, 4), "voz_in": round(a, 3), "voz_out": round(b, 3)})
+        cortes += len(blocos) - 1
+    depois = sum(s["frames"] for s in novos)
+    avisos.append(f"aparar: {cortes} pausas internas cortadas, {(antes - depois) / FPS:.1f}s de silêncio a menos")
+    print(f"  aparar na borda da onda: {cortes} pausas internas cortadas, {(antes - depois) / FPS:.1f}s a menos",
+          flush=True)
+    return novos
+
+
 # ---------------------------------------------------------------- principal
 def main() -> None:
     trabalho = Path(sys.argv[1])
@@ -302,6 +343,12 @@ def main() -> None:
             s["src_in"] = round(s["frame_in"] / FPS, 4)
         avisos.append(f"emenda seg{k - 1:02d}/seg{k:02d}: silêncio de voz a voz {cauda + cabeca:.2f}s -> "
                       f"{cauda + cabeca - (fc + fh) / FPS:.2f}s")
+
+    # 2c) APARAR na borda exata da onda (48 kHz, 5 ms; borda_voz.py): toda pausa >= SIL_CORTE sai, dentro
+    #     da frase ou na emenda; ficam só ~MARGEM_VOZ antes/depois da voz (usuário, 28/09/2026: "cortes
+    #     certeiros, sem espacinho em branco — dá para deduzir que ele está lendo")
+    if "--sem-aparar" not in sys.argv:
+        segs = aparar(segs, trabalho, tr["arquivo"], avisos)
 
     for k, s in enumerate(segs):
         n_in, n_out = s["frame_in"], s["frame_in"] + s["frames"]

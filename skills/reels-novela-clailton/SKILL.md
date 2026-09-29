@@ -17,7 +17,7 @@ referência: `referencia/telas-referencia.jpg`. Legendas de exemplo no formato c
 | --- | --- |
 | Formato | 1080×1920, 29,97 fps, H.264 High **CRF 18** preset slow (era CRF 10; em 28/09/2026 o usuário achou pesado demais: 1,2 GB em 2:42), yuv420p BT.709, AAC 320k — o usuário pediu **qualidade máxima, sem comprimir** |
 | Imagem | faixa 1080×864 (5:4) centrada, barras pretas; recorte fixo tirado direto do 4K (só redução) |
-| Corte | tomadas escolhidas, sem tropeço; início e fim **colados na voz**; frases coladas com ~0,16 s, **nenhuma pausa > 0,3 s** (nada de pausa dramática); sem música (entra depois) |
+| Corte | tomadas escolhidas, sem tropeço; **cortes certeiros no limite da onda** (usuário, 28/09/2026: "ele parado sem falar nada denuncia que está lendo"): toda pausa de voz a voz ≥ 0,12 s sai, inclusive dentro da frase, ficando ~0,02 s antes do ataque e ~0,03 s depois do fim da onda (`aparar` + `borda_voz.py`); respiro e estalo de boca saem; sem música (entra depois) |
 | Legenda | SF Pro Text Black, caixa-alta, telas de 1–3 linhas inteiras, **só o destaque entra sozinho e maior**, sombra v3 |
 | Final | ~0,45 s depois da última palavra, corte seco para CTA preta digitada (2,9 s) |
 | Voz | −14 LUFS, pico −1 dBTP |
@@ -225,7 +225,8 @@ se existir, senão `legenda.json`).
 | sombra | `legenda_novela.py` (`SOMBRA`) — padrão v3 aprovado pelo usuário; não trocar sem pedir |
 | tempo da legenda x fala | alinhamento (`alinhar.py`); sem ele, `legenda_novela.py` (`ATRASO_FALA_CORRIDA`, `PAUSA_CORRIDA`) |
 | CTA (texto, fonte, velocidade, duração) | `legenda_novela.py` (bloco CTA) |
-| ritmo do corte (silêncio entre frases, pausas, respiro final) | `comum.py` (`PAUSA_*`, `FIM_RESPIRO`) e `montar_corte.py` (margens, faixas de energia) |
+| ritmo do corte (silêncio entre frases, pausas, respiro final) | `montar_corte.py` (`SIL_CORTE`, `MARGEM_VOZ_*`, `aparar`; `--sem-aparar` desliga), `borda_voz.py` (limiar pela voz `alto - 26 dB`, tom/vibração `TOM`, `COLADO`), `comum.py` (`FIM_RESPIRO`) |
+| ver a onda sonora das pausas e emendas | `ondas.py T [--min 0.15]` → `qa/ondas.txt` + `qa/ondas_01.jpg` (onda + espectro, caixa amarela = silêncio, vermelho = emenda) |
 | decupagem automática (frase, tomada repetida, fala para a equipe, dúvida, anáfora) | `decupar_auto.py` (`PAUSA_FRASE`, `SIMIL*`, `META`, regras de DÚVIDA e anáfora) |
 | comparação com o roteiro | `roteiro.py` |
 | grafia de nomes/termos | roteiro do vídeo e `referencia/grafias.md` |
@@ -298,6 +299,13 @@ se existir, senão `legenda.json`).
   recalcula pelo tempo alinhado (o zoom por emenda dependia disso).
 - Frase paralela tomada por "tomada refeita" (começa com as mesmas 4 palavras e segue diferente): a
   proposta agora marca DÚVIDA em vez de tirar a frase.
+- **Espacinho em branco nos cortes** (28/09/2026, "dá para deduzir que ele está lendo"): o envelope de 30 ms
+  com limiar pelo piso do bruto (−51 dB) tratava ruído de sala e respiro (−49 dB) como voz, e pausas < 0,30 s
+  dentro da frase nunca eram cortadas (17 s de silêncio num reel de 2:36). Agora `borda_voz.py`: 48 kHz,
+  5 ms, limiar pela VOZ (−26 dB do volume típico dele), voz = volume OU tom (autocorrelação 70–450 Hz);
+  pedaço só de chiado e sem tom sai (respiro/estalo), salvo colado ≤ 30 ms numa palavra (o "s" final).
+  Regra só por tom comeu voz fraca ("a partir" → "tir"): não use. Depois de mexer nisso, confira que
+  nenhuma palavra sumiu (Whisper no `audio_corte16k.wav` × `palavras_corte.json`).
 - Editar arquivo da skill por script Python dentro do bash: a barra invertida de caminho vira
   caractere de controle (o `\r` de `T\repeticoes` virou quebra de linha). Use as ferramentas de
   edição do Claude ou `chr(92)`, e confira em bytes (modo texto converte CR em LF e esconde o erro).
