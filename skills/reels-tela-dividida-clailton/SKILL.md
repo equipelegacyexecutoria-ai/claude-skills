@@ -13,7 +13,7 @@ Como decidir as imagens: `referencia/regras-plano-visual.md`** (leia antes de es
 
 | Item | Padrão |
 |---|---|
-| Formato | 1080×1920, 29,97 fps, H.264 High CRF 10 slow, BT.709, AAC 320k (~75 Mb/s com o estilo); voz −14 LUFS / −1 dBTP |
+| Formato | 1080×1920, 29,97 fps, H.264 High CRF 18 slow, BT.709, AAC 320k (era CRF 10, ~75 Mb/s: pesado demais para o usuário); voz −14 LUFS / −1 dBTP |
 | Gancho (0–3/8 s) | tela dividida: imagem em y 0–768, Clailton embaixo; legenda vira **tarja preta** na emenda; saída com **flash** |
 | Clailton | parado; **aberto** (rosto 30% da largura) e **fechado** (1,5×) por corte seco; fechado nos fechos de frase e depois de emenda de tomada (automático). **Regras de zoom do usuário (28/09/2026), padrão:** zoom seco (aberto ↔ fechado) **só na emenda**; fora da emenda só **zoom animado** (keyframes, entrada/saída suaves, ~18% em 0,55 s no rabo da frase, segura até a emenda); **todo zoom mantém os olhos na mesma altura** (fechado e zoom animado ampliam em volta do ponto entre os olhos). Detalhes na skill da edição simples, seção "Zoom" |
 | Imagem | ~30–40% do tempo, entra no início da palavra que ilustra; **padrão = cena de cultura pop em vídeo** (filme, série, desenho) que mostra o que ele fala; foto só para fato (pessoa, marca, livro, notícia), com zoom-out ~5%/s; vídeo sem zoom e sem som; cartão para print; `dividida` quando ele comenta a imagem |

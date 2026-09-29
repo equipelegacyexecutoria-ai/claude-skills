@@ -15,7 +15,7 @@ referência: `referencia/telas-referencia.jpg`. Legendas de exemplo no formato c
 
 | Item | Padrão |
 | --- | --- |
-| Formato | 1080×1920, 29,97 fps, H.264 High **CRF 10** preset slow, yuv420p BT.709, AAC 320k — o usuário pediu **qualidade máxima, sem comprimir** |
+| Formato | 1080×1920, 29,97 fps, H.264 High **CRF 18** preset slow (era CRF 10; em 28/09/2026 o usuário achou pesado demais: 1,2 GB em 2:42), yuv420p BT.709, AAC 320k — o usuário pediu **qualidade máxima, sem comprimir** |
 | Imagem | faixa 1080×864 (5:4) centrada, barras pretas; recorte fixo tirado direto do 4K (só redução) |
 | Corte | tomadas escolhidas, sem tropeço; início e fim **colados na voz**; frases coladas com ~0,16 s, **nenhuma pausa > 0,3 s** (nada de pausa dramática); sem música (entra depois) |
 | Legenda | SF Pro Text Black, caixa-alta, telas de 1–3 linhas inteiras, **só o destaque entra sozinho e maior**, sombra v3 |
@@ -174,7 +174,7 @@ decupagem (~5 min) e legenda (~5 min). `T = <projeto>\_trabalho\<slug>`.
    - Tela com destaque d2 largo não cabe em escada: use centro (o validador avisa "escada não
      coube").
 5. **Finalizar** — `P S\editar.py finalizar T "<projeto>\Reels Editados\<nome> - EDITADO.mp4"`
-   (~2,5 min): legenda `.ass`, render (6 intermediários sem perda por vez + 1 encode CRF 10) e
+   (~2,5 min): legenda `.ass`, render (6 intermediários sem perda por vez + 1 encode CRF 18) e
    `conferir.py --whisper`, que confere:
    - formato, loudness e pico, CTA;
    - pausas > 0,33 s;

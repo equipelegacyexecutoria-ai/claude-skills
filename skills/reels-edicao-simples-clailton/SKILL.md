@@ -19,7 +19,7 @@ Regras de decupagem, grafia, destaques, ritmo (nada de pausa dramática) e "nada
 
 | Item | Padrão |
 | --- | --- |
-| Formato | 1080×1920, 29,97 fps, H.264 CRF 10, AAC 320k; voz −14 LUFS / −1 dBTP |
+| Formato | 1080×1920, 29,97 fps, H.264 CRF 18 (~230 MB em 2:40; CRF 10 = 1,2 GB, reprovado: "não pode ser tão pesado"), AAC 320k; voz −14 LUFS / −1 dBTP |
 | Imagem | tela cheia 9:16, Clailton centralizado; **aberto** (rosto ~30% da largura) e **fechado** (punch-in 1,5×; 1,25× se o bruto já vem fechado) — ver "Zoom" abaixo |
 | Corte | colado na voz; **nenhuma palavra repetida nas emendas** (checagem literal automática) |
 | Legenda | a da novela (caixa-alta, 1–3 linhas, destaque maior sozinho, layouts centro/esquerda/escada/direita, sombra v3), com o centro do bloco a ~52% da altura (peito) e nunca em cima do queixo |
