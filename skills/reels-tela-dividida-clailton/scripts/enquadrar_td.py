@@ -155,8 +155,11 @@ def main() -> None:
         dv = [min(max(cx - dw / 2, 0), rw - dw), min(max(cy - cy_band * dh, 0), rh - dh), dw, dh]
         if fe[2] < W / UPSCALE_MAX:
             avisos.append(f"seg{k:02d}: fechado ampliado {W / fe[2]:.2f}x")
+        # olhos a cada 0,5 s (tempo do corte): o plano_td põe os olhos na mesma linha em cada troca de zoom
+        olhos_t = [[round(t, 2), round(float(f[4]), 1), round(float(f[5]), 1)] for t, f in r_]
         saida.append({"k": k, "rosto": [round(float(cx), 1), round(float(cy), 1), round(float(fw), 1)],
-                      "olhos": olhos, "aberto": ab, "fechado": fe, "dividida": [round(v, 1) for v in dv],
+                      "olhos": olhos, "olhos_t": olhos_t, "aberto": ab, "fechado": fe,
+                      "dividida": [round(v, 1) for v in dv],
                       "rosto_aberto": round(la, 3), "rosto_fechado": round(lf, 3), "amostras": len(r_)})
     la_med = float(np.median([s["rosto_aberto"] for s in saida]))
     if la_med > ROSTO_ABERTO * 1.15:

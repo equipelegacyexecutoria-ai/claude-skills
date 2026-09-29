@@ -1,6 +1,6 @@
 ---
 name: reels-tela-dividida-clailton
-description: Edita reels no formato TELA DIVIDIDA do Instagram do Clailton (Legacy Educação) a partir do bruto (4K, câmera deitada ou não) e do roteiro — decupagem e corte colado na voz (da skill novela), gancho em tela dividida com imagem em cima e tarja preta na emenda, Clailton em aberto/fechado com punch-in nos fechos de frase, cenas de filme/série/desenho (cultura pop) em tela cheia entrando na palavra que ilustram (busca automática em YouTube/TikTok/DuckDuckGo, ranking por CLIP, filtros de marca d'água, texto queimado e logo), foto só para fato, cartão para print, legenda pequena SF Pro Text Black com sombra v3, flash na saída do gancho, CTA digitada e camada de estilo "película" (textura de papel e retícula fixas, grão, poeira, cor contida, vinheta). Entrega 1080x1920 em qualidade máxima e, se pedido, pacote para o Premiere (XML FCP7 + mídia + legenda com transparência). Use sempre que o pedido for editar/finalizar um reel "TD"/"tela dividida" do Clailton, arquivos Reels_Clailton_TD_*, "edita com imagens", "reel com imagem em cima", "igual ao Não confie no ser humano", ou exportar esse reel para o Premiere.
+description: Edita reels no formato TELA DIVIDIDA do Instagram do Clailton (Legacy Educação) a partir do bruto (4K, câmera deitada ou não) e do roteiro — decupagem e corte colado na voz (da skill novela), gancho em tela dividida com imagem em cima e tarja preta na emenda, Clailton em aberto/fechado (zoom seco só na emenda, zoom animado fora dela, olhos sempre na mesma altura), cenas de filme/série/desenho (cultura pop) em tela cheia entrando na palavra que ilustram (busca automática em YouTube/TikTok/DuckDuckGo, ranking por CLIP, filtros de marca d'água, texto queimado e logo), foto só para fato, cartão para print, legenda pequena SF Pro Text Black com sombra v3, flash na saída do gancho, CTA digitada e camada de estilo "película" (textura de papel e retícula fixas, grão, poeira, cor contida, vinheta). Entrega 1080x1920 em qualidade máxima e, se pedido, pacote para o Premiere (XML FCP7 + mídia + legenda com transparência). Use sempre que o pedido for editar/finalizar um reel "TD"/"tela dividida" do Clailton, arquivos Reels_Clailton_TD_*, "edita com imagens", "reel com imagem em cima", "igual ao Não confie no ser humano", ou exportar esse reel para o Premiere.
 ---
 
 # Reels TELA DIVIDIDA — Clailton
@@ -93,8 +93,8 @@ palavra faltando no áudio — confira isso a olho na revisão.
    (medido no teste de 1:44: legenda 1 s, render com estilo 153 s, conferência ~50 s, Premiere 30 s).
    Código 0 = aprovado. `--estilo 0` no render = sem a camada película (render ~95 s).
 8. **Olhar** — `T\qa\folha_imagens.jpg` (cada imagem com a fala: a correlação está certa?),
-   `T\qa\fundo_mais_claro.png`, `T\qa\relatorio.txt` (avisos, **fontes das imagens**). No 1º do lote,
-   também `folha_geral_NN.jpg`.
+   `T\qa\fundo_mais_claro.png`, `T\qa\zoom_olhos.jpg` (olhos na mesma altura nas trocas de zoom),
+   `T\qa\relatorio.txt` (avisos, **fontes das imagens**). No 1º do lote, também `folha_geral_NN.jpg`.
 9. **Entregar** — vídeo (+ pasta PREMIERE) e relatório curto: tempo por etapa, diferenças fala × roteiro,
    imagens com possível direito autoral (trecho de filme) ou marcadas "MARCA?", decisões a confirmar.
 
@@ -120,7 +120,7 @@ refazer o plano (os índices mudam).
 | tamanho/posição/espaçamento da legenda, tarja, número grande, etiqueta | `td_comum.py` (`LEG_*`, `TARJA_*`, `NUMERO_*`, `ETIQUETA_*`) e `legenda_td.py` |
 | quebra das telas de legenda, trocas "tô→ESTOU", censura (EST*PRO) | `plano_td.py` (`custo_tela`, `TROCAS`, `CENSURA`, `FRACAS`) |
 | regra do aberto/fechado e do zoom animado | `plano_td.py` (`auto_zoom_cortes`) e `td_comum.py` (`ZOOM_SUAVE*`, `PLANO_MIN`, `FECHADO_MAX`, `ABERTO_MAX`); `ZOOMLIVRE` no plano volta ao `auto_fechado` antigo (zoom seco no meio da fala — o usuário reprovou) |
-| zoom ancorado nos olhos | `td_comum.py` (`rect_zoom`); olhos por tomada em `enquadrar_td.py` (YuNet) |
+| olhos na mesma altura | `td_comum.py` (`rect_zoom`, `rect_plano`, `OLHOS_AJUSTE_MAX`, `OLHOS_AJUSTE_PS`); `plano_td.py` (`olhos_na_linha`: fechado posicionado pelos olhos do plano anterior e do seguinte, ajuste animado discreto); olhos a cada 0,5 s em `enquadrar_td.py` (YuNet); conferência `olhos_qa.py` |
 | fontes de imagem, filtros, marca d'água, ranking | `buscar_td.py` (`BLOQUEADOS`, `LIMITE_MARCA`, `prior`, `CANAIS_OFICIAIS`) e `clip_rank.py` |
 | quantos vídeos por cena, prévia, HD | `buscar_td.py` (`N_YOUTUBE`, `N_TIKTOK`, `QPS`, `HD_POR_ITEM`, `ITENS_JUNTOS`) |
 | camada película (textura, retícula, grão, poeira, cor, vinheta) | `estilo_td.py` (constantes no topo); força geral `ESTILO_FORCA` em `td_comum.py`; por vídeo `ESTILO 0.7` no plano ou `--estilo` no render |

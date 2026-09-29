@@ -33,8 +33,13 @@ Regras de decupagem, grafia, destaques, ritmo (nada de pausa dramática) e "nada
    troca no quadro exato da emenda. Nunca no meio da fala contínua.
 2. **Zoom fora da emenda só animado (keyframes)**, com entrada e saída suaves: aproximação de ~18% em
    0,55 s no rabo da frase que fecha o pedaço, segurando até a emenda (`Z` no `timeline.txt`).
-3. **Todo zoom mantém os olhos na mesma altura**: o fechado e o zoom animado são o aberto ampliado em
-   volta do ponto entre os olhos (YuNet), que fica parado no quadro.
+3. **Todo zoom mantém os olhos na mesma altura**: o zoom amplia em volta do ponto entre os olhos
+   (YuNet, medido a cada 0,5 s). Como ele mexe a cabeça, cada fechado é posicionado para os olhos
+   entrarem na linha em que estavam no fim do plano anterior e saírem na linha do começo do seguinte,
+   com um ajuste animado discreto dentro do fechado (keyframes suaves, ≤ 150 px e ≤ 60 px/s). O que a
+   cabeça mudar além disso fica como aviso "olhos: ..." no `timeline.txt`. Conferência:
+   `qa/zoom_olhos.jpg` (6 piores trocas, linha vermelha nos olhos) — no "Dirigir uma empresa sem GPS"
+   a diferença mediana caiu de ~70 px para ~30 px (de 1920).
 
 Vale também na tela dividida (pedido do usuário). Como decide (`plano_td.auto_zoom_cortes`, padrão;
 a linha `ZOOMLIVRE` no plano volta ao fechado antigo, reprovado):
@@ -81,7 +86,8 @@ As mesmas venvs da novela/tela dividida: `P = %LOCALAPPDATA%\corte-viral\venv\Sc
    Sem `T\plano.txt`, ele cria um com `SEMABERTURA`. Para forçar o enquadramento, acrescente ao plano
    `FECHADO @a-b` ou `ABERTO @a-b` (vale para o pedaço inteiro entre emendas em que ele cai);
    `SEMZOOM` desliga o aberto/fechado automático.
-6. **Olhar** — `T\qa\fundo_mais_claro.png`, `T\qa\relatorio.txt` (e `folha_geral_NN.jpg` no 1º do lote).
+6. **Olhar** — `T\qa\fundo_mais_claro.png`, `T\qa\zoom_olhos.jpg`, `T\qa\relatorio.txt` (e
+   `folha_geral_NN.jpg` no 1º do lote).
 7. **Entregar** — vídeo + relatório curto: tempo por etapa, diferenças fala × roteiro, decisões a confirmar.
 
 Correções: texto da legenda → `legenda.txt` + `finalizar`; enquadramento → `plano.txt` + `finalizar`;
@@ -95,6 +101,6 @@ Sem a pasta de trabalho da versão anterior (ela ficou em outro PC): refaça do 
 | altura da legenda (peito) | `es.py`: `Y_CENTRO` (1010), `TOPO_MIN`, `BASE_MAX`; queixo: `QUEIXO_FATOR` |
 | aberto/fechado | tela dividida: `td_comum.py` (`ROSTO_ABERTO`, `FECHADO_FATOR`) e `plano_td.py` |
 | regra do zoom na emenda / zoom animado | `plano_td.py` (`auto_zoom_cortes`) e `td_comum.py` (`ZOOM_SUAVE`, `ZOOM_SUAVE_RAMPA`, `ZOOM_SUAVE_INTERVALO`, `PLANO_MIN`, `FECHADO_MAX`, `ABERTO_MAX`) |
-| olhos na mesma altura | `td_comum.py` (`rect_zoom`); olhos medidos em `enquadrar_td.py` |
+| olhos na mesma altura | `td_comum.py` (`rect_zoom`, `rect_plano`, `OLHOS_AJUSTE_MAX`, `OLHOS_AJUSTE_PS`); `plano_td.py` (`olhos_na_linha`); olhos medidos em `enquadrar_td.py`; conferência `olhos_qa.py` |
 | palavra repetida na emenda | novela: `emendas_literal.py` (`JANELA`, `fragmentos`) |
 | legenda (tamanhos, sombra, CTA) | novela: `legenda_novela.py` (vale para as duas skills) |

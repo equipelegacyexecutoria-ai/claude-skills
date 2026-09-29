@@ -39,18 +39,17 @@ from PIL import Image
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from td_comum import (EMENDA, FPS, FPS_DEN, FPS_NUM, H, W, ZOOM_FOTO, ZOOM_FOTO_MAX, ler_json,  # noqa: E402
                       wh_video)
-from render_td import GPU, Cartao, Imagem, area_util, cmd_bruto, filtro_trecho, quadro_zoom  # noqa: E402
-from td_comum import filtro_recorte  # noqa: E402
+from render_td import GPU, Cartao, Imagem, area_util, cmd_bruto, filtro_trecho, quadro_rect  # noqa: E402
+from td_comum import filtro_recorte, movel, rect_plano, regiao_plano  # noqa: E402
 from midia_util import caixa_cover  # noqa: E402
 
 
 def exportar_zoom(fonte: Path, entrada: int, p: dict, e: dict, rot: int, w0: int, h0: int, dest: Path) -> None:
-    """Plano com zoom animado (keyframes, ancorado nos olhos): sai já pronto em 1080x1920, igual ao render
-    (o Movimento do Premiere não sabe ampliar em volta dos olhos com a mesma curva)."""
+    """Plano móvel (zoom animado ou ajuste dos olhos, em keyframes): sai já pronto em 1080x1920, igual ao
+    render (o Movimento do Premiere não reproduz a mesma curva em volta dos olhos)."""
     n = p["f1"] - p["f0"]
-    smax = max(p["escala"])
-    ow, oh = int(round(W * smax / 2)) * 2, int(round(H * smax / 2)) * 2
-    dec = subprocess.Popen(cmd_bruto(str(fonte), entrada, n, filtro_recorte(e["aberto"], rot, w0, h0, ow, oh, rgb=True), GPU),
+    reg, ow, oh = regiao_plano(p, e)
+    dec = subprocess.Popen(cmd_bruto(str(fonte), entrada, n, filtro_recorte(reg, rot, w0, h0, ow, oh, rgb=True), GPU),
                            stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
     enc = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",
                             "-r", f"{FPS_NUM}/{FPS_DEN}", "-i", "-", "-vf",
@@ -63,7 +62,7 @@ def exportar_zoom(fonte: Path, entrada: int, p: dict, e: dict, rot: int, w0: int
         if len(b) == ow * oh * 3:
             ult = np.frombuffer(b, np.uint8).reshape(oh, ow, 3)
         if ult is not None:
-            enc.stdin.write(np.ascontiguousarray(quadro_zoom(ult, e["aberto"], e.get("olhos"), p["escala"][k])).tobytes())
+            enc.stdin.write(np.ascontiguousarray(quadro_rect(ult, reg, rect_plano(p, e, k))).tobytes())
     enc.stdin.close()
     enc.wait()
     dec.wait()
@@ -184,7 +183,7 @@ def main() -> None:
     for i, p in enumerate(tl["planos"]):
         s, e = segs[p["seg"]], enq["segmentos"][p["seg"]]
         zoom = p["zoom"] if p["visivel"] else "aberto"
-        x, y, w, h = e[zoom if zoom in ("aberto", "fechado", "dividida") else "aberto"]
+        x, y, w, h = rect_plano(p, e, 0) if p["visivel"] else e["aberto"]
         if zoom == "dividida":
             out_w, out_cx, out_cy = W, W / 2, EMENDA + (H - EMENDA) / 2
         else:
@@ -193,7 +192,7 @@ def main() -> None:
         X = out_cx + s_ * (rw / 2 - (x + w / 2))
         Y = out_cy + s_ * (rh / 2 - (y + h / 2))
         entrada = s["frame_in"] + (p["f0"] - seg_f0[p["seg"]])
-        if p.get("escala") and p["visivel"]:                # zoom animado: trecho já pronto em midia/
+        if movel(p) and p["visivel"]:                       # zoom animado / olhos na linha: pronto em midia/
             n = p["f1"] - p["f0"]
             dest = M / f"clailton_zoom_{i:03d}.mp4"
             if not dest.exists():

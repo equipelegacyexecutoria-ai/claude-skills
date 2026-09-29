@@ -44,18 +44,25 @@ Referências (ler só quando precisar):
 4. **Não mexer nos templates-mestre** (LEGACY `DAHWWhuFIEI`, CLAILTON `DAHWW8zqYcQ`) — só usá-los
    como fonte das páginas.
 5. Salvar (`commit`) só depois de mostrar a prévia e o usuário aprovar (exigência do Canva).
-6. **Capa LEGACY em 3 linhas de mesma largura**: branca menor (1ª parte da manchete), branca maior
-   (2ª parte) e a pergunta em dourado, cada frase numa linha só, cada linha com o tamanho que a faz
-   ocupar a largura toda (`copy.md`). Só o tamanho da fonte muda de uma linha para outra; o texto
-   não. No template, cada linha tem a sua caixa (`{{H1}}`, `{{H2}}`, `{{H3}}`), então a capa sai
-   pronta pelo conector. Capa com linhas de larguras diferentes não se entrega (reprovada em
-   28/09/2026). A cor padrão não muda por nota de cor na copy.
-7. **Capa LEGACY com o círculo de imagem** (já vem na página-modelo): nunca apagar.
+6. **Capa LEGACY em 3 linhas de mesma largura**: manchete em duas linhas brancas (a quebra sai do
+   `medir.py manchete`, que deixa as duas grandes) e a pergunta/frase de impacto em dourado, cada
+   frase numa linha só, cada linha com o tamanho que a faz ocupar a largura toda (`copy.md`). Só o
+   tamanho da fonte muda de uma linha para outra; o texto não. No template, cada linha tem a sua
+   caixa (`{{H1}}`, `{{H2}}`, `{{H3}}`), então a capa sai pronta pelo conector. Capa com linhas de
+   larguras diferentes não se entrega (reprovada em 28/09/2026). A cor padrão não muda por nota de
+   cor na copy.
+7. **Capa LEGACY com círculo (462 px) e logo**: o círculo nunca some e fica do lado oposto ao
+   sujeito da foto de fundo; o logo da Legacy (com o confete) entra acima da manchete. Os dois vêm
+   nas `operacoes` do `medir.py manchete`/`capa`.
 8. **Texto sempre legível, qualquer que seja o tamanho**: fonte, posição do texto, do degradê e da
    foto saem do `medir.py` para o texto real de cada card. Texto que sobe leva o degradê junto.
 9. **Imagem pela natureza do card** (`imagens.md`): notícia/entidade real → foto real com crédito;
    situação humana comum → banco Freepik (sem IA); ideia abstrata → IA. Pessoa real só com
    identidade confirmada. Escolher olhando (folha ou miniaturas), nunca pelo 1º resultado.
+10. **Capa chamativa, forte e bonita** (reprovada em 28/09/2026 a capa com fachada genérica no fundo
+   e placa cortada no círculo): fundo = a cena que prova a manchete; círculo = a montagem
+   protagonista + fato, com placa/logo inteiros. Direção de arte, prompts e referências aprovadas em
+   `imagens.md` §1b. A capa ganha 2 variações de cada imagem para escolher olhando.
 
 ## Fluxo rápido
 
@@ -65,8 +72,12 @@ Referências (ler só quando precisar):
 
 Rodar o script **numa única execução** para todos os cards (claude.ai: `python3`; sem Python:
 `node scripts/medir.mjs`):
-- `medir.py capa "Linha 1" "Linha 2" "Pergunta"` → `operacoes` prontas: `format_text` e
-  `position_element` de H1, H2 e H3 (tamanho inteiro que enche a largura) + degradê/foto.
+- `medir.py manchete "Manchete inteira" "Pergunta" --circulo esquerda|direita` → quebra a manchete
+  em H1 + H2 e devolve as `operacoes` prontas: `format_text` e `position_element` de H1, H2 e H3
+  (tamanho inteiro que enche a largura), CIRCULO (462 px, lado pedido), LOGO + CONFETE
+  (`insert_fill`) e o `group_elements` dos dois, + degradê/foto. O lado do círculo sai da
+  composição da foto de fundo (`imagens.md` §1b); na dúvida, `direita`. Se a copy já trouxer as
+  duas linhas separadas de propósito, `medir.py capa "Linha 1" "Linha 2" "Pergunta"` (mesma saída).
 - `medir.py pag3 "Título" "Parágrafo 1" "Parágrafo 2" …` → título quebrado, fonte do corpo, largura,
   posições e `operacoes` (TITULO, CORPO, DEGRADE, FOTO), `sujeito_entre_pct`, `foto_util`, `aviso`.
 - `medir.py pag2 "Parágrafo 1" …` → o mesmo para o corpo simples (fonte 53/44/40).
@@ -78,7 +89,7 @@ roteador, mensagem, sujeito, onde o sujeito fica = `sujeito_entre_pct`, 2–4 bu
 **2. Montar + disparar as imagens — uma única mensagem com as chamadas em paralelo:**
 `merge-designs` (`create_new_design`, `title: "<headline curta> | LEGACY"`, `insert_pages` com a
 lista) + buscas na web das vagas de notícia + `stock_search` das vagas de banco + `images_generate`
-das vagas de IA. Se o template der "not found"/sem acesso: `search-designs` com `"TEMPLATE
+das vagas de IA + as **duas imagens da capa** (fundo e círculo, `count: 2` cada, `imagens.md` §1b). Se o template der "not found"/sem acesso: `search-designs` com `"TEMPLATE
 CARROSSEL"` (LEGACY = 5 páginas 1080×1440; CLAILTON = 3 páginas 1080×1350), seguir com esse ID e
 avisar para atualizar a skill. Não achou → `recriar-templates.md`.
 
@@ -101,10 +112,12 @@ dentro da área, cores certas, capa sem linha quebrada, **sujeito da foto visív
 e corrigir na hora; imagem ruim no card → a reserva (no máximo 1 troca por card).
 
 Capa LEGACY (detalhe em `copy.md`): `find_and_replace_text` de `{{H1}}`, `{{H2}}` e `{{H3}}`, cada um
-na sua caixa, + as `operacoes` do `medir.py capa` (`format_text` com o tamanho de cada linha e
-`position_element` de cada caixa, left 50.64). Sai pronta, sem ajuste no editor. Conferir no
-`document` da resposta que cada caixa de H ficou com **1 linha** (altura ≈ 1,2 × fonte; bem maior =
-quebrou → baixar 1 px naquela caixa).
+na sua caixa, `update_fill` da FOTO e do CIRCULO + as `operacoes` do `medir.py manchete` (H1–H3,
+CIRCULO, os dois `insert_fill` do LOGO e do CONFETE com `page_id` da capa). Numa 2ª chamada, o
+`group_elements` do LOGO + CONFETE (os ids novos vêm no `document` da 1ª). Sai pronta, sem ajuste
+no editor. Conferir no `document` que cada caixa de H ficou com **1 linha** (altura ≈ 1,2 × fonte;
+bem maior = quebrou → baixar 1 px naquela caixa) e, na miniatura, que o logo não caiu sobre algo
+importante da foto e que a placa do círculo está inteira.
 
 Armadilhas (detalhes em `template.md`):
 - CTA LEGACY: `{{P1}}` **sem `\n`** (1º parágrafo); o resto do bloco preto vai em `{{P1B}}`.

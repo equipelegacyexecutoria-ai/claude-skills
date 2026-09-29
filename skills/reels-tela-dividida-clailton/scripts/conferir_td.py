@@ -24,7 +24,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from td_comum import (FPS, H, LEG_Y, W, filtro_recorte, gravar_json, ler_json)  # noqa: E402
+from td_comum import (FPS, H, LEG_Y, W, filtro_recorte, gravar_json, ler_json, movel, rect_plano)  # noqa: E402
 
 import render_final as RN  # noqa: E402
 
@@ -85,7 +85,7 @@ def main() -> None:
     # ---------------- sincronia do Clailton (planos amostrados, quadro a quadro)
     segs, seg_f0 = corte["segmentos"], tl["segmentos_f0"]
     vis = [p for p in tl["planos"] if p["visivel"] and p["zoom"] in ("aberto", "fechado") and p["f1"] - p["f0"] >= 20
-           and not p.get("escala")]                         # zoom animado não compara com recorte fixo
+           and not movel(p)]                                # plano que se mexe não compara com recorte fixo
     amostra = [vis[int(i)] for i in np.linspace(0, len(vis) - 1, min(6, len(vis)))] if vis else []
     desvios = []
     for p in amostra:
@@ -93,7 +93,7 @@ def main() -> None:
         s = segs[p["seg"]]
         e = enq["segmentos"][p["seg"]]
         final = quadro(V, (n - 0.5) / FPS)                         # -ss meio quadro antes = quadro n exato
-        vf = filtro_recorte(e[p["zoom"]], enq["rot"], *enq["wh0"], W, H, rgb=True)
+        vf = filtro_recorte(rect_plano(p, e, 0), enq["rot"], *enq["wh0"], W, H, rgb=True)
         difs = []
         for off in (-1, 0, 1):
             src = s["frame_in"] + (n - seg_f0[p["seg"]]) + off

@@ -30,7 +30,7 @@ PY = sys.executable
 ENV = {**os.environ, "PYTHONUTF8": "1"}
 sys.path.insert(0, str(NOVELA))
 sys.path.insert(0, str(TD))
-from td_comum import rect_zoom  # noqa: E402
+from td_comum import rect_plano  # noqa: E402
 
 # posição da legenda medida na referência (instagram.com/p/DdHziJUhn0N): centro do bloco a ~52,5%
 # da altura (peito), nunca em cima do queixo
@@ -65,14 +65,12 @@ def rosto_no_quadro(T: Path) -> list[dict]:
         if not s or p["zoom"] not in ("aberto", "fechado"):
             continue
         cx, cy, fw = s["rosto"]
-        x, y, w, h = s[p["zoom"]]
-        if p.get("escala"):                    # zoom animado: o queixo mais baixo (no fim do zoom)
-            x, y, w, h = rect_zoom(s["aberto"], s.get("olhos"), max(p["escala"]))
-        q = (cy + QUEIXO_FATOR * fw - y) / h * 1920
         f = p["f0"]
-        while f < p["f1"]:
+        while f < p["f1"]:                     # recorte do quadro (zoom animado / olhos na linha mexem)
+            x, y, w, h = rect_plano(p, s, f - p["f0"])
+            q = (cy + QUEIXO_FATOR * fw - y) / h * 1920
             out.append({"t": round(f / fps, 3), "queixo": round(q, 1)})
-            f += max(1, int(fps / 2))
+            f += max(1, int(fps / 4))
     return out
 
 
@@ -117,7 +115,9 @@ def finalizar(T: Path, saida: Path, geral: bool) -> int:
     if etapa(TD / "render_td.py", [str(T), str(saida), "--estilo", "0"]):
         return 1
     rc = etapa(TD / "conferir_td.py", [str(T), str(saida)] + (["--geral"] if geral else []))
-    print(f"folhas: {T / 'qa'} (fundo_mais_claro.png, relatorio.txt" + (", folha_geral_NN.jpg)" if geral else ")"))
+    etapa(TD / "olhos_qa.py", [str(T), str(saida)])          # olhos na mesma altura nas trocas de zoom
+    print(f"folhas: {T / 'qa'} (fundo_mais_claro.png, zoom_olhos.jpg, relatorio.txt"
+          + (", folha_geral_NN.jpg)" if geral else ")"))
     print("CONFERÊNCIA:", "APROVADA" if rc == 0 else "REPROVADA — ver qa/relatorio.txt")
     return rc
 

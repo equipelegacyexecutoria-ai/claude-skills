@@ -34,8 +34,10 @@ import unicodedata
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from td_comum import (ABERTO_MAX, FECHADO_MAX, FPS, LEAD, LEG_MAX_CHARS, LEG_MAX_PALAVRAS, PLANO_MIN,  # noqa: E402
+from td_comum import (ABERTO_MAX, FECHADO_MAX, FPS, LEAD, LEG_MAX_CHARS, LEG_MAX_PALAVRAS, OLHOS_AJUSTE_MAX,  # noqa: E402
+                      OLHOS_AJUSTE_PS, PLANO_MIN,
                       ZOOM_SUAVE, ZOOM_SUAVE_INTERVALO, ZOOM_SUAVE_RAMPA, gravar_json, ler_json, suave)
+from td_comum import H as H_SAIDA, W as W_SAIDA  # noqa: E402
 
 TIPOS = {"foto", "filme", "video", "ia", "print", "arquivo"}
 LAYOUTS = {"cheia", "dividida", "cartao", "cartão"}
@@ -295,6 +297,8 @@ def montar(T: Path) -> dict:
         esc = escala[p["f0"]:p["f1"]]
         if p["zoom"] == "aberto" and max(esc) > 1.0005:
             p["escala"] = [round(v, 4) for v in esc]
+    if pl.get("zoom_corte") and (T / "enquadramento_td.json").exists():
+        avisos += olhos_na_linha(planos, ler_json(T / "enquadramento_td.json"))
 
     # ---------------- legenda
     quebras_forcadas = {c["i0"] for c in camadas if not c["id"].startswith("t")} | {ab["i1"] + 1}
@@ -536,6 +540,90 @@ def auto_zoom_cortes(pal, F_FALA, estado, zoom, forcado, seg_f0, segs, f_ini, au
             escala[f] = 1.0 + (ZOOM_SUAVE - 1.0) * suave((f - g0) / rampa)
         ult = b[k + 1] / FPS
     return escala
+
+
+def olhos_em(s: dict, t: float) -> tuple[float, float]:
+    """Olhos (px do bruto girado) no instante t do corte: mediana das amostras de 0,5 s da tomada a até
+    0,6 s de t (o Clailton mexe a cabeça: a mediana da tomada inteira erra na troca de zoom)."""
+    am = s.get("olhos_t") or []
+    perto = [a for a in am if abs(a[0] - t) <= 0.6]
+    if not perto and am:
+        perto = [min(am, key=lambda a: abs(a[0] - t))]
+    if not perto:
+        ab = s["aberto"]
+        return tuple(s.get("olhos") or (ab[0] + ab[2] / 2, ab[1] + 0.3 * ab[3]))
+    xs, ys = sorted(a[1] for a in perto), sorted(a[2] for a in perto)
+    return xs[len(xs) // 2], ys[len(ys) // 2]
+
+
+def olhos_na_linha(planos: list[dict], enq: dict) -> list[str]:
+    """Regra do usuário (28/09/2026): todo zoom mantém os olhos na mesma altura. Cada fechado é posicionado
+    (p["rect"]) para os olhos, medidos no começo e no fim do plano, caírem na mesma linha em que estão no
+    fim do plano anterior e no começo do seguinte; o zoom animado amplia em volta dos olhos do início da
+    rampa (p["ancora"]). Limitado pelo bruto: sem espaço, avisa."""
+    from td_comum import rect_zoom
+    segs = enq["segmentos"]
+    rw, rh = enq["wh_rot"]
+    avisos = []
+    vis = [p for p in planos if p["visivel"] and p["zoom"] in ("aberto", "fechado")]
+    for p in vis:
+        if p.get("escala"):
+            k0 = next((k for k, v in enumerate(p["escala"]) if v > 1.0005), 0)
+            p["ancora"] = [round(v, 1) for v in olhos_em(segs[p["seg"]], (p["f0"] + k0) / FPS)]
+
+    def rect_em(p: dict, fim: bool) -> list[float]:
+        s = segs[p["seg"]]
+        if p.get("escala"):
+            return rect_zoom(s["aberto"], p["ancora"], p["escala"][-1 if fim else 0])
+        return p.get("rect") or s[p["zoom"]]
+
+    def linha(p: dict, fim: bool) -> tuple[float, float]:
+        t = (p["f1"] - 1) / FPS if fim else p["f0"] / FPS
+        ex, ey = olhos_em(segs[p["seg"]], t)
+        x, y, w, h = rect_em(p, fim)
+        return (ex - x) / w * W_SAIDA, (ey - y) / h * H_SAIDA
+
+    for i, p in enumerate(vis):
+        if p["zoom"] != "fechado":
+            continue
+        ant = vis[i - 1] if i and vis[i - 1]["f1"] == p["f0"] else None
+        prox = vis[i + 1] if i + 1 < len(vis) and vis[i + 1]["f0"] == p["f1"] else None
+        _, _, w, h = segs[p["seg"]]["fechado"]
+        alvo = {}                                        # posição do recorte que põe os olhos na linha do vizinho
+        for lado, viz, fim, t in (("ini", ant, True, p["f0"] / FPS), ("fim", prox, False, (p["f1"] - 1) / FPS)):
+            if viz is None:
+                continue
+            lx, ly = linha(viz, fim)
+            ex, ey = olhos_em(segs[p["seg"]], t)
+            alvo[lado] = (ex - lx / W_SAIDA * w, ey - ly / H_SAIDA * h)
+        if not alvo:
+            continue
+        a0 = alvo.get("ini", alvo.get("fim"))
+        a1 = alvo.get("fim", a0)
+        # ajuste animado (keyframes suaves) entre a entrada e a saída do fechado, discreto: no máximo
+        # OLHOS_AJUSTE_MAX px na saída e OLHOS_AJUSTE_PS px/s; o que passar disso divide entre as duas trocas
+        dur = (p["f1"] - p["f0"]) / FPS
+        cap = min(OLHOS_AJUSTE_MAX, OLHOS_AJUSTE_PS * dur) / H_SAIDA * h
+        r0, r1, resto = [], [], 0.0
+        for c in (0, 1):
+            d = a1[c] - a0[c]
+            sobra = max(0.0, abs(d) - cap)
+            meio = sobra / 2 * (1 if d > 0 else -1)
+            r0.append(a0[c] + meio)
+            r1.append(a1[c] - meio)
+            if c == 1:
+                resto = sobra / 2 / h * H_SAIDA
+        lim = (rw - w, rh - h)
+        r0 = [min(max(v, 0.0), lim[c]) for c, v in enumerate(r0)]
+        r1 = [min(max(v, 0.0), lim[c]) for c, v in enumerate(r1)]
+        p["rect"] = [round(r0[0], 1), round(r0[1], 1), w, h]
+        if max(abs(r1[0] - r0[0]), abs(r1[1] - r0[1])) / h * H_SAIDA >= 2:
+            p["rect_fim"] = [round(r1[0], 1), round(r1[1], 1), w, h]
+        erro = max(resto, max(abs(r0[1] - a0[1]), abs(r1[1] - a1[1])) / h * H_SAIDA)
+        if erro > 40:
+            avisos.append(f"olhos: fechado em {p['f0'] / FPS:.2f}s fica até {erro:.0f}px fora da linha "
+                          f"(a cabeça muda muito de altura ou o bruto não deixa subir/descer mais)")
+    return avisos
 
 
 def limpar_zoom(zoom, forcado, seg_f0, F_FALA, minimo: int = 6) -> None:

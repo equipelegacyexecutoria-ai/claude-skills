@@ -9,7 +9,7 @@ para cada tipo de card → briefing → buscas curtas → escolher olhando → c
 
 | Página | Vaga | Observação |
 | --- | --- | --- |
-| Capa (pág. 1) | foto principal + círculo | o círculo nunca some; sujeito da foto principal à esquerda ou no centro (o círculo ocupa x 590–1022, y 278–711) |
+| Capa (pág. 1) | foto de fundo + círculo | direção de arte própria (§1b); o círculo nunca some e fica do lado oposto ao sujeito/ponto de fuga do fundo |
 | Corpo (pág. 2) e corpo com título (pág. 3) | 1 foto por card | só se o `medir.py` disser `foto_util: true` |
 | CTA, bônus, reflexão (págs. 4 e 5) | nenhuma | fundo próprio |
 | CLAILTON | nenhuma | avatar fixo |
@@ -17,6 +17,62 @@ para cada tipo de card → briefing → buscas curtas → escolher olhando → c
 Pular a etapa inteira quando o usuário disser "sem imagens" / "eu coloco as fotos". Se ele mandar
 imagens (link ou arquivo), usar as dele na vaga indicada. Dica de imagem na copy ("Imagem: foto do
 fundador") vira o briefing daquela vaga.
+
+## 1b. Capa: a imagem que para o dedo (regra de 28/09/2026)
+
+A capa tem que ser **chamativa, forte e bonita**. Reprovado pelo usuário: fachada da marca "parada"
+no fundo ("não tem nada com nada") e círculo com a placa cortada. Aprovadas (abrir só se precisar
+rever o estilo): `DAHWgdFSrXw` (maior onda de recuperações: rua de lojas fechadas + círculo Casas
+Bahia com "Recuperação judicial"), `DAHWNvVN9yc` (Ponto Frio decadente, IA), `DAHS7bmRxys`.
+
+**Fundo = a cena que prova a manchete, no estado dramático.** Quem olha só a foto já entende a
+manchete: "empresas quebrando" → rua inteira de lojas com a porta de aço baixada; "a rede quase não
+existe mais" → a loja da marca decadente e fechada; "dívida trava o consumo" → carrinho vazio,
+prateleira, gente preocupada. Nunca a fachada comum da marca ou um prédio qualquer.
+- Foto real só quando ela é forte (a cena inteira, perspectiva, drama) e grande (lado menor
+  ≥ 1400 px ou ampliável 2x). Foto de pandemia (máscara) ou com mensagem misturada (placa de
+  "oferta") não serve.
+- Senão, **IA fotorrealista**: Nano Banana Pro (`mode: "imagen-nano-banana-2"`, `resolution: "2k"`,
+  `aspectRatio: "1:1"`, `count: 2`). Cena brasileira, sem logo de marca real no fundo.
+- Composição: o sujeito ou o ponto de fuga fica do lado **oposto** ao círculo (é isso que decide o
+  `--circulo` do `medir.py manchete`); o terço de baixo escurece para a manchete; nada importante
+  no centro, a ~y 810–960, onde entra o logo.
+
+**Círculo = o protagonista + o fato, numa montagem.** A fachada, o produto ou o logo real da
+história junto com o símbolo do acontecimento: documento "RECUPERAÇÃO JUDICIAL" + martelo de juiz,
+seta vermelha de queda, placa "FECHADO", céu de tempestade. Nano Banana Pro com a **foto real da
+marca como referência** (`references: [{type: "image", identifier: <creation da foto>}]`), 1:1, 2k,
+`count: 2`. A placa/logo inteira e centralizada; nada importante nas bordas (vira círculo); fundo
+escuro nas quinas (não pedir "círculo" no prompt: a IA desenha um e sobram cantos brancos).
+- Só símbolo de fato **verdadeiro para aquela empresa** (recuperação judicial só se ela pediu).
+- Nunca gerar rosto de pessoa real; pessoa real no círculo só com foto real confirmada (§2).
+- Foto real no círculo continua valendo quando já conta a história sozinha (ex.: o fundador na
+  Chilli Beans); se a placa sai cortada, é montagem.
+
+Prompts aprovados (28/09/2026, trocar só a cena):
+
+```
+Fundo: Cinematic editorial photograph, photorealistic. A long commercial street in downtown São
+Paulo, Brazil, where every shop has its metal roll-down shutter pulled down and closed. Faded
+storefront signs, a few handwritten 'ALUGA-SE' signs taped on the shutters, [...], empty sidewalk
+with black-and-white Portuguese stone pavement, one lone pedestrian far away. Strong one-point
+perspective: the street recedes toward a vanishing point in the right third of the frame, while
+large closed shutters fill the left side. Overcast, moody late-afternoon light, slightly
+desaturated colors, deep shadows. The lower third of the frame is darker and uncluttered for text
+overlay. 35mm lens, high detail, no watermark, no brand logos.
+
+Círculo: Photorealistic editorial news composite, square. Use the [MARCA] store from the reference
+image, now seen from outside at street level: the complete '[MARCA]' sign fully visible and
+centered in the upper-middle of the frame, the glass storefront with the lit store interior below
+it. Dramatic dark stormy sky above. In the foreground, lying on a table, a printed legal document
+with the bold title 'RECUPERAÇÃO JUDICIAL' and a wooden judge's gavel next to it. A glowing red
+downward stock-market arrow cuts across the sky. Moody cinematic light, high contrast. Keep every
+key element inside the central circle-safe area because the image will be cropped to a circle.
+No other text, no watermark.
+```
+
+Escolher na folha (`imagens.py folha`) a melhor de cada par. Custo: 4 × 75 créditos. Imagem de IA
+não leva crédito; capa toda em IA → rodapé só `@legacyexecutoria`.
 
 ## 2. Roteador: de onde vem a imagem
 
@@ -31,8 +87,8 @@ não houver foto real que diga a mesma coisa. **Pessoa real só com identidade c
 ou fonte oficial; retrato sem legenda "que parece ser" o executivo é descartado. Em card de notícia,
 IA nunca imita pessoa real: pedir pessoas genéricas, de costas ou em silhueta.
 
-Círculo da capa: o segundo elemento da história. Notícia sobre empresa → rosto do fundador/CEO
-(confirmado) ou o produto; se a foto principal já é a pessoa, o círculo leva a marca/loja/produto.
+Capa: não passa por este roteador, segue o §1b (fundo = cena que prova a manchete; círculo =
+protagonista + fato, montagem de IA a partir da foto real quando preciso).
 
 ## 3. Briefing (sem ferramenta, junto com o planejamento)
 
@@ -126,7 +182,12 @@ confirmada; logo sozinho; resolução "pequena demais" no `escala`.
 1. `upload-asset-from-url` para cada imagem escolhida (endereço público: foto da matéria,
    Wikimedia, `downloadUrl` do banco ou `url` da criação do Magnific), todas em paralelo → `asset_id`.
    Site que bloqueia a importação → importar no Magnific (`creations_upload_image`) e usar a `url` da
-   criação. Arquivo local (só Claude Code): `create-upload-url` e enviar os bytes com
+   criação. **Testado em 28/09/2026**: o Canva recusa ("Invalid download url") os links do banco
+   Freepik (`downloadscdn…magnific.com`) e das criações do Magnific (`pikaso.cdnpk.net`), e o
+   Magnific não importa a foto original da Agência Brasil pelo link (o site exige Referer). Nos dois
+   casos: baixar com `curl` e subir o arquivo (Canva: `create-upload-url` + POST abaixo; Magnific:
+   `creations_request_upload` + PUT do arquivo + `creations_finalize_upload`). Foto de banco de
+   8000 px: reduzir para 3000 px antes de subir. Arquivo local (só Claude Code): `create-upload-url` e enviar os bytes com
    `curl -X POST -H "Content-Type: application/octet-stream" --data-binary @arquivo.jpg "<uploadUrl>"`
    → `{"mediaId": "…"}`.
 2. Na **mesma** chamada `edit-design` da página (a do texto): `update_fill` na FOTO (e no CIRCULO

@@ -18,38 +18,42 @@ Formato não informado (LEGACY ou CLAILTON) → **perguntar antes de montar**. R
 
 ## 2. LEGACY — o que vai em cada marcador
 
-**CAPA (pág. 1)** — diagramação obrigatória em **toda** capa LEGACY (referência aprovada: capa do
-Pontofrio, `DAHWNvVN9yc`; não precisa abrir). São 3 linhas em Bebas, centralizadas, **cada frase numa
-linha só e cada linha ocupando a largura toda**: é o tamanho da fonte de cada linha que faz a frase
-encher a largura. Bebas já é caixa-alta: digitar normal.
-- `{{H1}}` linha 1, branca: 1ª parte da manchete (o contexto). Costuma ser a mais longa → fonte menor.
-- `{{H2}}` linha 2, branca: 2ª parte da manchete (o fato/virada). Costuma ser curta → fonte maior.
-- `{{H3}}` linha 3, **dourada** (cor padrão; nota de cor na copy, tipo "azul", não muda isso): a
-  pergunta/frase de impacto, inteira.
-- Copy "headline + subheadline/pergunta": a headline se divide em H1 + H2 na quebra natural (fim de
-  frase, vírgula ou onde entra o verbo) e a pergunta vai em H3. Nada de `\n` dentro de uma linha.
+**CAPA (pág. 1)** — diagramação obrigatória em **toda** capa LEGACY (referências aprovadas:
+Pontofrio `DAHWNvVN9yc` e maior onda de recuperações `DAHWgdFSrXw`; não precisa abrir). São 3
+linhas em Bebas, centralizadas, **cada frase numa linha só e cada linha ocupando a largura toda**: é
+o tamanho da fonte de cada linha que faz a frase encher a largura. Bebas já é caixa-alta: digitar
+normal. Acima da manchete, o logo da Legacy; o círculo e as imagens seguem `imagens.md` §1b.
+- `{{H1}}` e `{{H2}}`, brancas: a manchete (headline), quebrada em duas pelo
+  `medir.py manchete`: se ela tem duas frases, quebra no ponto final; senão, onde a menor das duas
+  linhas fica com a maior fonte (as duas grandes, nenhuma miúda). Para forçar uma quebra, marcar com
+  `|` ("Uma das marcas mais amadas do Brasil | acendeu um sinal de alerta").
+- `{{H3}}` linha 3, **dourada** (cor padrão; nota de cor ou de tamanho na copy, tipo "linha 2
+  gigante, azul", não muda isso): a pergunta/subheadline/frase de impacto, inteira.
+- Nada de `\n` dentro de uma linha.
 
-| Linha | Pontofrio (aprovada) | Chilli Beans (aprovada) |
-| --- | --- | --- |
-| 1 branca | Ela foi uma das maiores redes do país · 84 px | Uma das marcas mais amadas do Brasil · 80 px |
-| 2 branca | Hoje quase não existe mais · 117 px | acendeu um sinal de alerta · 114 px |
-| 3 dourada | O que aconteceu com o Ponto Frio? · 91 px | O que está acontecendo com a Chilli Beans? · 72 px |
+| Linha | Pontofrio (aprovada) | Chilli Beans (aprovada) | Recuperações (aprovada) |
+| --- | --- | --- | --- |
+| 1 branca | Ela foi uma das maiores redes do país · 84 px | Uma das marcas mais amadas do Brasil · 80 px | O Brasil vive a maior onda de · 109 px |
+| 2 branca | Hoje quase não existe mais · 117 px | acendeu um sinal de alerta · 114 px | empresas quebrando da sua história · 85 px |
+| 3 dourada | O que aconteceu com o Ponto Frio? · 91 px | O que está acontecendo com a Chilli Beans? · 72 px | E os números alertam que vai piorar. · 84 px |
 
 Cada linha mede ~975 px (caixa de 981): **só o tamanho da fonte muda de uma linha para outra**.
 O tamanho vem do script, nunca de estimativa:
-`python3 scripts/medir.py capa "Linha 1" "Linha 2" "Pergunta"` → `px` de cada linha (inteiro, para
-baixo, que é o que o `format_text` aceita), `altura_bloco` e as `operacoes`: `format_text` +
-`position_element` de H1, H2 e H3 (left 50.64). No template cada linha é uma caixa separada, então é
-só aplicar: a capa sai pronta, sem ajuste no editor. Capa com linhas de larguras diferentes foi
+`python3 scripts/medir.py manchete "Manchete inteira" "Pergunta" --circulo esquerda|direita` (ou
+`capa "Linha 1" "Linha 2" "Pergunta"` com as linhas já separadas) → `px` de cada linha (inteiro,
+para baixo, que é o que o `format_text` aceita), `altura_bloco` e as `operacoes`: `format_text` +
+`position_element` de H1, H2 e H3 (left 50.64), CIRCULO, LOGO e CONFETE. No template cada linha é
+uma caixa separada, então é só aplicar: a capa sai pronta, sem ajuste no editor. Capa com linhas de larguras diferentes foi
 reprovada pelo usuário (28/09/2026) e não se entrega. Se o script der `aviso` (linha curta demais,
 fonte enorme encostando no círculo), conferir na miniatura e contar na entrega.
 
 O mesmo comando devolve a posição do degradê e da foto da capa e a faixa onde o sujeito da foto
 precisa estar (`sujeito_entre_pct`); as `operacoes` já vêm prontas.
 
-**Círculo da capa**: foto redonda com borda branca no alto, à direita (já vem na página-modelo).
-Nunca apagar. A skill põe nele o segundo elemento da história (`imagens.md`); sem imagem boa, fica a
-de exemplo e o círculo entra no "trocar foto" da entrega.
+**Círculo da capa**: foto redonda com borda branca (já vem na página-modelo), 462 px, do lado
+oposto ao sujeito da foto de fundo. Nunca apagar. Leva o protagonista + o fato (`imagens.md` §1b),
+com a placa/logo inteiros; sem imagem boa, fica a de exemplo e o círculo entra no "trocar foto" da
+entrega.
 
 **CORPO (pág. 2)** — Poppins bold 53 px, ~33 caracteres por linha
 - `{{BRANCO}}` = parágrafo(s) principal(is) (entre parágrafos: `\n\n`).

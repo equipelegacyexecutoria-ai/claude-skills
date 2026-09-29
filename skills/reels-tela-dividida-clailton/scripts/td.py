@@ -133,6 +133,7 @@ def main() -> None:
         if etapa(AQUI / "legenda_td.py", [str(T)]) or etapa(AQUI / "render_td.py", [str(T), str(saida)]):
             sys.exit(1)
         rc = etapa(AQUI / "conferir_td.py", [str(T), str(saida)] + (["--geral"] if "--geral" in a else []))
+        etapa(AQUI / "olhos_qa.py", [str(T), str(saida)])   # olhos na mesma altura nas trocas de zoom
         if "--premiere" in a:
             etapa(AQUI / "premiere_td.py", [str(T), str(saida)])
         print("CONFERÊNCIA:", "APROVADA" if rc == 0 else "REPROVADA — ver qa/relatorio.txt")

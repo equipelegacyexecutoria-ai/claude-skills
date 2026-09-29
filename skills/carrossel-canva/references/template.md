@@ -11,7 +11,7 @@ p1, p2, p10, p11) + 5 MATÉRIAS (`DAHWJAVgBic` p3).
 
 | Pág. | Tipo | Elemento(s) de texto e marcadores | Observações de layout |
 | --- | --- | --- | --- |
-| 1 | CAPA | **3 elementos**, um por linha (separados em 28/09/2026): `{{H1}}` branco (80 px, y=979) · `{{H2}}` branco (114 px, y=1049.9) · `{{H3}}` dourado `#e7aa51` (72 px, y=1164.5). Todos Bebas, centralizado, lh 0.95, ls −0.02, x=50.64 w=981, um trecho só cada. Tamanho e posição de cada caixa vêm do `scripts/medir.py capa` (regra em `copy.md`) | FOTO 1104×1142 em (−10.8, −10); DEGRADE 1158×748 em (−51.39, 386.8); **CIRCULO** (shape redondo com foto, borda branca 5 px, x=589.5 y=277.7, 432.8×432.8, colado da capa "O Digital…" `DAHWJFMPkkY` em 2026-09-27); pill "Arraste para o lado" y=1270; `@legacyexecutoria` x=388.7 y=1357 w=305 (centralizado pela posição) |
+| 1 | CAPA | **3 elementos**, um por linha (separados em 28/09/2026): `{{H1}}` branco (80 px, y=979) · `{{H2}}` branco (114 px, y=1049.9) · `{{H3}}` dourado `#e7aa51` (72 px, y=1164.5). Todos Bebas, centralizado, lh 0.95, ls −0.02, x=50.64 w=981, um trecho só cada. Tamanho e posição de cada caixa vêm do `scripts/medir.py capa` (regra em `copy.md`) | FOTO 1104×1142 em (−10.8, −10); DEGRADE 1158×748 em (−51.39, 386.8); **CIRCULO** (shape redondo com foto, borda branca 5 px, x=589.5 y=277.7, 432.8×432.8 no template; o `medir.py` leva a 462×462 em y 330, à esquerda x=50.64 ou à direita x=567.2); pill "Arraste para o lado" y=1270; `@legacyexecutoria` x=388.7 y=1357 w=305 (centralizado pela posição). **LOGO não está no template**: a skill insere em cada capa (abaixo) |
 | 2 | CORPO | 1 elemento: `{{BRANCO}}` branco · `\n\n` · `{{CINZA}}` `#858489` — Poppins bold 53 px, lh 1.4, x=64 w=974, **ancorado embaixo** (base fixa em y≈1290: texto longo cresce para cima, sobre o degradê) | FOTO 1109×1210 em (−14.3, −17.47); DEGRADE 1109×769 em (−13.19, 472.23); handle x=64 y=1354 w=301 (alinhado ao centro); seta x=926 y=1340 |
 | 3 | CORPO COM TÍTULO | 2 elementos: `{{TITULO}}` Bebas 80 px (x=64 y=777; altura 96 px com 1 linha, 176 px com 2) · `{{CORPO}}` Poppins bold 40 px (x=68 y=885 w=974, cresce para baixo) | FOTO 1109×943 em (−14.3, −17.47); DEGRADE 1109×813 em (0, 333.65); handle `@legacyexecutoria & @clailtonluiz` (1 trecho só, w=568) |
 | 4 | CTA | 1 elemento, x=56 y=87 w=968, lh 1.1: `{{TITULO}}` azul `#013e6a` 46 px (renderiza em caixa-alta) · `{{P1}}` · `{{P1B}}` · `{{A1}}` · `{{P2}}` · `{{A2}}` · `{{P3}}` (P = preto 37 px, A = azul 37 px com degradê). Texto da página: `{{TITULO}}\n\n{{P1}}\n\n{{P1B}}\n\n{{A1}} \n\n{{P2}}\n\n{{A2}} \n\n{{P3}}` | fundo claro; handle preto; seta preta |
@@ -70,6 +70,20 @@ o `merge-designs` falha com ele).
 - Espaçamento entre as 3 caixas: o `medir.py capa` usa a mesma conta da antiga caixa única
   (topo da seguinte = topo + 1,099 × px − 0,149 × px da seguinte; base do bloco em y 1250),
   conferida nas capas Bets e Endividamento (28/09/2026).
+
+**Logo da Legacy na capa** (padrão desde 28/09/2026; não fica no template porque a edição do
+template-mestre foi bloqueada pelo controle de permissões, então vai em cada capa)
+- Logo sem fundo: `MAHWiBeuIzI` (feito com `remove-background` do `Logo.jpg` `MAHUzbG7AjM`, que tem
+  fundo azul: usado direto aparece um quadrado azul). Confete dourado: `MAFAqYR48A0`.
+- `insert_fill` dos dois na página da capa (`page_id`), com as medidas do `medir.py` (logo 189×157,5
+  em x 445,5, topo 158,6 px acima da H1; confete 109,7×124,09 em x 485,15, 6,3 px abaixo do topo do
+  logo), e na chamada seguinte `group_elements` com os dois ids novos (vêm no `document`).
+  Testado na capa `DAHWiNBnofU` em 28/09/2026: o `update_fill` recentra a imagem sem cortar o logo.
+- É a versão do **mês de aniversário** (chapéu de festa + confete). Acabado o mês, trocar
+  `LOGO_ID` no `medir.py`/`medir.mjs` pela versão sem chapéu (pedir o arquivo ao usuário, subir, tirar
+  o fundo com `remove-background`) e tirar o CONFETE das operações.
+- `insert_fill`, `crop_media` e `group_elements` funcionam em designs novos; no template-mestre
+  qualquer mudança precisa do ok explícito do usuário na conversa.
 
 **Consertar capa de caixa única** (carrossel montado antes da separação, manchete toda num elemento)
 1. Editor do Canva (navegador logado, ex.: Claude in Chrome): abrir

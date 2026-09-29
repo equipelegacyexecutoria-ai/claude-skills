@@ -6,7 +6,8 @@ Usa as larguras reais das fontes do Canva e a curva do degradê do template
 à página-modelo para o texto que veio: fonte, posição do texto, do degradê e da
 foto, e a faixa da imagem que continua visível (onde o sujeito precisa estar).
 
-  python3 scripts/medir.py capa "Linha 1" "Linha 2" "Pergunta"
+  python3 scripts/medir.py manchete "Manchete inteira" "Pergunta" [--circulo esquerda]
+  python3 scripts/medir.py capa "Linha 1" "Linha 2" "Pergunta" [--circulo esquerda]
   python3 scripts/medir.py pag3 "Título do card" "Parágrafo 1" "Parágrafo 2" ...
   python3 scripts/medir.py pag2 "Parágrafo 1" "Parágrafo 2" ...
   python3 scripts/medir.py titulo "Título do card"
@@ -16,6 +17,7 @@ Tamanhos em px do design (o que o conector usa; `format_text` só aceita número
 inteiro). No painel do Canva o número mostrado é px × 0,75 (campo "ui").
 """
 import json
+import re
 import os
 import sys
 
@@ -24,6 +26,12 @@ with open(os.path.join(AQUI, "..", "references", "metricas.json"), encoding="utf
     M = json.load(f)
 
 CAIXA_CAPA, ALVO_CAPA, BASE_CAPA = 981, 975, 1250
+# Capa aprovada em 28/09/2026 (DAHWgdFSrXw): círculo de 462 px a y 330. Logo Legacy sem fundo
+# (MAHWiBeuIzI, versão do aniversário, com chapéu) 189×157,5 centralizado, topo 158,6 px acima do
+# topo da H1, com o confete dourado (MAFAqYR48A0) por cima; os dois viram um grupo.
+CIRC_LADO, CIRC_TOP = 462.15, 330.14
+LOGO_ID, CONFETE_ID = "MAHWiBeuIzI", "MAFAqYR48A0"
+LOGO_LEFT, LOGO_ACIMA, LOGO_W, LOGO_H = 445.5, 158.6, 189.0, 157.5
 ESC, H_FADE = M["degrade"]["escuro"], M["degrade"]["altura_img"]
 
 # Páginas-modelo LEGACY, lidas no template em 2026-09-27: (top, left, altura) da foto e do
@@ -121,9 +129,34 @@ def encaixe(p, topo_texto):
 
 # ---------- textos ----------
 
-def capa(linhas):
+def dividir_manchete(texto):
+    """Quebra a manchete em H1 + H2 onde a menor das duas linhas fica com a maior fonte.
+
+    Aprovado em 28/09/2026 ("O Brasil vive a maior onda de / empresas quebrando da sua
+    história"): as duas linhas brancas grandes, nenhuma miúda. Vírgula no fim da H1 ganha
+    um bônus pequeno (quebra natural). Manchete com duas frases ("… do país. Hoje quase…")
+    ou com "|" marcando a quebra: quebra ali, sem calcular."""
+    if "|" in texto:
+        a, b = texto.split("|", 1)
+        return [a.strip(), b.strip()]
+    fim = re.search(r"[.!?]\s+(?=\S+\s+\S)", texto)
+    if fim and len(texto[:fim.start()].split()) >= 2:
+        return [texto[:fim.end()].strip(), texto[fim.end():].strip()]
+    p = texto.split()
+    melhor = None
+    for i in range(2, len(p) - 1):  # cada linha com pelo menos 2 palavras
+        a, b = " ".join(p[:i]), " ".join(p[i:])
+        pa = ALVO_CAPA / largura_em(a.upper(), "bebas", -0.02)
+        pb = ALVO_CAPA / largura_em(b.upper(), "bebas", -0.02)
+        nota = min(pa, pb) + (6 if a.endswith(",") else 0)
+        if melhor is None or nota > melhor[0]:
+            melhor = (nota, a, b)
+    return [melhor[1], melhor[2]] if melhor else [texto, ""]
+
+
+def capa(linhas, circulo="direita"):
     if len(linhas) != 3:
-        sys.exit("capa: passe exatamente 3 linhas (branca menor, branca maior, pergunta dourada)")
+        sys.exit("capa: passe exatamente 3 linhas (branca, branca, pergunta dourada)")
     res = []
     for t in linhas:
         em = largura_em(t.upper(), "bebas", -0.02)
@@ -141,15 +174,31 @@ def capa(linhas):
     for nome, px, t in zip(("H1", "H2", "H3"), s, tops):
         manchete.append({"op": "format_text", "elemento": nome, "font_size": px})
         manchete.append({"op": "position_element", "elemento": nome, "top": round(t, 1), "left": 50.64})
+    # Logo Legacy (grupo logo + confete) centralizado logo acima da H1; círculo de 462 px do lado
+    # oposto ao sujeito / ponto de fuga da foto principal, sempre acima do logo.
+    logo_top = tops[0] - LOGO_ACIMA
+    c_top = min(CIRC_TOP, logo_top - 12 - CIRC_LADO)
+    c_left = 50.64 if circulo == "esquerda" else round(1080 - 50.64 - CIRC_LADO, 2)
+    extras = [
+        {"op": "resize_element", "elemento": "CIRCULO", "width": CIRC_LADO, "height": CIRC_LADO},
+        {"op": "position_element", "elemento": "CIRCULO", "top": round(c_top, 1), "left": c_left},
+        {"op": "insert_fill", "elemento": "LOGO", "asset_id": LOGO_ID, "alt_text": "Logo Legacy",
+         "left": LOGO_LEFT, "top": round(logo_top, 1), "width": LOGO_W, "height": LOGO_H},
+        {"op": "insert_fill", "elemento": "CONFETE", "asset_id": CONFETE_ID, "alt_text": "Confete dourado",
+         "left": 485.15, "top": round(logo_top + 6.3, 1), "width": 109.7, "height": 124.09},
+        {"op": "group_elements", "elementos": ["LOGO", "CONFETE"],
+         "nota": "chamada seguinte: os ids do LOGO e do CONFETE vêm no document da resposta"},
+    ]
     out = {
         "linhas": res,
         "altura_bloco": round(altura, 1),
         **enc,
-        "operacoes": manchete + ops,
-        "nota": "círculo em x 590-1022, y 278-711: o sujeito da foto principal fica à esquerda ou no centro",
+        "circulo": {"lado": circulo, "x": [c_left, round(c_left + CIRC_LADO)], "y": [round(c_top), round(c_top + CIRC_LADO)]},
+        "operacoes": manchete + extras + ops,
+        "nota": "sujeito / ponto de fuga da foto principal do lado oposto ao círculo; nada importante atrás do logo",
     }
-    if top < 720:
-        out["aviso"] = "manchete alta demais (linha curta = fonte enorme): encosta no círculo; conferir na miniatura"
+    if c_top < 150:
+        out["aviso"] = "manchete alta demais (linha curta = fonte enorme): círculo e logo apertados; conferir na miniatura"
     return out
 
 
@@ -290,18 +339,21 @@ def main():
     if len(sys.argv) < 3:
         sys.exit(__doc__)
     cmd, args = sys.argv[1], sys.argv[2:]
-    opts = {"--tam": 40.0, "--larg": 974.0}
+    opts = {"--tam": 40.0, "--larg": 974.0, "--circulo": "direita"}
     textos = []
     i = 0
     while i < len(args):
         if args[i] in opts:
-            opts[args[i]] = float(args[i + 1])
+            opts[args[i]] = args[i + 1] if args[i] == "--circulo" else float(args[i + 1])
             i += 2
         else:
             textos.append(args[i])
             i += 1
-    if cmd == "capa":
-        r = capa(textos)
+    if cmd == "manchete":
+        h1, h2 = dividir_manchete(textos[0])
+        r = capa([h1, h2, textos[1]], opts["--circulo"])
+    elif cmd == "capa":
+        r = capa(textos, opts["--circulo"])
     elif cmd == "pag3":
         r = pag3(textos[0], textos[1:], opts["--larg"])
     elif cmd == "pag2":
