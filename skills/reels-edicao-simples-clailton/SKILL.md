@@ -22,7 +22,7 @@ Regras de decupagem, grafia, destaques, ritmo (nada de pausa dramática) e "nada
 | Formato | 1080×1920, 29,97 fps, H.264 CRF 18 (~230 MB em 2:40; CRF 10 = 1,2 GB, reprovado: "não pode ser tão pesado"), AAC 320k; voz −14 LUFS / −1 dBTP |
 | Imagem | tela cheia 9:16, Clailton centralizado; **aberto** (rosto ~30% da largura) e **fechado** (punch-in 1,5×; 1,25× se o bruto já vem fechado) — ver "Zoom" abaixo |
 | Corte | colado na voz; **nenhuma palavra repetida nas emendas** (checagem literal automática) |
-| Legenda | a da novela (caixa-alta, 1–3 linhas, destaque maior sozinho, layouts centro/esquerda/escada/direita, sombra v3), com o centro do bloco a ~52% da altura (peito) e nunca em cima do queixo |
+| Legenda | a da novela (caixa-alta, 1–3 linhas, destaque maior sozinho, layouts centro/esquerda/escada/direita, sombra v3), com o centro do bloco a ~57% da altura (peito; era 52%, o usuário pediu mais baixa em 28/09/2026) e nunca em cima do queixo |
 | Sem | imagens de apoio, abertura dividida, flash, película, música |
 | Final | CTA preta digitada (a da novela) com clique de teclado |
 | Pasta | `Reels Editados/<nome> - EDITADO.mp4`; trabalho em `_trabalho/<slug>/` |
@@ -105,7 +105,7 @@ Sem a pasta de trabalho da versão anterior (ela ficou em outro PC): refaça do 
 
 | O quê | Onde |
 | --- | --- |
-| altura da legenda (peito) | `es.py`: `Y_CENTRO` (1010), `TOPO_MIN`, `BASE_MAX`; queixo: `QUEIXO_FATOR` |
+| altura da legenda (peito) | `es.py`: `Y_CENTRO` (1100), `TOPO_MIN`, `BASE_MAX`; queixo: `QUEIXO_FATOR` |
 | aberto/fechado | tela dividida: `td_comum.py` (`ROSTO_ABERTO`, `FECHADO_FATOR`) e `plano_td.py` |
 | regra do zoom na emenda / zoom animado | `plano_td.py` (`auto_zoom_cortes`) e `td_comum.py` (`ZOOM_SUAVE`, `ZOOM_SUAVE_RAMPA`, `ZOOM_SUAVE_INTERVALO`, `PLANO_MIN`, `FECHADO_MAX`, `ABERTO_MAX`) |
 | olhos na mesma altura | `td_comum.py` (`rect_zoom`, `rect_plano`); `plano_td.py` (`olhos_na_linha`, `Olhos`); olhos medidos em `enquadrar_td.py`; conferência `olhos_qa.py` |

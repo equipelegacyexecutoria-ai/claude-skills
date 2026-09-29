@@ -34,7 +34,7 @@ from td_comum import rect_plano  # noqa: E402
 
 # posição da legenda medida na referência (instagram.com/p/DdHziJUhn0N): centro do bloco a ~52,5%
 # da altura (peito), nunca em cima do queixo
-Y_CENTRO, TOPO_MIN, BASE_MAX = 1010.0, 700.0, 1650.0
+Y_CENTRO, TOPO_MIN, BASE_MAX = 1100.0, 700.0, 1680.0   # 28/09/2026: usuário pediu "um pouco mais baixa" (era 1010)
 QUEIXO_FATOR = 0.62        # queixo ~ centro da caixa do rosto + 0,62 x largura (caixa do YuNet ~1,25 x mais alta)
 PLANO_PADRAO = ("# edição simples: sem imagens; começa direto no Clailton em tela cheia,\n"
                 "# só o aberto/fechado automático (FECHADO/ABERTO @a-b forçam um trecho)\n"
@@ -65,10 +65,18 @@ def rosto_no_quadro(T: Path) -> list[dict]:
         if not s or p["zoom"] not in ("aberto", "fechado"):
             continue
         cx, cy, fw = s["rosto"]
+        queixo_med = cy + QUEIXO_FATOR * fw
+        # queixo NO MOMENTO (usuário, 28/09/2026: em 1:40 ele abaixou a cabeça e a legenda caiu na cara):
+        # olhos medidos a cada 0,5 s + a distância olhos->queixo da tomada (com 15% de folga)
+        am = s.get("olhos_t") or []
+        olho_med = (s.get("olhos") or [0, cy])[1]
+        dq = max(0.0, queixo_med - olho_med) * 1.15
         f = p["f0"]
         while f < p["f1"]:                     # recorte do quadro (zoom animado / olhos na linha mexem)
             x, y, w, h = rect_plano(p, s, f - p["f0"])
-            q = (cy + QUEIXO_FATOR * fw - y) / h * 1920
+            perto = [a[2] for a in am if abs(a[0] - f / fps) <= 0.5]
+            queixo = max(queixo_med, max(perto) + dq) if perto else queixo_med
+            q = (queixo - y) / h * 1920
             out.append({"t": round(f / fps, 3), "queixo": round(q, 1)})
             f += max(1, int(fps / 4))
     return out

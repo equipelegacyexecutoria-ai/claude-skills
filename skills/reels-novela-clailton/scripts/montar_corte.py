@@ -33,7 +33,7 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from comum import FIM_RESPIRO, FPS, PAUSA_ALVO, PAUSA_MAX, gravar_json, ler_json  # noqa: E402
+from comum import FIM_RESPIRO, FPS, PAUSA_ALVO, PAUSA_ENTRE, PAUSA_MAX, gravar_json, ler_json  # noqa: E402
 
 HOP = 0.01
 MARGEM_INI = 0.05        # usuário: "precisa ser mais próximo nos inícios"
@@ -276,13 +276,40 @@ def main() -> None:
         n_out = min(int(dur_src * FPS), max(n_out, n_in + 1))
         s = {"i0": i0, "i1": i1, "frame_in": n_in, "frames": n_out - n_in,
              "src_in": round(n_in / FPS, 4), "src_out": round(n_out / FPS, 4),
-             "fala_in": round(a, 3), "fala_out": round(b, 3)}
+             "fala_in": round(a, 3), "fala_out": round(b, 3), "voz_in": round(c_ini, 3), "voz_out": round(c_fim, 3)}
+        segs.append(s)
+
+    # 2b) silêncio na emenda medido de VOZ a VOZ (sem o respiro da borda): nenhuma emenda com mais de
+    #     PAUSA_MAX — o usuário reprovou 0,5 s parado entre "resolvendo problemas" e "acelerando" (28/09/2026)
+    for k in range(1, len(segs)):
+        ant, s = segs[k - 1], segs[k]
+        cauda = ant["src_out"] - ant["voz_out"]
+        cabeca = s["voz_in"] - s["src_in"]
+        sobra = cauda + cabeca - PAUSA_ENTRE
+        if cauda + cabeca <= PAUSA_MAX or sobra <= 0:
+            continue
+        max_c, max_h = max(0.0, cauda - 0.07), max(0.0, cabeca - 0.05)   # sem comer o fim/ataque da voz
+        tira_c = min(max_c, sobra / 2)
+        tira_h = min(max_h, sobra - tira_c)
+        tira_c = min(max_c, sobra - tira_h)
+        fc, fh = int(round(tira_c * FPS)), int(round(tira_h * FPS))
+        if fc:
+            ant["frames"] -= fc
+            ant["src_out"] = round((ant["frame_in"] + ant["frames"]) / FPS, 4)
+        if fh:
+            s["frame_in"] += fh
+            s["frames"] -= fh
+            s["src_in"] = round(s["frame_in"] / FPS, 4)
+        avisos.append(f"emenda seg{k - 1:02d}/seg{k:02d}: silêncio de voz a voz {cauda + cabeca:.2f}s -> "
+                      f"{cauda + cabeca - (fc + fh) / FPS:.2f}s")
+
+    for k, s in enumerate(segs):
+        n_in, n_out = s["frame_in"], s["frame_in"] + s["frames"]
         for nome, t in (("entrada", n_in / FPS), ("saída", n_out / FPS)):
             e = energia_em(en, t)
             s[f"db_{'in' if nome == 'entrada' else 'out'}"] = round(e, 1)
             if e > en.baixa:
                 avisos.append(f"seg{k:02d} {nome} em {t:.2f}s do bruto corta som de {e:.0f} dB")
-        segs.append(s)
 
     # 3) linha do tempo editada
     t = 0.0
