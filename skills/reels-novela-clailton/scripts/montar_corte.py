@@ -182,13 +182,14 @@ def acha_fala(en: Energia, pal, i0, i1, dur, desde: float | None = None):
     começa antes disso (recomeço depois de falso começo escondido dentro da palavra esticada)."""
     w0, w1 = pal[i0]["inicio"], pal[i1]["fim"]
     lo = max(0.0, w0 - BUSCA_ANTES)
-    hi = min(dur, w1 + 0.45)
+    hi_lim = dur                    # limite duro: a próxima palavra do bruto (descartada ou não)
     if i0 > 0:                      # não invadir a palavra anterior (descartada)
         lo = max(lo, min(pal[i0 - 1]["fim"], w0) + 0.02)
     if desde is not None:
         lo, w0 = max(lo, desde), max(w0, desde)
     if i1 + 1 < len(pal):
-        hi = min(hi, max(pal[i1 + 1]["inicio"], w1) - 0.02)
+        hi_lim = min(hi_lim, max(pal[i1 + 1]["inicio"], w1) - 0.02)
+    hi = min(hi_lim, w1 + 0.45)
     rs = en.falas(lo, hi)
     # 1a fala que começa depois de lo (não herdada da palavra anterior) e perto de w0
     cand = [r for r in rs if r[2] > lo + 0.03 and r[2] <= w0 + BUSCA_DEPOIS]
@@ -196,6 +197,14 @@ def acha_fala(en: Energia, pal, i0, i1, dur, desde: float | None = None):
     # última fala que termina antes de hi e cujo núcleo começa até o fim da última palavra
     fim_c = [r for r in rs if r[3] < hi - 0.03 and r[2] <= w1 + 0.05 and r[1] > ini]
     fim = fim_c[-1][1] if fim_c else w1
+    # a última fala passou da janela porque o Whisper marcou o fim da frase CEDO ("comenta GPS" some):
+    # procura o fim real até 1,2 s depois, sem invadir a próxima palavra do bruto
+    cortada = [r for r in rs if r[3] >= hi - 0.03 and r[2] <= w1 + 0.05 and r[1] > ini]
+    if cortada and hi < hi_lim - 0.05:
+        hi2 = min(hi_lim, w1 + 1.2)
+        ext = [r for r in en.falas(lo, hi2) if abs(r[2] - cortada[-1][2]) < 0.03 and r[3] < hi2 - 0.03]
+        if ext:
+            fim = max(fim, ext[-1][1])
     if fim <= ini:
         ini, fim = w0, w1
     return ini, fim

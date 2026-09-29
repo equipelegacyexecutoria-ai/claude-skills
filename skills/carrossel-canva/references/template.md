@@ -11,7 +11,7 @@ p1, p2, p10, p11) + 5 MATÉRIAS (`DAHWJAVgBic` p3).
 
 | Pág. | Tipo | Elemento(s) de texto e marcadores | Observações de layout |
 | --- | --- | --- | --- |
-| 1 | CAPA | 1 elemento: `{{H1}}` branco · `\n` · `{{H2}}` branco · `\n` · `{{H3}}` dourado `#e7aa51` (Bebas, centralizado, lh 0.95, ls −0.02, x=51 y=780 w=981). Os tamanhos do template (185/150/124) não valem: tamanho e posição vêm do `scripts/medir.py capa` (regra em `copy.md`). As quebras `\n` guardam um azul `#17adfd` escondido | FOTO 1104×1142 em (−10.8, −10); DEGRADE 1158×748 em (−51.39, 386.8); **CIRCULO** (shape redondo com foto, borda branca 5 px, x=589.5 y=277.7, 432.8×432.8, colado da capa "O Digital…" `DAHWJFMPkkY` em 2026-09-27); pill "Arraste para o lado" y=1270; `@legacyexecutoria` x=388.7 y=1357 w=305 (centralizado pela posição) |
+| 1 | CAPA | **3 elementos**, um por linha (separados em 28/09/2026): `{{H1}}` branco (80 px, y=979) · `{{H2}}` branco (114 px, y=1049.9) · `{{H3}}` dourado `#e7aa51` (72 px, y=1164.5). Todos Bebas, centralizado, lh 0.95, ls −0.02, x=50.64 w=981, um trecho só cada. Tamanho e posição de cada caixa vêm do `scripts/medir.py capa` (regra em `copy.md`) | FOTO 1104×1142 em (−10.8, −10); DEGRADE 1158×748 em (−51.39, 386.8); **CIRCULO** (shape redondo com foto, borda branca 5 px, x=589.5 y=277.7, 432.8×432.8, colado da capa "O Digital…" `DAHWJFMPkkY` em 2026-09-27); pill "Arraste para o lado" y=1270; `@legacyexecutoria` x=388.7 y=1357 w=305 (centralizado pela posição) |
 | 2 | CORPO | 1 elemento: `{{BRANCO}}` branco · `\n\n` · `{{CINZA}}` `#858489` — Poppins bold 53 px, lh 1.4, x=64 w=974, **ancorado embaixo** (base fixa em y≈1290: texto longo cresce para cima, sobre o degradê) | FOTO 1109×1210 em (−14.3, −17.47); DEGRADE 1109×769 em (−13.19, 472.23); handle x=64 y=1354 w=301 (alinhado ao centro); seta x=926 y=1340 |
 | 3 | CORPO COM TÍTULO | 2 elementos: `{{TITULO}}` Bebas 80 px (x=64 y=777; altura 96 px com 1 linha, 176 px com 2) · `{{CORPO}}` Poppins bold 40 px (x=68 y=885 w=974, cresce para baixo) | FOTO 1109×943 em (−14.3, −17.47); DEGRADE 1109×813 em (0, 333.65); handle `@legacyexecutoria & @clailtonluiz` (1 trecho só, w=568) |
 | 4 | CTA | 1 elemento, x=56 y=87 w=968, lh 1.1: `{{TITULO}}` azul `#013e6a` 46 px (renderiza em caixa-alta) · `{{P1}}` · `{{P1B}}` · `{{A1}}` · `{{P2}}` · `{{A2}}` · `{{P3}}` (P = preto 37 px, A = azul 37 px com degradê). Texto da página: `{{TITULO}}\n\n{{P1}}\n\n{{P1B}}\n\n{{A1}} \n\n{{P2}}\n\n{{A2}} \n\n{{P3}}` | fundo claro; handle preto; seta preta |
@@ -50,22 +50,36 @@ o `merge-designs` falha com ele).
   (que aceita `\n`). Todos os outros marcadores aceitam `\n` normalmente.
 - ` ` (quebra suave) vira espaço — não usar.
 - Marcador sem conteúdo: trocar por `""`. Para não sobrar linha em branco, apagar junto a quebra
-  **que esteja no mesmo trecho** (ex.: `"\n\n{{P1B}}"` → `""`, tudo preto; `"{{H1}}\n"` → `""`).
+  **que esteja no mesmo trecho** (ex.: `"\n\n{{P1B}}"` → `""`, tudo preto).
   No CTA, `"{{P1}}\n\n{{P1B}}\n\n"` é um trecho só: trocar por `""` tira os dois de uma vez.
-- Não começar uma busca na quebra `\n` da capa: ela carrega o azul escondido e pinta a linha
-  seguinte de azul (ex.: `"\n{{H3}}"`).
+- Apagar (`""`) um texto que atravessa trechos funciona sem efeito colateral: o que sobra mantém o
+  estilo do próprio trecho (testado em 28/09/2026 separando a capa: `"\n{{H2}}\n{{H3}}"` → `""`).
+  O problema de atravessar trechos só aparece quando se **insere** texto.
 - Emoji funciona (🎁 👉).
 
 **Ajuste de caber**
 - `format_text` com só `font_size` muda o elemento inteiro e **preserva as cores de cada trecho**.
-- **Não existe tamanho por linha**: `format_text` vale para a caixa toda e a troca de texto só
-  reaproveita estilos que já existem na caixa. Com as 3 linhas numa caixa só, a capa sai com o
-  tamanho da linha mais larga e o usuário acerta as outras duas no Canva (valores `ui` do script).
-  A solução definitiva é o template ter H1/H2/H3 em 3 caixas — separar exige o editor do Canva
-  (o conector não duplica elemento nem cria texto em Bebas).
+- **Não existe tamanho por linha dentro de uma caixa**: `format_text` vale para a caixa toda. Por
+  isso a capa LEGACY tem uma caixa por linha (H1, H2, H3): cada uma recebe o seu `font_size`.
+  O conector não duplica elemento nem cria texto em Bebas (`add_text` sai na fonte padrão); a
+  separação foi feita uma vez no editor e vem pronta em toda capa montada do template.
 - Número do painel do Canva = px × 0,75 (72 px aparece como 54). O conector trabalha em px.
-- Altura da caixa Bebas (lh 0.95) com tamanhos t1, t2, t3: 0,95 × (t1+t2+t3) + 0,149 × t1 + 0,088 × t3
-  (confere em 4 capas reais, ±2 px). Uma linha a mais que o previsto = quebrou.
+- Caixa Bebas de 1 linha (lh 0.95): altura ≈ 1,19 × px (62 → 73,5; 80 → 96; 117 → 140,25). Bem
+  maior que isso = a linha quebrou → baixar 1 px. Com o tamanho que o `medir.py` devolve (inteiro,
+  para baixo, alvo 975 px numa caixa de 981) nenhuma linha quebrou nas capas testadas.
+- Espaçamento entre as 3 caixas: o `medir.py capa` usa a mesma conta da antiga caixa única
+  (topo da seguinte = topo + 1,099 × px − 0,149 × px da seguinte; base do bloco em y 1250),
+  conferida nas capas Bets e Endividamento (28/09/2026).
+
+**Consertar capa de caixa única** (carrossel montado antes da separação, manchete toda num elemento)
+1. Editor do Canva (navegador logado, ex.: Claude in Chrome): abrir
+   `https://www.canva.com/design/<ID>/edit`, clicar uma vez na manchete (a barra mostra "Bebas Neue"),
+   `Ctrl+D` duas vezes, `Esc`, esperar salvar e sair da página (evita conflito com o conector).
+2. `read-design` com transação: aparecem 3 elementos iguais (o original e 2 cópias deslocadas 16 px).
+3. Uma chamada `edit-design`: no 1º, apagar `"\n<linha 2>\n<LINHA 3>"`; no 2º, `"<linha 1>\n"` e
+   `"\n<LINHA 3>"`; no 3º, `"<linha 1>\n<linha 2>\n"` (texto exato do `document`, com acento);
+   depois as `operacoes` do `medir.py capa` nos 3 (H1 = 1º, H2 = 2º, H3 = 3º). Conferir a miniatura
+   e a altura de cada caixa, commit. Feito assim nas capas Bets e Endividamento em 28/09/2026.
 - Imagem redonda não se cria pelo conector: `insert_shape` só aceita cor (o `update_fill` falha:
   "no editable fill") e `replace_shape` não funciona em imagem inserida com `insert_fill`. O círculo
   do template foi colado no editor; nas capas ele vem junto com a página.
@@ -86,7 +100,7 @@ o `merge-designs` falha com ele).
 - `edit-design` devolve JSON + thumbnail a cada chamada: agrupar **todas** as operações de uma
   página numa chamada. `update_title` também exige `page_index`.
 - A fonte não pode ser escolhida pela API → tudo parte das páginas-modelo, nunca de `add_text`.
-- `format_text` só aceita `font_size` inteiro: o `medir.py` já devolve `format_text_px`/`px_inteiro`.
+- `format_text` só aceita `font_size` inteiro: o `medir.py` já devolve tamanhos inteiros.
 
 **Imagens, degradê e foto (lidos no template em 2026-09-27)**
 - Como achar cada elemento no `read-design` (os IDs mudam a cada montagem):

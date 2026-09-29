@@ -35,17 +35,14 @@ encher a largura. Bebas já é caixa-alta: digitar normal.
 | 2 branca | Hoje quase não existe mais · 117 px | acendeu um sinal de alerta · 114 px |
 | 3 dourada | O que aconteceu com o Ponto Frio? · 91 px | O que está acontecendo com a Chilli Beans? · 72 px |
 
-Cada linha mede ~975 px (caixa de 981). O tamanho vem do script, nunca de estimativa:
-`python3 scripts/medir.py capa "Linha 1" "Linha 2" "Pergunta"` → `px` (conector) e `ui` (número que
-aparece no painel do Canva = px × 0,75) de cada linha, `altura_bloco` e as posições.
-- Template com H1/H2/H3 em **3 caixas**: `format_text` com o `px` de cada caixa e `position_element`
-  com `tres_caixas.tops` (left 50.64). Pronto, sem ajuste manual.
-- Template com as 3 linhas **na mesma caixa** (situação atual): o conector só aplica um tamanho na
-  caixa inteira (limite em `template.md`). Aplicar `caixa_unica.format_text_px` (o da linha mais
-  larga, assim nenhuma quebra), `position_element` top = `caixa_unica.top` (left 50.64) e, depois do
-  commit, acertar cada linha no editor do Canva com o `ajuste_manual_ui` (selecionar a linha → campo
-  de tamanho da fonte; o painel mostra px × 0,75). Entregar capa com larguras diferentes e "ajuste à
-  mão" como nota foi reprovado pelo usuário (28/09/2026): a capa só está pronta com as 3 linhas iguais.
+Cada linha mede ~975 px (caixa de 981): **só o tamanho da fonte muda de uma linha para outra**.
+O tamanho vem do script, nunca de estimativa:
+`python3 scripts/medir.py capa "Linha 1" "Linha 2" "Pergunta"` → `px` de cada linha (inteiro, para
+baixo, que é o que o `format_text` aceita), `altura_bloco` e as `operacoes`: `format_text` +
+`position_element` de H1, H2 e H3 (left 50.64). No template cada linha é uma caixa separada, então é
+só aplicar: a capa sai pronta, sem ajuste no editor. Capa com linhas de larguras diferentes foi
+reprovada pelo usuário (28/09/2026) e não se entrega. Se o script der `aviso` (linha curta demais,
+fonte enorme encostando no círculo), conferir na miniatura e contar na entrega.
 
 O mesmo comando devolve a posição do degradê e da foto da capa e a faixa onde o sujeito da foto
 precisa estar (`sujeito_entre_pct`); as `operacoes` já vêm prontas.

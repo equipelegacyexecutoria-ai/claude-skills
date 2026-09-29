@@ -34,7 +34,8 @@ from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from td_comum import (CARTAO_CY, CARTAO_LARG, EMENDA, FLASH_ANTES, FLASH_DEPOIS, FPS, FPS_DEN, FPS_NUM, H,  # noqa: E402
-                      W, ZOOM_CARTAO, ZOOM_FOTO, ZOOM_FOTO_MAX, filtro_recorte, gravar_json, ler_json, wh_video)
+                      W, ZOOM_CARTAO, ZOOM_FOTO, ZOOM_FOTO_MAX, filtro_recorte, gravar_json, ler_json, rect_zoom,
+                      wh_video)
 from midia_util import area_util, caixa_cover  # noqa: E402  (area_util: premiere_td importa daqui)
 from estilo_td import Estilo  # noqa: E402
 from td_comum import ESTILO_FORCA  # noqa: E402
@@ -123,6 +124,16 @@ def filtro_trecho(m: dict, c: dict) -> tuple[list[str], str, int, int]:
         x, y, cw, ch = caixa_cover(vw, vh, ow, oh, (c.get("foco"), None) if c.get("foco") is not None else None, rost)
         corte = f"crop={int(cw) // 2 * 2}:{int(ch) // 2 * 2}:{int(x + bx)}:{int(y + by)}"
     return ss, f"fps={FPS_NUM}/{FPS_DEN},{corte},scale={ow}:{oh}:flags=lanczos", ow, oh
+
+
+def quadro_zoom(dec: np.ndarray, ab: list[float], olhos: list[float] | None, s: float) -> np.ndarray:
+    """Zoom animado (keyframes): o plano vem decodificado no recorte ABERTO em resolução maior e cada
+    quadro é ampliado s vezes em volta do ponto entre os olhos (os olhos não saem da altura)."""
+    x, y, w, h = rect_zoom(ab, olhos, s)
+    q = dec.shape[1] / ab[2]                                  # px decodificado por px do bruto
+    xd, yd, wd, hd = (x - ab[0]) * q, (y - ab[1]) * q, w * q, h * q
+    M = np.array([[wd / W, 0, xd + 0.5 * wd / W - 0.5], [0, hd / H, yd + 0.5 * hd / H - 0.5]], np.float64)
+    return cv2.warpAffine(dec, M, (W, H), flags=cv2.INTER_CUBIC | cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_REFLECT)
 
 
 def cmd_bruto(fonte: str, frame_in: int, n: int, vf: str, cuda: bool) -> list[str]:
@@ -278,6 +289,10 @@ def main() -> None:
         if p["zoom"] == "dividida":
             vf = filtro_recorte(e["dividida"], rot, w0, h0, W, BAIXO_H, rgb=True)
             ow, oh = W, BAIXO_H
+        elif p.get("escala"):                                # zoom animado: aberto em resolução maior
+            smax = max(p["escala"])
+            ow, oh = int(round(W * smax / 2)) * 2, int(round(H * smax / 2)) * 2
+            vf = filtro_recorte(e["aberto"], rot, w0, h0, ow, oh, rgb=True)
         else:
             vf = filtro_recorte(e["fechado" if p["zoom"] == "fechado" else "aberto"], rot, w0, h0, W, H, rgb=True)
             ow, oh = W, H
@@ -395,6 +410,9 @@ def main() -> None:
                 pi += 1
             p = planos[pi]
             cl = clailton.pegar(f"p{pi}") if p["visivel"] else None
+            if cl is not None and p.get("escala"):
+                e_ = enq["segmentos"][p["seg"]]
+                cl = quadro_zoom(cl, e_["aberto"], e_.get("olhos"), p["escala"][n - p["f0"]])
             c = next((x for x in corpo if x["f0"] <= n < x["f1"]), None)
             if c is None and n < ab_f1:
                 c = next((x for x in topo if x["f0"] <= n < x["f1"]), None)

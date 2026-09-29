@@ -74,26 +74,30 @@ function capa(linhas) {
   if (linhas.length !== 3) throw new Error("capa: passe exatamente 3 linhas");
   const res = linhas.map((t) => {
     const em = larguraEm(t.toUpperCase(), "bebas", -0.02);
-    const ui = Math.floor((ALVO_CAPA / em) * 0.75 * 10) / 10;
-    const px = Math.round((ui / 0.75) * 1000) / 1000;
-    return { texto: t, px, px_inteiro: Math.floor(px), ui, largura: Math.round(em * px) };
+    const px = Math.floor(ALVO_CAPA / em); // format_text só aceita inteiro: para baixo, a linha nunca quebra
+    return { texto: t, px, ui: r1(px * 0.75), largura: Math.round(em * px) };
   });
   const s = res.map((r) => r.px);
   const altura = 0.95 * (s[0] + s[1] + s[2]) + 0.149 * s[0] + 0.088 * s[2];
   const top = BASE_CAPA - altura;
+  // H1, H2 e H3 são 3 caixas (uma por linha) com o mesmo espaçamento de uma caixa só com lh 0.95
   const tops = [top];
   tops.push(tops[0] + 1.099 * s[0] - 0.149 * s[1]);
   tops.push(tops[1] + 1.099 * s[1] - 0.149 * s[2]);
   const [enc, ops] = encaixe("capa", top);
-  return {
+  const manchete = ["H1", "H2", "H3"].flatMap((nome, i) => [
+    { op: "format_text", elemento: nome, font_size: s[i] },
+    { op: "position_element", elemento: nome, top: r1(tops[i]), left: 50.64 },
+  ]);
+  const out = {
     linhas: res,
-    caixa_unica: { format_text_px: Math.floor(Math.min(...s)), top: r1(top), ajuste_manual_ui: res.map((r) => r.ui) },
-    tres_caixas: { tops: tops.map(r1), left: 50.64 },
     altura_bloco: r1(altura),
     ...enc,
-    operacoes: [{ op: "position_element", elemento: "MANCHETE", top: r1(top), left: 50.64 }, ...ops],
+    operacoes: [...manchete, ...ops],
     nota: "círculo em x 590-1022, y 278-711: o sujeito da foto principal fica à esquerda ou no centro",
   };
+  if (top < 720) out.aviso = "manchete alta demais (linha curta = fonte enorme): encosta no círculo; conferir na miniatura";
+  return out;
 }
 
 function titulo(texto, px = 80.0355, caixa = 931) {

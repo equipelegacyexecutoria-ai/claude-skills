@@ -25,8 +25,8 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from td_comum import (DIVIDIDA_ROSTO_CY, EMENDA, FECHADO_FATOR, FECHADO_FATOR_MIN, H, MODELO_ROSTO,  # noqa: E402
-                      ROSTO_ABERTO, ROSTO_CY_ABERTO, ROSTO_CY_FECHADO, ROSTO_MAX, UPSCALE_MAX, W,
-                      gravar_json, ler_json, transpose_filtro)
+                      ROSTO_ABERTO, ROSTO_CY_ABERTO, ROSTO_MAX, UPSCALE_MAX, W,
+                      gravar_json, ler_json, rect_zoom, transpose_filtro)
 
 PARALELO = 6
 _local = threading.local()
@@ -59,12 +59,14 @@ def quadros(fonte: str, t0: float, dur: float, fps: float, rot: int, larg: int, 
 
 
 def melhor_rosto(img) -> list[float] | None:
+    """[x, y, w, h, confiança, olhos_x, olhos_y] (olhos = ponto médio entre os dois olhos do YuNet)."""
     h, w = img.shape[:2]
     _, fs = detector(w, h).detect(img)
     if fs is None or not len(fs):
         return None
     f = max(fs, key=lambda f: f[2] * f[3] * f[14])
-    return [float(v) for v in f[:4]] + [float(f[14])] if f[14] >= 0.7 else None
+    olhos = [(float(f[4]) + float(f[6])) / 2, (float(f[5]) + float(f[7])) / 2]
+    return [float(v) for v in f[:4]] + [float(f[14])] + olhos if f[14] >= 0.7 else None
 
 
 def detectar_rotacao(fonte: str, segs: list[dict], w0: int, h0: int) -> tuple[int, dict]:
@@ -120,7 +122,7 @@ def main() -> None:
         for k, img in enumerate(fr):
             f = melhor_rosto(img)
             if f:
-                out.append((s["dst_in"] + k * 0.5, [f[0] * esc, f[1] * esc, f[2] * esc, f[3] * esc]))
+                out.append((s["dst_in"] + k * 0.5, [f[0] * esc, f[1] * esc, f[2] * esc, f[3] * esc, f[5] * esc, f[6] * esc]))
         return out
 
     with ThreadPoolExecutor(PARALELO) as ex:
@@ -136,12 +138,16 @@ def main() -> None:
         fs_k = np.array([f for _, f in r_]) if r_ else np.array([g])
         if not r_:
             avisos.append(f"seg{k:02d}: rosto não achado, uso a mediana geral")
-        fx, fy, fw, fh = np.median(fs_k, axis=0)
+        fx, fy, fw, fh, ox, oy = np.median(fs_k, axis=0)
         cx, cy = fx + fw / 2, fy + fh / 2
         ab, la = recorte(cx, cy, fw, rw, rh, ROSTO_ABERTO, ROSTO_CY_ABERTO, W / H)
         fator = FECHADO_FATOR if la <= ROSTO_ABERTO * 1.12 else FECHADO_FATOR_MIN
-        fator = min(fator, ROSTO_MAX / la)
-        fe, lf = recorte(cx, cy, fw, rw, rh, la * fator, ROSTO_CY_FECHADO, W / H)
+        fator = min(fator, ROSTO_MAX / la, ab[2] / (W / UPSCALE_MAX))
+        # regra do usuário (28/09/2026): todo zoom mantém a altura dos olhos. O fechado é o aberto
+        # ampliado em volta do ponto entre os olhos, que fica parado no quadro (sempre cabe no aberto)
+        olhos = [round(float(ox), 1), round(float(oy), 1)]
+        fe = [round(v, 1) for v in rect_zoom(ab, olhos, fator)]
+        lf = la * fator
         # dividida: mesma escala do aberto; a faixa de baixo mostra o rosto a 62% do quadro
         esc_ab = ab[2] / W                                   # px do bruto por px do quadro
         dw, dh = W * esc_ab, alt_div * esc_ab
@@ -150,7 +156,7 @@ def main() -> None:
         if fe[2] < W / UPSCALE_MAX:
             avisos.append(f"seg{k:02d}: fechado ampliado {W / fe[2]:.2f}x")
         saida.append({"k": k, "rosto": [round(float(cx), 1), round(float(cy), 1), round(float(fw), 1)],
-                      "aberto": ab, "fechado": fe, "dividida": [round(v, 1) for v in dv],
+                      "olhos": olhos, "aberto": ab, "fechado": fe, "dividida": [round(v, 1) for v in dv],
                       "rosto_aberto": round(la, 3), "rosto_fechado": round(lf, 3), "amostras": len(r_)})
     la_med = float(np.median([s["rosto_aberto"] for s in saida]))
     if la_med > ROSTO_ABERTO * 1.15:

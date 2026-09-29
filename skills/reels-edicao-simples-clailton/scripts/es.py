@@ -29,6 +29,8 @@ NOVELA = SKILLS / "reels-novela-clailton" / "scripts"
 PY = sys.executable
 ENV = {**os.environ, "PYTHONUTF8": "1"}
 sys.path.insert(0, str(NOVELA))
+sys.path.insert(0, str(TD))
+from td_comum import rect_zoom  # noqa: E402
 
 # posição da legenda medida na referência (instagram.com/p/DdHziJUhn0N): centro do bloco a ~52,5%
 # da altura (peito), nunca em cima do queixo
@@ -36,7 +38,9 @@ Y_CENTRO, TOPO_MIN, BASE_MAX = 1010.0, 700.0, 1650.0
 QUEIXO_FATOR = 0.62        # queixo ~ centro da caixa do rosto + 0,62 x largura (caixa do YuNet ~1,25 x mais alta)
 PLANO_PADRAO = ("# edição simples: sem imagens; começa direto no Clailton em tela cheia,\n"
                 "# só o aberto/fechado automático (FECHADO/ABERTO @a-b forçam um trecho)\n"
-                "SEMABERTURA\n")
+                "# ZOOMCORTE: zoom seco só na emenda, zoom animado (keyframes) fora dela, olhos sempre na\n"
+                "# mesma altura (regras do usuário, 28/09/2026)\n"
+                "SEMABERTURA\nZOOMCORTE\n")
 
 
 def etapa(script: Path, args: list[str]) -> int:
@@ -62,6 +66,8 @@ def rosto_no_quadro(T: Path) -> list[dict]:
             continue
         cx, cy, fw = s["rosto"]
         x, y, w, h = s[p["zoom"]]
+        if p.get("escala"):                    # zoom animado: o queixo mais baixo (no fim do zoom)
+            x, y, w, h = rect_zoom(s["aberto"], s.get("olhos"), max(p["escala"]))
         q = (cy + QUEIXO_FATOR * fw - y) / h * 1920
         f = p["f0"]
         while f < p["f1"]:
@@ -71,9 +77,16 @@ def rosto_no_quadro(T: Path) -> list[dict]:
 
 
 def finalizar(T: Path, saida: Path, geral: bool) -> int:
+    # palavra repetida colada na emenda ("E... e você sabe") reprova ANTES de gastar o render
+    if etapa(NOVELA / "emendas_literal.py", [str(T)]):
+        print(f"REPETIÇÃO NA EMENDA: veja {T / 'emendas_literal.txt'} (ajuste a decupagem e rode o montar de novo;"
+              " repetição intencional vai em repeticoes_ok.txt)")
+        return 3
     plano = T / "plano.txt"
     if not plano.exists():
         plano.write_text(PLANO_PADRAO, encoding="utf-8")
+    elif "ZOOMCORTE" not in plano.read_text(encoding="utf-8").upper():
+        print("AVISO: plano.txt sem ZOOMCORTE — zoom seco fora da emenda (regra do usuário: acrescente ZOOMCORTE)")
     if etapa(TD / "plano_td.py", [str(T)]):
         return 1
     esc = T / "midia" / "escolhas.json"

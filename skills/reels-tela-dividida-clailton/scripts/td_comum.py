@@ -29,7 +29,8 @@ ROSTO_CY_ABERTO = 0.30       # centro do rosto (fração da altura) no plano abe
 FECHADO_FATOR = 1.50         # punch-in do fechado sobre o aberto (medido 1,45-1,6)
 FECHADO_FATOR_MIN = 1.25     # quando o bruto já vem fechado demais
 ROSTO_MAX = 0.62             # rosto nunca maior que isso
-ROSTO_CY_FECHADO = 0.33
+# o fechado NÃO recentra o rosto: é o aberto ampliado em volta do ponto entre os olhos (rect_zoom),
+# que fica na mesma altura (regra do usuário, 28/09/2026: "todo zoom mantém a altura dos olhos")
 DIVIDIDA_ROSTO_CY = 0.62     # na tela dividida o rosto desce para ~62% da altura do quadro
 UPSCALE_MAX = 1.40           # recorte nunca ampliado mais que isso (qualidade)
 
@@ -58,6 +59,17 @@ LEAD = 1.0 / FPS             # corte e legenda entram 1 quadro antes do início 
 
 # ---------------- estilo "película" (estilo_td.py; referência: reel da história do Clailton) ----------------
 ESTILO_FORCA = 1.0           # 0 desliga; a linha "ESTILO 0.7" no plano.txt muda só aquele vídeo
+
+# ---------------- zoom (regras do usuário, 28/09/2026) ----------------
+# 1) zoom SECO (aberto <-> fechado) só na emenda (corte); 2) zoom fora do corte só ANIMADO (keyframes),
+# com entrada e saída suaves; 3) todo zoom mantém os olhos na mesma altura (ancorado nos olhos).
+# Liga com a linha ZOOMCORTE no plano.txt (padrão da edição simples).
+ZOOM_SUAVE = 1.18            # zoom animado: escala final sobre o aberto
+ZOOM_SUAVE_RAMPA = 0.55      # s: duração da animação (entrada e saída suaves)
+ZOOM_SUAVE_INTERVALO = 6.0   # s: no mínimo isso entre dois zooms animados
+PLANO_MIN = 0.6              # s: nenhum plano (aberto/fechado) menor que isso
+FECHADO_MAX = 4.0            # s: fechado mais longo que isso volta ao aberto na 1ª emenda possível
+ABERTO_MAX = 7.0             # s: aberto mais longo que isso fecha na 1ª emenda boa
 
 # ---------------- transições ----------------
 FLASH_ANTES = [1.35, 1.6, 1.75]   # ganho de brilho nos 3 quadros antes do corte (saída da abertura)
@@ -138,6 +150,21 @@ def filtro_recorte(rect_rot: list[float], rot: int, w0: int, h0: int, out_w: int
     return (f"crop={w}:{h}:{x}:{y}" + (f",{t}" if t else "")
             + f",scale={out_w}:{out_h}:flags=lanczos+accurate_rnd+full_chroma_int{cor},setsar=1"
             + (",format=rgb24" if rgb else ""))
+
+
+def rect_zoom(ab: list[float], olhos: list[float] | None, s: float) -> list[float]:
+    """Recorte do aberto ampliado s vezes em volta do ponto entre os olhos: os olhos ficam parados no
+    quadro (mesma altura e mesma posição). Sempre dentro do aberto (logo, dentro do bruto)."""
+    x, y, w, h = ab
+    ox, oy = olhos if olhos else (x + w / 2, y + 0.3 * h)
+    ox, oy = min(max(ox, x), x + w), min(max(oy, y), y + h)
+    return [ox - (ox - x) / s, oy - (oy - y) / s, w / s, h / s]
+
+
+def suave(u: float) -> float:
+    """Curva de keyframe com entrada e saída suaves (smootherstep), u em 0..1."""
+    u = min(max(u, 0.0), 1.0)
+    return u * u * u * (u * (6 * u - 15) + 10)
 
 
 def carregar_json(p: Path, padrao=None):

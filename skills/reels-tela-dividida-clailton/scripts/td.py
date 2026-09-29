@@ -101,6 +101,10 @@ def main() -> None:
             sys.exit(1)
         if tem_roteiro(T):
             etapa(NOVELA / "roteiro.py", [str(T)])
+        # palavra repetida colada na emenda (o Whisper engole gaguejo): transcrição literal de cada emenda
+        if etapa(NOVELA / "emendas_literal.py", [str(T)]):
+            print(f"\n⚠ REPETIÇÃO NA EMENDA: leia {T / 'emendas_literal.txt'}, junte o ajuste sugerido ao "
+                  "decupagem_ajustes.txt, --aplicar e rode o montar de novo")
         print(f"\nPRÓXIMO: plano visual em {T / 'plano.txt'} a partir de {T / 'palavras_legenda.txt'}")
     elif cmd == "plano":
         sys.exit(etapa(AQUI / "plano_td.py", a))

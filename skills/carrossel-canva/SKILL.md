@@ -46,7 +46,10 @@ Referências (ler só quando precisar):
 5. Salvar (`commit`) só depois de mostrar a prévia e o usuário aprovar (exigência do Canva).
 6. **Capa LEGACY em 3 linhas de mesma largura**: branca menor (1ª parte da manchete), branca maior
    (2ª parte) e a pergunta em dourado, cada frase numa linha só, cada linha com o tamanho que a faz
-   ocupar a largura toda (`copy.md`). A cor padrão não muda por nota de cor na copy.
+   ocupar a largura toda (`copy.md`). Só o tamanho da fonte muda de uma linha para outra; o texto
+   não. No template, cada linha tem a sua caixa (`{{H1}}`, `{{H2}}`, `{{H3}}`), então a capa sai
+   pronta pelo conector. Capa com linhas de larguras diferentes não se entrega (reprovada em
+   28/09/2026). A cor padrão não muda por nota de cor na copy.
 7. **Capa LEGACY com o círculo de imagem** (já vem na página-modelo): nunca apagar.
 8. **Texto sempre legível, qualquer que seja o tamanho**: fonte, posição do texto, do degradê e da
    foto saem do `medir.py` para o texto real de cada card. Texto que sobe leva o degradê junto.
@@ -62,7 +65,8 @@ Referências (ler só quando precisar):
 
 Rodar o script **numa única execução** para todos os cards (claude.ai: `python3`; sem Python:
 `node scripts/medir.mjs`):
-- `medir.py capa "Linha 1" "Linha 2" "Pergunta"` → tamanho de cada linha, posição, degradê/foto.
+- `medir.py capa "Linha 1" "Linha 2" "Pergunta"` → `operacoes` prontas: `format_text` e
+  `position_element` de H1, H2 e H3 (tamanho inteiro que enche a largura) + degradê/foto.
 - `medir.py pag3 "Título" "Parágrafo 1" "Parágrafo 2" …` → título quebrado, fonte do corpo, largura,
   posições e `operacoes` (TITULO, CORPO, DEGRADE, FOTO), `sujeito_entre_pct`, `foto_util`, `aviso`.
 - `medir.py pag2 "Parágrafo 1" …` → o mesmo para o corpo simples (fonte 53/44/40).
@@ -79,8 +83,9 @@ CARROSSEL"` (LEGACY = 5 páginas 1080×1440; CLAILTON = 3 páginas 1080×1350), 
 avisar para atualizar a skill. Não achou → `recriar-templates.md`.
 
 **3. Ler os IDs + coletar — em paralelo:** `read-design` (`open_transaction: true`,
-`fields: ["design_content"]`, sem thumbnails) → `locator_id` dos marcadores, do handle, da FOTO, do
-CIRCULO e do DEGRADE de cada página (como achar: `template.md`). Junto: fotos das matérias
+`fields: ["design_content"]`, sem thumbnails) → `locator_id` dos marcadores (na capa, as 3 caixas
+`{{H1}}`, `{{H2}}`, `{{H3}}`), do handle, da FOTO, do CIRCULO e do DEGRADE de cada página (como
+achar: `template.md`). Junto: fotos das matérias
 (`imagens.py coletar` ou web_fetch), `imagens.py wikimedia` se houver pessoa/marca, `creations_wait`.
 
 **4. Escolher e subir as imagens.** Folha de contato (`imagens.py folha`) ou, sem Python/rede,
@@ -90,24 +95,20 @@ escolhida + reserva por vaga. Preparar só o necessário (ampliar 2x, recortar o
 
 **5. Preencher** — **uma** chamada `edit-design` (`keep_open`) **por página**, com tudo junto:
 `find_and_replace_text` de cada marcador (o marcador inteiro, dentro de um único trecho),
-`update_fill` da FOTO/CIRCULO, as `operacoes` do `medir.py`, `format_text` da capa, crédito no
-handle, contador `{{N}}/{{T}}` no CLAILTON. A resposta traz a miniatura: conferir ali mesmo (nenhum
-`{{`, texto dentro da área, cores certas, capa sem linha quebrada, **sujeito da foto visível e texto
-legível**) e corrigir na hora; imagem ruim no card → a reserva (no máximo 1 troca por card).
+`update_fill` da FOTO/CIRCULO, as `operacoes` do `medir.py`, crédito no handle, contador
+`{{N}}/{{T}}` no CLAILTON. A resposta traz a miniatura: conferir ali mesmo (nenhum `{{`, texto
+dentro da área, cores certas, capa sem linha quebrada, **sujeito da foto visível e texto legível**)
+e corrigir na hora; imagem ruim no card → a reserva (no máximo 1 troca por card).
 
-Capa LEGACY (detalhe em `copy.md`):
-- H1, H2 e H3 em **caixas separadas** no template → `format_text` com o `px_inteiro` de cada linha +
-  `position_element` com `tres_caixas.tops` (left 50.64). Sai pronta.
-- H1, H2 e H3 **na mesma caixa** (situação atual do template) → `format_text` com
-  `caixa_unica.format_text_px` + `position_element` top = `caixa_unica.top`. **Não entregar assim**:
-  o usuário reprovou (28/09/2026) capa com linhas de larguras diferentes e "ajuste manual" como nota.
-  O conector não muda o tamanho de uma linha só; depois do commit, acertar no **editor do Canva**
-  (navegador logado no Canva): selecionar cada linha e digitar o `ajuste_manual_ui` no campo de
-  tamanho (número do painel = px × 0,75). Sem editor logado → avisar **antes** de mostrar a prévia.
+Capa LEGACY (detalhe em `copy.md`): `find_and_replace_text` de `{{H1}}`, `{{H2}}` e `{{H3}}`, cada um
+na sua caixa, + as `operacoes` do `medir.py capa` (`format_text` com o tamanho de cada linha e
+`position_element` de cada caixa, left 50.64). Sai pronta, sem ajuste no editor. Conferir no
+`document` da resposta que cada caixa de H ficou com **1 linha** (altura ≈ 1,2 × fonte; bem maior =
+quebrou → baixar 1 px naquela caixa).
 
 Armadilhas (detalhes em `template.md`):
 - CTA LEGACY: `{{P1}}` **sem `\n`** (1º parágrafo); o resto do bloco preto vai em `{{P1B}}`.
-- Marcador vazio → `""`, apagando junto a quebra do mesmo trecho (`"\n\n{{P1B}}"`, `"{{H1}}\n"`,
+- Marcador vazio → `""`, apagando junto a quebra do mesmo trecho (`"\n\n{{P1B}}"`,
   `"{{BRANCO}}\n\n"`) para não sobrar linha em branco.
 - Nunca buscar texto que atravesse duas cores/pesos (o estilo do 1º trecho contamina o resto).
 - `format_text` só aceita tamanho inteiro.
@@ -118,8 +119,7 @@ imagens, mandar os links, um por card) e perguntar se pode salvar. Com o ok:
 - link de edição do design (`edit_url`);
 - de onde veio cada imagem (real/banco/IA) e a linha de créditos pronta para a legenda do post;
 - "trocar foto": só as vagas sem imagem boa (CLAILTON: nenhuma), com a melhor opção achada;
-- ajustes feitos para caber (ex.: "card 5 com o corpo em 36 px") e os `aviso` do script;
-- capa em caixa única: só entregar depois de acertar as 3 linhas no editor (ver passo 5).
+- ajustes feitos para caber (ex.: "card 5 com o corpo em 36 px") e os `aviso` do script.
 
 Ajustes depois do commit ("troca a foto do card 4", "usa foto real no card 3"):
 `read-design open_transaction` + `edit-design` nas páginas citadas, prévia, commit.
@@ -130,8 +130,7 @@ Ajustes depois do commit ("troca a foto do card 4", "usa foto real no card 3"):
   `references/` e nos scripts. Só reler um template se um `find_and_replace_text` falhar.
 - Uma leitura de estrutura (passo 3); as miniaturas vêm das próprias edições.
 - Chamadas independentes sempre na mesma mensagem (montagem, buscas, gerações, uploads).
-- Sem subagentes e sem editor do Canva (exceção: tamanho por linha da capa enquanto o template tiver
-  caixa única). IA: `count: 1` por vaga (2 só no card mais importante).
+- Sem subagentes e sem editor do Canva. IA: `count: 1` por vaga (2 só no card mais importante).
 
 ## Manutenção dos templates
 
@@ -142,8 +141,5 @@ do anterior) e atualizar `references/template.md`. Nunca redigitar a página do 
 Se mudar a foto, o degradê ou as molduras, atualizar as medidas de `PAG` no `medir.py`/`medir.mjs`
 (lidas pelo `read-design` com transação). Passo a passo completo em `references/recriar-templates.md`.
 
-Pendente, **aprovado pelo usuário em 28/09/2026** (fazer no PC com o Canva logado no navegador):
-separar a manchete da capa LEGACY em 3 caixas (`{{H1}}`, `{{H2}}`, `{{H3}}`), para a capa sair pronta
-pelo conector. No editor: selecionar a caixa da manchete, `Ctrl+D` duas vezes, deixar em cada cópia
-só o seu marcador (sem apagar a cor do trecho) e empilhar; depois `read-design` com transação para
-conferir os 3 elementos, atualizar a linha da pág. 1 em `references/template.md` e apagar este aviso.
+Carrossel antigo com a manchete da capa numa caixa só (feito antes de 28/09/2026 à noite) e o
+usuário pede para acertar a capa: roteiro em `template.md` ("Consertar capa de caixa única").

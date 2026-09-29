@@ -84,7 +84,8 @@ def main() -> None:
 
     # ---------------- sincronia do Clailton (planos amostrados, quadro a quadro)
     segs, seg_f0 = corte["segmentos"], tl["segmentos_f0"]
-    vis = [p for p in tl["planos"] if p["visivel"] and p["zoom"] in ("aberto", "fechado") and p["f1"] - p["f0"] >= 20]
+    vis = [p for p in tl["planos"] if p["visivel"] and p["zoom"] in ("aberto", "fechado") and p["f1"] - p["f0"] >= 20
+           and not p.get("escala")]                         # zoom animado não compara com recorte fixo
     amostra = [vis[int(i)] for i in np.linspace(0, len(vis) - 1, min(6, len(vis)))] if vis else []
     desvios = []
     for p in amostra:

@@ -127,29 +127,30 @@ def capa(linhas):
     res = []
     for t in linhas:
         em = largura_em(t.upper(), "bebas", -0.02)
-        ui_val = int(ALVO_CAPA / em * 0.75 * 10) / 10  # arredonda para baixo no passo do Canva
-        px = round(ui_val / 0.75, 3)
-        res.append({"texto": t, "px": px, "px_inteiro": int(px), "ui": ui_val, "largura": round(em * px)})
+        px = int(ALVO_CAPA / em)  # format_text só aceita inteiro: para baixo, a linha nunca quebra
+        res.append({"texto": t, "px": px, "ui": ui(px), "largura": round(em * px)})
     s = [r["px"] for r in res]
     altura = 0.95 * sum(s) + 0.149 * s[0] + 0.088 * s[2]
     top = BASE_CAPA - altura
-    tops = [top]  # 3 caixas separadas (uma por linha): mesmo espaçamento da caixa única
+    # H1, H2 e H3 são 3 caixas (uma por linha) com o mesmo espaçamento de uma caixa só com lh 0.95
+    tops = [top]
     tops.append(tops[0] + 1.099 * s[0] - 0.149 * s[1])
     tops.append(tops[1] + 1.099 * s[1] - 0.149 * s[2])
     enc, ops = encaixe("capa", top)
-    return {
+    manchete = []
+    for nome, px, t in zip(("H1", "H2", "H3"), s, tops):
+        manchete.append({"op": "format_text", "elemento": nome, "font_size": px})
+        manchete.append({"op": "position_element", "elemento": nome, "top": round(t, 1), "left": 50.64})
+    out = {
         "linhas": res,
-        "caixa_unica": {
-            "format_text_px": int(min(s)),
-            "top": round(top, 1),
-            "ajuste_manual_ui": [r["ui"] for r in res],
-        },
-        "tres_caixas": {"tops": [round(t, 1) for t in tops], "left": 50.64},
         "altura_bloco": round(altura, 1),
         **enc,
-        "operacoes": [{"op": "position_element", "elemento": "MANCHETE", "top": round(top, 1), "left": 50.64}] + ops,
+        "operacoes": manchete + ops,
         "nota": "círculo em x 590-1022, y 278-711: o sujeito da foto principal fica à esquerda ou no centro",
     }
+    if top < 720:
+        out["aviso"] = "manchete alta demais (linha curta = fonte enorme): encosta no círculo; conferir na miniatura"
+    return out
 
 
 def titulo(texto, px=80.0355, caixa=931):

@@ -19,6 +19,8 @@ Sintaxe do plano.txt (uma decisão por linha; # comenta; @a-b = índices de pala
   NUMERO @120-121 "0,07%"                 número grande sobre o Clailton
   SEMCTA                                  termina sem a CTA
   SEMZOOM                                 desliga o aberto/fechado automático (só o que o plano marcar)
+  ZOOMCORTE                               zoom seco só nas emendas + zoom animado (keyframes) dentro
+                                          do pedaço, sempre com os olhos na mesma altura (edição simples)
 
 Uso: python plano_td.py <trabalho>   (lê plano.txt, palavras_corte.json, corte.json)
 Saída: timeline.json + timeline.txt (resumo para conferir) e avisos.
@@ -31,7 +33,8 @@ import unicodedata
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from td_comum import FPS, LEAD, LEG_MAX_CHARS, LEG_MAX_PALAVRAS, gravar_json, ler_json  # noqa: E402
+from td_comum import (ABERTO_MAX, FECHADO_MAX, FPS, LEAD, LEG_MAX_CHARS, LEG_MAX_PALAVRAS, PLANO_MIN,  # noqa: E402
+                      ZOOM_SUAVE, ZOOM_SUAVE_INTERVALO, ZOOM_SUAVE_RAMPA, gravar_json, ler_json, suave)
 
 TIPOS = {"foto", "filme", "video", "ia", "print", "arquivo"}
 LAYOUTS = {"cheia", "dividida", "cartao", "cartão"}
@@ -100,6 +103,8 @@ def ler_plano(p: Path) -> dict:
             pl["cta"] = False
         elif up.startswith("SEMZOOM"):
             pl["auto_zoom"] = False
+        elif up.startswith("ZOOMCORTE"):
+            pl["zoom_corte"] = True
         elif up.startswith("SEMABERTURA"):
             pl["sem_abertura"] = True
         elif up.startswith("ESTILO"):
@@ -259,12 +264,17 @@ def montar(T: Path) -> dict:
             if 0 <= f < F_FALA:
                 forcado[f] = fz["zoom"]
                 zoom[f] = fz["zoom"]
-    if pl["auto_zoom"]:
-        auto_fechado(pal, ini, F_FALA, estado, zoom, forcado, seg_f0, f_ini)
-    limpar_zoom(zoom, forcado, seg_f0, F_FALA)
+    escala = [1.0] * F_FALA                      # zoom animado (ZOOMCORTE): escala sobre o aberto
+    if pl.get("zoom_corte"):
+        escala = auto_zoom_cortes(pal, F_FALA, estado, zoom, forcado, seg_f0, corte["segmentos"], f_ini, pl["auto_zoom"])
+    else:
+        if pl["auto_zoom"]:
+            auto_fechado(pal, ini, F_FALA, estado, zoom, forcado, seg_f0, f_ini)
+        limpar_zoom(zoom, forcado, seg_f0, F_FALA)
     for f in range(F_FALA):
         if estado[f] == "dividida":
             zoom[f] = "dividida"
+            escala[f] = 1.0
 
     # ---------------- planos do Clailton (cortes: segmento, zoom, visibilidade)
     seg_de = [0] * F_FALA
@@ -278,6 +288,10 @@ def montar(T: Path) -> dict:
         if f == F_FALA or seg_de[f] != seg_de[f0] or zoom[f] != zoom[f0] or (estado[f] == "coberto") != (estado[f0] == "coberto"):
             planos.append({"f0": f0, "f1": f, "seg": seg_de[f0], "zoom": zoom[f0], "visivel": estado[f0] != "coberto"})
             f0 = f
+    for p in planos:                            # zoom animado: escala quadro a quadro no plano inteiro
+        esc = escala[p["f0"]:p["f1"]]
+        if p["zoom"] == "aberto" and max(esc) > 1.0005:
+            p["escala"] = [round(v, 4) for v in esc]
 
     # ---------------- legenda
     quebras_forcadas = {c["i0"] for c in camadas if not c["id"].startswith("t")} | {ab["i1"] + 1}
@@ -300,6 +314,8 @@ def montar(T: Path) -> dict:
     n_img = sum(1 for c in camadas if not c["id"].startswith("t"))
     stats = {"duracao_fala": round(dur, 2), "imagem_tela_cheia": round(cob, 3), "dividida": round(div, 3),
              "clailton_cheio": round(1 - cob - div, 3), "fechado_do_clailton": round(t_fech / t_vis, 3),
+             "zoom_animado": sum(1 for p in vis if p.get("escala")), "trocas_de_zoom": sum(
+                 1 for a_, b_ in zip(vis, vis[1:]) if a_["f1"] == b_["f0"] and a_["zoom"] != b_["zoom"]),
              "imagens": n_img, "imagens_por_min": round(60 * n_img / dur, 1), "telas_legenda": len(telas)}
     if cob > 0.45:
         avisos.append(f"imagem em {cob:.0%} do tempo: o melhor reel tem ~1/3 (o pior tinha 58%)")
@@ -431,6 +447,88 @@ def auto_fechado(pal, ini, F_FALA, estado, zoom, forcado, seg_f0, f_ini) -> None
         usados += f1 - f0
 
 
+def auto_zoom_cortes(pal, F_FALA, estado, zoom, forcado, seg_f0, segs, f_ini, auto: bool = True) -> list[float]:
+    """ZOOMCORTE — regras do usuário (28/09/2026, correção do reel "Dirigir uma empresa sem GPS"):
+    "o zoom precisa ser entre cortes (zoom seco); se for fazer um zoom que não seja entre cortes,
+    precisa ser com keyframes"; "todo zoom mantém a altura dos olhos" (rect_zoom, no render).
+    - cada pedaço do corte (entre duas emendas) tem UM zoom: aberto/fechado só troca na emenda;
+    - emenda de tomada (trecho novo da decupagem ou pulo >= 1 s no bruto) troca o zoom: esconde o pulo;
+    - pedaço que é uma frase curta de fecho ("A rota.", "Pensa comigo.") vai para o fechado;
+    - o fechado volta para o aberto na emenda seguinte (salvo se ficou < 1,2 s); aberto por mais de
+      ABERTO_MAX fecha na 1ª emenda boa; nenhum plano menor que PLANO_MIN;
+    - dentro de pedaço longo que termina em fim de frase: zoom ANIMADO (keyframes, entrada e saída
+      suaves) no rabo da frase, segurando até a emenda; só se o pedaço seguinte for aberto.
+    Preenche zoom[] e devolve a escala por quadro do zoom animado (1,0 = parado)."""
+    b = list(seg_f0) + [F_FALA]
+    n = len(seg_f0)
+    escala = [1.0] * F_FALA
+    dur = [(b[k + 1] - b[k]) / FPS for k in range(n)]
+    tomada = [False] + [segs[k]["i0"] != segs[k - 1]["i0"] or segs[k]["src_in"] - segs[k - 1]["src_out"] >= 1.0
+                        for k in range(1, n)]
+    pal_seg = [[w for w in pal if w.get("seg") == k] for k in range(n)]
+
+    def fecho(k: int) -> bool:
+        ws = pal_seg[k]
+        return bool(ws) and fim_de_frase(ws[-1]["texto"]) and len(ws) <= PUNCH_MAX_PALAVRAS and PUNCH_MIN <= dur[k] <= PUNCH_MAX
+
+    def forcado_em(k: int):
+        fs = [forcado[f] for f in range(b[k], b[k + 1])]
+        for z in ("fechado", "aberto"):
+            if fs and fs.count(z) >= 0.5 * len(fs):
+                return z
+        return None
+
+    z, run, t_fech, t_tot = [], 0.0, 0.0, 0.0
+    for k in range(n):
+        zf = forcado_em(k)
+        if zf:
+            zk = zf
+        elif k == 0 or not auto:
+            zk = "aberto"
+        else:
+            prev = z[-1]
+            if dur[k] < PLANO_MIN or run < PLANO_MIN:
+                zk = prev                                  # pedaço (ou plano anterior) curto demais: segue
+            elif prev == "fechado":
+                zk = "aberto" if (tomada[k] or run >= 1.2 or run + dur[k] > FECHADO_MAX) else "fechado"
+            else:
+                folga = (t_fech + dur[k]) / max(1e-6, t_tot + dur[k]) <= 0.5
+                quer = tomada[k] or (fecho(k) and run >= 1.5) or (run >= ABERTO_MAX and dur[k] <= FECHADO_MAX)
+                zk = "fechado" if quer and (folga or tomada[k]) else "aberto"
+        run = run + dur[k] if (z and zk == z[-1]) else dur[k]
+        z.append(zk)
+        t_tot += dur[k]
+        t_fech += dur[k] if zk == "fechado" else 0.0
+        for f in range(b[k], b[k + 1]):
+            zoom[f] = zk
+
+    # zoom animado (keyframes) dentro do pedaço aberto longo, no rabo da frase que fecha na emenda
+    rampa = max(2, int(round(ZOOM_SUAVE_RAMPA * FPS)))
+    ult = -1e9
+    for k in range(n):
+        ws = pal_seg[k]
+        if (not auto or z[k] != "aberto" or dur[k] < 3.0 or len(ws) < 6 or not fim_de_frase(ws[-1]["texto"])
+                or (k + 1 < n and z[k + 1] != "aberto") or forcado_em(k)):
+            continue
+        if any(estado[f] != "cheio" for f in range(b[k], b[k + 1])):
+            continue
+        g0 = None
+        for m in (3, 2, 4):                            # rabo: 2-4 últimas palavras, 0,6-2,2 s até a emenda
+            s = len(ws) - m
+            if s <= 0:
+                continue
+            g = f_ini(ws[s]["i"])
+            if PUNCH_MIN <= (b[k + 1] - g) / FPS <= 2.2 and texto_legenda(ws[s - 1]["texto"]) not in ("DE", "A", "O", "UM", "UMA"):
+                g0 = g
+                break
+        if g0 is None or g0 / FPS - ult < ZOOM_SUAVE_INTERVALO or b[k + 1] - g0 < rampa + int(0.3 * FPS):
+            continue
+        for f in range(g0, b[k + 1]):
+            escala[f] = 1.0 + (ZOOM_SUAVE - 1.0) * suave((f - g0) / rampa)
+        ult = b[k + 1] / FPS
+    return escala
+
+
 def limpar_zoom(zoom, forcado, seg_f0, F_FALA, minimo: int = 6) -> None:
     """Sem plano de zoom menor que `minimo` quadros (pisca); troca de zoom colada numa emenda de
     tomada (até 3 quadros) vai para a emenda."""
@@ -539,8 +637,8 @@ def resumo(tl: dict) -> str:
                  f"\"{c['busca'][:40]}\" | {c['texto'][:60]}")
     L.append("")
     L.append("planos do Clailton visíveis (zoom):")
-    L.append("  ".join(f"{p['f0'] / fps:.1f}{'F' if p['zoom'] == 'fechado' else ('D' if p['zoom'] == 'dividida' else 'A')}"
-                       for p in tl["planos"] if p["visivel"]))
+    L.append("  ".join(f"{p['f0'] / fps:.1f}{'F' if p['zoom'] == 'fechado' else ('D' if p['zoom'] == 'dividida' else ('Z' if p.get('escala') else 'A'))}"
+                       for p in tl["planos"] if p["visivel"]) + "   (A aberto, F fechado, Z aberto com zoom animado)")
     L.append("")
     L.append("legenda: " + " / ".join(t["texto"] for t in tl["legendas"][:60]) + (" ..." if len(tl["legendas"]) > 60 else ""))
     if tl["avisos"]:
