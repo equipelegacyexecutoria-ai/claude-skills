@@ -23,7 +23,7 @@ conversa do PC de render (Controle Remoto, no celular ou em claude.ai/code).
 - Traga as correções aplicadas na conversa (o usuário pede "me traga por aqui") além do comentário no card.
 - O PC NOT-LIVE-LAIR já tem o Google Drive para computador (G:) desde 28/09/2026: a entrega segue o Passo 4.
 - Quando o usuário diz "deixa eu conferir", mostre o vídeo na conversa e **só suba no Drive / mexa no
-  Notion depois do ok**. Cada versão nova entra ao lado das anteriores em MATERIAL FINALIZADO (v1, v2, v3...).
+  Notion depois do ok**. MATERIAL FINALIZADO fica SÓ com o link da versão mais nova (usuário, 29/09/2026: "retire os links das versões anteriores"); os arquivos antigos continuam na pasta EDITADO.
 - Arquivo final leve (CRF 18, ~200 MB para 2:30): o de 1,2 GB (CRF 10) foi reprovado ("não pode ser tão pesado").
 
 O usuário não é técnico: relatórios curtos, pelo dia a dia dele (ver CLAUDE.md global).
@@ -150,7 +150,7 @@ trabalho em `C:\Render\_trabalho\<slug>\`), seguindo o modo rápido dela, com es
 4. Espere o upload do Drive para computador: repita `search_files` (`title = '<arquivo>' and parentId = '<ID do EDITADO>'`)
    a cada ~30 s (até 20 min). Link: `https://drive.google.com/file/d/<ID>/view`.
 5. No card (`notion-update-page`): MATERIAL FINALIZADO = o link (arquivo externo com o nome do vídeo);
-   ANDAMENTO = coluna de aprovação. Nunca apague o que já estava em MATERIAL FINALIZADO: acrescente a versão nova.
+   ANDAMENTO = coluna de aprovação. Na v2, v3...: MATERIAL FINALIZADO passa a ter SÓ o link da versão nova (troque, não acrescente).
 6. Comentário no card (`notion-create-comment`), curto:
    `v1 pronta · <duração> · editado com <skill> · o que conferir: <1–3 pontos> · tempo: <min>`.
 
