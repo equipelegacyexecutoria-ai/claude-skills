@@ -556,7 +556,54 @@ def olhos_em(s: dict, t: float) -> tuple[float, float]:
     return xs[len(xs) // 2], ys[len(ys) // 2]
 
 
-def olhos_na_linha(planos: list[dict], enq: dict) -> list[str]:
+class Olhos:
+    """Olhos no QUADRO EXATO (YuNet no bruto girado, mediana de 3 quadros), com cache em olhos_cache.json.
+    As amostras de 0,5 s do enquadramento não bastam: ele mexe a cabeça ~400 px em meio segundo."""
+
+    def __init__(self, T: Path, corte: dict, enq: dict):
+        self.fonte, self.segs, self.enq = corte["fonte"], corte["segmentos"], enq
+        self.arq = T / "olhos_cache.json"
+        self.cache = ler_json(self.arq) if self.arq.exists() else {}
+        self.det = None
+
+    def __call__(self, k: int, t: float) -> tuple[float, float]:
+        s = self.segs[k]
+        f = s["frame_in"] + max(0, min(s["frames"] - 3, int(round((t - s["dst_in"]) * FPS))))
+        if str(f) not in self.cache:
+            self.cache[str(f)] = self.medir(f)
+        v = self.cache[str(f)]
+        return tuple(v) if v else olhos_em(self.enq["segmentos"][k], t)
+
+    def medir(self, f: int):
+        import subprocess
+        import cv2
+        import numpy as np
+        from td_comum import MODELO_ROSTO, transpose_filtro
+        rw, rh = self.enq["wh_rot"]
+        larg = 1080
+        alt = int(round(larg * rh / rw / 2) * 2)
+        tr = transpose_filtro(self.enq["rot"])
+        vf = (f"{tr}," if tr else "") + f"scale={larg}:{alt}"
+        p = subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{max(0.0, (f - 0.5) / FPS):.4f}", "-i", self.fonte,
+                            "-frames:v", "3", "-vf", vf, "-f", "rawvideo", "-pix_fmt", "bgr24", "-"], capture_output=True)
+        if self.det is None:
+            self.det = cv2.FaceDetectorYN.create(str(MODELO_ROSTO), "", (larg, alt), 0.6, 0.3, 5000)
+        tam, es = larg * alt * 3, []
+        for i in range(len(p.stdout) // tam):
+            _, fs = self.det.detect(np.frombuffer(p.stdout[i * tam:(i + 1) * tam], np.uint8).reshape(alt, larg, 3))
+            if fs is not None and len(fs):
+                g = max(fs, key=lambda g: g[2] * g[3] * g[14])
+                if g[14] >= 0.7:
+                    es.append(((g[4] + g[6]) / 2 * rw / larg, (g[5] + g[7]) / 2 * rw / larg))
+        if not es:
+            return None
+        return [round(float(np.median([e[0] for e in es])), 1), round(float(np.median([e[1] for e in es])), 1)]
+
+    def gravar(self) -> None:
+        gravar_json(self.arq, self.cache)
+
+
+def olhos_na_linha(planos: list[dict], enq: dict, medir=None) -> list[str]:
     """Regra do usuário (28/09/2026): todo zoom mantém os olhos na mesma altura. Cada fechado é posicionado
     (p["rect"]) para os olhos, medidos no começo e no fim do plano, caírem na mesma linha em que estão no
     fim do plano anterior e no começo do seguinte; o zoom animado amplia em volta dos olhos do início da
