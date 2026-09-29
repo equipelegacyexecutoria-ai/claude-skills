@@ -298,7 +298,10 @@ def montar(T: Path) -> dict:
         if p["zoom"] == "aberto" and max(esc) > 1.0005:
             p["escala"] = [round(v, 4) for v in esc]
     if pl.get("zoom_corte") and (T / "enquadramento_td.json").exists():
-        avisos += olhos_na_linha(planos, ler_json(T / "enquadramento_td.json"))
+        enq = ler_json(T / "enquadramento_td.json")
+        medir = Olhos(T, corte, enq)
+        avisos += olhos_na_linha(planos, enq, medir)
+        medir.gravar()
 
     # ---------------- legenda
     quebras_forcadas = {c["i0"] for c in camadas if not c["id"].startswith("t")} | {ab["i1"] + 1}
@@ -612,11 +615,14 @@ def olhos_na_linha(planos: list[dict], enq: dict, medir=None) -> list[str]:
     segs = enq["segmentos"]
     rw, rh = enq["wh_rot"]
     avisos = []
+    if medir is None:                                # sem o bruto: amostras de 0,5 s do enquadramento
+        def medir(k: int, t: float) -> tuple[float, float]:
+            return olhos_em(segs[k], t)
     vis = [p for p in planos if p["visivel"] and p["zoom"] in ("aberto", "fechado")]
     for p in vis:
         if p.get("escala"):
             k0 = next((k for k, v in enumerate(p["escala"]) if v > 1.0005), 0)
-            p["ancora"] = [round(v, 1) for v in olhos_em(segs[p["seg"]], (p["f0"] + k0) / FPS)]
+            p["ancora"] = [round(v, 1) for v in medir(p["seg"], (p["f0"] + k0) / FPS)]
 
     def rect_em(p: dict, fim: bool) -> list[float]:
         s = segs[p["seg"]]
@@ -625,8 +631,8 @@ def olhos_na_linha(planos: list[dict], enq: dict, medir=None) -> list[str]:
         return p.get("rect") or s[p["zoom"]]
 
     def linha(p: dict, fim: bool) -> tuple[float, float]:
-        t = (p["f1"] - 1) / FPS if fim else p["f0"] / FPS
-        ex, ey = olhos_em(segs[p["seg"]], t)
+        t = (p["f1"] - 3) / FPS if fim else p["f0"] / FPS     # 3 últimos / 3 primeiros quadros do plano
+        ex, ey = medir(p["seg"], t)
         x, y, w, h = rect_em(p, fim)
         return (ex - x) / w * W_SAIDA, (ey - y) / h * H_SAIDA
 
@@ -637,11 +643,11 @@ def olhos_na_linha(planos: list[dict], enq: dict, medir=None) -> list[str]:
         prox = vis[i + 1] if i + 1 < len(vis) and vis[i + 1]["f0"] == p["f1"] else None
         _, _, w, h = segs[p["seg"]]["fechado"]
         alvo = {}                                        # posição do recorte que põe os olhos na linha do vizinho
-        for lado, viz, fim, t in (("ini", ant, True, p["f0"] / FPS), ("fim", prox, False, (p["f1"] - 1) / FPS)):
+        for lado, viz, fim, t in (("ini", ant, True, p["f0"] / FPS), ("fim", prox, False, (p["f1"] - 3) / FPS)):
             if viz is None:
                 continue
             lx, ly = linha(viz, fim)
-            ex, ey = olhos_em(segs[p["seg"]], t)
+            ex, ey = medir(p["seg"], t)
             alvo[lado] = (ex - lx / W_SAIDA * w, ey - ly / H_SAIDA * h)
         if not alvo:
             continue
