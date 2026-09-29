@@ -19,7 +19,7 @@ Regras de decupagem, grafia, destaques, ritmo (nada de pausa dramática) e "nada
 
 | Item | Padrão |
 | --- | --- |
-| Formato | 1080×1920, 29,97 fps, H.264 CRF 18 (~230 MB em 2:40; CRF 10 = 1,2 GB, reprovado: "não pode ser tão pesado"), AAC 320k; voz −14 LUFS / −1 dBTP |
+| Formato | 1080×1920, 29,97 fps, H.264 CRF 18 (~230 MB em 2:40; CRF 10 = 1,2 GB, reprovado: "não pode ser tão pesado"), AAC 320k; voz −16 LUFS / −1 dBTP (limitador suave) |
 | Imagem | tela cheia 9:16, Clailton centralizado; **aberto** (rosto ~30% da largura) e **fechado** (punch-in 1,5×; 1,25× se o bruto já vem fechado) — ver "Zoom" abaixo |
 | Corte | colado na voz; **nenhuma palavra repetida nas emendas** (checagem literal automática) |
 | Legenda | a da novela (caixa-alta, 1–3 linhas, destaque maior sozinho, layouts centro/esquerda/escada/direita, sombra v3), com o centro do bloco a ~57% da altura (peito; era 52%, o usuário pediu mais baixa em 28/09/2026) e nunca em cima do queixo |
@@ -55,6 +55,18 @@ frase curta de fecho ("A rota.", "Pensa comigo.") vai para o fechado; o fechado 
 emenda seguinte; aberto por mais de 7 s fecha na 1ª emenda boa; nenhum plano < 0,6 s; zoom animado
 só em pedaço aberto ≥ 3 s, com pelo menos 6 s entre dois, e nunca com fechado logo depois (< 3 s).
 Confira em `T\timeline.txt` (linha "planos do Clailton": A, F, Z) antes do render.
+
+**Lições da v3 → v4 (29/09/2026) — não repetir:**
+- **Zoom só em corte VISÍVEL** (troca de trecho ou pulo ≥ 0,35 s no bruto, `CORTE_VISIVEL`). Os microcortes do
+  "aparar" (0,07–0,17 s de respiro) não trocam zoom: ali a imagem quase não pula e o zoom parece "no meio da
+  fala" (0:33 e 1:21 da v3). Fechados colados por microcorte usam o MESMO recorte; zoom animado que atravessa
+  microcorte usa o mesmo centro.
+- **Cabeça nunca cortada:** o bruto do Clailton tem ~5% de espaço acima da careca; com os olhos na linha e
+  1,25× o topo sai. O zoom de cada trecho fechado é reduzido até o **topo real da cabeça** caber (3% de folga).
+  O topo é medido na imagem (`td_comum.topo_cabeca`: onde a cor de pele acaba acima dos olhos, no 1º quadro,
+  a cada 0,5 s e no fim do trecho). Estimar pela largura do rosto falhou quando ele se inclina ou olha para
+  baixo. Menos de 1,10× → o trecho fica no aberto.
+- Conferência visual obrigatória: folha com 1º/meio/fim de cada fechado (cabeça) e `ondas.py` (cortes).
 
 **Portão:** o 1º vídeo de um lote é mostrado ao usuário antes dos outros (com `--geral`), com
 `qa/fundo_mais_claro.png` (regra global da sombra). Na fila de render, o portão é a coluna de aprovação.

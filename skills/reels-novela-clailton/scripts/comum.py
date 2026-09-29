@@ -32,7 +32,7 @@ FIM_RESPIRO = 0.45      # imagem depois da última palavra, antes do corte seco 
 CRF = 18                # usuário 28/09/2026: "não pode ser tão pesado" (CRF 10 dava 1,2 GB em 2:42); 18 ~230 MB, visualmente igual
 PRESET = "slow"
 AUDIO_BR = "320k"
-LUFS = -14.0
+LUFS = -16.0            # usuário 28/09/2026: a -14 o limitador achatava os picos (bruto já no teto) e soava estourado
 TRUE_PEAK = -1.0
 
 

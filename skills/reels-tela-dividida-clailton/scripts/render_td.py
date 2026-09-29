@@ -8,7 +8,7 @@
 - Vídeo: recorte 'cover' no assunto, sem zoom, sem áudio, conformado a 29,97.
 - Cartão: imagem a 86% da largura sobre fundo claro em degradê, sombra suave, quase parado.
 - Tela dividida: imagem em y 0..EMENDA, Clailton embaixo. Saída da abertura: flash de exposição.
-- Áudio: fatias exatas do bruto + normalização (-14 LUFS / -1 dBTP) da novela; clique de
+- Áudio: fatias exatas do bruto + normalização (-16 LUFS / -1 dBTP, limitador suave) da novela; clique de
   digitação na CTA. H.264 High CRF 10 slow, BT.709, AAC 320k (qualidade máxima, como a novela).
 
 Uso: python render_td.py <trabalho> <saida.mp4> [--sem-cuda] [--sem-clique] [--ate SEG] [--rapido]

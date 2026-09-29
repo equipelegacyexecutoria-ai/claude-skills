@@ -20,7 +20,7 @@ referência: `referencia/telas-referencia.jpg`. Legendas de exemplo no formato c
 | Corte | tomadas escolhidas, sem tropeço; **cortes certeiros no limite da onda** (usuário, 28/09/2026: "ele parado sem falar nada denuncia que está lendo"): toda pausa de voz a voz ≥ 0,12 s sai, inclusive dentro da frase, ficando ~0,02 s antes do ataque e ~0,03 s depois do fim da onda (`aparar` + `borda_voz.py`); respiro e estalo de boca saem; sem música (entra depois) |
 | Legenda | SF Pro Text Black, caixa-alta, telas de 1–3 linhas inteiras, **só o destaque entra sozinho e maior**, sombra v3 |
 | Final | ~0,45 s depois da última palavra, corte seco para CTA preta digitada (2,9 s) |
-| Voz | −14 LUFS, pico −1 dBTP |
+| Voz | −16 LUFS, pico −1 dBTP, limitador suave só nos picos (−14 soava estourado) |
 | Pasta | `Reels Editados/` na raiz do projeto, `<nome do bruto> - EDITADO.mp4` |
 | Trabalho | `_trabalho/<slug>/` na raiz do projeto (transcrição, decupagem, legenda, QA) |
 
@@ -306,6 +306,19 @@ se existir, senão `legenda.json`).
   pedaço só de chiado e sem tom sai (respiro/estalo), salvo colado ≤ 30 ms numa palavra (o "s" final).
   Regra só por tom comeu voz fraca ("a partir" → "tir"): não use. Depois de mexer nisso, confira que
   nenhuma palavra sumiu (Whisper no `audio_corte16k.wav` × `palavras_corte.json`).
+- **Fim/começo de palavra cortado** (v3, 29/09/2026: "certo", "a rota", "informações", "escolhido", "perguntas"):
+  o Clailton solta o "s" final e a soltura da vogal SEPARADOS, fracos (−35 a −45 dB) e sem tom — a regra do
+  respiro jogava fora. Diferença física medida: final de palavra = chiado AGUDO (40–97% da energia > 4 kHz);
+  respiro/estalo = grave (1–13%). Regras (`borda_voz.py`): pedaço agudo até 0,35 s depois de uma palavra é
+  dela; as bordas seguem a ONDA FRACA (`estende`: agudo acima de piso+10 ou som acima de piso+16, sem pular
+  buraco > 80 ms, até 0,10 s antes / 0,12 s depois) — é o que o usuário circulou em amarelo na onda;
+  o fim da frase pode passar do corte original até 0,40 s se a voz continua (`FIM_EXTRA`), sem chegar na
+  próxima palavra do bruto; e cada borda só vai até a METADE da pausa (senão as duas se cruzam e o trecho
+  do meio toca duas vezes — pausa maior que a original, 0:15 da v3).
+- **Áudio "estourado"** (v3): o bruto já vem com picos no teto (0 dBFS, 3 pontos estourados na gravação);
+  subir para −14 LUFS fazia o limitador achatar 4,7% do vídeo em até 4 dB. Padrão agora: **−16 LUFS** e
+  limitador suave (attack 7 ms, release 200 ms) só nos raros picos. Dica de gravação: ganho do microfone 3–6 dB
+  mais baixo.
 - Editar arquivo da skill por script Python dentro do bash: a barra invertida de caminho vira
   caractere de controle (o `\r` de `T\repeticoes` virou quebra de linha). Use as ferramentas de
   edição do Claude ou `chr(92)`, e confira em bytes (modo texto converte CR em LF e esconde o erro).

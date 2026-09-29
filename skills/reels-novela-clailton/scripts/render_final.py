@@ -4,7 +4,7 @@ Pipeline (tudo a partir do bruto 4K):
   1. cada segmento do corte -> recorte 5:4 -> 1080x864 (lanczos) -> intermediário SEM PERDA (x264 qp 0)
   2. tela preta da CTA (sem perda)
   3. áudio: fatias exatas do bruto (48 kHz), fade de 8 ms em cada corte, silêncio na CTA,
-     loudnorm em 2 passadas (-14 LUFS, pico -1 dBTP)
+     ganho até -16 LUFS + limitador suave só nos picos (pico -1 dBTP)
   4. concatena -> faixa centrada com barras pretas (pad) -> legenda .ass (libass) ->
      H.264 High CRF 10 preset slow, yuv420p BT.709, AAC 320k, +faststart
 
@@ -136,7 +136,7 @@ def medir(p: Path) -> dict:
 
 
 def normalizar(entrada: Path, saida: Path) -> dict:
-    """Ganho linear até -14 LUFS. Se o ganho estourar o teto de pico, um limitador só nos picos
+    """Ganho linear até LUFS (-16). Se o ganho estourar o teto de pico, um limitador SUAVE só nos picos
     (o loudnorm 'linear' viraria compressor dinâmico sem avisar — ver armadilhas no SKILL.md)."""
     m0 = medir(entrada)
     ganho = LUFS - m0["I"]
@@ -145,7 +145,7 @@ def normalizar(entrada: Path, saida: Path) -> dict:
         filtro = f"volume={ganho:.2f}dB"
         if m0["TP"] is not None and m0["TP"] + ganho > TRUE_PEAK - 0.3:
             teto = 10 ** ((TRUE_PEAK - 0.8) / 20)          # teto de amostra com folga p/ o pico real
-            filtro += f",alimiter=limit={teto:.4f}:attack=3:release=60:level=false:latency=true"
+            filtro += f",alimiter=limit={teto:.4f}:attack=7:release=200:level=false:latency=true"   # suave (3/60 soava duro)
             modo = "ganho+limitador de pico"
         ff(["-i", str(entrada), "-af", filtro, "-ar", str(SR), "-c:a", "pcm_s16le", str(saida)])
         m1 = medir(saida)

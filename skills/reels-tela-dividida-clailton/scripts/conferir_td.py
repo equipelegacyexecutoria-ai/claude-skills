@@ -1,6 +1,6 @@
 """Conferência do reel tela dividida já renderizado.
 
-Confere: formato (1080x1920, 29,97, duração), loudness (-14 LUFS, pico <= -1 dBTP), sincronia do
+Confere: formato (1080x1920, 29,97, duração), loudness (LUFS de comum.py, pico <= -1 dBTP), sincronia do
 Clailton com o bruto (quadro a quadro em planos amostrados), trecho de vídeo congelado, tarja preta
 de filme sobrando, e acha o FUNDO MAIS CLARO atrás da legenda (regra do usuário: mostrar antes do lote).
 Gera em <trabalho>/qa/:
@@ -77,7 +77,7 @@ def main() -> None:
     if abs(dur - lay["duracao_total"]) > 0.15:
         problemas.append(f"duração {dur:.2f}s (esperado {lay['duracao_total']:.2f}s)")
     lu = RN.medir(Path(V))
-    if lu["I"] is None or abs(lu["I"] + 14) > 0.7:
+    if lu["I"] is None or abs(lu["I"] - RN.LUFS) > 0.7:
         problemas.append(f"loudness {lu['I']} LUFS")
     if lu["TP"] is not None and lu["TP"] > -0.9:
         problemas.append(f"pico {lu['TP']} dBTP")

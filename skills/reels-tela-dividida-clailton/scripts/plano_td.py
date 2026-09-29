@@ -34,8 +34,8 @@ import unicodedata
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from td_comum import (ABERTO_MAX, FECHADO_MAX, FPS, LEAD, LEG_MAX_CHARS, LEG_MAX_PALAVRAS, OLHO_MIN_FECHADO,  # noqa: E402
-                      PLANO_MIN,
+from td_comum import (ABERTO_MAX, CORTE_VISIVEL, FECHADO_MAX, FPS, LEAD, LEG_MAX_CHARS, LEG_MAX_PALAVRAS,  # noqa: E402
+                      CABECA_FOLGA, CABECA_K, PLANO_MIN, ZOOM_MIN,
                       ZOOM_SUAVE, ZOOM_SUAVE_INTERVALO, ZOOM_SUAVE_RAMPA, gravar_json, ler_json, suave)
 from td_comum import H as H_SAIDA, W as W_SAIDA  # noqa: E402
 
@@ -471,12 +471,17 @@ def auto_zoom_cortes(pal, F_FALA, estado, zoom, forcado, seg_f0, segs, f_ini, au
     - dentro de pedaço longo que termina em fim de frase: zoom ANIMADO (keyframes, entrada e saída
       suaves) no rabo da frase, segurando até a emenda; só se o pedaço seguinte for aberto.
     Preenche zoom[] e devolve a escala por quadro do zoom animado (1,0 = parado)."""
-    b = list(seg_f0) + [F_FALA]
-    n = len(seg_f0)
+    # só CORTE VISÍVEL troca o zoom (usuário, 28/09/2026, v3: em 0:33 e 1:21 o zoom trocou num microcorte de
+    # 0,07-0,17 s que tirou um respiro — a imagem quase não pula e parece zoom no meio da fala). Corte visível =
+    # troca de trecho da decupagem ou pulo >= CORTE_VISIVEL no bruto; os microcortes do "aparar" não contam.
+    visivel = [0] + [k for k in range(1, len(seg_f0))
+                     if segs[k]["i0"] != segs[k - 1]["i0"] or segs[k]["src_in"] - segs[k - 1]["src_out"] >= CORTE_VISIVEL]
+    b = [seg_f0[k] for k in visivel] + [F_FALA]
+    n = len(visivel)
     escala = [1.0] * F_FALA
     dur = [(b[k + 1] - b[k]) / FPS for k in range(n)]
-    tomada = [False] + [segs[k]["i0"] != segs[k - 1]["i0"] or segs[k]["src_in"] - segs[k - 1]["src_out"] >= 1.0
-                        for k in range(1, n)]
+    tomada = [False] + [segs[visivel[k]]["i0"] != segs[visivel[k] - 1]["i0"]
+                        or segs[visivel[k]]["src_in"] - segs[visivel[k] - 1]["src_out"] >= 1.0 for k in range(1, n)]
     pal_seg = [[] for _ in range(n)]              # pelo tempo alinhado (o "seg" antigo vinha do Whisper)
     for w in pal:
         f = q(w["inicio"])
@@ -577,13 +582,21 @@ class Olhos:
         if str(f) not in self.cache:
             self.cache[str(f)] = self.medir(f)
         v = self.cache[str(f)]
-        return tuple(v) if v else olhos_em(self.enq["segmentos"][k], t)
+        return tuple(v[:2]) if v else olhos_em(self.enq["segmentos"][k], t)
+
+    def topo(self, k: int, t: float) -> float | None:
+        """Topo REAL da cabeça (px do bruto) no quadro exato (td_comum.topo_cabeca)."""
+        self(k, t)
+        s = self.segs[k]
+        f = s["frame_in"] + max(0, min(s["frames"] - 3, int(round((t - s["dst_in"]) * FPS))))
+        v = self.cache.get(str(f))
+        return v[3] if v and len(v) > 3 else None
 
     def medir(self, f: int):
         import subprocess
         import cv2
         import numpy as np
-        from td_comum import MODELO_ROSTO, transpose_filtro
+        from td_comum import MODELO_ROSTO, topo_cabeca, transpose_filtro
         rw, rh = self.enq["wh_rot"]
         larg = 1080
         alt = int(round(larg * rh / rw / 2) * 2)
@@ -599,22 +612,30 @@ class Olhos:
             if fs is not None and len(fs):
                 g = max(fs, key=lambda g: g[2] * g[3] * g[14])
                 if g[14] >= 0.7:
-                    es.append(((g[4] + g[6]) / 2 * rw / larg, (g[5] + g[7]) / 2 * rw / larg))
+                    img = np.frombuffer(p.stdout[i * tam:(i + 1) * tam], np.uint8).reshape(alt, larg, 3)
+                    ey_ = (g[5] + g[7]) / 2
+                    tc = topo_cabeca(img, g[0] + g[2] / 2, ey_, g[2])
+                    es.append(((g[4] + g[6]) / 2 * rw / larg, ey_ * rw / larg, g[2] * rw / larg,
+                               (tc if tc is not None else ey_ - 0.85 * g[2]) * rw / larg))
         if not es:
             return None
-        return [round(float(np.median([e[0] for e in es])), 1), round(float(np.median([e[1] for e in es])), 1)]
+        return [round(float(np.median([e[i] for e in es])), 1) for i in range(4)]
 
     def gravar(self) -> None:
         gravar_json(self.arq, self.cache)
 
 
 def olhos_na_linha(planos: list[dict], enq: dict, medir=None) -> tuple[list[str], float]:
-    """Regra do usuário (28/09/2026, 2ª correção do "Dirigir uma empresa sem GPS"):
-    - enquadramento PADRÃO = o aberto (o original, sem zoom), no vídeo inteiro;
-    - LINHA DOS OLHOS padrão = mediana da altura dos olhos nesse aberto (todas as tomadas);
+    """Regras do usuário (28/09/2026):
+    - enquadramento PADRÃO = o aberto (o original, sem zoom), no vídeo inteiro; LINHA DOS OLHOS padrão =
+      mediana da altura dos olhos nesse aberto;
     - no zoom que entra num corte, o fechado é posicionado SÓ NA ALTURA para os olhos do 1º quadro depois
-      do corte caírem na linha padrão; na lateral fica centrado no aberto (não segue a cabeça); parado até
-      o próximo corte (nada de ajuste no meio do plano); na volta, o aberto padrão;
+      do corte caírem na linha padrão; lateral centrada; PARADO até o corte visível seguinte (os planos
+      fechados seguidos, separados só por microcortes, usam o MESMO recorte);
+    - a CABEÇA nunca é cortada (v3: 0:13 e 2:07 cortaram a careca — o bruto tem ~5% de espaço acima da
+      cabeça): o zoom do trecho é diminuído até o topo da cabeça (olhos - CABECA_K x largura do rosto,
+      no ponto mais alto que ele chega no trecho) caber com CABECA_FOLGA; se nem ZOOM_MIN couber, o trecho
+      fica no aberto padrão;
     - zoom animado: amplia em volta de (centro do aberto, olhos no início da rampa).
     Devolve (avisos, linha padrão em px da saída)."""
     segs = enq["segmentos"]
@@ -625,36 +646,64 @@ def olhos_na_linha(planos: list[dict], enq: dict, medir=None) -> tuple[list[str]
             return olhos_em(segs[k], t)
     ys = sorted((a[2] - s["aberto"][1]) / s["aberto"][3] * H_SAIDA for s in segs for a in s.get("olhos_t", []))
     linha = ys[len(ys) // 2] if ys else 0.30 * H_SAIDA
-    for p in planos:
-        if not p["visivel"] or p["zoom"] not in ("aberto", "fechado"):
-            continue
-        ab = segs[p["seg"]]["aberto"]
-        cx = ab[0] + ab[2] / 2
+    vis = [p for p in planos if p["visivel"] and p["zoom"] in ("aberto", "fechado")]
+    ant = None
+    for p in vis:
         if p.get("escala"):
-            k0 = next((k for k, v in enumerate(p["escala"]) if v > 1.0005), 0)
-            p["ancora"] = [round(cx, 1), round(medir(p["seg"], (p["f0"] + k0) / FPS)[1], 1)]
-        elif p["zoom"] == "fechado":
-            _, _, w, h = segs[p["seg"]]["fechado"]
-            _, ey = medir(p["seg"], p["f0"] / FPS)          # olhos no 1º quadro depois do corte
-            y = min(max(ey - linha / H_SAIDA * h, 0.0), rh - h)
-            # trava: se ele levanta a cabeça durante o plano, a testa não pode sair do quadro (v2, 0:49)
-            amostras = [a[2] for a in segs[p["seg"]].get("olhos_t", [])
-                        if p["f0"] / FPS - 0.1 <= a[0] <= p["f1"] / FPS]
-            y_max = min([ey] + amostras) - OLHO_MIN_FECHADO * h
-            if y > y_max:
-                desvio = (ey - max(y_max, 0.0)) / h * H_SAIDA - linha
-                if desvio > 60:                             # não dá: esse trecho fica no enquadramento padrão
-                    p["zoom"] = "aberto"
-                    avisos.append(f"olhos: fechado em {p['f0'] / FPS:.2f}s virou aberto (ele levanta a cabeça "
-                                  f"no plano: com os olhos na linha, a testa sairia do quadro)")
-                    continue
-                y = max(y_max, 0.0)
-            x = min(max(cx - w / 2, 0.0), rw - w)
-            p["rect"] = [round(x, 1), round(y, 1), w, h]
-            erro = abs((ey - y) / h * H_SAIDA - linha)
-            if erro > 40:
-                avisos.append(f"olhos: fechado em {p['f0'] / FPS:.2f}s fica {erro:.0f}px fora da linha padrão "
-                              f"(o bruto não deixa subir/descer mais, ou a trava da testa)")
+            if ant is not None and ant.get("escala") and ant["f1"] == p["f0"]:
+                p["ancora"] = ant["ancora"]              # o zoom animado atravessa microcorte: mesmo centro
+            else:
+                ab = segs[p["seg"]]["aberto"]
+                k0 = next((k for k, v in enumerate(p["escala"]) if v > 1.0005), 0)
+                p["ancora"] = [round(ab[0] + ab[2] / 2, 1), round(medir(p["seg"], (p["f0"] + k0) / FPS)[1], 1)]
+        ant = p
+    # trechos fechados: planos fechados colados (só microcortes entre eles)
+    trechos, cur = [], []
+    for p in vis:
+        if p["zoom"] == "fechado" and (not cur or cur[-1]["f1"] == p["f0"]):
+            cur.append(p)
+            continue
+        if cur:
+            trechos.append(cur)
+        cur = [p] if p["zoom"] == "fechado" else []
+    if cur:
+        trechos.append(cur)
+    for tr in trechos:
+        p0 = tr[0]
+        s0 = segs[p0["seg"]]
+        ab = s0["aberto"]
+        _, ey = medir(p0["seg"], p0["f0"] / FPS)       # olhos no 1º quadro depois do corte
+        # ponto mais alto da cabeça no trecho: topo REAL medido na imagem (pele) no 1º quadro, a cada 0,5 s e
+        # no fim do trecho — a estimativa pela largura do rosto errou com ele inclinado (v4: "Pensa comigo",
+        # "O estado atual"); sem medida, olhos - CABECA_K x largura do rosto
+        tops = [medir.topo(p0["seg"], p0["f0"] / FPS) if hasattr(medir, "topo") else None,
+                medir.topo(tr[-1]["seg"], (tr[-1]["f1"] - 3) / FPS) if hasattr(medir, "topo") else None]
+        for p in tr:
+            for a in segs[p["seg"]].get("olhos_t", []):
+                if p["f0"] / FPS - 0.1 <= a[0] <= p["f1"] / FPS:
+                    tops.append(a[4] if len(a) > 4 else a[2] - CABECA_K * segs[p["seg"]]["rosto"][2])
+        tops = [x for x in tops if x is not None]
+        topo = min(tops) if tops else ey - CABECA_K * s0["rosto"][2]
+        fator = ab[2] / s0["fechado"][2]
+        den = linha / H_SAIDA - CABECA_FOLGA
+        if ey - topo > 0 and den > 0:
+            fator = min(fator, ab[3] * den / (ey - topo))
+        if fator < ZOOM_MIN:
+            for p in tr:
+                p["zoom"] = "aberto"
+            avisos.append(f"cabeça: fechado em {p0['f0'] / FPS:.2f}s virou aberto (com os olhos na linha, só "
+                          f"{fator:.2f}x cabem sem cortar a cabeça)")
+            continue
+        w, h = ab[2] / fator, ab[3] / fator
+        y = min(max(ey - linha / H_SAIDA * h, 0.0), rh - h)
+        x = min(max(ab[0] + ab[2] / 2 - w / 2, 0.0), rw - w)
+        rect = [round(x, 1), round(y, 1), round(w, 1), round(h, 1)]
+        for p in tr:
+            p["rect"] = rect
+        erro = abs((ey - y) / h * H_SAIDA - linha)
+        if erro > 40:
+            avisos.append(f"olhos: fechado em {p0['f0'] / FPS:.2f}s fica {erro:.0f}px fora da linha padrão "
+                          f"(o bruto não deixa subir/descer mais)")
     return avisos, round(linha, 1)
 
 

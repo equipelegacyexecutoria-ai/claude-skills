@@ -26,7 +26,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from td_comum import (DIVIDIDA_ROSTO_CY, EMENDA, FECHADO_FATOR, FECHADO_FATOR_MIN, H, MODELO_ROSTO,  # noqa: E402
                       ROSTO_ABERTO, ROSTO_CY_ABERTO, ROSTO_MAX, UPSCALE_MAX, W,
-                      gravar_json, ler_json, rect_zoom, transpose_filtro)
+                      gravar_json, ler_json, rect_zoom, topo_cabeca, transpose_filtro)
 
 PARALELO = 6
 _local = threading.local()
@@ -122,7 +122,9 @@ def main() -> None:
         for k, img in enumerate(fr):
             f = melhor_rosto(img)
             if f:
-                out.append((s["dst_in"] + k * 0.5, [f[0] * esc, f[1] * esc, f[2] * esc, f[3] * esc, f[5] * esc, f[6] * esc]))
+                tc = topo_cabeca(img, f[0] + f[2] / 2, f[6], f[2])       # topo real da cabeça (pele)
+                out.append((s["dst_in"] + k * 0.5, [f[0] * esc, f[1] * esc, f[2] * esc, f[3] * esc, f[5] * esc, f[6] * esc,
+                                                    (tc * esc) if tc is not None else (f[6] - 0.85 * f[2]) * esc]))
         return out
 
     with ThreadPoolExecutor(PARALELO) as ex:
@@ -138,7 +140,7 @@ def main() -> None:
         fs_k = np.array([f for _, f in r_]) if r_ else np.array([g])
         if not r_:
             avisos.append(f"seg{k:02d}: rosto não achado, uso a mediana geral")
-        fx, fy, fw, fh, ox, oy = np.median(fs_k, axis=0)
+        fx, fy, fw, fh, ox, oy, _ = np.median(fs_k, axis=0)
         cx, cy = fx + fw / 2, fy + fh / 2
         ab, la = recorte(cx, cy, fw, rw, rh, ROSTO_ABERTO, ROSTO_CY_ABERTO, W / H)
         fator = FECHADO_FATOR if la <= ROSTO_ABERTO * 1.12 else FECHADO_FATOR_MIN
@@ -156,7 +158,8 @@ def main() -> None:
         if fe[2] < W / UPSCALE_MAX:
             avisos.append(f"seg{k:02d}: fechado ampliado {W / fe[2]:.2f}x")
         # olhos a cada 0,5 s (tempo do corte): o plano_td põe os olhos na mesma linha em cada troca de zoom
-        olhos_t = [[round(t, 2), round(float(f[4]), 1), round(float(f[5]), 1)] for t, f in r_]
+        olhos_t = [[round(t, 2), round(float(f[4]), 1), round(float(f[5]), 1), round(float(f[2]), 1), round(float(f[6]), 1)]
+                   for t, f in r_]                          # [t, olhos x, olhos y, largura do rosto, topo da cabeça]
         saida.append({"k": k, "rosto": [round(float(cx), 1), round(float(cy), 1), round(float(fw), 1)],
                       "olhos": olhos, "olhos_t": olhos_t, "aberto": ab, "fechado": fe,
                       "dividida": [round(v, 1) for v in dv],

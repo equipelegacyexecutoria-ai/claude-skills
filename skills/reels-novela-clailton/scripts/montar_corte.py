@@ -212,10 +212,13 @@ def acha_fala(en: Energia, pal, i0, i1, dur, desde: float | None = None):
 
 SIL_CORTE = 0.12        # s: pausa (voz a voz) maior que isso é cortada
 MARGEM_VOZ_INI = 0.02   # s: folga antes do ataque da voz (o quadro arredonda para mais)
-MARGEM_VOZ_FIM = 0.03   # s: folga depois do fim da onda
+MARGEM_VOZ_FIM = 0.04   # s: folga depois do fim da onda forte (o fraco é seguido por ONDA_FRACA_DEPOIS)
+FIM_EXTRA = 0.40        # s: quanto o fim da frase pode passar do corte original se a voz continua
+ONDA_FRACA_ANTES = 0.10 # s: o começo pode recuar até isso se houver sussurro ("e" quase mudo de "e talvez")
+ONDA_FRACA_DEPOIS = 0.12 # s: o fim pode avançar até isso se houver soltura/"s" fraco ("escolhid-o", -43 dB)
 
 
-def aparar(segs: list[dict], trabalho: Path, fonte: str, avisos: list[str]) -> list[dict]:
+def aparar(segs: list[dict], trabalho: Path, fonte: str, avisos: list[str], pal: list[dict]) -> list[dict]:
     """Cada segmento é recortado nos trechos de voz exatos (borda_voz.VozFina); pausa interna >=
     SIL_CORTE vira emenda. Nunca passa dos limites do segmento original (não invade fala vizinha);
     o último segmento mantém o respiro final antes da CTA."""
@@ -224,7 +227,19 @@ def aparar(segs: list[dict], trabalho: Path, fonte: str, avisos: list[str]) -> l
     novos, cortes, antes = [], 0, sum(s["frames"] for s in segs)
     for k, s in enumerate(segs):
         f0, f1 = s["frame_in"], s["frame_in"] + s["frames"]
-        rs = vf.regioes(f0 / FPS, f1 / FPS)
+        # o fim da frase pode passar do corte original se a voz ainda continua ("rot-a" e o "s" final
+        # cortados na v3): até FIM_EXTRA, sem chegar na próxima palavra do bruto nem no próximo pedaço
+        f1_max = f1
+        prox_src = segs[k + 1]["frame_in"] if k + 1 < len(segs) else None
+        if prox_src != f1 and k + 1 < len(segs) or k + 1 == len(segs):
+            lim = f1 / FPS + FIM_EXTRA
+            if s["i1"] + 1 < len(pal):
+                lim = min(lim, pal[s["i1"] + 1]["inicio"] - 0.05)
+            if prox_src is not None and prox_src > f1:
+                lim = min(lim, prox_src / FPS)
+            f1_max = max(f1, int(math.floor(lim * FPS)))
+        rs = vf.regioes(f0 / FPS, f1_max / FPS)
+        rs = [r for r in rs if r[0] < f1 / FPS + 0.25]       # além do corte original, só o que emenda na frase
         blocos = []
         for a, b in rs:
             if blocos and a - blocos[-1][1] < SIL_CORTE:
@@ -235,15 +250,31 @@ def aparar(segs: list[dict], trabalho: Path, fonte: str, avisos: list[str]) -> l
             novos.append(s)
             continue
         for j, (a, b) in enumerate(blocos):
-            n_in = max(f0, int(math.floor((a - MARGEM_VOZ_INI) * FPS)))
-            n_out = min(f1, int(math.ceil((b + MARGEM_VOZ_FIM) * FPS)))
+            # as bordas seguem a onda FRACA da própria palavra (sussurro, soltura, "s"), senão ficam coladas
+            # ...mas nunca além da METADE da pausa até o bloco vizinho (v3: em 0:15 as duas bordas se cruzaram e o
+            # trecho do meio tocou duas vezes — a pausa ficou MAIOR que a original)
+            meio_ant = (blocos[j - 1][1] + a) / 2 if j else -1e9
+            meio_prox = (b + blocos[j + 1][0]) / 2 if j + 1 < len(blocos) else 1e9
+            a2 = max(vf.estende(a, -1, ONDA_FRACA_ANTES), meio_ant)
+            b2 = min(vf.estende(b, +1, ONDA_FRACA_DEPOIS), meio_prox)
+            n_in = max(f0, int(math.floor(max(min(a, a2) - MARGEM_VOZ_INI, meio_ant) * FPS)))
+            n_out = min(max(f1_max, f1), int(math.ceil(min(max(b + MARGEM_VOZ_FIM, b2 + MARGEM_VOZ_INI), meio_prox) * FPS)))
+            if novos and novos[-1].get("_k") == k and n_in <= novos[-1]["frame_in"] + novos[-1]["frames"] + 1:
+                ult = novos[-1]                               # encostou no bloco anterior: sem corte aqui
+                ult["frames"] = max(ult["frames"], n_out - ult["frame_in"])
+                ult["src_out"] = round((ult["frame_in"] + ult["frames"]) / FPS, 4)
+                ult["voz_out"] = round(b, 3)
+                cortes -= 1
+                continue
             if k == len(segs) - 1 and j == len(blocos) - 1:
                 n_out = f1                                   # respiro final antes da CTA
             if n_out - n_in < 3:
                 continue
             novos.append({**s, "frame_in": n_in, "frames": n_out - n_in, "src_in": round(n_in / FPS, 4),
-                          "src_out": round(n_out / FPS, 4), "voz_in": round(a, 3), "voz_out": round(b, 3)})
+                          "src_out": round(n_out / FPS, 4), "voz_in": round(a, 3), "voz_out": round(b, 3), "_k": k})
         cortes += len(blocos) - 1
+    for s in novos:
+        s.pop("_k", None)
     depois = sum(s["frames"] for s in novos)
     avisos.append(f"aparar: {cortes} pausas internas cortadas, {(antes - depois) / FPS:.1f}s de silêncio a menos")
     print(f"  aparar na borda da onda: {cortes} pausas internas cortadas, {(antes - depois) / FPS:.1f}s a menos",
@@ -348,7 +379,7 @@ def main() -> None:
     #     da frase ou na emenda; ficam só ~MARGEM_VOZ antes/depois da voz (usuário, 28/09/2026: "cortes
     #     certeiros, sem espacinho em branco — dá para deduzir que ele está lendo")
     if "--sem-aparar" not in sys.argv:
-        segs = aparar(segs, trabalho, tr["arquivo"], avisos)
+        segs = aparar(segs, trabalho, tr["arquivo"], avisos, pal)
 
     for k, s in enumerate(segs):
         n_in, n_out = s["frame_in"], s["frame_in"] + s["frames"]

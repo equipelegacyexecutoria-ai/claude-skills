@@ -70,7 +70,10 @@ ZOOM_SUAVE_INTERVALO = 6.0   # s: no mínimo isso entre dois zooms animados
 PLANO_MIN = 0.6              # s: nenhum plano (aberto/fechado) menor que isso
 FECHADO_MAX = 4.0            # s: fechado mais longo que isso volta ao aberto na 1ª emenda possível
 ABERTO_MAX = 7.0             # s: aberto mais longo que isso fecha na 1ª emenda boa
-OLHO_MIN_FECHADO = 0.20      # no fechado, os olhos nunca acima de 20% da altura (testa no quadro)
+CORTE_VISIVEL = 0.35         # s de pulo no bruto: só corte assim (ou troca de trecho) pode trocar o zoom
+CABECA_K = 0.85              # topo da cabeça ~ olhos - 0,85 x largura do rosto NO MOMENTO (YuNet; medido: 0,71-0,76)
+CABECA_FOLGA = 0.03          # fração da altura: folga mínima acima da cabeça no fechado
+ZOOM_MIN = 1.10              # fechado menor que isso não vale o corte: o trecho fica no aberto
 
 # ---------------- transições ----------------
 FLASH_ANTES = [1.35, 1.6, 1.75]   # ganho de brilho nos 3 quadros antes do corte (saída da abertura)
@@ -190,6 +193,30 @@ def regiao_plano(p: dict, s: dict) -> tuple[list[float], int, int]:
     q = W / min(r[2] for r in rs)
     reg = [x0, y0, x1 - x0, y1 - y0]
     return reg, int(round(reg[2] * q / 2)) * 2, int(round(reg[3] * q / 2)) * 2
+
+
+def topo_cabeca(img, cx: float, ey: float, fw: float) -> float | None:
+    """Topo REAL da cabeça (y na imagem BGR): sobe a partir dos olhos numa faixa central de 40% do rosto
+    até a cor de pele acabar (YCrCb). Mede careca inclinada (olhando para baixo), que a estimativa pela
+    largura do rosto erra (v4 cortou "O estado atual"). None se não achar pele."""
+    import cv2
+    import numpy as np
+    h, w = img.shape[:2]
+    x0, x1 = int(max(0, cx - 0.2 * fw)), int(min(w, cx + 0.2 * fw))
+    y1 = int(min(h, max(1, ey)))
+    if x1 - x0 < 4 or y1 < 4:
+        return None
+    ycc = cv2.cvtColor(np.ascontiguousarray(img[:y1, x0:x1]), cv2.COLOR_BGR2YCrCb)
+    pele = ((ycc[..., 1] >= 133) & (ycc[..., 1] <= 180) & (ycc[..., 2] >= 77) & (ycc[..., 2] <= 135)).mean(axis=1)
+    topo, buraco = None, 0
+    for y in range(y1 - 1, -1, -1):
+        if pele[y] >= 0.35:
+            topo, buraco = y, 0
+        else:
+            buraco += 1
+            if buraco > max(4, int(0.03 * fw)):
+                break
+    return float(topo) if topo is not None else None
 
 
 def carregar_json(p: Path, padrao=None):
