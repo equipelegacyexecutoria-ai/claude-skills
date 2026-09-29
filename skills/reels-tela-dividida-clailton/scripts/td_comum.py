@@ -70,8 +70,6 @@ ZOOM_SUAVE_INTERVALO = 6.0   # s: no mínimo isso entre dois zooms animados
 PLANO_MIN = 0.6              # s: nenhum plano (aberto/fechado) menor que isso
 FECHADO_MAX = 4.0            # s: fechado mais longo que isso volta ao aberto na 1ª emenda possível
 ABERTO_MAX = 7.0             # s: aberto mais longo que isso fecha na 1ª emenda boa
-OLHOS_AJUSTE_MAX = 150       # px (saída): no fechado, ajuste animado máximo para os olhos entrarem e saírem na linha
-OLHOS_AJUSTE_PS = 60         # px/s (saída): velocidade máxima desse ajuste (discreto, com entrada/saída suaves)
 
 # ---------------- transições ----------------
 FLASH_ANTES = [1.35, 1.6, 1.75]   # ganho de brilho nos 3 quadros antes do corte (saída da abertura)
@@ -170,24 +168,19 @@ def suave(u: float) -> float:
 
 
 def movel(p: dict) -> bool:
-    """Plano cujo recorte muda quadro a quadro: zoom animado (escala) ou ajuste dos olhos (rect_fim)."""
-    return bool(p.get("escala") or p.get("rect_fim"))
+    """Plano cujo recorte muda quadro a quadro (zoom animado). O fechado é sempre parado."""
+    return bool(p.get("escala"))
 
 
 def rect_plano(p: dict, s: dict, k: int) -> list[float]:
     """Recorte (px do bruto girado) do quadro k do plano p (s = segmento do enquadramento_td)."""
     if p.get("escala"):
         return rect_zoom(s["aberto"], p.get("ancora") or s.get("olhos"), p["escala"][k])
-    r0 = p.get("rect") or s["fechado" if p["zoom"] == "fechado" else ("dividida" if p["zoom"] == "dividida" else "aberto")]
-    r1 = p.get("rect_fim")
-    if not r1:
-        return r0
-    u = suave(k / max(1, p["f1"] - p["f0"] - 1))
-    return [a + (b - a) * u for a, b in zip(r0, r1)]
+    return p.get("rect") or s["fechado" if p["zoom"] == "fechado" else ("dividida" if p["zoom"] == "dividida" else "aberto")]
 
 
 def regiao_plano(p: dict, s: dict) -> tuple[list[float], int, int]:
-    """Plano móvel: região do bruto a decodificar (cobre todos os recortes) e o tamanho do quadro
+    """Zoom animado: região do bruto a decodificar (cobre todos os recortes) e o tamanho do quadro
     decodificado (na escala do recorte mais fechado, para o render nunca ampliar depois)."""
     n = p["f1"] - p["f0"]
     rs = [rect_plano(p, s, k) for k in range(n)]

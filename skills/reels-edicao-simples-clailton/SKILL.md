@@ -33,13 +33,17 @@ Regras de decupagem, grafia, destaques, ritmo (nada de pausa dramática) e "nada
    troca no quadro exato da emenda. Nunca no meio da fala contínua.
 2. **Zoom fora da emenda só animado (keyframes)**, com entrada e saída suaves: aproximação de ~18% em
    0,55 s no rabo da frase que fecha o pedaço, segurando até a emenda (`Z` no `timeline.txt`).
-3. **Todo zoom mantém os olhos na mesma altura**: o zoom amplia em volta do ponto entre os olhos
-   (YuNet, medido a cada 0,5 s). Como ele mexe a cabeça, cada fechado é posicionado para os olhos
-   entrarem na linha em que estavam no fim do plano anterior e saírem na linha do começo do seguinte,
-   com um ajuste animado discreto dentro do fechado (keyframes suaves, ≤ 150 px e ≤ 60 px/s). O que a
-   cabeça mudar além disso fica como aviso "olhos: ..." no `timeline.txt`. Conferência:
-   `qa/zoom_olhos.jpg` (6 piores trocas, linha vermelha nos olhos) — no "Dirigir uma empresa sem GPS"
-   a diferença mediana caiu de ~70 px para ~30 px (de 1920).
+3. **Olhos na linha padrão no corte** (2ª correção, 28/09/2026 — palavras do usuário: "quando tem o
+   corte, a gente continua olhando para o mesmo ponto da tela esperando encontrar os olhos"):
+   - **enquadramento padrão = o aberto (original, sem zoom)**, no vídeo inteiro;
+   - **linha padrão dos olhos** = a altura mediana dos olhos nesse aberto (`linha_olhos` no timeline);
+   - no corte que entra no zoom, o fechado é posicionado **só na altura** para os olhos do **1º quadro
+     depois do corte** caírem na linha padrão (medidos no quadro exato do bruto, YuNet);
+   - **na lateral, não segue a cabeça**: fechado centrado no aberto (seguir a lateral cortou o rosto
+     em 0:49–0:52 na v2);
+   - o fechado fica **parado** até o próximo corte (nada de ajuste no meio do plano); na volta, o
+     aberto padrão (os olhos já estão na altura padrão).
+   Conferência: `qa/zoom_olhos.jpg` (6 entradas de zoom mais longe da linha; linha vermelha = padrão).
 
 Vale também na tela dividida (pedido do usuário). Como decide (`plano_td.auto_zoom_cortes`, padrão;
 a linha `ZOOMLIVRE` no plano volta ao fechado antigo, reprovado):
@@ -101,6 +105,6 @@ Sem a pasta de trabalho da versão anterior (ela ficou em outro PC): refaça do 
 | altura da legenda (peito) | `es.py`: `Y_CENTRO` (1010), `TOPO_MIN`, `BASE_MAX`; queixo: `QUEIXO_FATOR` |
 | aberto/fechado | tela dividida: `td_comum.py` (`ROSTO_ABERTO`, `FECHADO_FATOR`) e `plano_td.py` |
 | regra do zoom na emenda / zoom animado | `plano_td.py` (`auto_zoom_cortes`) e `td_comum.py` (`ZOOM_SUAVE`, `ZOOM_SUAVE_RAMPA`, `ZOOM_SUAVE_INTERVALO`, `PLANO_MIN`, `FECHADO_MAX`, `ABERTO_MAX`) |
-| olhos na mesma altura | `td_comum.py` (`rect_zoom`, `rect_plano`, `OLHOS_AJUSTE_MAX`, `OLHOS_AJUSTE_PS`); `plano_td.py` (`olhos_na_linha`); olhos medidos em `enquadrar_td.py`; conferência `olhos_qa.py` |
+| olhos na mesma altura | `td_comum.py` (`rect_zoom`, `rect_plano`); `plano_td.py` (`olhos_na_linha`, `Olhos`); olhos medidos em `enquadrar_td.py`; conferência `olhos_qa.py` |
 | palavra repetida na emenda | novela: `emendas_literal.py` (`JANELA`, `fragmentos`) |
 | legenda (tamanhos, sombra, CTA) | novela: `legenda_novela.py` (vale para as duas skills) |
