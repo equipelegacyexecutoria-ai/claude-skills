@@ -287,6 +287,17 @@ se existir, senão `legenda.json`).
 - Paralelismo validado bit a bit: intermediários (6 por vez), extrações da conferência (8) e
   enquadramento (NVDEC + 6 detectores). A imagem e o áudio saem com o mesmo md5 do modo serial.
 - Agente em segundo plano pode travar sem gravar nada (vídeo 2: 18 min): sempre com prazo.
+- **Última palavra da frase sumia** ("comenta GPS" cortado, 2 vezes): o Whisper marcou o fim cedo e a
+  fala real passava da janela de busca (`w1 + 0,45 s`), então o `acha_fala` descartava o pedaço
+  inteiro. Agora estende até 1,2 s, sem invadir a próxima palavra do bruto (28/09/2026).
+- **Gaguejo colado na emenda** ("E... e você sabe", "mas... mas sem destino"): o Whisper estica UMA
+  palavra por cima da pausa e o corte emenda as duas. `emendas_literal.py` (roda no `montar` da TD/ES)
+  transcreve cada emenda em modo literal e acha "pedaço curto dentro de uma palavra que continua no
+  pedaço seguinte"; sugere o `INICIO`/`PARTE`. A conferência da TD/ES não tinha passada literal.
+- O `seg` de cada palavra do `palavras_corte.json` vinha do tempo do Whisper; o `alinhar.py` agora
+  recalcula pelo tempo alinhado (o zoom por emenda dependia disso).
+- Frase paralela tomada por "tomada refeita" (começa com as mesmas 4 palavras e segue diferente): a
+  proposta agora marca DÚVIDA em vez de tirar a frase.
 - Editar arquivo da skill por script Python dentro do bash: a barra invertida de caminho vira
   caractere de controle (o `\r` de `T\repeticoes` virou quebra de linha). Use as ferramentas de
   edição do Claude ou `chr(92)`, e confira em bytes (modo texto converte CR em LF e esconde o erro).

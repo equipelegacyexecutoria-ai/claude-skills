@@ -60,10 +60,10 @@ LEAD = 1.0 / FPS             # corte e legenda entram 1 quadro antes do início 
 # ---------------- estilo "película" (estilo_td.py; referência: reel da história do Clailton) ----------------
 ESTILO_FORCA = 1.0           # 0 desliga; a linha "ESTILO 0.7" no plano.txt muda só aquele vídeo
 
-# ---------------- zoom (regras do usuário, 28/09/2026) ----------------
+# ---------------- zoom (regras do usuário, 28/09/2026; TD e edição simples) ----------------
 # 1) zoom SECO (aberto <-> fechado) só na emenda (corte); 2) zoom fora do corte só ANIMADO (keyframes),
 # com entrada e saída suaves; 3) todo zoom mantém os olhos na mesma altura (ancorado nos olhos).
-# Liga com a linha ZOOMCORTE no plano.txt (padrão da edição simples).
+# Padrão do plano_td.py; a linha ZOOMLIVRE no plano.txt volta ao fechado antigo (no meio da fala).
 ZOOM_SUAVE = 1.18            # zoom animado: escala final sobre o aberto
 ZOOM_SUAVE_RAMPA = 0.55      # s: duração da animação (entrada e saída suaves)
 ZOOM_SUAVE_INTERVALO = 6.0   # s: no mínimo isso entre dois zooms animados

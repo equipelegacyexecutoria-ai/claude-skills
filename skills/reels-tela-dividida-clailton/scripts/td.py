@@ -39,6 +39,16 @@ def etapa(script: Path, args: list[str]) -> int:
     return r.returncode
 
 
+def emendas(T: Path) -> int:
+    """Palavra repetida colada na emenda ("E... e você sabe"): o Whisper engole gaguejo e o corte emenda
+    os dois pedaços. Transcrição literal de cada emenda (skill novela) + ajuste de decupagem sugerido."""
+    rc = etapa(NOVELA / "emendas_literal.py", [str(T)])
+    if rc:
+        print(f"\n⚠ REPETIÇÃO NA EMENDA: leia {T / 'emendas_literal.txt'}, junte o ajuste sugerido ao "
+              "decupagem_ajustes.txt, --aplicar e rode o montar de novo (intencional -> repeticoes_ok.txt)")
+    return rc
+
+
 def tem_roteiro(t: Path) -> bool:
     return any((t / n).exists() for n in ("roteiro.txt", "roteiro.md", "roteiro.docx"))
 
@@ -101,10 +111,7 @@ def main() -> None:
             sys.exit(1)
         if tem_roteiro(T):
             etapa(NOVELA / "roteiro.py", [str(T)])
-        # palavra repetida colada na emenda (o Whisper engole gaguejo): transcrição literal de cada emenda
-        if etapa(NOVELA / "emendas_literal.py", [str(T)]):
-            print(f"\n⚠ REPETIÇÃO NA EMENDA: leia {T / 'emendas_literal.txt'}, junte o ajuste sugerido ao "
-                  "decupagem_ajustes.txt, --aplicar e rode o montar de novo")
+        emendas(T)
         print(f"\nPRÓXIMO: plano visual em {T / 'plano.txt'} a partir de {T / 'palavras_legenda.txt'}")
     elif cmd == "plano":
         sys.exit(etapa(AQUI / "plano_td.py", a))
@@ -121,6 +128,8 @@ def main() -> None:
         sys.exit(etapa(AQUI / "render_td.py", [str(T), str(T / "previa.mp4")] + extra))
     elif cmd == "finalizar":
         T, saida = Path(a[0]), Path(a[1])
+        if emendas(T):                                   # repetição na emenda reprova antes do render
+            sys.exit(3)
         if etapa(AQUI / "legenda_td.py", [str(T)]) or etapa(AQUI / "render_td.py", [str(T), str(saida)]):
             sys.exit(1)
         rc = etapa(AQUI / "conferir_td.py", [str(T), str(saida)] + (["--geral"] if "--geral" in a else []))

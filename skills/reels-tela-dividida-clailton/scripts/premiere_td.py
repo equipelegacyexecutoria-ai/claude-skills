@@ -13,7 +13,8 @@ Pasta "<nome> - PREMIERE/" ao lado do vídeo final:
 
 Trilhas:
   V1  Clailton: o BRUTO 4K, um clipe por plano (entrada/saída exatas, com sobra para ajustar
-      o corte), Movimento com escala/posição/rotação reproduzindo aberto, fechado e dividida
+      o corte), Movimento com escala/posição/rotação reproduzindo aberto, fechado e dividida;
+      plano com zoom animado (keyframes, ancorado nos olhos) vai já pronto: midia/clailton_zoom_NNN.mp4
   V2  imagens e vídeos (já no recorte do layout; foto com zoom-out em quadros-chave)
   V3  legenda_alpha.mov
   A1/A2  áudio do bruto por trecho (canais 1 e 2) com o ganho da normalização
@@ -38,8 +39,34 @@ from PIL import Image
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from td_comum import (EMENDA, FPS, FPS_DEN, FPS_NUM, H, W, ZOOM_FOTO, ZOOM_FOTO_MAX, ler_json,  # noqa: E402
                       wh_video)
-from render_td import Cartao, Imagem, area_util, filtro_trecho  # noqa: E402
+from render_td import GPU, Cartao, Imagem, area_util, cmd_bruto, filtro_trecho, quadro_zoom  # noqa: E402
+from td_comum import filtro_recorte  # noqa: E402
 from midia_util import caixa_cover  # noqa: E402
+
+
+def exportar_zoom(fonte: Path, entrada: int, p: dict, e: dict, rot: int, w0: int, h0: int, dest: Path) -> None:
+    """Plano com zoom animado (keyframes, ancorado nos olhos): sai já pronto em 1080x1920, igual ao render
+    (o Movimento do Premiere não sabe ampliar em volta dos olhos com a mesma curva)."""
+    n = p["f1"] - p["f0"]
+    smax = max(p["escala"])
+    ow, oh = int(round(W * smax / 2)) * 2, int(round(H * smax / 2)) * 2
+    dec = subprocess.Popen(cmd_bruto(str(fonte), entrada, n, filtro_recorte(e["aberto"], rot, w0, h0, ow, oh, rgb=True), GPU),
+                           stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+    enc = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",
+                            "-r", f"{FPS_NUM}/{FPS_DEN}", "-i", "-", "-vf",
+                            "scale=out_color_matrix=bt709:out_range=tv,format=yuv420p", "-c:v", "libx264", "-crf", "14",
+                            "-preset", "medium", "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709",
+                            str(dest)], stdin=subprocess.PIPE)
+    ult = None
+    for k in range(n):
+        b = dec.stdout.read(ow * oh * 3)
+        if len(b) == ow * oh * 3:
+            ult = np.frombuffer(b, np.uint8).reshape(oh, ow, 3)
+        if ult is not None:
+            enc.stdin.write(np.ascontiguousarray(quadro_zoom(ult, e["aberto"], e.get("olhos"), p["escala"][k])).tobytes())
+    enc.stdin.close()
+    enc.wait()
+    dec.wait()
 
 
 GRANDE = 1.25                    # foto exportada 25% maior (o zoom no Premiere não amplia)
@@ -166,6 +193,14 @@ def main() -> None:
         X = out_cx + s_ * (rw / 2 - (x + w / 2))
         Y = out_cy + s_ * (rh / 2 - (y + h / 2))
         entrada = s["frame_in"] + (p["f0"] - seg_f0[p["seg"]])
+        if p.get("escala") and p["visivel"]:                # zoom animado: trecho já pronto em midia/
+            n = p["f1"] - p["f0"]
+            dest = M / f"clailton_zoom_{i:03d}.mp4"
+            if not dest.exists():
+                exportar_zoom(fonte, entrada, p, e, rot, w0, h0, dest)
+            v1.append(clip(f"v1-{i}", "Clailton zoom animado", p["f0"], p["f1"], 0, n, A.ref(dest, n, W, H),
+                           movimento(100.0), dur_fonte=n))
+            continue
         v1.append(clip(f"v1-{i}", f"Clailton {zoom}", p["f0"], p["f1"], entrada, entrada + p["f1"] - p["f0"],
                        A.ref(fonte, dur_bruto, w0, h0, audio_ch=2), movimento(100 * s_, rot, (X - W / 2) / W, (Y - H / 2) / H),
                        dur_fonte=dur_bruto))

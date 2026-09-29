@@ -19,8 +19,9 @@ Sintaxe do plano.txt (uma decisão por linha; # comenta; @a-b = índices de pala
   NUMERO @120-121 "0,07%"                 número grande sobre o Clailton
   SEMCTA                                  termina sem a CTA
   SEMZOOM                                 desliga o aberto/fechado automático (só o que o plano marcar)
-  ZOOMCORTE                               zoom seco só nas emendas + zoom animado (keyframes) dentro
-                                          do pedaço, sempre com os olhos na mesma altura (edição simples)
+  (padrão)                                zoom seco só nas emendas + zoom animado (keyframes) dentro
+                                          do pedaço, olhos sempre na mesma altura (regra do usuário)
+  ZOOMLIVRE                               volta ao fechado antigo (punch-in no meio da fala; evitar)
 
 Uso: python plano_td.py <trabalho>   (lê plano.txt, palavras_corte.json, corte.json)
 Saída: timeline.json + timeline.txt (resumo para conferir) e avisos.
@@ -89,7 +90,7 @@ def quebra(palavra: str) -> bool:
 # ------------------------------------------------------------------ leitura do plano
 def ler_plano(p: Path) -> dict:
     pl = {"abertura": None, "etiqueta": None, "topo": [], "itens": [], "forca": [], "numeros": [], "cta": True,
-          "auto_zoom": True, "avisos": []}
+          "auto_zoom": True, "zoom_corte": True, "avisos": []}
     for n, bruto in enumerate(p.read_text(encoding="utf-8").splitlines(), 1):
         linha = bruto.split(" #")[0].strip() if not bruto.strip().startswith("#") else ""
         if not linha:
@@ -103,8 +104,10 @@ def ler_plano(p: Path) -> dict:
             pl["cta"] = False
         elif up.startswith("SEMZOOM"):
             pl["auto_zoom"] = False
-        elif up.startswith("ZOOMCORTE"):
+        elif up.startswith("ZOOMCORTE"):                 # já é o padrão (planos antigos da ES trazem a linha)
             pl["zoom_corte"] = True
+        elif up.startswith("ZOOMLIVRE"):
+            pl["zoom_corte"] = False
         elif up.startswith("SEMABERTURA"):
             pl["sem_abertura"] = True
         elif up.startswith("ESTILO"):
@@ -448,14 +451,14 @@ def auto_fechado(pal, ini, F_FALA, estado, zoom, forcado, seg_f0, f_ini) -> None
 
 
 def auto_zoom_cortes(pal, F_FALA, estado, zoom, forcado, seg_f0, segs, f_ini, auto: bool = True) -> list[float]:
-    """ZOOMCORTE — regras do usuário (28/09/2026, correção do reel "Dirigir uma empresa sem GPS"):
+    """Zoom padrão (TD e ES) — regras do usuário (28/09/2026, correção do reel "Dirigir uma empresa sem GPS"):
     "o zoom precisa ser entre cortes (zoom seco); se for fazer um zoom que não seja entre cortes,
     precisa ser com keyframes"; "todo zoom mantém a altura dos olhos" (rect_zoom, no render).
     - cada pedaço do corte (entre duas emendas) tem UM zoom: aberto/fechado só troca na emenda;
     - emenda de tomada (trecho novo da decupagem ou pulo >= 1 s no bruto) troca o zoom: esconde o pulo;
     - pedaço que é uma frase curta de fecho ("A rota.", "Pensa comigo.") vai para o fechado;
-    - o fechado volta para o aberto na emenda seguinte (salvo se ficou < 1,2 s); aberto por mais de
-      ABERTO_MAX fecha na 1ª emenda boa; nenhum plano menor que PLANO_MIN;
+    - o fechado volta para o aberto na emenda seguinte; aberto por mais de ABERTO_MAX fecha na 1ª
+      emenda boa; nenhum plano menor que PLANO_MIN;
     - dentro de pedaço longo que termina em fim de frase: zoom ANIMADO (keyframes, entrada e saída
       suaves) no rabo da frase, segurando até a emenda; só se o pedaço seguinte for aberto.
     Preenche zoom[] e devolve a escala por quadro do zoom animado (1,0 = parado)."""
@@ -465,7 +468,10 @@ def auto_zoom_cortes(pal, F_FALA, estado, zoom, forcado, seg_f0, segs, f_ini, au
     dur = [(b[k + 1] - b[k]) / FPS for k in range(n)]
     tomada = [False] + [segs[k]["i0"] != segs[k - 1]["i0"] or segs[k]["src_in"] - segs[k - 1]["src_out"] >= 1.0
                         for k in range(1, n)]
-    pal_seg = [[w for w in pal if w.get("seg") == k] for k in range(n)]
+    pal_seg = [[] for _ in range(n)]              # pelo tempo alinhado (o "seg" antigo vinha do Whisper)
+    for w in pal:
+        f = q(w["inicio"])
+        pal_seg[max((k for k in range(n) if b[k] <= f + 1), default=0)].append(w)
 
     def fecho(k: int) -> bool:
         ws = pal_seg[k]
@@ -490,7 +496,7 @@ def auto_zoom_cortes(pal, F_FALA, estado, zoom, forcado, seg_f0, segs, f_ini, au
             if dur[k] < PLANO_MIN or run < PLANO_MIN:
                 zk = prev                                  # pedaço (ou plano anterior) curto demais: segue
             elif prev == "fechado":
-                zk = "aberto" if (tomada[k] or run >= 1.2 or run + dur[k] > FECHADO_MAX) else "fechado"
+                zk = "aberto"                              # o fechado volta sempre na emenda seguinte
             else:
                 folga = (t_fech + dur[k]) / max(1e-6, t_tot + dur[k]) <= 0.5
                 quer = tomada[k] or (fecho(k) and run >= 1.5) or (run >= ABERTO_MAX and dur[k] <= FECHADO_MAX)
@@ -509,6 +515,9 @@ def auto_zoom_cortes(pal, F_FALA, estado, zoom, forcado, seg_f0, segs, f_ini, au
         ws = pal_seg[k]
         if (not auto or z[k] != "aberto" or dur[k] < 3.0 or len(ws) < 6 or not fim_de_frase(ws[-1]["texto"])
                 or (k + 1 < n and z[k + 1] != "aberto") or forcado_em(k)):
+            continue
+        # sem fechado logo depois (zoom animado, volta seca e fechado em 3 s = zoom demais)
+        if any(z[j] == "fechado" and b[j] - b[k + 1] < q(3.0) for j in range(k + 1, n)):
             continue
         if any(estado[f] != "cheio" for f in range(b[k], b[k + 1])):
             continue

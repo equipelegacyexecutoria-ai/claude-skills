@@ -65,6 +65,12 @@ def main() -> None:
                 ok += 1
     for j, w in enumerate(pal):
         w["pausa_antes"] = round(w["inicio"] - pal[j - 1]["fim"], 3) if j else 9.0
+    # o pedaço do corte (seg) vinha do tempo do Whisper: recalcula pelo tempo alinhado
+    corte = trabalho / "corte.json"
+    if corte.exists():
+        ins = [s["dst_in"] for s in json.loads(corte.read_text(encoding="utf-8"))["segmentos"]]
+        for w in pal:
+            w["seg"] = max((k for k, t in enumerate(ins) if t <= w["inicio"] + 0.02), default=0)
     dados["alinhado"] = True
     dados["alinhadas"] = ok
     arq.write_text(json.dumps(dados, ensure_ascii=False, indent=1), encoding="utf-8")

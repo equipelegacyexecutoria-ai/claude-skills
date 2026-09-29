@@ -15,7 +15,7 @@ Como decidir as imagens: `referencia/regras-plano-visual.md`** (leia antes de es
 |---|---|
 | Formato | 1080×1920, 29,97 fps, H.264 High CRF 10 slow, BT.709, AAC 320k (~75 Mb/s com o estilo); voz −14 LUFS / −1 dBTP |
 | Gancho (0–3/8 s) | tela dividida: imagem em y 0–768, Clailton embaixo; legenda vira **tarja preta** na emenda; saída com **flash** |
-| Clailton | parado; **aberto** (rosto 30% da largura) e **fechado** (1,5×) por corte seco; fechado nos fechos de frase e depois de emenda de tomada (automático) |
+| Clailton | parado; **aberto** (rosto 30% da largura) e **fechado** (1,5×) por corte seco; fechado nos fechos de frase e depois de emenda de tomada (automático). **Regras de zoom do usuário (28/09/2026), padrão:** zoom seco (aberto ↔ fechado) **só na emenda**; fora da emenda só **zoom animado** (keyframes, entrada/saída suaves, ~18% em 0,55 s no rabo da frase, segura até a emenda); **todo zoom mantém os olhos na mesma altura** (fechado e zoom animado ampliam em volta do ponto entre os olhos). Detalhes na skill da edição simples, seção "Zoom" |
 | Imagem | ~30–40% do tempo, entra no início da palavra que ilustra; **padrão = cena de cultura pop em vídeo** (filme, série, desenho) que mostra o que ele fala; foto só para fato (pessoa, marca, livro, notícia), com zoom-out ~5%/s; vídeo sem zoom e sem som; cartão para print; `dividida` quando ele comenta a imagem |
 | Tempo mínimo na tela | **nada pisca**: imagem/cena ≥ 1,0 s; Clailton entre duas imagens ≥ 1,0 s (menos que isso a imagem emenda na próxima); sobra do Clailton colada numa emenda de tomada (< 0,5 s) vira imagem. Automático em `plano_td.py`; exceção só com `rapido` na linha (lista, ≥ 0,6 s) |
 | Enquadramento do B-roll | recorte no ASSUNTO, por plano da cena: o reenquadramento testa 9 posições do 9:16 (e 5 da faixa de cima) e fica com a que mostra a ação E o personagem, sem cortar rosto ao meio; entrada do trecho sem pedaço de outra cena nas pontas |
@@ -58,6 +58,9 @@ palavra faltando no áudio — confira isso a olho na revisão.
 3. **Montar** — `P S\td.py montar T` (~20 s–1 min): corte colado na voz + alinhamento e, junto,
    **rotação automática** (câmera deitada) + recortes aberto/fechado/dividida por tomada.
    Aviso "bruto fechado" = rosto já grande no quadro: o aberto fica o mais aberto possível.
+   No fim roda `emendas_literal.py` (skill novela): transcrição literal de cada emenda. **"REPETIÇÃO NA
+   EMENDA"** = gaguejo colado no corte ("E... e você sabe", "mas... mas sem destino"): junte o ajuste
+   sugerido de `T\emendas_literal.txt` ao `decupagem_ajustes.txt`, `--aplicar` e `montar` de novo.
 4. **Plano visual (você)** — leia `T\palavras_legenda.txt` (+ `T\ancoras.txt`, se houver) e escreva
    `T\plano.txt` seguindo `referencia/regras-plano-visual.md`: **para cada trecho, a cena famosa que
    mostra aquilo** (cultura pop em vídeo; foto só para fato). Uma linha por imagem; o resto é
@@ -116,7 +119,8 @@ refazer o plano (os índices mudam).
 | recorte do B-roll no assunto, entrada do trecho, LARGA/ESCURO | `reenquadrar_td.py` (`N_POS`, `MIN_PLANO`, `MARGEM`, `ESCURO`) |
 | tamanho/posição/espaçamento da legenda, tarja, número grande, etiqueta | `td_comum.py` (`LEG_*`, `TARJA_*`, `NUMERO_*`, `ETIQUETA_*`) e `legenda_td.py` |
 | quebra das telas de legenda, trocas "tô→ESTOU", censura (EST*PRO) | `plano_td.py` (`custo_tela`, `TROCAS`, `CENSURA`, `FRACAS`) |
-| regra do fechado automático | `plano_td.py` (`auto_fechado`, `PUNCH_*`, `FECHADO_MAX_FRACAO`) |
+| regra do aberto/fechado e do zoom animado | `plano_td.py` (`auto_zoom_cortes`) e `td_comum.py` (`ZOOM_SUAVE*`, `PLANO_MIN`, `FECHADO_MAX`, `ABERTO_MAX`); `ZOOMLIVRE` no plano volta ao `auto_fechado` antigo (zoom seco no meio da fala — o usuário reprovou) |
+| zoom ancorado nos olhos | `td_comum.py` (`rect_zoom`); olhos por tomada em `enquadrar_td.py` (YuNet) |
 | fontes de imagem, filtros, marca d'água, ranking | `buscar_td.py` (`BLOQUEADOS`, `LIMITE_MARCA`, `prior`, `CANAIS_OFICIAIS`) e `clip_rank.py` |
 | quantos vídeos por cena, prévia, HD | `buscar_td.py` (`N_YOUTUBE`, `N_TIKTOK`, `QPS`, `HD_POR_ITEM`, `ITENS_JUNTOS`) |
 | camada película (textura, retícula, grão, poeira, cor, vinheta) | `estilo_td.py` (constantes no topo); força geral `ESTILO_FORCA` em `td_comum.py`; por vídeo `ESTILO 0.7` no plano ou `--estilo` no render |
@@ -181,3 +185,8 @@ si ainda não foi aberta no Premiere (confira o 1º projeto).
   `url=` de um vídeo que funciona, dá para usar momentos diferentes do MESMO vídeo em itens
   diferentes (balde, água, inundação), cada um com a sua janela.
   Cortina/cena escura no topo não é tarja: a conferência só avisa quando há degrau preto → imagem.
+- Zoom animado: o plano é decodificado no recorte aberto em resolução maior e ampliado quadro a quadro
+  em volta dos olhos (`render_td.quadro_zoom`); a conferência de sincronia pula esses planos. No pacote
+  do Premiere ele vai já pronto (`midia/clailton_zoom_NNN.mp4`), sem o bruto por baixo.
+- O `seg` das palavras vinha do tempo do Whisper (antes do alinhamento): o zoom por emenda caía no
+  pedaço errado. O `alinhar.py` recalcula e o `plano_td` usa o tempo alinhado.

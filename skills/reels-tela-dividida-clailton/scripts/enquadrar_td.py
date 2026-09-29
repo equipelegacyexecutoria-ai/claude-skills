@@ -143,8 +143,8 @@ def main() -> None:
         ab, la = recorte(cx, cy, fw, rw, rh, ROSTO_ABERTO, ROSTO_CY_ABERTO, W / H)
         fator = FECHADO_FATOR if la <= ROSTO_ABERTO * 1.12 else FECHADO_FATOR_MIN
         fator = min(fator, ROSTO_MAX / la, ab[2] / (W / UPSCALE_MAX))
-        # regra do usuário (28/09/2026): todo zoom mantém a altura dos olhos. O fechado é o aberto
-        # ampliado em volta do ponto entre os olhos, que fica parado no quadro (sempre cabe no aberto)
+        # regra do usuário (28/09/2026, TD e edição simples): todo zoom mantém a altura dos olhos. O
+        # fechado é o aberto ampliado em volta do ponto entre os olhos, que fica parado no quadro
         olhos = [round(float(ox), 1), round(float(oy), 1)]
         fe = [round(v, 1) for v in rect_zoom(ab, olhos, fator)]
         lf = la * fator

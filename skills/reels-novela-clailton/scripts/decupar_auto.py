@@ -190,8 +190,20 @@ def main() -> None:
             conteudo = parecido(ac, bc) if ac else 1.0
             # tropeço curto ("dá aquela impressão de água" -> "...de agora vai"): 4 primeiras palavras iguais
             exato4 = n >= 4 and a_sem[:4] == b[:4] and any(x not in FUNCAO for x in a_sem[:4])
-            if exato4 or (max(parecido(a_sem[:m], b[:L]) for L in (m, m + 1, m + 2)) >= SIMIL
-                          and conteudo >= SIMIL_CONTEUDO):
+            semelhante = (max(parecido(a_sem[:m], b[:L]) for L in (m, m + 1, m + 2)) >= SIMIL
+                          and conteudo >= SIMIL_CONTEUDO)
+            # frase PARALELA (não é tomada): completa, começa igual e segue diferente — "Você sabe
+            # exatamente onde ela está hoje?" x "E você sabe exatamente onde você quer chegar?"
+            # (28/09/2026: a proposta tirou a 1ª e o corte ficou sem sentido)
+            pref = next((p for p in range(min(n, len(b))) if a_sem[p] != b[p]), min(n, len(b)))
+            resto_a, resto_b = a_sem[pref:], b[pref:pref + len(a_sem) - pref + 2]
+            ult = fs[i][-1]["texto"].strip()
+            completa = bool(re.search(r"[.?!]$", ult)) and not re.search(r"(\.\.\.|…)$", ult)   # "..." = parou no meio
+            if (exato4 and not semelhante and completa and len(resto_a) >= 2 and a_sem[0] not in resto_a
+                    and parecido(resto_a, resto_b) < 0.34):
+                estado[i] = ["DÚVIDA", f"começa igual à frase {j} e segue diferente: frase paralela? (se for, FICA)"]
+                break
+            if exato4 or semelhante:
                 estado[i] = ["SAI", f"tomada refeita adiante (frase {j})"]
                 # continuação curta da tomada descartada ("..., mais água.")
                 k = i + 1

@@ -10,6 +10,18 @@ Todo card da fila é editado **no PC de render** (`~/.claude/maquina.json` com `
 Em outro PC: pergunte "aqui ou no PC de render?" e, se for lá, diga para mandar o pedido pela
 conversa do PC de render (Controle Remoto, no celular ou em claude.ai/code).
 
+**"Roda por aqui" (outro PC, a pedido do usuário — 28/09/2026):** vale. Diferenças:
+- Sem disco G:: baixe o bruto pelo link do card direto do Drive (arquivo compartilhado por link):
+  `curl -sL -o "C:\Render\brutos\<slug>\<arquivo>" "https://drive.usercontent.google.com/download?id=<ID>&export=download&confirm=t"`
+  (confira antes com `curl -sIL` que volta `Content-Type: video/...` e o tamanho certo; confira o espaço no C:).
+- A pasta de trabalho da versão anterior ficou no PC de render: na correção, refaça do bruto já com
+  as correções (decupagem revisada à mão, não a proposta automática).
+- Entrega: o Notion só aceita anexo de até 20 MB e o conector do Drive não sobe vídeo grande. Sem
+  Google Drive para computador neste PC, deixe o vídeo em `C:\Render\Reels Editados\`, mostre ao
+  usuário e combine a subida (ele arrasta para a pasta EDITADO do mês no Drive; depois você cola o link
+  em MATERIAL FINALIZADO, comenta e move para Aprovação). Não mova o card sem o link do vídeo.
+- Traga as correções aplicadas na conversa (o usuário pede "me traga por aqui") além do comentário no card.
+
 O usuário não é técnico: relatórios curtos, pelo dia a dia dele (ver CLAUDE.md global).
 
 ## Quem faz o trabalho: a própria conversa que recebe o gatilho (regra do usuário, 28/09/2026)
