@@ -143,6 +143,10 @@ Distribuição: 11 telas de 1 linha, 15 de 2, 12 de 3. Layouts ~40% centro, ~30%
 - Máquina de escrever: começa 1 quadro depois do corte, ~47 letras/s (tudo em ~0,78 s),
   cada letra acende em ~2 quadros; depois fica parada até o fim.
 - Sem música/voz (a música entra depois, na mão do usuário).
+- **Som de teclado padrão** (usuário, 30/09/2026: "é importante que fique sincronizado com a escrita
+  da palavra"): `assets/cta_teclado.mp3`, rajada de 15 toques em 0,75 s, ~80 ms de silêncio no
+  início do arquivo (descartado). O 1º toque entra no quadro da 1ª letra e o último cai na última
+  letra (a digitação toda leva 0,76 s). Volume: +12 dB sobre o arquivo (~-25 LUFS, voz a -16).
 
 ## 7. Entrega
 

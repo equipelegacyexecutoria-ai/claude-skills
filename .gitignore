@@ -27,3 +27,4 @@ desktop.ini
 /skills/reels-tela-dividida-clailton/models/watermark_model_v1.pt
 /skills/reels-tela-dividida-clailton/models/*ppocrv3*.onnx
 /skills/roteirista-reels-clailton/scripts/raiz-do-projeto.txt
+!/skills/*/assets/*.mp3

@@ -4,11 +4,12 @@ Pipeline (tudo a partir do bruto 4K):
   1. cada segmento do corte -> recorte 5:4 -> 1080x864 (lanczos) -> intermediário SEM PERDA (x264 qp 0)
   2. tela preta da CTA (sem perda)
   3. áudio: fatias exatas do bruto (48 kHz), fade de 8 ms em cada corte, silêncio na CTA,
-     ganho até -16 LUFS + limitador suave só nos picos (pico -1 dBTP)
+     ganho até -16 LUFS + limitador suave só nos picos (pico -1 dBTP); depois, o som de teclado
+     padrão (assets/cta_teclado.mp3) com o 1o toque no quadro da 1a letra da CTA
   4. concatena -> faixa centrada com barras pretas (pad) -> legenda .ass (libass) ->
      H.264 High CRF 10 preset slow, yuv420p BT.709, AAC 320k, +faststart
 
-Uso: python render_final.py <pasta_trabalho> <saida.mp4> [--manter] [--sem-cuda]
+Uso: python render_final.py <pasta_trabalho> <saida.mp4> [--manter] [--sem-cuda] [--sem-teclado]
 Requer em <trabalho>/: corte.json, enquadramento.json, legenda.ass, layout.json
 """
 from __future__ import annotations
@@ -36,6 +37,12 @@ SR = 48000
 FADE = 0.008
 COR = "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709:range=tv"
 PARALELO = 6     # intermediários renderizados ao mesmo tempo
+# som padrão da CTA (arquivo do usuário, 30/09/2026): rajada de 15 toques de teclado em 0,75 s, o mesmo tempo da
+# digitação da frase (CTA_DIGITACAO 0,76 s) -> o 1o toque cai no quadro da 1a letra e o último na última letra.
+# Vale para novela, tela dividida e edição simples (as três usam esta função).
+TECLADO = Path(__file__).resolve().parent.parent / "assets" / "cta_teclado.mp3"
+TECLADO_GANHO_DB = 12.0   # o arquivo vem baixo (pico -17 dBFS, ~-37 LUFS): +12 dB ~ -25 LUFS, bem audível sem brigar com a voz
+TECLADO_PRE = 0.002       # s antes do 1o toque que ficam no recorte
 
 
 def ff(args: list[str], cwd: Path | None = None) -> None:
@@ -158,12 +165,64 @@ def normalizar(entrada: Path, saida: Path) -> dict:
     return {"path": saida, **info}
 
 
+def som_teclado() -> np.ndarray:
+    """Som da CTA em float estéreo 48 kHz, já com o ganho, começando TECLADO_PRE antes do 1o toque
+    (o mp3 traz ~80 ms de silêncio antes)."""
+    r = subprocess.run(["ffmpeg", "-v", "error", "-i", str(TECLADO), "-ac", "2", "-ar", str(SR), "-f", "f32le", "-"],
+                       capture_output=True, check=True)
+    x = np.frombuffer(r.stdout, np.float32).reshape(-1, 2)
+    amp = np.abs(x).max(axis=1)
+    i0 = int(np.argmax(amp >= 0.1 * amp.max()))
+    return x[max(0, i0 - int(TECLADO_PRE * SR)):] * np.float32(10 ** (TECLADO_GANHO_DB / 20))
+
+
+def mixar_teclado(audio: Path, t_letra: float) -> None:
+    """Soma o som de teclado ao áudio final (wav 48 kHz) com o 1o toque em t_letra = quadro da 1a letra da CTA."""
+    with wave.open(str(audio), "rb") as w:
+        sr, ch = w.getframerate(), w.getnchannels()
+        x = np.frombuffer(w.readframes(w.getnframes()), np.int16).reshape(-1, ch).astype(np.float32) / 32768
+    if sr != SR:
+        raise SystemExit(f"áudio a {sr} Hz (esperado {SR})")
+    s = som_teclado()
+    s = s[:, :ch] if ch <= 2 else np.repeat(s[:, :1], ch, axis=1)
+    i = int(round((t_letra - TECLADO_PRE) * SR))
+    n = min(len(s), len(x) - i)
+    if n <= 0:
+        raise SystemExit(f"CTA em {t_letra:.2f}s fora do áudio ({len(x) / SR:.2f}s)")
+    x = x.copy()
+    x[i:i + n] += s[:n]
+    with wave.open(str(audio), "wb") as w:
+        w.setnchannels(ch)
+        w.setsampwidth(2)
+        w.setframerate(sr)
+        w.writeframes((np.clip(x, -1, 1) * 32767).astype(np.int16).tobytes())
+    print(f"  som de teclado da CTA: 1o toque em {t_letra:.3f}s (+{TECLADO_GANHO_DB:.0f} dB)", flush=True)
+
+
+def medir_teclado(video: Path, t_letra: float) -> dict:
+    """Conferência: acha o 1o toque do teclado no vídeo final e compara com o quadro da 1a letra da CTA."""
+    t_a = max(0.0, t_letra - 0.3)
+    r = subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{t_a:.3f}", "-t", "1.4", "-i", str(video), "-map", "0:a:0",
+                        "-ac", "1", "-ar", str(SR), "-f", "f32le", "-"], capture_output=True, check=True)
+    x = np.abs(np.frombuffer(r.stdout, np.float32))
+    j0 = int((t_letra - t_a) * SR)
+    pico = float(x[j0:j0 + int(0.9 * SR)].max()) if len(x) > j0 else 0.0
+    if pico < 10 ** (-30 / 20):
+        return {"ok": False, "motivo": "som de teclado ausente na CTA", "pico_db": round(20 * np.log10(pico + 1e-9), 1)}
+    ini = max(0, j0 - int(0.15 * SR))
+    toque = ini + int(np.argmax(x[ini:] >= 0.25 * pico))
+    desvio = (t_a + toque / SR) - t_letra
+    return {"ok": abs(desvio) <= 1 / FPS, "desvio_ms": round(desvio * 1000, 1),
+            "pico_db": round(20 * np.log10(pico), 1)}
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("trabalho")
     ap.add_argument("saida")
     ap.add_argument("--manter", action="store_true", help="não apaga os intermediários")
     ap.add_argument("--sem-cuda", action="store_true")
+    ap.add_argument("--sem-teclado", action="store_true", help="CTA sem o som de teclado")
     a = ap.parse_args()
     trabalho = Path(a.trabalho).resolve()
     saida = Path(a.saida).resolve()
@@ -199,6 +258,9 @@ def main() -> None:
     print("áudio...", flush=True)
     aud = montar_audio(corte["fonte"], segs, q_cta, tmp)
     audio = aud["path"]
+    if q_cta and not a.sem_teclado:
+        from legenda_novela import CTA_ATRASO
+        mixar_teclado(audio, (q_fala + CTA_ATRASO) / FPS)
 
     print("encode final...", flush=True)
     t0 = time.time()
@@ -221,6 +283,7 @@ def main() -> None:
                 "gerado_em": datetime.now().isoformat(timespec="seconds"),
                 "crf": CRF, "preset": PRESET, "audio_br": AUDIO_BR, "crop": enq["crop"],
                 "segmentos": len(segs), "quadros_fala": q_fala, "quadros_cta": q_cta,
+                "teclado_cta": bool(q_cta and not a.sem_teclado),
                 "loudness": {k: aud[k] for k in ("entrada", "saida", "ganho_db", "modo")},
                 "palavras_sha256": sha_atual}
     gravar_json(trabalho / "render_info.json", registro)

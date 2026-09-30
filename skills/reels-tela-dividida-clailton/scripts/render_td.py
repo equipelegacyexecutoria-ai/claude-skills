@@ -8,8 +8,8 @@
 - Vídeo: recorte 'cover' no assunto, sem zoom, sem áudio, conformado a 29,97.
 - Cartão: imagem a 86% da largura sobre fundo claro em degradê, sombra suave, quase parado.
 - Tela dividida: imagem em y 0..EMENDA, Clailton embaixo. Saída da abertura: flash de exposição.
-- Áudio: fatias exatas do bruto + normalização (-16 LUFS / -1 dBTP, limitador suave) da novela; clique de
-  digitação na CTA. H.264 High CRF 10 slow, BT.709, AAC 320k (qualidade máxima, como a novela).
+- Áudio: fatias exatas do bruto + normalização (-16 LUFS / -1 dBTP, limitador suave) da novela; som de
+  teclado padrão na CTA (RN.mixar_teclado, 1o toque na 1a letra). H.264 High CRF 10 slow, BT.709, AAC 320k (qualidade máxima, como a novela).
 
 Uso: python render_td.py <trabalho> <saida.mp4> [--sem-cuda] [--sem-clique] [--ate SEG] [--rapido]
 """
@@ -247,7 +247,7 @@ def main() -> None:
     ap.add_argument("trabalho")
     ap.add_argument("saida")
     ap.add_argument("--sem-cuda", action="store_true")
-    ap.add_argument("--sem-clique", action="store_true", help="CTA sem o clique de digitação")
+    ap.add_argument("--sem-clique", action="store_true", help="CTA sem o som de teclado")
     ap.add_argument("--ate", type=float, help="renderiza só os primeiros N segundos (prévia)")
     ap.add_argument("--rapido", action="store_true", help="prévia: preset veryfast CRF 18")
     ap.add_argument("--estilo", type=float, help="força da camada película (0 desliga; padrão: plano ou td_comum)")
@@ -275,8 +275,9 @@ def main() -> None:
     print("áudio...", flush=True)
     aud = RN.montar_audio(fonte, segs, lay["frames_total"] - F_FALA, tmp)
     audio = Path(aud["path"])
-    if tl["cta"] and not a.sem_clique:
-        cliques(audio, F_FALA / FPS)
+    if tl["cta"] and not a.sem_clique:                       # som de teclado padrão, 1o toque na 1a letra
+        import legenda_novela as LN
+        RN.mixar_teclado(audio, (F_FALA + LN.CTA_ATRASO) / FPS)
 
     # ---------------- planos do Clailton (só os visíveis)
     tarefas = []
@@ -453,37 +454,11 @@ def main() -> None:
     shutil.move(str(tmp_out), str(saida))
     gravar_json(T / "render_info.json", {"video": str(saida), "gerado_em": datetime.now().isoformat(timespec="seconds"),
                                          "crf": crf, "preset": preset, "quadros": F_TOTAL, "rot": rot,
+                                         "teclado_cta": bool(tl["cta"] and not a.sem_clique),
                                          "loudness": {k: aud[k] for k in ("entrada", "saida", "ganho_db", "modo")},
                                          "tempo_s": round(time.time() - t_ini, 1)})
     shutil.rmtree(tmp, ignore_errors=True)
     print(f"ok: {saida} ({time.time() - t_ini:.0f}s)")
-
-
-def cliques(audio: Path, t0: float) -> None:
-    """Clique de máquina de escrever a cada letra da CTA (como no 'Não confie')."""
-    import legenda_novela as LN
-    with wave.open(str(audio), "rb") as w:
-        sr, ch = w.getframerate(), w.getnchannels()
-        x = np.frombuffer(w.readframes(w.getnframes()), np.int16).reshape(-1, ch).astype(np.float32) / 32768
-    letras = [c for linha in LN.CTA_LINHAS for c in linha]
-    passo = LN.CTA_DIGITACAO / max(1, len(letras) - 1)
-    rng = np.random.default_rng(7)
-    n = int(0.018 * sr)
-    env = np.exp(-np.arange(n) / (0.0022 * sr))
-    for k, c in enumerate(letras):
-        if c == " ":
-            continue
-        ruido = rng.standard_normal(n)
-        ruido = np.diff(ruido, prepend=0)                   # agudo (clique), sem grave
-        clk = (ruido * env * 0.09 * (0.8 + 0.4 * rng.random())).astype(np.float32)
-        i = int((t0 + LN.CTA_ATRASO / FPS + k * passo) * sr)
-        if i + n < len(x):
-            x[i:i + n] += clk[:, None]
-    with wave.open(str(audio), "wb") as w:
-        w.setnchannels(ch)
-        w.setsampwidth(2)
-        w.setframerate(sr)
-        w.writeframes((np.clip(x, -1, 1) * 32767).astype(np.int16).tobytes())
 
 
 if __name__ == "__main__":

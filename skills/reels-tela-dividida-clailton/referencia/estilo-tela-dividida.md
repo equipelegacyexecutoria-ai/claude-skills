@@ -113,7 +113,8 @@ nome da pessoa em amarelo grande sobre a foto; data de morte com cruz; ícone de
   (como na novela). Voz −14 LUFS.
 - **CTA** igual à da novela (tela preta, "ME SIGA PARA MAIS / CONTEÚDOS COMO ESTE" digitado),
   ~2,5–2,9 s, com **clique de digitação** no "Não confie". Reel de salvamento (Fórmula) e o STF
-  terminam sem CTA.
+  terminam sem CTA. Desde 30/09/2026 o clique sintético deu lugar ao **som de teclado padrão** do
+  usuário (o mesmo da novela, sincronizado com a digitação).
 
 ## 7. "Não confie no ser humano": o mapa fala × imagem (exemplo-ouro)
 

@@ -24,7 +24,7 @@ Regras de decupagem, grafia, destaques, ritmo (nada de pausa dramática) e "nada
 | Corte | colado na voz; **nenhuma palavra repetida nas emendas** (checagem literal automática) |
 | Legenda | a da novela (caixa-alta, 1–3 linhas, destaque maior sozinho, layouts centro/esquerda/escada/direita, sombra v3), com o centro do bloco a ~57% da altura (peito; era 52%, o usuário pediu mais baixa em 28/09/2026) e nunca em cima do queixo |
 | Sem | imagens de apoio, abertura dividida, flash, película, música |
-| Final | CTA preta digitada (a da novela) com clique de teclado |
+| Final | CTA preta digitada (a da novela) com o **som de teclado padrão** da novela (`reels-novela-clailton/assets/cta_teclado.mp3`, usuário 30/09/2026) sincronizado com a digitação (1º toque na 1ª letra) |
 | Pasta | `Reels Editados/<nome> - EDITADO.mp4`; trabalho em `_trabalho/<slug>/` |
 
 ## Zoom (regras do usuário, correção de 28/09/2026 — "os zooms estão ruins, sem timing")

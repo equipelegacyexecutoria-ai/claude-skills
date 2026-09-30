@@ -1,6 +1,6 @@
 ---
 name: reels-novela-clailton
-description: Edita reels no estilo NOVELA do Instagram do Clailton (Legacy Educação) a partir do bruto 4K horizontal e do roteiro — decupagem das tomadas, faixa de imagem 5:4 com barras pretas, legenda SF Pro Text Black em telas com destaque maior entrando sozinho (desfoque + queda, sombra v3 em camadas, layouts centro/esquerda/escada), âncora em enumerações e CTA final "ME SIGA PARA MAIS CONTEÚDOS COMO ESTE" em máquina de escrever. Modo rápido — scripts fazem transcrição (GPU), decupagem, corte, alinhamento de palavras, comparação fala x roteiro, render e conferência; o próprio orquestrador revisa a decupagem e escreve a legenda (agentes só em lote e com prazo). Entrega 1080x1920 em qualidade máxima. Use sempre que o pedido for editar/legendar um reel "NV"/"novela" do Clailton, arquivos Reels_Clailton_NV_*, "edita igual ao reel do PHD", "estilo novela", "legenda com barra preta em cima e embaixo", ou refazer um reel nesse formato.
+description: Edita reels no estilo NOVELA do Instagram do Clailton (Legacy Educação) a partir do bruto 4K horizontal e do roteiro — decupagem das tomadas, faixa de imagem 5:4 com barras pretas, legenda SF Pro Text Black em telas com destaque maior entrando sozinho (desfoque + queda, sombra v3 em camadas, layouts centro/esquerda/escada), âncora em enumerações e CTA final "ME SIGA PARA MAIS CONTEÚDOS COMO ESTE" em máquina de escrever com o som de teclado padrão sincronizado. Modo rápido — scripts fazem transcrição (GPU), decupagem, corte, alinhamento de palavras, comparação fala x roteiro, render e conferência; o próprio orquestrador revisa a decupagem e escreve a legenda (agentes só em lote e com prazo). Entrega 1080x1920 em qualidade máxima. Use sempre que o pedido for editar/legendar um reel "NV"/"novela" do Clailton, arquivos Reels_Clailton_NV_*, "edita igual ao reel do PHD", "estilo novela", "legenda com barra preta em cima e embaixo", ou refazer um reel nesse formato.
 ---
 
 # Reels NOVELA — Clailton
@@ -19,7 +19,7 @@ referência: `referencia/telas-referencia.jpg`. Legendas de exemplo no formato c
 | Imagem | faixa 1080×864 (5:4) centrada, barras pretas; recorte fixo tirado direto do 4K (só redução), **altura cheia do bruto: só as laterais saem** |
 | Corte | tomadas escolhidas, sem tropeço; **cortes certeiros no limite da onda** (usuário, 28/09/2026: "ele parado sem falar nada denuncia que está lendo"): toda pausa de voz a voz ≥ 0,12 s sai, inclusive dentro da frase, ficando ~0,02 s antes do ataque e ~0,03 s depois do fim da onda (`aparar` + `borda_voz.py`); respiro e estalo de boca saem; sem música (entra depois) |
 | Legenda | SF Pro Text Black, caixa-alta, telas de 1–3 linhas inteiras, **só o destaque entra sozinho e maior**, sombra v3 |
-| Final | ~0,45 s depois da última palavra, corte seco para CTA preta digitada (2,9 s) |
+| Final | ~0,45 s depois da última palavra, corte seco para CTA preta digitada (2,9 s) com o **som de teclado padrão** (`assets/cta_teclado.mp3`, enviado pelo usuário em 30/09/2026) sincronizado com a digitação: 1º toque no quadro da 1ª letra, último toque na última letra |
 | Voz | −16 LUFS, pico −1 dBTP, limitador suave só nos picos (−14 soava estourado) |
 | Pasta | `Reels Editados/` na raiz do projeto, `<nome do bruto> - EDITADO.mp4` |
 | Trabalho | `_trabalho/<slug>/` na raiz do projeto (transcrição, decupagem, legenda, QA) |
@@ -183,7 +183,7 @@ decupagem (~5 min) e legenda (~5 min). `T = <projeto>\_trabalho\<slug>`.
 5. **Finalizar** — `P S\editar.py finalizar T "<projeto>\Reels Editados\<nome> - EDITADO.mp4"`
    (~2,5 min): legenda `.ass`, render (6 intermediários sem perda por vez + 1 encode CRF 18) e
    `conferir.py --whisper`, que confere:
-   - formato, loudness e pico, CTA;
+   - formato, loudness e pico, CTA (colada no fim da imagem e som de teclado com o 1º toque na 1ª letra, ±1 quadro);
    - pausas > 0,33 s;
    - sincronia A/V quadro a quadro;
    - cada emenda em transcrição literal;
@@ -232,6 +232,7 @@ se existir, senão `legenda.json`).
 | sombra | `legenda_novela.py` (`SOMBRA`) — padrão v3 aprovado pelo usuário; não trocar sem pedir |
 | tempo da legenda x fala | alinhamento (`alinhar.py`); sem ele, `legenda_novela.py` (`ATRASO_FALA_CORRIDA`, `PAUSA_CORRIDA`) |
 | CTA (texto, fonte, velocidade, duração) | `legenda_novela.py` (bloco CTA) |
+| som de teclado da CTA (arquivo, volume, sincronia) | `render_final.py` (`TECLADO`, `TECLADO_GANHO_DB`, `mixar_teclado`); vale para novela, tela dividida e edição simples. A rajada do arquivo dura o mesmo que a digitação (0,75 s x `CTA_DIGITACAO` 0,76 s): mudou a velocidade da CTA, confira a sincronia. `--sem-teclado` desliga |
 | ritmo do corte (silêncio entre frases, pausas, respiro final) | `montar_corte.py` (`SIL_CORTE`, `MARGEM_VOZ_*`, `aparar`; `--sem-aparar` desliga), `borda_voz.py` (limiar pela voz `alto - 26 dB`, tom/vibração `TOM`, `COLADO`), `comum.py` (`FIM_RESPIRO`) |
 | ver a onda sonora das pausas e emendas | `ondas.py T [--min 0.15]` → `qa/ondas.txt` + `qa/ondas_01.jpg` (onda + espectro, caixa amarela = silêncio, vermelho = emenda) |
 | decupagem automática (frase, tomada repetida, fala para a equipe, dúvida, anáfora) | `decupar_auto.py` (`PAUSA_FRASE`, `SIMIL*`, `META`, regras de DÚVIDA e anáfora) |

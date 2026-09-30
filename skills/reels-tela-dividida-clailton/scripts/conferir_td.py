@@ -81,6 +81,14 @@ def main() -> None:
         problemas.append(f"loudness {lu['I']} LUFS")
     if lu["TP"] is not None and lu["TP"] > -0.9:
         problemas.append(f"pico {lu['TP']} dBTP")
+    teclado = None                                           # som de teclado da CTA: 1o toque na 1a letra (±1 quadro)
+    info_r = ler_json(T / "render_info.json") if (T / "render_info.json").exists() else {}
+    if tl["cta"] and info_r.get("teclado_cta", True):
+        import legenda_novela as LN
+        teclado = RN.medir_teclado(Path(V), (tl["frames_fala"] + LN.CTA_ATRASO) / FPS)
+        if not teclado["ok"]:
+            problemas.append("som de teclado da CTA: " + (teclado.get("motivo") or
+                             f"1o toque {teclado['desvio_ms']:+.0f} ms fora da 1a letra"))
 
     # ---------------- sincronia do Clailton (planos amostrados, quadro a quadro)
     segs, seg_f0 = corte["segmentos"], tl["segmentos_f0"]
@@ -183,7 +191,7 @@ def main() -> None:
             fg.save(qa / f"folha_geral_{fi // por + 1:02d}.jpg", quality=84)
 
     st = tl["stats"]
-    rel = {"video": V, "duracao": round(dur, 2), "loudness": lu, "sincronia_desvios": desvios, "stats": st,
+    rel = {"video": V, "duracao": round(dur, 2), "loudness": lu, "teclado_cta": teclado, "sincronia_desvios": desvios, "stats": st,
            "problemas": problemas, "avisos": avisos + [x for x in tl.get("avisos", []) if "tempo mínimo" not in x],
            "ajustes": [x for x in tl.get("avisos", []) if "tempo mínimo" in x], "creditos": creditos}
     gravar_json(qa / "relatorio.json", rel)

@@ -21,7 +21,7 @@ Como decidir as imagens: `referencia/regras-plano-visual.md`** (leia antes de es
 | Enquadramento do B-roll | recorte no ASSUNTO, por plano da cena: o reenquadramento testa 9 posições do 9:16 (e 5 da faixa de cima) e fica com a que mostra a ação E o personagem, sem cortar rosto ao meio; entrada do trecho sem pedaço de outra cena nas pontas |
 | Estilo "película" | **só no B-roll** (tela cheia de imagem: o quadro todo; tela dividida: só a faixa de cima; o Clailton fica limpo), antes da legenda: textura de papel + retícula de pontinhos (4,43 px, 14°) FIXAS na tela, grão animado leve, poeira de 1–2 quadros, saturação 0,85, curva em S leve, vinheta. Medido na referência do usuário (instagram.com/p/Dc1tvV3sTO-) e calibrado para sobreviver à recompressão do Instagram. Força por vídeo: `ESTILO 0.7` no plano (0 desliga) |
 | Legenda | 1–4 palavras, SF Pro Text Black maiúscula 34 px, y=1175, sombra v3, troca seca na palavra |
-| Final | CTA preta digitada (a da novela) com clique de teclado; `SEMCTA` no reel de salvamento |
+| Final | CTA preta digitada (a da novela) com o **som de teclado padrão** da novela (`reels-novela-clailton/assets/cta_teclado.mp3`, usuário 30/09/2026) sincronizado com a digitação (1º toque na 1ª letra; `conferir_td.py` reprova se sair mais de 1 quadro); `SEMCTA` no reel de salvamento |
 | Pasta | `Reels Editados/<nome> - EDITADO.mp4` na raiz do projeto; trabalho em `_trabalho/<slug>/` |
 | Premiere (opcional) | `Reels Editados/<nome> - PREMIERE/` (XML + mídia + legenda_alpha.mov + legenda.srt) |
 

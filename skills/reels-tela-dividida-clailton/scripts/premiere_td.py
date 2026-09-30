@@ -19,6 +19,7 @@ Trilhas:
   V3  legenda_alpha.mov
   A1/A2  áudio do bruto por trecho (canais 1 e 2) com o ganho da normalização
   A3  audio_final.wav (desligada)
+  A4  teclado_cta.wav: o som de teclado padrão da CTA, 1o toque na 1a letra
 Não vai para o XML: o flash de saída da abertura, o limitador de pico e a camada película (ficam só no
 MP4; a textura fixa vai à parte em estilo_textura.png).
 
@@ -284,6 +285,25 @@ def main() -> None:
     a3 = [clip("a3-final", "audio final (referência)", 0, F_TOTAL, 0, F_TOTAL,
                A.ref(af, F_TOTAL, None, None, audio_ch=2, video=False), ligado=False, trilha_fonte=("audio", 1),
                dur_fonte=F_TOTAL)]
+    # som de teclado da CTA (o mesmo do MP4, já com o ganho): o clipe começa 1 quadro antes da 1a letra e o
+    # 1o toque cai exatamente nela
+    a4 = []
+    if tl["cta"]:
+        import wave
+        import legenda_novela as LN
+        import render_final as RN
+        f_letra = F_FALA + LN.CTA_ATRASO
+        s = RN.som_teclado().mean(axis=1)
+        s = np.concatenate([np.zeros(int(round(RN.SR / FPS)) - int(RN.TECLADO_PRE * RN.SR), np.float32), s])
+        tw = P / "teclado_cta.wav"
+        with wave.open(str(tw), "wb") as w:
+            w.setnchannels(1)
+            w.setsampwidth(2)
+            w.setframerate(RN.SR)
+            w.writeframes((np.clip(s, -1, 1) * 32767).astype(np.int16).tobytes())
+        n = int(np.ceil(len(s) / RN.SR * FPS))
+        a4 = [clip("a4-teclado", "teclado da CTA", f_letra - 1, f_letra - 1 + n, 0, n,
+                   A.ref(tw, n, None, None, audio_ch=1, video=False), trilha_fonte=("audio", 1), dur_fonte=n)]
 
     def trilha(itens: list[str]) -> str:
         return "<track>" + "".join(itens) + "</track>"
@@ -296,7 +316,7 @@ def main() -> None:
            "<pixelaspectratio>square</pixelaspectratio><fielddominance>none</fielddominance></samplecharacteristics>"
            "</format>" + trilha(v1) + trilha(v2) + trilha(v3) + "</video><audio>"
            "<format><samplecharacteristics><depth>16</depth><samplerate>48000</samplerate></samplecharacteristics></format>"
-           + trilha(a1) + trilha(a2) + trilha(a3) + "</audio></media></sequence></xmeml>\n")
+           + trilha(a1) + trilha(a2) + trilha(a3) + (trilha(a4) if a4 else "") + "</audio></media></sequence></xmeml>\n")
     (P / f"{nome}.xml").write_text(xml, encoding="utf-8")
     import xml.dom.minidom as md
     md.parseString(xml.encode("utf-8"))                       # confere se o XML é válido

@@ -194,6 +194,16 @@ def main() -> None:
     rel["cta"] = {"fim_imagem": round(fim_imagem, 3), "cta_inicio": lay["cta_inicio"]}
     if abs(fim_imagem - float(lay["cta_inicio"])) > 1.01 / FPS:
         problemas.append(f"CTA em {lay['cta_inicio']}s mas a imagem termina em {fim_imagem:.3f}s")
+    # som de teclado padrão: 1o toque no quadro da 1a letra (±1 quadro)
+    info_r = ler_json(trabalho / "render_info.json") if (trabalho / "render_info.json").exists() else {}
+    if float(lay["duracao_total"]) - fim_imagem > 0.5 and info_r.get("teclado_cta", True):
+        from legenda_novela import CTA_ATRASO
+        from render_final import medir_teclado
+        tq = medir_teclado(video, fim_imagem + CTA_ATRASO / FPS)
+        rel["cta"]["teclado"] = tq
+        if not tq["ok"]:
+            problemas.append("som de teclado da CTA: " + (tq.get("motivo") or
+                             f"1o toque {tq['desvio_ms']:+.0f} ms fora da 1a letra"))
 
     # ---- loudness e pico real
     r = subprocess.run(["ffmpeg", "-hide_banner", "-i", str(video), "-map", "0:a:0",
