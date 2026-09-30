@@ -1,9 +1,10 @@
 """Enquadramento fixo da faixa 5:4 a partir do rosto (YuNet) nos trechos do corte.
 
-A referência NÃO faz punch-in: o enquadramento é fixo, rosto com ~23% da largura da faixa,
-centro do rosto a 54% da largura e 32% da altura. Aqui medimos o rosto no bruto (só nos
-trechos usados) e calculamos UM recorte para o vídeo todo, sempre reduzindo a partir do
-original (4K -> 1080), nunca ampliando.
+A referência NÃO faz punch-in: o enquadramento é fixo. O recorte usa a ALTURA CHEIA do bruto
+(nada é cortado em cima nem embaixo: o enquadramento vertical da gravação é intencional) e só
+escolhe a posição horizontal, com o centro do rosto a 54% da largura. Aqui medimos o rosto no
+bruto (só nos trechos usados) e calculamos UM recorte para o vídeo todo, sempre reduzindo a
+partir do original (4K -> 1080), nunca ampliando.
 
 Saída (<trabalho>/):
   enquadramento.json  {"crop": [w, h, x, y], "zoom", "rosto": {...}}
@@ -50,7 +51,14 @@ def detectar(fonte: str, t0: float, t1: float, passo: float) -> list[tuple[float
     hw = ["-hwaccel", "cuda", "-hwaccel_output_format", "cuda"] if GPU else []
     vf = f"fps={1 / passo:.4f}," + ("hwdownload,format=nv12," if GPU else "") + f"scale={AMOSTRA_W}:{AMOSTRA_H}"
     p = subprocess.run(["ffmpeg", "-v", "error"] + hw + ["-ss", f"{t0:.3f}", "-i", fonte, "-t", f"{t1 - t0:.3f}",
-                        "-vf", vf, "-f", "rawvideo", "-pix_fmt", "bgr24", "-"], capture_output=True, check=True)
+                        "-vf", vf, "-f", "rawvideo", "-pix_fmt", "bgr24", "-"], capture_output=True)
+    if GPU and (p.returncode or len(p.stdout) < fsz):
+        # bruto H.264 4:2:2 10-bit: a NVDEC falha no hwdownload; refaz na CPU
+        vf = f"fps={1 / passo:.4f},scale={AMOSTRA_W}:{AMOSTRA_H}"
+        p = subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{t0:.3f}", "-i", fonte, "-t", f"{t1 - t0:.3f}",
+                            "-vf", vf, "-f", "rawvideo", "-pix_fmt", "bgr24", "-"], capture_output=True)
+    if p.returncode:
+        raise SystemExit(f"ffmpeg falhou na amostra do rosto: {p.stderr.decode(errors='replace')[-400:]}")
     out, det = [], detector()
     for k in range(len(p.stdout) // fsz):
         img = np.frombuffer(p.stdout[k * fsz:(k + 1) * fsz], np.uint8).reshape(AMOSTRA_H, AMOSTRA_W, 3)
@@ -92,9 +100,10 @@ def main() -> None:
     fx, fy, fw, fh = np.median(faces, axis=0)
     cx, cy = fx + fw / 2, fy + fh / 2
 
-    # recorte 5:4: altura cheia = zoom 1; zoom para o rosto ficar com ROSTO_LARG da faixa
-    zoom = a.zoom or (fw / ROSTO_LARG) ** -1 * (SH * 1.25)
-    zoom = float(min(max(zoom, 1.0), 1.6))
+    # recorte 5:4 com a ALTURA CHEIA do bruto (zoom 1): o que o usuário enquadrou em cima e embaixo é
+    # intencional (30/09/2026: o caderno na mesa foi cortado pelo zoom automático). Só as laterais saem.
+    # --zoom existe para pedido explícito de aproximar; sem ele, nunca corta em cima nem embaixo.
+    zoom = float(min(max(a.zoom or 1.0, 1.0), 1.6))
     ch = int(round(SH / zoom / 2) * 2)
     cw = int(round(ch * 1.25 / 2) * 2)
     x = int(round(min(max(cx - a.cx * cw, 0), SW - cw)))
@@ -112,7 +121,9 @@ def main() -> None:
             continue
         mx, my, mw, mh = np.median(fs_k, axis=0)
         cxk = (mx + mw / 2 - x) / cw
-        if abs(cxk - a.cx) > 0.08:
+        # recorte fixo: só desliza a tomada em que o rosto encosta ou passa da borda lateral
+        borda_fixo = min((fs_k[:, 0] - x).min(), (x + cw - (fs_k[:, 0] + fs_k[:, 2])).min()) / cw
+        if borda_fixo < 0.03:
             xk = int(round(min(max(mx + mw / 2 - a.cx * cw, 0), SW - cw)))
             por_seg[str(k)] = [cw, ch, xk, y]
             novo = (mx + mw / 2 - xk) / cw

@@ -12,7 +12,7 @@ Imagem das 38 telas: `telas-referencia.jpg`. CTA: `cta-referencia.png`.
 | Tela | 1080×1920, 29,97 fps |
 | Faixa de imagem | **1080×864 (5:4)**, centrada: y 528 → 1392. Barras pretas puras em cima e embaixo |
 | Enquadramento | **fixo** o vídeo todo (sem punch-in, sem zoom entre cortes) |
-| Rosto | ~23% da largura da faixa; centro a ~54% da largura (levemente à direita) e ~32% da altura |
+| Rosto | centro a ~54% da largura (levemente à direita). Na referência o rosto tinha ~23% da largura e ficava a ~32% da altura, mas isso **não é alvo**: a faixa usa a altura cheia do bruto e nunca corta em cima nem embaixo (usuário, 30/09/2026) |
 | Cor | sem color grading (a equipe entrega com a cor do bruto) |
 | Cortes | secos, entre frases; a imagem "pula" (jump cut) e ninguém disfarça |
 

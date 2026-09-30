@@ -16,7 +16,7 @@ referência: `referencia/telas-referencia.jpg`. Legendas de exemplo no formato c
 | Item | Padrão |
 | --- | --- |
 | Formato | 1080×1920, 29,97 fps, H.264 High **CRF 18** preset slow (era CRF 10; em 28/09/2026 o usuário achou pesado demais: 1,2 GB em 2:42), yuv420p BT.709, AAC 320k — o usuário pediu **qualidade máxima, sem comprimir** |
-| Imagem | faixa 1080×864 (5:4) centrada, barras pretas; recorte fixo tirado direto do 4K (só redução) |
+| Imagem | faixa 1080×864 (5:4) centrada, barras pretas; recorte fixo tirado direto do 4K (só redução), **altura cheia do bruto: só as laterais saem** |
 | Corte | tomadas escolhidas, sem tropeço; **cortes certeiros no limite da onda** (usuário, 28/09/2026: "ele parado sem falar nada denuncia que está lendo"): toda pausa de voz a voz ≥ 0,12 s sai, inclusive dentro da frase, ficando ~0,02 s antes do ataque e ~0,03 s depois do fim da onda (`aparar` + `borda_voz.py`); respiro e estalo de boca saem; sem música (entra depois) |
 | Legenda | SF Pro Text Black, caixa-alta, telas de 1–3 linhas inteiras, **só o destaque entra sozinho e maior**, sombra v3 |
 | Final | ~0,45 s depois da última palavra, corte seco para CTA preta digitada (2,9 s) |
@@ -32,8 +32,15 @@ claro e mostrar antes de gerar em lote (`qa/fundo_mais_claro.png` sai da confer�
 reenquadre um trecho se o rosto do Clailton **sair do quadro ou for cortado** pela borda;
 fora isso, qualquer reenquadramento é desnecessário. Mudança de zoom da câmera no bruto é
 proposital: não iguale o tamanho do rosto nem ofereça "aproximar o trecho".
-Pendente: o `enquadrar.py` ainda desliza o recorte quando o rosto se afasta 8% do centro
-(`crops_segmento`); o certo é só deslizar quando o rosto encosta ou passa da borda.
+O `enquadrar.py` só desliza o recorte de uma tomada (`crops_segmento`) quando o rosto fica a
+menos de 3% da borda lateral.
+
+**Nunca cortar em cima nem embaixo (regra do usuário, 30/09/2026):** a faixa usa a **altura
+cheia do bruto** (zoom 1; do 4K sai 2700×2160). O que o usuário deixou enquadrado na vertical
+é intencional — no "Ou você aumenta o seu sacrifício" o zoom automático (rosto a 23% da faixa)
+cortou o caderno com as anotações na mesa e foi reprovado. A skill só escolhe a posição
+**horizontal** (Clailton bem enquadrado, rosto a ~54% da largura). `--zoom` só com pedido
+explícito de aproximar.
 
 **Nada na nuvem:** Gemini, ElevenLabs, TwelveLabs e afins não foram aprovados (mandariam o
 vídeo do cliente para fora). Tudo roda neste PC.
@@ -230,7 +237,7 @@ se existir, senão `legenda.json`).
 | decupagem automática (frase, tomada repetida, fala para a equipe, dúvida, anáfora) | `decupar_auto.py` (`PAUSA_FRASE`, `SIMIL*`, `META`, regras de DÚVIDA e anáfora) |
 | comparação com o roteiro | `roteiro.py` |
 | grafia de nomes/termos | roteiro do vídeo e `referencia/grafias.md` |
-| enquadramento-alvo | `comum.py` (`ROSTO_*`) |
+| enquadramento-alvo | posição horizontal do rosto: `comum.py` (`ROSTO_CX`); altura sempre cheia (`enquadrar.py`, `--zoom` só a pedido) |
 | qualidade/áudio | `comum.py` (`CRF`, `PRESET`, `AUDIO_BR`, `LUFS`) |
 
 ## Armadilhas já resolvidas (não repetir)
