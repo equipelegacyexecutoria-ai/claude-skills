@@ -16,6 +16,16 @@ bônus 1%), o logo com confete entrou na capa, a pág. 3 ganhou a linha `{{FONTE
 posição/tamanho. A manchete da capa tinha voltado a ser uma caixa só; foi separada de novo em 3
 caixas no mesmo dia (editor: Ctrl+D ×2 com o usuário em modo de aprovação manual; depois conector).
 
+**Mudanças do usuário em 30/09/2026** (lidas no `read-design`; conferir sempre o que veio, não
+supor): o handle de **todas** as páginas passou a `@legacyexecutoria & @clailtonluiz` (w=551, já
+alinhado: não mexer); a **capa veio sem o CIRCULO e sem o grupo do LOGO** (só FOTO, DEGRADE, H1–H3,
+pill e handle): nesse caso pular as `operacoes` de CIRCULO/LOGO do `medir.py` e não gerar imagem de
+círculo; o handle do CTA veio **branco** sobre o fundo claro (fica invisível): `format_text`
+`color: "#000000"` nele. Capa cuja copy só rende **2 frases** (ex.: "Vou dizer o que está
+entalado:" + frase de impacto): H1 branca + H3 dourada, `delete_element` na H2; H3 top =
+1250 − 1,19 × px; H1 top = H3 top − 1,099 × px(H1) + 0,149 × px(H3). CTA com ~770 caracteres e
+título de 3 linhas: caixa em top 180 termina em y≈1302.
+
 | 1 | CAPA | **3 elementos**, um por linha (separados em 28/09/2026 e de novo em 29/09/2026): `{{H1}}` branco (80 px, y=979) · `{{H2}}` branco (114 px, y=1049.9) · `{{H3}}` dourado `#e7aa51` (72 px, y=1164.5). Todos Bebas, centralizado, lh 0.95, ls −0.02, x=50.64 w=981, um trecho só cada. Tamanho e posição de cada caixa vêm do `scripts/medir.py capa` (regra em `copy.md`) | FOTO 1104×1142 em (−10.8, −10); DEGRADE 1158×748 em (−51.39, 386.8); **CIRCULO** (shape redondo com foto, borda branca 5 px, x=589.5 y=277.7, 432.8×432.8 no template; o `medir.py` leva a 462×462 em y 330, à esquerda x=50.64 ou à direita x=567.2); pill "Arraste para o lado" y=1270; `@legacyexecutoria` x=388.7 y=1357 w=305 (centralizado pela posição). **LOGO**: grupo (logo `MAHUzbG7AjM` recortado + confete `MAFAqYR48A0`) 127,9×124,1 em x 477,2 — só reposicionar (`medir.py`). Atrás de tudo, um `shape` preto que cobre a página (ignorar) |
 | 2 | CORPO | 1 elemento: `{{BRANCO}}` branco · `\n\n` · `{{CINZA}}` `#858489` — Poppins bold 53 px, lh 1.4, x=64 w=974, **ancorado embaixo** (base fixa em y≈1290: texto longo cresce para cima, sobre o degradê) | FOTO 1109×1210 em (−14.3, −17.47); DEGRADE 1109×769 em (−13.19, 472.23); handle x=64 y=1354 w=301 (alinhado ao centro); seta x=926 y=1340 |
 | 3 | CORPO COM TÍTULO | 2 elementos: `{{TITULO}}` Bebas 80 px (x=64 y=777; altura 96 px com 1 linha, 176 px com 2) · corpo = **um elemento com 2 trechos**: `"{{CORPO}}\n\n"` Poppins bold 40 px branco + `"{{FONTE}}"` Poppins bold 26,67 px cinza `#a6a6a6` (x=68 y=885 w=974, cresce para baixo) | FOTO 1109×943 em (−14.3, −17.47); DEGRADE 1109×813 em (0, 333.65); handle `@legacyexecutoria` (1 trecho só, w=568). **Trocar só `{{CORPO}}`**; sem fonte, `"\n\n{{FONTE}}"` → `""`. Trocar `"{{CORPO}}\n\n"` joga o último parágrafo no estilo da fonte (miúdo) |
