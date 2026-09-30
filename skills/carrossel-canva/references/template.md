@@ -11,11 +11,20 @@ p1, p2, p10, p11) + 5 MATÉRIAS (`DAHWJAVgBic` p3).
 
 | Pág. | Tipo | Elemento(s) de texto e marcadores | Observações de layout |
 | --- | --- | --- | --- |
-| 1 | CAPA | **3 elementos**, um por linha (separados em 28/09/2026): `{{H1}}` branco (80 px, y=979) · `{{H2}}` branco (114 px, y=1049.9) · `{{H3}}` dourado `#e7aa51` (72 px, y=1164.5). Todos Bebas, centralizado, lh 0.95, ls −0.02, x=50.64 w=981, um trecho só cada. Tamanho e posição de cada caixa vêm do `scripts/medir.py capa` (regra em `copy.md`) | FOTO 1104×1142 em (−10.8, −10); DEGRADE 1158×748 em (−51.39, 386.8); **CIRCULO** (shape redondo com foto, borda branca 5 px, x=589.5 y=277.7, 432.8×432.8 no template; o `medir.py` leva a 462×462 em y 330, à esquerda x=50.64 ou à direita x=567.2); pill "Arraste para o lado" y=1270; `@legacyexecutoria` x=388.7 y=1357 w=305 (centralizado pela posição). **LOGO não está no template**: a skill insere em cada capa (abaixo) |
+**Mudanças do usuário em 29/09/2026** (manter): o template passou a ter **4 páginas** (saiu a do
+bônus 1%), o logo com confete entrou na capa, a pág. 3 ganhou a linha `{{FONTE}}` e o CTA mudou de
+posição/tamanho. A manchete da capa tinha voltado a ser uma caixa só; foi separada de novo em 3
+caixas no mesmo dia (editor: Ctrl+D ×2 com o usuário em modo de aprovação manual; depois conector).
+
+| 1 | CAPA | **3 elementos**, um por linha (separados em 28/09/2026 e de novo em 29/09/2026): `{{H1}}` branco (80 px, y=979) · `{{H2}}` branco (114 px, y=1049.9) · `{{H3}}` dourado `#e7aa51` (72 px, y=1164.5). Todos Bebas, centralizado, lh 0.95, ls −0.02, x=50.64 w=981, um trecho só cada. Tamanho e posição de cada caixa vêm do `scripts/medir.py capa` (regra em `copy.md`) | FOTO 1104×1142 em (−10.8, −10); DEGRADE 1158×748 em (−51.39, 386.8); **CIRCULO** (shape redondo com foto, borda branca 5 px, x=589.5 y=277.7, 432.8×432.8 no template; o `medir.py` leva a 462×462 em y 330, à esquerda x=50.64 ou à direita x=567.2); pill "Arraste para o lado" y=1270; `@legacyexecutoria` x=388.7 y=1357 w=305 (centralizado pela posição). **LOGO**: grupo (logo `MAHUzbG7AjM` recortado + confete `MAFAqYR48A0`) 127,9×124,1 em x 477,2 — só reposicionar (`medir.py`). Atrás de tudo, um `shape` preto que cobre a página (ignorar) |
 | 2 | CORPO | 1 elemento: `{{BRANCO}}` branco · `\n\n` · `{{CINZA}}` `#858489` — Poppins bold 53 px, lh 1.4, x=64 w=974, **ancorado embaixo** (base fixa em y≈1290: texto longo cresce para cima, sobre o degradê) | FOTO 1109×1210 em (−14.3, −17.47); DEGRADE 1109×769 em (−13.19, 472.23); handle x=64 y=1354 w=301 (alinhado ao centro); seta x=926 y=1340 |
-| 3 | CORPO COM TÍTULO | 2 elementos: `{{TITULO}}` Bebas 80 px (x=64 y=777; altura 96 px com 1 linha, 176 px com 2) · `{{CORPO}}` Poppins bold 40 px (x=68 y=885 w=974, cresce para baixo) | FOTO 1109×943 em (−14.3, −17.47); DEGRADE 1109×813 em (0, 333.65); handle `@legacyexecutoria & @clailtonluiz` (1 trecho só, w=568) |
-| 4 | CTA | 1 elemento, x=56 y=87 w=968, lh 1.1: `{{TITULO}}` azul `#013e6a` 46 px (renderiza em caixa-alta) · `{{P1}}` · `{{P1B}}` · `{{A1}}` · `{{P2}}` · `{{A2}}` · `{{P3}}` (P = preto 37 px, A = azul 37 px com degradê). Texto da página: `{{TITULO}}\n\n{{P1}}\n\n{{P1B}}\n\n{{A1}} \n\n{{P2}}\n\n{{A2}} \n\n{{P3}}` | fundo claro; handle preto; seta preta |
-| 5 | BÔNUS 1% | fixo: "Se você faz parte do 1% que chegou até aqui, " + "nós temos um presente para você..." (azul `#17adfd`), Bebas 93 px, 1 elemento x=71 y=576 w=938, centralizado | fundo escuro; pill "Arrasta para o lado"; sem handle. Também serve de card de reflexão em fundo preto (trocar os dois trechos) |
+| 3 | CORPO COM TÍTULO | 2 elementos: `{{TITULO}}` Bebas 80 px (x=64 y=777; altura 96 px com 1 linha, 176 px com 2) · corpo = **um elemento com 2 trechos**: `"{{CORPO}}\n\n"` Poppins bold 40 px branco + `"{{FONTE}}"` Poppins bold 26,67 px cinza `#a6a6a6` (x=68 y=885 w=974, cresce para baixo) | FOTO 1109×943 em (−14.3, −17.47); DEGRADE 1109×813 em (0, 333.65); handle `@legacyexecutoria` (1 trecho só, w=568). **Trocar só `{{CORPO}}`**; sem fonte, `"\n\n{{FONTE}}"` → `""`. Trocar `"{{CORPO}}\n\n"` joga o último parágrafo no estilo da fonte (miúdo) |
+| 4 | CTA | 1 elemento, x=56 **y=269** w=968, lh 1.1: `{{TITULO}}` azul `#013e6a` 46,67 px (renderiza em caixa-alta) · `{{P1}}` · `{{P1B}}` · `{{A1}}` · `{{P2}}` · `{{A2}}` · `{{P3}}` (P = preto **40 px**, A = azul 40 px). Texto da página: `{{TITULO}}\n\n{{P1}}\n\n{{P1B}}\n\n{{A1}} \n\n{{P2}}\n\n{{A2}} \n\n{{P3}}` | fundo claro (imagem); handle preto y=1354; seta preta. ~700 caracteres com 23 linhas terminam em y≈1290: acima disso, `format_text` menor ou subir a caixa |
+
+**Card de reflexão em fundo preto** (a antiga pág. 5 saiu): pág. 3 com `delete_element` na FOTO, no
+DEGRADE e no `rect` 21×17,5 em (179, 172) (aparece como um pontinho no preto); título + corpo
+centralizados na altura (topo do título = (1440 − (96 + 12 + altura do corpo)) / 2). Frase em azul
+dentro do corpo não dá (a caixa tem um trecho só de cor): fica branca, avisar na entrega.
 
 ## CLAILTON — `DAHWW8zqYcQ` (1080×1350, branco, post do X)
 
@@ -71,17 +80,13 @@ o `merge-designs` falha com ele).
   (topo da seguinte = topo + 1,099 × px − 0,149 × px da seguinte; base do bloco em y 1250),
   conferida nas capas Bets e Endividamento (28/09/2026).
 
-**Logo da Legacy na capa** (padrão desde 28/09/2026; não fica no template porque a edição do
-template-mestre foi bloqueada pelo controle de permissões, então vai em cada capa)
-- Logo sem fundo: `MAHWiBeuIzI` (feito com `remove-background` do `Logo.jpg` `MAHUzbG7AjM`, que tem
-  fundo azul: usado direto aparece um quadrado azul). Confete dourado: `MAFAqYR48A0`.
-- `insert_fill` dos dois na página da capa (`page_id`), com as medidas do `medir.py` (logo 189×157,5
-  em x 445,5, topo 158,6 px acima da H1; confete 109,7×124,09 em x 485,15, 6,3 px abaixo do topo do
-  logo), e na chamada seguinte `group_elements` com os dois ids novos (vêm no `document`).
-  Testado na capa `DAHWiNBnofU` em 28/09/2026: o `update_fill` recentra a imagem sem cortar o logo.
-- É a versão do **mês de aniversário** (chapéu de festa + confete). Acabado o mês, trocar
-  `LOGO_ID` no `medir.py`/`medir.mjs` pela versão sem chapéu (pedir o arquivo ao usuário, subir, tirar
-  o fundo com `remove-background`) e tirar o CONFETE das operações.
+**Logo da Legacy na capa** (padrão desde 28/09/2026; **desde 29/09/2026 já vem no template**)
+- É um grupo na capa: `Logo.jpg` `MAHUzbG7AjM` recortado dentro da moldura (não aparece o fundo
+  azul) + confete dourado `MAFAqYR48A0`. O `medir.py` devolve só o `position_element` do grupo
+  (topo 150 px acima da H1, x 477,21), conferido no carrossel da Marisa (29/09/2026).
+- É a versão do **mês de aniversário** (chapéu de festa + confete). Acabado o mês, o usuário troca o
+  logo no template; se o grupo mudar de tamanho, atualizar `LOGO_LEFT`/`LOGO_ACIMA` no
+  `medir.py`/`medir.mjs`. Logo sem fundo avulso, se precisar: `MAHWiBeuIzI`.
 - `insert_fill`, `crop_media` e `group_elements` funcionam em designs novos; no template-mestre
   qualquer mudança precisa do ok explícito do usuário na conversa.
 

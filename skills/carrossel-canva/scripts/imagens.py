@@ -197,7 +197,11 @@ def coletar(urls, pasta="imagens", maximo=8):
                         "credito": na_legenda.group(0).strip() if na_legenda else None,
                         "creditos_na_pagina": creditos[:3],
                         "escala": {k: v["veredito"] for k, v in escala(im.width, im.height).items()}})
-    ok = [r for r in res if "arquivo" in r]
+    ok, vistos = [], set()
+    for r in res:  # a mesma foto em duas matérias vira um arquivo só (senão o rename abaixo falha)
+        if "arquivo" in r and r["arquivo"] not in vistos:
+            vistos.add(r["arquivo"])
+            ok.append(r)
     ok.sort(key=lambda r: not r["relevante"])
     for n, r in enumerate(ok, 1):  # o número da lista vai no nome: a folha sai na mesma ordem
         r["n"] = n

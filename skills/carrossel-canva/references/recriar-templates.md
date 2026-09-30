@@ -1,6 +1,6 @@
 # Recriar os templates-mestre (só se sumirem ou for outra conta do Canva)
 
-Antes de recriar: `search-designs` com `"TEMPLATE CARROSSEL"`. Se achar (LEGACY = 5 páginas
+Antes de recriar: `search-designs` com `"TEMPLATE CARROSSEL"`. Se achar (LEGACY = 4 páginas
 1080×1440; CLAILTON = 3 páginas 1080×1350), só atualizar os IDs em `template.md`.
 Outra conta do Canva: o dono compartilha os dois templates (Compartilhar, com edição) e a skill acha
 pelo nome. Recriar é o último recurso.

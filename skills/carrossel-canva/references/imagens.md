@@ -11,7 +11,7 @@ para cada tipo de card → briefing → buscas curtas → escolher olhando → c
 | --- | --- | --- |
 | Capa (pág. 1) | foto de fundo + círculo | direção de arte própria (§1b); o círculo nunca some e fica do lado oposto ao sujeito/ponto de fuga do fundo |
 | Corpo (pág. 2) e corpo com título (pág. 3) | 1 foto por card | só se o `medir.py` disser `foto_util: true` |
-| CTA, bônus, reflexão (págs. 4 e 5) | nenhuma | fundo próprio |
+| CTA (pág. 4) e reflexão em fundo preto (pág. 3 sem foto) | nenhuma | fundo próprio |
 | CLAILTON | nenhuma | avatar fixo |
 
 Pular a etapa inteira quando o usuário disser "sem imagens" / "eu coloco as fotos". Se ele mandar

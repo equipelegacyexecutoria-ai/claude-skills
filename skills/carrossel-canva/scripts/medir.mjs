@@ -6,11 +6,10 @@ import { fileURLToPath } from "node:url";
 
 const M = JSON.parse(readFileSync(join(dirname(fileURLToPath(import.meta.url)), "..", "references", "metricas.json"), "utf8"));
 const ALVO_CAPA = 975, BASE_CAPA = 1250;
-// Capa aprovada em 28/09/2026 (DAHWgdFSrXw): círculo de 462 px a y 330; logo Legacy sem fundo
-// (versão do aniversário) + confete dourado agrupados, centralizados 158,6 px acima da H1.
+// Capa aprovada em 28/09/2026 (DAHWgdFSrXw): círculo de 462 px a y 330. Desde 29/09/2026 o logo
+// (logo + confete) já vem no template como um GRUPO: só se reposiciona, topo 150 px acima da H1.
 const CIRC_LADO = 462.15, CIRC_TOP = 330.14;
-const LOGO_ID = "MAHWiBeuIzI", CONFETE_ID = "MAFAqYR48A0";
-const LOGO_LEFT = 445.5, LOGO_ACIMA = 158.6, LOGO_W = 189, LOGO_H = 157.5;
+const LOGO_LEFT = 477.21, LOGO_ACIMA = 150;
 const ESC = M.degrade.escuro, H_FADE = M.degrade.altura_img;
 const r1 = (x) => Math.round(x * 10) / 10;
 
@@ -121,9 +120,7 @@ function capa(linhas, circulo = "direita") {
   const extras = [
     { op: "resize_element", elemento: "CIRCULO", width: CIRC_LADO, height: CIRC_LADO },
     { op: "position_element", elemento: "CIRCULO", top: r1(cTop), left: cLeft },
-    { op: "insert_fill", elemento: "LOGO", asset_id: LOGO_ID, alt_text: "Logo Legacy", left: LOGO_LEFT, top: r1(logoTop), width: LOGO_W, height: LOGO_H },
-    { op: "insert_fill", elemento: "CONFETE", asset_id: CONFETE_ID, alt_text: "Confete dourado", left: 485.15, top: r1(logoTop + 6.3), width: 109.7, height: 124.09 },
-    { op: "group_elements", elementos: ["LOGO", "CONFETE"], nota: "chamada seguinte: os ids do LOGO e do CONFETE vêm no document da resposta" },
+    { op: "position_element", elemento: "LOGO", top: r1(logoTop), left: LOGO_LEFT, nota: "LOGO = o grupo (logo + confete) que já vem na capa do template" },
   ];
   const out = {
     linhas: res,

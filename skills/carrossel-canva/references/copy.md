@@ -12,7 +12,8 @@ extrair os campos. **Nunca reescrever a copy** — só distribuir, quebrar linha
 | CORPO | card comum, 1–3 parágrafos curtos | 2 | 2 (≤ ~300 caracteres) · 3 se maior |
 | CORPO COM TÍTULO | item numerado ("1. Leitura financeira.") ou mini-título + corpo | 3 | vira CORPO com o título em negrito (`{{B1}}`) e corpo em `{{P2}}` |
 | CTA | fala da Legacy/executoria, "20 mil empresários", oferta, "últimos dias" | 4 | 3 (sempre CORPO LONGO) |
-| BÔNUS 1% | "Se você faz parte do 1% que chegou até aqui…" ou pedido "com bônus" | 5 (texto fixo) | — |
+| REFLEXÃO | "Reflexão", "fundo preto", fecho antes do CTA | 3 sem foto, fundo preto (`template.md`) | 2 ou 3 |
+| BÔNUS 1% | "Se você faz parte do 1% que chegou até aqui…" | saiu do template em 29/09/2026: avisar o usuário | — |
 
 Formato não informado (LEGACY ou CLAILTON) → **perguntar antes de montar**. Regra do usuário.
 
@@ -42,7 +43,7 @@ O tamanho vem do script, nunca de estimativa:
 `python3 scripts/medir.py manchete "Manchete inteira" "Pergunta" --circulo esquerda|direita` (ou
 `capa "Linha 1" "Linha 2" "Pergunta"` com as linhas já separadas) → `px` de cada linha (inteiro,
 para baixo, que é o que o `format_text` aceita), `altura_bloco` e as `operacoes`: `format_text` +
-`position_element` de H1, H2 e H3 (left 50.64), CIRCULO, LOGO e CONFETE. No template cada linha é
+`position_element` de H1, H2 e H3 (left 50.64), CIRCULO e o grupo do LOGO. No template cada linha é
 uma caixa separada, então é só aplicar: a capa sai pronta, sem ajuste no editor. Capa com linhas de larguras diferentes foi
 reprovada pelo usuário (28/09/2026) e não se entrega. Se o script der `aviso` (linha curta demais,
 fonte enorme encostando no círculo), conferir na miniatura e contar na entrega.
@@ -98,24 +99,27 @@ briefing e no prompt da IA.
 | `{{P2}}` | parágrafos pretos do meio | aceita `\n\n` |
 | `{{A2}}` | 2º destaque azul (a oferta, "🎁 E estamos na semana…") | — |
 | `{{P3}}` | fecho preto ("Mas corre, são os últimos dias.") | — |
-Total ≤ ~750 caracteres. Mais que isso → `format_text` `font_size` 34 (só se necessário).
+Total ≤ ~750 caracteres (a 40 px, caixa em y 269: ~700 caracteres terminam em y≈1290). Mais que
+isso → `format_text` `font_size` 36 ou subir a caixa (só se necessário).
+Nota de design na copy pedindo CTA em fundo azul com foto do Clailton/Allan: o template não tem essa
+versão; montar no padrão e avisar na entrega.
 Destaques azuis: o que a copy marcar em **negrito** ou o que for claramente a solução/oferta.
 Sem parágrafo preto antes do 1º destaque azul: `"{{P1}}\n\n{{P1B}}\n\n"` → `""` (um trecho só).
 
-**BÔNUS (pág. 5)**: texto fixo, nada a preencher. Incluir só quando a copy tiver o card do 1%.
-A mesma página serve para um card de reflexão que a copy peça em **fundo preto com frase em destaque
-azul**: trocar o trecho branco e o azul (texto exato em `template.md`), `format_text` ~68 px para
-~270 caracteres e centralizar na altura.
+**REFLEXÃO em fundo preto** (a pág. 5 saiu do template em 29/09/2026): pág. 3 sem foto, título e
+corpo centralizados na altura (passo a passo em `template.md`). Frase marcada em azul na copy fica
+branca (a caixa do corpo tem uma cor só): avisar na entrega.
 
-**Rodapé: fonte da copy e crédito da foto** — vão juntos na 2ª linha do handle, pequena e discreta
-(mesmo estilo do handle): `Fonte: X, 2026. · Foto: Y` (só o que existir; formatos de crédito em
-`imagens.md`; IA e banco pago não levam crédito).
-- Pág. 3: `" & @clailtonluiz"` → `"\nFonte: X, 2026. · Foto: Y"` (com dupla assinatura:
-  `"@clailtonluiz"` → `"@clailtonluiz\nFoto: Y"`). Linha longa: `resize_element` do handle com
-  `width` 850 (a seta começa em x 926). Se `Fonte · Foto` passar de ~850 px (Poppins Bold 24 em
-  caixa-alta: `medir.largura_em(t.upper(), "poppins_bold", 0.07) * 24`, +5% de folga), a fonte sobe
-  para a 1ª linha e a foto fica na 2ª: `" & @clailtonluiz"` → `" · Fonte: X, 2026.\nFoto: Y"`
-  (usado em 28/09/2026 com créditos da Agência Brasil; mantém o crédito completo na imagem).
+**Rodapé: fonte da copy e crédito da foto**
+- **Fonte da copy** ("Rodapé: fonte X") na pág. 3: vai no marcador `{{FONTE}}` (linha cinza pequena
+  logo abaixo do corpo): `"{{FONTE}}"` → `"Fonte: X, 2026."`. Sem fonte: `"\n\n{{FONTE}}"` → `""`.
+  No `medir.py pag3`, passar a fonte como último parágrafo para o bloco subir o suficiente.
+- **Crédito da foto** vai na 2ª linha do handle, pequena e discreta (mesmo estilo do handle):
+  `Foto: Y` (formatos de crédito em `imagens.md`; IA e banco pago não levam crédito).
+- Pág. 3: `"@legacyexecutoria"` → `"@legacyexecutoria\nFoto: Y"` (usado na Marisa em 29/09/2026).
+  Crédito longo (mais de ~850 px em Poppins Bold 24 caixa-alta:
+  `medir.largura_em(t.upper(), "poppins_bold", 0.07) * 24`, +5% de folga): `resize_element` do
+  handle com `width` 850 (a seta começa em x 926).
 - Pág. 2: `"@legacyexecutoria"` → `"@legacyexecutoria\nFoto: Y"` + `resize_element` width 850 +
   `format_text` `text_align: "start"` (o handle dessa página é centralizado).
 - Capa: `"@legacyexecutoria"` → `"@legacyexecutoria\nFotos: Y e Z"` + `resize_element` width 900 +
@@ -124,7 +128,7 @@ azul**: trocar o trecho branco e o azul (texto exato em `template.md`), `format_
 
 **Handle**: padrão `@legacyexecutoria`. Se a copy/usuário pedir dupla assinatura, trocar em cada
 card (`find_and_replace_text` no elemento do handle) por `@legacyexecutoria & @clailtonluiz`.
-A pág. 3 já vem com a dupla — trocar para `@legacyexecutoria` quando não for o caso.
+Desde 29/09/2026 a pág. 3 vem só com `@legacyexecutoria` (como as outras).
 
 ## 3. CLAILTON — o que vai em cada marcador
 

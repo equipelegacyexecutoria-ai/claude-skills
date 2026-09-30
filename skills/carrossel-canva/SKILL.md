@@ -1,6 +1,6 @@
 ---
 name: carrossel-canva
-description: Monta no Canva, já diagramado e com as imagens colocadas, um carrossel de Instagram nos dois padrões do usuário — LEGACY (1080×1440, escuro, foto por card, capa com manchete Bebas em 3 linhas de mesma largura, pergunta dourada e círculo com imagem, CTA em fundo claro e card bônus "1% que chegou até aqui") e CLAILTON (1080×1350, post estilo X/Twitter em fundo branco com avatar, @clailtonluiz e contador NN/NN) — a partir da copy card a card. No LEGACY, busca e coloca sozinha a imagem de cada card (foto real de notícia/marca com crédito, banco Freepik ou IA, conforme o card) e ajusta fonte, posição e degradê ao tamanho de cada texto. Use sempre que o usuário mandar a copy de um carrossel e pedir para "montar/diagramar no Canva", "fazer o carrossel no Canva", "passa pro Canva", "carrossel LEGACY", "carrossel do Clailton", ou colar slides (SLIDE 1, Card 1…) pedindo o projeto no Canva. Não use para escrever a copy (legacy-carrossel-copy) nem para HTML/Figma (carrossel-legacy-html).
+description: Monta no Canva, já diagramado e com as imagens colocadas, um carrossel de Instagram nos dois padrões do usuário — LEGACY (1080×1440, escuro, foto por card, capa com manchete Bebas em 3 linhas de mesma largura, pergunta dourada e círculo com imagem, card de reflexão em fundo preto e CTA em fundo claro) e CLAILTON (1080×1350, post estilo X/Twitter em fundo branco com avatar, @clailtonluiz e contador NN/NN) — a partir da copy card a card. No LEGACY, busca e coloca sozinha a imagem de cada card (foto real de notícia/marca com crédito, banco Freepik ou IA, conforme o card) e ajusta fonte, posição e degradê ao tamanho de cada texto. Use sempre que o usuário mandar a copy de um carrossel e pedir para "montar/diagramar no Canva", "fazer o carrossel no Canva", "passa pro Canva", "carrossel LEGACY", "carrossel do Clailton", ou colar slides (SLIDE 1, Card 1…) pedindo o projeto no Canva. Não use para escrever a copy (legacy-carrossel-copy) nem para HTML/Figma (carrossel-legacy-html).
 ---
 
 # Carrossel no Canva — padrão LEGACY e CLAILTON
@@ -67,19 +67,23 @@ Referências (ler só quando precisar):
 ## Fluxo rápido
 
 **1. Planejar e calcular (sem Canva).** Classificar cada card e montar a lista de páginas-modelo:
-- LEGACY: capa=1, corpo=2, corpo com título=3, CTA=4, bônus/reflexão=5 → ex. `[1,3,3,3,3,3,5,4]`.
+- LEGACY (template de 4 páginas desde 29/09/2026): capa=1, corpo=2, corpo com título=3, CTA=4 →
+  ex. `[1,3,3,3,3,3,4]`. Card de reflexão em fundo preto = pág. 3 sem foto (`template.md`). Não há
+  mais página do bônus 1%: se a copy pedir, avisar o usuário.
 - CLAILTON: capa=1, corpo curto=2, corpo longo e CTA=3 → ex. `[1,2,2,2,2,2,2,2,2,3,3]`.
 
 Rodar o script **numa única execução** para todos os cards (claude.ai: `python3`; sem Python:
 `node scripts/medir.mjs`):
 - `medir.py manchete "Manchete inteira" "Pergunta" --circulo esquerda|direita` → quebra a manchete
   em H1 + H2 e devolve as `operacoes` prontas: `format_text` e `position_element` de H1, H2 e H3
-  (tamanho inteiro que enche a largura), CIRCULO (462 px, lado pedido), LOGO + CONFETE
-  (`insert_fill`) e o `group_elements` dos dois, + degradê/foto. O lado do círculo sai da
+  (tamanho inteiro que enche a largura), CIRCULO (462 px, lado pedido), `position_element` do
+  LOGO (o grupo logo + confete que já vem na capa do template) + degradê/foto. O lado do círculo sai da
   composição da foto de fundo (`imagens.md` §1b); na dúvida, `direita`. Se a copy já trouxer as
   duas linhas separadas de propósito, `medir.py capa "Linha 1" "Linha 2" "Pergunta"` (mesma saída).
 - `medir.py pag3 "Título" "Parágrafo 1" "Parágrafo 2" …` → título quebrado, fonte do corpo, largura,
   posições e `operacoes` (TITULO, CORPO, DEGRADE, FOTO), `sujeito_entre_pct`, `foto_util`, `aviso`.
+  Card com fonte na copy ("Rodapé: fonte X"): passar `"Fonte: X, 2026."` como último parágrafo
+  (a linha `{{FONTE}}` fica dentro da caixa do corpo e ocupa o espaço de ~1 parágrafo).
 - `medir.py pag2 "Parágrafo 1" …` → o mesmo para o corpo simples (fonte 53/44/40).
 - CTA: `medir.py corpo … --tam 37.33 --larg 967`.
 
@@ -90,7 +94,7 @@ roteador, mensagem, sujeito, onde o sujeito fica = `sujeito_entre_pct`, 2–4 bu
 `merge-designs` (`create_new_design`, `title: "<headline curta> | LEGACY"`, `insert_pages` com a
 lista) + buscas na web das vagas de notícia + `stock_search` das vagas de banco + `images_generate`
 das vagas de IA + as **duas imagens da capa** (fundo e círculo, `count: 2` cada, `imagens.md` §1b). Se o template der "not found"/sem acesso: `search-designs` com `"TEMPLATE
-CARROSSEL"` (LEGACY = 5 páginas 1080×1440; CLAILTON = 3 páginas 1080×1350), seguir com esse ID e
+CARROSSEL"` (LEGACY = 4 páginas 1080×1440; CLAILTON = 3 páginas 1080×1350), seguir com esse ID e
 avisar para atualizar a skill. Não achou → `recriar-templates.md`.
 
 **3. Ler os IDs + coletar — em paralelo:** `read-design` (`open_transaction: true`,
@@ -113,8 +117,7 @@ e corrigir na hora; imagem ruim no card → a reserva (no máximo 1 troca por ca
 
 Capa LEGACY (detalhe em `copy.md`): `find_and_replace_text` de `{{H1}}`, `{{H2}}` e `{{H3}}`, cada um
 na sua caixa, `update_fill` da FOTO e do CIRCULO + as `operacoes` do `medir.py manchete` (H1–H3,
-CIRCULO, os dois `insert_fill` do LOGO e do CONFETE com `page_id` da capa). Numa 2ª chamada, o
-`group_elements` do LOGO + CONFETE (os ids novos vêm no `document` da 1ª). Sai pronta, sem ajuste
+CIRCULO e o `position_element` do grupo do LOGO), tudo numa chamada só. Sai pronta, sem ajuste
 no editor. Conferir no `document` que cada caixa de H ficou com **1 linha** (altura ≈ 1,2 × fonte;
 bem maior = quebrou → baixar 1 px naquela caixa) e, na miniatura, que o logo não caiu sobre algo
 importante da foto e que a placa do círculo está inteira.
@@ -124,7 +127,12 @@ Armadilhas (detalhes em `template.md`):
 - Marcador vazio → `""`, apagando junto a quebra do mesmo trecho (`"\n\n{{P1B}}"`,
   `"{{BRANCO}}\n\n"`) para não sobrar linha em branco.
 - Nunca buscar texto que atravesse duas cores/pesos (o estilo do 1º trecho contamina o resto).
-- `format_text` só aceita tamanho inteiro.
+- Pág. 3 (corpo com título): trocar só `"{{CORPO}}"`; sem fonte, apagar `"\n\n{{FONTE}}"` → `""`.
+  Nunca trocar `"{{CORPO}}\n\n"`: o último parágrafo cai na linha da fonte e sai miúdo (se
+  acontecer: `format_text` `font_size` 40 no elemento todo).
+- Palavra sozinha na última linha ou "R$" separado do número: espaço inseparável (` `) no
+  lugar do espaço (`"R$ 400"`, `"os juros."`). Não muda o texto, só a quebra.
+- `format_text` só aceita tamanho inteiro. `merge-designs` aceita uma operação por chamada.
 
 **6. Entregar** — mostrar as miniaturas das respostas do passo 5 (se a interface não exibir
 imagens, mandar os links, um por card) e perguntar se pode salvar. Com o ok:

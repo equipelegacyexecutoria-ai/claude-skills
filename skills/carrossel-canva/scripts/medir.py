@@ -26,12 +26,12 @@ with open(os.path.join(AQUI, "..", "references", "metricas.json"), encoding="utf
     M = json.load(f)
 
 CAIXA_CAPA, ALVO_CAPA, BASE_CAPA = 981, 975, 1250
-# Capa aprovada em 28/09/2026 (DAHWgdFSrXw): círculo de 462 px a y 330. Logo Legacy sem fundo
-# (MAHWiBeuIzI, versão do aniversário, com chapéu) 189×157,5 centralizado, topo 158,6 px acima do
-# topo da H1, com o confete dourado (MAFAqYR48A0) por cima; os dois viram um grupo.
+# Capa aprovada em 28/09/2026 (DAHWgdFSrXw): círculo de 462 px a y 330. Desde 29/09/2026 o logo
+# da Legacy (versão do aniversário, com confete) já vem no template como um GRUPO 127,9×124,1
+# (logo + confete): só se reposiciona, com o topo 150 px acima do topo da H1 (medido na capa das
+# Bets e no template do usuário).
 CIRC_LADO, CIRC_TOP = 462.15, 330.14
-LOGO_ID, CONFETE_ID = "MAHWiBeuIzI", "MAFAqYR48A0"
-LOGO_LEFT, LOGO_ACIMA, LOGO_W, LOGO_H = 445.5, 158.6, 189.0, 157.5
+LOGO_LEFT, LOGO_ACIMA, LOGO_H = 477.21, 150.0, 124.09
 ESC, H_FADE = M["degrade"]["escuro"], M["degrade"]["altura_img"]
 
 # Páginas-modelo LEGACY, lidas no template em 2026-09-27: (top, left, altura) da foto e do
@@ -182,12 +182,8 @@ def capa(linhas, circulo="direita"):
     extras = [
         {"op": "resize_element", "elemento": "CIRCULO", "width": CIRC_LADO, "height": CIRC_LADO},
         {"op": "position_element", "elemento": "CIRCULO", "top": round(c_top, 1), "left": c_left},
-        {"op": "insert_fill", "elemento": "LOGO", "asset_id": LOGO_ID, "alt_text": "Logo Legacy",
-         "left": LOGO_LEFT, "top": round(logo_top, 1), "width": LOGO_W, "height": LOGO_H},
-        {"op": "insert_fill", "elemento": "CONFETE", "asset_id": CONFETE_ID, "alt_text": "Confete dourado",
-         "left": 485.15, "top": round(logo_top + 6.3, 1), "width": 109.7, "height": 124.09},
-        {"op": "group_elements", "elementos": ["LOGO", "CONFETE"],
-         "nota": "chamada seguinte: os ids do LOGO e do CONFETE vêm no document da resposta"},
+        {"op": "position_element", "elemento": "LOGO", "top": round(logo_top, 1), "left": LOGO_LEFT,
+         "nota": "LOGO = o grupo (logo + confete) que já vem na capa do template"},
     ]
     out = {
         "linhas": res,
