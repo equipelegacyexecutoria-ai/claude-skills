@@ -12,7 +12,12 @@ Os IDs de elemento mudam a cada montagem: achar pelo marcador e pelo tipo, como 
 1. CAPA: FOTO (`shape` 1104×1142 em −10.8, −10), DEGRADE (`rect` FADE `MAFuE1lvpvY` em y 386.8),
    **LOGO = `rect` 128×120 em (477, 744.6)**, grupo com `{{H1}}` `{{H2}}` brancos e `{{H3}}` **azul
    `#013e6a`** (Bebas 106,67 px, lh 0.95, x 50.64 w 981, tops 904 / 1021 / 1136), grupo com a seta +
-   `@legacyexecutoria` (26,67 px) em y 1303. Sem círculo, sem pill "Arraste para o lado".
+   `@legacyexecutoria` (26,67 px) em y 1303. Sem pill "Arraste para o lado".
+   **Atualização 30/09 (carrossel da Light): o círculo voltou** — `shape` redondo 334,6 px com borda
+   branca 4, em (697, 470) no template. Preencher com `update_fill` (logo/placa da empresa) e, se
+   precisar, subir para y ≈ 360 para não encostar no logo da Legacy. A imagem do círculo entra
+   **quadrada, com a marca inteira e folga** (logo centrado ocupando ~80% da diagonal): imagem
+   retangular é cortada nas laterais (saiu "Lig" em vez de "Light").
 2. CORPO COM TÍTULO (igual à antiga pág. 3): `{{TITULO}}` Bebas 80 (y 776.6), corpo `"{{CORPO}}\n\n"`
    + `"{{FONTE}}"` (y 884.6), FOTO 1109×943, DEGRADE 1109×813 em y 333.6, handle `@legacyexecutoria`.
 3. CTA: fundo claro, caixa em (64.2, 248) w 953, marcadores `{{TITULO}}` `{{P1}}` `{{P1B}}` `{{A1}}`
