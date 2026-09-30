@@ -1,6 +1,6 @@
 ---
 name: carrossel-canva
-description: Monta no Canva, já diagramado e com as imagens colocadas, um carrossel de Instagram nos dois padrões do usuário — LEGACY (1080×1440, escuro, foto por card, capa com manchete Bebas em 3 linhas de mesma largura, pergunta dourada e círculo com imagem, card de reflexão em fundo preto e CTA em fundo claro) e CLAILTON (1080×1350, post estilo X/Twitter em fundo branco com avatar, @clailtonluiz e contador NN/NN) — a partir da copy card a card. No LEGACY, busca e coloca sozinha a imagem de cada card (foto real de notícia/marca, banco Freepik ou IA, conforme o card), ajusta fonte, posição e degradê ao tamanho de cada texto e quebra as linhas sem deixar palavra de ligação no fim. Use sempre que o usuário mandar a copy de um carrossel e pedir para "montar/diagramar no Canva", "fazer o carrossel no Canva", "passa pro Canva", "carrossel LEGACY", "carrossel do Clailton", ou colar slides (SLIDE 1, Card 1…) pedindo o projeto no Canva. Não use para escrever a copy (legacy-carrossel-copy) nem para HTML/Figma (carrossel-legacy-html).
+description: Monta no Canva, já diagramado e com as imagens colocadas, um carrossel de Instagram nos três modelos do usuário — LEGACY (1080×1440, escuro, foto por card, capa com manchete Bebas em 3 linhas de mesma largura e 3ª linha azul, CTA em fundo claro), LEGACY + CLAILTON (o mesmo visual com assinatura @legacyexecutoria & @clailtonluiz) e TWITTER do Clailton (1080×1350, post estilo X em fundo branco com avatar, @clailtonluiz e contador NN/NN) — a partir da copy card a card. No LEGACY, busca e coloca sozinha a imagem de cada card (foto real de notícia/marca, banco Freepik ou IA, conforme o card), ajusta fonte, posição e degradê ao tamanho de cada texto e quebra as linhas sem deixar palavra de ligação no fim. Use sempre que o usuário mandar a copy de um carrossel e pedir para "montar/diagramar no Canva", "fazer o carrossel no Canva", "passa pro Canva", "carrossel LEGACY", "carrossel do Clailton", ou colar slides (SLIDE 1, Card 1…) pedindo o projeto no Canva. Não use para escrever a copy (legacy-carrossel-copy) nem para HTML/Figma (carrossel-legacy-html).
 ---
 
 # Carrossel no Canva — padrão LEGACY e CLAILTON
@@ -35,14 +35,24 @@ Referências (ler só quando precisar):
 
 ## Regras fixas
 
-1. **Formato**: LEGACY ou CLAILTON. Se o usuário não disse, **perguntar** (uma pergunta curta, junto
-   com qualquer outra dúvida real da copy) e não montar antes da resposta.
+1. **Modelo** (definido pelo usuário em 30/09/2026 — são 3, cada um com o seu template):
+
+   | Pedido | Modelo | Template | Páginas-modelo |
+   | --- | --- | --- | --- |
+   | "carrossel legacy", perfil @legacyexecutoria | **LEGACY** | `DAHWWhuFIEI` (https://canva.link/6uw20gnd9l3y8e9) | 1 capa · 2 corpo com título · 3 CTA |
+   | "legacy + clailton", "modelo da Legacy com o Clailton", assinatura dupla | **LEGACY + CLAILTON** | `DAHWsMeChdQ` (https://canva.link/sloukpu2dld0xek) | 1 capa · 2 corpo (branco + cinza) · 3 CTA |
+   | "twitter", "post do X", "carrossel do Clailton" só texto | **TWITTER (CLAILTON)** | `DAHWW8zqYcQ` (https://canva.link/kyj3oijlhpuk2jk) | 1 capa · 2 corpo curto · 3 corpo longo/CTA |
+
+   Card do Notion com PERFIL CLAILTON e imagem pedida em cada página → LEGACY + CLAILTON. Se o
+   pedido não disser qual e não der para deduzir, **perguntar** (uma pergunta curta) e não montar
+   antes da resposta.
 2. **Copy intocada**: não reescrever, resumir nem "melhorar" a copy. Só distribuir nos marcadores,
    quebrar linhas e marcar destaques (negrito/azul/cinza/dourado) conforme `copy.md`.
 3. **Nunca** usar `create-design`, `generate-design` ou `add_text`: não respeitam fontes e layout.
    Tudo parte dos templates-mestre via `merge-designs`.
-4. **Não mexer nos templates-mestre** (LEGACY `DAHWWhuFIEI`, CLAILTON `DAHWW8zqYcQ`) — só usá-los
-   como fonte das páginas.
+4. **Não mexer nos templates-mestre** (LEGACY `DAHWWhuFIEI`, LEGACY + CLAILTON `DAHWsMeChdQ`,
+   TWITTER `DAHWW8zqYcQ`) — só usá-los como fonte das páginas. O usuário edita os modelos por conta
+   própria: sempre montar a partir do que o `read-design` mostra, não do que está anotado aqui.
 5. Salvar (`commit`) só depois de mostrar a prévia e o usuário aprovar (exigência do Canva).
 6. **Capa LEGACY em 3 linhas de mesma largura**: manchete em duas linhas brancas (a quebra sai do
    `medir.py manchete`, que deixa as duas grandes) e a pergunta/frase de impacto em dourado, cada
@@ -50,19 +60,22 @@ Referências (ler só quando precisar):
    tamanho da fonte muda de uma linha para outra; o texto não. No template, cada linha tem a sua
    caixa (`{{H1}}`, `{{H2}}`, `{{H3}}`), então a capa sai pronta pelo conector. Capa com linhas de
    larguras diferentes não se entrega (reprovada em 28/09/2026). A cor padrão não muda por nota de
-   cor na copy.
-7. **Capa LEGACY com círculo (462 px) e logo**: o círculo nunca some e fica do lado oposto ao
-   sujeito da foto de fundo; o logo da Legacy (com o confete) entra acima da manchete. Os dois vêm
-   nas `operacoes` do `medir.py manchete`/`capa`.
+   cor na copy. **Desde 30/09/2026 a 3ª linha (H3) é azul `#013e6a`** nos dois modelos LEGACY (a cor
+   já vem no template; "dourada" nas referências antigas = essa linha).
+7. **Capa sem círculo desde 30/09/2026**: os modelos atuais não têm CIRCULO — não gerar imagem de
+   círculo e pular as `operacoes` de CIRCULO do `medir.py`. Logo: só o LEGACY tem (um `rect` com a
+   imagem do logo, acima da manchete) → aplicar o `position_element` do LOGO nele; o LEGACY +
+   CLAILTON não tem logo. As caixas H1–H3 vêm **agrupadas**: posicionar cada uma; se o
+   `position_element` falhar no filho, mover o grupo.
 8. **Texto sempre legível, qualquer que seja o tamanho**: fonte, posição do texto, do degradê e da
    foto saem do `medir.py` para o texto real de cada card. Texto que sobe leva o degradê junto.
 9. **Imagem pela natureza do card** (`imagens.md`): notícia/entidade real → foto real;
    situação humana comum → banco Freepik (sem IA); ideia abstrata → IA. Pessoa real só com
    identidade confirmada. Escolher olhando (folha ou miniaturas), nunca pelo 1º resultado.
 10. **Capa chamativa, forte e bonita** (reprovada em 28/09/2026 a capa com fachada genérica no fundo
-   e placa cortada no círculo): fundo = a cena que prova a manchete; círculo = a montagem
-   protagonista + fato, com placa/logo inteiros. Direção de arte, prompts e referências aprovadas em
-   `imagens.md` §1b. A capa ganha 2 variações de cada imagem para escolher olhando.
+   e placa cortada no círculo): fundo = a cena que prova a manchete (sem círculo desde 30/09/2026,
+   a foto de fundo carrega a capa sozinha). Direção de arte e prompts em `imagens.md` §1b. A foto da
+   capa ganha 2 variações para escolher olhando.
 11. **Rodapé só com o `@`** (regra do usuário, 30/09/2026): **nunca** escrever "Foto: …" nem
    qualquer crédito de imagem embaixo do `@legacyexecutoria`, em nenhum card. O handle fica como
    vem do template. Os créditos das fotos reais vão só na resposta da entrega, numa linha pronta
@@ -76,10 +89,13 @@ Referências (ler só quando precisar):
 ## Fluxo rápido
 
 **1. Planejar e calcular (sem Canva).** Classificar cada card e montar a lista de páginas-modelo:
-- LEGACY (template de 4 páginas desde 29/09/2026): capa=1, corpo=2, corpo com título=3, CTA=4 →
-  ex. `[1,3,3,3,3,3,4]`. Card de reflexão em fundo preto = pág. 3 sem foto (`template.md`). Não há
-  mais página do bônus 1%: se a copy pedir, avisar o usuário.
-- CLAILTON: capa=1, corpo curto=2, corpo longo e CTA=3 → ex. `[1,2,2,2,2,2,2,2,2,3,3]`.
+- LEGACY (3 páginas desde 30/09/2026): capa=1, corpo com título=2, CTA=3 → ex. `[1,2,2,2,2,2,3]`.
+  Todo card de corpo usa a página com título (`medir.py pag3`); card sem título na copy: apagar a
+  caixa do título (`delete_element`) e usar só o corpo. Reflexão em fundo preto = pág. 2 sem foto.
+- LEGACY + CLAILTON (3 páginas): capa=1, corpo branco+cinza=2 (`medir.py pag2`), CTA=3 → ex.
+  `[1,2,2,2,2,2,2,2,2,2,2,3]`.
+- TWITTER (CLAILTON): capa=1, corpo curto=2, corpo longo e CTA=3 → ex. `[1,2,2,2,2,2,2,2,2,3,3]`.
+- Não há página do bônus 1%: se a copy pedir, avisar o usuário.
 
 Rodar o script **numa única execução** para todos os cards (claude.ai: `python3`; sem Python:
 `node scripts/medir.mjs`):
@@ -105,8 +121,8 @@ roteador, mensagem, sujeito, onde o sujeito fica = `sujeito_entre_pct`, 2–4 bu
 **2. Montar + disparar as imagens — uma única mensagem com as chamadas em paralelo:**
 `merge-designs` (`create_new_design`, `title: "<headline curta> | LEGACY"`, `insert_pages` com a
 lista) + buscas na web das vagas de notícia + `stock_search` das vagas de banco + `images_generate`
-das vagas de IA + as **duas imagens da capa** (fundo e círculo, `count: 2` cada, `imagens.md` §1b). Se o template der "not found"/sem acesso: `search-designs` com `"TEMPLATE
-CARROSSEL"` (LEGACY = 4 páginas 1080×1440; CLAILTON = 3 páginas 1080×1350), seguir com esse ID e
+das vagas de IA + a **foto da capa** (`count: 2`, `imagens.md` §1b). Se o template der "not found"/sem acesso: `search-designs` com `"TEMPLATE
+CARROSSEL"` (os três têm 3 páginas; LEGACY e LEGACY + CLAILTON 1080×1440, TWITTER 1080×1350), seguir com esse ID e
 avisar para atualizar a skill. Não achou → `recriar-templates.md`.
 
 **3. Ler os IDs + coletar — em paralelo:** `read-design` (`open_transaction: true`,

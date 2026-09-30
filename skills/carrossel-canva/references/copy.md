@@ -17,7 +17,13 @@ extrair os campos. **Nunca reescrever a copy** — só distribuir, quebrar linha
 
 Formato não informado (LEGACY ou CLAILTON) → **perguntar antes de montar**. Regra do usuário.
 
-## 2. LEGACY — o que vai em cada marcador
+## 2. LEGACY e LEGACY + CLAILTON — o que vai em cada marcador
+
+**Desde 30/09/2026** (detalhe em `template.md`, "Modelos atuais"): os dois modelos têm 3 páginas.
+No **LEGACY**, todo corpo usa a página "corpo com título" (a pág. 3 descrita abaixo, que agora é a
+pág. 2) e o CTA é a pág. 3. No **LEGACY + CLAILTON**, o corpo é a página branco + cinza (pág. 2
+abaixo) e o CTA é a pág. 3. A 3ª linha da capa é **azul `#013e6a`** (onde abaixo diz "dourada",
+ler "azul"); não há círculo, e só o LEGACY tem logo na capa.
 
 **CAPA (pág. 1)** — diagramação obrigatória em **toda** capa LEGACY (referências aprovadas:
 Pontofrio `DAHWNvVN9yc` e maior onda de recuperações `DAHWgdFSrXw`; não precisa abrir). São 3

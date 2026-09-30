@@ -9,7 +9,7 @@ const ALVO_CAPA = 975, BASE_CAPA = 1250;
 // Capa aprovada em 28/09/2026 (DAHWgdFSrXw): círculo de 462 px a y 330. Desde 29/09/2026 o logo
 // (logo + confete) já vem no template como um GRUPO: só se reposiciona, topo 150 px acima da H1.
 const CIRC_LADO = 462.15, CIRC_TOP = 330.14;
-const LOGO_LEFT = 477.21, LOGO_ACIMA = 150;
+const LOGO_LEFT = 476.97, LOGO_ACIMA = 160; // logo do template LEGACY de 30/09/2026
 const ESC = M.degrade.escuro, H_FADE = M.degrade.altura_img;
 const r1 = (x) => Math.round(x * 10) / 10;
 

@@ -31,7 +31,7 @@ CAIXA_CAPA, ALVO_CAPA, BASE_CAPA = 981, 975, 1250
 # (logo + confete): só se reposiciona, com o topo 150 px acima do topo da H1 (medido na capa das
 # Bets e no template do usuário).
 CIRC_LADO, CIRC_TOP = 462.15, 330.14
-LOGO_LEFT, LOGO_ACIMA, LOGO_H = 477.21, 150.0, 124.09
+LOGO_LEFT, LOGO_ACIMA, LOGO_H = 476.97, 160.0, 119.65  # logo do template LEGACY de 30/09/2026
 ESC, H_FADE = M["degrade"]["escuro"], M["degrade"]["altura_img"]
 
 # Páginas-modelo LEGACY, lidas no template em 2026-09-27: (top, left, altura) da foto e do

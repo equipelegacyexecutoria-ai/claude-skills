@@ -4,7 +4,34 @@ Criados em 2026-09-26/27 a partir dos carrosséis mais recentes do usuário. **N
 marcadores nem reordenar/apagar páginas** — a skill depende da ordem das páginas e dos `{{...}}`.
 Trocar a foto de exemplo de uma página-modelo é seguro.
 
-## LEGACY — `DAHWWhuFIEI` (1080×1440, escuro, foto por card)
+## Modelos atuais (lidos em 30/09/2026 — valem estes; o resto do arquivo é histórico)
+
+Os IDs de elemento mudam a cada montagem: achar pelo marcador e pelo tipo, como abaixo.
+
+**LEGACY — `DAHWWhuFIEI`** (https://canva.link/6uw20gnd9l3y8e9), 3 páginas 1080×1440:
+1. CAPA: FOTO (`shape` 1104×1142 em −10.8, −10), DEGRADE (`rect` FADE `MAFuE1lvpvY` em y 386.8),
+   **LOGO = `rect` 128×120 em (477, 744.6)**, grupo com `{{H1}}` `{{H2}}` brancos e `{{H3}}` **azul
+   `#013e6a`** (Bebas 106,67 px, lh 0.95, x 50.64 w 981, tops 904 / 1021 / 1136), grupo com a seta +
+   `@legacyexecutoria` (26,67 px) em y 1303. Sem círculo, sem pill "Arraste para o lado".
+2. CORPO COM TÍTULO (igual à antiga pág. 3): `{{TITULO}}` Bebas 80 (y 776.6), corpo `"{{CORPO}}\n\n"`
+   + `"{{FONTE}}"` (y 884.6), FOTO 1109×943, DEGRADE 1109×813 em y 333.6, handle `@legacyexecutoria`.
+3. CTA: fundo claro, caixa em (64.2, 248) w 953, marcadores `{{TITULO}}` `{{P1}}` `{{P1B}}` `{{A1}}`
+   `{{P2}}` `{{A2}}` `{{P3}}` como antes; handle preto.
+
+**LEGACY + CLAILTON — `DAHWsMeChdQ`** (https://canva.link/sloukpu2dld0xek), 3 páginas 1080×1440:
+1. CAPA: FOTO, DEGRADE, grupo H1/H2 brancos + H3 azul `#013e6a` (106,67 px, tops 909.5 / 1026.6 /
+   1141.2, x 46.2), grupo seta + `@legacyexecutoria & @clailtonluiz` em y 1303–1318. Sem logo, sem
+   círculo.
+2. CORPO (igual à antiga pág. 2): `"{{BRANCO}}\n\n"` + `"{{CINZA}}"` Poppins 53,33 ancorado embaixo,
+   FOTO 1109×1210, DEGRADE em y 472.2, handle duplo (w 551).
+3. CTA: caixa em (56.2, 269.4) w 967.5; handle duplo **preto**.
+
+**TWITTER (CLAILTON) — `DAHWW8zqYcQ`** (https://canva.link/kyj3oijlhpuk2jk): sem mudança — 3
+páginas 1080×1350 (capa `{{H}}` `{{SUB}}` `01/{{T}}`; corpo `{{P1}} {{B1}}` / `{{P2}} {{B2}}` +
+`{{N}}/{{T}}`; corpo longo `{{P1}}` `{{B1}}` `{{P2}}`), avatar `MAHVSCntTPw`, detalhes na seção
+CLAILTON abaixo.
+
+## LEGACY antigo — `DAHWWhuFIEI` até 29/09/2026 (histórico)
 
 Link: https://www.canva.com/d/NlwpU8NbKEt6BL9 · Origem: SER DONO É SABER COBRAR (`DAHWCDizSTE`
 p1, p2, p10, p11) + 5 MATÉRIAS (`DAHWJAVgBic` p3).
