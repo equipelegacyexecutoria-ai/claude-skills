@@ -116,6 +116,10 @@ No comentário de entrega, liste em 1 linha as orientações do briefing que voc
 
 ## Passo 2 — pegar o bruto
 
+0. **Antes de baixar, confira se o bruto já está no PC** (regra do usuário, 30/09/2026: "não baixe de novo,
+   evite retrabalho"): `C:\Render\brutos\<slug>\` e a fonte gravada em `C:\Render\_trabalho\<slug>\corte.json`
+   (campo `fonte`). Existindo e com o tamanho igual ao do Drive, use esse arquivo e pule os itens 1–4.
+   Vale sempre, principalmente nas correções (v2, v3).
 1. Tire o ID do link do Drive em MATERIAL NECESSÁRIO (`/file/d/<ID>/`, `?id=<ID>`, `/folders/<ID>`).
    Arquivo anexado direto no Notion: baixe com a ferramenta de anexo do Notion.
 2. Com o conector do Drive (`get_file_metadata`), suba pelos `parentId` até a raiz e monte o caminho
