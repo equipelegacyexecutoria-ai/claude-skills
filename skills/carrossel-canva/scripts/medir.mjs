@@ -165,27 +165,52 @@ function titulo(texto, px = 80.0355, caixa = 931) {
   return out;
 }
 
-function quebrar(par, px, larg) {
+const NBSP = " ";
+// Palavras de ligação que não podem ficar no fim da linha (regra do usuário, 30/09/2026).
+const CONECTORES = new Set(("e a o as os à às ao aos de do da dos das em no na nos nas um uma uns umas que para pra por " +
+  "pelo pela pelos pelas com sem ou se mas nem ele ela eles elas seu sua seus suas meu minha " +
+  "é como quando onde porque").split(" "));
+
+function quebrarSimples(par, px, larg) {
   const linhas = [];
   let atual = "";
   for (const w of par.split(" ")) {
     const tent = atual ? atual + " " + w : w;
-    if (larguraEm(tent, "poppins_bold") * px * 1.011 <= larg || !atual) atual = tent; // 1,1%: calibrado com a quebra real do Canva
+    if (larguraEm(tent.replaceAll(NBSP, " "), "poppins_bold") * px * 1.011 <= larg || !atual) atual = tent; // 1,1%: calibrado com a quebra real do Canva
     else { linhas.push(atual); atual = w; }
   }
   linhas.push(atual);
   return linhas;
 }
 
+// Devolve o parágrafo com espaço inseparável depois de CADA conector: ele nunca fica no fim da
+// linha, quebre o Canva onde quebrar (a previsão do script erra 1 palavra às vezes; colar só onde
+// o script previa a quebra deixou "um" e "de" no fim da linha em 30/09/2026).
+// Não muda o texto, só a quebra.
+function colarConectores(par) {
+  const palavras = par.split(" ");
+  let out = "";
+  palavras.forEach((w, i) => {
+    out += w;
+    if (i < palavras.length - 1)
+      out += CONECTORES.has(w.replaceAll(NBSP, " ").split(" ").pop().toLowerCase()) ? NBSP : " ";
+  });
+  return out;
+}
+
+function quebrar(par, px, larg) {
+  return quebrarSimples(colarConectores(par, px, larg), px, larg);
+}
+
 function corpo(pars, px = 40, larg = 974) {
   const medir = (l) => {
     const ls = pars.map((p) => quebrar(p, px, l));
     const n = ls.reduce((a, x) => a + x.length, 0) + pars.length - 1;
-    const orf = ls.filter((x) => x.length > 1 && !x[x.length - 1].includes(" ")).map((x) => x[x.length - 1]);
+    const orf = ls.filter((x) => x.length > 1 && !x[x.length - 1].replaceAll(NBSP, " ").includes(" ")).map((x) => x[x.length - 1]);
     return [n, orf, ls];
   };
   const [n, orf, ls] = medir(larg);
-  const out = { linhas: n, orfas: orf };
+  const out = { linhas: n, orfas: orf, pars: pars.map((p) => colarConectores(p, px, larg)) };
   if (orf.length) for (const l of [960, 945, 930, 920, 900, 880, 860, 850]) {
     const [n2, o2] = medir(l);
     if (!o2.length && n2 <= n) { out.sugestao_largura = l; break; }
@@ -216,7 +241,7 @@ function pag3(tituloTxt, pars, larg = 974) {
   if (cTop !== CORPO_TOP) ops.push({ op: "position_element", elemento: "CORPO", top: cTop, left: 68.22 });
   const out = {
     titulo: { texto: t.quebra || tituloTxt, linhas: t.linhas, top: tTop },
-    corpo: { px, linhas: c.linhas, orfas: c.orfas, largura: l, top: cTop },
+    corpo: { px, linhas: c.linhas, orfas: c.orfas, largura: l, top: cTop, pars: c.pars, linhas_texto: c.linhas_texto },
     ...enc,
     operacoes: [...ops, ...opsEnc],
   };
@@ -236,7 +261,7 @@ function pag2(pars, larg = 974) {
   const [enc, opsEnc] = encaixe("pag2", topo);
   const ops = px !== 53.333 ? [{ op: "format_text", elemento: "CORPO", font_size: Math.floor(px) }] : [];
   if (l !== larg) ops.push({ op: "resize_element", elemento: "CORPO", width: l });
-  const out = { corpo: { px, linhas: c.linhas, orfas: c.orfas, largura: l, top_calculado: topo }, ...enc, operacoes: [...ops, ...opsEnc] };
+  const out = { corpo: { px, linhas: c.linhas, orfas: c.orfas, largura: l, top_calculado: topo, pars: c.pars, linhas_texto: c.linhas_texto }, ...enc, operacoes: [...ops, ...opsEnc] };
   if (!enc.foto_util) out.aviso = "texto ocupa o card: sem foto (não buscar imagem; a foto de exemplo é apagada). Contar na entrega.";
   return out;
 }

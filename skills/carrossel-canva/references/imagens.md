@@ -192,14 +192,17 @@ confirmada; logo sozinho; resolução "pequena demais" no `escala`.
    → `{"mediaId": "…"}`.
 2. Na **mesma** chamada `edit-design` da página (a do texto): `update_fill` na FOTO (e no CIRCULO
    da capa) com `asset_type: "image"`, o `asset_id` e um `alt_text` curto, + as `operacoes` do
-   `medir.py` (DEGRADE e FOTO) + o crédito no handle (`copy.md`).
+   `medir.py` (DEGRADE e FOTO). Sem crédito no card: o handle fica só com o `@` (`copy.md`).
 3. A resposta traz a miniatura da página: conferir **sujeito visível acima do degradê, título e corpo
    legíveis, nada estranho** (texto, marca-d'água, dedo a mais). Falhou → reserva (outro upload +
    `update_fill`). No máximo 1 troca por card; se a reserva também falhar, deixar a melhor e avisar.
 
 ## 8. Crédito e direito de uso (resumo, não é parecer jurídico)
 
-| Origem | Crédito no card | Risco |
+**Desde 30/09/2026 o crédito não vai mais no card** (o usuário não quer "Foto: …" embaixo do `@`).
+A coluna abaixo é o texto do crédito que entra **só na linha da legenda do post**, na entrega.
+
+| Origem | Crédito (na legenda do post) | Risco |
 | --- | --- | --- |
 | Foto oficial da marca (imprensa, site, "Divulgação") | `Foto: Marca/Divulgação` | baixo |
 | Foto de matéria | como está na legenda (`Foto: Autor/Veículo`; `Reprodução/…` quando a matéria diz) | médio; foto de revista/agência como destaque é o maior risco: preferir a oficial |

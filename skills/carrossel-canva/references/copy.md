@@ -110,21 +110,40 @@ Sem parágrafo preto antes do 1º destaque azul: `"{{P1}}\n\n{{P1B}}\n\n"` → `
 corpo centralizados na altura (passo a passo em `template.md`). Frase marcada em azul na copy fica
 branca (a caixa do corpo tem uma cor só): avisar na entrega.
 
-**Rodapé: fonte da copy e crédito da foto**
+## 2b. Quebra de linha: nenhuma linha termina em conector (regra do usuário, 30/09/2026)
+
+O usuário corrigiu à mão o carrossel da Marisa inteiro por causa disso. Palavra de ligação no fim
+da linha ("…vendeu mais **e**", "…cara demais, **ela**", "…já foi **para**", "…fora **de**") desce
+para a linha de baixo, junto da palavra seguinte. Lista: e, a, o, as, os, à, ao, de, do, da, dos,
+das, em, no, na, nos, nas, um, uma, que, para, por, pelo, pela, com, sem, ou, se, mas, nem, ele,
+ela, eles, elas, seu, sua, é, como, quando, onde, porque.
+
+- **Corpo e CTA (Poppins)**: o `medir.py` (`pag2`, `pag3`, `corpo`) devolve `pars` = os parágrafos
+  com espaço inseparável (U+00A0) depois de **todo** conector (assim ele nunca fica no fim da
+  linha, mesmo quando o Canva quebra 1 palavra diferente da previsão), e `linhas_texto` = as
+  linhas previstas. Colocar no card o `pars` unido com `\n\n`. Não muda a copy,
+  só onde a linha quebra. Número de linhas e posições já saem contando com isso.
+- **Título (Bebas)**: a quebra do `medir.py` é por largura; se a 1ª linha terminar em conector,
+  mover o `\n` para antes dele ("E isso vale ainda\nmais para o pequeno.", nunca "…ainda mais
+  para\no pequeno.").
+- **Capa**: cada linha é uma frase inteira; na manchete dividida em H1 + H2, H1 não termina em
+  conector (forçar a quebra com `|`).
+- Como o usuário quebra: no fim da oração, depois de vírgula, dois-pontos ou ponto ("…voltou a dar
+  prejuízo:" / "mais de R$ 68 milhões em um trimestre."). Na dúvida entre duas quebras, a que
+  deixa cada linha com sentido próprio.
+- Conferir na miniatura de cada página: o Canva pode quebrar 1 palavra diferente do script. Sobrou
+  conector no fim → espaço inseparável depois dele e nova conferência.
+
+**Rodapé: só o `@`; fonte da copy na linha `{{FONTE}}`**
 - **Fonte da copy** ("Rodapé: fonte X") na pág. 3: vai no marcador `{{FONTE}}` (linha cinza pequena
   logo abaixo do corpo): `"{{FONTE}}"` → `"Fonte: X, 2026."`. Sem fonte: `"\n\n{{FONTE}}"` → `""`.
   No `medir.py pag3`, passar a fonte como último parágrafo para o bloco subir o suficiente.
-- **Crédito da foto** vai na 2ª linha do handle, pequena e discreta (mesmo estilo do handle):
-  `Foto: Y` (formatos de crédito em `imagens.md`; IA e banco pago não levam crédito).
-- Pág. 3: `"@legacyexecutoria"` → `"@legacyexecutoria\nFoto: Y"` (usado na Marisa em 29/09/2026).
-  Crédito longo (mais de ~850 px em Poppins Bold 24 caixa-alta:
-  `medir.largura_em(t.upper(), "poppins_bold", 0.07) * 24`, +5% de folga): `resize_element` do
-  handle com `width` 850 (a seta começa em x 926).
-- Pág. 2: `"@legacyexecutoria"` → `"@legacyexecutoria\nFoto: Y"` + `resize_element` width 850 +
-  `format_text` `text_align: "start"` (o handle dessa página é centralizado).
-- Capa: `"@legacyexecutoria"` → `"@legacyexecutoria\nFotos: Y e Z"` + `resize_element` width 900 +
-  `position_element` left 90 (top igual) + `format_text` `text_align: "center"`.
-- Na entrega, repetir todos os créditos numa linha pronta para a legenda do post.
+- **Crédito da foto não entra no card** (regra do usuário, 30/09/2026: "não precisamos colocar a
+  fonte da foto embaixo do @"; ele apagou os "Foto: …" do carrossel da Marisa). O handle fica
+  exatamente como vem do template, em todas as páginas e na capa: sem 2ª linha, sem `resize`, sem
+  mudar alinhamento.
+- Os créditos das fotos reais vão só na resposta da entrega, numa linha pronta para a legenda do
+  post (formatos em `imagens.md` §8).
 
 **Handle**: padrão `@legacyexecutoria`. Se a copy/usuário pedir dupla assinatura, trocar em cada
 card (`find_and_replace_text` no elemento do handle) por `@legacyexecutoria & @clailtonluiz`.

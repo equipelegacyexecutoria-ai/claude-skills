@@ -233,11 +233,18 @@ def titulo(texto, px=80.0355, caixa=931):
     return out
 
 
-def quebrar(par, px, larg):
+NBSP = " "
+# Palavras de ligação que não podem ficar no fim da linha (regra do usuário, 30/09/2026).
+CONECTORES = set("e a o as os à às ao aos de do da dos das em no na nos nas um uma uns umas que para pra por "
+                 "pelo pela pelos pelas com sem ou se mas nem ele ela eles elas seu sua seus suas meu minha "
+                 "é como quando onde porque".split())
+
+
+def _quebrar(par, px, larg):
     linhas, atual = [], ""
     for w in par.split(" "):
         tent = w if not atual else atual + " " + w
-        if largura_em(tent, "poppins_bold") * px * 1.011 <= larg or not atual:  # 1,1%: calibrado com a quebra real do Canva
+        if largura_em(tent.replace(NBSP, " "), "poppins_bold") * px * 1.011 <= larg or not atual:  # 1,1%: calibrado com a quebra real do Canva
             atual = tent
         else:
             linhas.append(atual)
@@ -246,15 +253,33 @@ def quebrar(par, px, larg):
     return linhas
 
 
+def colar_conectores(par, px=None, larg=None):
+    """Devolve o parágrafo com espaço inseparável depois de CADA conector: ele nunca fica no fim da
+    linha, quebre o Canva onde quebrar (a previsão do script erra 1 palavra às vezes; colar só onde
+    o script previa a quebra deixou "um" e "de" no fim da linha em 30/09/2026).
+    Não muda o texto, só a quebra."""
+    palavras = par.split(" ")
+    out = ""
+    for i, w in enumerate(palavras):
+        out += w
+        if i < len(palavras) - 1:
+            out += NBSP if w.replace(NBSP, " ").split(" ")[-1].lower() in CONECTORES else " "
+    return out
+
+
+def quebrar(par, px, larg):
+    return _quebrar(colar_conectores(par, px, larg), px, larg)
+
+
 def corpo(pars, px=40.0, larg=974.0):
     def medir(l):
         ls = [quebrar(p, px, l) for p in pars]
         n = sum(len(x) for x in ls) + (len(pars) - 1)
-        orf = [x[-1] for x in ls if len(x) > 1 and " " not in x[-1]]
+        orf = [x[-1] for x in ls if len(x) > 1 and " " not in x[-1].replace(NBSP, " ")]
         return n, orf, ls
 
     n, orf, ls = medir(larg)
-    out = {"linhas": n, "orfas": orf}
+    out = {"linhas": n, "orfas": orf, "pars": [colar_conectores(p, px, larg) for p in pars]}
     if orf:
         for l in (960, 945, 930, 920, 900, 880, 860, 850):
             n2, o2, _ = medir(l)
@@ -292,7 +317,8 @@ def pag3(titulo_txt, pars, larg=974.0):
         ops.append({"op": "position_element", "elemento": "CORPO", "top": c_top, "left": 68.22})
     out = {
         "titulo": {"texto": t.get("quebra") or titulo_txt, "linhas": t["linhas"], "top": t_top},
-        "corpo": {"px": px, "linhas": c["linhas"], "orfas": c["orfas"], "largura": l, "top": c_top},
+        "corpo": {"px": px, "linhas": c["linhas"], "orfas": c["orfas"], "largura": l, "top": c_top,
+                  "pars": c["pars"], "linhas_texto": c["linhas_texto"]},
         **enc,
         "operacoes": ops + ops_enc,
     }
@@ -322,7 +348,8 @@ def pag2(pars, larg=974.0):
     if l != larg:
         ops.append({"op": "resize_element", "elemento": "CORPO", "width": l})
     out = {
-        "corpo": {"px": px, "linhas": c["linhas"], "orfas": c["orfas"], "largura": l, "top_calculado": topo},
+        "corpo": {"px": px, "linhas": c["linhas"], "orfas": c["orfas"], "largura": l, "top_calculado": topo,
+                  "pars": c["pars"], "linhas_texto": c["linhas_texto"]},
         **enc,
         "operacoes": ops + ops_enc,
     }

@@ -1,13 +1,13 @@
 ---
 name: carrossel-canva
-description: Monta no Canva, já diagramado e com as imagens colocadas, um carrossel de Instagram nos dois padrões do usuário — LEGACY (1080×1440, escuro, foto por card, capa com manchete Bebas em 3 linhas de mesma largura, pergunta dourada e círculo com imagem, card de reflexão em fundo preto e CTA em fundo claro) e CLAILTON (1080×1350, post estilo X/Twitter em fundo branco com avatar, @clailtonluiz e contador NN/NN) — a partir da copy card a card. No LEGACY, busca e coloca sozinha a imagem de cada card (foto real de notícia/marca com crédito, banco Freepik ou IA, conforme o card) e ajusta fonte, posição e degradê ao tamanho de cada texto. Use sempre que o usuário mandar a copy de um carrossel e pedir para "montar/diagramar no Canva", "fazer o carrossel no Canva", "passa pro Canva", "carrossel LEGACY", "carrossel do Clailton", ou colar slides (SLIDE 1, Card 1…) pedindo o projeto no Canva. Não use para escrever a copy (legacy-carrossel-copy) nem para HTML/Figma (carrossel-legacy-html).
+description: Monta no Canva, já diagramado e com as imagens colocadas, um carrossel de Instagram nos dois padrões do usuário — LEGACY (1080×1440, escuro, foto por card, capa com manchete Bebas em 3 linhas de mesma largura, pergunta dourada e círculo com imagem, card de reflexão em fundo preto e CTA em fundo claro) e CLAILTON (1080×1350, post estilo X/Twitter em fundo branco com avatar, @clailtonluiz e contador NN/NN) — a partir da copy card a card. No LEGACY, busca e coloca sozinha a imagem de cada card (foto real de notícia/marca, banco Freepik ou IA, conforme o card), ajusta fonte, posição e degradê ao tamanho de cada texto e quebra as linhas sem deixar palavra de ligação no fim. Use sempre que o usuário mandar a copy de um carrossel e pedir para "montar/diagramar no Canva", "fazer o carrossel no Canva", "passa pro Canva", "carrossel LEGACY", "carrossel do Clailton", ou colar slides (SLIDE 1, Card 1…) pedindo o projeto no Canva. Não use para escrever a copy (legacy-carrossel-copy) nem para HTML/Figma (carrossel-legacy-html).
 ---
 
 # Carrossel no Canva — padrão LEGACY e CLAILTON
 
 Entrega: **um design novo no Canva**, com todos os cards na ordem, textos nas fontes/cores/posições
 dos carrosséis reais do usuário e, no LEGACY, **a imagem certa em cada card** (capa, círculo e
-corpos), com o degradê posicionado para o texto ficar legível e o crédito das fotos. O ganho está na
+corpos), com o degradê posicionado para o texto ficar legível. O ganho está na
 diagramação e na escolha das imagens: não improvisar layout nem pegar a primeira foto que aparecer.
 
 **Meta: no máximo 10 minutos por carrossel, imagens incluídas.** Tudo o que precisa ser decidido já
@@ -25,7 +25,7 @@ Referências (ler só quando precisar):
 - `references/template.md` — IDs, mapa de páginas/elementos (foto, degradê, círculo) e **o que a API
   do Canva faz e não faz**. Ler antes da 1ª execução da sessão.
 - `references/copy.md` — classificar os cards, o que vai em cada marcador, regra da capa, textos de
-  tamanhos diferentes, crédito no rodapé.
+  tamanhos diferentes, quebra de linha sem conector no fim, rodapé (só o @).
 - `references/imagens.md` — de onde vem cada imagem, briefing, busca, escolha, crédito, custos.
 - `scripts/medir.py` (ou `node scripts/medir.mjs`) + `references/metricas.json` — larguras reais das
   fontes e curva do degradê do Canva; devolve, para o texto que veio, fonte, posições e as
@@ -56,13 +56,22 @@ Referências (ler só quando precisar):
    nas `operacoes` do `medir.py manchete`/`capa`.
 8. **Texto sempre legível, qualquer que seja o tamanho**: fonte, posição do texto, do degradê e da
    foto saem do `medir.py` para o texto real de cada card. Texto que sobe leva o degradê junto.
-9. **Imagem pela natureza do card** (`imagens.md`): notícia/entidade real → foto real com crédito;
+9. **Imagem pela natureza do card** (`imagens.md`): notícia/entidade real → foto real;
    situação humana comum → banco Freepik (sem IA); ideia abstrata → IA. Pessoa real só com
    identidade confirmada. Escolher olhando (folha ou miniaturas), nunca pelo 1º resultado.
 10. **Capa chamativa, forte e bonita** (reprovada em 28/09/2026 a capa com fachada genérica no fundo
    e placa cortada no círculo): fundo = a cena que prova a manchete; círculo = a montagem
    protagonista + fato, com placa/logo inteiros. Direção de arte, prompts e referências aprovadas em
    `imagens.md` §1b. A capa ganha 2 variações de cada imagem para escolher olhando.
+11. **Rodapé só com o `@`** (regra do usuário, 30/09/2026): **nunca** escrever "Foto: …" nem
+   qualquer crédito de imagem embaixo do `@legacyexecutoria`, em nenhum card. O handle fica como
+   vem do template. Os créditos das fotos reais vão só na resposta da entrega, numa linha pronta
+   para a legenda do post. (A linha `Fonte: X` da copy, na pág. 3, continua: é fonte do dado.)
+12. **Nenhuma linha termina em palavra de ligação** (regra do usuário, 30/09/2026): "e", "a", "o",
+   "de", "do", "da", "em", "no", "na", "um", "que", "para", "com", "ou", "ele", "ela" e parecidas
+   descem para a linha de baixo, junto da palavra seguinte. Vale para corpo, título e CTA. O
+   `medir.py` já devolve o texto pronto em `corpo.pars` (detalhe em `copy.md` §2b): usar esse texto
+   no `find_and_replace_text` e conferir cada fim de linha na miniatura antes de mostrar.
 
 ## Fluxo rápido
 
@@ -82,6 +91,9 @@ Rodar o script **numa única execução** para todos os cards (claude.ai: `pytho
   duas linhas separadas de propósito, `medir.py capa "Linha 1" "Linha 2" "Pergunta"` (mesma saída).
 - `medir.py pag3 "Título" "Parágrafo 1" "Parágrafo 2" …` → título quebrado, fonte do corpo, largura,
   posições e `operacoes` (TITULO, CORPO, DEGRADE, FOTO), `sujeito_entre_pct`, `foto_util`, `aviso`.
+  Em `corpo.pars` vêm os parágrafos **já com o espaço inseparável** que tira o conector do fim da
+  linha (regra 12) e em `corpo.linhas_texto` as linhas como vão ficar: é o `pars` (unido com
+  `\n\n`) que entra no card, não o texto cru. Vale igual para `pag2` e `corpo`.
   Card com fonte na copy ("Rodapé: fonte X"): passar `"Fonte: X, 2026."` como último parágrafo
   (a linha `{{FONTE}}` fica dentro da caixa do corpo e ocupa o espaço de ~1 parágrafo).
 - `medir.py pag2 "Parágrafo 1" …` → o mesmo para o corpo simples (fonte 53/44/40).
@@ -110,9 +122,10 @@ escolhida + reserva por vaga. Preparar só o necessário (ampliar 2x, recortar o
 
 **5. Preencher** — **uma** chamada `edit-design` (`keep_open`) **por página**, com tudo junto:
 `find_and_replace_text` de cada marcador (o marcador inteiro, dentro de um único trecho),
-`update_fill` da FOTO/CIRCULO, as `operacoes` do `medir.py`, crédito no handle, contador
-`{{N}}/{{T}}` no CLAILTON. A resposta traz a miniatura: conferir ali mesmo (nenhum `{{`, texto
-dentro da área, cores certas, capa sem linha quebrada, **sujeito da foto visível e texto legível**)
+`update_fill` da FOTO/CIRCULO, as `operacoes` do `medir.py`, contador
+`{{N}}/{{T}}` no CLAILTON. O handle não se toca (regra 11). A resposta traz a miniatura: conferir
+ali mesmo (nenhum `{{`, texto dentro da área, cores certas, capa sem linha quebrada, **nenhuma linha
+terminando em conector** (regra 12), **sujeito da foto visível e texto legível**)
 e corrigir na hora; imagem ruim no card → a reserva (no máximo 1 troca por card).
 
 Capa LEGACY (detalhe em `copy.md`): `find_and_replace_text` de `{{H1}}`, `{{H2}}` e `{{H3}}`, cada um
@@ -128,8 +141,12 @@ Armadilhas (detalhes em `template.md`):
   `"{{BRANCO}}\n\n"`) para não sobrar linha em branco.
 - Nunca buscar texto que atravesse duas cores/pesos (o estilo do 1º trecho contamina o resto).
 - Pág. 3 (corpo com título): trocar só `"{{CORPO}}"`; sem fonte, apagar `"\n\n{{FONTE}}"` → `""`.
-  Nunca trocar `"{{CORPO}}\n\n"`: o último parágrafo cai na linha da fonte e sai miúdo (se
-  acontecer: `format_text` `font_size` 40 no elemento todo).
+  Nunca trocar `"{{CORPO}}\n\n"`: o último parágrafo cai na linha da fonte e sai miúdo. Na
+  prática (30/09/2026), apagar `"\n\n{{FONTE}}"` também deixou o corpo em 26,67 px: em todo card
+  **sem fonte**, mandar junto `format_text` `font_size` 40 no elemento do corpo.
+- Conector no fim da linha que o script não pegou (título em Bebas, texto que quebrou diferente
+  no Canva): trocar o espaço **depois** do conector por espaço inseparável (`"e melhorou"`) e
+  conferir de novo; em título, mudar o `\n` de lugar.
 - Palavra sozinha na última linha ou "R$" separado do número: espaço inseparável (` `) no
   lugar do espaço (`"R$ 400"`, `"os juros."`). Não muda o texto, só a quebra.
 - `format_text` só aceita tamanho inteiro. `merge-designs` aceita uma operação por chamada.
@@ -138,7 +155,8 @@ Armadilhas (detalhes em `template.md`):
 imagens, mandar os links, um por card) e perguntar se pode salvar. Com o ok:
 `edit-design finalize: commit`. Responder curto com:
 - link de edição do design (`edit_url`);
-- de onde veio cada imagem (real/banco/IA) e a linha de créditos pronta para a legenda do post;
+- de onde veio cada imagem (real/banco/IA) e a linha de créditos pronta para a legenda do post
+  (o crédito vai só ali, nunca no card);
 - "trocar foto": só as vagas sem imagem boa (CLAILTON: nenhuma), com a melhor opção achada;
 - ajustes feitos para caber (ex.: "card 5 com o corpo em 36 px") e os `aviso` do script.
 
