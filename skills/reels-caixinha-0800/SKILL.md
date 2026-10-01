@@ -64,6 +64,21 @@ Referências (2 vídeos, Drive): `G:\Meu Drive\EXECUTORIA 0800\Modelo prontos (r
 6. `P S\cx.py finalizar T "C:\Render\Reels Editados\<PAUTA> - EDITADO.mp4" --geral`.
 7. Olhar `T\qa\caixinha.png`, `folha_geral_01.jpg`, `fundo_mais_claro.png`. Entregar como na `fila-de-render`.
 
+## Lote (lições de 01/10/2026, 5 vídeos de uma vez)
+
+- Fotos: `P S\pexels.py folha T candidatos.json` ({"b01": [ids]}) → olhar `T\qa\pexels.jpg` →
+  `P S\pexels.py baixar T escolha.json` ({"b01": ["@a-b", id]}) grava em `T\pexels\` e põe as linhas `arquivo` no plano.
+  Os ids vêm do Pexels no navegador do app (várias buscas num `browser_batch`). Confira roupa/caixa com texto em inglês
+  ("DELIVERY" na camiseta foi trocado) e dinheiro estrangeiro só se não houver opção.
+- Legendas: em lote, um agente `novela-legendista-rapido` por vídeo, em paralelo, com as regras deste formato no pedido
+  (destaque só no começo da linha, sem CTA, PRÓ-LABORE/DRE etc.). Você planeja caixinha e fotos enquanto isso.
+- "REPETIÇÃO NA EMENDA": `INICIO` sugerido é seguro; **`PARTE` sugerido pode apagar um trecho inteiro** (Clínica: sumiram
+  25 palavras). Gaguejo natural curto ("a sua sua", "eu eu") → `repeticoes_ok.txt` (uma palavra por linha).
+- Depois de mudar a decupagem, os índices mudam: guarde `palavras_corte_antes.json` e remapeie `@` de legenda, plano e
+  caixinha (difflib entre as listas de palavras); linhas que caem no mesmo índice precisam de ajuste à mão.
+- Confira palavra-chave sumida no corte: o "LTV" caiu (borda de frase) — escute/transcreva o trecho e use `INICIO n i@t`.
+- Imagem > 5 s em tela cheia: encurte a faixa `@a-b`. Imagens ~15–25% do tempo.
+
 ## Onde ajustar
 
 | O quê | Onde |
