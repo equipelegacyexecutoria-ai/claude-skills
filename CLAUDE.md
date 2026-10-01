@@ -18,6 +18,13 @@ Padrão aprovado — "sombra v3", duas camadas discretas, sem contorno duro e se
 - Detalhes, scripts e o restante do padrão de legenda: skill `cortes-podcast-instagram`
   (`~/.claude/skills/cortes-podcast-instagram`).
 
+## Imagens de apoio (B-roll) em qualquer vídeo
+
+Regra do usuário (01/10/2026): nunca imagem com marca d'água (Freepik, banco com "PREVIEW") nem com texto em
+inglês; texto só em português. Sempre alta resolução e casando com a emoção do que está sendo falado.
+Buscar além da busca automática (Pexels pelo navegador, Unsplash, Pinterest, TikTok, YouTube) e conferir
+cada imagem escolhida em tamanho real. Passo a passo: skill `reels-caixinha-0800`, seção "B-roll".
+
 ## Como falar com o usuário
 
 Ele não é técnico. Explique propostas pelo dia a dia dele: o que ele faz, onde pede, o que

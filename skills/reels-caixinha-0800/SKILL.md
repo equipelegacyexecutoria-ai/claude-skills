@@ -1,6 +1,6 @@
 ---
 name: reels-caixinha-0800
-description: Edita reels no formato CAIXINHA DE PERGUNTAS (CX) da Executoria 0800 (Legacy) — o Lucas lê uma pergunta de cliente e responde; vertical 1080x1920 em tela cheia, caixinha de pergunta do Instagram no topo enquanto ele lê (faixa azul "EXECUTORIA 0800 | Aniversário Legacy" + pergunta azul no branco, entrando com desfoque), legenda da NOVELA com destaques em AZUL, fotos de apoio em tela cheia entrando na palavra, aberto/fechado do Lucas e SEM CTA/animação no final. Use sempre que o pedido for editar um reel "CX"/"caixinha"/"Executoria 0800"/"perguntas do Lucas", arquivos ou cards Reels_0800_CX_*.
+description: Edita reels no formato CAIXINHA DE PERGUNTAS (CX) da Executoria 0800 (Legacy) — o Lucas lê uma pergunta de cliente e responde; vertical 1080x1920 em tela cheia, caixinha de pergunta do Instagram no topo enquanto ele lê (faixa azul "EXECUTORIA 0800" + pergunta azul no branco, entrando com desfoque), legenda da NOVELA com destaques em AZUL, fotos de apoio em tela cheia entrando na palavra, aberto/fechado do Lucas e SEM CTA/animação no final. Use sempre que o pedido for editar um reel "CX"/"caixinha"/"Executoria 0800"/"perguntas do Lucas", arquivos ou cards Reels_0800_CX_*.
 ---
 
 # Reels CAIXINHA (CX) — Executoria 0800
@@ -16,11 +16,32 @@ Referências (2 vídeos, Drive): `G:\Meu Drive\EXECUTORIA 0800\Modelo prontos (r
 | Formato | 1080×1920, 29,97 fps, H.264 CRF 18, voz −16 LUFS (o render da tela dividida, sem película) |
 | Lucas | tela cheia; aberto com o rosto ~31% da largura (bruto de celular 1080p: ampliação até 1,8×, `TD_UPSCALE_MAX`/`TD_ROSTO_ABERTO` no `cx.py`); fechado só em corte visível — numa tomada única, force `FECHADO @a-b` na volta de uma imagem |
 | Caixinha | aparece no início da 1ª palavra da pergunta e some 0,3 s depois da última; desfoque→nítido + fade em 0,5 s; topo em y=210, 672 px de largura, faixa `#03C6FA` de 82 px com o cabeçalho em SF Pro Display Bold branco, pergunta em SF Pro Display Medium azul centrada (quebra equilibrada em 2 linhas) |
-| Texto da pergunta | o que ele LÊ, em caixa normal, com número em algarismo; cabeçalho padrão "EXECUTORIA 0800 \| Aniversário Legacy" (mude no `caixinha.txt` se a campanha mudar) |
+| Texto da pergunta | o que ele LÊ, em caixa normal, com número em algarismo; cabeçalho **só "EXECUTORIA 0800"** (usuário, 01/10/2026: o "Aniversário Legacy" da referência era de uma caixinha especial; só mude com `CABECALHO` no `caixinha.txt` se ele pedir) |
 | Legenda | a da novela/ES (SF Pro Text Black, telas de 1–3 linhas, destaque maior entrando sozinho, sombra v3), **destaques em azul `#03C6FA`** (pedido do usuário: só azul, nada de vermelho/verde/amarelo da referência) |
-| Imagens | fotos em tela cheia ~20–30% do tempo, entrando na palavra (empresário preocupado, ovos na cesta, aperto de mão...); a pergunta já leva 2 imagens por baixo da caixinha. A referência usa imagens geradas por IA: só gere com IA se o usuário autorizar o gasto de créditos; senão, banco de fotos pela busca da tela dividida |
+| Imagens | fotos em tela cheia ~25% do tempo, entrando na palavra; a pergunta leva 2 imagens por baixo da caixinha. **Regras do B-roll** abaixo |
 | Final | **sem CTA e sem animação** (o vídeo acaba na última palavra) |
 | Abertura | sem tela dividida; corta a conversa antes de gravar ("vou fazer de novo", "pronto?") |
+
+## B-roll — regras do usuário (correção da v1, 01/10/2026)
+
+- **Nunca marca d'água** (a v1 passou um ovo do Freepik com marca; vídeos de banco do YouTube vêm com "PREVIEW"
+  que o detector NÃO pega). Freepik, Shutterstock, Depositphotos, Dreamstime, Pond5/Storyblocks: fora.
+- **Nunca texto em inglês** na imagem ("CONTRACT", "REJECTED", "OVERDUE"...). Texto só em português, e só se ajudar.
+- **Alta qualidade**: a foto precisa ter pelo menos 1080×1920 no recorte (vertical de ≥ 1700 px de largura
+  ou mais). Nada de 512 px (stockcake) nem miniatura.
+- **Emoção da fala**: a imagem tem que sentir o que ele diz (pergunta de aperto → empresário angustiado;
+  "ovos na mesma cesta" → cesta cheia de ovos; "sai uma nova lei" → Congresso Nacional; "impedir de
+  contratar" → relatório rasgado com frustração; "comercial" → equipe de call center).
+- **Onde buscar, nesta ordem:**
+  1. **Pexels pelo navegador do app** (vertical, sem marca, alta resolução). Abra
+     `https://www.pexels.com/pt-br/procurar/<busca em português>/?orientation=portrait` e colete os ids com
+     `[...document.querySelectorAll('article img')].map(i=>(i.currentSrc||i.src).match(/photos\/(\d+)/)?.[1]+'|'+i.alt)`
+     (o `fetch` da página em segundo plano devolve só as miniaturas das sugestões: navegue de verdade).
+     Monte uma folha com `...pexels-photo-<id>.jpeg?auto=compress&w=500`, escolha olhando, baixe a escolhida
+     com `?auto=compress&cs=tinysrgb&h=2600` em `T\pexels\<bNN>_<id>.jpg` e use `@a-b arquivo "<caminho>"` no plano.
+  2. Unsplash/Pixabay (mesmo cuidado), Pinterest só se a imagem original for limpa.
+  3. Vídeo (YouTube/TikTok, linha `filme`) só de cena real, nunca de banco com "PREVIEW"; confira o quadro em tamanho real.
+- Olhe cada escolhida em tamanho real (`qa/folha_imagens.jpg` depois do render) antes de entregar.
 
 ## Modo rápido (~10 min)
 
@@ -35,10 +56,11 @@ Referências (2 vídeos, Drive): `G:\Meu Drive\EXECUTORIA 0800\Modelo prontos (r
 4. Escrever, a partir de `T\palavras_legenda.txt`:
    - `T\legenda.txt` (formato compacto da novela; `**0800` no "Executoria 0800" da abertura);
    - `T\caixinha.txt`: `PERGUNTA <texto>` e `@i0-i1` (palavras em que ele lê a pergunta);
-   - `T\plano.txt`: `SEMABERTURA`, `SEMCTA`, `ESTILO 0`, uma linha `@a-b foto "busca" | en: ...` por imagem
-     (sintaxe: `reels-tela-dividida-clailton/referencia/regras-plano-visual.md`) e `FECHADO @a-b` nas voltas.
-5. `P S\cx.py buscar T` → olhar `T\qa\candidatos_01.jpg` → `T\escolhas.txt` (`b01 2`) →
-   `P <td>\scripts\td.py escolher T`. Se tirar/incluir uma linha do plano, os ids mudam: busque de novo inteiro.
+   - `T\plano.txt`: `SEMABERTURA`, `SEMCTA`, `ESTILO 0`, uma linha `@a-b arquivo "T\pexels\bNN_<id>.jpg"` por
+     imagem (escolhidas pelas regras do B-roll acima) e `FECHADO @a-b` nas voltas de imagem.
+5. `P S\cx.py buscar T` (registra os arquivos). Linhas `foto`/`filme` também funcionam (busca automática da
+   tela dividida), mas o resultado da v1 foi reprovado: se usar, olhe `T\qa\candidatos_01.jpg` com as regras do
+   B-roll, `T\escolhas.txt` (`b01 2`) e `P <td>\scripts\td.py escolher T`. Tirar/incluir linha muda os ids.
 6. `P S\cx.py finalizar T "C:\Render\Reels Editados\<PAUTA> - EDITADO.mp4" --geral`.
 7. Olhar `T\qa\caixinha.png`, `folha_geral_01.jpg`, `fundo_mais_claro.png`. Entregar como na `fila-de-render`.
 

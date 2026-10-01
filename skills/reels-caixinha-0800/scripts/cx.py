@@ -14,7 +14,7 @@ dividida (imagens de apoio pelo plano.txt, render, conferência). O que é só d
   python cx.py finalizar <trabalho> <saida.mp4> [--geral]
 
 caixinha.txt:
-  CABECALHO EXECUTORIA 0800 | Aniversário Legacy     (opcional; esse é o padrão)
+  CABECALHO EXECUTORIA 0800                          (opcional; esse é o padrão)
   PERGUNTA 3 clientes são 70% do que entra. Se um sair, eu estou no vermelho. O que fazer?
   @28-45                                             palavras em que ele lê a pergunta
 """
@@ -48,7 +48,7 @@ import es  # noqa: E402
 
 # ---- cores e medidas tiradas da referência (1080x1920; referencia/caixinha_ref.png) ----
 AZUL = "03C6FA"                    # faixa da caixinha, texto da pergunta e destaque da legenda
-CABECALHO_PADRAO = "EXECUTORIA 0800 | Aniversário Legacy"
+CABECALHO_PADRAO = "EXECUTORIA 0800"      # usuário 01/10/2026: sem "Aniversário Legacy" (aquela caixinha era especial)
 CX_W, CX_Y = 672, 210              # largura e topo da caixinha (centrada na horizontal)
 CX_FAIXA = 82                      # altura da faixa azul
 CX_RAIO = 22                       # canto arredondado
