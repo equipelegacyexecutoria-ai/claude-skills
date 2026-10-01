@@ -24,7 +24,7 @@ W, H = 1080, 1920
 
 # ---------------- quadro (medido) ----------------
 EMENDA = 768                 # tela dividida: imagem em y 0..EMENDA (medido 32-50%, mediana ~40%)
-ROSTO_ABERTO = 0.30          # largura do rosto / largura do quadro no plano aberto
+ROSTO_ABERTO = float(os.environ.get("TD_ROSTO_ABERTO", "0.30"))  # largura do rosto / largura do quadro no plano aberto (caixinha 0800: 0.34)
 ROSTO_CY_ABERTO = 0.30       # centro do rosto (fração da altura) no plano aberto
 FECHADO_FATOR = 1.50         # punch-in do fechado sobre o aberto (medido 1,45-1,6)
 FECHADO_FATOR_MIN = 1.25     # quando o bruto já vem fechado demais
@@ -32,7 +32,7 @@ ROSTO_MAX = 0.62             # rosto nunca maior que isso
 # o fechado NÃO recentra o rosto: é o aberto ampliado em volta do ponto entre os olhos (rect_zoom),
 # que fica na mesma altura (regra do usuário, 28/09/2026: "todo zoom mantém a altura dos olhos")
 DIVIDIDA_ROSTO_CY = 0.62     # na tela dividida o rosto desce para ~62% da altura do quadro
-UPSCALE_MAX = 1.40           # recorte nunca ampliado mais que isso (qualidade)
+UPSCALE_MAX = float(os.environ.get("TD_UPSCALE_MAX", "1.40"))  # recorte nunca ampliado mais que isso (qualidade); a caixinha 0800 (bruto 1080p de celular) usa 1.7
 
 # ---------------- imagem ----------------
 ZOOM_FOTO = 0.05             # foto/ilustração: zoom-out constante ~5%/s (medido 4,2-6,5%/s)

@@ -1,6 +1,6 @@
 ---
 name: fila-de-render
-description: Processa a fila de vídeos do Notion no PC de render — lê os cards das colunas CLAUDE e "Correções (Claude)" do Calendário Editorial | Legacy (visão Audiovisual), pega o bruto no Google Drive (disco G:), edita com a skill certa pelo nome da pauta (TD = tela dividida, NV/Novela = novela, ES = edição simples), salva em EDITADO do mês, cola o link em MATERIAL FINALIZADO, comenta o que fez e move o card para Aprovação; nas correções faz a v2, v3. Use quando o usuário pedir "edita os vídeos do Claude", "processa a fila", "roda a fila do Notion", "faz as correções do Claude", ou mandar editar um card específico do quadro.
+description: Processa a fila de vídeos do Notion no PC de render — lê os cards das colunas CLAUDE e "Correções (Claude)" do Calendário Editorial | Legacy (visão Audiovisual), pega o bruto no Google Drive (disco G:), edita com a skill certa pelo nome da pauta (TD = tela dividida, NV/Novela = novela, ES = edição simples, CX = caixinha de perguntas da Executoria 0800), salva em EDITADO do mês, cola o link em MATERIAL FINALIZADO, comenta o que fez e move o card para Aprovação; nas correções faz a v2, v3. Use quando o usuário pedir "edita os vídeos do Claude", "processa a fila", "roda a fila do Notion", "faz as correções do Claude", ou mandar editar um card específico do quadro.
 ---
 
 # Fila de render (Notion → edição → Drive → Notion)
@@ -102,6 +102,7 @@ Estilo pelo título da PAUTA:
 | `_TD_` | `reels-tela-dividida-clailton` |
 | `_NV_` ou `_Novela_` | `reels-novela-clailton` |
 | `_ES_` | `reels-edicao-simples-clailton` |
+| `_CX_` (ex.: `Reels_0800_CX_*`) | `reels-caixinha-0800` (bruto em `G:\Meu Drive\EXECUTORIA 0800\Videos a editar`, se o card não tiver link) |
 | sem NV/TD/ES (Case, depoimento...) | o briefing decide (ex.: "é para ser no formato tela dividida" → tela dividida); sem indicação, a skill mais próxima do material (1 pessoa falando para a câmera → novela; com imagens de apoio → tela dividida) |
 
 Exemplos de orientação que mudam a edição: "gravado em 16:9, redimensionar para 9:16", "máximo

@@ -63,6 +63,7 @@ GAP = 11.0                             # base da linha de cima -> topo da maiús
 Y_CENTRO = 1120.0                      # centro vertical do bloco (~69% da faixa: peito)
 TOPO_MIN = 880.0                       # bloco não sobe além disso (rosto)
 BASE_MAX = FAIXA_Y1 - 30.0             # nem desce além disso
+COR_DESTAQUE = "FFFFFF"                # RRGGBB dos destaques (d1/d2/d3); caixinha 0800 usa azul (--cor-destaque)
 X_MIN, X_MAX = 95.0, 985.0             # margens laterais (tinta)
 LARG_MAX = X_MAX - X_MIN
 X_ESQ = 165.0                          # alinhamento à esquerda (15% da largura)
@@ -431,8 +432,9 @@ def eventos_linha(ln: Linha, t_out: float, base_layer: int, layer_contato: int =
                    + BS + f"alpha&H{sh['alpha']}&")
             camada = layer_contato if sh["nome"] == "contato" else base_layer
             ev.append(f"Dialogue: {camada},{t0},{t1},Cap,,0,0,0,,{{{tag}}}{corpo}")
+        cor = COR_DESTAQUE if ln.tipo in ("d1", "d2", "d3") else "FFFFFF"
         tag = (BS + "an7" + BS + f"pos({x_orig:.1f},{y_orig - dy:.1f})" + BS + f"fs{ln.fs:.2f}"
-               + BS + "1c&HFFFFFF&" + BS + "bord0" + BS + "shad0" + BS + f"blur{bl:.2f}")
+               + BS + f"1c&H{cor[4:6]}{cor[2:4]}{cor[0:2]}&" + BS + "bord0" + BS + "shad0" + BS + f"blur{bl:.2f}")
         ev.append(f"Dialogue: {base_layer + 1},{t0},{t1},Cap,,0,0,0,,{{{tag}}}{corpo}")
     return ev
 
@@ -529,8 +531,9 @@ def gerar(plano: dict, palavras: list[dict], rosto: list[dict] | None = None, co
 
 
 def main() -> None:
-    global Y_CENTRO, TOPO_MIN, BASE_MAX
+    global Y_CENTRO, TOPO_MIN, BASE_MAX, COR_DESTAQUE
     ap = argparse.ArgumentParser()
+    ap.add_argument("--cor-destaque", help="RRGGBB dos destaques (padrão branco)")
     ap.add_argument("--plano", required=True)
     ap.add_argument("--palavras", required=True)
     ap.add_argument("--out", required=True)
@@ -546,6 +549,7 @@ def main() -> None:
     Y_CENTRO = a.y_centro if a.y_centro is not None else Y_CENTRO
     TOPO_MIN = a.topo_min if a.topo_min is not None else TOPO_MIN
     BASE_MAX = a.base_max if a.base_max is not None else BASE_MAX
+    COR_DESTAQUE = (a.cor_destaque or COR_DESTAQUE).lstrip("#").upper()
     plano, palavras = carregar(Path(a.plano), Path(a.palavras))
     rosto = json.loads(Path(a.rosto).read_text(encoding="utf-8")) if a.rosto else None
     fim = None
