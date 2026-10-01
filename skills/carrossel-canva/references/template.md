@@ -36,6 +36,19 @@ páginas 1080×1350 (capa `{{H}}` `{{SUB}}` `01/{{T}}`; corpo `{{P1}} {{B1}}` / 
 `{{N}}/{{T}}`; corpo longo `{{P1}}` `{{B1}}` `{{P2}}`), avatar `MAHVSCntTPw`, detalhes na seção
 CLAILTON abaixo.
 
+**Lições do lote de 01/10/2026 (7 carrosséis):**
+- CTA LEGACY sem `{{P1}}`: o `{{A1}}` fica logo depois do título e, se tiver `\n`, a 1ª linha sai em
+  caixa-alta (herda o estilo do título). Nesse caso, trocar o `\n` do A1 por espaço.
+- Título do CTA também não termina em conector: o script não pega (Bebas/caixa-alta). Colar com
+  espaço inseparável (`"ano que vem"`, `"é aí"`) e conferir na miniatura.
+- CTA longo do LEGACY + CLAILTON encostando no `@`: subir a caixa de texto para y ≈ 150.
+- Card de reflexão (fundo preto) = pág. 2 do LEGACY com FOTO, DEGRADE e o ponto apagados e o texto
+  centrado na altura. Nota "fundo preto" na copy dos outros cards: manter a foto (padrão Marisa).
+- TWITTER: `"{{P2}} "` com P2 terminando em `\n` joga o B2 para a linha de baixo; frase em negrito
+  com palavra sozinha na última linha → `\n` dentro do mesmo trecho (ex.: `"termina.\nMas"`);
+  emoji 👉 colado com espaço inseparável na palavra anterior; número no fim da linha (`"8 em"`)
+  também. Último card longo: `format_text` 36 px.
+
 ## LEGACY antigo — `DAHWWhuFIEI` até 29/09/2026 (histórico)
 
 Link: https://www.canva.com/d/NlwpU8NbKEt6BL9 · Origem: SER DONO É SABER COBRAR (`DAHWCDizSTE`
