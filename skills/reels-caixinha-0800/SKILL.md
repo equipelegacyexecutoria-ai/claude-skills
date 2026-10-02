@@ -80,6 +80,10 @@ Referências (2 vídeos, Drive): `G:\Meu Drive\EXECUTORIA 0800\Modelo prontos (r
 - Depois de mudar a decupagem, os índices mudam: guarde `palavras_corte_antes.json` e remapeie `@` de legenda, plano e
   caixinha (difflib entre as listas de palavras); linhas que caem no mesmo índice precisam de ajuste à mão.
 - Confira palavra-chave sumida no corte: o "LTV" caiu (borda de frase) — escute/transcreva o trecho e use `INICIO n i@t`.
+- **Engasgada no começo** (correção do usuário, 02/10/2026, "Faturo out/nov/dez"): o vídeo começa na 1ª fala LIMPA da
+  pergunta, mesmo que perca o "Olha só". O Whisper do corte esconde o tropeço (junta "faturo faturo oito faturo" numa
+  palavra só): transcreva os primeiros ~10 s do bruto com o modelo `medium` (faster-whisper, CPU) + energia por 0,1 s
+  e use `INICIO 0 <i>@<t>` no início do trecho limpo.
 - Imagem > 5 s em tela cheia: encurte a faixa `@a-b`. Imagens ~15–25% do tempo.
 
 ## Onde ajustar
