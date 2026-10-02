@@ -18,7 +18,7 @@ Referências (2 vídeos, Drive): `G:\Meu Drive\EXECUTORIA 0800\Modelo prontos (r
 | Caixinha | aparece no início da 1ª palavra da pergunta e some 0,3 s depois da última; desfoque→nítido + fade em 0,5 s; topo em y=210, 672 px de largura, faixa `#03C6FA` de 82 px com o cabeçalho em SF Pro Display Bold branco, pergunta em SF Pro Display Medium azul centrada (quebra equilibrada em 2 linhas) |
 | Texto da pergunta | o que ele LÊ, em caixa normal, com número em algarismo; cabeçalho **só "EXECUTORIA 0800"** (usuário, 01/10/2026: o "Aniversário Legacy" da referência era de uma caixinha especial; só mude com `CABECALHO` no `caixinha.txt` se ele pedir) |
 | Legenda | a da novela/ES (SF Pro Text Black, telas de 1–3 linhas, destaque maior entrando sozinho, sombra v3), **destaques em azul `#03C6FA`** (pedido do usuário: só azul, nada de vermelho/verde/amarelo da referência) |
-| Imagens | fotos em tela cheia ~25% do tempo, entrando na palavra; a pergunta leva 2 imagens por baixo da caixinha. **Regras do B-roll** abaixo |
+| Imagens | fotos em tela cheia ~25% do tempo, entrando na palavra; na pergunta, o Lucas aparece com a caixinha por cima (sem imagem). **Regras do B-roll** abaixo |
 | Final | **sem CTA e sem animação** (o vídeo acaba na última palavra) |
 | Abertura | sem tela dividida; corta a conversa antes de gravar ("vou fazer de novo", "pronto?") |
 
@@ -41,6 +41,9 @@ Referências (2 vídeos, Drive): `G:\Meu Drive\EXECUTORIA 0800\Modelo prontos (r
      com `?auto=compress&cs=tinysrgb&h=2600` em `T\pexels\<bNN>_<id>.jpg` e use `@a-b arquivo "<caminho>"` no plano.
   2. Unsplash/Pixabay (mesmo cuidado), Pinterest só se a imagem original for limpa.
   3. Vídeo (YouTube/TikTok, linha `filme`) só de cena real, nunca de banco com "PREVIEW"; confira o quadro em tamanho real.
+- **Começo com o Lucas** (correção do usuário, 02/10/2026, "Faturo out/nov/dez": "deixar mais o Lucas falando e menos
+  tempo de b-rolls"): enquanto ele lê a pergunta, a caixinha fica sobre ele (sem imagem por baixo) e nos primeiros
+  ~20 s no máximo 1 imagem curta; nada de imagens em sequência no início.
 - Olhe cada escolhida em tamanho real (`qa/folha_imagens.jpg` depois do render) antes de entregar.
 
 ## Modo rápido (~10 min)
