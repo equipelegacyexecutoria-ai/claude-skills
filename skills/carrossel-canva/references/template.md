@@ -61,6 +61,17 @@ CLAILTON abaixo.
 - Miniatura do Canva às vezes mostra linhas do `{{CINZA}}` mais claras: é só a miniatura, a cor no
   design é a mesma.
 
+**Lições de 05/10/2026 (Saraiva, IA 3 prompts, Nunca subestime):**
+- Foto real de loja com placa em inglês ("MegaStore"): recortar abaixo da placa; a marca vai no
+  círculo com o logo oficial (Wikimedia, miniatura `upload.wikimedia.org/.../thumb/...1920px-...png`)
+  centralizado sobre fundo da cor da marca.
+- Wikimedia bloqueia downloads em paralelo ("Too many requests"): baixar um por vez, de preferência
+  por `Special:FilePath/<arquivo>` com `width=3000`.
+- CTA LEGACY com ~750 caracteres e título de 3 linhas passa do handle: `format_text` 37 no bloco
+  inteiro e caixa em top 250 (termina em y≈1175).
+- Linha com espaço inseparável às vezes aparece mais fina na miniatura do Canva; o documento
+  continua em negrito (mesmo caso das linhas cinza mais claras).
+
 ## LEGACY antigo — `DAHWWhuFIEI` até 29/09/2026 (histórico)
 
 Link: https://www.canva.com/d/NlwpU8NbKEt6BL9 · Origem: SER DONO É SABER COBRAR (`DAHWCDizSTE`
