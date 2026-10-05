@@ -90,6 +90,12 @@ IA nunca imita pessoa real: pedir pessoas genéricas, de costas ou em silhueta.
 Capa: não passa por este roteador, segue o §1b (fundo = cena que prova a manchete; círculo =
 protagonista + fato, montagem de IA a partir da foto real quando preciso).
 
+**Pedido "imagens reais" (05/10/2026):** quando o usuário pede foto real, nada de IA: marca/empresa →
+Wikimedia (baixar com o UA do `imagens.py`; sem ele o site devolve "robot policy") e matérias;
+situação comum → banco Freepik com `ai_generated: "excluded"`. Conferir cada escolhida em tamanho
+real: sem marca-d'água e sem texto em inglês (logo da marca pode, mas cortar palavras em inglês
+como "make-up" do círculo).
+
 ## 3. Briefing (sem ferramenta, junto com o planejamento)
 
 Para cada vaga, em 1–2 linhas:

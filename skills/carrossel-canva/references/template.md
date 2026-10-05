@@ -49,6 +49,18 @@ CLAILTON abaixo.
   emoji 👉 colado com espaço inseparável na palavra anterior; número no fim da linha (`"8 em"`)
   também. Último card longo: `format_text` 36 px.
 
+**Lições de 05/10/2026 (IA prática em LEGACY + CLAILTON):**
+- Copy com título + desenvolvimento no LEGACY + CLAILTON (pág. 2 não tem título): título vai no
+  `{{BRANCO}}` e os parágrafos todos no `{{CINZA}}` (unidos com `\n\n`); medir com
+  `m.pag2([título, p1, p2, …])` para o tamanho sair certo.
+- "Ilustrar com o Clailton": Nano Banana Pro (`imagen-nano-banana-2`, 2k, 1:1) com as fotos dele
+  como referência (`ks38ouZ16B`, `Cq7T08VEEy`), prompt "the man from the reference images (keep his
+  exact face, bald head, glasses and beard)…", sujeito na metade de cima e parte de baixo escura.
+- Imagem de IA com papel/tela costuma vir com palavra em inglês ("PROCEDURE"): conferir ampliado e,
+  se aparecer, editar com a própria imagem como referência pedindo para tirar os títulos.
+- Miniatura do Canva às vezes mostra linhas do `{{CINZA}}` mais claras: é só a miniatura, a cor no
+  design é a mesma.
+
 ## LEGACY antigo — `DAHWWhuFIEI` até 29/09/2026 (histórico)
 
 Link: https://www.canva.com/d/NlwpU8NbKEt6BL9 · Origem: SER DONO É SABER COBRAR (`DAHWCDizSTE`
