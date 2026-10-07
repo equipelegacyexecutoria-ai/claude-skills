@@ -72,6 +72,18 @@ CLAILTON abaixo.
 - Linha com espaço inseparável às vezes aparece mais fina na miniatura do Canva; o documento
   continua em negrito (mesmo caso das linhas cinza mais claras).
 
+**Lições de 07/10/2026 (Cenário 2027, Varig, DRE, Erro de preço) — regras do usuário:**
+- **Penúltima página (a da "lição"/reflexão, antes do CTA) leva imagem com degradê, como as
+  demais.** Não fazer mais a versão "só texto em fundo preto" (apagar FOTO/DEG/DOT): o usuário
+  reprovou. Vale para LEGACY e LEGACY + CLAILTON, e para qualquer card que a copy marque como
+  "fundo preto": trocar a foto e posicionar o degradê normalmente.
+- LEGACY + CLAILTON: nenhuma página do corpo fica sem imagem do Clailton (gerar uma por página).
+- LEGACY + CLAILTON: a primeira linha de cada página (o `{{BRANCO}}`, título da página) vai
+  **toda em MAIÚSCULAS** (ex.: "1. RECEITA.", "FATURAMENTO ALTO ENGANA.").
+- Conteúdo de cenário/crise: imagens impactantes de comércios, lojas e shoppings fechados
+  (Pexels: "lojas fechadas", "shopping vazio", "loja abandonada"). Metáfora (ex.: "a economia é
+  um bolo") → gerar com IA a metáfora feita de dinheiro (bolo de notas de real), não foto literal.
+
 ## LEGACY antigo — `DAHWWhuFIEI` até 29/09/2026 (histórico)
 
 Link: https://www.canva.com/d/NlwpU8NbKEt6BL9 · Origem: SER DONO É SABER COBRAR (`DAHWCDizSTE`
