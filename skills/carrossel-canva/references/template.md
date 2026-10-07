@@ -84,6 +84,21 @@ CLAILTON abaixo.
   (Pexels: "lojas fechadas", "shopping vazio", "loja abandonada"). Metáfora (ex.: "a economia é
   um bolo") → gerar com IA a metáfora feita de dinheiro (bolo de notas de real), não foto literal.
 
+**Lições de 07/10/2026 (lote de 7: Eleição, Livraria Cultura, Ano eleitoral, Avianca, 2 Twitter):**
+- Pág. 2 do LEGACY **com fonte**: o Canva quebra ~1 linha a mais do que o `medir.py` prevê e a
+  fonte encosta no `@`. Subir título, corpo e degradê (e a FOTO, se o script a moveu) ~45 px antes
+  de aplicar. Sem fonte, a medida bate.
+- `format_text` de tamanho no corpo também aumenta a linha da fonte (o elemento todo muda). Se o
+  card precisar de 36 px, a fonte fica 36 px: preferir subir o texto e manter 40.
+- Wikimedia: a API pelo `curl` cai em "too many requests"; fazer a busca pelo navegador
+  (`fetch('/w/api.php?...')` em commons.wikimedia.org) e baixar miniaturas por
+  `thumb.wikimedia.org/.../500px-arquivo` (tamanhos fora do padrão dão erro). Original:
+  `upload.wikimedia.org` com UA "Mozilla/5.0", um por vez; se der 429, usar `1920px-` no thumb.
+- Fotos do Flickr com marca d'água no canto ("Diego Nascimento ©") aparecem no Wikimedia: conferir
+  o canto inferior antes de subir.
+- Pexels/Unsplash não respondem ao `curl`; a busca do Pexels funciona pelo navegador e as imagens
+  (`images.pexels.com/...?w=2600`) baixam pelo `curl`.
+
 ## LEGACY antigo — `DAHWWhuFIEI` até 29/09/2026 (histórico)
 
 Link: https://www.canva.com/d/NlwpU8NbKEt6BL9 · Origem: SER DONO É SABER COBRAR (`DAHWCDizSTE`
