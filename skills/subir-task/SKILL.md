@@ -1,6 +1,6 @@
 ---
 name: subir-task
-description: Sobe brutos de reels para o time editar — ouve cada vídeo, descobre qual roteiro é de qual, renomeia na nomenclatura de reels (Reels_Clailton_TD_/NV_/ES_..., Reels_0800_CX_...), copia para a pasta BRUTO do mês no Google Drive, cria um card por vídeo no Notion (Calendário Editorial | Legacy, visão Audiovisual) com o roteiro no corpo, o link do bruto, observações para o editor e as datas distribuídas na agenda do editor (um por dia útil, nunca no fim de semana). Use sempre que o usuário pedir "sobe a task", "sobe esses vídeos pro Alex/Mac/Igor editar", "renomeia e sobe no drive", "cria os cards desses brutos", "distribui na agenda do editor", ou mandar uma pasta de brutos junto com roteiros para virarem tasks. Não edita o vídeo (isso é a fila-de-render e as skills de reels).
+description: Sobe brutos de reels para o time editar — ouve cada vídeo, descobre qual roteiro é de qual, renomeia na nomenclatura de reels (Reels_Clailton_TD_/NV_/ES_..., Reels_0800_CX_...), copia para a pasta BRUTO do mês no Google Drive, cria um card por vídeo no Notion (Calendário Editorial | Legacy, visão Audiovisual) com o roteiro no corpo, o link do bruto (IDEIA só com orientação do usuário/briefing) e as datas distribuídas na agenda do editor (um por dia útil, nunca no fim de semana). Use sempre que o usuário pedir "sobe a task", "sobe esses vídeos pro Alex/Mac/Igor editar", "renomeia e sobe no drive", "cria os cards desses brutos", "distribui na agenda do editor", ou mandar uma pasta de brutos junto com roteiros para virarem tasks. Não edita o vídeo (isso é a fila-de-render e as skills de reels).
 ---
 
 # Subir task (brutos → Drive → card no Notion)
@@ -27,11 +27,9 @@ PYTHONIOENCODING=utf-8 "$P" ~/.claude/skills/subir-task/scripts/ouvir_brutos.py 
 Sai o começo (75 s) e o fim (50 s) de cada vídeo, com o tempo de cada frase.
 - Case cada vídeo com o roteiro pelo gancho (primeiras frases). Vídeo sem roteiro ou roteiro sem
   vídeo: pergunte ao usuário antes de seguir.
-- Anote para o editor (vira o campo IDEIA): conversa de set no começo ("até ~0:05"), frases
-  regravadas ("volta um pouquinho" → "usar sempre a última tomada de cada trecho"), trecho de
-  conversa no meio, e o **CTA gravado** com o tempo e o texto falado — principalmente quando
-  ele é diferente do roteiro. Se o Whisper repetir a mesma frase várias vezes seguidas, é falha
-  da transcrição, não do vídeo: ignore.
+- Ouvir serve **só** para casar vídeo e roteiro. O que você percebe no bruto (tomadas regravadas,
+  conversa de set, CTA diferente do roteiro) **não** vai para o card; no máximo, cite no relatório
+  ao usuário. Se o Whisper repetir a mesma frase várias vezes seguidas, é falha da transcrição: ignore.
 
 ## Passo 2 — renomear (nomenclatura de reels)
 
@@ -93,7 +91,7 @@ qualquer dia da semana, sempre pelo menos 2 dias depois da conclusão. É sugest
 | REDE SOCIAL | `["Instagram / Facebook"]` |
 | DATA D/ CONCLUSÃO | dia útil da agenda (`is_datetime` 0) |
 | DATA D/ PUBLICACÃO | ver acima |
-| IDEIA | as observações do Passo 1 (tomadas, conversa de set, CTA gravado) |
+| IDEIA | **só** orientação específica que o usuário deu para aquele vídeo ou briefing que veio junto com o roteiro na copy colada (ex.: "máximo 2min59", "sem CTA"). Sem isso, deixe **vazio** — regra do usuário (07/10/2026): nada de observação inventada pelo Claude a partir do bruto |
 | MATERIAL NECESSÁRIO | o link do Drive (quando o upload terminar: `notion-update-page`, `update_properties`) |
 | corpo | `## Roteiro` + o roteiro **exatamente como o usuário colou** (sem corrigir nem resumir) |
 
