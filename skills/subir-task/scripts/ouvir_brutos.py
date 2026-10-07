@@ -21,8 +21,11 @@ VIDEO = {".mp4", ".mov", ".mxf", ".m4v", ".mkv"}
 
 def duracao(v: Path) -> float:
     r = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(v)],
-                       capture_output=True, text=True)
-    return float(r.stdout.strip())
+                       capture_output=True, text=True, encoding="utf-8", errors="replace")
+    try:
+        return float(r.stdout.strip())
+    except ValueError:
+        sys.exit(f"ffprobe não leu a duração de {v}: {r.stderr.strip()[:300]}")
 
 
 def mmss(t: float) -> str:
