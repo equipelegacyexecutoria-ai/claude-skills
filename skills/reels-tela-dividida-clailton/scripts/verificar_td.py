@@ -53,6 +53,15 @@ def main() -> None:
     item(f"yt-dlp {r.stdout.strip()}", r.returncode == 0, "python verificar_td.py --instalar")
     item("agente td-planejador instalado", (Path.home() / ".claude" / "agents" / "td-planejador.md").exists(),
          "rode a sincronia (sync.ps1 -Modo agora)")
+    import acervo_td as ACV                                   # acervo local de B-roll (não bloqueia)
+    r_acv = ACV.raiz()
+    if r_acv:
+        idx = (r_acv / "_catalogo" / "clip_acervo.npz").exists()
+        print(f"  [{'ok' if idx else 'AVISO'}] acervo de B-roll: {r_acv}" + ("" if idx else
+              f'  -> indexe: "{python_align()}" acervo_td.py indexar'))
+    else:
+        print("  [AVISO] acervo de B-roll não encontrado neste PC (só busca online)"
+              '  -> peça ao usuário onde está e rode: acervo_td.py definir "<pasta>"')
     print("TUDO OK" if ok else "FALTA ALGO (ver acima)")
     sys.exit(0 if ok else 1)
 

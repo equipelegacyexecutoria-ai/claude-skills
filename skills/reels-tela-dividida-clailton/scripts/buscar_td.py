@@ -6,6 +6,11 @@
                                        melhor janela da duração do item, baixa essa janela em até 1080p
   print                             -> url= : captura da página (Edge headless); senão busca de imagem
   arquivo                           -> arquivo local indicado no plano
+  acervo (local, acervo_td.py)      -> filme/vídeo: as cenas do acervo do PC entram primeiro (índice CLIP,
+                                       sem download); acervo=<código> no plano usa aquele vídeo
+  montagens (@theclipof, @TheBeautyOf) -> filme citado na busca que tem montagem "Visuals - <obra>" ou
+                                       "The Beauty Of <obra>" (referencia/montagens_youtube.tsv): entra
+                                       como candidato, com prévia do vídeo inteiro
   ia com arquivo pronto             -> midia/<id>.png|jpg (gerado fora, ex.: pelo conector de imagem)
   url= em foto/filme                -> baixa direto (sem busca)
 
@@ -37,6 +42,7 @@ from PIL import Image, ImageDraw, ImageFont
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from midia_util import (LAYOUT_WH, area_util, caixas_texto, dhash, hamming, logo_fixo, miniatura, rostos,  # noqa: E402
                         texto_pct)
+import acervo_td as ACV  # noqa: E402
 import reenquadrar_td as RQ  # noqa: E402
 from td_comum import FPS, SKILL, carregar_json, gravar_json, ler_json, python_align, python_principal, wh_video  # noqa: E402
 
@@ -281,17 +287,48 @@ def buscar_youtube(q: str, n: int = 10) -> list[dict]:
     return out
 
 
+def montagens() -> list[tuple[str, str, str]]:
+    """(obra, id, título) das montagens só de imagem dos canais @theclipof e @TheBeautyOf."""
+    arq = SKILL / "referencia" / "montagens_youtube.tsv"
+    if not arq.exists():
+        return []
+    out = []
+    for ln in arq.read_text(encoding="utf-8").splitlines()[1:]:
+        p = ln.split("\t")
+        if len(p) >= 6 and len(p[1]) >= 4 and "teaser" not in p[5].lower():
+            out.append((p[1], p[2], p[5]))
+    return out
+
+
+def montagem_da_busca(q: str) -> dict | None:
+    """Montagem do filme/série que a busca cita (a de nome mais longo que aparece na busca)."""
+    ql = f" {re.sub(r'[^a-z0-9]+', ' ', q.lower())} "
+    achados = [(obra, i, t) for obra, i, t in montagens()
+               if f" {re.sub(r'[^a-z0-9]+', ' ', obra.lower()).strip()} " in ql]
+    if not achados:
+        return None
+    obra, i, t = max(achados, key=lambda x: len(x[0]))
+    return {"id": i, "duracao": 0, "titulo": t, "canal": "montagem", "bonus": 1, "inteiro": True}
+
+
 def baixar_preview(v: dict, pasta: Path) -> dict | None:
     """YouTube: 360p dos primeiros 4 min (só para achar a janela). Outro site (TikTok, Instagram,
-    Pinterest, X, Vimeo...): baixa o vídeo inteiro em até 1080p, que serve de prévia E de fonte."""
+    Pinterest, X, Vimeo...): baixa o vídeo inteiro em até 1080p, que serve de prévia E de fonte.
+    Acervo local: o próprio arquivo é a fonte; os quadros 1/s já ficam no acervo (_catalogo/quadros)."""
+    if v.get("local"):
+        r = ACV.raiz()
+        cat = {x["codigo"]: x for x in ACV.catalogo(r)["videos"]} if r else {}
+        fr = ACV.quadros(r, cat[v["codigo"]]) if v.get("codigo") in cat else []
+        return {**v, "preview": v["local"], "quadros": [str(f) for f in fr]} if fr else None
     dest = pasta / f"prev_{v['id']}.mp4"
     if not dest.exists():
         if v.get("url_externa"):
             r = ytdlp(["-f", "bv*[height<=1080]+ba/b[height<=1080]/bv*/b", "--remux-video", "mp4", "-o", str(dest),
                        v["url_externa"]], timeout=300)
-        else:
+        else:                                    # montagem (vídeo inteiro) ou os primeiros 3 min
             r = ytdlp(["-f", "bv*[height<=360][ext=mp4]/bv*[height<=360]/b[height<=360]", "--download-sections",
-                       "*0-180", "-o", str(dest), f"https://www.youtube.com/watch?v={v['id']}"], timeout=150)
+                       "*0-900" if v.get("inteiro") else "*0-180", "-o", str(dest),
+                       f"https://www.youtube.com/watch?v={v['id']}"], timeout=300 if v.get("inteiro") else 150)
         if not dest.exists():
             alt = list(pasta.glob(f"prev_{v['id']}.*"))
             if not alt:
@@ -301,7 +338,8 @@ def baixar_preview(v: dict, pasta: Path) -> dict | None:
     qd = pasta / f"q_{v['id']}"
     qd.mkdir(exist_ok=True)
     if not any(qd.iterdir()):
-        subprocess.run(["ffmpeg", "-v", "error", "-t", "180", "-i", str(dest), "-vf", f"fps={QPS},scale=256:-2", "-q:v", "4",
+        subprocess.run(["ffmpeg", "-v", "error", "-t", "900" if v.get("inteiro") else "180", "-i", str(dest),
+                        "-vf", f"fps={QPS},scale=256:-2", "-q:v", "4",
                         str(qd / "f_%05d.jpg")], check=False)
     fr = sorted(qd.glob("f_*.jpg"))
     return {**v, "preview": str(dest), "quadros": [str(f) for f in fr]} if fr else None
@@ -518,8 +556,34 @@ def main() -> None:
             res_img = dict(zip([it["id"] for it in img_itens], ex.map(lambda it: candidatos_imagem(it, pasta), img_itens)))
         print(f"   imagens baixadas: {sum(len(v) for v in res_img.values())} ({time.time() - t0:.0f}s)", flush=True)
         # vídeos: busca + previews
+        # acervo local: as cenas já baixadas entram primeiro (índice CLIP pronto, sem download)
+        acv_raiz = ACV.raiz() if vid_itens else None
+        acv_cand: dict[str, list] = {}
+        if acv_raiz and (acv_raiz / "_catalogo" / "clip_acervo.npz").exists():
+            livres = [it for it in vid_itens if not it.get("url") and not it.get("acervo")]
+            if livres:
+                ent, sai = T / "midia" / "acervo_in.json", T / "midia" / "acervo_out.json"
+                ent.write_text(json.dumps({"pedidos": [{"id": it["id"], "texto": it.get("en") or it["busca"],
+                                                        "obra": it["busca"], "dur": (it["f1"] - it["f0"]) / FPS}
+                                                       for it in livres]}, ensure_ascii=False), encoding="utf-8")
+                subprocess.run([python_align(), str(SKILL / "scripts" / "acervo_td.py"), "consultar", str(ent), str(sai)],
+                               check=False, env={**__import__("os").environ, "PYTHONUTF8": "1", "HF_HUB_OFFLINE": "1"})
+                acv_cand = json.loads(sai.read_text(encoding="utf-8")) if sai.exists() else {}
+        elif vid_itens:
+            print("   acervo local não encontrado/indexado neste PC: só busca online (acervo_td.py onde)")
+
+        def do_acervo(codigo: str) -> dict | None:
+            loc = ACV.caminho(codigo, acv_raiz) if acv_raiz else None
+            if not loc:
+                print(f"   AVISO: acervo {codigo} não encontrado neste PC")
+                return None
+            return {"id": f"acv_{codigo}", "duracao": 0, "titulo": f"acervo {codigo}", "bonus": 0,
+                    "local": str(loc), "codigo": codigo}
+
         def previas(it: dict) -> tuple[str, list]:
-            if it.get("url"):
+            if it.get("acervo") and do_acervo(it["acervo"]):
+                lista = [do_acervo(it["acervo"])]
+            elif it.get("url"):
                 vid = re.search(r"(?:v=|youtu\.be/|shorts/)([\w-]{11})", it["url"])
                 if vid:
                     lista = [{"id": vid.group(1), "duracao": 0, "titulo": "url do plano", "bonus": 0}]
@@ -530,6 +594,10 @@ def main() -> None:
             else:
                 q = it["busca"] or it.get("en") or ""
                 lista = buscar_youtube(q)[:N_YOUTUBE] + (buscar_tiktok(q, N_TIKTOK) if it["tipo"] == "filme" else [])
+                mont = montagem_da_busca(q) if it["tipo"] == "filme" else None
+                if mont and all(v["id"] != mont["id"] for v in lista):
+                    lista.append(mont)
+                lista = [x for x in (do_acervo(c["codigo"]) for c in acv_cand.get(it["id"], [])) if x] + lista
             with ThreadPoolExecutor(4) as ex:
                 return it["id"], [p for p in ex.map(lambda v: baixar_preview(v, pasta), lista) if p]
 
@@ -585,7 +653,7 @@ def main() -> None:
                 s = sc.get(f"{it['id']}#{k}", [])
                 if not s:
                     continue
-                if it.get("t") is not None and k == 0:
+                if it.get("t") is not None and k == 0 and (not p.get("local") or it.get("acervo")):
                     ini_q, val = int(it["t"] * QPS), float(np.mean(s))
                 else:
                     ini_q, val = melhor_janela(s, cortes_preview(p["quadros"]), dur, fps_q=QPS, quadros=p["quadros"],
@@ -604,7 +672,8 @@ def main() -> None:
             for velho in pasta.glob(f"{it['id']}_v{k}.*"):    # trecho de busca anterior: se o download falhar,
                 velho.unlink(missing_ok=True)                   # NÃO pode passar como novo (b08 do v3 congelou)
             t_ini = max(0.0, ti - RQ.MARGEM)                  # margem: a entrada certa pode estar antes/depois
-            ok = baixar_trecho(p["id"], t_ini, tf + RQ.MARGEM, dest, p["preview"] if p.get("url_externa") else None)
+            ok = baixar_trecho(p["id"], t_ini, tf + RQ.MARGEM, dest,
+                               p["preview"] if (p.get("url_externa") or p.get("local")) else None)
             achado = next((q for q in pasta.glob(f"{it['id']}_v{k}.*") if q.suffix in (".mp4", ".webm", ".mkv")), None)
             if not ok or not achado:
                 return None
@@ -633,7 +702,8 @@ def main() -> None:
             return it["id"], {"arquivo": str(achado), "thumb": mid, "midia": "video", "clip": round(val, 2),
                               "score": round(val + bonus_res - min(12.0, 3.0 * max(0.0, txt - 0.8)) - (4.0 if logo else 0.0), 2),
                               "texto": round(txt, 2), "logo": logo, "escala": round(escala, 2), "baixa": escala > 3.5,
-                              "url": p.get("url_externa") or f"https://youtu.be/{p['id']}?t={int(ti)}",
+                              "url": p.get("url_externa") or (f"acervo {p['codigo']} t={int(ti)}" if p.get("local")
+                                                              else f"https://youtu.be/{p['id']}?t={int(ti)}"),
                               "titulo": p["titulo"], "t_video": ti, "wh": [vw, vh], "entrada0": round(ti - t_ini, 3),
                               "duracoes": usos.get(it["id"], [round(tf - ti - 0.7, 3)])}
         with ThreadPoolExecutor(6) as ex:
