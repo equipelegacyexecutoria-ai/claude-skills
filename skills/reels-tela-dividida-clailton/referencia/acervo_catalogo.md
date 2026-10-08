@@ -67,14 +67,6 @@ Edit de fã com planos de ~1,3 s de Jimmy/Saul ao longo da série: fumando no gr
 - 0:31–0:43 Saul de terno em vários lugares, de colete verde, de agasalho vermelho [trabalho, advogado] (medio)
 - 0:43–0:47 tela preta [] (medio) ⚠ sem imagem
 
-### BCS-05 — Jimmy ensaia no espelho (its showtime)
-Better Call Saul · cena · 0:23 · 720x1280 · nota 3 · temas: preparação, autoconfiança, trabalho, pressão
-Jimmy no banheiro do tribunal ensaia diante do espelho, gesticulando, ajeita a gravata, dá o 'It's showtime'; termina com Saul em P&B no tribunal.
-⚠ legenda em inglês queimada ('It's showtime')
-- 0:00–0:09 Jimmy de terno gesticulando com as mãos abertas falando, ajeitando o punho [preparação, autoconfiança] (medio)
-- 0:09–0:16 Jimmy no banheiro ensaiando diante do espelho, gestos, torneira [preparação, pressão, foco] (medio) ⚠ legenda em inglês
-- 0:16–0:23 Saul de terno fazendo o gesto; Saul em P&B no tribunal olhando para o lado [autoconfiança, tribunal] (medio) ⚠ legenda em inglês ('It's showtime')
-
 ### BCS-06 — Visuals - Better Call Saul (montagem 4K)
 Better Call Saul · montagem · 4:44 · 1920x1080 · nota 4 · temas: poder, ambição, mentira, crime, escritório, reunião, solidão, dinheiro
 Montagem 'Visuals' de planos marcantes da série: Saul diante da bandeira americana e da Estátua da Liberdade, deserto, reuniões em mesa de escritório de advocacia, tribunal, explosões, carros queimando e Saul preso no final.
@@ -136,22 +128,6 @@ Huell e Kuby num depósito com uma montanha de maços de dólares; Huell deita n
 - 0:04–0:10 Huell deitado de costas sobre a montanha de dinheiro, olhos fechados, satisfeito [dinheiro, riqueza, humor] (close)
 - 0:10–0:22 Huell deitado de bruços na pilha de dinheiro; Kuby de pé atrás, abre os braços sem entender [dinheiro, humor, constrangimento] (medio)
 - 0:22–0:24 Kuby olha Huell deitado no dinheiro [dinheiro, humor] (medio)
-
-### BB-03 — Walt serio e Jesse chorando (edit)
-Breaking Bad · edit · 0:12 · 720x1280 · nota 3 · temas: traição, arrependimento, tristeza, pai e filho
-Edit com closes de Walt sério e Jesse chorando/cabisbaixo, depois Jesse sorrindo de casaco vermelho e Walt olhando duro.
-⚠ marca d'água 'YA' no canto inferior direito
-- 0:00–0:02 close de Walter White de óculos, olhar frio e sério [frieza, poder, decisão] (close) ⚠ marca 'YA' discreta
-- 0:02–0:06 close de Jesse chorando, depois cabeça baixa [tristeza, arrependimento, culpa] (close) ⚠ marca 'YA' discreta
-- 0:06–0:12 Jesse sorrindo de casaco vermelho no escuro; Walt de óculos sério e frio [alegria, nostalgia, amizade] (close) ⚠ marca 'YA' no canto inferior direito
-
-### BB-04 — Hank descobre a verdade no banheiro
-Breaking Bad · cena · 0:39 · 720x1280 · nota 3 · temas: traição, descoberta, choque, família
-Hank lê o livro 'Folhas de Relva' no banheiro e descobre a dedicatória; depois confronto noturno na garagem entre Hank e Walt, closes tensos.
-⚠ legenda em inglês queimada
-- 0:00–0:17 Hank sentado lendo livro, closes da dedicatória, cara de choque ao perceber [descoberta, traição, choque] (medio) ⚠ legenda em inglês ('My star.')
-- 0:17–0:33 Walt e Hank na garagem à noite, closes azulados, tensão [traição, confronto, família] (close) ⚠ escuro; legenda em inglês
-- 0:33–0:39 close extremo de Hank, olhar furioso; tela preta [raiva, traição] (close)
 
 ### BB-05 — Walter White de chapeu
 Breaking Bad · edit · 0:28 · 720x1280 · nota 4 · temas: poder, ambição, sociedade, liderança, crime
@@ -684,17 +660,6 @@ Ragnar Lothbrok em cenas escuras: segurando estrutura, de perfil, falando de cot
 - 0:19–0:24 Ragnar quase no escuro [] (medio) ⚠ muito escuro
 
 
-## 2 FILMES/A Procura da Felicidade
-
-### PUR-01 — Quadra de basquete - proteja seu sonho
-À Procura da Felicidade (The Pursuit of Happyness) · cena · 0:49 · 720x1280 · nota 3 · temas: pai e filho, sonho, motivação, superação
-Cena da quadra de basquete: Chris diz ao filho para proteger o sonho; closes de pai e filho junto à grade.
-⚠ legenda em espanhol queimada
-- 0:00–0:30 Will Smith de terno junto à grade falando sério com o filho; closes do menino ouvindo [pai e filho, motivação, conselho] (close) ⚠ legenda em espanhol
-- 0:30–0:44 Will Smith olhando firme, menino olhando para ele; perfil de Will [sonho, determinação, pai e filho] (close) ⚠ legenda em espanhol
-- 0:44–0:49 pai e filho saindo da quadra [pai e filho] (largo) ⚠ legenda em espanhol
-
-
 ## 2 FILMES/A Vida Secreta de Walter Mitty
 
 ### MIT-01 — Rotina de escritorio x aventura (meme)
@@ -765,21 +730,6 @@ Batman · cena · 0:18 · 576x1144 · nota 2 · temas: solidão, poder, reflexã
 Batman em silhueta no alto de um prédio olhando Gotham à noite, tons azuis e neblina.
 ⚠ muito escuro; baixa resolução; filme exato não confirmado
 - 0:00–0:18 silhueta do Batman no topo de um prédio vigiando a cidade azulada e enevoada [solidão, poder, cidade] (largo) ⚠ escuro
-
-### BAT-02 — Bruce Wayne bilionario (edit)
-Trilogia Batman (Batman Begins / O Cavaleiro das Trevas) (The Dark Knight Trilogy) · edit · 0:16 · 1920x1080 · nota 2 · temas: riqueza, luxo, poder, sucesso, ego
-Edit de fã com cortes rápidos (~1 s) da vida de bilionário de Bruce Wayne: festa com mulheres, Lamborghini, iate, sala do traje do Batman, reunião com Lucius Fox, Batman nas ruínas em chamas.
-⚠ marca d'água '©2026 IVANYUD COPYRIGHT RESERVED' no centro inferior; efeitos de edição (cortes muito curtos)
-- 0:00–0:01 Bruce de pé ao lado do traje do Batman em sala de concreto [poder] (largo) ⚠ marca d'água embaixo
-- 0:01–0:02 Bruce de terno sorrindo numa festa cheia de mulheres e taças de champanhe [luxo, festa, ego] (medio) ⚠ marca d'água embaixo
-- 0:02–0:03 Lamborghini preta passando rápido na rua [carro, luxo] (medio) ⚠ marca d'água embaixo
-- 0:03–0:06 Bruce de camiseta preta no bunker, depois de costas encarando o traje do Batman [foco, decisão] (medio) ⚠ marca d'água embaixo
-- 0:06–0:07 Bruce de smoking num restaurante com mulher loira elegante [luxo, riqueza] (medio) ⚠ marca d'água embaixo
-- 0:07–0:09 homem de terno tocando a parede de cobertura escura à noite [solidão] (medio) ⚠ escuro; marca d'água
-- 0:09–0:10 Bruce de camisa branca aberta relaxando num iate com copo de drinque [luxo, riqueza, sucesso] (medio) ⚠ marca d'água embaixo
-- 0:10–0:13 Bruce e Alfred de costas em bunker branco; Bruce de terno com Lucius Fox [estratégia, confiança] (medio) ⚠ marca d'água embaixo
-- 0:13–0:15 Bruce de camisa branca na cobertura; close de Bruce sério de terno numa reunião [reunião, poder, foco] (close) ⚠ marca d'água embaixo
-- 0:15–0:16 Batman agachado sobre ruínas em chamas à noite [derrota, superação] (largo) ⚠ escuro; marca d'água
 
 
 ## 2 FILMES/Blade Runner 2049
@@ -955,18 +905,6 @@ Plano único de Cooper dirigindo à noite/dentro do carro, olhar tenso e emocion
 - 0:00–0:07 Matthew McConaughey (Cooper) ao volante, close, rosto tenso e olhos marejados [decisão, medo, tristeza, carro] (close) ⚠ tarja preta na parte de baixo
 
 
-## 2 FILMES/Manchester a Beira-Mar
-
-### MAN-01 — Lee Chandler abatido (P&B, edit)
-Manchester à Beira-Mar (Manchester by the Sea) · edit · 0:13 · 720x1280 · nota 3 · temas: luto, tristeza, culpa, solidão, arrependimento
-Edição em preto e branco de Lee Chandler: abatido, chorando, no hospital, na neve, fumando — luto e culpa.
-⚠ marca d'água/crédito pequeno no centro-baixo de todos os planos; preto e branco; efeitos de edição
-- 0:00–0:05 Casey Affleck de moletom cabisbaixo à mesa, mão na cabeça, rosto contendo choro [tristeza, culpa, arrependimento] (medio) ⚠ marca no centro-baixo; P&B
-- 0:05–0:06 homem debruçado chorando sobre alguém na cama de hospital [luto, tristeza, família] (medio) ⚠ marca no centro-baixo; P&B
-- 0:06–0:10 de costas diante da ambulância; de casaco olhando; fumando no escuro; dirigindo [luto, solidão, reflexão] (medio) ⚠ marca no centro-baixo; P&B; escuro
-- 0:10–0:13 sentado sozinho numa cadeira; parado na neve com a mão na cabeça; plano final quase preto [solidão, tristeza, culpa] (largo) ⚠ marca no centro-baixo; P&B; último plano muito escuro
-
-
 ## 2 FILMES/Mong e Loide (Tommy Boy)
 
 ### TOM-01 — Enterro do pai de Tommy
@@ -1113,12 +1051,6 @@ Moe Greene, de óculos escuros, fala alterado; Michael Corleone ouve calado e fr
 O Poderoso Chefão (The Godfather) · cena · 0:54 · 720x1280 · nota 5 · temas: poder, liderança, respeito, negociação
 Abertura: Don Vito de smoking com rosa vermelha, sentado no escritório escuro acariciando o gato e ouvindo um pedido.
 - 0:00–0:54 Marlon Brando como Don Corleone sentado à mesa, acariciando gato, gesticulando calmo, persiana ao fundo [poder, liderança, negociação, chefe, respeito] (medio)
-
-### GOD-03 — Jantar de aniversario - irmaos saem da mesa
-O Poderoso Chefão: Parte II (The Godfather Part II) · cena · 0:22 · 720x720 · nota 2 · temas: solidão, família, decisão, arrependimento
-Flashback do jantar de aniversário: os irmãos saem da mesa e Michael fica sozinho fumando, cabisbaixo.
-⚠ marca d'água 'DFE' no canto superior esquerdo; @dizifilmsedit e ícone no canto inferior
-- 0:00–0:22 família na mesa de jantar; os irmãos saem e Michael fica sozinho fumando com a mão na cabeça [solidão, família, decisão] (largo) ⚠ marca 'DFE' e @dizifilmsedit
 
 
 ## 2 FILMES/Oppenheimer
@@ -1276,20 +1208,6 @@ Compilação de 18 min com 180 frases de Stallone em vários filmes (Rocky, Ramb
 - 16:04–16:08 Stallone de boné camuflado encarando outro homem (Os Mercenários) [briga, liderança] (close) ⚠ tarja preta
 - 17:12–17:18 Stallone suado treinando, braço musculoso [treino, disciplina] (close) ⚠ tarja preta
 - 18:21–18:25 Stallone velho ferido deitado, rosto machucado [derrota, luto] (medio) ⚠ escuro; tarja preta
-
-
-## 2 FILMES/Scarface
-
-### SCA-01 — Montagem do dinheiro - maquina de contar notas
-Scarface · montagem · 0:55 · 720x1280 · nota 4 · temas: dinheiro, riqueza, crime, ambição
-Montagem do dinheiro: máquina contando notas, Tony rindo ao telefone, maços de dinheiro, van levando dinheiro ao banco, homem de camisa havaiana carregando bolsas, gerente do banco, aperto de mão, Tony entrando no banco.
-⚠ marca d'água 'HAYDUT TONY' no centro-baixo; letreiro em inglês no prédio
-- 0:00–0:03 mãos e máquina contando maços de dólar [dinheiro, riqueza] (close) ⚠ marca discreta
-- 0:03–0:11 Al Pacino de camisa aberta rindo ao telefone [sucesso, riqueza, ambição] (medio) ⚠ marca discreta
-- 0:11–0:15 pilhas de dinheiro sendo contadas [dinheiro] (close) ⚠ marca discreta
-- 0:15–0:19 van azul passando na avenida diante do prédio do banco [dinheiro, crime] (largo) ⚠ letreiro em inglês
-- 0:19–0:42 homem de camisa havaiana carregando bolsas para o banco; gerente ao telefone; aperto de mão [dinheiro, negócio, crime] (medio) ⚠ marca discreta
-- 0:42–0:55 Tony e capangas de terno entrando no saguão do banco [poder, riqueza] (medio) ⚠ marca discreta
 
 
 ## 2 FILMES/Seven - Os Sete Crimes Capitais
@@ -1450,32 +1368,6 @@ Montagem 'Visuals' em preto e branco de Touro Indomável: Jake no ringue, lutas,
 - 3:20–3:27 dois irmãos se abraçando num quarto com crucifixo [família, perdão, reconciliação] (medio)
 - 3:27–3:32 Jake de roupão de oncinha com os braços erguidos e luvas, vencedor [vitória, sucesso, comemoração, superação] (medio)
 - 3:32–3:49 tela preta [] (largo) ⚠ não usar
-
-
-## 2 FILMES/Uma Batalha Apos a Outra
-
-### OBA-01 — Bob de roupao recebe ligacao
-Uma Batalha Após a Outra (One Battle After Another) · cena · 0:23 · 720x1280 · nota 2 · temas: humor, confiança, amizade
-Bob, de óculos escuros, gorro e roupão xadrez, recebe uma mochila de Sergio na porta; Sergio se curva; Bob sai andando pelo corredor; termina numa parede de blocos vazia.
-⚠ legenda em inglês queimada
-- 0:00–0:07 DiCaprio de óculos escuros e roupão xadrez segurando mochila, Benicio del Toro se curvando para ele na porta [humor, respeito, amizade] (medio) ⚠ legenda em inglês ('Sensei.')
-- 0:07–0:19 DiCaprio de costas/andando com a mochila no ombro por um corredor velho até a janela [viagem, decisão] (medio) ⚠ legenda em inglês
-- 0:19–0:23 parede de blocos vazia e tela preta [] (largo) ⚠ sem ação
-
-
-## 2 FILMES/Velozes e Furiosos - Hobbs e Shaw
-
-### HOB-01 — Hobbs x Shaw - rotina matinal em tela dividida
-Velozes & Furiosos: Hobbs & Shaw (Hobbs & Shaw) · cena · 4:35 · 1920x1080 · nota 3 · temas: disciplina, rotina, treino, ego, rivalidade, luxo, poder, crime
-Rotina matinal em tela dividida (Hobbs x Shaw: acordar, café, treino, garagem, telefone); depois Londres, Hobbs chega de moto a um clube, Shaw bebe champanhe num bar chique, ambos intimidam bandidos.
-⚠ tela dividida (montagem original do filme); legenda em inglês queimada (falas e letras de música); logo pequeno vermelho no canto superior esquerdo; tarja preta embaixo; tela 'The Boxoffice Network' no fim
-- 0:00–0:49 tela dividida: Hobbs e Shaw acordam, saem da cama, preparam o café (ovos), Hobbs malha pesado, garagens com carros, chegam de carro, falam ao celular [disciplina, rotina, treino, rivalidade] (medio) ⚠ tela dividida + legenda em inglês + logo no canto
-- 0:49–1:36 letreiro 'LONDON' sobre carros à noite; Hobbs chega de moto em frente a um clube com neon [viagem, cidade, poder] (largo) ⚠ texto 'LONDON' e legenda em inglês
-- 1:36–2:46 Shaw de terno abre/serve champanhe num bar elegante [luxo, ego] (medio) ⚠ legenda em inglês
-- 2:46–3:47 Hobbs agarra e intimida homem de cabelo comprido num carro à noite [intimidação, crime, poder] (medio) ⚠ legenda em inglês
-- 3:47–4:01 Shaw e Hobbs sob lustre de cristal, encarando e ameaçando [intimidação, poder] (medio) ⚠ legenda em inglês
-- 4:01–4:19 Hobbs em ambiente com luz azul neon, sério, segurando copo [poder] (medio) ⚠ legenda em inglês
-- 4:19–4:35 tela vermelha 'The Boxoffice Network' [] (largo) ⚠ descartar
 
 
 ## 3 DESENHOS/Alice no Pais das Maravilhas
@@ -1756,14 +1648,6 @@ Casal em silhueta sentado em cadeiras de praia vendo o pôr do sol laranja no ma
 
 ## 5 GENERICOS/Mapas
 
-### MAPA-01 — Mapa do Brasil em neon
-genérico · stock · 1:14 · 720x1280 · nota 3 · temas: Brasil, riqueza, agronegócio, natureza
-Animação de mapa do Brasil em contorno neon amarelo: floresta, bandeira, agro (trator), produtos (suco de laranja, soja, carne, frango, celulose, café), aquífero Alter do Chão, nióbio, aves. Textos em português.
-⚠ texto 'Provider Attribution' (inglês) no canto inferior esquerdo; textos e rótulos sobrepostos
-- 0:00–0:28 mapa do Brasil em neon com floresta, bandeira 'Ordem e Progresso' e lavoura com tratores dentro do contorno [Brasil, agronegócio, natureza] (largo) ⚠ 'Provider Attribution' no canto
-- 0:28–0:38 ícones de produtos exportados (suco de laranja, soja, carne bovina, frango, celulose, café) sobre o mapa [Brasil, riqueza, negócio] (largo) ⚠ rótulos em português; 'Provider Attribution'
-- 0:38–1:14 aquífero Alter do Chão ('pode abastecer todo o planeta por 250 anos'), nióbio e aves brasileiras no mapa [Brasil, riqueza, natureza] (largo) ⚠ texto em português sobreposto; 'Provider Attribution'
-
 ### MAPA-03 — Mapa do Brasil com brilho verde
 genérico · stock · 1:13 · 576x1024 · nota 3 · temas: riqueza, dinheiro, negócio, natureza
 Animação de mapa do Brasil com brilho verde mostrando riquezas: paisagens, alimentos/commodities (café, carne etc.) e nióbio, com rótulos em português.
@@ -1874,14 +1758,6 @@ Idosos fazendo exercícios de força em casa e na academia: levantando peso, aga
 - 0:04–0:12 idoso agachando com peso na academia; senhora carregando sacolas de compras pesadas [treino, disciplina, superação] (largo)
 - 0:12–0:15 idoso sentado segurando anilha; senhor de pé na sala se exercitando [treino, disciplina] (medio)
 
-### PES-16 — Idoso correndo no campo de futebol
-genérico · stock · 0:19 · 576x1024 · nota 2 · temas: disciplina, treino, superação, tempo
-Idoso correndo em campo de futebol society coberto e falando para a câmera.
-⚠ marca d'água @usuario no centro-baixo de todos os planos; baixa resolução
-- 0:00–0:01 idoso de cabelo branco correndo no gramado sintético [treino, disciplina] (largo) ⚠ marca d'água @ no centro-baixo
-- 0:01–0:05 idoso de óculos e bigode falando para a câmera, sorrindo [orgulho, superação] (close) ⚠ marca d'água @ no centro-baixo
-- 0:05–0:19 idoso correndo de um lado ao outro no campo coberto [treino, disciplina, superação] (largo) ⚠ marca d'água @ no centro-baixo
-
 ### PES-17 — Mulher correndo em prova de rua
 genérico · stock · 0:12 · 576x1024 · nota 2 · temas: disciplina, treino, superação
 Mulher de boné e short vermelho correndo numa rua em prova de corrida, público e prédio histórico ao fundo.
@@ -1900,26 +1776,6 @@ genérico · stock · 0:20 · 234x416 · nota 2 · temas: solidão, tempo, velhi
 Idoso de boné e colete, de costas, caminha devagar com guarda-chuva fechado pela passarela à beira-mar em Istambul (mesquita ao fundo), dia nublado.
 ⚠ baixa resolução (234x416); vertical já recortado
 - 0:00–0:20 senhor idoso de costas caminhando sozinho com guarda-chuva por passarela molhada à beira do mar, mesquita de Istambul ao fundo [solidão, tempo, velhice, reflexão] (medio) ⚠ resolução muito baixa; sem marca d'água visível
-
-
-## 5 GENERICOS/Publicidade
-
-### PUB-01 — Comercial Laphroaig com Willem Dafoe
-Laphroaig - Willem by Willem · montagem · 0:49 · 720x1280 · nota 2 · temas: foco, disciplina, luxo
-Comercial do uísque Laphroaig com Willem Dafoe: metrônomo, garrafa, Dafoe de macacão branco pintando letras na parede, uísque sendo servido e Dafoe bebendo.
-⚠ texto em inglês e marca (LAPHROAIG, WILLEM BY WILLEM, UNFORGETTABLE); comercial de bebida com rótulo da marca
-- 0:00–0:02 close de Willem Dafoe de olhos fechados, fundo escuro [reflexão, foco] (close)
-- 0:02–0:07 metrônomo de madeira balançando, close da escala [tempo, disciplina] (medio) ⚠ texto LAPHROAIG WILLEM BY WILLEM no 1º plano
-- 0:07–0:09 Dafoe de macacão branco sorrindo com lata de tinta numa escada [trabalho, alegria] (medio) ⚠ logo da marca no macacão
-- 0:13–0:16 homem de macacão pintando letra gigante com pincel numa parede branca [trabalho, disciplina] (largo)
-- 0:17–0:20 homem pintando letras na parede, braço esticado [trabalho] (largo)
-- 0:24–0:25 pincel grosso pingando tinta preta [trabalho] (close)
-- 0:25–0:28 homem na escada pintando letra 'L' na parede [trabalho, disciplina] (largo)
-- 0:35–0:37 mão abrindo garrafa de uísque (rótulo 1815) [luxo] (close) ⚠ rótulo da marca
-- 0:37–0:39 uísque sendo servido num copo de cristal [luxo, comemoração] (close)
-- 0:39–0:40 Dafoe bebendo uísque olhando para a câmera [luxo, reflexão] (close)
-- 0:42–0:45 Dafoe soltando fumaça/vapor, olhar intenso [reflexão] (close)
-- 0:45–0:49 garrafa de Laphroaig com texto UNFORGETTABLE [] (medio) ⚠ texto em inglês e marca
 
 
 ## 5 GENERICOS/Trabalho e escritorio
@@ -1968,6 +1824,35 @@ Efeito em fundo verde (chroma key): círculo vermelho desenhado à mão, tipo ma
 - 0:07–0:42 círculo vermelho desenhado à mão sendo traçado sobre fundo verde [destaque, efeito] (medio) ⚠ usar com chroma key
 
 
+## 7 NAO USAR (marca dagua, texto ou baixa qualidade)/A Procura da Felicidade
+
+### PUR-01 — Quadra de basquete - proteja seu sonho
+À Procura da Felicidade (The Pursuit of Happyness) · cena · 0:49 · 720x1280 · nota 3 · **NÃO USAR** · temas: pai e filho, sonho, motivação, superação
+Cena da quadra de basquete: Chris diz ao filho para proteger o sonho; closes de pai e filho junto à grade.
+⚠ legenda em espanhol queimada
+- 0:00–0:30 Will Smith de terno junto à grade falando sério com o filho; closes do menino ouvindo [pai e filho, motivação, conselho] (close) ⚠ legenda em espanhol
+- 0:30–0:44 Will Smith olhando firme, menino olhando para ele; perfil de Will [sonho, determinação, pai e filho] (close) ⚠ legenda em espanhol
+- 0:44–0:49 pai e filho saindo da quadra [pai e filho] (largo) ⚠ legenda em espanhol
+
+
+## 7 NAO USAR (marca dagua, texto ou baixa qualidade)/Batman
+
+### BAT-02 — Bruce Wayne bilionario (edit)
+Trilogia Batman (Batman Begins / O Cavaleiro das Trevas) (The Dark Knight Trilogy) · edit · 0:16 · 1920x1080 · nota 2 · **NÃO USAR** · temas: riqueza, luxo, poder, sucesso, ego
+Edit de fã com cortes rápidos (~1 s) da vida de bilionário de Bruce Wayne: festa com mulheres, Lamborghini, iate, sala do traje do Batman, reunião com Lucius Fox, Batman nas ruínas em chamas.
+⚠ marca d'água '©2026 IVANYUD COPYRIGHT RESERVED' no centro inferior; efeitos de edição (cortes muito curtos)
+- 0:00–0:01 Bruce de pé ao lado do traje do Batman em sala de concreto [poder] (largo) ⚠ marca d'água embaixo
+- 0:01–0:02 Bruce de terno sorrindo numa festa cheia de mulheres e taças de champanhe [luxo, festa, ego] (medio) ⚠ marca d'água embaixo
+- 0:02–0:03 Lamborghini preta passando rápido na rua [carro, luxo] (medio) ⚠ marca d'água embaixo
+- 0:03–0:06 Bruce de camiseta preta no bunker, depois de costas encarando o traje do Batman [foco, decisão] (medio) ⚠ marca d'água embaixo
+- 0:06–0:07 Bruce de smoking num restaurante com mulher loira elegante [luxo, riqueza] (medio) ⚠ marca d'água embaixo
+- 0:07–0:09 homem de terno tocando a parede de cobertura escura à noite [solidão] (medio) ⚠ escuro; marca d'água
+- 0:09–0:10 Bruce de camisa branca aberta relaxando num iate com copo de drinque [luxo, riqueza, sucesso] (medio) ⚠ marca d'água embaixo
+- 0:10–0:13 Bruce e Alfred de costas em bunker branco; Bruce de terno com Lucius Fox [estratégia, confiança] (medio) ⚠ marca d'água embaixo
+- 0:13–0:15 Bruce de camisa branca na cobertura; close de Bruce sério de terno numa reunião [reunião, poder, foco] (close) ⚠ marca d'água embaixo
+- 0:15–0:16 Batman agachado sobre ruínas em chamas à noite [derrota, superação] (largo) ⚠ escuro; marca d'água
+
+
 ## 7 NAO USAR (marca dagua, texto ou baixa qualidade)/Better Call Saul
 
 ### BCS-02 — Saul confessa no tribunal (P&B)
@@ -1976,6 +1861,33 @@ Final da série em preto e branco: Saul no tribunal faz confissão, promotor rea
 ⚠ legenda em inglês queimada; tarja preta (letterbox)
 - 0:00–0:16 Saul de terno claro no tribunal (P&B) falando; promotor olha para cima [confissão, culpa, tribunal] (medio) ⚠ legenda em inglês; tarja preta
 - 0:16–0:30 Kim sentada na plateia séria; Saul sentado olhando para trás para ela [arrependimento, casamento, culpa] (medio) ⚠ tarja preta; legenda em inglês em parte
+
+### BCS-05 — Jimmy ensaia no espelho (its showtime)
+Better Call Saul · cena · 0:23 · 720x1280 · nota 3 · **NÃO USAR** · temas: preparação, autoconfiança, trabalho, pressão
+Jimmy no banheiro do tribunal ensaia diante do espelho, gesticulando, ajeita a gravata, dá o 'It's showtime'; termina com Saul em P&B no tribunal.
+⚠ legenda em inglês queimada ('It's showtime')
+- 0:00–0:09 Jimmy de terno gesticulando com as mãos abertas falando, ajeitando o punho [preparação, autoconfiança] (medio)
+- 0:09–0:16 Jimmy no banheiro ensaiando diante do espelho, gestos, torneira [preparação, pressão, foco] (medio) ⚠ legenda em inglês
+- 0:16–0:23 Saul de terno fazendo o gesto; Saul em P&B no tribunal olhando para o lado [autoconfiança, tribunal] (medio) ⚠ legenda em inglês ('It's showtime')
+
+
+## 7 NAO USAR (marca dagua, texto ou baixa qualidade)/Breaking Bad
+
+### BB-03 — Walt serio e Jesse chorando (edit)
+Breaking Bad · edit · 0:12 · 720x1280 · nota 3 · **NÃO USAR** · temas: traição, arrependimento, tristeza, pai e filho
+Edit com closes de Walt sério e Jesse chorando/cabisbaixo, depois Jesse sorrindo de casaco vermelho e Walt olhando duro.
+⚠ marca d'água 'YA' no canto inferior direito
+- 0:00–0:02 close de Walter White de óculos, olhar frio e sério [frieza, poder, decisão] (close) ⚠ marca 'YA' discreta
+- 0:02–0:06 close de Jesse chorando, depois cabeça baixa [tristeza, arrependimento, culpa] (close) ⚠ marca 'YA' discreta
+- 0:06–0:12 Jesse sorrindo de casaco vermelho no escuro; Walt de óculos sério e frio [alegria, nostalgia, amizade] (close) ⚠ marca 'YA' no canto inferior direito
+
+### BB-04 — Hank descobre a verdade no banheiro
+Breaking Bad · cena · 0:39 · 720x1280 · nota 3 · **NÃO USAR** · temas: traição, descoberta, choque, família
+Hank lê o livro 'Folhas de Relva' no banheiro e descobre a dedicatória; depois confronto noturno na garagem entre Hank e Walt, closes tensos.
+⚠ legenda em inglês queimada
+- 0:00–0:17 Hank sentado lendo livro, closes da dedicatória, cara de choque ao perceber [descoberta, traição, choque] (medio) ⚠ legenda em inglês ('My star.')
+- 0:17–0:33 Walt e Hank na garagem à noite, closes azulados, tensão [traição, confronto, família] (close) ⚠ escuro; legenda em inglês
+- 0:33–0:39 close extremo de Hank, olhar furioso; tela preta [raiva, traição] (close)
 
 
 ## 7 NAO USAR (marca dagua, texto ou baixa qualidade)/Carros e estrada
@@ -1993,7 +1905,27 @@ Mão tocando tela de mapa/GPS no painel de carro.
 - 0:00–0:08 mão espalmada sobre a tela de navegação do carro com mapa [carro, tecnologia] (close) ⚠ interface visível
 
 
+## 7 NAO USAR (marca dagua, texto ou baixa qualidade)/Manchester a Beira-Mar
+
+### MAN-01 — Lee Chandler abatido (P&B, edit)
+Manchester à Beira-Mar (Manchester by the Sea) · edit · 0:13 · 720x1280 · nota 3 · **NÃO USAR** · temas: luto, tristeza, culpa, solidão, arrependimento
+Edição em preto e branco de Lee Chandler: abatido, chorando, no hospital, na neve, fumando — luto e culpa.
+⚠ marca d'água/crédito pequeno no centro-baixo de todos os planos; preto e branco; efeitos de edição
+- 0:00–0:05 Casey Affleck de moletom cabisbaixo à mesa, mão na cabeça, rosto contendo choro [tristeza, culpa, arrependimento] (medio) ⚠ marca no centro-baixo; P&B
+- 0:05–0:06 homem debruçado chorando sobre alguém na cama de hospital [luto, tristeza, família] (medio) ⚠ marca no centro-baixo; P&B
+- 0:06–0:10 de costas diante da ambulância; de casaco olhando; fumando no escuro; dirigindo [luto, solidão, reflexão] (medio) ⚠ marca no centro-baixo; P&B; escuro
+- 0:10–0:13 sentado sozinho numa cadeira; parado na neve com a mão na cabeça; plano final quase preto [solidão, tristeza, culpa] (largo) ⚠ marca no centro-baixo; P&B; último plano muito escuro
+
+
 ## 7 NAO USAR (marca dagua, texto ou baixa qualidade)/Mapas
+
+### MAPA-01 — Mapa do Brasil em neon
+genérico · stock · 1:14 · 720x1280 · nota 3 · **NÃO USAR** · temas: Brasil, riqueza, agronegócio, natureza
+Animação de mapa do Brasil em contorno neon amarelo: floresta, bandeira, agro (trator), produtos (suco de laranja, soja, carne, frango, celulose, café), aquífero Alter do Chão, nióbio, aves. Textos em português.
+⚠ texto 'Provider Attribution' (inglês) no canto inferior esquerdo; textos e rótulos sobrepostos
+- 0:00–0:28 mapa do Brasil em neon com floresta, bandeira 'Ordem e Progresso' e lavoura com tratores dentro do contorno [Brasil, agronegócio, natureza] (largo) ⚠ 'Provider Attribution' no canto
+- 0:28–0:38 ícones de produtos exportados (suco de laranja, soja, carne bovina, frango, celulose, café) sobre o mapa [Brasil, riqueza, negócio] (largo) ⚠ rótulos em português; 'Provider Attribution'
+- 0:38–1:14 aquífero Alter do Chão ('pode abastecer todo o planeta por 250 anos'), nióbio e aves brasileiras no mapa [Brasil, riqueza, natureza] (largo) ⚠ texto em português sobreposto; 'Provider Attribution'
 
 ### MAPA-02 — Gravacao de tela de mapa
 genérico · stock · 0:09 · 576x1282 · nota 1 · **NÃO USAR** · temas: viagem, cidade
@@ -2025,6 +1957,15 @@ Vídeo de geografia sobre Santa Catarina: 57 s de mapa de satélite animado com 
 - 1:02–1:06 viaduto/rodovia à beira-mar com carros, vista aérea [cidade, viagem] (largo) ⚠ texto 'Siga o Rota' e marca d'água
 
 
+## 7 NAO USAR (marca dagua, texto ou baixa qualidade)/O Poderoso Chefao (The Godfather)
+
+### GOD-03 — Jantar de aniversario - irmaos saem da mesa
+O Poderoso Chefão: Parte II (The Godfather Part II) · cena · 0:22 · 720x720 · nota 2 · **NÃO USAR** · temas: solidão, família, decisão, arrependimento
+Flashback do jantar de aniversário: os irmãos saem da mesa e Michael fica sozinho fumando, cabisbaixo.
+⚠ marca d'água 'DFE' no canto superior esquerdo; @dizifilmsedit e ícone no canto inferior
+- 0:00–0:22 família na mesa de jantar; os irmãos saem e Michael fica sozinho fumando com a mão na cabeça [solidão, família, decisão] (largo) ⚠ marca 'DFE' e @dizifilmsedit
+
+
 ## 7 NAO USAR (marca dagua, texto ou baixa qualidade)/Peaky Blinders
 
 ### PKB-01 — Tommy Shelby no patio com fumaca
@@ -2045,6 +1986,37 @@ Tommy Shelby sozinho no jardim da mansão com garrafa de uísque, fuma e se reco
 - 0:11–0:13 Tommy sozinho numa cadeira no gramado da mansão, árvores de outono [solidão, luxo] (largo) ⚠ marca FILMCULT
 
 
+## 7 NAO USAR (marca dagua, texto ou baixa qualidade)/Pessoas e vida
+
+### PES-16 — Idoso correndo no campo de futebol
+genérico · stock · 0:19 · 576x1024 · nota 2 · **NÃO USAR** · temas: disciplina, treino, superação, tempo
+Idoso correndo em campo de futebol society coberto e falando para a câmera.
+⚠ marca d'água @usuario no centro-baixo de todos os planos; baixa resolução
+- 0:00–0:01 idoso de cabelo branco correndo no gramado sintético [treino, disciplina] (largo) ⚠ marca d'água @ no centro-baixo
+- 0:01–0:05 idoso de óculos e bigode falando para a câmera, sorrindo [orgulho, superação] (close) ⚠ marca d'água @ no centro-baixo
+- 0:05–0:19 idoso correndo de um lado ao outro no campo coberto [treino, disciplina, superação] (largo) ⚠ marca d'água @ no centro-baixo
+
+
+## 7 NAO USAR (marca dagua, texto ou baixa qualidade)/Publicidade
+
+### PUB-01 — Comercial Laphroaig com Willem Dafoe
+Laphroaig - Willem by Willem · montagem · 0:49 · 720x1280 · nota 2 · **NÃO USAR** · temas: foco, disciplina, luxo
+Comercial do uísque Laphroaig com Willem Dafoe: metrônomo, garrafa, Dafoe de macacão branco pintando letras na parede, uísque sendo servido e Dafoe bebendo.
+⚠ texto em inglês e marca (LAPHROAIG, WILLEM BY WILLEM, UNFORGETTABLE); comercial de bebida com rótulo da marca
+- 0:00–0:02 close de Willem Dafoe de olhos fechados, fundo escuro [reflexão, foco] (close)
+- 0:02–0:07 metrônomo de madeira balançando, close da escala [tempo, disciplina] (medio) ⚠ texto LAPHROAIG WILLEM BY WILLEM no 1º plano
+- 0:07–0:09 Dafoe de macacão branco sorrindo com lata de tinta numa escada [trabalho, alegria] (medio) ⚠ logo da marca no macacão
+- 0:13–0:16 homem de macacão pintando letra gigante com pincel numa parede branca [trabalho, disciplina] (largo)
+- 0:17–0:20 homem pintando letras na parede, braço esticado [trabalho] (largo)
+- 0:24–0:25 pincel grosso pingando tinta preta [trabalho] (close)
+- 0:25–0:28 homem na escada pintando letra 'L' na parede [trabalho, disciplina] (largo)
+- 0:35–0:37 mão abrindo garrafa de uísque (rótulo 1815) [luxo] (close) ⚠ rótulo da marca
+- 0:37–0:39 uísque sendo servido num copo de cristal [luxo, comemoração] (close)
+- 0:39–0:40 Dafoe bebendo uísque olhando para a câmera [luxo, reflexão] (close)
+- 0:42–0:45 Dafoe soltando fumaça/vapor, olhar intenso [reflexão] (close)
+- 0:45–0:49 garrafa de Laphroaig com texto UNFORGETTABLE [] (medio) ⚠ texto em inglês e marca
+
+
 ## 7 NAO USAR (marca dagua, texto ou baixa qualidade)/Rocky e Stallone
 
 ### ROC-03 — Stallone jovem no Johnny Carson
@@ -2055,6 +2027,20 @@ Stallone jovem, de terno e gravata colorida, entrevistado por Johnny Carson no s
 - 0:53–1:03 Stallone entra no palco e se senta [entrevista] (medio) ⚠ logo do canal; baixa resolução
 - 1:03–5:12 Stallone jovem conversa e gesticula no sofá, campo/contracampo com Carson [entrevista, sucesso] (close) ⚠ logo do canal; baixa resolução
 - 5:12–5:28 transição/fusão para encerramento com Carson [] (medio) ⚠ logo do canal
+
+
+## 7 NAO USAR (marca dagua, texto ou baixa qualidade)/Scarface
+
+### SCA-01 — Montagem do dinheiro - maquina de contar notas
+Scarface · montagem · 0:55 · 720x1280 · nota 4 · **NÃO USAR** · temas: dinheiro, riqueza, crime, ambição
+Montagem do dinheiro: máquina contando notas, Tony rindo ao telefone, maços de dinheiro, van levando dinheiro ao banco, homem de camisa havaiana carregando bolsas, gerente do banco, aperto de mão, Tony entrando no banco.
+⚠ marca d'água 'HAYDUT TONY' no centro-baixo; letreiro em inglês no prédio
+- 0:00–0:03 mãos e máquina contando maços de dólar [dinheiro, riqueza] (close) ⚠ marca discreta
+- 0:03–0:11 Al Pacino de camisa aberta rindo ao telefone [sucesso, riqueza, ambição] (medio) ⚠ marca discreta
+- 0:11–0:15 pilhas de dinheiro sendo contadas [dinheiro] (close) ⚠ marca discreta
+- 0:15–0:19 van azul passando na avenida diante do prédio do banco [dinheiro, crime] (largo) ⚠ letreiro em inglês
+- 0:19–0:42 homem de camisa havaiana carregando bolsas para o banco; gerente ao telefone; aperto de mão [dinheiro, negócio, crime] (medio) ⚠ marca discreta
+- 0:42–0:55 Tony e capangas de terno entrando no saguão do banco [poder, riqueza] (medio) ⚠ marca discreta
 
 
 ## 7 NAO USAR (marca dagua, texto ou baixa qualidade)/Suits
@@ -2090,3 +2076,29 @@ The Office · cena · 0:03 · 720x540 · nota 2 · **NÃO USAR** · temas: raiva
 Michael com a mão no rosto, cara tensa, encarando alguém; aparece o texto 'I'll Kill You'.
 ⚠ texto em inglês na tela ('I'll Kill You'); formato horizontal 4:3; muito curto
 - 0:00–0:03 Michael Scott apoiando o rosto nas mãos, olhar tenso e ameaçador [raiva, humor] (close) ⚠ texto 'I'll Kill You' na 2ª metade
+
+
+## 7 NAO USAR (marca dagua, texto ou baixa qualidade)/Uma Batalha Apos a Outra
+
+### OBA-01 — Bob de roupao recebe ligacao
+Uma Batalha Após a Outra (One Battle After Another) · cena · 0:23 · 720x1280 · nota 2 · **NÃO USAR** · temas: humor, confiança, amizade
+Bob, de óculos escuros, gorro e roupão xadrez, recebe uma mochila de Sergio na porta; Sergio se curva; Bob sai andando pelo corredor; termina numa parede de blocos vazia.
+⚠ legenda em inglês queimada
+- 0:00–0:07 DiCaprio de óculos escuros e roupão xadrez segurando mochila, Benicio del Toro se curvando para ele na porta [humor, respeito, amizade] (medio) ⚠ legenda em inglês ('Sensei.')
+- 0:07–0:19 DiCaprio de costas/andando com a mochila no ombro por um corredor velho até a janela [viagem, decisão] (medio) ⚠ legenda em inglês
+- 0:19–0:23 parede de blocos vazia e tela preta [] (largo) ⚠ sem ação
+
+
+## 7 NAO USAR (marca dagua, texto ou baixa qualidade)/Velozes e Furiosos - Hobbs e Shaw
+
+### HOB-01 — Hobbs x Shaw - rotina matinal em tela dividida
+Velozes & Furiosos: Hobbs & Shaw (Hobbs & Shaw) · cena · 4:35 · 1920x1080 · nota 3 · **NÃO USAR** · temas: disciplina, rotina, treino, ego, rivalidade, luxo, poder, crime
+Rotina matinal em tela dividida (Hobbs x Shaw: acordar, café, treino, garagem, telefone); depois Londres, Hobbs chega de moto a um clube, Shaw bebe champanhe num bar chique, ambos intimidam bandidos.
+⚠ tela dividida (montagem original do filme); legenda em inglês queimada (falas e letras de música); logo pequeno vermelho no canto superior esquerdo; tarja preta embaixo; tela 'The Boxoffice Network' no fim
+- 0:00–0:49 tela dividida: Hobbs e Shaw acordam, saem da cama, preparam o café (ovos), Hobbs malha pesado, garagens com carros, chegam de carro, falam ao celular [disciplina, rotina, treino, rivalidade] (medio) ⚠ tela dividida + legenda em inglês + logo no canto
+- 0:49–1:36 letreiro 'LONDON' sobre carros à noite; Hobbs chega de moto em frente a um clube com neon [viagem, cidade, poder] (largo) ⚠ texto 'LONDON' e legenda em inglês
+- 1:36–2:46 Shaw de terno abre/serve champanhe num bar elegante [luxo, ego] (medio) ⚠ legenda em inglês
+- 2:46–3:47 Hobbs agarra e intimida homem de cabelo comprido num carro à noite [intimidação, crime, poder] (medio) ⚠ legenda em inglês
+- 3:47–4:01 Shaw e Hobbs sob lustre de cristal, encarando e ameaçando [intimidação, poder] (medio) ⚠ legenda em inglês
+- 4:01–4:19 Hobbs em ambiente com luz azul neon, sério, segurando copo [poder] (medio) ⚠ legenda em inglês
+- 4:19–4:35 tela vermelha 'The Boxoffice Network' [] (largo) ⚠ descartar
