@@ -44,6 +44,8 @@ palavra faltando no áudio — confira isso a olho na revisão.
   marca d'água), Node (JS do YouTube), modelo `openai/clip-vit-large-patch14` no cache do Hugging Face
   (1,6 GB); `models/` da skill: detector de marca d'água (LAION) e de texto (PP-OCRv3), baixados sozinhos.
   `P S\verificar_td.py` confere tudo antes do 1º vídeo.
+- **Acervo local de B-roll** (seção própria abaixo): pasta com cenas já baixadas e catalogadas. O caminho
+  muda por PC e fica em `%LOCALAPPDATA%\reels-novela\acervo.txt`; `P S\acervo_td.py onde` mostra.
 
 ## Modo rápido — ~10–15 min por vídeo (medido: teste de 1:44)
 
@@ -65,10 +67,18 @@ palavra faltando no áudio — confira isso a olho na revisão.
    `T\plano.txt` seguindo `referencia/regras-plano-visual.md`: **para cada trecho, a cena famosa que
    mostra aquilo** (cultura pop em vídeo; foto só para fato). Uma linha por imagem; o resto é
    automático. `P S\td.py plano T` → confira `T\timeline.txt` (ritmo, % de imagem, avisos).
+   **Acervo primeiro:** antes de escrever, procure no catálogo do acervo (`referencia/acervo_catalogo.md`,
+   Grep pelo tema/obra: "dinheiro", "solidão", "Succession") a cena que mostra aquilo; achou →
+   `acervo=<código> t=<segundo>` na linha (mantenha a busca e o `en:`: sem o acervo no PC, a linha
+   cai na busca online). A cena exata está na folha `<acervo>\_catalogo\folhas\<código>_p1.jpg`.
 5. **Buscar** — `P S\td.py buscar T` (~2–4 min com 15 cenas; 1 item com `--so`: ~30 s): filme/vídeo
    pelo YouTube (2 vídeos por item, canal oficial primeiro) + TikTok (1; cena já na vertical — o TikTok
    às vezes bloqueia o IP: segue só com o YouTube); o CLIP acha a janela da cena na prévia de 1 quadro/s
-   e só as 2 melhores janelas descem em HD. Imagem pelo DuckDuckGo (PT + EN; troca de backend sozinho
+   e só as 2 melhores janelas descem em HD. Somam-se aos candidatos, sem download: os **2 vídeos do
+   acervo local** mais parecidos com o `en:` (índice CLIP pronto; obra citada na busca pesa) e, se a
+   busca cita um filme/série que tem **montagem só de imagem** nos canais @theclipof ("Visuals - X (4K)")
+   ou @TheBeautyOf ("The Beauty Of X"), essa montagem inteira (`referencia/montagens_youtube.tsv`).
+   Na folha, a origem aparece como "acervo SUC-01 t=95". Imagem pelo DuckDuckGo (PT + EN; troca de backend sozinho
    quando volta lixo). Filtros: marca d'água, texto queimado (legenda/crédito/legenda de TikTok), logo
    escrito no canto, PNG falso, tarja. Depois do HD, o **reenquadramento** (`reenquadrar_td.py`) refaz a
    nota de cada trecho pelo que APARECE no recorte (ação + nome do filme + nitidez/luz + rosto inteiro).
@@ -121,10 +131,35 @@ refazer o plano (os índices mudam).
 | quebra das telas de legenda, trocas "tô→ESTOU", censura (EST*PRO) | `plano_td.py` (`custo_tela`, `TROCAS`, `CENSURA`, `FRACAS`) |
 | regra do aberto/fechado e do zoom animado | `plano_td.py` (`auto_zoom_cortes`) e `td_comum.py` (`ZOOM_SUAVE*`, `PLANO_MIN`, `FECHADO_MAX`, `ABERTO_MAX`); `ZOOMLIVRE` no plano volta ao `auto_fechado` antigo (zoom seco no meio da fala — o usuário reprovou) |
 | olhos na linha padrão | `plano_td.py` (`olhos_na_linha`: linha padrão = mediana dos olhos no aberto; fechado só na altura, pelos olhos do 1º quadro depois do corte, medidos no bruto por `Olhos`); `td_comum.py` (`rect_zoom`, `rect_plano`); conferência `olhos_qa.py` |
+| acervo local (vídeos por item, peso da obra citada, onde fica) | `acervo_td.py` (`K_VIDEOS`, `+3.0` da obra, `CONFIG`) |
+| canais de montagem (lista de obras) | `referencia/montagens_youtube.tsv` (atualizar: yt-dlp `--flat-playlist` nos 2 canais) |
 | fontes de imagem, filtros, marca d'água, ranking | `buscar_td.py` (`BLOQUEADOS`, `LIMITE_MARCA`, `prior`, `CANAIS_OFICIAIS`) e `clip_rank.py` |
 | quantos vídeos por cena, prévia, HD | `buscar_td.py` (`N_YOUTUBE`, `N_TIKTOK`, `QPS`, `HD_POR_ITEM`, `ITENS_JUNTOS`) |
 | camada película (textura, retícula, grão, poeira, cor, vinheta) | `estilo_td.py` (constantes no topo); força geral `ESTILO_FORCA` em `td_comum.py`; por vídeo `ESTILO 0.7` no plano ou `--estilo` no render |
 | corte/ritmo/áudio/CTA | skill novela (`comum.py`, `montar_corte.py`, `legenda_novela.py`) |
+
+## Acervo local de B-roll (cenas já baixadas)
+
+Pasta com 160 vídeos (Succession, The Office, Breaking Bad, Better Call Saul, O Lobo de Wall Street,
+O Poderoso Chefão, montagens "Visuals" 4K...) organizada em 08/10/2026: `1 SERIES/<obra>`, `2 FILMES/<obra>`,
+`3 DESENHOS`, `4 VARIOS FILMES`, `5 GENERICOS/<assunto>`, `6 EFEITOS`, `7 NAO USAR` (marca d'água/texto/
+baixa resolução; `evitar` no catálogo, nunca entra), `_catalogo` (folhas de cenas, quadros 1/s, índice
+CLIP `clip_acervo.npz`, `mudancas.tsv`), `_extras`. Cada vídeo tem código (`SUC-01`, `BB-06`, `WOLF-03`).
+Na raiz: `acervo.json` (catálogo: obra, cenas com tempo/descrição/temas, problemas, nota) e `CATALOGO.md`
+(cópia em `referencia/acervo_catalogo.md`, que sincroniza entre os PCs).
+
+- **Onde está:** muda por PC. `P S\acervo_td.py onde`; sem `acervo.txt`, procura `acervo.json` nas raízes
+  dos discos (2 níveis) e grava. PC onde foi montado: `E:\B-ROLLS`. **PC de render: ainda não copiado** —
+  quando o usuário disser onde ficou: `P S\acervo_td.py definir "<pasta>"` e `verificar_td.py`. O índice
+  CLIP e os quadros vão dentro da pasta (não precisa reindexar).
+- **Vídeo novo** ("cataloga os vídeos novos do acervo"): `P S\acervo_td.py novos` (folhas em
+  `_catalogo\novos\N001_p1.jpg` + `novos.json`) → olhe TODAS as páginas (cada miniatura é um plano do
+  vídeo inteiro, com o tempo) → mova o arquivo para a pasta da obra com o próximo código livre e nome curto
+  → acrescente a entrada no `acervo.json` (mesmos campos dos outros; folhas renomeadas para
+  `_catalogo\folhas\<código>_pN.jpg`) → `acervo_td.py catalogo` → `"<venv-align>" S\acervo_td.py indexar`.
+  Marca d'água, texto em inglês ou resolução baixa → pasta `7 NAO USAR` e `"evitar": true`.
+- Não mover/renomear à mão: o catálogo guarda o caminho. Montagens "Visuals" abrem com cartão em inglês
+  ("This video is available in 4K"): o catálogo marca o trecho; o filtro de texto também pega.
 
 ## Premiere
 
