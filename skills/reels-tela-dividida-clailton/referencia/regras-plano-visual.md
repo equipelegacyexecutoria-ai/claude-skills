@@ -36,6 +36,21 @@ Consumo; dinheiro → O Lobo de Wall Street; desistir da academia → Homer Simp
 Taxi Driver no espelho; "agora vai" → Rocky na escadaria; traição → O Poderoso Chefão II; sociedade →
 Breaking Bad. Prefira cena que qualquer pessoa reconhece em 1 s.
 
+## Acervo local e canais de montagem (antes de buscar na internet)
+
+1. **Acervo do PC** (`referencia/acervo_catalogo.md`, 160 vídeos já vistos cena a cena): procure por tema
+   ou obra (Grep "dinheiro", "solidão", "entrevista de emprego", "Wolf"). Cena boa → `acervo=<código>
+   t=<segundo do início>` na linha, mantendo busca e `en:` (se o acervo não estiver no PC, cai na busca).
+   Ex.: `@73-75 filme "The Wolf of Wall Street money scene" | en: man throwing cash money acervo=WOLF-03 t=42`.
+   Sem `acervo=`, a busca já põe sozinha os 2 vídeos do acervo mais parecidos com o `en:` entre os candidatos.
+   Nunca use vídeo marcado **NÃO USAR**; atenção às cenas com ⚠ (texto em inglês, tarja, escuro).
+2. **Montagens só de imagem** (sem fala, sem texto, 4K): canais https://www.youtube.com/@theclipof/videos
+   ("Visuals - <obra> (4K)", ~320 obras) e https://www.youtube.com/@TheBeautyOf/videos ("The Beauty Of
+   <obra>", ~390 obras, também diretores). Lista: `referencia/montagens_youtube.tsv`. Quando a busca cita a
+   obra em inglês ("Succession ...", "Heat ..."), a montagem entra sozinha como candidata. São planos
+   bonitos de clima (cidade, solidão, poder, luxo, estrada): ótimos para `dividida` e para emoção; para
+   AÇÃO específica (gritar, contar dinheiro) prefira a cena do filme.
+
 ## Qual imagem para cada tipo de fala
 
 | Na fala | Linha do plano | Exemplo |

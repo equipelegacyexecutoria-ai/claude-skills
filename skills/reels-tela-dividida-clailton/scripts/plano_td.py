@@ -14,6 +14,7 @@ Sintaxe do plano.txt (uma decisão por linha; # comenta; @a-b = índices de pala
   @61-63 ia "prompt" | en: ...            ilustração gerada (arquivo em midia/<id>.png) ou, sem ela, busca
   @64-66 arquivo "C:\\caminho\\foto.jpg"
   opções depois do |: en: <descrição em inglês para o ranking>  url=<link>  t=<segundo no vídeo>
+                      acervo=<código do acervo local, ex. SUC-01> (com ou sem t=)
                       foco=<0..1 horizontal>  zoom=out|in|0
   FECHADO @90-93 / ABERTO @94-99          força o enquadramento do Clailton nesse trecho
   NUMERO @120-121 "0,07%"                 número grande sobre o Clailton
@@ -143,15 +144,15 @@ def item(linha: str, a: int, b: int, n: int) -> dict:
     layout = next((w for w in pal if w in LAYOUTS), "cheia").replace("cartão", "cartao")
     aspas = re.search(r"[\"“](.+?)[\"”]", corpo)
     it = {"linha": n, "i0": a, "i1": b, "tipo": tipo, "layout": layout, "busca": aspas.group(1) if aspas else "",
-          "en": None, "url": None, "t": None, "foco": None, "zoom": None, "nome": None, "igual": None,
+          "en": None, "url": None, "acervo": None, "t": None, "foco": None, "zoom": None, "nome": None, "igual": None,
           "rapido": bool(re.search(r"(?<![\w=])r[aá]pido\b", opc or corpo, re.I))}
     m = re.search(r"\bigual\s+([\w-]+)", corpo)
     if m:                                        # repete a mídia de outro item (id ou nome)
         it["tipo"], it["igual"] = "igual", m.group(1)
-    m = re.search(r"en:\s*(.+?)(?=\s+(?:url=|t=|foco=|zoom=|id=|r[aá]pido\b)|$)", opc)
+    m = re.search(r"en:\s*(.+?)(?=\s+(?:url=|acervo=|t=|foco=|zoom=|id=|r[aá]pido\b)|$)", opc)
     if m:
         it["en"] = m.group(1).strip()
-    for chave in ("url", "t", "foco", "zoom", "id"):
+    for chave in ("url", "acervo", "t", "foco", "zoom", "id"):
         m = re.search(rf"(?<![\w/]){chave}=(\S+)", linha)
         if m:
             v = m.group(1)
