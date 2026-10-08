@@ -144,7 +144,7 @@ refazer o plano (os índices mudam).
 
 ## Acervo local de B-roll (cenas já baixadas)
 
-Pasta com 160 vídeos (Succession, The Office, Breaking Bad, Better Call Saul, O Lobo de Wall Street,
+Pasta com 158 vídeos (620 cenas com ficha no `mapa_situacoes.md`) (Succession, The Office, Breaking Bad, Better Call Saul, O Lobo de Wall Street,
 O Poderoso Chefão, montagens "Visuals" 4K...) organizada em 08/10/2026: `1 SERIES/<obra>`, `2 FILMES/<obra>`,
 `3 DESENHOS`, `4 VARIOS FILMES`, `5 GENERICOS/<assunto>`, `6 EFEITOS`, `7 NAO USAR` (marca d'água/texto/
 baixa resolução; `evitar` no catálogo, nunca entra), `_catalogo` (folhas de cenas, quadros 1/s, índice

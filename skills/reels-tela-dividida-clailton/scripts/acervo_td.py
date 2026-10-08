@@ -413,7 +413,8 @@ def mapa_md(r: Path, vs: list[dict]) -> None:
                 L.append("Ele fala: " + " · ".join(f"_{x}_" for x in s["frases"][:3]))
             if not cenas:
                 L.append("- (nenhuma cena no acervo: buscar online)")
-                vazias.append(s["nome"])
+            if len(cenas) < 3:
+                vazias.append(f"{s['nome']} ({len(cenas)} cena{'s' if len(cenas) != 1 else ''})")
             for cod, f in cenas[:12]:
                 uso = f" · já usada em: {', '.join(usadas[cod][-2:])}" if cod in usadas else ""
                 L.append(f"- {ficha_linha(cod, f)}{uso}")
@@ -422,11 +423,11 @@ def mapa_md(r: Path, vs: list[dict]) -> None:
         L += ["## Outras cenas boas (sem situação definida)", ""]
         L += [f"- {ficha_linha(c, f)}" for c, f in sorted(soltas, key=ordem)]
         L.append("")
-    L += ["## Situações sem cena no acervo (o que vale baixar)", "", *[f"- {n}" for n in vazias], ""]
+    L += ["## Situações com pouca ou nenhuma cena no acervo (o que vale baixar)", "", *[f"- {n}" for n in vazias], ""]
     txt = "\n".join(L)
     (REF / "mapa_situacoes.md").write_text(txt, encoding="utf-8")
     (r / "MAPA DE SITUACOES.md").write_text(txt, encoding="utf-8")
-    print(f"mapa de situações: {sum(len(b['situacoes']) for b in sits)} situações, {len(vazias)} sem cena")
+    print(f"mapa de situações: {sum(len(b['situacoes']) for b in sits)} situações, {len(vazias)} com menos de 3 cenas")
 
 
 if __name__ == "__main__":
