@@ -38,8 +38,10 @@ Breaking Bad. Prefira cena que qualquer pessoa reconhece em 1 s.
 
 ## Acervo local e canais de montagem (antes de buscar na internet)
 
-1. **Acervo do PC** (`referencia/acervo_catalogo.md`, 160 vídeos já vistos cena a cena): procure por tema
-   ou obra (Grep "dinheiro", "solidão", "entrevista de emprego", "Wolf"). Cena boa → `acervo=<código>
+1. **Acervo do PC**: comece pelo `referencia/mapa_situacoes.md` (situação da fala → cenas com o que
+   significam, frases em que entram, quando não usar, força ★). Escolha pelo sentido da frase; o que não
+   estiver no mapa, procure pelo sentido no `referencia/acervo_catalogo.md` (160 vídeos vistos cena a cena).
+   Não repita cena dos últimos reels (`referencia/acervo_uso.tsv`). Cena boa → `acervo=<código>
    t=<segundo do início>` na linha, mantendo busca e `en:` (se o acervo não estiver no PC, cai na busca).
    Ex.: `@73-75 filme "The Wolf of Wall Street money scene" | en: man throwing cash money acervo=WOLF-03 t=42`.
    Sem `acervo=`, a busca já põe sozinha os 2 vídeos do acervo mais parecidos com o `en:` entre os candidatos.

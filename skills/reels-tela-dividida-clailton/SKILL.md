@@ -67,10 +67,14 @@ palavra faltando no áudio — confira isso a olho na revisão.
    `T\plano.txt` seguindo `referencia/regras-plano-visual.md`: **para cada trecho, a cena famosa que
    mostra aquilo** (cultura pop em vídeo; foto só para fato). Uma linha por imagem; o resto é
    automático. `P S\td.py plano T` → confira `T\timeline.txt` (ritmo, % de imagem, avisos).
-   **Acervo primeiro:** antes de escrever, procure no catálogo do acervo (`referencia/acervo_catalogo.md`,
-   Grep pelo tema/obra: "dinheiro", "solidão", "Succession") a cena que mostra aquilo; achou →
-   `acervo=<código> t=<segundo>` na linha (mantenha a busca e o `en:`: sem o acervo no PC, a linha
-   cai na busca online). A cena exata está na folha `<acervo>\_catalogo\folhas\<código>_p1.jpg`.
+   **Acervo primeiro:** para cada frase que pede imagem, ache a situação em `referencia/mapa_situacoes.md`
+   (70 situações tiradas dos reels do Clailton, cada uma com as cenas do acervo que a traduzem: o que
+   mostra, **o que significa**, frases em que entra, quando NÃO usar, força ★, se funciona na vertical).
+   Escolha pelo SENTIDO da frase, não pela palavra; frase fora do mapa → Grep pelo sentido em
+   `referencia/acervo_catalogo.md`. Evite cena que está em `referencia/acervo_uso.tsv` nos últimos reels
+   (o `finalizar` registra sozinho o que entrou). Achou → `acervo=<código> t=<segundo>` na linha (mantenha
+   a busca e o `en:`: sem o acervo no PC, a linha cai na busca online). A cena exata está na folha
+   `<acervo>\_catalogo\folhas\<código>_p1.jpg`.
 5. **Buscar** — `P S\td.py buscar T` (~2–4 min com 15 cenas; 1 item com `--so`: ~30 s): filme/vídeo
    pelo YouTube (2 vídeos por item, canal oficial primeiro) + TikTok (1; cena já na vertical — o TikTok
    às vezes bloqueia o IP: segue só com o YouTube); o CLIP acha a janela da cena na prévia de 1 quadro/s
@@ -155,8 +159,10 @@ Na raiz: `acervo.json` (catálogo: obra, cenas com tempo/descrição/temas, prob
 - **Vídeo novo** ("cataloga os vídeos novos do acervo"): `P S\acervo_td.py novos` (folhas em
   `_catalogo\novos\N001_p1.jpg` + `novos.json`) → olhe TODAS as páginas (cada miniatura é um plano do
   vídeo inteiro, com o tempo) → mova o arquivo para a pasta da obra com o próximo código livre e nome curto
-  → acrescente a entrada no `acervo.json` (mesmos campos dos outros; folhas renomeadas para
-  `_catalogo\folhas\<código>_pN.jpg`) → `acervo_td.py catalogo` → `"<venv-align>" S\acervo_td.py indexar`.
+  → acrescente a entrada no `acervo.json` (mesmos campos dos outros, inclusive `fichas` das cenas boas:
+  ini, fim, mostra, significa, use_quando, nao_usar_para, situacoes [ids de `referencia/situacoes_clailton.json`],
+  emocao, forca 1–5, vertical sim|dividida|nao; folhas renomeadas para `_catalogo\folhas\<código>_pN.jpg`)
+  → `acervo_td.py catalogo` (refaz CATALOGO.md e o mapa de situações) → `"<venv-align>" S\acervo_td.py indexar`.
   Marca d'água, texto em inglês ou resolução baixa → pasta `7 NAO USAR` e `"evitar": true`.
 - Não mover/renomear à mão: o catálogo guarda o caminho. Montagens "Visuals" abrem com cartão em inglês
   ("This video is available in 4K"): o catálogo marca o trecho; o filtro de texto também pega.

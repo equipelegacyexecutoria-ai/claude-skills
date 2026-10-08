@@ -19,11 +19,10 @@ pedido. Leia só: `T\palavras_legenda.txt`, o roteiro (se houver: `T\roteiro.txt
   → nada (Clailton).
 - Sempre `| en: <descrição visual concreta em inglês>`. Motivo que volta → `id=` e `igual`.
 - Não escreva legenda nem zoom (automáticos); `FECHADO` só se quiser forçar.
-- **Acervo primeiro:** procure a cena em `%USERPROFILE%\.claude\skills\reels-tela-dividida-clailton\referencia\acervo_catalogo.md`
-eels-tela-dividida-clailton
-eferenciacervo_catalogo.md`
-  (Grep pelo tema/obra); achou → `acervo=<código> t=<segundo>` na linha, mantendo busca e `en:`.
-  Nunca use vídeo NÃO USAR.
+- **Acervo primeiro:** para cada frase que pede imagem, ache a situação em `%USERPROFILE%\.claude\skills\reels-tela-dividida-clailton\referencia\mapa_situacoes.md`
+  e escolha a cena cujo **significa** casa com o sentido da frase (não repita as de `acervo_uso.tsv`); fora do mapa,
+  procure pelo sentido no `acervo_catalogo.md` da mesma pasta. Achou → `acervo=<código> t=<segundo>` na linha,
+  mantendo busca e `en:`. Nunca use vídeo NÃO USAR.
 
 ## Procedimento
 1. Leia os três arquivos. 2. Grave `T\plano.txt`. 3. Rode

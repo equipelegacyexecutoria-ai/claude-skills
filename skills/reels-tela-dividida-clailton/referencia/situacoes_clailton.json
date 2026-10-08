@@ -1,0 +1,1106 @@
+{
+  "blocos": [
+    {
+      "bloco": "Patrão x funcionário",
+      "situacoes": [
+        {
+          "id": "funcionario-minimo-sem-camisa",
+          "nome": "Funcionário que faz só o mínimo / não veste a camisa",
+          "descricao": "quando ele descreve o colaborador que cumpre tabela, diz 'não é minha função', não tem senso de dono, e o dono frustrado porque ninguém veste a camisa",
+          "frases": [
+            "#041: Continue dizendo, isso não é minha função.",
+            "#041: raramente vão para aqueles que apenas cumprem tabela",
+            "#040: Poxa, ninguém quer ter compromisso, ninguém veste a camisa da minha empresa.",
+            "#105: Nenhum funcionário tá realmente interessado na tua empresa",
+            "roteiro 26/09 combinado: Chega às oito. Sai às seis em ponto."
+          ],
+          "emocao": "frustração do dono, ironia",
+          "imagem_ideal": "funcionário entediado olhando o relógio, batendo ponto e saindo na hora exata; chefe de braços cruzados olhando com desaprovação",
+          "frequencia": 8
+        },
+        {
+          "id": "funcionario-reclamao-sabotador",
+          "nome": "Funcionário que reclama, faz corpo mole e sabota",
+          "descricao": "quando ele fala do colaborador que passa o dia reclamando da empresa, contamina os colegas, sabota pelas costas e torce para dar errado",
+          "frases": [
+            "#008: Tem muito funcionário que passa o dia inteiro reclamando do patrão",
+            "#126: passar o dia reclamando dela, fazendo corpo mole, contaminando quem está do teu lado",
+            "#126: Só não fica no jogo fazendo gol contra.",
+            "#030: Agora o fraco te sabota pelas costas, não assume o que erra"
+          ],
+          "emocao": "indignação, desprezo",
+          "imagem_ideal": "funcionário cochichando e fofocando pelas costas do chefe; jogador fazendo gol contra; colega envenenando o ambiente",
+          "frequencia": 5
+        },
+        {
+          "id": "funcionario-sonho-proprio",
+          "nome": "Funcionário que tem o próprio sonho e quer crescer",
+          "descricao": "quando ele lembra que o colaborador pensa no próprio futuro ('onde eu cresço nessa história?') e não vai viver o sonho do patrão",
+          "frases": [
+            "#092: E onde eu cresço nessa história?",
+            "#103: não vai abandonar o próprio sonho para passar a vida inteira construindo o teu sonho",
+            "#105: Ele quer saber onde ele vai chegar junto com a tua empresa.",
+            "#120: vocês contratam um terço da vida deles"
+          ],
+          "emocao": "empatia, ambição, reflexão",
+          "imagem_ideal": "funcionário olhando pela janela do escritório, sonhando; jovem determinado subindo uma escada/carreira",
+          "frequencia": 5
+        },
+        {
+          "id": "funcionario-erra-sem-treino",
+          "nome": "Funcionário que erra porque nunca foi ensinado",
+          "descricao": "quando o dono se irrita com o erro 'óbvio' do colaborador e ele vira a mesa: ninguém ensinou, não há processo",
+          "frases": [
+            "#049: Como ele não sabia fazer uma coisa tão óbvia?",
+            "#054: Funcionário novo não vem com o histórico da tua empresa instalado na cabeça dele.",
+            "#085: O pedido saiu errado de novo.",
+            "#056: Ninguém atende sorrindo, ninguém oferece um pãozinho de queijo"
+          ],
+          "emocao": "irritação do dono que vira autocrítica, humor",
+          "imagem_ideal": "novato perdido fazendo besteira (pedido errado, caos no balcão); chefe com a mão na testa",
+          "frequencia": 8
+        },
+        {
+          "id": "funcionario-toxico-estrela",
+          "nome": "O funcionário estrela que é tóxico / gênio difícil",
+          "descricao": "quando ele fala do vendedor que bate meta mas atropela todo mundo, ou do 'mais inteligente' prepotente que trava o time",
+          "frases": [
+            "#027: O funcionário que mais te dá prejuízo é justamente o que mais vende.",
+            "#027: atropela os processos, desrespeita os colegas, ignora as regras, cria conflito",
+            "#036: Ele discute mais do que executa, compete mais do que colabora",
+            "#036: Você por acaso contrataria um gênio difícil de lidar?"
+          ],
+          "emocao": "tensão, desconforto, arrogância do outro",
+          "imagem_ideal": "vendedor arrogante e intocável humilhando colegas; gênio prepotente dominando a reunião",
+          "frequencia": 3
+        },
+        {
+          "id": "puxa-saco-favoritismo",
+          "nome": "Puxa-saco, favoritismo e regra que não vale para todos",
+          "descricao": "quando ele critica o bajulador, o amigo/filho do dono que tem privilégio e a promoção de quem é de confiança em vez de quem é competente",
+          "frases": [
+            "#014: o puxa-saco que curte todas as postagens do chefe?",
+            "#038: alguns são mais iguais do que os outros",
+            "#038: O amigo do dono chega atrasado e tem uma justificativa.",
+            "#017: O empresário acaba promovendo apenas quem ele confia",
+            "#061: elogios de bajuladores"
+          ],
+          "emocao": "injustiça, ironia",
+          "imagem_ideal": "bajulador puxando o saco do chefe; protegido do dono rindo enquanto outro funcionário assiste injustiçado",
+          "frequencia": 5
+        },
+        {
+          "id": "demitir-alguem",
+          "nome": "Demitir / mandar alguém embora",
+          "descricao": "quando ele fala da hora de demitir quem não entrega, da decisão adiada por pena, ou provoca o dono a se demitir",
+          "frases": [
+            "#017: O vagabundo é fácil, você demite.",
+            "#073: Tem um funcionário que não entrega há meses, mas você não demite",
+            "#044: você finalmente cria coragem e toma a decisão",
+            "#027: Você já demitiu alguém para proteger o resto do time?",
+            "#042: ou você muda, ou faz o favor de se demitir."
+          ],
+          "emocao": "tensão, firmeza, alívio",
+          "imagem_ideal": "'você está demitido'; funcionário saindo com a caixa de papelão; chefe sério do outro lado da mesa",
+          "frequencia": 7
+        },
+        {
+          "id": "rotatividade-contratar-perder",
+          "nome": "Contratar, perder e contratar de novo",
+          "descricao": "quando ele descreve o ciclo de contratar, treinar e perder gente, o funcionário que pede demissão ou procura outro lugar",
+          "frases": [
+            "#120: Contrata, treina, perde, contrata de novo, treina de novo e perde de novo.",
+            "#056: Quando ela erra, você troca, a próxima entra",
+            "#092: uma hora ele vai procurar um outro lugar",
+            "#126: pede demissão, cara, vaza.",
+            "#027: quando aparece uma oportunidade melhor, eles vão embora."
+          ],
+          "emocao": "frustração, ciclo cansativo",
+          "imagem_ideal": "entrevista de emprego; porta giratória; funcionário entregando carta de demissão; mesa vazia",
+          "frequencia": 7
+        },
+        {
+          "id": "patrao-bonzinho-amigo",
+          "nome": "Patrão bonzinho/amigo que é passado para trás",
+          "descricao": "quando ele conta que ajudou, virou amigo ou teve pena do funcionário e recebeu ingratidão (processo, ataque, cobrança)",
+          "frases": [
+            "#001: Jamais seja amigo do teu colaborador.",
+            "#001: O cara desanimou, até que ele pediu demissão e depois me processou.",
+            "#011: lembra perfeitamente da primeira vez que você disse não.",
+            "#044: O maior erro de um empresário é ter pena do funcionário.",
+            "#130: Você apenas virou o sapo, o amigo do escorpião."
+          ],
+          "emocao": "ingenuidade, decepção, ingratidão",
+          "imagem_ideal": "patrão ajudando o funcionário (abraço, dinheiro) e depois sendo apunhalado/processado; fábula do escorpião e do sapo",
+          "frequencia": 7
+        }
+      ]
+    },
+    {
+      "bloco": "Liderança e equipe",
+      "situacoes": [
+        {
+          "id": "dono-mau-exemplo",
+          "nome": "O dono que é o pior exemplo",
+          "descricao": "quando ele vira o dedo para o dono: chega atrasado, ignora os próprios processos, cobra o que não faz",
+          "frases": [
+            "#042: o único que ninguém tenha coragem de demitir, você.",
+            "#042: Chega atrasado, ignora os processos que ele mesmo criou",
+            "#042: Exige organização, mas vai lá ver a agenda dele, a mesa, o WhatsApp",
+            "#005: Agora o pior é o patrão dele, o líder dele",
+            "#027: Toda empresa tem a cultura que o líder aceita, não o que ele prega."
+          ],
+          "emocao": "autocrítica, ironia, vergonha",
+          "imagem_ideal": "chefe hipócrita chegando atrasado com mesa bagunçada; líder se encarando no espelho",
+          "frequencia": 4
+        },
+        {
+          "id": "lider-cobra-corrige",
+          "nome": "Líder que cobra, corrige e dá feedback",
+          "descricao": "quando ele defende cobrança, pressão certa, correção e a conversa séria com o funcionário (feedback)",
+          "frases": [
+            "#048: Cara, funcionário precisa, ó, é de muita pressão.",
+            "#001: O amigo releva. O líder tem que corrigir.",
+            "#003: Líder não foi contratado para ser popular dentro da tua empresa.",
+            "#012: Cristiano, por favor, vem cá, quero falar com você.",
+            "#050: liderar, medir, cobrar"
+          ],
+          "emocao": "firmeza, autoridade",
+          "imagem_ideal": "treinador exigente cobrando o time; chefe chamando o funcionário para conversa séria na sala",
+          "frequencia": 8
+        },
+        {
+          "id": "chefe-toxico",
+          "nome": "Chefe tóxico que humilha e ameaça",
+          "descricao": "quando ele descreve a 'tensão': líder que cobra o que nunca explicou, humilha, ameaça e procura culpados",
+          "frases": [
+            "#048: serve para humilhar as pessoas, para ameaçar, demonstrar poder",
+            "#048: surge no final procurando culpados",
+            "#042: transforma qualquer erro num espetáculo",
+            "#106: funcionário que passa o dia inteiro levando porrada",
+            "#048: O líder tóxico cria tensão para provar o próprio poder."
+          ],
+          "emocao": "medo, opressão, tensão",
+          "imagem_ideal": "chefe gritando com o funcionário; equipe encolhida de medo; ambiente opressor (O Diabo Veste Prada)",
+          "frequencia": 4
+        },
+        {
+          "id": "cuidar-da-equipe",
+          "nome": "Cuidar de quem trabalha para você",
+          "descricao": "quando ele fala de ambiente, reconhecimento e futuro para a equipe: salário não compra comprometimento",
+          "frases": [
+            "#106: alguém precisa cuidar deles do lado de dentro",
+            "#120: Salário paga apenas horas, mas não compra a vontade de uma pessoa.",
+            "#106: Vocês não podem exigir que um funcionário de vocês trate melhor um cliente",
+            "#105: salário paga trabalho, mas não compra comprometimento",
+            "#040: Lealdade se constrói com crescimento, com reconhecimento"
+          ],
+          "emocao": "empatia, reconhecimento, calor humano",
+          "imagem_ideal": "chefe reconhecendo e elogiando a equipe; aperto de mão; equipe unida comemorando",
+          "frequencia": 6
+        },
+        {
+          "id": "treinar-equipe",
+          "nome": "Treinar e ensinar a equipe (empresa-escola)",
+          "descricao": "quando ele propõe ensinar, documentar, formar gente comum e fazer da empresa uma escola",
+          "frases": [
+            "#122: Em vez de explicar dez vezes para dez pessoas diferentes, ensine uma única vez",
+            "#049: ensine como se ele tivesse 10 anos de idade",
+            "#115: É aí que a empresa precisa virar uma escola.",
+            "#056: a Universidade do Hambúrguer",
+            "#047: Quem ensina a pensar, cria autonomia."
+          ],
+          "emocao": "paciência, construção, esperança",
+          "imagem_ideal": "mestre ensinando o aprendiz (Karatê Kid); sala de treinamento; mentor mostrando como se faz",
+          "frequencia": 9
+        }
+      ]
+    },
+    {
+      "bloco": "Gestão e organização da empresa",
+      "situacoes": [
+        {
+          "id": "reuniao-inutil",
+          "nome": "Reunião inútil",
+          "descricao": "quando ele critica reunião que não decide nada, toma horas de todos e substitui gestão",
+          "frases": [
+            "#031: Quanto mais reuniões tem na tua empresa, provavelmente mais desorganizada ela está.",
+            "#031: foi um ajuntamento caro de pessoas perdidas",
+            "#031: a empresa não perdeu 1 hora, olha só, perdeu 10 horas.",
+            "#107: mais uma regra, mais uma pessoa para perguntar"
+          ],
+          "emocao": "tédio, ironia",
+          "imagem_ideal": "reunião chata com gente bocejando, olhando o relógio e o celular em volta da mesa",
+          "frequencia": 4
+        },
+        {
+          "id": "processo-na-cabeca-do-dono",
+          "nome": "Processo que só existe na cabeça do dono",
+          "descricao": "quando ele mostra que a empresa inteira está na cabeça do dono e a equipe teria que ler pensamentos",
+          "frases": [
+            "#138: a tua empresa inteira está aqui dentro, na sua cabeça",
+            "#054: processo que só existe dentro da tua cabeça não é processo, é memória",
+            "#049: o óbvio só existe na tua cabeça, cara.",
+            "#054: a tua equipe ainda não aprendeu a ler pensamentos.",
+            "#085: Onde o processo falhou?"
+          ],
+          "emocao": "confusão, ironia",
+          "imagem_ideal": "cabeça cheia de papéis e post-its; alguém tentando ler a mente do outro; quadro de detetive cheio de fios",
+          "frequencia": 8
+        },
+        {
+          "id": "bagunca-caos",
+          "nome": "Bagunça e caos (empresa, mesa ou quarto)",
+          "descricao": "quando ele descreve desorganização: cada um faz do seu jeito, mesa cheia, labirinto de aprovação, ninguém no comando",
+          "frases": [
+            "#133: roupa jogada, papel acumulado, mesa cheia, coisa quebrada, desktop poluído?",
+            "#097: Cada um faz do seu jeito. Os sistemas não conversam, os números não batem",
+            "#107: atravessar um labirinto de aprovação",
+            "#104: Apertem os cintos, o piloto sumiu.",
+            "#133: ele arruma o apartamento"
+          ],
+          "emocao": "caos, sufoco, comédia",
+          "imagem_ideal": "escritório bagunçado com papéis voando; cozinha em caos; cena de Sem Limites arrumando o apartamento; avião sem piloto",
+          "frequencia": 7
+        },
+        {
+          "id": "decidir-no-escuro",
+          "nome": "Decidir no achismo, sem números",
+          "descricao": "quando ele critica o dono que decide no 'eu acho', não mede e não sabe a margem; contraste com quem mede",
+          "frases": [
+            "#071: você acaba decidindo no escuro, meu caro.",
+            "#071: Porque eles mediam. Aliás, eles medem.",
+            "#104: nenhuma empresa pode ser administrada no 'eu acho', 'eu tô sentindo'.",
+            "#024: O preço é no 'eu acho', a meta é 'vamos tentar'",
+            "#112: Ninguém gerencia o que não mede."
+          ],
+          "emocao": "incerteza, tensão",
+          "imagem_ideal": "pessoa vendada tateando no escuro; piloto sem instrumentos; contraste com painel cheio de números",
+          "frequencia": 7
+        },
+        {
+          "id": "crescer-desorganizado",
+          "nome": "Crescer rápido e sufocar (sucesso de fachada)",
+          "descricao": "quando ele mostra que crescer sem estrutura aperta o caixa: todo mundo aplaude por fora e o dono sufoca por dentro",
+          "frases": [
+            "#097: Crescer pode quebrar a tua empresa.",
+            "#097: Você cria uma dívida com aparência de sucesso.",
+            "#097: como é possível eu faturar o dobro e ainda estar mais sufocado?",
+            "#107: A simplicidade escala e a complexidade quebra.",
+            "#058: Você construiu um castelo de cartas"
+          ],
+          "emocao": "euforia que vira angústia",
+          "imagem_ideal": "comemoração com o dono angustiado no canto; castelo de cartas desabando; prédio crescendo torto",
+          "frequencia": 5
+        },
+        {
+          "id": "paixao-tecnica-x-gestao",
+          "nome": "Bom no ofício, ruim na gestão",
+          "descricao": "quando ele fala do cozinheiro, dentista ou mecânico que abre empresa por paixão e quebra por não saber administrar",
+          "frases": [
+            "#104: O cara cozinha bem, o que que ele pensa? Vou abrir um restaurante.",
+            "#046: um excelente cozinheiro pode destruir um restaurante",
+            "#052: O negócio do dono é gestão.",
+            "#050: você vai ter que aprender a fazer o trabalho sujo",
+            "#109: ser bom no que você faz não significa saber construir uma boa empresa"
+          ],
+          "emocao": "ilusão que vira choque de realidade",
+          "imagem_ideal": "chef/cozinheiro, dentista ou mecânico se afogando em papelada e contas; Ratatouille na cozinha",
+          "frequencia": 6
+        },
+        {
+          "id": "teimosia-mudar-rota",
+          "nome": "Teimosia x mudar de rota",
+          "descricao": "quando ele critica quem insiste no caminho errado ou no 'sempre deu certo assim' e elogia quem muda o jogo",
+          "frases": [
+            "#073: pare de se enganar, chamando sua teimosia de persistência",
+            "#006: Uma roda quadrada não consegue andar nesse terreno",
+            "roteiro 26/09 Kodak: aqui sempre deu certo assim",
+            "#073: O fato que vai derrubar a tua empresa não está escondido.",
+            "#071: Então, em vez de brigar, mudaram o jogo."
+          ],
+          "emocao": "negação, alerta, insight",
+          "imagem_ideal": "pessoa batendo a cabeça na parede; navio indo para o iceberg; alguém virando o volante/mudando de direção",
+          "frequencia": 5
+        }
+      ]
+    },
+    {
+      "bloco": "Clientes, mercado e concorrência",
+      "situacoes": [
+        {
+          "id": "cliente-dificil",
+          "nome": "Cliente difícil e exigente",
+          "descricao": "quando ele fala do cliente xarope, exigente, que manda, reclama e vai embora espalhando",
+          "frases": [
+            "#002: aquele cliente xarope que está esperando uma resposta",
+            "#101: O cliente é a visita exigente.",
+            "#075: o cliente manda. Se não gostar, vai embora e leva a receita junto",
+            "#101: ele reclama, vai embora e ainda conta para outras pessoas",
+            "#016: cliente reclamando, caixa apertado"
+          ],
+          "emocao": "irritação, pressão, humor",
+          "imagem_ideal": "cliente chato reclamando no balcão; atendente forçando sorriso; cliente batendo a porta",
+          "frequencia": 5
+        },
+        {
+          "id": "concorrencia-perder-cliente",
+          "nome": "Concorrência e cliente que troca de fornecedor",
+          "descricao": "quando ele mostra o cliente indo para o outro, o concorrente mais rápido ou o gigante já instalado no mercado",
+          "frases": [
+            "#086: Eu nunca mais compro nessa pizzaria.",
+            "#076: troca de fornecedor sem te avisar",
+            "roteiro 26/09 Kodak: E o teu concorrente responde.",
+            "#071: Lá o McDonald's e o Bob's já estavam plantados.",
+            "#150: Talvez o teu maior concorrente não seja alguém mais inteligente que você."
+          ],
+          "emocao": "ameaça, disputa, alerta",
+          "imagem_ideal": "rival sorrindo levando o cliente; corrida disputada; loja vazia x concorrente lotado",
+          "frequencia": 6
+        },
+        {
+          "id": "vender-aparecer",
+          "nome": "Vender, aparecer e bater na porta",
+          "descricao": "quando ele cobra que o profissional se mostre, peça, ligue, venda, sem vergonha e com abordagem",
+          "frases": [
+            "#019: Ser o melhor no que você faz não serve para nada se ninguém souber",
+            "#137: não tenha vergonha de bater numa porta",
+            "#137: Seja cara de pau quando precisar.",
+            "#124: você precisa vender mais, mas você não sabe o que fazer",
+            "#056: Você contrata um vendedor, mas nunca entrega uma abordagem"
+          ],
+          "emocao": "coragem, garra, ousadia",
+          "imagem_ideal": "vendedor batendo de porta em porta; ligações em sequência (À Procura da Felicidade, O Lobo de Wall Street)",
+          "frequencia": 6
+        },
+        {
+          "id": "caso-empresa-famosa",
+          "nome": "História de empresa ou gênio famoso",
+          "descricao": "quando ele conta um caso real (McDonald's, Giraffas, Kodak, Edison, Dyson, Canva, Steve Jobs) como prova",
+          "frases": [
+            "#056: Em 1956, Fred L. Turner entrou no McDonald's para trabalhar na chapa.",
+            "#071: comprou com um amigo uma lanchonete quase falida chamada Giraffas",
+            "#118: Thomas Edison afirmou que chegou a construir cerca de 3.000 teorias",
+            "roteiro 26/09 Kodak: Uma câmera do tamanho de uma torradeira.",
+            "#021: Steve Jobs, por exemplo, usava a mesma roupa todo dia."
+          ],
+          "emocao": "curiosidade, inspiração",
+          "imagem_ideal": "cena de filme biográfico (Fome de Poder, Steve Jobs, O Aviador) ou foto de época da empresa citada",
+          "frequencia": 7
+        }
+      ]
+    },
+    {
+      "bloco": "Dinheiro: riqueza, quebra e virada",
+      "situacoes": [
+        {
+          "id": "riqueza-ficar-rico",
+          "nome": "Ganhar dinheiro / ficar rico",
+          "descricao": "quando ele fala de enriquecer, do desejo de riqueza e de como o dinheiro cresce",
+          "frases": [
+            "#123: Você quer ficar rico?",
+            "#117: os otimistas, na maioria das vezes, ficam ricos",
+            "#062: Quem deseja possuir todo o dinheiro que vê, nunca vai ficar rico.",
+            "#061: O dinheiro gosta de silêncio",
+            "#010: A riqueza de verdade só é construída longe do palco."
+          ],
+          "emocao": "ambição, desejo, aspiração",
+          "imagem_ideal": "cofre, maços de notas sendo contados, magnata no escritório de vidro (O Lobo de Wall Street)",
+          "frequencia": 9
+        },
+        {
+          "id": "dinheiro-some-caixa-vazio",
+          "nome": "Vende muito e o dinheiro some",
+          "descricao": "quando ele descreve o fim do mês sem dinheiro, a empresa que vira ONG e o dono que tira do bolso para cobrir",
+          "frases": [
+            "#135: Cadê o bendito do dinheiro?",
+            "#124: você não consegue ver a cor do dinheiro no final do mês",
+            "#015: quando chega na vez do dono, não sobra nada.",
+            "#015: Cuidado para não transformar a tua empresa numa ONG.",
+            "#073: Todo mês você coloca mais dinheiro do teu bolso"
+          ],
+          "emocao": "frustração, confusão, aperto",
+          "imagem_ideal": "carteira vazia; caixa registradora sem nada; bolso virado do avesso; dinheiro escorrendo pelas mãos",
+          "frequencia": 8
+        },
+        {
+          "id": "parecer-rico-ostentacao",
+          "nome": "Parecer rico / ostentação",
+          "descricao": "quando ele critica quem vive de parcela para parecer rico e quem ostenta Ferrari e jatinho para vender ilusão",
+          "frases": [
+            "#010: tem gente que precisa parar de tentar parecer rica",
+            "#010: É a parcela do carro, é a parcela do celular",
+            "#010: um monte de gente ferrada, sem dinheiro, tentando provar que tem dinheiro",
+            "#077: Bastava aparecer ao lado de uma Ferrari, gravar dentro de um jatinho",
+            "#062: tenta comprar os símbolos da riqueza sem construir o processo"
+          ],
+          "emocao": "ironia, crítica à vaidade",
+          "imagem_ideal": "carro de luxo, roupa de grife, festa de ostentação (O Grande Gatsby); falso milionário posando",
+          "frequencia": 5
+        },
+        {
+          "id": "quebrar-fundo-do-poco",
+          "nome": "Quebrar / fundo do poço / dívidas",
+          "descricao": "quando ele conta a falência (oficial de justiça, casa em leilão, conta bloqueada) ou alerta que a empresa vai quebrar",
+          "frases": [
+            "#045: Um oficial de justiça acabou de bater na porta da minha casa.",
+            "#109: Clailton, a empresa está quebrada",
+            "#109: minha conta foi bloqueada, minha casa chegou a ir a leilão",
+            "#124: é quase certeza de que ela vai quebrar nos próximos 5 anos",
+            "#148: Por que isso está acontecendo comigo agora?"
+          ],
+          "emocao": "desespero, vergonha, medo",
+          "imagem_ideal": "homem arrasado sentado no chão; batida na porta; loja fechando as portas; pilha de contas e dívidas",
+          "frequencia": 12
+        },
+        {
+          "id": "origem-pobreza",
+          "nome": "Começo pobre / origem humilde",
+          "descricao": "quando ele conta a infância pobre, o picolé, o açougue, ou lembra quem começa a corrida em desvantagem",
+          "frases": [
+            "#109: Eu venho de uma família muito pobre.",
+            "#109: aos 10 anos, comecei a vender picolés para ajudar no sustento",
+            "#109: Meu primeiro emprego foi como açougueiro.",
+            "#136: Tem gente que começa a corrida já cansada."
+          ],
+          "emocao": "humildade, nostalgia, dureza",
+          "imagem_ideal": "menino pobre vendendo na rua; casa simples; trabalho braçal pesado",
+          "frequencia": 3
+        },
+        {
+          "id": "recomecar-do-zero",
+          "nome": "Recomeçar do zero",
+          "descricao": "quando ele fala de reconstruir depois de perder tudo, começar de novo sozinho, trabalhar de dia e construir à noite",
+          "frases": [
+            "#045: E foi justamente ela que me permitiu reconstruir tudo outra vez.",
+            "#109: comecei um outro negócio novamente, sozinho, do zero.",
+            "#078: ousar, fracassar, passar vergonha e recomeçar",
+            "#045: o dinheiro pode ser reconquistado outra vez",
+            "#143: Durante o dia, carregava baldes para pagar as contas."
+          ],
+          "emocao": "resiliência, determinação silenciosa",
+          "imagem_ideal": "alguém se levantando do chão; reconstruindo com as próprias mãos; trabalhando sozinho de madrugada (Rocky)",
+          "frequencia": 5
+        },
+        {
+          "id": "virar-o-jogo-vitoria",
+          "nome": "Virar o jogo / vitória depois do sofrimento",
+          "descricao": "quando ele chega no momento da virada: deu a volta por cima, a água correu nos canos, o chapeiro virou CEO",
+          "frases": [
+            "#109: E foi então que eu virei o jogo!",
+            "#148: Felizmente, eu consegui dar a volta por cima",
+            "#143: A água finalmente começou a correr pelos canos e tudo mudou.",
+            "#056: tornou-se o CEO da companhia",
+            "#071: Em 2024, faturou 1 bilhão com praticamente as mesmas 400 lojas."
+          ],
+          "emocao": "triunfo, alívio, euforia",
+          "imagem_ideal": "braços erguidos no alto da escada (Rocky); comemoração emocionada (À Procura da Felicidade); vitória depois da luta",
+          "frequencia": 7
+        }
+      ]
+    },
+    {
+      "bloco": "A vida do dono",
+      "situacoes": [
+        {
+          "id": "dono-sobrecarregado",
+          "nome": "Dono que faz tudo sozinho e apaga incêndio",
+          "descricao": "quando ele descreve o dono que é vendedor, gerente, cobrador e bombeiro, e resolve tudo no lugar da equipe",
+          "frases": [
+            "#112: cansado é de ser o vendedor, o gerente, o cobrador, o entregador",
+            "#104: O dono trabalha, corre, vende, apaga incêndio, resolve tudo",
+            "#082: O cliente reclamou? O dono vai lá e resolve.",
+            "#122: se eu não tiver por aqui, nada vai funcionar.",
+            "#093: tentando economizar dinheiro do jeito mais caro possível, fazendo tudo sozinho"
+          ],
+          "emocao": "exaustão, correria, caos",
+          "imagem_ideal": "homem fazendo mil coisas ao mesmo tempo, malabarista equilibrando pratos, apagando incêndio",
+          "frequencia": 10
+        },
+        {
+          "id": "dono-preso-na-operacao",
+          "nome": "Empresa que só funciona com o dono",
+          "descricao": "quando ele mostra que o dono não tira férias, é refém do que construiu e segue carregando baldes",
+          "frases": [
+            "#138: você jamais vai conseguir tirar férias",
+            "#138: A empresa que precisa do dono não é uma empresa, é um emprego caro.",
+            "#112: é não ser mais refém daquilo que você mesmo construiu.",
+            "#143: você ainda estará carregando baldes.",
+            "#109: Eu tinha criado um modelo que funcionava, mas dependia de mim."
+          ],
+          "emocao": "aprisionamento, peso",
+          "imagem_ideal": "homem acorrentado à mesa; carregando baldes/peso nas costas; hamster na rodinha",
+          "frequencia": 6
+        },
+        {
+          "id": "dono-sozinho-com-a-bucha",
+          "nome": "Todo mundo cobra o dono (solidão do empresário)",
+          "descricao": "quando ele fala do dono cobrado por fornecedor, banco, governo e cliente, e que não pode se levantar e ir embora",
+          "frases": [
+            "#075: virou um pau mandado de todo mundo",
+            "#075: O fornecedor pressiona, o banco cobra, o governo ameaça, o cliente manda.",
+            "#008: o empresário é a única pessoa da mesa que não pode simplesmente se levantar",
+            "#101: todo mundo olha para o mesmo cara. Você, o empresário.",
+            "#018: quando falta dinheiro, você descobre que está sozinho."
+          ],
+          "emocao": "solidão, pressão, peso da responsabilidade",
+          "imagem_ideal": "homem sozinho no escritório à noite; todos apontando para ele; capitão sozinho no leme da tempestade",
+          "frequencia": 7
+        },
+        {
+          "id": "cansaco-burnout",
+          "nome": "Cansaço, insônia e saúde destruída",
+          "descricao": "quando ele descreve o empresário exausto, que dorme mal, ignora o corpo e depois vive de remédio",
+          "frases": [
+            "#151: dorme mal, trabalha cansado, come de qualquer jeito, ignora os sinais",
+            "#116: o cardiologista, o remédio para dormir, o remédio para ansiedade",
+            "#124: Ela quebra quando você perde o sono.",
+            "#143: Pedro estava mais velho, mais cansado",
+            "#083: Os caras estão exaustos."
+          ],
+          "emocao": "exaustão, angústia",
+          "imagem_ideal": "homem esgotado com a cabeça na mesa; insônia olhando o teto; hospital; motor fundindo",
+          "frequencia": 9
+        },
+        {
+          "id": "se-abandonar-cuidar-de-si",
+          "nome": "Se abandonar x cuidar de si",
+          "descricao": "quando ele pede para a pessoa parar, descansar e se cuidar: quem cuida de todos e esquece de si",
+          "frases": [
+            "#032: Seja egoísta para o bem das pessoas que você ama.",
+            "#055: Tem gente que cuida melhor do cachorro do que da própria vida.",
+            "#151: esquece de fazer manutenção da máquina mais importante que tem, ela mesma.",
+            "#032: Você ignora o cansaço, aceita o desrespeito, abandona os próprios planos",
+            "#116: Fique rico se puder. Só não fique pobre de vida no processo."
+          ],
+          "emocao": "autocompaixão, alerta suave",
+          "imagem_ideal": "pessoa finalmente descansando e respirando; carro na revisão; cuidando do cachorro com carinho",
+          "frequencia": 6
+        }
+      ]
+    },
+    {
+      "bloco": "Família, tempo e morte",
+      "situacoes": [
+        {
+          "id": "familia-esquecida-trabalho",
+          "nome": "Família esquecida por causa do trabalho",
+          "descricao": "quando ele conta que estava perdendo a família, o filho não quis ficar com ele, levava trabalho para casa",
+          "frases": [
+            "#004: Eu estava perdendo a minha família por causa do meu trabalho.",
+            "#004: Ele não queria ficar comigo. Não quero, não quero.",
+            "#109: Eu estava dentro de casa, mas não estava presente.",
+            "#083: levava trabalho para casa, tantas vezes que quase perdi meu casamento.",
+            "#124: você chega em casa sem cabeça para tua família"
+          ],
+          "emocao": "culpa, tristeza, arrependimento",
+          "imagem_ideal": "pai no notebook enquanto o filho chama; cadeira vazia no jantar; filho rejeitando o pai",
+          "frequencia": 9
+        },
+        {
+          "id": "pais-e-filhos",
+          "nome": "Educar filhos, limites e herança dos pais",
+          "descricao": "quando ele fala de pais que não dão limite, entregam a tela, ou da história que os pais escreveram em nós",
+          "frases": [
+            "#102: Se você ama teus filhos, seja mau com eles.",
+            "#102: Quer celular novo? Compra. Fez besteira? Passa a mão na cabeça.",
+            "#102: Prepare o teu filho para o caminho.",
+            "#034: pais que muitas vezes entregaram uma tela para conseguir alguns minutos de silêncio",
+            "#132: Infelizmente, nós não podemos escolher nossos pais."
+          ],
+          "emocao": "ternura firme, responsabilidade",
+          "imagem_ideal": "pai ensinando o filho; criança mimada fazendo birra; criança hipnotizada no tablet",
+          "frequencia": 6
+        },
+        {
+          "id": "casamento-parceria",
+          "nome": "Casamento e parceria",
+          "descricao": "quando ele cita a esposa, o casamento e a escolha de casar ou não",
+          "frases": [
+            "#057: Você vai se arrepender de casar e também vai se arrepender se não casar.",
+            "#081: A minha esposa, por exemplo, tem uma missão",
+            "#098: você brigou com a esposa, aí você manda uma conversa para a IA",
+            "#012: Ontem ainda conversei com a minha esposa e fiz feedback burger"
+          ],
+          "emocao": "cumplicidade, humor",
+          "imagem_ideal": "casal lado a lado; cerimônia de casamento; casal discutindo e fazendo as pazes",
+          "frequencia": 5
+        },
+        {
+          "id": "morte-funeral",
+          "nome": "Morte e funeral",
+          "descricao": "quando ele usa a morte para acordar a pessoa: velório, herança dividida, ninguém vai lembrar",
+          "frases": [
+            "#078: Quando você morrer, vão dividir tudo aquilo que custou cada maldita gota de suor",
+            "#070: No teu funeral, você vai ser o assunto menos comentado do que você imagina.",
+            "#145: Daqui a 100 anos, em 2126, estaremos todos enterrados",
+            "#070: Alguém vai reclamar da comida",
+            "#144: toda grande conquista começa com um funeral."
+          ],
+          "emocao": "solenidade, choque, reflexão",
+          "imagem_ideal": "velório com gente olhando o relógio; caixão; cemitério; lápide",
+          "frequencia": 6
+        },
+        {
+          "id": "tempo-acabando-vida-passa",
+          "nome": "Tempo que acaba e momentos que não voltam",
+          "descricao": "quando ele fala do tempo perdido, envelhecer, filhos crescendo, abraços que acontecem pela última vez",
+          "frases": [
+            "#100: Essa tela nunca acaba, mas a tua vida sim.",
+            "#100: Alguns abraços vão acontecer pela última vez.",
+            "#074: O ser humano quer viver até os 90, só que não quer ter 90.",
+            "#013: O dinheiro perdido pode ser recuperado. Agora, o tempo perdido, jamais.",
+            "#145: por mais um abraço que não deu"
+          ],
+          "emocao": "melancolia, urgência, nostalgia",
+          "imagem_ideal": "ampulheta escorrendo; relógio correndo; idoso olhando fotos antigas; abraço em câmera lenta",
+          "frequencia": 8
+        }
+      ]
+    },
+    {
+      "bloco": "Relações: amizade, sociedade e traição",
+      "situacoes": [
+        {
+          "id": "socio-conflito",
+          "nome": "Briga e desequilíbrio entre sócios",
+          "descricao": "quando ele fala do sócio peso morto, do que trabalha menos e tira o mesmo, da briga e da falta de contrato",
+          "frases": [
+            "roteiro 26/09 sócio: Você trabalha o dobro do teu sócio e tira o mesmo valor?",
+            "#073: O teu sócio já mostrou que é um peso morto",
+            "#009: Se você brigou com teu sócio dentro do escritório, tire ele de lá.",
+            "#121: Vai abrir uma sociedade até com seu melhor amigo? Faça um bom contrato.",
+            "#109: percebi que meu sócio já não caminhava na mesma direção que eu"
+          ],
+          "emocao": "ressentimento, tensão",
+          "imagem_ideal": "dois sócios discutindo; um trabalhando e o outro de pernas para cima; aperto de mão que vira briga",
+          "frequencia": 6
+        },
+        {
+          "id": "parente-amigo-na-empresa",
+          "nome": "Misturar família e amigos com negócio",
+          "descricao": "quando ele critica contratar/vender para parente, primo, amigo ou irmão da igreja e o constrangimento que vem depois",
+          "frases": [
+            "#086: Quer acabar com uma amizade? Chama um amigo para ser teu sócio.",
+            "#024: tu quer perder o amigo, o irmão e o almoço de domingo",
+            "#088: olhando para o piso torto na segunda-feira e cumprimentando quem fez aquilo no domingo",
+            "#094: Mas nós somos amigos, pô. Para mim você não consegue fazer um precinho melhor?",
+            "#038: o filho do dono quebra todos os processos"
+          ],
+          "emocao": "constrangimento, humor, tensão familiar",
+          "imagem_ideal": "almoço de domingo constrangido; primo folgado no trabalho; família reunida em clima tenso (O Poderoso Chefão)",
+          "frequencia": 6
+        },
+        {
+          "id": "falsos-amigos-traicao",
+          "nome": "Traição, falsidade e quem some na dificuldade",
+          "descricao": "quando ele fala de quem abraça pela frente e apunhala pelas costas, do amigo que vira adversário e de quem some quando você deixa de ser útil",
+          "frases": [
+            "#140: As pessoas vão te abraçar pela frente e te apunhalar pelas costas.",
+            "#140: ela precisa estar perto para exatamente saber onde enfiar a faca.",
+            "#121: Quem hoje é seu amigo, amanhã pode virar seu adversário.",
+            "#139: Você só descobre realmente quem te ama quando você deixa de ser útil.",
+            "#136: Vai ser leal e ainda assim vai ser traído."
+          ],
+          "emocao": "traição, decepção, raiva contida",
+          "imagem_ideal": "facada pelas costas (Júlio César); abraço falso com sorriso cínico; amigos indo embora e deixando o outro sozinho",
+          "frequencia": 8
+        },
+        {
+          "id": "amigo-leal",
+          "nome": "Amigo leal de verdade",
+          "descricao": "quando ele exalta o amigo que arrisca a vida por você, que te confronta e que te levanta do chão",
+          "frases": [
+            "#060: A maior riqueza da vida é ter um amigo que arriscaria a vida por você.",
+            "#064: Um que tem a coragem de te ferir",
+            "#064: Continue, meu camarada. Eu sei que você é capaz",
+            "#060: quem chega a uma batalha e descobre que está sozinho"
+          ],
+          "emocao": "lealdade, emoção, camaradagem",
+          "imagem_ideal": "amigos lado a lado na batalha; Sam carregando Frodo (O Senhor dos Anéis); abraço de irmãos",
+          "frequencia": 4
+        },
+        {
+          "id": "inveja-haters",
+          "nome": "Inveja, haters e torcida contra",
+          "descricao": "quando ele fala de quem odeia, critica, torce contra e espera o erro para dizer 'eu te avisei'",
+          "frases": [
+            "#091: Ignore os haters. Eles não odeiam você, eles odeiam a própria vida.",
+            "#141: Muita gente ao teu redor está obcecada em provar que você está errado.",
+            "#141: Eu te avisei",
+            "#129: Tem gente que não gosta de você?",
+            "#140: Elas simplesmente não suportam ver você melhor do que elas."
+          ],
+          "emocao": "desprezo, superação, deboche",
+          "imagem_ideal": "pessoas cochichando com inveja; olhar invejoso do canto; críticos debochando na plateia",
+          "frequencia": 6
+        },
+        {
+          "id": "discussao-briga-calar",
+          "nome": "Discussão, briga e saber calar",
+          "descricao": "quando ele fala de ter a briga necessária, mudar o ambiente da treta, egos discutindo, ou de calar a boca",
+          "frases": [
+            "#053: Tenha a maldita briga de uma vez por todas.",
+            "#009: Nunca tente resolver uma treta no ambiente em que ela foi criada.",
+            "#114: Existem apenas dois egos esperando a sua vez de falar.",
+            "#125: Por que você não tenta calar a tua boca?",
+            "#125: Você é o dono do que cala e o escravo do que fala."
+          ],
+          "emocao": "tensão, explosão ou contenção",
+          "imagem_ideal": "discussão acalorada cara a cara; casal brigando; alguém fazendo sinal de silêncio",
+          "frequencia": 6
+        }
+      ]
+    },
+    {
+      "bloco": "Hábitos, foco e disciplina",
+      "situacoes": [
+        {
+          "id": "disciplina-sem-motivacao",
+          "nome": "Disciplina sem depender de motivação",
+          "descricao": "quando ele manda parar de esperar vontade e fazer o que precisa ser feito, com determinação",
+          "frases": [
+            "#095: Pare de procurar motivação.",
+            "#095: levanta a bunda dessa cadeira e faz o que precisa ser feito.",
+            "#095: Compromisso diz: 'Eu falei que ia fazer, acabou!'",
+            "#123: D de determinação suficiente para você continuar quando a coisa ficar difícil.",
+            "#061: O barulho oferece prazer imediato, o silêncio exige disciplina."
+          ],
+          "emocao": "garra, intensidade",
+          "imagem_ideal": "treino pesado na chuva; acordar de madrugada; montagem de treino (Rocky)",
+          "frequencia": 6
+        },
+        {
+          "id": "procrastinar-adiar",
+          "nome": "Procrastinar e adiar o que importa",
+          "descricao": "quando ele fala do sapo na mesa, da tarefa empurrada para depois, da promessa de segunda abandonada na quarta",
+          "frases": [
+            "#002: engole essa porcaria desse sapo primeiro.",
+            "#002: Vou resolver depois do almoço.",
+            "#026: da promessa que você faz na segunda-feira e abandona já na quarta",
+            "#133: Ah, depois eu arrumo, depois eu organizo, depois eu respondo",
+            "#073: Então faça a pergunta que você vem evitando há meses."
+          ],
+          "emocao": "culpa, humor, peso",
+          "imagem_ideal": "pessoa no sofá adiando; tarefa empurrada; sapo em cima da mesa; folhas do calendário passando",
+          "frequencia": 6
+        },
+        {
+          "id": "celular-distracao",
+          "nome": "Celular, telas e distração",
+          "descricao": "quando ele descreve o vício no celular, WhatsApp de manhã, notificação interrompendo, criança no tablet",
+          "frases": [
+            "#100: a gente acorda e antes mesmo de sair da cama, procura o celular.",
+            "#022: Se você acorda, pega o celular e abre o WhatsApp",
+            "#068: Quando qualquer notificação, mensagem ou vídeo consegue interromper você",
+            "#034: A tecnologia não colocou um tablet na mão do teu filho.",
+            "#061: Notificações, aplausos, conversas inúteis"
+          ],
+          "emocao": "alienação, vício, alerta",
+          "imagem_ideal": "pessoas zumbis olhando o celular; família à mesa cada um na sua tela; dedo rolando a tela sem fim",
+          "frequencia": 7
+        },
+        {
+          "id": "produtividade-gestao-tempo",
+          "nome": "Gestão do tempo e produtividade",
+          "descricao": "quando ele fala de agenda, energia, prazo, Lei de Parkinson e tempo desperdiçado no dia",
+          "frases": [
+            "#013: Gestão de tempo é uma mentira.",
+            "#131: o trabalho tende a expandir para ocupar o tempo disponível para realizá-lo",
+            "#099: Gerencie a tua energia, mas não o teu tempo.",
+            "#021: você acabou de perder a primeira batalha do dia",
+            "#004: Gastava 15 minutos num café."
+          ],
+          "emocao": "urgência, foco",
+          "imagem_ideal": "relógio grande; agenda lotada; pessoa correndo contra o tempo; foco total na mesa",
+          "frequencia": 8
+        },
+        {
+          "id": "agir-tentar-errar",
+          "nome": "Agir, tentar e errar até acertar",
+          "descricao": "quando ele defende tentar muito, errar e ajustar, em vez de pensar demais e ficar parado",
+          "frases": [
+            "#118: Quem tenta 100 pode errar 99",
+            "#150: Talento parado perde para mediocridade em movimento.",
+            "#150: Enquanto você esperava ter certeza, ela fazia",
+            "#087: Tem gente com uma biblioteca cheia de uma vida vazia de execução.",
+            "#117: o otimista coleciona tentativas"
+          ],
+          "emocao": "persistência, ousadia",
+          "imagem_ideal": "inventor testando protótipos que falham; cair e levantar várias vezes; montagem de tentativas",
+          "frequencia": 6
+        },
+        {
+          "id": "acomodacao-piloto-automatico",
+          "nome": "Acomodação e piloto automático",
+          "descricao": "quando ele cutuca quem se acomodou, vive no piloto automático, abraçou o comodismo ou se apegou ao problema",
+          "frases": [
+            "#026: Talvez esteja faltando é raiva na tua vida.",
+            "#146: As pessoas vivem como robôs programados.",
+            "#007: A gente vive nesse piloto automático",
+            "#084: Pare de ser trouxa, desperdiçando seu tempo com quem já abraçou o comodismo.",
+            "#134: Tá na hora de abandonar o teu probleminha de estimação"
+          ],
+          "emocao": "incômodo, provocação, monotonia",
+          "imagem_ideal": "rotina repetida (Feitiço do Tempo); pessoa largada no sofá; robôs em fila; linha de montagem (Tempos Modernos)",
+          "frequencia": 6
+        }
+      ]
+    },
+    {
+      "bloco": "Mentalidade: ego, coragem e escolhas",
+      "situacoes": [
+        {
+          "id": "comparar-palco-dos-outros",
+          "nome": "Comparar-se com o palco dos outros",
+          "descricao": "quando ele fala de comparar os seus bastidores com o palco/vitrine da vida alheia",
+          "frases": [
+            "#000: nunca compare os seus bastidores com o palco de alguém",
+            "#043: Comparar-se com o que os outros são hoje",
+            "#043: Você vê o patrimônio, mas não vê os prejuízos que a pessoa teve.",
+            "#057: só imagina as vantagens da vida que você abandonou",
+            "#061: não é o barulho do palco, é a concentração dos bastidores"
+          ],
+          "emocao": "inveja, inadequação que vira alívio",
+          "imagem_ideal": "palco iluminado x bastidores bagunçados; pessoa rolando feed de vidas perfeitas; vitrine",
+          "frequencia": 6
+        },
+        {
+          "id": "guru-de-palco-farsa",
+          "nome": "Guru de palco e falsa promessa",
+          "descricao": "quando ele ataca o empreendedor de palco, o falso guru e a motivação de fim de semana",
+          "frases": [
+            "#016: Os empreendedores de palco ficaram milionários vendendo uma das maiores mentiras",
+            "#016: alguém gritando: 'Você nasceu pra vencer!'",
+            "#077: Os falsos gurus da internet não enganaram o mercado sozinhos.",
+            "#000: desconfie dos malditos empreendedores de palco",
+            "#016: a empresa não tem trilha sonora acompanhando ele"
+          ],
+          "emocao": "indignação, deboche",
+          "imagem_ideal": "palestrante motivacional gritando no palco; plateia em êxtase; charlatão vendendo milagre",
+          "frequencia": 4
+        },
+        {
+          "id": "arrogancia-ego",
+          "nome": "Arrogância e ego",
+          "descricao": "quando ele critica o sabe-tudo, quem quer consertar o mundo sem arrumar a gaveta e a guerra de egos",
+          "frases": [
+            "#036: o profissional que precisa provar o tempo todo que é o mais inteligente",
+            "#051: Tem gente querendo consertar o mundo, mas não consegue organizar a própria gaveta.",
+            "#073: está na hora de matar esse teu ego",
+            "#114: Muitas vezes é uma guerra de egos usando argumentos como munição.",
+            "#064: Ele não permite que o sucesso faça você se achar maior"
+          ],
+          "emocao": "ironia, crítica",
+          "imagem_ideal": "pessoa de nariz empinado; sabe-tudo interrompendo; pavão se exibindo",
+          "frequencia": 6
+        },
+        {
+          "id": "medo-do-julgamento-vergonha",
+          "nome": "Medo do julgamento e vergonha",
+          "descricao": "quando ele fala de viver para a opinião alheia, da vergonha de pedir e da postura de quem se apresenta fraco",
+          "frases": [
+            "#137: a vergonha é um luxo que você ainda não pode bancar",
+            "#070: Você ensaia cada escolha com medo do julgamento",
+            "#078: a opinião de quem você passa a vida tentando impressionar",
+            "#129: opinião de quem não paga as suas contas",
+            "#033: Quando você se apresenta como um fraco, as pessoas vão te tratar como merda."
+          ],
+          "emocao": "timidez, insegurança que vira libertação",
+          "imagem_ideal": "pessoa tímida encolhida diante de uma plateia que julga; cabeça baixa; alguém endireitando a postura",
+          "frequencia": 7
+        },
+        {
+          "id": "posicionamento-ser-diferente",
+          "nome": "Se posicionar, desagradar e ser diferente",
+          "descricao": "quando ele defende desagradar, dizer não, confrontar e ser o 'estranho' que não cabe no molde",
+          "frases": [
+            "#020: O segredo do sucesso é desagradar o maior número possível de pessoas.",
+            "#020: Quem tenta ser aceito por todo mundo, não constrói respeito.",
+            "#147: Esse vídeo é para os estranhos, os difíceis, os desajustados",
+            "#030: Eu prefiro o funcionário forte que me confronta do que o fraco",
+            "#003: para dizer não quando todo mundo quer ouvir um sim."
+          ],
+          "emocao": "firmeza, rebeldia, orgulho",
+          "imagem_ideal": "um contra a multidão; ovelha negra; peixe nadando contra a corrente",
+          "frequencia": 6
+        },
+        {
+          "id": "decisao-dificil-escolha",
+          "nome": "Decisão difícil e o preço da escolha",
+          "descricao": "quando ele fala da decisão adiada, da escolha que deixa você sozinho e de qual arrependimento aceitar",
+          "frases": [
+            "#057: Você escolhe com qual arrependimento está disposto a viver.",
+            "#002: aquela decisão que você já tomou faz tempo, mas ainda não teve a coragem",
+            "#069: E as certas, talvez tenham deixado você sozinho.",
+            "#044: Você continua adiando uma decisão que já deveria ter tomado",
+            "#008: dezenas de famílias dependem de decisões que você precisa tomar todos os dias"
+          ],
+          "emocao": "dilema, peso, solidão",
+          "imagem_ideal": "encruzilhada; homem sozinho diante de duas portas; jogador de xadrez pensando o lance",
+          "frequencia": 8
+        },
+        {
+          "id": "assumir-o-proprio-jogo",
+          "nome": "Assumir o controle da própria vida",
+          "descricao": "quando ele chama a pessoa a deixar de ser peça/figurante, pegar a caneta e decidir o que fazer agora",
+          "frases": [
+            "#128: você nasceu para ser o jogador",
+            "#128: Todas elas continuam sendo apenas peças.",
+            "#132: A caneta não está mais nas mãos dos nossos pais.",
+            "#136: O que eu faço com isso agora?",
+            "#070: não viva como figurante da tua própria vida."
+          ],
+          "emocao": "empoderamento, virada interna",
+          "imagem_ideal": "mão movendo a peça no tabuleiro de xadrez; alguém pegando a caneta; protagonista assumindo o volante",
+          "frequencia": 5
+        },
+        {
+          "id": "dor-como-caminho",
+          "nome": "A dor que forma / o preço do sonho",
+          "descricao": "quando ele diz que a dor guarda o sonho, que algo precisa morrer para o sucesso nascer, que cicatriz vira repertório",
+          "frases": [
+            "#067: Todo sonho tem uma dor como guardiã",
+            "#144: Todo mundo quer ir para o céu, mas ninguém quer morrer.",
+            "#148: Quando uma dor atravessa você, ela não deixa apenas cicatrizes.",
+            "#109: Eu conheço pela cicatriz.",
+            "#067: Você realmente quer esse sonho ou gosta de imaginar que ele é seu?"
+          ],
+          "emocao": "épico, sofrimento com propósito",
+          "imagem_ideal": "guerreiro atravessando provação; portal guardado; treinamento doloroso; cicatrizes",
+          "frequencia": 5
+        }
+      ]
+    },
+    {
+      "bloco": "Governo, política e mundo",
+      "situacoes": [
+        {
+          "id": "governo-imposto",
+          "nome": "Governo e imposto",
+          "descricao": "quando ele fala do governo como sócio que só ganha, do imposto que chega antes e do parente folgado",
+          "frases": [
+            "#018: O governo é o único sócio da tua empresa que ganha dinheiro",
+            "#066: O governo vai receber primeiro, antes de você.",
+            "#101: o governo é aquele parente folgado que vive aparecendo.",
+            "#104: A folha vence, o imposto vence, a conta vence.",
+            "#066: Agora ferrou, hein?"
+          ],
+          "emocao": "revolta, ironia",
+          "imagem_ideal": "mão gigante tirando dinheiro do bolso; cobrador de impostos (xerife de Nottingham em Robin Hood); leão faminto",
+          "frequencia": 9
+        },
+        {
+          "id": "politica-eleicao",
+          "nome": "Política e eleição",
+          "descricao": "quando ele comenta candidato despreparado, eleição, o Brasil como empresa e briga política",
+          "frases": [
+            "#142: Às vezes, basta ser um idiota, fazer uma palhaçada, uma dancinha",
+            "#072: Se o Brasil fosse uma pequena empresa",
+            "#096: Porque eleição não é fã clube.",
+            "#108: Políticos são como fraldas.",
+            "#114: Tenta convencer alguém profundamente de esquerda"
+          ],
+          "emocao": "indignação, deboche",
+          "imagem_ideal": "palanque; circo com palhaço; debate político acalorado; urna",
+          "frequencia": 6
+        },
+        {
+          "id": "ia-tecnologia",
+          "nome": "Inteligência artificial e dependência da tecnologia",
+          "descricao": "quando ele alerta para a IA que deixa burro e preguiçoso, plataforma que vira dependência e algoritmo educando criança",
+          "frases": [
+            "#035: a inteligência artificial vai quebrar muita empresa",
+            "#098: com o tempo, você vai ficar mais burro e mais preguiçoso.",
+            "#034: Quando os pais deixam esse espaço vazio, o algoritmo vai ocupar.",
+            "#035: O Ifood está quebrando muitas empresas hoje.",
+            "#098: Tem redação? A IA escreve."
+          ],
+          "emocao": "alerta, inquietação, ironia",
+          "imagem_ideal": "humanos dependentes nas cadeiras flutuantes (Wall-E); robôs; pessoa conversando com a máquina (Ela)",
+          "frequencia": 5
+        },
+        {
+          "id": "mundo-invertido-omissao",
+          "nome": "Mundo de cabeça para baixo / omissão diante do errado",
+          "descricao": "quando ele denuncia a inversão de valores e quem fica calado diante da injustiça",
+          "frases": [
+            "#111: A imagem do poste mijando no cachorro nunca foi tão real.",
+            "#111: O errado perdeu a vergonha e o certo perdeu a coragem.",
+            "#029: Quem fica calado diante de uma injustiça, já escolheu o lado.",
+            "#029: Imagine uma senhora, uma idosa, tropeçando na sua frente.",
+            "#111: O aluno não deveria ameaçar a professora."
+          ],
+          "emocao": "indignação moral, gravidade",
+          "imagem_ideal": "pessoas passando sem ajudar quem caiu; mundo de ponta-cabeça; rato correndo atrás do gato",
+          "frequencia": 3
+        }
+      ]
+    },
+    {
+      "bloco": "Tom e momentos da fala",
+      "situacoes": [
+        {
+          "id": "ironia-deboche",
+          "nome": "Ironia e deboche",
+          "descricao": "quando ele solta uma tirada irônica ou sarcástica no meio do argumento",
+          "frases": [
+            "#075: E se tiver investidor, parabéns! O sujeito desbloqueou mais um chefe.",
+            "#014: Vai em frente, empresário. Continua premiando quem dá curtidas.",
+            "#134: Libere o problema, caramba. Ele também não te aguenta mais.",
+            "#104: Apertem os cintos, o piloto sumiu.",
+            "#015: Coloca mais dinheiro do próprio bolso nessa ONG."
+          ],
+          "emocao": "humor, sarcasmo",
+          "imagem_ideal": "reação cômica de personagem: aplauso lento irônico, olhar de deboche, piscadinha, cena-meme",
+          "frequencia": 12
+        },
+        {
+          "id": "alerta-preste-atencao",
+          "nome": "Alerta: 'preste atenção'",
+          "descricao": "quando ele chama a atenção antes da lição principal ou de uma revelação",
+          "frases": [
+            "#118: Já salva esse vídeo, você vai querer assistir outras vezes.",
+            "#143: Preste atenção.",
+            "#128: Mas aqui está agora uma grande revelação.",
+            "#037: Isso que eu vou te dizer agora é muito forte.",
+            "#137: Nunca, jamais esqueça o que eu vou te dizer agora."
+          ],
+          "emocao": "suspense, seriedade",
+          "imagem_ideal": "personagem se inclinando sério; mentor olhando nos olhos; zoom dramático; dedo levantado",
+          "frequencia": 40
+        },
+        {
+          "id": "pergunta-ao-espectador",
+          "nome": "Pergunta que confronta o espectador",
+          "descricao": "quando ele termina ou vira o vídeo com uma pergunta direta para a pessoa pensar sobre si",
+          "frases": [
+            "#042: se você fosse o teu funcionário, já teria mandado a si mesmo embora?",
+            "#060: quantos amigos assim você tem?",
+            "#031: as reuniões da tua empresa geram decisões ou apenas ocupam uma agenda?",
+            "#143: hoje você está carregando mais baldes ou está começando a construir o teu encanamento?",
+            "#110: qual é a sua prioridade agora?"
+          ],
+          "emocao": "reflexão, confronto",
+          "imagem_ideal": "personagem pensativo encarando a câmera; olhar no espelho; close de dúvida",
+          "frequencia": 35
+        },
+        {
+          "id": "historia-fabula-twist",
+          "nome": "Fábula, historinha e reviravolta",
+          "descricao": "quando ele começa a contar uma fábula ou caso ('era uma vez') ou chega na reviravolta da história",
+          "frases": [
+            "#130: O escorpião precisava atravessar um rio.",
+            "#135: O porco e o urso resolveram abrir um negócio.",
+            "#143: Em uma pequena vila, havia dois amigos, Pedro e Paulo.",
+            "#121: Agora você pode gritar",
+            "#045: Calma, essa cena não aconteceu hoje."
+          ],
+          "emocao": "curiosidade, encantamento, surpresa",
+          "imagem_ideal": "cena de animação ou fábula; narrador abrindo o livro; rosto de choque na reviravolta",
+          "frequencia": 8
+        }
+      ]
+    }
+  ]
+}

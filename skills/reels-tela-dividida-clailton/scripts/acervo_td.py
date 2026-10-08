@@ -345,6 +345,11 @@ def catalogo_md() -> None:
         L.append(v.get("resumo", ""))
         if v.get("problemas"):
             L.append("⚠ " + "; ".join(v["problemas"]))
+        if v.get("fichas"):
+            L.append("**Cenas prontas (fichas):**")
+            for f in sorted(v["fichas"], key=lambda f: f["ini"]):
+                L.append(f"- {ficha_linha(v['codigo'], f)}")
+            L.append("**Todas as cenas:**")
         for c in v.get("cenas", []):
             obs = f" ⚠ {c['obs']}" if c.get("obs") else ""
             L.append(f"- {tc(c.get('ini'))}–{tc(c.get('fim'))} {c.get('o_que_aparece', '')} "
@@ -352,8 +357,76 @@ def catalogo_md() -> None:
         L.append("")
     txt = "\n".join(L)
     (r / "CATALOGO.md").write_text(txt, encoding="utf-8")
-    (Path(__file__).resolve().parent.parent / "referencia" / "acervo_catalogo.md").write_text(txt, encoding="utf-8")
+    (REF / "acervo_catalogo.md").write_text(txt, encoding="utf-8")
     print(f"CATALOGO.md: {len(vs)} vídeos")
+    mapa_md(r, vs)
+
+
+REF = Path(__file__).resolve().parent.parent / "referencia"
+SITUACOES = REF / "situacoes_clailton.json"       # situações das falas do Clailton (tiradas dos reels dele)
+
+
+def ficha_linha(cod: str, f: dict, com_situacao: bool = False) -> str:
+    estrelas = "★" * int(f.get("forca", 0) or 0)
+    use = " / ".join(f'"{u}"' for u in f.get("use_quando", []))
+    vert = {"sim": "", "dividida": " · só dividida", "nao": " · NÃO vertical"}.get(f.get("vertical", "sim"), "")
+    sit = f" · situações: {', '.join(f.get('situacoes', []))}" if com_situacao else ""
+    return (f"{estrelas} `acervo={cod} t={int(f['ini'])}` ({tc(f['ini'])}–{tc(f['fim'])}, {f['fim'] - f['ini']:.1f}s) "
+            f"{f.get('mostra', '')} — **significa:** {f.get('significa', '')} · **use quando:** {use}"
+            + (f" · **não usar para:** {f['nao_usar_para']}" if f.get("nao_usar_para") else "") + vert + sit)
+
+
+def mapa_md(r: Path, vs: list[dict]) -> None:
+    """mapa_situacoes.md: para cada situação das falas do Clailton, as cenas do acervo que a traduzem
+    (mais fortes primeiro) — é o que o plano visual consulta primeiro."""
+    if not SITUACOES.exists():
+        return
+    sits = json.loads(SITUACOES.read_text(encoding="utf-8"))["blocos"]
+    por_sit: dict[str, list] = {}
+    soltas = []
+    for v in vs:
+        if v.get("evitar"):
+            continue
+        for f in v.get("fichas", []):
+            ids = [s for s in f.get("situacoes", [])]
+            for s in ids:
+                por_sit.setdefault(s, []).append((v["codigo"], f))
+            if not ids:
+                soltas.append((v["codigo"], f))
+    usadas = {}
+    for u in ler_uso():
+        usadas.setdefault(u["codigo"], []).append(u["reel"])
+    ordem = lambda cf: (-(cf[1].get("forca") or 0), cf[1].get("vertical") != "sim")
+    L = ["# Mapa de situações → cenas do acervo", "",
+         "Como usar no plano visual: ache a situação da frase do Clailton (ou a mais próxima); escolha a cena",
+         "mais forte cujo **significa** casa com o sentido da frase (não só com a palavra) e que não esteja em",
+         "`acervo_uso.tsv` nos últimos reels. Copie o `acervo=COD t=N` para a linha do plano (mantenha busca e",
+         "`en:`). ★ = força (5 = cena icônica). Frase fora do mapa: procure pelo sentido no `acervo_catalogo.md`.", ""]
+    vazias = []
+    for b in sits:
+        L += [f"## {b['bloco']}", ""]
+        for s in b["situacoes"]:
+            cenas = sorted(por_sit.get(s["id"], []), key=ordem)
+            L.append(f"### {s['nome']} (`{s['id']}`)")
+            L.append(f"{s.get('descricao', '')} · emoção: {s.get('emocao', '')} · imagem ideal: {s.get('imagem_ideal', '')}")
+            if s.get("frases"):
+                L.append("Ele fala: " + " · ".join(f"_{x}_" for x in s["frases"][:3]))
+            if not cenas:
+                L.append("- (nenhuma cena no acervo: buscar online)")
+                vazias.append(s["nome"])
+            for cod, f in cenas[:12]:
+                uso = f" · já usada em: {', '.join(usadas[cod][-2:])}" if cod in usadas else ""
+                L.append(f"- {ficha_linha(cod, f)}{uso}")
+            L.append("")
+    if soltas:
+        L += ["## Outras cenas boas (sem situação definida)", ""]
+        L += [f"- {ficha_linha(c, f)}" for c, f in sorted(soltas, key=ordem)]
+        L.append("")
+    L += ["## Situações sem cena no acervo (o que vale baixar)", "", *[f"- {n}" for n in vazias], ""]
+    txt = "\n".join(L)
+    (REF / "mapa_situacoes.md").write_text(txt, encoding="utf-8")
+    (r / "MAPA DE SITUACOES.md").write_text(txt, encoding="utf-8")
+    print(f"mapa de situações: {sum(len(b['situacoes']) for b in sits)} situações, {len(vazias)} sem cena")
 
 
 if __name__ == "__main__":
