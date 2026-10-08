@@ -30,7 +30,7 @@ cada imagem escolhida em tamanho real. Passo a passo: skill `reels-caixinha-0800
 Regras do usuário (08/10/2026):
 - Clailton **sem barba e sem bigode**: as fotos de referência têm barba, então pedir "clean-shaven,
   no beard, no mustache" e conferir o rosto ampliado (às vezes sobra bigode).
-- Ele tem **um filho só, menino**; a esposa tem **cabelo cacheado**.
+- Ele tem **um filho só, menino**; a esposa tem **cabelo cacheado e claro** (castanho-claro/mel, nunca preto ou castanho-escuro).
 - **Nunca mostrar o rosto da esposa nem do filho**: de costas, rosto escondido ou fora do quadro.
 
 ## Como falar com o usuário

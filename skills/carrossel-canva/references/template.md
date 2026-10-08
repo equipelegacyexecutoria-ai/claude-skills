@@ -62,7 +62,7 @@ CLAILTON abaixo.
   ampliada no rosto: às vezes sobra o bigode; aí editar com a própria imagem como referência
   ("remove the mustache completely… keep everything else identical").
 - **Família do Clailton** (regra do usuário, 08/10/2026): ele tem **um filho só, menino**, e a
-  esposa tem **cabelo cacheado**. Cena com família: "his wife with long dark curly hair and their
+  esposa tem **cabelo cacheado e claro** (castanho-claro/mel). Cena com família: "his wife with long light brown honey-blonde curly hair and their
   only child, one young boy… exactly one child". **Nunca mostrar o rosto da esposa nem do filho**:
   de costas, rosto escondido (abraçado no pescoço, virado) ou fora do quadro — pôr isso no prompt e
   conferir na imagem (IA costuma inventar mais filhos e virar o rosto deles para a câmera).
