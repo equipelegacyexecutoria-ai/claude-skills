@@ -55,7 +55,12 @@ CLAILTON abaixo.
   `m.pag2([título, p1, p2, …])` para o tamanho sair certo.
 - "Ilustrar com o Clailton": Nano Banana Pro (`imagen-nano-banana-2`, 2k, 1:1) com as fotos dele
   como referência (`ks38ouZ16B`, `Cq7T08VEEy`), prompt "the man from the reference images (keep his
-  exact face, bald head, glasses and beard)…", sujeito na metade de cima e parte de baixo escura.
+  exact face, bald head and glasses), completely clean-shaven, no beard, no mustache…", sujeito na
+  metade de cima e parte de baixo escura.
+- **Clailton SEMPRE sem barba e sem bigode** (regra do usuário, 08/10/2026): as fotos de referência
+  têm barba, então o prompt precisa pedir "clean-shaven, no beard, no mustache". Conferir cada imagem
+  ampliada no rosto: às vezes sobra o bigode; aí editar com a própria imagem como referência
+  ("remove the mustache completely… keep everything else identical").
 - Imagem de IA com papel/tela costuma vir com palavra em inglês ("PROCEDURE"): conferir ampliado e,
   se aparecer, editar com a própria imagem como referência pedindo para tirar os títulos.
 - Miniatura do Canva às vezes mostra linhas do `{{CINZA}}` mais claras: é só a miniatura, a cor no
