@@ -25,6 +25,14 @@ inglês; texto só em português. Sempre alta resolução e casando com a emoç�
 Buscar além da busca automática (Pexels pelo navegador, Unsplash, Pinterest, TikTok, YouTube) e conferir
 cada imagem escolhida em tamanho real. Passo a passo: skill `reels-caixinha-0800`, seção "B-roll".
 
+## Clailton em imagens de IA (carrossel, B-roll, qualquer peça)
+
+Regras do usuário (08/10/2026):
+- Clailton **sem barba e sem bigode**: as fotos de referência têm barba, então pedir "clean-shaven,
+  no beard, no mustache" e conferir o rosto ampliado (às vezes sobra bigode).
+- Ele tem **um filho só, menino**; a esposa tem **cabelo cacheado**.
+- **Nunca mostrar o rosto da esposa nem do filho**: de costas, rosto escondido ou fora do quadro.
+
 ## Como falar com o usuário
 
 Ele não é técnico. Explique propostas pelo dia a dia dele: o que ele faz, onde pede, o que

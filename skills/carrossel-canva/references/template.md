@@ -61,6 +61,11 @@ CLAILTON abaixo.
   têm barba, então o prompt precisa pedir "clean-shaven, no beard, no mustache". Conferir cada imagem
   ampliada no rosto: às vezes sobra o bigode; aí editar com a própria imagem como referência
   ("remove the mustache completely… keep everything else identical").
+- **Família do Clailton** (regra do usuário, 08/10/2026): ele tem **um filho só, menino**, e a
+  esposa tem **cabelo cacheado**. Cena com família: "his wife with long dark curly hair and their
+  only child, one young boy… exactly one child". **Nunca mostrar o rosto da esposa nem do filho**:
+  de costas, rosto escondido (abraçado no pescoço, virado) ou fora do quadro — pôr isso no prompt e
+  conferir na imagem (IA costuma inventar mais filhos e virar o rosto deles para a câmera).
 - Imagem de IA com papel/tela costuma vir com palavra em inglês ("PROCEDURE"): conferir ampliado e,
   se aparecer, editar com a própria imagem como referência pedindo para tirar os títulos.
 - Miniatura do Canva às vezes mostra linhas do `{{CINZA}}` mais claras: é só a miniatura, a cor no
