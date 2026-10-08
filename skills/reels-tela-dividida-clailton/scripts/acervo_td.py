@@ -163,6 +163,7 @@ def consultar(ent: Path, sai: Path) -> None:
     emb, cod, tt = z["emb"].astype(np.float32), z["cod"], z["t"]
     cat = {v["codigo"]: v for v in catalogo(r)["videos"]}
     model, proc, dev, _ = _modelo()
+    recentes = usadas_recentes()
     out = {}
     for p in json.loads(ent.read_text(encoding="utf-8"))["pedidos"]:
         with torch.no_grad():
@@ -189,6 +190,8 @@ def consultar(ent: Path, sai: Path) -> None:
             nomes = [v.get("obra", "").lower()] + [a.lower() for a in v.get("apelidos", [])]
             if obra and any(n and n in obra for n in nomes):
                 val += 3.0
+            if any(rc == c and abs(rt - float(tt[idx[k]])) < 8 for rc, rt in recentes):
+                val -= 3.0                      # mesma cena num dos últimos reels: não repetir
             melhores.append({"codigo": c, "t": float(tt[idx[k]]), "score": round(val, 2)})
         melhores.sort(key=lambda x: -x["score"])
         out[p["id"]] = melhores[:K_VIDEOS]
@@ -196,6 +199,48 @@ def consultar(ent: Path, sai: Path) -> None:
 
 
 VIDEO = (".mp4", ".mov", ".mkv", ".webm", ".m4v")
+USO = Path(__file__).resolve().parent.parent / "referencia" / "acervo_uso.tsv"   # sincroniza entre os PCs
+USO_CAB = "data\treel\tcodigo\tt\titem\tfala"
+RECENTES = 10                     # cena usada nos últimos N reels perde nota na consulta (não repetir)
+
+
+def ler_uso() -> list[dict]:
+    if not USO.exists():
+        return []
+    linhas = USO.read_text(encoding="utf-8").splitlines()
+    cab = linhas[0].split("\t")
+    return [dict(zip(cab, l.split("\t"))) for l in linhas[1:] if l.strip()]
+
+
+def registrar_uso(T: Path, reel: str) -> None:
+    """Cenas do acervo que entraram no reel (escolhas.json) -> referencia/acervo_uso.tsv. Refazer o mesmo
+    reel (v2, v3) troca as linhas dele."""
+    import datetime
+    import re
+    esc_p, tl_p = T / "midia" / "escolhas.json", T / "timeline.json"
+    if not esc_p.exists() or not tl_p.exists():
+        return
+    esc = json.loads(esc_p.read_text(encoding="utf-8"))
+    camadas = {c["id"]: c for c in json.loads(tl_p.read_text(encoding="utf-8"))["camadas"]}
+    base = re.sub(r"\s*-\s*EDITADO.*$|_v\d+$", "", reel, flags=re.I).strip()
+    novas = []
+    for i, e in esc.items():
+        m = re.match(r"acervo (\S+) t=(\d+)", e.get("url", ""))
+        if m:
+            fala = " ".join((camadas.get(i, {}).get("texto") or "").split())[:120]
+            novas.append({"data": datetime.date.today().isoformat(), "reel": base, "codigo": m.group(1),
+                          "t": m.group(2), "item": i, "fala": fala})
+    velhas = [u for u in ler_uso() if u.get("reel") != base]
+    USO.write_text(USO_CAB + "\n" + "".join("\t".join(u.get(k, "") for k in USO_CAB.split("\t")) + "\n"
+                                           for u in velhas + novas), encoding="utf-8")
+    if novas:
+        print(f"acervo: {len(novas)} cena(s) registradas no uso ({', '.join(n['codigo'] for n in novas)})")
+
+
+def usadas_recentes() -> list[tuple[str, float]]:
+    uso = ler_uso()
+    reels = list(dict.fromkeys(u["reel"] for u in reversed(uso)))[:RECENTES]
+    return [(u["codigo"], float(u["t"] or 0)) for u in uso if u["reel"] in reels]
 
 
 def tc(t) -> str:

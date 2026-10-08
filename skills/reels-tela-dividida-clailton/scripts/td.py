@@ -134,6 +134,12 @@ def main() -> None:
             sys.exit(1)
         rc = etapa(AQUI / "conferir_td.py", [str(T), str(saida)] + (["--geral"] if "--geral" in a else []))
         etapa(AQUI / "olhos_qa.py", [str(T), str(saida)])   # olhos na mesma altura nas trocas de zoom
+        try:                                                # cenas do acervo usadas (para não repetir)
+            sys.path.insert(0, str(AQUI))
+            import acervo_td
+            acervo_td.registrar_uso(T, saida.stem)
+        except Exception as e:  # noqa: BLE001
+            print(f"   (registro de uso do acervo falhou: {e!r})"[:160])
         if "--premiere" in a:
             etapa(AQUI / "premiere_td.py", [str(T), str(saida)])
         print("CONFERÊNCIA:", "APROVADA" if rc == 0 else "REPROVADA — ver qa/relatorio.txt")
