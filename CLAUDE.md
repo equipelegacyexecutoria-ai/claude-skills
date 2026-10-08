@@ -35,6 +35,9 @@ Regras do usuário (08/10/2026):
 
 ## Como falar com o usuário
 
+**Sempre responder em português do Brasil**, inclusive resumos finais e perguntas. O usuário
+reclamou de respostas em inglês (08/10/2026).
+
 Ele não é técnico. Explique propostas pelo dia a dia dele: o que ele faz, onde pede, o que
 recebe, o que cada PC precisa ter, com exemplo concreto ("você diz X → acontece Y → recebe Z").
 Evite termos como repositório, commit, hook e merge. Em mudança grande, converse e tire as
