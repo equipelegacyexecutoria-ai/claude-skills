@@ -153,8 +153,8 @@ Na raiz: `acervo.json` (catálogo: obra, cenas com tempo/descrição/temas, prob
 (cópia em `referencia/acervo_catalogo.md`, que sincroniza entre os PCs).
 
 - **Onde está:** muda por PC. `P S\acervo_td.py onde`; sem `acervo.txt`, procura `acervo.json` nas raízes
-  dos discos (2 níveis) e grava. PC onde foi montado: `E:\B-ROLLS`. **PC de render: ainda não copiado** —
-  quando o usuário disser onde ficou: `P S\acervo_td.py definir "<pasta>"` e `verificar_td.py`. O índice
+  dos discos (2 níveis) e grava. PC onde foi montado: `E:\B-ROLLS`. PC de render (ELM-157):
+  `%USERPROFILE%\Desktop\B-ROLLS` (08/10/2026). Em PC novo, quando o usuário disser onde ficou: `P S\acervo_td.py definir "<pasta>"` e `verificar_td.py`. O índice
   CLIP e os quadros vão dentro da pasta (não precisa reindexar).
 - **Vídeo novo** ("cataloga os vídeos novos do acervo"): `P S\acervo_td.py novos` (folhas em
   `_catalogo\novos\N001_p1.jpg` + `novos.json`) → olhe TODAS as páginas (cada miniatura é um plano do
