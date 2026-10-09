@@ -27,6 +27,13 @@ MIN_FINAL = 0.02         # s: menor pedaço considerado (a soltura de "escolhido
 
 
 def audio48(T: Path, fonte: str) -> np.ndarray:
+    tratado = T / "audio_tratado.wav"
+    if tratado.exists():
+        # áudio limpo no Adobe Podcast (tratar_audio.py): o respiro/ruído que ele tirou vira silêncio e precisa
+        # sair do corte (09/10/2026: sem isso sobraram pausas de 0,38 e 0,51 s onde antes havia respiro)
+        with wave.open(str(tratado), "rb") as w:
+            x = np.frombuffer(w.readframes(w.getnframes()), np.int16).astype(np.float32) / 32768
+            return x.reshape(-1, w.getnchannels()).mean(axis=1)
     arq = T / "audio48k.wav"
     if not arq.exists():
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", fonte, "-map", "0:a:0", "-ac", "1", "-ar", str(SR),
@@ -79,13 +86,14 @@ class VozFina:
     def __init__(self, T: Path, fonte: str):
         x = audio48(T, fonte)
         self.env = _env(x)
-        arq = T / "vozeado.npy"
+        suf = "_tratado" if (T / "audio_tratado.wav").exists() else ""
+        arq = T / f"vozeado{suf}.npy"
         tom = np.load(arq) if arq.exists() else None
         if tom is None or len(tom) != len(self.env):
             tom = _vozeado(x, len(self.env))
             np.save(arq, tom)
         self.tom = tom
-        arq = T / "agudo.npy"
+        arq = T / f"agudo{suf}.npy"
         ag = np.load(arq) if arq.exists() else None
         if ag is None or len(ag) != len(self.env):
             ag = _agudo(x, len(self.env))
@@ -93,9 +101,14 @@ class VozFina:
         self.agudo = ag
         self.hf = _env(np.diff(np.diff(x, prepend=0), prepend=0))      # agudo (> ~3 kHz): "s", "x", "f"
         piso, alto = float(np.percentile(self.env, 10)), float(np.percentile(self.env, 95))
+        # áudio limpo (Adobe): a pausa vira silêncio digital (piso 66 dB abaixo da voz, no bruto ~46) e qualquer
+        # resto contaria como voz — nenhuma pausa saía (+2,9 s no "Ser Feliz", 09/10/2026). O piso usado fica no
+        # máximo 46 dB abaixo da voz, como num bruto normal.
+        piso = max(piso, alto - 46)
         self.piso = piso
         self.lim = max(piso + 9, alto - 26)                                   # pela VOZ: ruído de sala e respiro ficam em ~-49 dB (voz -14)
-        self.lim_hf = float(np.percentile(self.hf, 10)) + 18                  # "s" final acima do chiado de fundo
+        hf10, hf95 = float(np.percentile(self.hf, 10)), float(np.percentile(self.hf, 95))
+        self.lim_hf = max(hf10 + 18, hf95 - 31)                               # "s" final acima do chiado de fundo
 
     def regioes(self, t0: float, t1: float) -> list[tuple[float, float]]:
         """Trechos de voz (s do bruto) dentro de [t0, t1], com a borda estendida no decaimento."""

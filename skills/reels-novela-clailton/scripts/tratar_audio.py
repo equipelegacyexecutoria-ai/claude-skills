@@ -2,6 +2,7 @@
 o lapela capta e o som "estourado" de gravação com ganho alto. Vale para novela, tela dividida e edição simples.
 
 Fluxo (detalhes no SKILL.md, seção "Tratar o áudio no Adobe Podcast"):
+  0. python tratar_audio.py medir <trabalho>    -> diz se a gravação está QUENTE (ganho alto, satura)
   1. python tratar_audio.py exportar <trabalho>
        -> <trabalho>/adobe/<slug>.mp3  (som do bruto inteiro, mono 48 kHz, MP3 320k: cabe no limite de 10 MB
           do envio pelo navegador até ~4 min; acima disso sai em 192k)
@@ -132,11 +133,27 @@ def alinhar(T: Path, baixado: Path) -> Path:
     return out
 
 
+def medir(T: Path) -> bool:
+    """Gravação QUENTE? (lote de 08/10/2026: RMS -20 dBFS e centenas de amostras a -1 dBFS — o normal do
+    Clailton é RMS -30 e quase nenhuma; o usuário ouviu 'áudio estourado' em 5 de 6 vídeos.)"""
+    x = ler(Path(fonte(T)))
+    rms = float(20 * np.log10(np.sqrt((x ** 2).mean()) + 1e-9))
+    perto_teto = int((np.abs(x) > 0.89).sum())
+    quente = rms > -24 or perto_teto > 100
+    print(json.dumps({"rms_db": round(rms, 1), "amostras_acima_-1dB": perto_teto, "quente": quente}))
+    if quente:
+        print("QUENTE: gravação com ganho alto (satura nos picos). Trate no Adobe Podcast e avise a equipe no "
+              "comentário: baixar ~10 dB o ganho do microfone/câmera nas próximas gravações.")
+    return quente
+
+
 if __name__ == "__main__":
-    if len(sys.argv) < 3 or sys.argv[1] not in ("exportar", "alinhar"):
+    if len(sys.argv) < 3 or sys.argv[1] not in ("exportar", "alinhar", "medir"):
         raise SystemExit(__doc__)
     T = Path(sys.argv[2]).resolve()
-    if sys.argv[1] == "exportar":
+    if sys.argv[1] == "medir":
+        medir(T)
+    elif sys.argv[1] == "exportar":
         exportar(T)
     else:
         alinhar(T, Path(sys.argv[3]).resolve())

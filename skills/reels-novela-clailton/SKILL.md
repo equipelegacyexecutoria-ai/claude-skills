@@ -20,7 +20,7 @@ referência: `referencia/telas-referencia.jpg`. Legendas de exemplo no formato c
 | Corte | tomadas escolhidas, sem tropeço; **cortes certeiros no limite da onda** (usuário, 28/09/2026: "ele parado sem falar nada denuncia que está lendo"): toda pausa de voz a voz ≥ 0,12 s sai, inclusive dentro da frase, ficando ~0,02 s antes do ataque e ~0,03 s depois do fim da onda (`aparar` + `borda_voz.py`); respiro e estalo de boca saem; sem música (entra depois) |
 | Legenda | SF Pro Text Black, caixa-alta, telas de 1–3 linhas inteiras, **só o destaque entra sozinho e maior**, sombra v3 |
 | Final | ~0,45 s depois da última palavra, corte seco para CTA preta digitada (2,9 s) com o **som de teclado padrão** (`assets/cta_teclado.mp3`, enviado pelo usuário em 30/09/2026) sincronizado com a digitação: 1º toque no quadro da 1ª letra, último toque na última letra |
-| Voz | −16 LUFS, pico −1 dBTP, limitador suave só nos picos (−14 soava estourado) |
+| Voz | −16 LUFS, pico −1 dBTP, limitador suave só nos picos (−14 soava estourado). Ruído externo / gravação "quente" / pedido de "tratar o áudio": **Adobe Podcast** (seção abaixo) |
 | Pasta | `Reels Editados/` na raiz do projeto, `<nome do bruto> - EDITADO.mp4` |
 | Trabalho | `_trabalho/<slug>/` na raiz do projeto (transcrição, decupagem, legenda, QA) |
 
@@ -210,7 +210,37 @@ Correções depois de pronto:
 - **Ajuste fino de corte sem mudar o texto**: `P S\montar_corte.py T --manter-palavras` (mesmos
   índices; tempos remapeados pelo bruto, a legenda é aproveitada) → `finalizar`.
 - **Só legenda**: edite `legenda.txt` → `finalizar`.
+- **Áudio estourado / com ruído**: seção "Tratar o áudio no Adobe Podcast".
 - **Ver um quadro sem renderizar**: `P S\previa_quadro.py T 12.5,40.2 T\qa\previa.png [--faixa]`.
+
+## Tratar o áudio no Adobe Podcast (ruído externo, gravação quente)
+
+Testado e aprovado no lote de 08/10/2026 (5 vídeos): ruído nas pausas caiu 15–20 dB (de −46/−50 para −65 dB
+abaixo da voz), picos colados no teto caíram pela metade, linha do tempo idêntica (atraso 0 ms, correlação 0,97).
+O Adobe **limpa ruído**; distorção de gravação muito quente ele só disfarça (usuário, 09/10/2026) — então avise a
+equipe para baixar o ganho. Use quando: o usuário pedir ("tratar o áudio", "tirar o ruído", "usar o Adobe"), o
+card falar em ruído/barulho externo/áudio estourado, ou `tratar_audio.py medir` disser QUENTE.
+
+1. `P S\tratar_audio.py medir T` — QUENTE = RMS > −24 dBFS ou > 100 amostras acima de −1 dBFS (normal do
+   Clailton: RMS −30). Se QUENTE, diga no comentário do card: "gravação com ganho alto; baixar ~10 dB o ganho do
+   microfone/câmera".
+2. `P S\tratar_audio.py exportar T` → `T\adobe\<slug>.mp3` (mono, 320k, < 10 MB). **Copie o MP3 para a pasta da
+   sessão** (ex.: `<pasta da conversa>\_adobe_envio\`): o envio pelo Chrome só aceita arquivos que a sessão lê.
+3. Chrome: perfil **"Legacy Executoria"** (equipelegacyexecutoria@gmail.com, `Profile 2` no PC de render; a extensão
+   do Claude foi instalada nele em 09/10/2026). Com dois Chromes conectados, `list_connected_browsers` e
+   `select_browser` no que abre o Adobe **logado** (canto superior direito com "Meus projetos" e o avatar).
+   Abrir: `podcast.adobe.com/pt/enhance` → `find` "file input" → `file_upload` com o MP3 (dá para mandar vários,
+   um por chamada; processam juntos, ~30–60 s cada). Ajustes padrão: modelo v2, Fala 50%, Música 10%, Fundo 10%.
+4. Baixar: clicar no arquivo na lista (confira a duração no player) → botão **Baixar**. O Chrome dessa conta pergunta
+   onde salvar e o arquivo fica como `Downloads\<guid>.tmp` (completo: MP3 mono **64 kbps**, o único formato que o
+   Adobe dá; vai até 16 kHz, suficiente para voz). Não espere o diálogo: identifique cada `.tmp` pela duração
+   (`ffprobe`) e use direto. No fim, peça ao usuário para fechar as janelas "Salvar como" que ficaram abertas.
+5. `P S\tratar_audio.py alinhar T <arquivo>` → `T\audio_tratado.wav` + `T\adobe\relatorio.json`. Reprova se o
+   arquivo não casar com o bruto (vídeo trocado).
+6. **Remonte o corte** com o áudio limpo: `P S\montar_corte.py T --manter-palavras` (o `borda_voz` passa a medir a voz
+   no `audio_tratado.wav`; sem isso o respiro que o Adobe tirou vira silêncio e sobram pausas de 0,4–0,5 s). A legenda
+   continua valendo (mesmos índices). Depois `editar.py finalizar` (o render usa o `audio_tratado.wav` sozinho e
+   escreve "usando audio_tratado.wav"). Para voltar ao som original: apague `audio_tratado.wav` e remonte.
 
 ## Modo completo (material difícil)
 
@@ -327,6 +357,23 @@ se existir, senão `legenda.json`).
   subir para −14 LUFS fazia o limitador achatar 4,7% do vídeo em até 4 dB. Padrão agora: **−16 LUFS** e
   limitador suave (attack 7 ms, release 200 ms) só nos raros picos. Dica de gravação: ganho do microfone 3–6 dB
   mais baixo.
+- **Legenda "quebrada"** (09/10/2026, 4 vídeos): (a) escada com linha curta ("A", "SE", "AÍ VAI") deixava a
+  linha solta, longe das outras — agora linha < 200 px na escada vira **esquerda** sozinha (`ESCADA_LINHA_MIN`,
+  aviso "escada com linha curta"); (b) "direita" alinhava a última linha só com a penúltima e ficavam duas bordas
+  direitas ("TORCENDO / PARA QUE ELE / NÃO ACONTEÇA") — agora fecha na borda da linha MAIS LARGA. Ao escrever a
+  legenda, evite escada com palavra curta solta na 1ª linha (junte "A RESPONSABILIDADE" ou use esquerda).
+- **Palavra "cortada" antes da emenda** (09/10/2026: "circo", "manda", "escuta", "grupo"): o corte parava ~37 dB
+  abaixo do pico, no meio da soltura da vogal, com saída de 8 ms. Agora `borda_voz.cauda` segue a vogal até o
+  silêncio (piso + 6 dB, até `CAUDA_MAX` 0,10 s, parando antes de novo ataque) e o render faz saída suave de 25 ms
+  (`FADE_FIM`). As emendas ficam com ~0,10–0,20 s (dentro do 0,10–0,26 s da referência).
+- **Falso começo escondido NA PAUSA** ("populi-... popularidade", 09/10/2026): o Whisper juntou tudo numa palavra e o
+  `aparar` manteve o pedaço de voz da pausa antes da frase. Sinal: no alinhamento a palavra atravessa a emenda
+  (+0,73 s). O `conferir.py` agora reprova "palavra X atravessa a emenda" (> 0,4 s): ouça/olhe e corrija com
+  `INICIO n i@t` (t = começo da palavra certa).
+- **Palavra do roteiro x Whisper com a terminação diferente** ("comece" x roteiro "começa"; o usuário confirmou
+  "começa"): quando só a flexão muda e o som é parecido, confira com `ctc_candidatos.py`; empate → vale o roteiro.
+- **Conferência com "E E" na emenda** quando ele fala "e é aí": o Whisper literal tira o acento. É falso alarme:
+  ponha `E` em `T\repeticoes_ok.txt`.
 - Editar arquivo da skill por script Python dentro do bash: a barra invertida de caminho vira
   caractere de controle (o `\r` de `T\repeticoes` virou quebra de linha). Use as ferramentas de
   edição do Claude ou `chr(92)`, e confira em bytes (modo texto converte CR em LF e esconde o erro).

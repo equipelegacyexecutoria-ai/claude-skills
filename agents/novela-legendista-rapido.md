@@ -32,6 +32,9 @@ ancora   | P @27-35
 - Layouts variados (~40% centro, ~30% esquerda, ~25% escada, ~5% direita); nunca 4 iguais
   seguidos. Frases paralelas do roteiro = mesmo tratamento (ex.: as três "CONTINUE ...").
 - Destaque d2 largo (12+ letras) não cabe em escada: use centro.
+- Escada só com linhas de 5+ letras: palavra curta sozinha na 1ª linha ("A", "SE", "AÍ VAI") fica solta e o
+  usuário reprovou 3x (09/10/2026). Junte ao destaque ou use esquerda (o script já troca e avisa).
+- Direita: a última linha fecha na borda da linha mais larga; use quando a do meio é a mais larga.
 - Português escrito, caixa-alta, acento sempre: tô->ESTOU, pra->PARA, tá->ESTÁ, número ->
   algarismo; tira muleta/sujeito redundante do começo; pode ajustar artigo. NUNCA some:
   negação, número, nome, TALVEZ/SÓ/APENAS/AINDA/JÁ/NUNCA/SEMPRE. Pontuação só ? e ...
@@ -42,6 +45,8 @@ ancora   | P @27-35
 - A legenda segue o que foi FALADO. Onde ele trocou termo ou reformulou (TROCOU / A MAIS),
   legende a fala, não o roteiro.
 - Grafia de nomes, termos e números: a do roteiro (e `referencia/grafias.md`).
+- Mesma palavra com a terminação diferente (Whisper "comece" x roteiro "começa"): o Whisper erra a flexão; use a
+  do roteiro (o usuário corrigiu "COMECE A" -> "COMEÇA A", 09/10/2026).
 - "destaques sugeridos pelo roteiro" (MAIÚSCULAS ou *asteriscos*) = destaque na linha daquele
   @índice; siga, salvo se a palavra ficar fraca sozinha na tela.
 - Palavra duvidosa (a fala parece errada e o roteiro diz outra coisa): registre `correcao | ...`

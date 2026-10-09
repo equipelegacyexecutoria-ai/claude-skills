@@ -228,6 +228,23 @@ def main() -> None:
         if pz["inicio"] + pz["dur"] < fim_imagem - 0.05:
             problemas.append(f"silêncio de {pz['dur']}s em {pz['inicio']}s (máximo ~0,3 s)")
 
+    # ---- palavra atravessando emenda (alinhamento forçado): o aligner "estica" a palavra por cima do corte quando
+    #      há um FALSO COMEÇO escondido na pausa ("populi-... popularidade", +0,73 s, 09/10/2026) ou quando o fim
+    #      dela foi cortado. Olhe/ouça o trecho e corrija com INICIO/PARTE na decupagem.
+    pc_path = trabalho / "palavras_corte.json"
+    if pc_path.exists():
+        pal_c = ler_json(pc_path)
+        pal_c = pal_c["palavras"] if isinstance(pal_c, dict) else pal_c
+        t_em = [s["dst_in"] for s in corte["segmentos"][1:]]
+        rel["palavras_na_emenda"] = []
+        for w in pal_c:
+            for e in t_em:
+                if float(w["inicio"]) < e - 0.05 and float(w["fim"]) > e + 0.40:
+                    rel["palavras_na_emenda"].append({"palavra": w["texto"], "emenda": round(e, 2),
+                                                      "passa_ms": round((float(w["fim"]) - e) * 1000)})
+                    problemas.append(f"palavra '{w['texto']}' atravessa a emenda de {e:.2f}s "
+                                     f"(+{(float(w['fim']) - e) * 1000:.0f} ms): falso começo escondido ou fim cortado?")
+
     # ---- fundo mais claro por baixo da legenda
     fundos = fundo_sob_legenda(trabalho, lay, corte)
     claro = max(fundos, key=lambda f: f["lum_p75"]) if fundos else None

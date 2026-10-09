@@ -168,6 +168,16 @@ trabalho em `C:\Render\_trabalho\<slug>\`), seguindo o modo rápido dela, com es
 4. Entregue como `v2`, `v3`... (Passo 4) e mova para aprovação.
 5. Depois de entregar: copie o texto aplicado para o comentário ("Correções aplicadas na v2: ... ✔")
    e **esvazie** o campo CORREÇÕES (Claude), para a próxima rodada começar limpa.
+6. Erro que se repete em vários cards = causa na skill: ache a causa, corrija o script/regra, **confira nos cards
+   que reclamaram** e só então registre na skill (usuário, 09/10/2026).
+
+Correções que já têm caminho pronto (lote de 08/10/2026):
+- "Áudio estourado", "ruído", "barulho externo", "tratar o áudio", "usa o Adobe": skill de reels, seção
+  "Tratar o áudio no Adobe Podcast" (Chrome do perfil Legacy Executoria). Rode `tratar_audio.py medir`; se der QUENTE,
+  ponha no comentário "gravação com ganho alto: baixar ~10 dB o ganho do microfone/câmera".
+- "Cortou a palavra X" na emenda: a nova cauda do corte já resolve; refaça com `montar_corte.py --manter-palavras`.
+- Erro de fala que ficou ("populi... popularidade"): `INICIO n i@t` na decupagem + `--manter-palavras`.
+- "Diagramação quebrada": rode a legenda de novo (escada com linha curta vira esquerda sozinha) e confira o quadro.
 
 ## Relatório final (para o usuário)
 
