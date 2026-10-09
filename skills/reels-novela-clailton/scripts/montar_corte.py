@@ -46,6 +46,25 @@ RITMO = {"teto": PAUSA_MAX, "tipica": PAUSA_ALVO}   # medido em cada vídeo por 
 # --ritmo-justo (tela dividida): pausa acima de 0,30 s vira 0,22 s. Na TD o usuário reprovou os respiros
 # naturais da novela ("pausa extensa sem conexão", 09/10/2026); a regra de pausa natural é só da novela.
 RITMO_JUSTO = {"teto": 0.30, "tipica": 0.22}
+# Silêncios forçados (s do bruto) que a tela dividida mede pelo ALINHAMENTO das palavras (td.py montar ->
+# T/apertar.json): fôlego/ruído de boca colado na fala passa como voz pelo volume e a pausa ficava 0,6-0,8 s.
+SILENCIOS: list[tuple[float, float]] = []
+
+
+def tirar_silencios(rs: list[tuple[float, float]]) -> list[tuple[float, float]]:
+    """Recorta das regiões de voz os silêncios forçados (SILENCIOS)."""
+    for p, q in SILENCIOS:
+        novo = []
+        for a, b in rs:
+            if q <= a or p >= b:
+                novo.append((a, b))
+                continue
+            if p - a >= 0.02:
+                novo.append((a, p))
+            if b - q >= 0.02:
+                novo.append((q, b))
+        rs = novo
+    return rs
 
 
 def medir_ritmo(vf, dec: dict, pal: list[dict]) -> dict:
@@ -269,7 +288,7 @@ def aparar(segs: list[dict], trabalho: Path, fonte: str, avisos: list[str], pal:
             if prox_src is not None and prox_src > f1:
                 lim = min(lim, prox_src / FPS)
             f1_max = max(f1, int(math.floor(lim * FPS)))
-        rs = vf.regioes(f0 / FPS, f1_max / FPS)
+        rs = tirar_silencios(vf.regioes(f0 / FPS, f1_max / FPS))
         rs = [r for r in rs if r[0] < f1 / FPS + 0.25]       # além do corte original, só o que emenda na frase
         blocos = []                       # [ini, fim, pausa natural depois?]
         for a, b in rs:
@@ -344,6 +363,9 @@ def main() -> None:
     RITMO.update(medir_ritmo(VozFina(trabalho, tr["arquivo"]), dec, pal))
     if "--ritmo-justo" in sys.argv:     # tela dividida: sem os respiros naturais da novela (usuário, 09/10/2026)
         RITMO.update(teto=min(RITMO["teto"], RITMO_JUSTO["teto"]), tipica=min(RITMO["tipica"], RITMO_JUSTO["tipica"]))
+        if (trabalho / "apertar.json").exists():
+            SILENCIOS[:] = [tuple(x) for x in ler_json(trabalho / "apertar.json")]
+            print(f"  silêncios forçados (alinhamento): {len(SILENCIOS)}", flush=True)
     print(f"  ritmo da fala: pausa normal até {RITMO['teto']:.2f}s (fica); maiores quebram o ritmo -> "
           f"{RITMO['tipica']:.2f}s ({RITMO.get('quebram_ritmo', '?')} de {RITMO.get('pausas_medidas', '?')})", flush=True)
     x16, sr16 = ler_wav(trabalho / "audio16k.wav")

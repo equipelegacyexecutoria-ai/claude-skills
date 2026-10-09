@@ -39,6 +39,47 @@ def etapa(script: Path, args: list[str]) -> int:
     return r.returncode
 
 
+# Pausa justa (usuário, 09/10/2026: "pausa extensa sem conexão"; a pausa natural é só da novela). O corte mede a
+# voz pelo volume e fôlego/ruído de boca colado na fala passa como voz; o ALINHAMENTO das palavras é preciso
+# (~1 quadro): todo silêncio entre palavras maior que GAP_MAX vira silêncio forçado e o corte é refeito.
+GAP_MAX = 0.40          # s: maior silêncio aceito entre duas palavras
+FOLGA_PALAVRA = 0.06    # s: o que fica de cada lado da palavra (a cauda da vogal o corte acha sozinho)
+PASSADAS_APERTAR = 2
+
+
+def apertar(T: Path) -> int:
+    """Grava em T/apertar.json (s do bruto) os silêncios longos entre palavras do corte. Devolve quantos novos."""
+    import json
+    pal = json.loads((T / "palavras_corte.json").read_text(encoding="utf-8"))
+    pal = pal["palavras"] if isinstance(pal, dict) else pal
+    segs = json.loads((T / "corte.json").read_text(encoding="utf-8"))["segmentos"]
+    arq = T / "apertar.json"
+    sil = json.loads(arq.read_text(encoding="utf-8")) if arq.exists() else []
+
+    def src(w: dict, t: float) -> tuple[dict, float]:
+        s = segs[w["seg"]]
+        return s, s["src_in"] + (t - s["dst_in"])
+
+    novos = []
+    for w, w1 in zip(pal, pal[1:]):
+        if w1["inicio"] - w["fim"] <= GAP_MAX:
+            continue
+        s, fim = src(w, w["fim"])
+        s1, ini = src(w1, w1["inicio"])
+        if s is s1:
+            novos.append([fim + FOLGA_PALAVRA, ini - FOLGA_PALAVRA])
+        else:                                     # silêncio dividido pela emenda: rabo de um, cabeça do outro
+            if s["src_out"] - fim > 2 * FOLGA_PALAVRA:
+                novos.append([fim + FOLGA_PALAVRA, s["src_out"] + 0.05])
+            if ini - s1["src_in"] > 2 * FOLGA_PALAVRA:
+                novos.append([s1["src_in"] - 0.05, ini - FOLGA_PALAVRA])
+    novos = [[round(p, 3), round(q, 3)] for p, q in novos if q - p > 0.05 and [round(p, 3), round(q, 3)] not in sil]
+    if novos:
+        arq.write_text(json.dumps(sil + novos), encoding="utf-8")
+        print(f"   pausa justa: {len(novos)} silêncio(s) acima de {GAP_MAX:.2f}s entre palavras -> corte refeito", flush=True)
+    return len(novos)
+
+
 def emendas(T: Path) -> int:
     """Palavra repetida colada na emenda ("E... e você sabe"): o Whisper engole gaguejo e o corte emenda
     os dois pedaços. Transcrição literal de cada emenda (skill novela) + ajuste de decupagem sugerido."""
@@ -95,20 +136,24 @@ def main() -> None:
     elif cmd == "montar":
         T = Path(a[0])
         corte = T / "corte.json"
-        antes = corte.stat().st_mtime if corte.exists() else 0.0
-        t0 = time.time()
-        mc = subprocess.Popen([PY, str(NOVELA / "montar_corte.py"), str(T), "--ritmo-justo"], env=ENV)
-        # o enquadramento só precisa do corte.json (gravado antes da retranscrição/alinhamento)
-        while mc.poll() is None and not (corte.exists() and corte.stat().st_mtime > antes):
-            time.sleep(0.3)
-        rc_enq = 1
-        if corte.exists() and corte.stat().st_mtime > antes:
-            time.sleep(0.3)
-            rc_enq = etapa(AQUI / "enquadrar_td.py", [str(T)])
-        rc = mc.wait()
-        print(f"   [montar (corte + enquadramento juntos): {time.time() - t0:.0f}s]", flush=True)
-        if rc or rc_enq:
-            sys.exit(1)
+        (T / "apertar.json").unlink(missing_ok=True)
+        for passada in range(1, PASSADAS_APERTAR + 2):
+            antes = corte.stat().st_mtime if corte.exists() else 0.0
+            t0 = time.time()
+            mc = subprocess.Popen([PY, str(NOVELA / "montar_corte.py"), str(T), "--ritmo-justo"], env=ENV)
+            # o enquadramento só precisa do corte.json (gravado antes da retranscrição/alinhamento)
+            while mc.poll() is None and not (corte.exists() and corte.stat().st_mtime > antes):
+                time.sleep(0.3)
+            rc_enq = 1
+            if corte.exists() and corte.stat().st_mtime > antes:
+                time.sleep(0.3)
+                rc_enq = etapa(AQUI / "enquadrar_td.py", [str(T)])
+            rc = mc.wait()
+            print(f"   [montar (corte + enquadramento juntos): {time.time() - t0:.0f}s]", flush=True)
+            if rc or rc_enq:
+                sys.exit(1)
+            if passada > PASSADAS_APERTAR or not apertar(T):
+                break
         if tem_roteiro(T):
             etapa(NOVELA / "roteiro.py", [str(T)])
         emendas(T)
