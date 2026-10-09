@@ -104,13 +104,20 @@ def login():
             q = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
             if not self.path.startswith("/callback"):
                 self.send_response(404); self.end_headers(); return
-            ok = q.get("state", [""])[0] == estado and "code" in q
+            antigo = q.get("state", [""])[0] != estado
+            ok = not antigo and "code" in q
             if ok:
                 resultado["code"] = q["code"][0]
+            elif antigo:
+                pass  # aba de um login anterior: ignora e continua esperando a aba nova
             else:
                 resultado["erro"] = q.get("error_description", q.get("error", ["resposta invalida"]))[0]
-            msg = ("Pronto! O Claude ja esta ligado ao Frame.io. Pode fechar esta aba."
-                   if ok else f"Nao deu certo: {resultado.get('erro')}")
+            if ok:
+                msg = "Pronto! O Claude ja esta ligado ao Frame.io. Pode fechar esta aba."
+            elif antigo:
+                msg = "Esta aba e de um login antigo. Feche-a e use a aba de login mais nova."
+            else:
+                msg = f"Nao deu certo: {resultado.get('erro')}"
             corpo = f"<html><meta charset='utf-8'><body style='font-family:sans-serif;padding:40px'><h2>{msg}</h2></body></html>"
             self.send_response(200)
             self.send_header("Content-Type", "text/html; charset=utf-8")
@@ -120,7 +127,7 @@ def login():
         def log_message(self, *a):
             pass
 
-    srv = http.server.HTTPServer(("127.0.0.1", PORTA), H)
+    srv = http.server.ThreadingHTTPServer(("127.0.0.1", PORTA), H)
     ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
     ctx.load_cert_chain(CERT, CHAVE)
     srv.socket = ctx.wrap_socket(srv.socket, server_side=True)
@@ -133,13 +140,12 @@ def login():
     print("Abrindo o navegador para o login da Adobe...")
     print("Se nao abrir, cole este endereco no Chrome:\n" + url, flush=True)
     webbrowser.open(url)
-    fim = time.time() + 600
+    fim = time.time() + 1200
     while not resultado and time.time() < fim:
         time.sleep(0.5)
-    time.sleep(1)
-    srv.shutdown()
+    time.sleep(1)  # deixa a pagina de resposta chegar ao navegador (sem shutdown: pode travar em conexao TLS pendente)
     if "code" not in resultado:
-        sys.exit("Login nao concluido: " + resultado.get("erro", "tempo esgotado (10 min)"))
+        sys.exit("Login nao concluido: " + resultado.get("erro", "tempo esgotado (20 min)"))
     _post_token({"grant_type": "authorization_code", "code": resultado["code"]})
     print("Login salvo.")
     eu = api("GET", "/me")["data"]
