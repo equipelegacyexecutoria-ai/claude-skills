@@ -81,6 +81,14 @@ com `read-design` para os trechos exatos). 7 páginas 1080×1440:
    outros posts Legacy (`cta_legacy`: TITULO, P1, P1B vazio, A1 e A2 em azul `#013e6a`, P2, P3).
    Caixa em top 248 coube ~620 caracteres sem encostar no `@`. Montar com `insert_pages`
    `[1,2,2,2,5,6]` do modelo + a pág. 3 do LEGACY numa segunda chamada (sem posição = vai pro fim).
+Lote de 09/10/2026 ("Uma deve bilhões"): briefing pode começar direto no par (sem capa) → montar
+`[2,3,5,6]` do modelo + pág. 3 do LEGACY. Os textos do modelo têm **espaço inseparável** (o `document`
+mostra espaço comum): buscar o trecho exato com `insp2.py <transação>` antes do `find_and_replace`,
+senão a troca "aplica" e não muda nada. Empresa sem foto no Wikimedia (Oncoclínicas, Gafisa, Cury,
+Rede D'Or): imagem de IA da situação (sala vazia, obra parada, prédio entregue), sem logo.
+Capa LEGACY com **4 linhas** no briefing: linhas 1+2 (brancas, de tamanho parecido) juntas na `{{H1}}`
+com `\n`, linha 3 na `{{H2}}` (azul `#43d1ff`) e linha 4 na `{{H3}}`; tops recalculados com a H1
+valendo 2 linhas (feito no carrossel "trilhão").
 Fotos das empresas: Wikimedia via navegador (`thumb.wikimedia.org/.../1920px-`, o `upload.` dá
 erro); foto de baixo com a marca escondida atrás do texto → `crop_media` subindo a imagem.
 
