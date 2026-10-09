@@ -36,6 +36,33 @@ páginas 1080×1350 (capa `{{H}}` `{{SUB}}` `01/{{T}}`; corpo `{{P1}} {{B1}}` / 
 `{{N}}/{{T}}`; corpo longo `{{P1}}` `{{B1}}` `{{P2}}`), avatar `MAHVSCntTPw`, detalhes na seção
 CLAILTON abaixo.
 
+**PARES (LEGACY "quem quebra x quem cresce") — base `DAHXiv8nuHg`** (criado em 09/10/2026 a partir
+do modelo do usuário "Recuperação x Lucro" `DAHUJZPNb_8`; nunca editar a base, só copiar páginas).
+Uso: briefing com "Tela dividida" (empresa que quebrou em cima × concorrente que lucrou embaixo).
+Montar com `merge-designs create_new_design` + `insert_pages` de `DAHXiv8nuHg` (ex.: `[1,2,2,2,5,6,7]`)
+e trocar os textos por `find_and_replace_text` (o texto atual da base é o deste post; ler a base
+com `read-design` para os trechos exatos). 7 páginas 1080×1440:
+1. CAPA = capa LEGACY (H1/H2/H3 + círculo + logo, `medir.py manchete`). Briefing que pede "capa no
+   padrão validado, o Brasil como sujeito" sem dar a frase: montar com as palavras do próprio
+   briefing/legenda (ex.: "No mesmo Brasil, umas empresas / afundam e outras lucram milhões. /
+   De que lado você vai estar?") e avisar o usuário que a capa foi escrita a partir do briefing.
+2–4. PAR: 2 fotos (`shape` cima 1096×744 em y 0; baixo 1096×~700 em y 745) + 2 degradês + selo
+   Legacy (`rect` em y 776). Texto de cima = 1 elemento: nome Bebas 93 (`"Nome \n"`) + descrição
+   Poppins 40 normal branca. Texto de baixo = nome Bebas + `"Do mesmo setor,"` normal branco +
+   trecho **negrito azul `#17adfd`** (o azul vai até o fim do texto: o que vier depois do destaque
+   também sai azul). Base do texto de cima em y≈720 e do de baixo em y≈1375 (top = base − altura
+   que o `document` devolve). Linha "Fonte: X, 2026." = `add_text` (sai na fonte padrão) + 
+   `format_text` 22 px branca + opacidade 0,6, em (70, 1396).
+5–6. ESCURA: foto em cima + degradê + título Bebas 74,67 + corpo Poppins 40 negrito branco + handle
+   + seta (a pág. 5 tem círculo 366 px no canto direito). Título com 2 linhas: `\n` manual e corpo
+   ~185 px abaixo do topo do título. **Frase em azul no corpo não dá** (só há trecho branco):
+   avisar o usuário.
+7. CTA = página escura sem foto: forma `#080e1c` de página inteira atrás de tudo, foto real do
+   Clailton no círculo (300 px em 66, 90), corpo Poppins 34 negrito branco em y 440 (~620
+   caracteres terminam em y≈1232). Foto do Clailton: `ks38ouZ16B` (Magnific, com microfone).
+Fotos das empresas: Wikimedia via navegador (`thumb.wikimedia.org/.../1920px-`, o `upload.` dá
+erro); foto de baixo com a marca escondida atrás do texto → `crop_media` subindo a imagem.
+
 **Lições do lote de 01/10/2026 (7 carrosséis):**
 - CTA LEGACY sem `{{P1}}`: o `{{A1}}` fica logo depois do título e, se tiver `\n`, a 1ª linha sai em
   caixa-alta (herda o estilo do título). Nesse caso, trocar o `\n` do A1 por espaço.
