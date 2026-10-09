@@ -274,8 +274,19 @@ def baixar(id_, destino="."):
         sys.exit("Sem link de download para este arquivo.")
     alvo = os.path.join(destino, d.get("name", id_)) if os.path.isdir(destino) else destino
     print(f"Baixando {d.get('name')} -> {alvo}")
-    urllib.request.urlretrieve(url, alvo)
+    baixar_url(url, alvo)
     print("Pronto.")
+
+
+def baixar_url(url, alvo):
+    """O link do Frame.io recusa (403) pedidos sem User-Agent."""
+    req = urllib.request.Request(url, headers={"User-Agent": UA})
+    with urllib.request.urlopen(req) as r, open(alvo, "wb") as f:
+        while True:
+            bloco = r.read(8 * 1024 * 1024)
+            if not bloco:
+                break
+            f.write(bloco)
 
 
 def subir(arquivo, id_):
