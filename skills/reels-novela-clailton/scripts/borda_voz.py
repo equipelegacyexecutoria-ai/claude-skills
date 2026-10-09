@@ -156,6 +156,19 @@ class VozFina:
                 fund.append(r)
         return [(round(p, 3), round(q, 3)) for p, q in fund]
 
+    def nivel(self, t0: float, t1: float) -> float:
+        """Maior nível (dB) entre t0 e t1."""
+        a, b = max(0, int(t0 / HOP)), min(len(self.env), max(int(t0 / HOP) + 1, int(round(t1 / HOP))))
+        return float(self.env[a:b].max()) if b > a else -120.0
+
+    def quieto(self, t0: float, t1: float) -> float:
+        """Instante mais silencioso entre t0 e t1 (para o corte não cair em cima de estalo/respiro:
+        "feito" do Palhaço, 09/10/2026 — o corte caía no meio de um estalo de boca 150 ms depois da palavra)."""
+        a, b = max(0, int(t0 / HOP)), min(len(self.env), int(round(t1 / HOP)))
+        if b <= a:
+            return t0
+        return (a + int(np.argmin(self.env[a:b]))) * HOP
+
     def cauda(self, t: float, janela: float) -> float:
         """Fim da voz seguindo a CAUDA da última vogal até o silêncio de verdade (piso + 6 dB), sem pular
         buraco > 15 ms e parando antes de qualquer novo ataque (som subindo acima do limiar de voz).

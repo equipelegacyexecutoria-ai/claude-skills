@@ -290,6 +290,16 @@ def aparar(segs: list[dict], trabalho: Path, fonte: str, avisos: list[str], pal:
             n_in = max(f0, int(math.floor(max(min(a, a2) - meia, meio_ant) * FPS)))
             n_out = min(max(f1_max, f1), int(math.ceil(min(max(b + meia, b2 + MARGEM_VOZ_INI,
                                                                b3 + FADE_CAUDA), meio_prox) * FPS)))
+            # a borda nunca cai em cima de um som solto (estalo de boca, respiro): escolhe o quadro mais silencioso
+            # entre o fim da voz e a borda calculada ("feito" do Palhaço, 09/10/2026: o corte caía no meio de um
+            # estalo 150 ms depois da palavra e soava como a palavra cortada)
+            lim_som = vf.piso + 12
+            q_voz = int(math.ceil(max(b, b2, b3) * FPS))
+            if n_out - q_voz >= 2 and vf.nivel(n_out / FPS - 0.03, n_out / FPS) > lim_som:
+                n_out = min(range(q_voz, n_out + 1), key=lambda q: (vf.nivel(q / FPS - 0.03, q / FPS), -q))
+            q_voz = int(math.floor(min(a, a2) * FPS))
+            if q_voz - n_in >= 2 and vf.nivel(n_in / FPS, n_in / FPS + 0.03) > lim_som:
+                n_in = min(range(n_in, q_voz + 1), key=lambda q: (vf.nivel(q / FPS, q / FPS + 0.03), q))
             if novos and novos[-1].get("_k") == k and n_in <= novos[-1]["frame_in"] + novos[-1]["frames"] + 1:
                 ult = novos[-1]                               # encostou no bloco anterior: sem corte aqui
                 ult["frames"] = max(ult["frames"], n_out - ult["frame_in"])
