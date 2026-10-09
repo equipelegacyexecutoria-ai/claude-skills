@@ -165,7 +165,12 @@ def token_valido():
 
 
 def api(metodo, caminho, corpo=None):
-    url = caminho if caminho.startswith("http") else API + caminho
+    if caminho.startswith("http"):
+        url = caminho
+    elif caminho.startswith("/v4/"):  # links.next da paginacao ja vem com /v4
+        url = API[:-3] + caminho
+    else:
+        url = API + caminho
     dados = json.dumps(corpo).encode() if corpo is not None else None
     req = urllib.request.Request(url, data=dados, method=metodo, headers={
         "Authorization": f"Bearer {token_valido()}",
