@@ -166,8 +166,15 @@ trabalho em `C:\Render\_trabalho\<slug>\`), seguindo o modo rápido dela, com es
 2. Aplique sobre a edição guardada em `C:\Render\_trabalho\<slug>\` (sem ela, refaça do bruto com as correções).
 3. Correção ambígua: **não chute**. Comente "DÚVIDA: ..." e deixe o card em Correções (Claude); siga para o próximo.
 4. Entregue como `v2`, `v3`... (Passo 4) e mova para aprovação.
-5. Depois de entregar: copie o texto aplicado para o comentário ("Correções aplicadas na v2: ... ✔")
-   e **esvazie** o campo CORREÇÕES (Claude), para a próxima rodada começar limpa.
+5. Depois de entregar, comente no card **neste formato (padrão do usuário, 09/10/2026)**:
+   ```
+   Correções pedidas (v2):
+   <texto do campo CORREÇÕES (Claude) colado EXATAMENTE como o usuário escreveu — copiar e colar, sem resumir>
+
+   O que foi feito: <seu comentário, item por item, com ✔ / o que ficou pendente / dúvidas>
+   ```
+   Card que voltou sem texto em CORREÇÕES (Claude) (regra geral de outro card): "Correções pedidas: (nenhuma neste
+   card — aplicada a regra geral: <qual>)". Só DEPOIS de comentar, **esvazie** o campo CORREÇÕES (Claude).
 6. Erro que se repete em vários cards = causa na skill: ache a causa, corrija o script/regra, **confira nos cards
    que reclamaram** e só então registre na skill (usuário, 09/10/2026).
 
