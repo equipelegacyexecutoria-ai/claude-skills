@@ -42,13 +42,17 @@ def area_util(video: str) -> tuple[int, int, int, int]:
     r = subprocess.run(["ffmpeg", "-hide_banner", "-i", video, "-vf", "cropdetect=24:2:0", "-frames:v", "60",
                         "-f", "null", "-"], capture_output=True, text=True)
     achados = Counter(_re.findall(r"crop=(\d+):(\d+):(\d+):(\d+)", r.stderr))
-    if not achados:
-        return 0, 0, vw, vh
-    w, h, x, y = (int(v) for v in achados.most_common(1)[0][0])
-    y, h = _sem_logo_na_tarja(video, y, h)
-    if w < vw * 0.5 or h < vh * 0.4 or (w > vw * 0.96 and h > vh * 0.96):
-        return 0, 0, vw, vh
-    # borda escura e macia logo depois da tarja (filme antigo/desenho: Popeye ficou com 22 px de preto): 1% a mais
+    w, h, x, y = (int(v) for v in achados.most_common(1)[0][0]) if achados else (vw, vh, 0, 0)
+    if w < vw * 0.5 or h < vh * 0.4:
+        x, y, w, h = 0, 0, vw, vh
+    # 09/10/2026, tarjas que sobravam na tela: logo escrito DENTRO da tarja ("MOVIECLIPS.COM") fazia o cropdetect
+    # incluí-la; tarja fina (Popeye, ~10 px) era ignorada. Pelo máximo de 12 quadros: maior bloco contínuo com
+    # imagem, depois borda escura fina (até 4%) e 1% de folga onde havia tarja.
+    acc = _maximo_quadros(video)
+    if acc is None:
+        return x, y, w, h
+    y, h = _bloco(np.percentile(acc[y:y + h, x:x + w], 90, axis=1) > 12, y, h)
+    x, w = _bloco(np.percentile(acc[y:y + h, x:x + w], 90, axis=0) > 12, x, w)
     if h < vh - 2:
         d = max(2, int(round(h * 0.01)))
         y, h = y + d, h - 2 * d
@@ -58,9 +62,7 @@ def area_util(video: str) -> tuple[int, int, int, int]:
     return x, y, w, h
 
 
-def _sem_logo_na_tarja(video: str, y: int, h: int) -> tuple[int, int]:
-    """O cropdetect inclui logo escrito DENTRO da tarja ("MOVIECLIPS.COM" na faixa de baixo) e a tarja ficava
-    na tela (09/10/2026). Linha a linha (máximo em 12 quadros): fica o maior bloco contínuo com imagem."""
+def _maximo_quadros(video: str):
     import cv2
     c = cv2.VideoCapture(video)
     n = int(c.get(cv2.CAP_PROP_FRAME_COUNT)) or 1
@@ -72,20 +74,23 @@ def _sem_logo_na_tarja(video: str, y: int, h: int) -> tuple[int, int]:
             g = f.mean(2)
             acc = g if acc is None else np.maximum(acc, g)
     c.release()
-    if acc is None:
-        return y, h
-    linhas = np.percentile(acc[y:y + h], 90, axis=1) > 12
+    return acc
+
+
+def _bloco(claro: np.ndarray, p: int, n: int) -> tuple[int, int]:
+    """Maior trecho contínuo de linhas/colunas com imagem: tarja grossa (logo dentro) ou borda fina (<= 4%)."""
     melhor, ini = (0, 0), None
-    for k, v in enumerate(list(linhas) + [False]):
+    for k, v in enumerate(list(claro) + [False]):
         if v and ini is None:
             ini = k
         elif not v and ini is not None:
             if k - ini > melhor[1] - melhor[0]:
                 melhor = (ini, k)
             ini = None
-    if h - 6 > melhor[1] - melhor[0] > 0.3 * h:
-        return y + melhor[0], melhor[1] - melhor[0]
-    return y, h
+    a, b = melhor
+    if b - a < 0.3 * n or a > 0.25 * n or n - b > 0.25 * n:      # cena escura de verdade não é tarja
+        return p, n
+    return p + a, b - a
 
 
 def caixa_cover(iw: int, ih: int, ow: int, oh: int, foco: tuple[float, float] | None = None,
