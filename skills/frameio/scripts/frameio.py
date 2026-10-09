@@ -42,6 +42,7 @@ REDIRECT = f"https://localhost:{PORTA}/callback"
 IMS = "https://ims-na1.adobelogin.com/ims"
 API = "https://api.frame.io/v4"
 ESCOPOS = "offline_access,openid,email,profile,additional_info.roles"
+UA = "LegacyClaude-FrameIO/1.0 (+python)"
 
 
 def ler_credenciais():
@@ -67,7 +68,7 @@ def _post_token(dados):
         f"{IMS}/token/v3",
         data=urllib.parse.urlencode(dados).encode(),
         headers={"Authorization": f"Basic {basic}",
-                 "Content-Type": "application/x-www-form-urlencoded"},
+                 "Content-Type": "application/x-www-form-urlencoded", "User-Agent": UA},
     )
     try:
         with urllib.request.urlopen(req) as r:
@@ -127,7 +128,7 @@ def login():
 
     url = f"{IMS}/authorize/v2?" + urllib.parse.urlencode({
         "client_id": cid, "redirect_uri": REDIRECT, "scope": ESCOPOS,
-        "response_type": "code", "state": estado,
+        "response_type": "code", "state": estado, "prompt": "login",
     })
     print("Abrindo o navegador para o login da Adobe...")
     print("Se nao abrir, cole este endereco no Chrome:\n" + url, flush=True)
@@ -163,6 +164,7 @@ def api(metodo, caminho, corpo=None):
     req = urllib.request.Request(url, data=dados, method=metodo, headers={
         "Authorization": f"Bearer {token_valido()}",
         "Content-Type": "application/json",
+        "User-Agent": UA,
     })
     try:
         with urllib.request.urlopen(req) as r:
@@ -198,7 +200,7 @@ def pasta_de(id_):
     """Aceita id de pasta ou de projeto (usa a pasta raiz do projeto)."""
     a = conta_id()
     req = urllib.request.Request(f"{API}/accounts/{a}/projects/{id_}",
-                                 headers={"Authorization": f"Bearer {token_valido()}"})
+                                 headers={"Authorization": f"Bearer {token_valido()}", "User-Agent": UA})
     try:
         with urllib.request.urlopen(req) as r:
             return json.load(r)["data"]["root_folder_id"]
@@ -313,7 +315,7 @@ def main():
     elif cmd == "criar-pasta":
         criar_pasta(resto[0], " ".join(resto[1:]))
     elif cmd == "get":
-        print(json.dumps(api("GET", resto[0]), ensure_ascii=False, indent=1))
+        print(json.dumps(api("GET", "/" + resto[0].lstrip("/")), ensure_ascii=False, indent=1))
     else:
         print(__doc__)
 
