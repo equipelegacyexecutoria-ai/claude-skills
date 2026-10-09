@@ -35,6 +35,7 @@ from comum import (AUDIO_BR, CRF, FAIXA_H, FAIXA_W, FAIXA_Y0, FPS, FPS_DEN, FPS_
 
 SR = 48000
 FADE = 0.008
+FADE_FIM = 0.025   # saída de cada emenda: 8 ms cortava a cauda da vogal ("circ-o", "mand-a", 09/10/2026)
 COR = "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709:range=tv"
 PARALELO = 6     # intermediários renderizados ao mesmo tempo
 # som padrão da CTA (arquivo do usuário, 30/09/2026): rajada de 15 toques de teclado em 0,75 s, o mesmo tempo da
@@ -94,16 +95,22 @@ def render_preto(n: int, out: Path) -> None:
         "-c:v", "libx264", "-qp", "0", "-preset", "ultrafast", "-pix_fmt", "yuv420p", str(out)])
 
 
-def montar_audio(fonte: str, segs: list[dict], quadros_cta: int, tmp: Path) -> Path:
+def montar_audio(fonte: str, segs: list[dict], quadros_cta: int, tmp: Path, tratado: Path | None = None) -> Path:
+    """tratado: áudio do bruto inteiro já limpo (Adobe Podcast "Aprimorar fala"), na MESMA linha do tempo do
+    bruto (conferido por `tratar_audio.py alinhar`). Sem ele, usa o som do próprio bruto."""
     bruto = tmp / "audio_bruto.wav"
-    ff(["-i", fonte, "-map", "0:a:0", "-ac", "2", "-ar", str(SR), "-c:a", "pcm_s16le", str(bruto)])
+    if tratado is not None:
+        ff(["-i", str(tratado), "-ac", "2", "-ar", str(SR), "-c:a", "pcm_s16le", str(bruto)])
+    else:
+        ff(["-i", fonte, "-map", "0:a:0", "-ac", "2", "-ar", str(SR), "-c:a", "pcm_s16le", str(bruto)])
     with wave.open(str(bruto), "rb") as w:
         x = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).reshape(-1, 2).astype(np.float32) / 32768
     partes = []
     total_q = 0
     total_s = 0
-    nf = int(FADE * SR)
+    nf, nf_fim = int(FADE * SR), int(FADE_FIM * SR)
     rampa = np.linspace(0, 1, nf, dtype=np.float32)[:, None]
+    rampa_fim = np.linspace(1, 0, nf_fim, dtype=np.float32)[:, None] ** 2     # cauda: cai suave como a voz
     for k, s in enumerate(segs):
         a = int(round(s["frame_in"] / FPS * SR))
         total_q += s["frames"]
@@ -117,7 +124,7 @@ def montar_audio(fonte: str, segs: list[dict], quadros_cta: int, tmp: Path) -> P
         if not contiguo_antes:
             pedaco[:nf] *= rampa
         if not contiguo_depois:
-            pedaco[-nf:] *= rampa[::-1]
+            pedaco[-nf_fim:] *= rampa_fim
         partes.append(pedaco)
         total_s += n
     n_cta = int(round((total_q + quadros_cta) / FPS * SR)) - total_s
@@ -256,7 +263,11 @@ def main() -> None:
         arquivos.append(tmp / "cta.mkv")
     (tmp / "lista.txt").write_text("".join(f"file '{p.name}'\n" for p in arquivos), encoding="utf-8")
     print("áudio...", flush=True)
-    aud = montar_audio(corte["fonte"], segs, q_cta, tmp)
+    # áudio limpo pelo Adobe Podcast (tratar_audio.py), se houver: mesma linha do tempo do bruto
+    tratado = trabalho / "audio_tratado.wav"
+    if tratado.exists():
+        print("  usando audio_tratado.wav (Adobe Podcast)", flush=True)
+    aud = montar_audio(corte["fonte"], segs, q_cta, tmp, tratado if tratado.exists() else None)
     audio = aud["path"]
     if q_cta and not a.sem_teclado:
         from legenda_novela import CTA_ATRASO
@@ -284,6 +295,7 @@ def main() -> None:
                 "crf": CRF, "preset": PRESET, "audio_br": AUDIO_BR, "crop": enq["crop"],
                 "segmentos": len(segs), "quadros_fala": q_fala, "quadros_cta": q_cta,
                 "teclado_cta": bool(q_cta and not a.sem_teclado),
+                "audio_tratado": tratado.exists(),
                 "loudness": {k: aud[k] for k in ("entrada", "saida", "ganho_db", "modo")},
                 "palavras_sha256": sha_atual}
     gravar_json(trabalho / "render_info.json", registro)

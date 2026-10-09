@@ -143,6 +143,27 @@ class VozFina:
                 fund.append(r)
         return [(round(p, 3), round(q, 3)) for p, q in fund]
 
+    def cauda(self, t: float, janela: float) -> float:
+        """Fim da voz seguindo a CAUDA da última vogal até o silêncio de verdade (piso + 6 dB), sem pular
+        buraco > 15 ms e parando antes de qualquer novo ataque (som subindo acima do limiar de voz).
+        09/10/2026: "circo", "manda", "escuta", "grupo" soavam cortados — o corte parava ~37 dB abaixo do
+        pico, no meio da soltura da vogal, e a frase seguinte entrava colada."""
+        k = int(round(t / HOP))
+        fim = min(len(self.env), k + int(janela / HOP))
+        borda, buraco, subindo = k, 0, False
+        for i in range(k, fim):
+            if i > k and self.env[i] >= self.lim and self.env[i] > self.env[i - 1] + 3:
+                subindo = True                       # nova palavra/estalo começando: a cauda acabou antes
+            if subindo:
+                break
+            if self.env[i] >= self.piso + 6:
+                borda, buraco = i, 0
+            else:
+                buraco += 1
+                if buraco > 3:
+                    break
+        return (borda + 1) * HOP if borda > k else t
+
     def estende(self, t: float, lado: int, janela: float) -> float:
         """Borda da voz seguindo a onda FRACA da própria palavra: sussurro/"s"/soltura (chiado agudo acima de
         piso+10 dB — o "e" quase mudo antes de "talvez", a soltura de "escolhid-o") ou som acima de piso+16 dB.

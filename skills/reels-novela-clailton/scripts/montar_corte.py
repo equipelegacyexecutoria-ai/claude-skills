@@ -216,6 +216,9 @@ MARGEM_VOZ_FIM = 0.04   # s: folga depois do fim da onda forte (o fraco é segui
 FIM_EXTRA = 0.40        # s: quanto o fim da frase pode passar do corte original se a voz continua
 ONDA_FRACA_ANTES = 0.10 # s: o começo pode recuar até isso se houver sussurro ("e" quase mudo de "e talvez")
 ONDA_FRACA_DEPOIS = 0.12 # s: o fim pode avançar até isso se houver soltura/"s" fraco ("escolhid-o", -43 dB)
+CAUDA_MAX = 0.10        # s: a vogal final ("circ-o", "mand-a", "escut-a", "grup-o") segue até cair no silêncio
+FADE_CAUDA = 0.025      # s: folga para a saída suave (render_final.FADE_FIM) depois da cauda
+# (09/10/2026: 4 palavras "cortadas" no fim antes de emenda; o corte parava a ~-37 dB do pico e a soltura sumia)
 
 
 def aparar(segs: list[dict], trabalho: Path, fonte: str, avisos: list[str], pal: list[dict]) -> list[dict]:
@@ -257,8 +260,10 @@ def aparar(segs: list[dict], trabalho: Path, fonte: str, avisos: list[str], pal:
             meio_prox = (b + blocos[j + 1][0]) / 2 if j + 1 < len(blocos) else 1e9
             a2 = max(vf.estende(a, -1, ONDA_FRACA_ANTES), meio_ant)
             b2 = min(vf.estende(b, +1, ONDA_FRACA_DEPOIS), meio_prox)
+            b3 = min(vf.cauda(b, CAUDA_MAX), meio_prox)          # a vogal final morrendo até o silêncio
             n_in = max(f0, int(math.floor(max(min(a, a2) - MARGEM_VOZ_INI, meio_ant) * FPS)))
-            n_out = min(max(f1_max, f1), int(math.ceil(min(max(b + MARGEM_VOZ_FIM, b2 + MARGEM_VOZ_INI), meio_prox) * FPS)))
+            n_out = min(max(f1_max, f1), int(math.ceil(min(max(b + MARGEM_VOZ_FIM, b2 + MARGEM_VOZ_INI,
+                                                               b3 + FADE_CAUDA), meio_prox) * FPS)))
             if novos and novos[-1].get("_k") == k and n_in <= novos[-1]["frame_in"] + novos[-1]["frames"] + 1:
                 ult = novos[-1]                               # encostou no bloco anterior: sem corte aqui
                 ult["frames"] = max(ult["frames"], n_out - ult["frame_in"])

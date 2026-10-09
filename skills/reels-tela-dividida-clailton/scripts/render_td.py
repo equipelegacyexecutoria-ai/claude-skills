@@ -273,7 +273,8 @@ def main() -> None:
 
     # ---------------- áudio
     print("áudio...", flush=True)
-    aud = RN.montar_audio(fonte, segs, lay["frames_total"] - F_FALA, tmp)
+    tratado = T / "audio_tratado.wav"                       # Adobe Podcast (tratar_audio.py da novela)
+    aud = RN.montar_audio(fonte, segs, lay["frames_total"] - F_FALA, tmp, tratado if tratado.exists() else None)
     audio = Path(aud["path"])
     if tl["cta"] and not a.sem_clique:                       # som de teclado padrão, 1o toque na 1a letra
         import legenda_novela as LN

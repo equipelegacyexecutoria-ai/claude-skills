@@ -68,6 +68,7 @@ X_MIN, X_MAX = 95.0, 985.0             # margens laterais (tinta)
 LARG_MAX = X_MAX - X_MIN
 X_ESQ = 165.0                          # alinhamento à esquerda (15% da largura)
 PASSO_ESCADA = 100.0
+ESCADA_LINHA_MIN = 200.0               # px: linha mais estreita que isso na escada fica solta -> vira esquerda
 X_ANCORA, Y_ANCORA = 97.0, 852.0       # tinta esquerda e topo da maiúscula da âncora
 RECUO_SOB_ANCORA = 20.0
 
@@ -335,8 +336,21 @@ def layout_bloco(b: Bloco, queixo: float | None) -> list[str]:
         for ln in b.linhas:
             ln.x = x0
         if modo == "direita" and n >= 2:
-            ref = b.linhas[-2]
-            b.linhas[-1].x = ref.x + ref.largura - ws[-1]
+            # a última fecha pela direita na borda da linha MAIS LARGA de cima (09/10/2026: alinhada só com a
+            # penúltima, "TORCENDO / PARA QUE ELE / NÃO ACONTEÇA" ficou com duas bordas direitas = quebrada)
+            borda_dir = max(ln.x + w for ln, w in zip(b.linhas[:-1], ws[:-1]))
+            b.linhas[-1].x = max(x0, borda_dir - ws[-1])
+        desloc = max(0.0, max(ln.x + ln.largura for ln in b.linhas) - X_MAX)
+        for ln in b.linhas:
+            ln.x = max(X_MIN, ln.x - desloc)
+    elif modo == "escada" and min(ws) < ESCADA_LINHA_MIN:
+        # linha curta na escada ("A", "SE", "AÍ VAI") fica solta, longe das outras: o usuário reprovou 3x
+        # (09/10/2026, "o A ficou completamente fora da diagramação"). Vira esquerda.
+        avisos.append(f"bloco {b.idx+1}: escada com linha curta ('{b.linhas[ws.index(min(ws))].texto}'), virou esquerda")
+        modo = "esquerda"
+        x0 = X_ANCORA + RECUO_SOB_ANCORA if b.sob_ancora else X_ESQ
+        for ln in b.linhas:
+            ln.x = x0
         desloc = max(0.0, max(ln.x + ln.largura for ln in b.linhas) - X_MAX)
         for ln in b.linhas:
             ln.x = max(X_MIN, ln.x - desloc)
