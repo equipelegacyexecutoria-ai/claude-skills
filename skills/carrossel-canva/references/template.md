@@ -36,10 +36,29 @@ páginas 1080×1350 (capa `{{H}}` `{{SUB}}` `01/{{T}}`; corpo `{{P1}} {{B1}}` / 
 `{{N}}/{{T}}`; corpo longo `{{P1}}` `{{B1}}` `{{P2}}`), avatar `MAHVSCntTPw`, detalhes na seção
 CLAILTON abaixo.
 
-**PARES (LEGACY "quem quebra x quem cresce") — base `DAHXiv8nuHg`** (criado em 09/10/2026 a partir
-do modelo do usuário "Recuperação x Lucro" `DAHUJZPNb_8`; nunca editar a base, só copiar páginas).
-Uso: briefing com "Tela dividida" (empresa que quebrou em cima × concorrente que lucrou embaixo).
-Montar com `merge-designs create_new_design` + `insert_pages` de `DAHXiv8nuHg` (ex.: `[1,2,2,2,5,6,7]`)
+**Nomes que o usuário usa para os modelos (09/10/2026):** "Legacy" = LEGACY `DAHWWhuFIEI`;
+"Legacy Tela Dividida" = PARES abaixo; "Legacy Notícia" = post único de notícia abaixo;
+"Legacy + Clailton" e "Twitter Clailton" como acima.
+
+**LEGACY NOTÍCIA — modelo `DAHXiwEafck`** ("MODELO | LEGACY NOTICIA (não editar)", feito em 09/10/2026
+dos posts de notícia do design `DAHN0I2hR-4`). Post de **1 página** 1080×1440 (FORMATO "Estático"):
+pág. 1 = sem círculo; pág. 2 = com círculo (342 px em 68, 396, borda branca). Elementos: FOTO
+`shape` 1120×1031 no topo; degradê; logo Legacy no canto (82, 171); `@legacyexecutoria` 16 px
+(y ≈ 843–873); manchete = **1 caixa Bebas** (x 68, y ≈ 877–907, w 963, lh 1.03, alinhada à esquerda)
+com 2 ou 3 trechos de tamanhos diferentes (pág. 1: 106,7 / 102,7; pág. 2: 97 / 117 / 65); fonte
+Poppins bold itálico azul `#0094ff` 26,67 px (y 1229, texto "fonte X, 2026."); pílula "leia a legenda".
+Trocar cada trecho da manchete por `find_and_replace_text` dentro do próprio trecho (mantém o
+tamanho); `\n` dentro do trecho quebra a linha. `format_text font_size` iguala todos os trechos.
+Manchete longa: 3 linhas de ~mesma largura (`m.titulo(t,100,99999)['largura']` ≈ 860–950 por linha
+a 106 px). Foto: cena que prova a manchete, sujeito no alto; cabeça cortada → `crop_media` top
+menos negativo. Montar: `merge-designs create_new_design` com a página do modelo, título
+"<manchete curta> | LEGACY NOTÍCIA".
+
+**LEGACY TELA DIVIDIDA (PARES, "quem quebra x quem cresce") — modelo `DAHXi4yOMXQ`** ("MODELO |
+LEGACY TELA DIVIDIDA (não editar)"; o post publicado é `DAHXiv8nuHg`). Criado em 09/10/2026 a
+partir do modelo do usuário "Recuperação x Lucro" `DAHUJZPNb_8`; nunca editar o modelo, só copiar
+páginas. Uso: briefing com "Tela dividida" (empresa que quebrou em cima × concorrente que lucrou
+embaixo). Montar com `merge-designs create_new_design` + `insert_pages` de `DAHXi4yOMXQ` (ex.: `[1,2,2,2,5,6,7]`)
 e trocar os textos por `find_and_replace_text` (o texto atual da base é o deste post; ler a base
 com `read-design` para os trechos exatos). 7 páginas 1080×1440:
 1. CAPA = capa LEGACY (H1/H2/H3 + círculo + logo, `medir.py manchete`). Briefing que pede "capa no
