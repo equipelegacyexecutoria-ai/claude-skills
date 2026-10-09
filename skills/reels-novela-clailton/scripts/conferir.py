@@ -340,6 +340,7 @@ def main() -> None:
         arq_ok = trabalho / "repeticoes_ok.txt"
         ok = {norm(x.split("#")[0]) for x in arq_ok.read_text(encoding="utf-8").splitlines()} if arq_ok.exists() else set()
         ok.discard("")
+        ok.add("E")   # "e é aí", "quem ela é e...": o Whisper literal tira o acento e vira "E E" (3 falsos alarmes em 09/10/2026)
         for r_ in reps:
             r_["intencional"] = r_["repetido"].replace(" ", "") in {o.replace(" ", "") for o in ok}
         rel["repeticoes_nas_emendas"] = reps
