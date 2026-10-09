@@ -18,14 +18,13 @@ Imagem das 38 telas: `telas-referencia.jpg`. CTA: `cta-referencia.png`.
 
 ## 2. Ritmo do corte
 
-- Fala corrida: entre uma frase e outra ficam só **0,10–0,26 s** de silêncio.
-- Pausas internas acima de 0,30 s são encurtadas para ~0,20 s; tomadas repetidas, falsos
-  começos e comentários ("vamos lá de novo", "calma", "muito bem") saem.
-- **Nada de pausa dramática**: o usuário reprovou 0,45 s de silêncio depois de "Talvez seja,"
-  ("um tempo sem nada, estranho"). Nenhum silêncio interno acima de ~0,3 s.
-- **Início e fim de trecho colados na voz**: o usuário reprovou "demorou para ele começar a
-  falar" (a respiração depois da frase anterior ficava no corte). Corte a ~0,05 s da voz dos
-  dois lados; respiração/expiração entre frases sai.
+- **Regra do usuário (09/10/2026):** pausa normal da fala FICA; só a pausa que quebra o ritmo (espera do
+  teleprompter) é encurtada. O limite é MEDIDO em cada vídeo (`montar_corte.medir_ritmo`): nos 11 vídeos de
+  08/10 havia ~720 pausas normais (a maioria < 0,6 s) e ~115 de 1 a 6 s, quase nada entre 0,8 e 1 s. Teto da
+  pausa normal 0,55–0,83 s conforme o vídeo; a longa vira a pausa típica dele (0,33–0,50 s).
+- Histórico: em 28/09 o usuário reprovou 0,45–0,5 s "parado sem falar" e a skill passou a cortar toda pausa
+  ≥ 0,12 s; em 09/10 isso comeu palavras e picotou pausas de efeito — por isso a regra medida.
+- Tomadas repetidas, falsos começos e comentários ("vamos lá de novo", "calma") saem.
 - Depois da última palavra: **~0,45 s** de imagem e corte seco para a CTA.
 
 ## 3. Legenda

@@ -33,7 +33,8 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from comum import FIM_RESPIRO, FPS, PAUSA_ALVO, PAUSA_ENTRE, PAUSA_MAX, gravar_json, ler_json  # noqa: E402
+from comum import (FIM_RESPIRO, FPS, PAUSA_ALVO, PAUSA_MAX, PAUSA_TETO_MAX, PAUSA_TETO_MIN,  # noqa: E402
+                   gravar_json, ler_json)
 
 HOP = 0.01
 MARGEM_INI = 0.10        # usuário (28/09): "mais próximo nos inícios"; 09/10: sem comer a palavra -> folga natural
@@ -41,6 +42,28 @@ MARGEM_FIM = 0.12        # e nos fins
 SIL_MIN = 0.10          # silêncio mínimo que separa fala (fechamento de oclusiva é mais curto)
 BUSCA_ANTES = 0.35      # quanto antes da marca do Whisper a fala pode começar
 BUSCA_DEPOIS = 0.70     # quanto depois da marca do Whisper a fala pode começar (ele adianta)
+RITMO = {"teto": PAUSA_MAX, "tipica": PAUSA_ALVO}   # medido em cada vídeo por medir_ritmo()
+
+
+def medir_ritmo(vf, dec: dict, pal: list[dict]) -> dict:
+    """Ritmo de fala DESTE vídeo. Usuário, 09/10/2026: "medir as pausas e entender qual é uma pausa normal da fala e
+    qual é uma pausa acentuada que quebra o ritmo" (pelo roteiro/pontuação não acerta). Mede as pausas voz a voz
+    dentro dos trechos que ficam. Nos 11 vídeos de 08/10: ~720 pausas normais (quase todas < 0,6 s) x ~115 de 1 a 6 s
+    (espera do teleprompter), quase nada entre 0,8 e 1 s. teto = 90% das pausas abaixo de 1,2 s (limitado a
+    0,55-0,90 s): até ele a pausa FICA intacta; acima, vira a pausa típica (mediana das normais acima de 0,2 s)."""
+    g = []
+    for tre in dec["trechos"]:
+        a, b = float(pal[int(tre["de"])]["inicio"]), float(pal[int(tre["ate"])]["fim"])
+        rs = vf.regioes(a - 0.05, b + 0.3)
+        g += [y0 - x1 for (x0, x1), (y0, y1) in zip(rs, rs[1:]) if y0 - x1 > 0.05]
+    g = np.array(g)
+    if len(g) < 10 or (g < 1.2).sum() < 5:
+        return dict(RITMO)
+    teto = float(np.clip(np.percentile(g[g < 1.2], 90), PAUSA_TETO_MIN, PAUSA_TETO_MAX))
+    normais = g[(g > 0.2) & (g <= teto)]
+    tipica = float(np.clip(np.median(normais), 0.28, 0.50)) if len(normais) else PAUSA_ALVO
+    return {"teto": round(teto, 3), "tipica": round(tipica, 3), "pausas_medidas": int(len(g)),
+            "quebram_ritmo": int((g > teto).sum())}
 
 
 # ---------------------------------------------------------------- energia
@@ -205,14 +228,16 @@ def acha_fala(en: Energia, pal, i0, i1, dur, desde: float | None = None):
         ext = [r for r in en.falas(lo, hi2) if abs(r[2] - cortada[-1][2]) < 0.03 and r[3] < hi2 - 0.03]
         if ext:
             fim = max(fim, ext[-1][1])
+    # a voz emenda sem pausa na próxima palavra do bruto (descartada pelo FIM): o fim é a fronteira entre
+    # as palavras, não a fala anterior (09/10/2026: "ignorar o que ainda funciona", "tudo bem", "de vida" sumiam)
+    elif cortada and i1 + 1 < len(pal):
+        fim = max(fim, hi_lim)
     if fim <= ini:
         ini, fim = w0, w1
     return ini, fim
 
 
-SIL_CORTE = PAUSA_MAX   # s: só pausa (voz a voz) maior que isso é cortada (09/10/2026: pausas naturais ficam)
-MARGEM_VOZ_INI = PAUSA_ALVO / 2   # s: folga antes do ataque da voz na pausa encurtada
-MARGEM_VOZ_FIM = PAUSA_ALVO / 2   # s: folga depois do fim da voz na pausa encurtada
+MARGEM_VOZ_INI = 0.02   # s: folga mínima antes do ataque da voz (a pausa encurtada usa RITMO["tipica"])
 FIM_EXTRA = 0.40        # s: quanto o fim da frase pode passar do corte original se a voz continua
 ONDA_FRACA_ANTES = 0.10 # s: o começo pode recuar até isso se houver sussurro ("e" quase mudo de "e talvez")
 ONDA_FRACA_DEPOIS = 0.12 # s: o fim pode avançar até isso se houver soltura/"s" fraco ("escolhid-o", -43 dB)
@@ -243,16 +268,16 @@ def aparar(segs: list[dict], trabalho: Path, fonte: str, avisos: list[str], pal:
             f1_max = max(f1, int(math.floor(lim * FPS)))
         rs = vf.regioes(f0 / FPS, f1_max / FPS)
         rs = [r for r in rs if r[0] < f1 / FPS + 0.25]       # além do corte original, só o que emenda na frase
-        blocos = []
+        blocos = []                       # [ini, fim, pausa natural depois?]
         for a, b in rs:
-            if blocos and a - blocos[-1][1] < SIL_CORTE:
+            if blocos and a - blocos[-1][1] < RITMO["teto"]:    # pausa normal da fala: fica
                 blocos[-1][1] = b
             else:
-                blocos.append([a, b])
+                blocos.append([a, b, False])
         if not blocos:
             novos.append(s)
             continue
-        for j, (a, b) in enumerate(blocos):
+        for j, (a, b, _) in enumerate(blocos):
             # as bordas seguem a onda FRACA da própria palavra (sussurro, soltura, "s"), senão ficam coladas
             # ...mas nunca além da METADE da pausa até o bloco vizinho (v3: em 0:15 as duas bordas se cruzaram e o
             # trecho do meio tocou duas vezes — a pausa ficou MAIOR que a original)
@@ -261,8 +286,9 @@ def aparar(segs: list[dict], trabalho: Path, fonte: str, avisos: list[str], pal:
             a2 = max(vf.estende(a, -1, ONDA_FRACA_ANTES), meio_ant)
             b2 = min(vf.estende(b, +1, ONDA_FRACA_DEPOIS), meio_prox)
             b3 = min(vf.cauda(b, CAUDA_MAX), meio_prox)          # a vogal final morrendo até o silêncio
-            n_in = max(f0, int(math.floor(max(min(a, a2) - MARGEM_VOZ_INI, meio_ant) * FPS)))
-            n_out = min(max(f1_max, f1), int(math.ceil(min(max(b + MARGEM_VOZ_FIM, b2 + MARGEM_VOZ_INI,
+            meia = RITMO["tipica"] / 2                    # pausa encurtada = pausa típica do vídeo
+            n_in = max(f0, int(math.floor(max(min(a, a2) - meia, meio_ant) * FPS)))
+            n_out = min(max(f1_max, f1), int(math.ceil(min(max(b + meia, b2 + MARGEM_VOZ_INI,
                                                                b3 + FADE_CAUDA), meio_prox) * FPS)))
             if novos and novos[-1].get("_k") == k and n_in <= novos[-1]["frame_in"] + novos[-1]["frames"] + 1:
                 ult = novos[-1]                               # encostou no bloco anterior: sem corte aqui
@@ -301,6 +327,10 @@ def main() -> None:
     tr = ler_json(trabalho / "transcricao.json")
     pal = tr["palavras"]
     dec = ler_json(trabalho / "decupagem.json")
+    from borda_voz import VozFina
+    RITMO.update(medir_ritmo(VozFina(trabalho, tr["arquivo"]), dec, pal))
+    print(f"  ritmo da fala: pausa normal até {RITMO['teto']:.2f}s (fica); maiores quebram o ritmo -> "
+          f"{RITMO['tipica']:.2f}s ({RITMO.get('quebram_ritmo', '?')} de {RITMO.get('pausas_medidas', '?')})", flush=True)
     x16, sr16 = ler_wav(trabalho / "audio16k.wav")
     en = Energia(x16, sr16)
     dur_src = float(tr["duracao"])
@@ -313,29 +343,37 @@ def main() -> None:
             raise SystemExit(f"trecho inválido: {tre}")
         ini, fim = acha_fala(en, pal, i0, i1, dur_src, tre.get("desde"))
         rs = [r for r in en.falas(ini - 0.001, fim + 0.001) if r[1] > ini and r[0] < fim]
-        blocos = [[rs[0][0], rs[0][1]]] if rs else [[ini, fim]]
+        blocos = [[rs[0][0], rs[0][1], False]] if rs else [[ini, fim, False]]
         for r in rs[1:]:
-            if r[0] - blocos[-1][1] > PAUSA_MAX:
-                blocos.append([r[0], r[1]])
+            if r[0] - blocos[-1][1] > RITMO["teto"]:          # pausa que quebra o ritmo: vira emenda
+                blocos.append([r[0], r[1], False])
             else:
                 blocos[-1][1] = r[1]
-        for k, (a, b) in enumerate(blocos):
+        for k, (a, b, nat) in enumerate(blocos):
             ultimo = k == len(blocos) - 1
             cauda = MARGEM_FIM
             if ultimo and tre.get("pausa_depois"):
                 cauda = max(MARGEM_FIM, float(tre["pausa_depois"]))
-            pedacos.append((a, b, i0, i1, cauda, not ultimo))
+            pedacos.append((a, b, i0, i1, cauda, not ultimo, nat))
 
     # 2) pontos de corte: a fronteira de quadro mais silenciosa perto do alvo, sem invadir
     #    a fala que fica nem a fala vizinha (o áudio é cortado exatamente no quadro)
     segs = []
     avisos = []
-    for k, (a, b, i0, i1, cauda, interno) in enumerate(pedacos):
+    for k, (a, b, i0, i1, cauda, interno, nat) in enumerate(pedacos):
         cab = MARGEM_INI
+        # pausa encurtada (quebrava o ritmo) fica com a pausa típica do vídeo; entre frases seguidas da MESMA tomada a
+        # pausa natural fica inteira até o teto (o 2b encurta as maiores)
+        seguido = k + 1 < len(pedacos) and pedacos[k + 1][2] == i1 + 1
         if interno:
-            cauda = min(cauda, PAUSA_ALVO / 2)
-        if k > 0 and pedacos[k - 1][5]:     # continuação de pausa encurtada
-            cab = PAUSA_ALVO / 2
+            cauda = RITMO["tipica"] / 2
+        elif seguido:
+            cauda = max(cauda, RITMO["teto"] / 2)
+        ant_seguido = k > 0 and not pedacos[k - 1][5] and pedacos[k - 1][3] + 1 == i0
+        if k > 0 and pedacos[k - 1][5]:
+            cab = RITMO["tipica"] / 2
+        elif ant_seguido:
+            cab = RITMO["teto"] / 2
         if k == len(pedacos) - 1:
             cauda = max(cauda, FIM_RESPIRO)  # a imagem segue ~0,45 s e corta seco para a CTA
         nucleo = [r for r in en.falas(a - 0.001, b + 0.001) if r[1] > a and r[0] < b]
@@ -362,8 +400,8 @@ def main() -> None:
         ant, s = segs[k - 1], segs[k]
         cauda = ant["src_out"] - ant["voz_out"]
         cabeca = s["voz_in"] - s["src_in"]
-        sobra = cauda + cabeca - PAUSA_ENTRE
-        if cauda + cabeca <= PAUSA_MAX or sobra <= 0:
+        sobra = cauda + cabeca - RITMO["tipica"]
+        if cauda + cabeca <= RITMO["teto"] or sobra <= 0:
             continue
         max_c, max_h = max(0.0, cauda - 0.07), max(0.0, cabeca - 0.05)   # sem comer o fim/ataque da voz
         tira_c = min(max_c, sobra / 2)
@@ -401,7 +439,7 @@ def main() -> None:
         t += s["frames"] / FPS
     dur = round(t, 4)
     gravar_json(trabalho / "corte.json", {"fonte": tr["arquivo"], "fps": FPS, "duracao_fala": dur,
-                                          "segmentos": segs, "avisos": avisos})
+                                          "segmentos": segs, "avisos": avisos, "ritmo": RITMO})
 
     # 4) áudio do corte (16 kHz, para conferência/legenda)
     partes = []

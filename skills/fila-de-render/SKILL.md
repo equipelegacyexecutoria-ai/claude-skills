@@ -175,7 +175,12 @@ Correções que já têm caminho pronto (lote de 08/10/2026):
 - "Áudio estourado", "ruído", "barulho externo", "tratar o áudio", "usa o Adobe": skill de reels, seção
   "Tratar o áudio no Adobe Podcast" (Chrome do perfil Legacy Executoria). Rode `tratar_audio.py medir`; se der QUENTE,
   ponha no comentário "gravação com ganho alto: baixar ~10 dB o ganho do microfone/câmera".
-- "Cortou a palavra X" na emenda: a nova cauda do corte já resolve; refaça com `montar_corte.py --manter-palavras`.
+- "Cortou a palavra X" / "pausa natural cortada": o corte agora mede o ritmo de cada vídeo e só encurta a pausa que
+  quebra o ritmo (skill de reels, linha "Corte"); refaça com `montar_corte.py --manter-palavras`.
+- "Vazio com barulho" / "erro de corte no <palavra>": a conferência acusa "trecho sem palavra"; `INICIO n i@t`.
+- "Cor esverdeada / white balance": `balanco_branco.py` (grava `cor.txt`). "Altere a CTA": `cta.txt` no trabalho.
+- Card devolvido para Correções SEM texto novo junto com outros que têm uma regra geral ("ajuste a skill", "em todos"):
+  a regra vale para ele também (09/10/2026: pausas naturais em todos os 11).
 - Erro de fala que ficou ("populi... popularidade"): `INICIO n i@t` na decupagem + `--manter-palavras`.
 - "Diagramação quebrada": rode a legenda de novo (escada com linha curta vira esquerda sozinha) e confira o quadro.
 

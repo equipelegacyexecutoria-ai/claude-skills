@@ -66,9 +66,9 @@ def folha(imagens: list[tuple[Image.Image, str]], cols: int, esc: float, saida: 
     sh.save(saida, quality=88)
 
 
-def pausas_longas(video: Path, ate: float) -> list[dict]:
+def pausas_longas(video: Path, ate: float, limite: float = 0.0) -> list[dict]:
     r = subprocess.run(["ffmpeg", "-hide_banner", "-t", f"{ate:.3f}", "-i", str(video), "-map", "0:a:0",
-                        "-af", f"silencedetect=noise=-45dB:d={PAUSA_LONGA}", "-f", "null", "-"],
+                        "-af", f"silencedetect=noise=-45dB:d={max(PAUSA_LONGA, limite)}", "-f", "null", "-"],
                        capture_output=True, text=True)
     ini = [float(x) for x in re.findall(r"silence_start: (-?[\d.]+)", r.stderr)]
     fim = [(float(a), float(b)) for a, b in re.findall(r"silence_end: (-?[\d.]+) \| silence_duration: ([\d.]+)", r.stderr)]
@@ -223,10 +223,12 @@ def main() -> None:
             problemas.append(f"imagem fora de sincronia no seg{sc['seg']:02d} ({sc['deslocamento']:+d} quadro)")
 
     # ---- pausas longas na fala: o respiro final antes da CTA é o único silêncio longo permitido
-    rel["pausas_longas"] = pausas_longas(video, fim_imagem)
+    # o teto da pausa normal é medido em cada vídeo (corte.json "ritmo"); acima dele + 0,1 s é pausa que quebra o ritmo
+    lim_pausa = float(corte.get("ritmo", {}).get("teto", 0.36)) + 0.10
+    rel["pausas_longas"] = pausas_longas(video, fim_imagem, lim_pausa)
     for pz in rel["pausas_longas"]:
         if pz["inicio"] + pz["dur"] < fim_imagem - 0.05:
-            problemas.append(f"silêncio de {pz['dur']}s em {pz['inicio']}s (máximo ~0,45 s)")
+            problemas.append(f"silêncio de {pz['dur']}s em {pz['inicio']}s (máximo ~{lim_pausa:.2f} s, ritmo do vídeo)")
 
     # ---- palavra atravessando emenda (alinhamento forçado): o aligner "estica" a palavra por cima do corte quando
     #      há um FALSO COMEÇO escondido na pausa ("populi-... popularidade", +0,73 s, 09/10/2026) ou quando o fim
@@ -244,6 +246,14 @@ def main() -> None:
                                                       "passa_ms": round((float(w["fim"]) - e) * 1000)})
                     problemas.append(f"palavra '{w['texto']}' atravessa a emenda de {e:.2f}s "
                                      f"(+{(float(w['fim']) - e) * 1000:.0f} ms): falso começo escondido ou fim cortado?")
+        # pedaço do corte SEM NENHUMA PALAVRA (09/10/2026: 0,5 s de vento no "Existe mais gente feia" e um "vo-" de
+        # falso começo antes de "Você tenta" no "As pessoas tratam você"): só ruído/respiro/começo errado
+        for sg in corte["segmentos"]:
+            fim_sg = sg["dst_in"] + sg["frames"] / FPS
+            if sg["frames"] / FPS >= 0.2 and not any(sg["dst_in"] - 0.02 <= float(w["inicio"]) < fim_sg - 0.05
+                                                     for w in pal_c):
+                problemas.append(f"trecho sem palavra de {sg['dst_in']:.2f}s a {fim_sg:.2f}s (ruído ou começo "
+                                 f"errado?): tire com INICIO/FIM na decupagem")
 
     # ---- fundo mais claro por baixo da legenda
     fundos = fundo_sob_legenda(trabalho, lay, corte)

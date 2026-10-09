@@ -17,7 +17,7 @@ referência: `referencia/telas-referencia.jpg`. Legendas de exemplo no formato c
 | --- | --- |
 | Formato | 1080×1920, 29,97 fps, H.264 High **CRF 18** preset slow (era CRF 10; em 28/09/2026 o usuário achou pesado demais: 1,2 GB em 2:42), yuv420p BT.709, AAC 320k — o usuário pediu **qualidade máxima, sem comprimir** |
 | Imagem | faixa 1080×864 (5:4) centrada, barras pretas; recorte fixo tirado direto do 4K (só redução), **altura cheia do bruto: só as laterais saem** |
-| Corte | tomadas escolhidas, sem tropeço; **cortes certeiros no limite da onda** (usuário, 28/09/2026: "ele parado sem falar nada denuncia que está lendo"): toda pausa de voz a voz ≥ 0,12 s sai, inclusive dentro da frase, ficando ~0,02 s antes do ataque e ~0,03 s depois do fim da onda (`aparar` + `borda_voz.py`); respiro e estalo de boca saem; sem música (entra depois) |
+| Corte | tomadas escolhidas, sem tropeço. **Pausas pelo RITMO MEDIDO do vídeo** (usuário, 09/10/2026: "deixar as pequenas pausas que são naturais da fala, cortar somente as longas" / "medir as pausas e entender qual é normal e qual quebra o ritmo"): `montar_corte.medir_ritmo` mede as pausas voz a voz dos trechos que ficam; a pausa normal (até o teto, 90% das pausas < 1,2 s, entre 0,55 e 0,90 s) **fica intacta**; a que quebra o ritmo (espera do teleprompter, 1–6 s) vira a **pausa típica** do vídeo (0,28–0,50 s). Bordas seguem a onda até a vogal morrer (`borda_voz.cauda`); sem música (entra depois). Antes (28/09–09/10) toda pausa ≥ 0,12 s saía e comia palavras: não volte a isso |
 | Legenda | SF Pro Text Black, caixa-alta, telas de 1–3 linhas inteiras, **só o destaque entra sozinho e maior**, sombra v3 |
 | Final | ~0,45 s depois da última palavra, corte seco para CTA preta digitada (2,9 s) com o **som de teclado padrão** (`assets/cta_teclado.mp3`, enviado pelo usuário em 30/09/2026) sincronizado com a digitação: 1º toque no quadro da 1ª letra, último toque na última letra |
 | Voz | −16 LUFS, pico −1 dBTP, limitador suave só nos picos (−14 soava estourado). Ruído externo / gravação "quente" / pedido de "tratar o áudio": **Adobe Podcast** (seção abaixo) |
@@ -211,6 +211,8 @@ Correções depois de pronto:
   índices; tempos remapeados pelo bruto, a legenda é aproveitada) → `finalizar`.
 - **Só legenda**: edite `legenda.txt` → `finalizar`.
 - **Áudio estourado / com ruído**: seção "Tratar o áudio no Adobe Podcast".
+- **Cor puxada (verde, amarela...)**: `P S\balanco_branco.py T "<vídeo editado>"` mede a parede branca e grava `T\cor.txt` (ganhos R/G/B até o branco quente dos aprovados); o render aplica sozinho. Apague `cor.txt` para voltar.
+- **CTA diferente num vídeo** (ex.: "ENVIE PARA QUEM TEM / ESSE TIPO DE BELEZA"): `T\cta.txt` com 1–2 linhas em caixa-alta; o `legenda_novela.py` usa no lugar de "ME SIGA PARA MAIS / CONTEÚDOS COMO ESTE".
 - **Ver um quadro sem renderizar**: `P S\previa_quadro.py T 12.5,40.2 T\qa\previa.png [--faixa]`.
 
 ## Tratar o áudio no Adobe Podcast (ruído externo, gravação quente)
@@ -268,7 +270,7 @@ se existir, senão `legenda.json`).
 | tempo da legenda x fala | alinhamento (`alinhar.py`); sem ele, `legenda_novela.py` (`ATRASO_FALA_CORRIDA`, `PAUSA_CORRIDA`) |
 | CTA (texto, fonte, velocidade, duração) | `legenda_novela.py` (bloco CTA) |
 | som de teclado da CTA (arquivo, volume, sincronia) | `render_final.py` (`TECLADO`, `TECLADO_GANHO_DB`, `mixar_teclado`); vale para novela, tela dividida e edição simples. A rajada do arquivo dura o mesmo que a digitação (0,75 s x `CTA_DIGITACAO` 0,76 s): mudou a velocidade da CTA, confira a sincronia. `--sem-teclado` desliga |
-| ritmo do corte (silêncio entre frases, pausas, respiro final) | `montar_corte.py` (`SIL_CORTE`, `MARGEM_VOZ_*`, `aparar`; `--sem-aparar` desliga), `borda_voz.py` (limiar pela voz `alto - 26 dB`, tom/vibração `TOM`, `COLADO`), `comum.py` (`FIM_RESPIRO`) |
+| ritmo do corte (silêncio entre frases, pausas, respiro final) | `montar_corte.py` (`medir_ritmo` -> `RITMO` teto/típica, gravado em `corte.json` "ritmo"; `aparar`; `--sem-aparar` desliga), `comum.py` (`PAUSA_TETO_MIN/MAX`, `FIM_RESPIRO`), `borda_voz.py` (limiar pela voz, `cauda`) |
 | ver a onda sonora das pausas e emendas | `ondas.py T [--min 0.15]` → `qa/ondas.txt` + `qa/ondas_01.jpg` (onda + espectro, caixa amarela = silêncio, vermelho = emenda) |
 | decupagem automática (frase, tomada repetida, fala para a equipe, dúvida, anáfora) | `decupar_auto.py` (`PAUSA_FRASE`, `SIMIL*`, `META`, regras de DÚVIDA e anáfora) |
 | comparação com o roteiro | `roteiro.py` |
@@ -367,6 +369,9 @@ se existir, senão `legenda.json`).
   aviso "escada com linha curta"); (b) "direita" alinhava a última linha só com a penúltima e ficavam duas bordas
   direitas ("TORCENDO / PARA QUE ELE / NÃO ACONTEÇA") — agora fecha na borda da linha MAIS LARGA. Ao escrever a
   legenda, evite escada com palavra curta solta na 1ª linha (junte "A RESPONSABILIDADE" ou use esquerda).
+- **Pausa natural cortada = palavra "comida"** (09/10/2026, 2ª rodada: "escuta", "tempo", "feito", "respeito" e a fala final do "Tem gente escrota" picotada): o problema não era só a borda, era cortar TODA pausa ≥ 0,12 s. Agora o corte mede o ritmo do vídeo (linha "Corte" da tabela). Pontuação do roteiro/Whisper NÃO serve para decidir (o usuário: "pelo roteiro vai ficar difícil de acertar"; o Whisper do bruto pontua ~7% das palavras).
+- **Trecho sem palavra** (0,5 s de vento antes de "Elas"; "vo-" antes de "Você tenta"): a conferência reprova "trecho sem palavra". Corrija com `INICIO n i@t` (t = começo da palavra certa).
+- **Tirar palavra de apoio no meio da frase quebra a emenda** ("acostumou, [então,] a se abandonar" soou estranho): se a palavra está colada na mesma tomada, deixe no áudio e só tire da legenda.
 - **Palavra "cortada" antes da emenda** (09/10/2026: "circo", "manda", "escuta", "grupo"): o corte parava ~37 dB
   abaixo do pico, no meio da soltura da vogal, com saída de 8 ms. Agora `borda_voz.cauda` segue a vogal até o
   silêncio (piso + 6 dB, até `CAUDA_MAX` 0,10 s, parando antes de novo ataque) e o render faz saída suave de 25 ms

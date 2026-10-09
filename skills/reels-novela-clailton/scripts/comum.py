@@ -28,6 +28,9 @@ ROSTO_CY = 0.32
 PAUSA_ENTRE = 0.28      # silêncio que fica entre trechos colados (emenda de tomadas)
 PAUSA_MAX = 0.40        # pausa interna maior que isso (espera do teleprompter) é encurtada...
 PAUSA_ALVO = 0.28       # ...para isso; até PAUSA_MAX fica como ele falou
+# o teto da pausa normal é MEDIDO em cada vídeo (montar_corte.medir_ritmo), dentro destes limites:
+PAUSA_TETO_MIN = 0.55
+PAUSA_TETO_MAX = 0.90
 FIM_RESPIRO = 0.45      # imagem depois da última palavra, antes do corte seco para a CTA
 
 # entrega
