@@ -22,10 +22,12 @@ ROSTO_LARG = 0.23
 ROSTO_CX = 0.54
 ROSTO_CY = 0.32
 
-# ritmo do corte (medido na referência: 0,10-0,26 s entre frases)
-PAUSA_ENTRE = 0.18      # silêncio que fica entre trechos colados
-PAUSA_MAX = 0.30        # pausa interna maior que isso é encurtada... (usuário reprovou 0,45 s)
-PAUSA_ALVO = 0.16       # ...para isso
+# ritmo do corte. Usuário, 09/10/2026: "deixar as pequenas pausas que são naturais da fala, cortar somente as
+# longas" (as de espera do teleprompter). Cortar toda pausa > 0,12 s comia "escuta", "tempo", "feito", "respeito".
+# Mas pausa parada de 0,45-0,5 s também já foi reprovada (28/09): a longa é encurtada para ~0,28 s.
+PAUSA_ENTRE = 0.28      # silêncio que fica entre trechos colados (emenda de tomadas)
+PAUSA_MAX = 0.40        # pausa interna maior que isso (espera do teleprompter) é encurtada...
+PAUSA_ALVO = 0.28       # ...para isso; até PAUSA_MAX fica como ele falou
 FIM_RESPIRO = 0.45      # imagem depois da última palavra, antes do corte seco para a CTA
 
 # entrega

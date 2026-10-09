@@ -545,7 +545,7 @@ def gerar(plano: dict, palavras: list[dict], rosto: list[dict] | None = None, co
 
 
 def main() -> None:
-    global Y_CENTRO, TOPO_MIN, BASE_MAX, COR_DESTAQUE
+    global Y_CENTRO, TOPO_MIN, BASE_MAX, COR_DESTAQUE, CTA_LINHAS
     ap = argparse.ArgumentParser()
     ap.add_argument("--cor-destaque", help="RRGGBB dos destaques (padrão branco)")
     ap.add_argument("--plano", required=True)
@@ -564,6 +564,13 @@ def main() -> None:
     TOPO_MIN = a.topo_min if a.topo_min is not None else TOPO_MIN
     BASE_MAX = a.base_max if a.base_max is not None else BASE_MAX
     COR_DESTAQUE = (a.cor_destaque or COR_DESTAQUE).lstrip("#").upper()
+    # CTA própria do vídeo (usuário, 09/10/2026: "altere a CTA para Envie para quem tem esse tipo de beleza"):
+    # <trabalho>/cta.txt com 1 ou 2 linhas em caixa-alta, de tamanho parecido (~17-20 letras cada)
+    cta_txt = Path(a.plano).resolve().parent / "cta.txt"
+    if cta_txt.exists():
+        linhas = [l.strip().upper() for l in cta_txt.read_text(encoding="utf-8").splitlines() if l.strip()]
+        if linhas:
+            CTA_LINHAS = linhas[:2]
     plano, palavras = carregar(Path(a.plano), Path(a.palavras))
     rosto = json.loads(Path(a.rosto).read_text(encoding="utf-8")) if a.rosto else None
     fim = None

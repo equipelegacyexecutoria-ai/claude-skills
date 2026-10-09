@@ -36,8 +36,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from comum import FIM_RESPIRO, FPS, PAUSA_ALVO, PAUSA_ENTRE, PAUSA_MAX, gravar_json, ler_json  # noqa: E402
 
 HOP = 0.01
-MARGEM_INI = 0.05        # usuário: "precisa ser mais próximo nos inícios"
-MARGEM_FIM = 0.05        # e nos fins (respiração depois da frase sai)
+MARGEM_INI = 0.10        # usuário (28/09): "mais próximo nos inícios"; 09/10: sem comer a palavra -> folga natural
+MARGEM_FIM = 0.12        # e nos fins
 SIL_MIN = 0.10          # silêncio mínimo que separa fala (fechamento de oclusiva é mais curto)
 BUSCA_ANTES = 0.35      # quanto antes da marca do Whisper a fala pode começar
 BUSCA_DEPOIS = 0.70     # quanto depois da marca do Whisper a fala pode começar (ele adianta)
@@ -210,9 +210,9 @@ def acha_fala(en: Energia, pal, i0, i1, dur, desde: float | None = None):
     return ini, fim
 
 
-SIL_CORTE = 0.12        # s: pausa (voz a voz) maior que isso é cortada
-MARGEM_VOZ_INI = 0.02   # s: folga antes do ataque da voz (o quadro arredonda para mais)
-MARGEM_VOZ_FIM = 0.04   # s: folga depois do fim da onda forte (o fraco é seguido por ONDA_FRACA_DEPOIS)
+SIL_CORTE = PAUSA_MAX   # s: só pausa (voz a voz) maior que isso é cortada (09/10/2026: pausas naturais ficam)
+MARGEM_VOZ_INI = PAUSA_ALVO / 2   # s: folga antes do ataque da voz na pausa encurtada
+MARGEM_VOZ_FIM = PAUSA_ALVO / 2   # s: folga depois do fim da voz na pausa encurtada
 FIM_EXTRA = 0.40        # s: quanto o fim da frase pode passar do corte original se a voz continua
 ONDA_FRACA_ANTES = 0.10 # s: o começo pode recuar até isso se houver sussurro ("e" quase mudo de "e talvez")
 ONDA_FRACA_DEPOIS = 0.12 # s: o fim pode avançar até isso se houver soltura/"s" fraco ("escolhid-o", -43 dB)

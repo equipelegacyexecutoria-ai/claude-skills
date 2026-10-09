@@ -279,7 +279,14 @@ def main() -> None:
     tmp_out = trabalho / "final_tmp.mp4"
     # setpts por NÚMERO do quadro: o concat de .mkv (tempo em ms) arredonda e, em 30+ emendas,
     # pulava/repetia 1 quadro (imagem 33 ms fora do áudio). Assim o quadro k fica em k/29,97 exato.
-    vf = (f"[0:v]setpts=N*{FPS_DEN}/{FPS_NUM}/TB,pad={W}:{H}:0:{FAIXA_Y0}:black,"
+    # balanço de branco do vídeo (balanco_branco.py -> cor.txt), em RGB com a matriz BT.709 dos dois lados
+    cor_txt = trabalho / "cor.txt"
+    wb = ""
+    if cor_txt.exists() and cor_txt.read_text(encoding="utf-8").strip():
+        wb = ("scale=in_color_matrix=bt709:in_range=tv,format=gbrp," + cor_txt.read_text(encoding="utf-8").strip()
+              + ",scale=out_color_matrix=bt709:out_range=tv,format=yuv420p,")
+        print(f"  balanço de branco: {cor_txt.read_text(encoding='utf-8').strip()}", flush=True)
+    vf = (f"[0:v]setpts=N*{FPS_DEN}/{FPS_NUM}/TB,{wb}pad={W}:{H}:0:{FAIXA_Y0}:black,"
           f"ass=legenda.ass:fontsdir=fonts,format=yuv420p,{COR}[v]")
     ff(["-f", "concat", "-safe", "0", "-i", str(tmp / "lista.txt"), "-i", str(audio),
         "-filter_complex", vf, "-map", "[v]", "-map", "1:a",

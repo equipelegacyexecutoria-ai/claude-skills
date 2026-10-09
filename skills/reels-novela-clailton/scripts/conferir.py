@@ -34,7 +34,7 @@ PARALELO = 8     # extrações de quadro ao mesmo tempo (NVDEC/CPU livres para i
 FONTE_ROTULO = "C:/Windows/Fonts/arialbd.ttf"
 EQUIV = {"ESTOU": {"TO", "ESTOU"}, "PARA": {"PRA", "PARA", "PRO"}, "ESTA": {"TA", "ESTA"},
          "VOCE": {"CE", "VOCE", "OCE"}, "ESTAMOS": {"TAMO", "TAMOS", "ESTAMOS"}}
-PAUSA_LONGA = 0.33      # o usuário reprovou 0,45 s de "tempo sem nada"; a referência vai até ~0,26 s
+PAUSA_LONGA = 0.46      # pausas naturais até 0,40 s ficam (09/10/2026); 0,45-0,5 s parado já foi reprovado
 
 
 def quadro(video: Path, t: float) -> Image.Image:
@@ -226,7 +226,7 @@ def main() -> None:
     rel["pausas_longas"] = pausas_longas(video, fim_imagem)
     for pz in rel["pausas_longas"]:
         if pz["inicio"] + pz["dur"] < fim_imagem - 0.05:
-            problemas.append(f"silêncio de {pz['dur']}s em {pz['inicio']}s (máximo ~0,3 s)")
+            problemas.append(f"silêncio de {pz['dur']}s em {pz['inicio']}s (máximo ~0,45 s)")
 
     # ---- palavra atravessando emenda (alinhamento forçado): o aligner "estica" a palavra por cima do corte quando
     #      há um FALSO COMEÇO escondido na pausa ("populi-... popularidade", +0,73 s, 09/10/2026) ou quando o fim
