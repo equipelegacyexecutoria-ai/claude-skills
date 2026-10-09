@@ -56,10 +56,11 @@ PUNCH_MIN, PUNCH_MAX = 0.6, 2.8      # s: fechado em frase curta de fecho
 FECHADO_MAX_FRACAO = 0.40
 PAUSA_FRASE = 0.15
 # tempo mínimo na tela (pedido do usuário, 27/09/2026: "pareceu que piscou"). Exceção só marcada no plano.
-MIN_IMAGEM = 1.0      # s: nenhuma imagem/cena fica menos que isso
+# 09/10/2026: "cada cena deve ficar pelo menos 1-2 segundos, salvo exceções" -> 1,2 s; lasca até 1 s.
+MIN_IMAGEM = 1.2      # s: nenhuma imagem/cena fica menos que isso
 MIN_RAPIDO = 0.6      # s: exceção marcada com "rapido" na linha (lista em sequência rápida)
 MIN_CLAILTON = 1.0    # s: Clailton entre duas imagens; menos que isso a imagem de antes emenda na próxima
-MIN_LASCA = 0.5       # s: sobra do Clailton entre a imagem e uma emenda de tomada é engolida pela imagem
+MIN_LASCA = 1.0       # s: sobra do Clailton entre a imagem e uma emenda de tomada é engolida pela imagem
 
 
 def q(t: float) -> int:

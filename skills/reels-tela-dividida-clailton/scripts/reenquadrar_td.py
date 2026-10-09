@@ -34,8 +34,8 @@ from td_comum import EMENDA, W  # noqa: E402
 
 ASPECTOS = {"vertical": 9 / 16, "faixa": W / EMENDA}   # tela cheia 9:16 · topo/dividida 1080x768
 N_POS = {"vertical": 9, "faixa": 5}                     # posições ao longo da folga (0 = esq./topo, 1 = dir./baixo)
-MIN_PLANO = 0.6         # s: plano (entre cortes de cena) menor que isso no começo/fim do uso = pisca
-MIN_INTERNO = 0.8       # s: plano inteiro no meio do uso menor que isso = corte rápido demais (edição de fã)
+MIN_PLANO = 1.0         # s: plano (entre cortes de cena) menor que isso no começo/fim do uso = pisca (09/10: era 0,6)
+MIN_INTERNO = 1.0       # s: plano inteiro no meio do uso menor que isso = corte rápido demais (edição de fã)
 MARGEM = 1.0            # s: margem baixada antes e depois da janela (buscar_td) para achar a entrada
 LARG = 640              # px das amostras analisadas
 CINZA = (123, 117, 104)  # média do CLIP: fundo neutro no quadrado

@@ -47,6 +47,34 @@ def fonte_txt(tam: int, negrito: bool = False):
         return ImageFont.load_default()
 
 
+PAUSA_LONGA = 0.50      # s: silêncio entre palavras (alinhadas) acima disso reprova (o corte justo deixa ~0,3 s)
+PLANO_MIN_QA = 1.0      # s: plano visível (entre dois cortes de imagem) abaixo disso reprova, salvo item "rapido"
+
+
+def pausas_longas(T: Path) -> list[str]:
+    pal = ler_json(T / "palavras_corte.json")
+    pal = pal["palavras"] if isinstance(pal, dict) else pal
+    longas = [(p["fim"], q["inicio"] - p["fim"], p["texto"], q["texto"]) for p, q in zip(pal, pal[1:])
+              if q["inicio"] - p["fim"] > PAUSA_LONGA]
+    return [f"pausa de {g:.2f}s em {t:.1f}s (\"{x} | {y}\")" for t, g, x, y in longas]
+
+
+def planos_curtos(V: str, tl: dict) -> list[str]:
+    """Cortes visíveis no vídeo final (troca de cena, entrada/saída de imagem, corte dentro do B-roll, emenda do
+    Clailton): todo plano até o fim da fala dura PLANO_MIN_QA ou mais, exceto dentro de um item 'rapido'."""
+    r = subprocess.run(["ffmpeg", "-hide_banner", "-i", V, "-vf", "scale=270:-2,select='gt(scene,0.25)',showinfo",
+                        "-an", "-f", "null", "-"], capture_output=True, text=True, encoding="utf-8", errors="replace")
+    cortes = [float(x.split(":")[1]) for x in r.stderr.split() if x.startswith("pts_time:")]
+    fim = tl["frames_fala"] / FPS
+    pts = [0.0] + [c for c in cortes if c < fim - 0.05] + [fim]
+    rap = [(c["f0"] / FPS, c["f1"] / FPS) for c in tl["camadas"] if c.get("rapido")]
+    out = []
+    for a, b in zip(pts, pts[1:]):
+        if b - a < PLANO_MIN_QA and not any(x - 0.05 <= a and b <= y + 0.05 for x, y in rap):
+            out.append(f"plano de {b - a:.2f}s em {a:.2f}s (mínimo {PLANO_MIN_QA:.1f}s)")
+    return out
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("trabalho")
@@ -173,6 +201,9 @@ def main() -> None:
         crop.save(qa / "fundo_mais_claro.png")
         if fundo > 200:
             avisos.append(f"legenda sobre fundo muito claro em {tm:.1f}s (\"{texto}\", fundo {fundo:.0f}): conferir qa/fundo_mais_claro.png")
+
+    # ---------------- ritmo (usuário, 09/10/2026): na TD nada de pausa extensa nem cena que só pisca
+    problemas += pausas_longas(T) + planos_curtos(V, tl)
 
     # ---------------- folha geral
     if a.geral:

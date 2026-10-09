@@ -97,7 +97,7 @@ def main() -> None:
         corte = T / "corte.json"
         antes = corte.stat().st_mtime if corte.exists() else 0.0
         t0 = time.time()
-        mc = subprocess.Popen([PY, str(NOVELA / "montar_corte.py"), str(T)], env=ENV)
+        mc = subprocess.Popen([PY, str(NOVELA / "montar_corte.py"), str(T), "--ritmo-justo"], env=ENV)
         # o enquadramento só precisa do corte.json (gravado antes da retranscrição/alinhamento)
         while mc.poll() is None and not (corte.exists() and corte.stat().st_mtime > antes):
             time.sleep(0.3)

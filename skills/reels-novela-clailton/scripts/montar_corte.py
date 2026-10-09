@@ -43,6 +43,9 @@ SIL_MIN = 0.10          # silêncio mínimo que separa fala (fechamento de oclus
 BUSCA_ANTES = 0.35      # quanto antes da marca do Whisper a fala pode começar
 BUSCA_DEPOIS = 0.70     # quanto depois da marca do Whisper a fala pode começar (ele adianta)
 RITMO = {"teto": PAUSA_MAX, "tipica": PAUSA_ALVO}   # medido em cada vídeo por medir_ritmo()
+# --ritmo-justo (tela dividida): pausa acima de 0,30 s vira 0,22 s. Na TD o usuário reprovou os respiros
+# naturais da novela ("pausa extensa sem conexão", 09/10/2026); a regra de pausa natural é só da novela.
+RITMO_JUSTO = {"teto": 0.30, "tipica": 0.22}
 
 
 def medir_ritmo(vf, dec: dict, pal: list[dict]) -> dict:
@@ -339,6 +342,8 @@ def main() -> None:
     dec = ler_json(trabalho / "decupagem.json")
     from borda_voz import VozFina
     RITMO.update(medir_ritmo(VozFina(trabalho, tr["arquivo"]), dec, pal))
+    if "--ritmo-justo" in sys.argv:     # tela dividida: sem os respiros naturais da novela (usuário, 09/10/2026)
+        RITMO.update(teto=min(RITMO["teto"], RITMO_JUSTO["teto"]), tipica=min(RITMO["tipica"], RITMO_JUSTO["tipica"]))
     print(f"  ritmo da fala: pausa normal até {RITMO['teto']:.2f}s (fica); maiores quebram o ritmo -> "
           f"{RITMO['tipica']:.2f}s ({RITMO.get('quebram_ritmo', '?')} de {RITMO.get('pausas_medidas', '?')})", flush=True)
     x16, sr16 = ler_wav(trabalho / "audio16k.wav")
