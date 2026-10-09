@@ -76,9 +76,11 @@ com `read-design` para os trechos exatos). 7 páginas 1080×1440:
    + seta (a pág. 5 tem círculo 366 px no canto direito). Título com 2 linhas: `\n` manual e corpo
    ~185 px abaixo do topo do título. **Frase em azul no corpo não dá** (só há trecho branco):
    avisar o usuário.
-7. CTA = página escura sem foto: forma `#080e1c` de página inteira atrás de tudo, foto real do
-   Clailton no círculo (300 px em 66, 90), corpo Poppins 34 negrito branco em y 440 (~620
-   caracteres terminam em y≈1232). Foto do Clailton: `ks38ouZ16B` (Magnific, com microfone).
+7. CTA = **página BRANCA de conexão do LEGACY** (pedido do usuário, 09/10/2026): não usar a pág. 7
+   escura do modelo; inserir a **pág. 3 de `DAHWWhuFIEI`** (CTA LEGACY) no fim e preencher igual aos
+   outros posts Legacy (`cta_legacy`: TITULO, P1, P1B vazio, A1 e A2 em azul `#013e6a`, P2, P3).
+   Caixa em top 248 coube ~620 caracteres sem encostar no `@`. Montar com `insert_pages`
+   `[1,2,2,2,5,6]` do modelo + a pág. 3 do LEGACY numa segunda chamada (sem posição = vai pro fim).
 Fotos das empresas: Wikimedia via navegador (`thumb.wikimedia.org/.../1920px-`, o `upload.` dá
 erro); foto de baixo com a marca escondida atrás do texto → `crop_media` subindo a imagem.
 
