@@ -1,4 +1,4 @@
-"""Áudio tratado no Adobe Podcast ("Aprimorar fala") — pedido do usuário (09/10/2026): tirar o ruído externo que
+r"""Áudio tratado no Adobe Podcast ("Aprimorar fala") — pedido do usuário (09/10/2026): tirar o ruído externo que
 o lapela capta e o som "estourado" de gravação com ganho alto. Vale para novela, tela dividida e edição simples.
 
 Fluxo (detalhes no SKILL.md, seção "Tratar o áudio no Adobe Podcast"):
@@ -6,8 +6,9 @@ Fluxo (detalhes no SKILL.md, seção "Tratar o áudio no Adobe Podcast"):
   1. python tratar_audio.py exportar <trabalho>
        -> <trabalho>/adobe/<slug>.mp3  (som do bruto inteiro, mono 48 kHz, MP3 320k: cabe no limite de 10 MB
           do envio pelo navegador até ~4 min; acima disso sai em 192k)
-  2. No Chrome (logado no Adobe): podcast.adobe.com/pt/enhance -> envia o MP3 -> espera -> baixa (WAV).
-  3. python tratar_audio.py alinhar <trabalho> <arquivo baixado>
+  2. No Chrome (logado no Adobe): podcast.adobe.com/pt/enhance -> envia o MP3 -> espera -> Baixar, com o
+     salvar_downloads.ps1 rodando em segundo plano (aperta "Salvar" sozinho, grava em C:\Render\adobe_baixados).
+  3. python tratar_audio.py alinhar <trabalho> [arquivo baixado]   (sem arquivo: pega <slug>-esv2*.mp3 dos baixados)
        -> <trabalho>/audio_tratado.wav  (estéreo 48 kHz, MESMA linha do tempo do bruto: o atraso é medido por
           correlação e corrigido; reprova se a correlação for baixa ou a duração não bater)
        -> relatório: atraso, correlação, pico, "planos" no teto (estouro) e ruído nas pausas, antes x depois
@@ -29,6 +30,7 @@ SR = 48000
 LIMITE_MB = 9.5            # envio pelo Claude in Chrome: até 10 MB por arquivo
 CORR_MIN = 0.5             # correlação mínima do envelope (tratado x bruto) para aceitar
 MAX_ATRASO = 0.5           # s
+BAIXADOS = Path(r"C:\Render\adobe_baixados")   # onde o salvar_downloads.ps1 salva o que o Adobe devolve
 
 
 def ff(args: list[str]) -> None:
@@ -156,4 +158,11 @@ if __name__ == "__main__":
     elif sys.argv[1] == "exportar":
         exportar(T)
     else:
-        alinhar(T, Path(sys.argv[3]).resolve())
+        if len(sys.argv) > 3:
+            arq = Path(sys.argv[3]).resolve()
+        else:   # o salvar_downloads.ps1 grava em BAIXADOS com o nome que o Adobe dá: <slug>-esv2-....mp3
+            achados = sorted(BAIXADOS.glob(f"{T.name}-esv2*.*"), key=lambda q: q.stat().st_mtime)
+            if not achados:
+                raise SystemExit(f"nenhum arquivo {T.name}-esv2*.mp3 em {BAIXADOS} (rodou o salvar_downloads.ps1?)")
+            arq = achados[-1]
+        alinhar(T, arq)

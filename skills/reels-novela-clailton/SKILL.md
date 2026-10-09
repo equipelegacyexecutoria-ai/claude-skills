@@ -231,12 +231,17 @@ card falar em ruído/barulho externo/áudio estourado, ou `tratar_audio.py medir
    `select_browser` no que abre o Adobe **logado** (canto superior direito com "Meus projetos" e o avatar).
    Abrir: `podcast.adobe.com/pt/enhance` → `find` "file input" → `file_upload` com o MP3 (dá para mandar vários,
    um por chamada; processam juntos, ~30–60 s cada). Ajustes padrão: modelo v2, Fala 50%, Música 10%, Fundo 10%.
-4. Baixar: clicar no arquivo na lista (confira a duração no player) → botão **Baixar**. O Chrome dessa conta pergunta
-   onde salvar e o arquivo fica como `Downloads\<guid>.tmp` (completo: MP3 mono **64 kbps**, o único formato que o
-   Adobe dá; vai até 16 kHz, suficiente para voz). Não espere o diálogo: identifique cada `.tmp` pela duração
-   (`ffprobe`) e use direto. No fim, peça ao usuário para fechar as janelas "Salvar como" que ficaram abertas.
-5. `P S\tratar_audio.py alinhar T <arquivo>` → `T\audio_tratado.wav` + `T\adobe\relatorio.json`. Reprova se o
-   arquivo não casar com o bruto (vídeo trocado).
+4. Baixar **100% automático** (usuário, 09/10/2026: "automatize 100%"). O Chrome dessa conta abre "Salvar como" no
+   fim de cada download; a extensão não alcança essa janela, então ANTES de baixar deixe rodando em segundo plano:
+   `powershell -NoProfile -ExecutionPolicy Bypass -File S\salvar_downloads.ps1 -Esperar 120`
+   Ele acha só as janelas "Salvar como" **do Chrome** (o Premiere da equipe também abre "Salvar como": nunca mexe
+   nela), põe no campo do nome do arquivo (Edit id 1001 dentro do ComboBox — NÃO o "Nome" da lista de arquivos, que
+   renomeia arquivo) `C:\Render\adobe_baixados\<nome que o Adobe sugeriu>` e aperta Salvar. Depois, no Adobe: clicar
+   no arquivo na lista → **Baixar**, um por vez (~8 s entre eles). Sai `<slug>-esv2-50p-bg-10p-music-10p.mp3`
+   (MP3 mono **64 kbps**, o único formato que o Adobe dá; vai até 16 kHz, suficiente para voz). Testado com 3
+   downloads seguidos sem ninguém tocar no PC.
+5. `P S\tratar_audio.py alinhar T` (acha sozinho `<slug>-esv2*.mp3` em `C:\Render\adobe_baixados`) →
+   `T\audio_tratado.wav` + `T\adobe\relatorio.json`. Reprova se o arquivo não casar com o bruto (vídeo trocado).
 6. **Remonte o corte** com o áudio limpo: `P S\montar_corte.py T --manter-palavras` (o `borda_voz` passa a medir a voz
    no `audio_tratado.wav`; sem isso o respiro que o Adobe tirou vira silêncio e sobram pausas de 0,4–0,5 s). A legenda
    continua valendo (mesmos índices). Depois `editar.py finalizar` (o render usa o `audio_tratado.wav` sozinho e
