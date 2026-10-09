@@ -223,8 +223,8 @@ def main() -> None:
             problemas.append(f"imagem fora de sincronia no seg{sc['seg']:02d} ({sc['deslocamento']:+d} quadro)")
 
     # ---- pausas longas na fala: o respiro final antes da CTA é o único silêncio longo permitido
-    # o teto da pausa normal é medido em cada vídeo (corte.json "ritmo"); acima dele + 0,1 s é pausa que quebra o ritmo
-    lim_pausa = float(corte.get("ritmo", {}).get("teto", 0.36)) + 0.10
+    # o teto da pausa normal é medido em cada vídeo (corte.json "ritmo"); acima dele + 0,15 s (folga de medição) é pausa que quebra o ritmo
+    lim_pausa = float(corte.get("ritmo", {}).get("teto", 0.36)) + 0.15
     rel["pausas_longas"] = pausas_longas(video, fim_imagem, lim_pausa)
     for pz in rel["pausas_longas"]:
         if pz["inicio"] + pz["dur"] < fim_imagem - 0.05:
