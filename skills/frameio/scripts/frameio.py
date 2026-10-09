@@ -228,27 +228,35 @@ def listar(id_):
         print(f"[{it.get('type')}] {it.get('name')}  id={it['id']}  status={it.get('status', '')}")
 
 
-def _tempo(c):
-    seg = c.get("timestamp")
-    if seg is None:
+def _fps(a, id_):
+    meta = api("GET", f"/accounts/{a}/files/{id_}?include=metadata")["data"].get("metadata") or []
+    for m in meta:
+        if m.get("field_definition_name") == "Frame Rate" and m.get("value"):
+            return float(m["value"])
+    return None
+
+
+def _tempo(quadros, fps):
+    """O Frame.io guarda o tempo do comentario em quadros (frames)."""
+    if quadros is None:
         return "--:--"
-    if isinstance(seg, (int, float)) and c.get("timestamp_unit", "seconds") == "frames" and c.get("fps"):
-        seg = seg / c["fps"]
-    try:
-        seg = float(seg)
-        return f"{int(seg // 60):02d}:{seg % 60:05.2f}"
-    except (TypeError, ValueError):
-        return str(seg)
+    if not fps:
+        return f"quadro {quadros}"
+    seg = quadros / fps
+    return f"{int(seg // 60):02d}:{seg % 60:05.2f}"
 
 
 def comentarios(id_):
     a = conta_id()
-    itens = todas_paginas(f"/accounts/{a}/files/{id_}/comments?include=owner")
+    fps = _fps(a, id_)
+    itens = todas_paginas(f"/accounts/{a}/files/{id_}/comments")
+    itens.sort(key=lambda c: (c.get("timestamp") is None, c.get("timestamp") or 0))
     if not itens:
         print("Sem comentarios.")
     for c in itens:
-        autor = (c.get("owner") or {}).get("name", "")
-        print(f"[{_tempo(c)}] {autor}: {c.get('text', '')}")
+        c["tempo"] = _tempo(c.get("timestamp"), fps)
+        feito = " [resolvido]" if c.get("completed_at") else ""
+        print(f"[{c['tempo']}]{feito} {c.get('text', '')}")
     with open(os.path.join(PASTA, f"comentarios_{id_}.json"), "w", encoding="utf-8") as f:
         json.dump(itens, f, ensure_ascii=False, indent=1)
 
