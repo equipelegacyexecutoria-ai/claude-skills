@@ -370,6 +370,7 @@ se existir, senão `legenda.json`).
   direitas ("TORCENDO / PARA QUE ELE / NÃO ACONTEÇA") — agora fecha na borda da linha MAIS LARGA. Ao escrever a
   legenda, evite escada com palavra curta solta na 1ª linha (junte "A RESPONSABILIDADE" ou use esquerda).
 - **Pausa natural cortada = palavra "comida"** (09/10/2026, 2ª rodada: "escuta", "tempo", "feito", "respeito" e a fala final do "Tem gente escrota" picotada): o problema não era só a borda, era cortar TODA pausa ≥ 0,12 s. Agora o corte mede o ritmo do vídeo (linha "Corte" da tabela). Pontuação do roteiro/Whisper NÃO serve para decidir (o usuário: "pelo roteiro vai ficar difícil de acertar"; o Whisper do bruto pontua ~7% das palavras).
+- **Corte em cima de estalo/respiro soa como palavra cortada** ("feito" do Palhaço, 09/10/2026: a palavra acabava limpa, mas a borda caía no meio de um estalo de boca 150 ms depois). A borda agora vai para o quadro mais silencioso entre o fim da voz e a borda calculada (`borda_voz.nivel/quieto`, em `aparar`).
 - **Trecho sem palavra** (0,5 s de vento antes de "Elas"; "vo-" antes de "Você tenta"): a conferência reprova "trecho sem palavra". Corrija com `INICIO n i@t` (t = começo da palavra certa).
 - **Tirar palavra de apoio no meio da frase quebra a emenda** ("acostumou, [então,] a se abandonar" soou estranho): se a palavra está colada na mesma tomada, deixe no áudio e só tire da legenda.
 - **Palavra "cortada" antes da emenda** (09/10/2026: "circo", "manda", "escuta", "grupo"): o corte parava ~37 dB
