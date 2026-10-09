@@ -167,9 +167,13 @@ def main() -> None:
         area = fr[:EMENDA_TOPO(c)] if c["layout"] in ("topo", "dividida") else fr
         # tarja de verdade tem degrau: preto na borda e imagem logo depois (cortina escura não é tarja)
         lum = area.reshape(area.shape[0], -1).mean(1)
-        if (lum[:40].max() < 8 and lum[40:120].mean() > lum[:40].mean() + 12) or \
-                (lum[-40:].max() < 8 and lum[-120:-40].mean() > lum[-40:].mean() + 12):
-            avisos.append(f"{c['id']}: faixa preta na borda da imagem (tarja de filme?)")
+        # (09/10/2026: tarja de 200 linhas passou — o degrau era procurado só até 120 linhas da borda; agora mede a
+        # espessura da tarja e procura o degrau logo depois dela. Tarja na imagem = problema, não aviso.)
+        for lado in (lum, lum[::-1]):
+            esp = int(np.argmax(lado >= 8)) if (lado >= 8).any() else 0
+            if 20 <= esp < 0.4 * len(lado) and lado[esp:esp + 80].mean() > lado[:esp].mean() + 12:
+                problemas.append(f"{c['id']}: faixa preta de {esp}px na borda da imagem (tarja de filme)")
+                break
         r_, c_ = divmod(k, cols)
         folha.paste(Image.fromarray(fr).resize((tw, th)), (c_ * tw, r_ * (th + 58) + 58))
         d.text((c_ * tw + 3, r_ * (th + 58) + 2), f"{c['id']} {c['f0'] / FPS:.1f}s {c['layout']}", fill=(255, 220, 0), font=f1)
