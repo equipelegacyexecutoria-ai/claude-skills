@@ -166,12 +166,15 @@ def main() -> None:
                 avisos.append(f"{c['id']}: trecho congela no fim (vídeo mais curto que o uso)")
         area = fr[:EMENDA_TOPO(c)] if c["layout"] in ("topo", "dividida") else fr
         # tarja de verdade tem degrau: preto na borda e imagem logo depois (cortina escura não é tarja)
-        lum = area.reshape(area.shape[0], -1).mean(1)
         # (09/10/2026: tarja de 200 linhas passou — o degrau era procurado só até 120 linhas da borda; agora mede a
-        # espessura da tarja e procura o degrau logo depois dela. Tarja na imagem = problema, não aviso.)
+        # espessura da tarja e procura o degrau logo depois dela. Tarja na imagem = problema, não aviso. Linha de
+        # tarja é preta de ponta a ponta (percentil 98); sombra natural embaixo da cena tem pontos claros.)
+        lum = np.percentile(area.astype(np.float32).mean(2), 98, axis=1)
         for lado in (lum, lum[::-1]):
             esp = int(np.argmax(lado >= 8)) if (lado >= 8).any() else 0
-            if 20 <= esp < 0.4 * len(lado) and lado[esp:esp + 80].mean() > lado[:esp].mean() + 12:
+            # borda SECA (tarja sobe 25+ níveis em ~8 linhas); sombra que escurece aos poucos não é tarja
+            if 20 <= esp < 0.4 * len(lado) and lado[esp + 8] - lado[esp - 1] > 25 \
+                    and lado[esp:esp + 80].mean() > lado[:esp].mean() + 12:
                 problemas.append(f"{c['id']}: faixa preta de {esp}px na borda da imagem (tarja de filme)")
                 break
         r_, c_ = divmod(k, cols)
