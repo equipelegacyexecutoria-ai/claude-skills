@@ -133,13 +133,13 @@ def login():
     print("Abrindo o navegador para o login da Adobe...")
     print("Se nao abrir, cole este endereco no Chrome:\n" + url, flush=True)
     webbrowser.open(url)
-    fim = time.time() + 600
+    fim = time.time() + 1200
     while not resultado and time.time() < fim:
         time.sleep(0.5)
     time.sleep(1)
     srv.shutdown()
     if "code" not in resultado:
-        sys.exit("Login nao concluido: " + resultado.get("erro", "tempo esgotado (10 min)"))
+        sys.exit("Login nao concluido: " + resultado.get("erro", "tempo esgotado (20 min)"))
     _post_token({"grant_type": "authorization_code", "code": resultado["code"]})
     print("Login salvo.")
     eu = api("GET", "/me")["data"]
