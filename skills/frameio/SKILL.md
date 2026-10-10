@@ -19,6 +19,20 @@ Script: `python ~/.claude/skills/frameio/scripts/frameio.py <comando>` (só bibl
 
 Link `next.frame.io/project/<projeto>/view/<arquivo>`: o último id é o `arquivo_id`.
 
+## Organização do projeto (desde 10/10/2026)
+
+Raiz do "Criativos Igor": uma pasta por mês (`2026-09 Setembro`, `2026-10 Outubro`...) com subpastas por tipo
+(Reels Clailton, Reels Legacy, Reels Allan, Anúncios, Depoimentos, Stories, Cortes de podcast); cada vídeo
+numa pasta própria com as versões dentro. Vídeos de meses antigos vão para o Drive (pasta do mês:
+orgânico em `ORGÂNICO\EDITADOS`, versões antigas em `Versões anteriores`, anúncios em `MÍDIA PAGA`,
+campanhas em `<mês>\Frame.io\<pasta original>`) e só então são apagados do Frame.io, para liberar espaço.
+Antes de apagar: tamanho igual, ffmpeg lê o arquivo inteiro sem erro, duração igual à do Frame.io e
+o tamanho na nuvem confirmado pelo conector do Drive (`search_files`, campo `fileSize`).
+Limite de pedidos: a API devolve 429; `api()` já espera e tenta de novo.
+Rotas testadas: criar pasta `POST folders/{id}/folders`, mover `PATCH files|folders/{id}/move`
+(`{"data":{"parent_id":...}}`), renomear `PATCH folders/{id}`, apagar `DELETE files|folders/{id}`
+(apagar pasta leva tudo que está dentro: só apagar pasta conferida vazia).
+
 ## Levar vídeo do Frame.io para o Drive (regra do usuário, 10/10/2026)
 
 Baixar do Frame.io → subir no Drive → **apagar a cópia local** (não deixar resíduo na máquina).
