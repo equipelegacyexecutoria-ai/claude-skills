@@ -172,17 +172,26 @@ def api(metodo, caminho, corpo=None):
     else:
         url = API + caminho
     dados = json.dumps(corpo).encode() if corpo is not None else None
-    req = urllib.request.Request(url, data=dados, method=metodo, headers={
-        "Authorization": f"Bearer {token_valido()}",
-        "Content-Type": "application/json",
-        "User-Agent": UA,
-    })
-    try:
-        with urllib.request.urlopen(req) as r:
-            txt = r.read()
-            return json.loads(txt) if txt else {}
-    except urllib.error.HTTPError as e:
-        sys.exit(f"Erro do Frame.io ({e.code}) em {caminho}: {e.read().decode(errors='replace')[:500]}")
+    for tentativa in range(8):
+        req = urllib.request.Request(url, data=dados, method=metodo, headers={
+            "Authorization": f"Bearer {token_valido()}",
+            "Content-Type": "application/json",
+            "User-Agent": UA,
+        })
+        try:
+            with urllib.request.urlopen(req) as r:
+                txt = r.read()
+                return json.loads(txt) if txt else {}
+        except urllib.error.HTTPError as e:
+            # 429 = limite de pedidos do Frame.io; 5xx = instabilidade: espera e tenta de novo
+            if (e.code == 429 or e.code >= 500) and tentativa < 7:
+                time.sleep(min(60, 5 * 2 ** tentativa))
+                continue
+            raise ErroFrameio(f"Erro do Frame.io ({e.code}) em {caminho}: {e.read().decode(errors='replace')[:500]}")
+
+
+class ErroFrameio(Exception):
+    pass
 
 
 def todas_paginas(caminho):
