@@ -19,6 +19,14 @@ Script: `python ~/.claude/skills/frameio/scripts/frameio.py <comando>` (só bibl
 
 Link `next.frame.io/project/<projeto>/view/<arquivo>`: o último id é o `arquivo_id`.
 
+## Levar vídeo do Frame.io para o Drive (regra do usuário, 10/10/2026)
+
+Baixar do Frame.io → subir no Drive → **apagar a cópia local** (não deixar resíduo na máquina).
+Pasta de passagem: uma pasta temporária num disco com espaço (o E: externo pode desconectar; o C:
+tem pouco espaço e o Drive para computador usa o C: como passagem). Conferir o tamanho no destino
+antes de apagar a cópia local. Nada de arquivo `.parcial`/`.copiando` esquecido no Drive.
+O link de download (`media_links.original.download_url`) exige o cabeçalho User-Agent (`baixar_url` já manda).
+
 ## Onde ficam os códigos (fora da sincronia, um por PC)
 
 `~/FrameIO/`: `credenciais.txt` (CLIENT_ID/CLIENT_SECRET do projeto "Project 1" no Adobe Developer
