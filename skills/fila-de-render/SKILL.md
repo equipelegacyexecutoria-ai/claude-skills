@@ -184,6 +184,11 @@ O arquivo final em alta continua indo para EDITADO no Drive (é ele que vai para
    escrever ali: "0:12 legenda errada", "geral: legenda maior"). Valem as duas fontes juntas.
    Sem nota aberta e sem texto: veja a regra geral do fim desta seção; sem nada, comente "DÚVIDA: não achei correções" e pule.
 2. Aplique sobre a edição guardada em `C:\Render\_trabalho\<slug>\` (sem ela, refaça do bruto com as correções).
+   **Refazer do bruto = repor TODAS as correções já aprovadas** (erro de 11/10/2026: 9 novelas refeitas do zero perderam o
+   Adobe Podcast, o white balance, a CTA trocada e um "Cara," cortado). Antes de editar, leia todos os comentários do card
+   (`notion-get-comments` com `include_resolved`) e faça a lista do que vale: tomadas/palavras que saíram, grafias, `cta.txt`,
+   `cor.txt`, Adobe Podcast. Áudio que já tinha passado no Adobe: trate de novo (no bruto, seção da skill de reels, ou no
+   vídeo pronto com `adobe_no_final.py`). Nunca entregue uma versão nova que desfaz uma correção aprovada.
    O tempo da nota é o da versão em que ela foi escrita (v1, v2...): ache o trecho no corte daquela versão.
 3. Correção ambígua: **não chute**. Na nota da Sala, `resposta: "DÚVIDA: ..."` (fica aberta); no campo/comentário, comente
    "DÚVIDA: ...". Se a dúvida trava o vídeo, deixe o card em Correções (Claude) e siga para o próximo.
@@ -212,7 +217,8 @@ Correções que já têm caminho pronto (lote de 08/10/2026):
   como caminho): trate o vídeo PRONTO, sem reeditar. Do EDITADO, tire só a fala (até o início da CTA = duração − 2,9 s),
   MP3 mono 320k → Adobe Podcast (mesmos ajustes) → confira atraso 0 e correlação ~0,97 com o original → volume para
   −16 LUFS + limitador suave → junte com a cauda original da CTA (o teclado; no Adobe ele sumiria) → `-c:v copy` com o
-  áudio novo. Corte, legenda e imagem ficam idênticos.
+  áudio novo. Corte, legenda e imagem ficam idênticos. Script: `reels-novela-clailton/scripts/adobe_no_final.py`
+  (`exportar <vídeo> <mp3>` → Adobe → `juntar <vídeo> <mp3 do Adobe> <saída>`; reprova se não casar).
 - "Cortou a palavra X" / "pausa natural cortada": o corte agora mede o ritmo de cada vídeo e só encurta a pausa que
   quebra o ritmo (skill de reels, linha "Corte"); refaça com `montar_corte.py --manter-palavras`.
 - "Vazio com barulho" / "erro de corte no <palavra>": a conferência acusa "trecho sem palavra"; `INICIO n i@t`.
