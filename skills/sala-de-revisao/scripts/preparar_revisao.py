@@ -43,6 +43,12 @@ def formato_da_pauta(pauta):
     return ""
 
 
+def titulo_da_pauta(pauta):
+    """Reels_Clailton_NV_Seja_Mais_Egoísta -> Seja Mais Egoísta (o formato já aparece como etiqueta)."""
+    t = re.sub(r"^Reels_[^_]+_(TD|NV|Novela|ES|CX)_", "", pauta, flags=re.I)
+    return t.replace("_", " ").strip() or pauta.replace("_", " ").strip()
+
+
 def ffprobe(video):
     out = subprocess.run(
         ["ffprobe", "-v", "error", "-select_streams", "v:0",
@@ -116,7 +122,7 @@ def main():
         entrada["drive"] = a.drive
     dados = {
         "id": vid,
-        "titulo": a.pauta.replace("_", " ").strip(),
+        "titulo": titulo_da_pauta(a.pauta),
         "pauta": a.pauta,
         "formato": formato_da_pauta(a.pauta),
         "notion": a.notion,
