@@ -49,8 +49,10 @@ Regras do usuário (08/10/2026):
 
 ## Como falar com o usuário
 
-**Sempre responder em português do Brasil**, inclusive resumos finais e perguntas. O usuário
-reclamou de respostas em inglês (08/10/2026).
+**Sempre responder em português do Brasil**, inclusive resumos finais, perguntas e as frases curtas
+entre uma ferramenta e outra, do começo ao fim da conversa (mesmo depois de ler material em inglês).
+O usuário reclamou de respostas em inglês em 08/10/2026 e de novo em 11/10/2026 ("do nada tu começa a
+falar inglês, para com isso").
 
 Ele não é técnico. Explique propostas pelo dia a dia dele: o que ele faz, onde pede, o que
 recebe, o que cada PC precisa ter, com exemplo concreto ("você diz X → acontece Y → recebe Z").
