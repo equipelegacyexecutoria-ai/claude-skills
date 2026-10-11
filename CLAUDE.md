@@ -25,6 +25,20 @@ inglês; texto só em português. Sempre alta resolução e casando com a emoç�
 Buscar além da busca automática (Pexels pelo navegador, Unsplash, Pinterest, TikTok, YouTube) e conferir
 cada imagem escolhida em tamanho real. Passo a passo: skill `reels-caixinha-0800`, seção "B-roll".
 
+## Vídeo vertical (Reels/Stories): margens e área segura
+
+Regra do usuário (11/10/2026): nada importante colado na borda nem embaixo da interface do Instagram.
+Em 1080×1920: margem lateral mínima de 80 px; topo até 220 px é do cabeçalho do Reels; abaixo de
+1480 px ficam nome, legenda e áudio; de x 950 em diante, entre y 1000 e 1720, ficam os botões
+(curtir, comentar, compartilhar). Texto grande que não cabe quebra linha ou diminui, nunca corta.
+Conferir cada cena com a máscara dessas zonas antes de entregar.
+
+## Motion/anúncio com virada: duas músicas
+
+Em vídeo com virada de clima (problema → solução), usar duas trilhas: uma sombria/tensa antes da
+virada e outra pra frente (ex.: rock) depois. A trilha tem que estar presente na mixagem, sem sumir
+sob a voz nem acabar antes do vídeo.
+
 ## Clailton em imagens de IA (carrossel, B-roll, qualquer peça)
 
 Regras do usuário (08/10/2026):
