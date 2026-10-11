@@ -1,6 +1,6 @@
 ---
 name: fila-de-render
-description: Processa a fila de vídeos do Notion no PC de render — lê os cards das colunas CLAUDE e "Correções (Claude)" do Calendário Editorial | Legacy (visão Audiovisual), pega o bruto no Google Drive (disco G:), edita com a skill certa pelo nome da pauta (TD = tela dividida, NV/Novela = novela, ES = edição simples, CX = caixinha de perguntas da Executoria 0800), salva em EDITADO do mês, cola o link em MATERIAL FINALIZADO, comenta o que fez e move o card para Aprovação; nas correções faz a v2, v3. Use quando o usuário pedir "edita os vídeos do Claude", "processa a fila", "roda a fila do Notion", "faz as correções do Claude", ou mandar editar um card específico do quadro.
+description: Processa a fila de vídeos do Notion no PC de render — lê os cards das colunas CLAUDE e "Correções (Claude)" do Calendário Editorial | Legacy (visão Audiovisual), pega o bruto no Google Drive (disco G:), edita com a skill certa pelo nome da pauta (TD = tela dividida, NV/Novela = novela, ES = edição simples, CX = caixinha de perguntas da Executoria 0800), sobe a prévia na Sala de Revisão (Artifact, skill sala-de-revisao) e o arquivo final em EDITADO do mês, cola o link da Sala (e o do Drive) em MATERIAL FINALIZADO, comenta o que fez e move o card para Aprovação; nas correções lê as notas presas na minutagem da Sala de Revisão (e o campo CORREÇÕES) e faz a v2, v3. Use quando o usuário pedir "edita os vídeos do Claude", "processa a fila", "roda a fila do Notion", "faz as correções do Claude", ou mandar editar um card específico do quadro.
 ---
 
 # Fila de render (Notion → edição → Drive → Notion)
@@ -16,14 +16,14 @@ conversa do PC de render (Controle Remoto, no celular ou em claude.ai/code).
   (confira antes com `curl -sIL` que volta `Content-Type: video/...` e o tamanho certo; confira o espaço no C:).
 - A pasta de trabalho da versão anterior ficou no PC de render: na correção, refaça do bruto já com
   as correções (decupagem revisada à mão, não a proposta automática).
-- Entrega: o Notion só aceita anexo de até 20 MB e o conector do Drive não sobe vídeo grande. Sem
-  Google Drive para computador neste PC, deixe o vídeo em `C:\Render\Reels Editados\`, mostre ao
-  usuário e combine a subida (ele arrasta para a pasta EDITADO do mês no Drive; depois você cola o link
-  em MATERIAL FINALIZADO, comenta e move para Aprovação). Não mova o card sem o link do vídeo.
+- Entrega: suba na Sala de Revisão normalmente (Passo 4, itens 1–2): com o link da Sala o card já pode ir
+  para Aprovação. Sem Google Drive para computador neste PC, o arquivo final fica em `C:\Render\Reels Editados\`;
+  avise o usuário para arrastar para a pasta EDITADO do mês e, depois, acrescente o link do Drive no card
+  e na Sala (Passo 4, item 6). Não mova o card sem o link da Sala.
 - Traga as correções aplicadas na conversa (o usuário pede "me traga por aqui") além do comentário no card.
 - O PC NOT-LIVE-LAIR já tem o Google Drive para computador (G:) desde 28/09/2026: a entrega segue o Passo 4.
 - Quando o usuário diz "deixa eu conferir", mostre o vídeo na conversa e **só suba no Drive / mexa no
-  Notion depois do ok**. MATERIAL FINALIZADO fica SÓ com o link da versão mais nova (usuário, 29/09/2026: "retire os links das versões anteriores"); os arquivos antigos continuam na pasta EDITADO.
+  Notion depois do ok**. MATERIAL FINALIZADO fica SÓ com o link da Sala e o do Drive da versão mais nova (usuário, 29/09/2026: "retire os links das versões anteriores"); os arquivos antigos continuam na pasta EDITADO e as versões antigas continuam na Sala (botões v1, v2...).
 - Arquivo final leve (CRF 18, ~200 MB para 2:30): o de 1,2 GB (CRF 10) foi reprovado ("não pode ser tão pesado").
 
 O usuário não é técnico: relatórios curtos, pelo dia a dia dele (ver CLAUDE.md global).
@@ -143,37 +143,56 @@ trabalho em `C:\Render\_trabalho\<slug>\`), seguindo o modo rápido dela, com es
 - **Não edite skills.** Correção que se repete vira "sugestão para a skill" no comentário.
 - Guarde `C:\Render\_trabalho\<slug>\` até o card ser aprovado (as correções partem dele).
 
-## Passo 4 — entregar
+## Passo 4 — entregar (Sala de Revisão + Drive)
 
-1. Nome: `<PAUTA> - EDITADO.mp4` (v2 em diante: `<PAUTA> - EDITADO v2.mp4`).
-2. Pasta EDITADO do **mês atual**: `G:\Meu Drive\02. Captação de Vídeos\<AAAA>\<MM - Mês>\ORGÂNICO\EDITADO\`
+**Regra do usuário (11/10/2026):** a revisão é na **Sala de Revisão** (skill `sala-de-revisao`), não no Drive.
+O usuário clica no link do card, assiste em qualquer PC ou celular e deixa as notas presas no tempo do vídeo.
+O arquivo final em alta continua indo para EDITADO no Drive (é ele que vai para a postagem).
+
+1. Nome: `<PAUTA> - EDITADO.mp4` (v2 em diante: `<PAUTA> - EDITADO v2.mp4`), em `C:\Render\Reels Editados\`.
+2. **Sala de Revisão primeiro** (rápido, não espera o Drive): siga a skill `sala-de-revisao`, seção
+   "Publicar uma versão", com `--pauta "<PAUTA>"`, `--versao v1` (v2, v3 nas correções), `--notion "<url do card>"`,
+   `--pasta "C:\Render\_sala_revisao"` e `--obs` = 1 linha (v1: "Primeira edição"; v2+: "Correções: <resumo>").
+   Guarde o `link_revisao`.
+3. Pasta EDITADO do **mês atual**: `G:\Meu Drive\02. Captação de Vídeos\<AAAA>\<MM - Mês>\ORGÂNICO\EDITADO\`
    (meses: 01 - Janeiro, 02 - Fevereiro, 03 - Março, 04 - Abril, 05 - Maio, 06 - Junho, 07 - Julho,
    08 - Agosto, 09 - Setembro, 10 - Outubro, 11 - Novembro, 12 - Dezembro). Se a pasta do mês não
    existir, procure uma variação (ex.: "OUTUBRO - ORGÂNICO - BRUTOS E EDITADO") e, sem nenhuma, crie
    `<MM - Mês>\ORGÂNICO\EDITADO` e avise no relatório.
-3. `robocopy "C:\Render\Reels Editados" "<EDITADO>" "<arquivo>" /J /R:3 /W:10`
+   `robocopy "C:\Render\Reels Editados" "<EDITADO>" "<arquivo>" /J /R:3 /W:10`
 4. Espere o upload do Drive para computador: repita `search_files` (`title = '<arquivo>' and parentId = '<ID do EDITADO>'`)
-   a cada ~30 s (até 20 min). Link: `https://drive.google.com/file/d/<ID>/view`.
-5. No card (`notion-update-page`): MATERIAL FINALIZADO = o link (arquivo externo com o nome do vídeo);
-   ANDAMENTO = coluna de aprovação. Na v2, v3...: MATERIAL FINALIZADO passa a ter SÓ o link da versão nova (troque, não acrescente).
-6. Comentário no card (`notion-create-comment`), curto:
-   `v1 pronta · <duração> · editado com <skill> · o que conferir: <1–3 pontos> · tempo: <min>`.
+   a cada ~30 s (até 20 min). Link: `https://drive.google.com/file/d/<ID>/view`. Enquanto espera, siga para o próximo card.
+5. No card (`notion-update-page`): MATERIAL FINALIZADO = `["<link_revisao>", "<link do Drive>"]` (o da Sala **primeiro**:
+   é o que o usuário clica); ANDAMENTO = **Aprovação**. Na v2, v3...: troque os dois links pelos da versão nova
+   (o da Sala é o mesmo endereço; ele abre na versão mais nova). Drive ainda não apareceu: ponha só o da Sala e acrescente o do Drive depois.
+6. Com o link do Drive: grave-o também na Sala (`sala-de-revisao`, "Publicar uma versão", item 7).
+7. Comentário no card (`notion-create-comment`), curto:
+   `v1 pronta · <duração> · editado com <skill> · revisar na Sala: <link_revisao> · o que conferir: <1–3 pontos> · tempo: <min>`.
 
 ## Correções (coluna "Correções (Claude)")
 
-1. Leia o campo **CORREÇÕES (Claude)** e os comentários novos. Cada item deve ter o tempo do vídeo
-   ("0:12 legenda errada", "0:25 a 0:31 trocar a cena", "geral: legenda maior").
+1. **Fonte principal: as notas da Sala de Revisão** (skill `sala-de-revisao`, "Ler as notas e aplicar"):
+   notas abertas do vídeo (`<id>` = PAUTA em slug), cada uma com o tempo exato daquela versão.
+   Leia também o campo **CORREÇÕES (Claude)** e os comentários novos do card (o usuário ainda pode
+   escrever ali: "0:12 legenda errada", "geral: legenda maior"). Valem as duas fontes juntas.
+   Sem nota aberta e sem texto: veja a regra geral do fim desta seção; sem nada, comente "DÚVIDA: não achei correções" e pule.
 2. Aplique sobre a edição guardada em `C:\Render\_trabalho\<slug>\` (sem ela, refaça do bruto com as correções).
-3. Correção ambígua: **não chute**. Comente "DÚVIDA: ..." e deixe o card em Correções (Claude); siga para o próximo.
-4. Entregue como `v2`, `v3`... (Passo 4) e mova para aprovação.
-5. Depois de entregar, comente no card **neste formato (padrão do usuário, 09/10/2026)**:
+   O tempo da nota é o da versão em que ela foi escrita (v1, v2...): ache o trecho no corte daquela versão.
+3. Correção ambígua: **não chute**. Na nota da Sala, `resposta: "DÚVIDA: ..."` (fica aberta); no campo/comentário, comente
+   "DÚVIDA: ...". Se a dúvida trava o vídeo, deixe o card em Correções (Claude) e siga para o próximo.
+4. Entregue como `v2`, `v3`... (Passo 4: Sala primeiro, depois Drive) e mova para Aprovação.
+5. Marque na Sala as notas aplicadas como resolvidas, com 1 linha do que foi feito (`sala-de-revisao`, item 5) —
+   o usuário vê a resposta embaixo de cada nota.
+6. Comente no card **neste formato (padrão do usuário, 09/10/2026)**:
    ```
    Correções pedidas (v2):
-   <texto do campo CORREÇÕES (Claude) colado EXATAMENTE como o usuário escreveu — copiar e colar, sem resumir>
+   <notas da Sala, uma por linha: [mm:ss.d] (v1) texto — copiadas EXATAMENTE como o usuário escreveu>
+   <texto do campo CORREÇÕES (Claude), se houver, colado EXATAMENTE — sem resumir>
 
-   O que foi feito: <seu comentário, item por item, com ✔ / o que ficou pendente / dúvidas>
+   O que foi feito: <item por item, com ✔ / o que ficou pendente / dúvidas>
+   Revisar a v2 na Sala: <link_revisao>
    ```
-   Card que voltou sem texto em CORREÇÕES (Claude) (regra geral de outro card): "Correções pedidas: (nenhuma neste
+   Card que voltou sem nota e sem texto (regra geral de outro card): "Correções pedidas: (nenhuma neste
    card — aplicada a regra geral: <qual>)". Só DEPOIS de comentar, **esvazie** o campo CORREÇÕES (Claude).
 6. Erro que se repete em vários cards = causa na skill: ache a causa, corrija o script/regra, **confira nos cards
    que reclamaram** e só então registre na skill (usuário, 09/10/2026).

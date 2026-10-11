@@ -70,9 +70,12 @@ e sincronizam sozinhos (ao abrir a conversa e ao fim de cada resposta).
   1. O bruto vem em MATERIAL NECESSÁRIO (na prática, link do Google Drive; pode ser arquivo anexado).
   2. Só começa quando o usuário pedir ("edita os vídeos do Claude"), de qualquer PC ou do celular.
   3. Todo card da coluna CLAUDE é editado **no PC de render** (testes avulsos podem ser em outro PC).
-  4. Pronto: anexar o vídeo final em MATERIAL FINALIZADO e mover o card para **Aprovação**.
-  5. Correções: o usuário escreve no campo **CORREÇÕES (Claude)** do card (com o tempo do vídeo) e move
-     o card para a coluna **Correções (Claude)**; o PC de render faz a v2, v3.
+  4. Pronto: subir a prévia na **Sala de Revisão** (Artifact, skill `sala-de-revisao`) e o final em alta em
+     EDITADO no Drive; em MATERIAL FINALIZADO vai o link da Sala (primeiro) e o do Drive; card para **Aprovação**.
+  5. Correções (desde 11/10/2026): o usuário abre o link da Sala, deixa as notas presas no tempo do vídeo
+     (ou escreve no campo **CORREÇÕES (Claude)**) e move o card para **Correções (Claude)**; o PC de render
+     lê as notas, faz a v2, v3 e responde cada nota na própria Sala.
+- Sala de Revisão: https://claude.ai/artifact/HAcqomJqf9NXRNtyYbkX6v (link de um vídeo: `...#<pauta-em-slug>`).
 - O passo a passo completo está na skill `fila-de-render`.
 - De qualquer PC: se o usuário pedir para "ativar/mandar o PC de render" editar, entregue o pedido à
   conversa **"Central de Render"** (ou "Render central") do PC de render (`ListAgents` + `SendMessage`), como na skill.
