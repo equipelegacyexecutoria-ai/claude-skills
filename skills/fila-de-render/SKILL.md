@@ -167,8 +167,9 @@ O arquivo final em alta continua indo para EDITADO no Drive (é ele que vai para
    (o da Sala é o mesmo endereço; ele abre na versão mais nova). Drive ainda não apareceu: ponha só o da Sala e acrescente o do Drive depois.
    **Correção (v2, v3...) — regra do usuário, 11/10/2026:** a versão antiga em alta sai do Drive e do card, e entra a nova.
    Depois que o link da nova estiver no card, mande o arquivo antigo de EDITADO para a **lixeira do Drive**
-   (`trash_file` do conector do Drive, ou apague pelo G:; os dois vão para a lixeira, que guarda 30 dias). Só o arquivo
-   em alta da versão anterior deste card: nunca bruto, nunca arquivo de outro card. Na Sala as versões antigas ficam
+   (`trash_file` do conector do Drive, ou apague pelo G:; os dois vão para a lixeira, que guarda 30 dias). Só os arquivos
+   em alta das versões anteriores deste card (`<PAUTA> - EDITADO.mp4`, `... v2.mp4`...): nunca bruto, nunca arquivo de
+   outro card. Tire também o `drive` dessas versões no documento da Sala. Na Sala as versões antigas ficam
    (botões v1, v2: o usuário compara e as notas antigas apontam para elas).
    Aprovado ("está tudo ok"): o usuário mesmo posta; nada a fazer.
 6. Com o link do Drive: grave-o também na Sala (`sala-de-revisao`, "Publicar uma versão", item 7).
