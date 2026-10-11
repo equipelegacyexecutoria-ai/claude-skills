@@ -208,6 +208,11 @@ Correções que já têm caminho pronto (lote de 08/10/2026):
 - "Áudio estourado", "ruído", "barulho externo", "tratar o áudio", "usa o Adobe": skill de reels, seção
   "Tratar o áudio no Adobe Podcast" (Chrome do perfil Legacy Executoria). Rode `tratar_audio.py medir`; se der QUENTE,
   ponha no comentário "gravação com ganho alto: baixar ~10 dB o ganho do microfone/câmera".
+- **Só áudio ("dá um tapa no áudio", "tem ruído") e a pasta de trabalho ficou em outro PC** (Mounjaro, 11/10/2026, aprovado
+  como caminho): trate o vídeo PRONTO, sem reeditar. Do EDITADO, tire só a fala (até o início da CTA = duração − 2,9 s),
+  MP3 mono 320k → Adobe Podcast (mesmos ajustes) → confira atraso 0 e correlação ~0,97 com o original → volume para
+  −16 LUFS + limitador suave → junte com a cauda original da CTA (o teclado; no Adobe ele sumiria) → `-c:v copy` com o
+  áudio novo. Corte, legenda e imagem ficam idênticos.
 - "Cortou a palavra X" / "pausa natural cortada": o corte agora mede o ritmo de cada vídeo e só encurta a pausa que
   quebra o ritmo (skill de reels, linha "Corte"); refaça com `montar_corte.py --manter-palavras`.
 - "Vazio com barulho" / "erro de corte no <palavra>": a conferência acusa "trecho sem palavra"; `INICIO n i@t`.
