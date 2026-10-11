@@ -165,6 +165,12 @@ O arquivo final em alta continua indo para EDITADO no Drive (é ele que vai para
 5. No card (`notion-update-page`): MATERIAL FINALIZADO = `["<link_revisao>", "<link do Drive>"]` (o da Sala **primeiro**:
    é o que o usuário clica); ANDAMENTO = **Aprovação**. Na v2, v3...: troque os dois links pelos da versão nova
    (o da Sala é o mesmo endereço; ele abre na versão mais nova). Drive ainda não apareceu: ponha só o da Sala e acrescente o do Drive depois.
+   **Correção (v2, v3...) — regra do usuário, 11/10/2026:** a versão antiga em alta sai do Drive e do card, e entra a nova.
+   Depois que o link da nova estiver no card, mande o arquivo antigo de EDITADO para a **lixeira do Drive**
+   (`trash_file` do conector do Drive, ou apague pelo G:; os dois vão para a lixeira, que guarda 30 dias). Só o arquivo
+   em alta da versão anterior deste card: nunca bruto, nunca arquivo de outro card. Na Sala as versões antigas ficam
+   (botões v1, v2: o usuário compara e as notas antigas apontam para elas).
+   Aprovado ("está tudo ok"): o usuário mesmo posta; nada a fazer.
 6. Com o link do Drive: grave-o também na Sala (`sala-de-revisao`, "Publicar uma versão", item 7).
 7. Comentário no card (`notion-create-comment`), curto:
    `v1 pronta · <duração> · editado com <skill> · revisar na Sala: <link_revisao> · o que conferir: <1–3 pontos> · tempo: <min>`.
@@ -217,7 +223,10 @@ Uma linha por card: título → resultado (Aprovação v1 / v2, pulado e por qu�
 
 ## Limpeza (só local)
 
-Nunca apague nada no Drive nem no Notion. No `C:\Render`: ao começar a fila, remova `brutos\<slug>`
+Nunca apague nada no Drive nem no Notion, com uma exceção: na correção, o arquivo em alta da versão anterior do
+mesmo card vai para a lixeira do Drive (Passo 4, item 5). **Bruto copiado para o PC:** depois que a versão nova está
+na Sala e no Drive, apague `C:\Render\brutos\<slug>` (o original continua no Drive; usuário, 11/10/2026: "pouco
+espaço"). No `C:\Render`: ao começar a fila, remova `brutos\<slug>`
 e `_trabalho\<slug>` de cards que já saíram da fila e da aprovação (aprovados) há mais de 3 dias, e
 qualquer pasta com mais de 30 dias.
 

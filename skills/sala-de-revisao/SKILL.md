@@ -8,6 +8,9 @@ description: Sala de Revisão da Legacy — o "Frame.io" próprio, feito como Ar
 **Endereço fixo:** https://claude.ai/artifact/HAcqomJqf9NXRNtyYbkX6v (da conta do usuário; o mesmo em todos os PCs).
 **Link de um vídeo:** `https://claude.ai/artifact/HAcqomJqf9NXRNtyYbkX6v#<id>` — abre a página já naquele vídeo.
 
+Abre em qualquer PC ou celular logado no claude.ai com a conta do usuário: o vídeo mora na página, não precisa
+de bruto nem de arquivo final no PC.
+
 Como o usuário usa: abre o link (do card do Notion, em qualquer PC ou no celular), dá play, pausa onde
 quer mudar e escreve; a nota fica presa naquele tempo (ex.: `[00:12.3] corta o "então"`). Terminou,
 move o card para **Correções (Claude)** no Notion. Ele não é técnico: fale de "Sala de Revisão",
