@@ -101,6 +101,18 @@ Antes de desenhar qualquer efeito à mão, procurar no catálogo:
   aconteceu com o selo e com os chips); camada clara de fundo só pode começar depois que a transição cobre
   a tela.
 - Mixagem: `amix` precisa de uma base de silêncio com a duração exata (`anullsrc` + `duration=first`).
+- Partícula, faísca, onda ou ripple que começa escondido e "explode" num momento: `fromTo` com
+  `immediateRender: false`, senão aparece parado na tela antes da hora (pontinho no meio do quadro).
+- Vídeo gerado à parte (Manim etc.) entra na raiz do `index.html` com `data-start` próprio, nunca dentro
+  de uma cena temporizada; em `style`, `inset: auto` vem ANTES de `left/top`.
+- Prints da plataforma: cobrir nome/e-mail/avatar do usuário logado; não usar telas com nomes de alunos.
+
+## 6. Exemplo de uso combinado (Criativo Motion Black v3, 11/10/2026)
+
+HyperFrames como base + gráfico do Plano 2027 feito no **Manim** (`scripts/manim_plano2027.py`) dentro do
+cartão + telas reais da plataforma em monitor/tablet/celular 3D + glitch RGB, grão de filme, linha
+vermelha despencando, onda de choque e faíscas no raio. Projeto: `videos/black-motion-v3` (script das
+melhorias: `scripts/upgrade_v3.py`).
 - Motion Canvas: erro "thread is not available" depois de mudar a config = cache do navegador; limpar
   `node_modules/.vite` e abrir em outra porta.
 - yt-dlp pode dar 429 na legenda do YouTube: baixar o áudio e transcrever com faster-whisper (GPU), ou usar a
