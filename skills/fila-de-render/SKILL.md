@@ -206,7 +206,8 @@ Correções que já têm caminho pronto (lote de 08/10/2026):
 - "Vazio com barulho" / "erro de corte no <palavra>": a conferência acusa "trecho sem palavra"; `INICIO n i@t`.
 - "Cor esverdeada / white balance": `balanco_branco.py` (grava `cor.txt`). "Altere a CTA": `cta.txt` no trabalho.
 - Card devolvido para Correções SEM texto novo junto com outros que têm uma regra geral ("ajuste a skill", "em todos"):
-  a regra vale para ele também (09/10/2026: pausas naturais em todos os 11).
+  a regra vale para ele também (09/10/2026: pausas naturais em todos os 11; 11/10/2026: revertido para o corte justo
+  em todas as novelas, pedido numa nota da Sala de Revisão).
 - Erro de fala que ficou ("populi... popularidade"): `INICIO n i@t` na decupagem + `--manter-palavras`.
 - "Diagramação quebrada": rode a legenda de novo (escada com linha curta vira esquerda sozinha) e confira o quadro.
 

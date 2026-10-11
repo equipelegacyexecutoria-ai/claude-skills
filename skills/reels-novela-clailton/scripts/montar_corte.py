@@ -43,8 +43,11 @@ SIL_MIN = 0.10          # silêncio mínimo que separa fala (fechamento de oclus
 BUSCA_ANTES = 0.35      # quanto antes da marca do Whisper a fala pode começar
 BUSCA_DEPOIS = 0.70     # quanto depois da marca do Whisper a fala pode começar (ele adianta)
 RITMO = {"teto": PAUSA_MAX, "tipica": PAUSA_ALVO}   # medido em cada vídeo por medir_ritmo()
-# --ritmo-justo (tela dividida): pausa acima de 0,30 s vira 0,22 s. Na TD o usuário reprovou os respiros
-# naturais da novela ("pausa extensa sem conexão", 09/10/2026); a regra de pausa natural é só da novela.
+# Ritmo JUSTO (padrão de todos os formatos): pausa acima de 0,30 s vira 0,22 s. Na TD o usuário reprovou os
+# respiros naturais ("pausa extensa sem conexão", 09/10/2026) e na novela também (11/10/2026, notas na Sala de
+# Revisão: "demorou a cortar, ficou um gap" em pausas de 0,46-0,56 s; "ficou certinho" numa de 0,24 s). As
+# proteções de borda (cauda, estende, quieto) continuam: o corte não come o fim da palavra.
+# --ritmo-natural volta à regra de 09/10 (pausa normal medida até 0,55-0,90 s fica inteira).
 RITMO_JUSTO = {"teto": 0.30, "tipica": 0.22}
 # Silêncios forçados (s do bruto) que a tela dividida mede pelo ALINHAMENTO das palavras (td.py montar ->
 # T/apertar.json): fôlego/ruído de boca colado na fala passa como voz pelo volume e a pausa ficava 0,6-0,8 s.
@@ -361,7 +364,7 @@ def main() -> None:
     dec = ler_json(trabalho / "decupagem.json")
     from borda_voz import VozFina
     RITMO.update(medir_ritmo(VozFina(trabalho, tr["arquivo"]), dec, pal))
-    if "--ritmo-justo" in sys.argv:     # tela dividida: sem os respiros naturais da novela (usuário, 09/10/2026)
+    if "--ritmo-natural" not in sys.argv:   # justo é o padrão (TD 09/10, novela 11/10/2026); --ritmo-justo segue aceito
         RITMO.update(teto=min(RITMO["teto"], RITMO_JUSTO["teto"]), tipica=min(RITMO["tipica"], RITMO_JUSTO["tipica"]))
         if (trabalho / "apertar.json").exists():
             SILENCIOS[:] = [tuple(x) for x in ler_json(trabalho / "apertar.json")]

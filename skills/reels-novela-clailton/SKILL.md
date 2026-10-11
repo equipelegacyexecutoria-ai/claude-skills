@@ -17,7 +17,7 @@ referência: `referencia/telas-referencia.jpg`. Legendas de exemplo no formato c
 | --- | --- |
 | Formato | 1080×1920, 29,97 fps, H.264 High **CRF 18** preset slow (era CRF 10; em 28/09/2026 o usuário achou pesado demais: 1,2 GB em 2:42), yuv420p BT.709, AAC 320k — o usuário pediu **qualidade máxima, sem comprimir** |
 | Imagem | faixa 1080×864 (5:4) centrada, barras pretas; recorte fixo tirado direto do 4K (só redução), **altura cheia do bruto: só as laterais saem** |
-| Corte | tomadas escolhidas, sem tropeço. **Pausas pelo RITMO MEDIDO do vídeo** (usuário, 09/10/2026: "deixar as pequenas pausas que são naturais da fala, cortar somente as longas" / "medir as pausas e entender qual é normal e qual quebra o ritmo"): `montar_corte.medir_ritmo` mede as pausas voz a voz dos trechos que ficam; a pausa normal (até o teto, 90% das pausas < 1,2 s, entre 0,55 e 0,90 s) **fica intacta**; a que quebra o ritmo (espera do teleprompter, 1–6 s) vira a **pausa típica** do vídeo (0,28–0,50 s). Bordas seguem a onda até a vogal morrer (`borda_voz.cauda`); sem música (entra depois). Antes (28/09–09/10) toda pausa ≥ 0,12 s saía e comia palavras: não volte a isso |
+| Corte | tomadas escolhidas, sem tropeço. **Corte colado, ritmo JUSTO** (usuário, 11/10/2026, nas notas da Sala de Revisão: "os cortes no geral estão estranhos, a versão antiga estava melhor"; pausas de 0,46–0,56 s = "demorou a cortar, ficou um gap"; uma de 0,24 s = "ficou certinho"): pausa voz a voz até 0,30 s fica; maior vira **0,22 s** (`RITMO_JUSTO`, o mesmo da tela dividida). As proteções de borda continuam (`borda_voz.cauda`, `estende`, `quieto`): a palavra não é comida, que era o defeito do corte de 28/09 (toda pausa ≥ 0,12 s saía e a borda cortava a soltura da vogal). A regra de 09/10 (pausa natural até 0,55–0,90 s intacta) foi reprovada; só com `--ritmo-natural`. Sem música (entra depois) |
 | Legenda | SF Pro Text Black, caixa-alta, telas de 1–3 linhas inteiras, **só o destaque entra sozinho e maior**, sombra v3 |
 | Final | ~0,45 s depois da última palavra, corte seco para CTA preta digitada (2,9 s) com o **som de teclado padrão** (`assets/cta_teclado.mp3`, enviado pelo usuário em 30/09/2026) sincronizado com a digitação: 1º toque no quadro da 1ª letra, último toque na última letra |
 | Voz | −16 LUFS, pico −1 dBTP, limitador suave só nos picos (−14 soava estourado). Ruído externo / gravação "quente" / pedido de "tratar o áudio": **Adobe Podcast** (seção abaixo) |
@@ -158,7 +158,7 @@ decupagem (~5 min) e legenda (~5 min). `T = <projeto>\_trabalho\<slug>`.
      venv do alinhador; menor perda = o que foi dito). Calibre numa palavra certa do mesmo falante.
 3. **Montar** — `P S\editar.py montar T` (~1 min; o enquadramento roda junto com a retranscrição
    e o alinhamento).
-   - `montar_corte.py` corta colado na voz, encurta pausas para ≤ 0,3 s e retranscreve o áudio
+   - `montar_corte.py` corta colado na voz, encurta pausas > 0,30 s para 0,22 s e retranscreve o áudio
      cortado. Depois faz o **alinhamento forçado** (erro de ~1 quadro por palavra) e gera
      `palavras_legenda.txt`.
    - `enquadrar.py` calcula o crop e o queixo. O 4K é decodificado na GPU, que descarta os
@@ -369,7 +369,8 @@ se existir, senão `legenda.json`).
   aviso "escada com linha curta"); (b) "direita" alinhava a última linha só com a penúltima e ficavam duas bordas
   direitas ("TORCENDO / PARA QUE ELE / NÃO ACONTEÇA") — agora fecha na borda da linha MAIS LARGA. Ao escrever a
   legenda, evite escada com palavra curta solta na 1ª linha (junte "A RESPONSABILIDADE" ou use esquerda).
-- **Pausa natural cortada = palavra "comida"** (09/10/2026, 2ª rodada: "escuta", "tempo", "feito", "respeito" e a fala final do "Tem gente escrota" picotada): o problema não era só a borda, era cortar TODA pausa ≥ 0,12 s. Agora o corte mede o ritmo do vídeo (linha "Corte" da tabela). Pontuação do roteiro/Whisper NÃO serve para decidir (o usuário: "pelo roteiro vai ficar difícil de acertar"; o Whisper do bruto pontua ~7% das palavras).
+- **Pausa natural cortada = palavra "comida"** (09/10/2026, 2ª rodada: "escuta", "tempo", "feito", "respeito" e a fala final do "Tem gente escrota" picotada): o problema não era só a borda, era cortar TODA pausa ≥ 0,12 s. Pontuação do roteiro/Whisper NÃO serve para decidir (o usuário: "pelo roteiro vai ficar difícil de acertar"; o Whisper do bruto pontua ~7% das palavras).
+- **Pausa natural de até 0,9 s = "gap estranho"** (11/10/2026): a correção de 09/10 deixou pausas de 0,5–0,75 s e o reel de 1:07 foi para 1:17; o usuário reprovou nos 11 vídeos. Ficou o meio-termo: ritmo justo (até 0,30 s fica, maior vira 0,22 s) + as proteções de borda. Não volte nem ao corte de 28/09 nem ao ritmo natural.
 - **Corte em cima de estalo/respiro soa como palavra cortada** ("feito" do Palhaço, 09/10/2026: a palavra acabava limpa, mas a borda caía no meio de um estalo de boca 150 ms depois). A borda agora vai para o quadro mais silencioso entre o fim da voz e a borda calculada (`borda_voz.nivel/quieto`, em `aparar`).
 - **Trecho sem palavra** (0,5 s de vento antes de "Elas"; "vo-" antes de "Você tenta"): a conferência reprova "trecho sem palavra". Corrija com `INICIO n i@t` (t = começo da palavra certa).
 - **Tirar palavra de apoio no meio da frase quebra a emenda** ("acostumou, [então,] a se abandonar" soou estranho): se a palavra está colada na mesma tomada, deixe no áudio e só tire da legenda.
