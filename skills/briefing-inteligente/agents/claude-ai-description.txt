@@ -1,0 +1,1 @@
+Entrada do CopyOS: checagem de instalação, entrevista completa do negócio (BUSINESS-MEMORY.md) e retomada com o brief confirmado. Checagens de instalação nunca vasculham contas conectadas.

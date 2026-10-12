@@ -1,0 +1,6 @@
+interface:
+  display_name: "Posicionamento de Marca"
+  short_description: "Define posicionamento próprio, inimigo e regras de voz"
+  default_prompt: "Use a skill posicionamento-de-marca para rodar o Teste de Posicionamento Próprio na minha marca."
+policy:
+  allow_implicit_invocation: true

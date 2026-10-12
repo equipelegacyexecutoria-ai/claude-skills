@@ -1,0 +1,6 @@
+interface:
+  display_name: "Checagem de Alegações"
+  short_description: "Banco de provas mais flags de alegação, política e risco"
+  default_prompt: "Use a skill checagem-de-alegacoes para sinalizar toda alegação desta copy que o banco de provas não sustenta."
+policy:
+  allow_implicit_invocation: true

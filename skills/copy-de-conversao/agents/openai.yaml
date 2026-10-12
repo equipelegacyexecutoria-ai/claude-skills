@@ -1,0 +1,6 @@
+interface:
+  display_name: "Copy de Conversão"
+  short_description: "Redige e edita copy de conversão a partir das provas do seu negócio"
+  default_prompt: "Use a skill copy-de-conversao para redigir esta peça a partir do meu Banco de Provas."
+policy:
+  allow_implicit_invocation: true

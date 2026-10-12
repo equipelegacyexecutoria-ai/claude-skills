@@ -1,0 +1,337 @@
+[
+  {
+    "pattern_id": "comparison-contrast",
+    "pattern_name": "Contraste Jeito Antigo vs. Jeito Novo",
+    "control_count": 2,
+    "performance_status_counts": {
+      "Account-backed (anonymized)": 2
+    },
+    "performance_weight": 1.5,
+    "evidence_quality": "respaldado por conta (controles reais de conta, anonimizados; nomes de produto fictícios)",
+    "best_for": "Mercados comoditizados, produtos com muitos concorrentes e compradores que já testaram várias alternativas.",
+    "transferable_pattern": "O controle faz a solução antiga parecer obviamente insuficiente e então enquadra o produto como a nova categoria ou o método melhor.",
+    "do_not_copy": "Não cite nem ataque concorrentes a menos que a revisão jurídica/de conformidade permita.",
+    "adaptation_rules": [
+      "Torne o jeito antigo específico e familiar.",
+      "Contraste em mecanismo, atrito, prova ou resultado.",
+      "Evite linguagem genérica de 'melhor'; mostre a diferença.",
+      "Use uma única mudança de crença antes/depois, clara."
+    ],
+    "common_frameworks": [
+      "Concentração de Schwartz + triângulo de diferenciação de Kennedy",
+      "Contraste comparativo + diferenciação de Kennedy"
+    ],
+    "common_hook_types": [
+      "comparison"
+    ],
+    "common_visual_variables": [
+      "tela dividida jeito antigo/jeito novo",
+      "cenário de banheiro/sofá",
+      "cena de uso do ThermaFlow",
+      "tela dividida bolsa de gelo vs. touca",
+      "visual de escuridão/pressão",
+      "demonstração do ajuste da touca"
+    ],
+    "examples": [
+      {
+        "asset_name": "ThermaFlow Old Routine vs Practical Neck Routine Control",
+        "source_file": "illustrative-account-control",
+        "hook_type": "comparison",
+        "framework": "Concentração de Schwartz + triângulo de diferenciação de Kennedy"
+      },
+      {
+        "asset_name": "EaseWrap Ice Pack Is Only Part Of The Job Control",
+        "source_file": "illustrative-account-control",
+        "hook_type": "comparison",
+        "framework": "Contraste comparativo + diferenciação de Kennedy"
+      }
+    ]
+  },
+  {
+    "pattern_id": "demo-unboxing",
+    "pattern_name": "Prova por Demonstração / Unboxing",
+    "control_count": 2,
+    "performance_status_counts": {
+      "Account-backed (anonymized)": 2
+    },
+    "performance_weight": 1.5,
+    "evidence_quality": "respaldado por conta (controles reais de conta, anonimizados; nomes de produto fictícios)",
+    "best_for": "Produtos visuais, ofertas táteis, TikTok Shop, beleza, pet, casa, vestuário e compras de baixa consideração.",
+    "transferable_pattern": "O criador abre, aplica, usa ou demonstra o produto, de modo que a prova vem por evidência sensorial em vez de explicação.",
+    "do_not_copy": "Não se apoie em despejo de características. A demonstração precisa responder a uma objeção de compra.",
+    "adaptation_rules": [
+      "Comece com movimento: abrir, despejar, aplicar, comparar ou usar.",
+      "Mostre rótulo, textura, quantidade, tamanho ou facilidade de uso.",
+      "Transforme a demonstração em um porquê.",
+      "Termine com um CTA direto, voltado ao produto."
+    ],
+    "common_frameworks": [
+      "Remoção de inibição de Wundt + prova por demonstração",
+      "Prova por demonstração + tratamento de objeções"
+    ],
+    "common_hook_types": [
+      "visual-demo"
+    ],
+    "common_visual_variables": [
+      "abertura da embalagem",
+      "close do gel/contato",
+      "posicionamento no pescoço",
+      "ajuste pelo controle remoto",
+      "preparo no freezer/aquecimento",
+      "elasticidade/ajuste da touca"
+    ],
+    "examples": [
+      {
+        "asset_name": "ThermaFlow First-Treatment Clarity Demo Control",
+        "source_file": "illustrative-account-control",
+        "hook_type": "visual-demo",
+        "framework": "Remoção de inibição de Wundt + prova por demonstração"
+      },
+      {
+        "asset_name": "EaseWrap Tactile Cap Demo Control",
+        "source_file": "illustrative-account-control",
+        "hook_type": "visual-demo",
+        "framework": "Prova por demonstração + tratamento de objeções"
+      }
+    ]
+  },
+  {
+    "pattern_id": "dialogue-skeptic",
+    "pattern_name": "Diálogo com o Amigo Cético",
+    "control_count": 2,
+    "performance_status_counts": {
+      "Account-backed (anonymized)": 2
+    },
+    "performance_weight": 1.5,
+    "evidence_quality": "respaldado por conta (controles reais de conta, anonimizados; nomes de produto fictícios)",
+    "best_for": "Compradores conscientes do problema ou da solução com ceticismo evidente, fadiga de categoria ou resistência do tipo 'isso é só mais um X?'.",
+    "transferable_pattern": "Uma pessoa verbaliza a objeção do espectador; a segunda responde com um mecanismo mais afiado, prova e um próximo passo de baixo atrito.",
+    "do_not_copy": "Não copie a transcrição, as piadas, a redação exata da objeção nem alegações específicas da marca. Reconstrua a fala do cético a partir da inibição real do comprador-alvo.",
+    "adaptation_rules": [
+      "Abra com a objeção que o comprador já está pensando.",
+      "Use quem responde para criar uma crença nova, não para listar características.",
+      "Deixe o cético fazer a próxima objeção de venda antes que o espectador possa ir embora.",
+      "Termine com um CTA direto ou uma ponte de curiosidade clara."
+    ],
+    "common_frameworks": [
+      "Contra-ataque ao ceticismo de Kennedy + reversão de risco de Cialdini",
+      "Contra-ataque ao ceticismo + prova do produto"
+    ],
+    "common_hook_types": [
+      "direct-callout",
+      "confrontation"
+    ],
+    "common_visual_variables": [
+      "diálogo com cético",
+      "sobreposição de avaliação",
+      "fechamento com garantia",
+      "balão de texto do cético",
+      "bolsa de gelo como objeto de cena",
+      "resposta com demonstração da touca"
+    ],
+    "examples": [
+      {
+        "asset_name": "ThermaFlow Skeptic-to-Trial Guarantee Control",
+        "source_file": "illustrative-account-control",
+        "hook_type": "direct-callout",
+        "framework": "Contra-ataque ao ceticismo de Kennedy + reversão de risco de Cialdini"
+      },
+      {
+        "asset_name": "EaseWrap Fancy Ice Pack Skeptic Control",
+        "source_file": "illustrative-account-control",
+        "hook_type": "confrontation",
+        "framework": "Contra-ataque ao ceticismo + prova do produto"
+      }
+    ]
+  },
+  {
+    "pattern_id": "internal-monologue",
+    "pattern_name": "Monólogo Interno / Debate de Decisão",
+    "control_count": 1,
+    "performance_status_counts": {
+      "Account-backed (anonymized)": 1
+    },
+    "performance_weight": 0.75,
+    "evidence_quality": "respaldado por conta (controles reais de conta, anonimizados; nomes de produto fictícios)",
+    "best_for": "Compras de alta consideração, ofertas de dieta/beleza/finanças e compradores travados entre querer um resultado e temer jogar dinheiro fora.",
+    "transferable_pattern": "Dois lados da mente do comprador debatem custo, risco, desejo e ceticismo até o produto resolver a decisão travada.",
+    "do_not_copy": "Não copie a divisão de persona nem as objeções exatas. Use o mapa de objeções real do produto.",
+    "adaptation_rules": [
+      "Abra dentro da discussão íntima do comprador.",
+      "Deixe o lado cético dizer a objeção real.",
+      "Deixe a prova e a reversão de risco resolverem o debate.",
+      "Evite atuação caricata a menos que a plataforma e o produto sustentem isso."
+    ],
+    "common_frameworks": [
+      "Inibição vs. excitação de Wundt + contra-ataque ao ceticismo de Kennedy"
+    ],
+    "common_hook_types": [
+      "direct-callout"
+    ],
+    "common_visual_variables": [
+      "legendas de decisão em dois lados",
+      "hesitação no carrinho",
+      "fechamento com avaliação/garantia"
+    ],
+    "examples": [
+      {
+        "asset_name": "ThermaFlow Regret-Risk Decision Debate Control",
+        "source_file": "illustrative-account-control",
+        "hook_type": "direct-callout",
+        "framework": "Inibição vs. excitação de Wundt + contra-ataque ao ceticismo de Kennedy"
+      }
+    ]
+  },
+  {
+    "pattern_id": "listicle-signs",
+    "pattern_name": "Listicle de Três Sinais",
+    "control_count": 1,
+    "performance_status_counts": {
+      "Account-backed (anonymized)": 1
+    },
+    "performance_weight": 0.75,
+    "evidence_quality": "respaldado por conta (controles reais de conta, anonimizados; nomes de produto fictícios)",
+    "best_for": "Tráfego frio consciente do problema, em que os compradores reconhecem os sintomas mas não entendem o mecanismo.",
+    "transferable_pattern": "Uma lista diagnóstica rápida faz o espectador se autoqualificar, depois conecta os sinais a uma causa oculta e a um próximo passo simples.",
+    "do_not_copy": "Não invente sintomas, estatísticas, implicações médicas nem alegações de urgência. Use apenas sinais comprovados por pesquisa, avaliações ou pela landing page.",
+    "adaptation_rules": [
+      "Use sinais concretos e observáveis, não rótulos genéricos de dor.",
+      "Torne cada sinal visualmente óbvio em uma única cena.",
+      "Depois da lista, revele o mecanismo comum por trás de todos os sinais.",
+      "Mantenha o passo do produto simples e sem atrito."
+    ],
+    "common_frameworks": [
+      "Ponte consciente do problema -> mecanismo de Schwartz; remoção de inibição de Wundt"
+    ],
+    "common_hook_types": [
+      "listicle"
+    ],
+    "common_visual_variables": [
+      "ponte visual do pescoço à cabeça",
+      "lista simples de sintomas",
+      "close do produto em cena"
+    ],
+    "examples": [
+      {
+        "asset_name": "ThermaFlow Neck-to-Head Loop Recognition Control",
+        "source_file": "illustrative-account-control",
+        "hook_type": "listicle",
+        "framework": "Ponte consciente do problema -> mecanismo de Schwartz; remoção de inibição de Wundt"
+      }
+    ]
+  },
+  {
+    "pattern_id": "pov-skit",
+    "pattern_name": "Esquete em POV / Momento Identificável",
+    "control_count": 1,
+    "performance_status_counts": {
+      "Account-backed (anonymized)": 1
+    },
+    "performance_weight": 0.75,
+    "evidence_quality": "respaldado por conta (controles reais de conta, anonimizados; nomes de produto fictícios)",
+    "best_for": "Tráfego frio com vergonha, frustração ou autoculpa, especialmente em formatos nativos de TikTok/Reels.",
+    "transferable_pattern": "Um micromomento reconhecível dramatiza a frustração íntima do comprador, depois uma frase de absolvição transfere a culpa do comprador para o método.",
+    "do_not_copy": "Não copie a premissa exata da esquete. Reconstrua o momento a partir da VOC específica do produto.",
+    "adaptation_rules": [
+      "Use um cenário que o comprador realmente viveu.",
+      "Faça a primeira frase funcionar sem contexto de produto.",
+      "Quando a evidência sustentar, transfira a culpa do comprador para o método em palavras simples; nunca uma frase batida de 'a culpa não é sua'.",
+      "Revele o produto depois da mudança de crença, não antes."
+    ],
+    "common_frameworks": [
+      "Micromomento em POV + redução de sobrecarga sensorial de Wundt"
+    ],
+    "common_hook_types": [
+      "pov"
+    ],
+    "common_visual_variables": [
+      "sobrecarga de luz/ruído",
+      "mãos nas têmporas",
+      "touca cria escuridão"
+    ],
+    "examples": [
+      {
+        "asset_name": "EaseWrap Sensory Shutdown Moment Control",
+        "source_file": "illustrative-account-control",
+        "hook_type": "pov",
+        "framework": "Micromomento em POV + redução de sobrecarga sensorial de Wundt"
+      }
+    ]
+  },
+  {
+    "pattern_id": "problem-solution-rant",
+    "pattern_name": "Desabafo Problema-Solução",
+    "control_count": 1,
+    "performance_status_counts": {
+      "Account-backed (anonymized)": 1
+    },
+    "performance_weight": 0.75,
+    "evidence_quality": "respaldado por conta (controles reais de conta, anonimizados; nomes de produto fictícios)",
+    "best_for": "Dor forte, frustração recorrente e compradores que se sentem ignorados ou culpados.",
+    "transferable_pattern": "Um criador desabafa a frustração íntima exata, nomeia tentativas fracassadas, revela a causa oculta e posiciona o produto como o próximo passo óbvio.",
+    "do_not_copy": "Não copie o fraseado emocional a menos que venha da VOC do produto-alvo.",
+    "adaptation_rules": [
+      "Use os comportamentos vividos do comprador, não pontos de dor genéricos.",
+      "Nomeie duas alternativas fracassadas antes do produto.",
+      "Use uma frase de causa oculta como pivô de crença.",
+      "Faça o CTA parecer conselho de amigo."
+    ],
+    "common_frameworks": [
+      "Problema-agitação-solução + reenquadramento que preserva o ego"
+    ],
+    "common_hook_types": [
+      "failed-alternative"
+    ],
+    "common_visual_variables": [
+      "pilha de alternativas fracassadas",
+      "rotina no sofá de casa",
+      "revelação do dispositivo de pescoço"
+    ],
+    "examples": [
+      {
+        "asset_name": "ThermaFlow Failed Alternatives Without Self-Blame Control",
+        "source_file": "illustrative-account-control",
+        "hook_type": "failed-alternative",
+        "framework": "Problema-agitação-solução + reenquadramento que preserva o ego"
+      }
+    ]
+  },
+  {
+    "pattern_id": "timeline-reveal",
+    "pattern_name": "Revelação em Linha do Tempo",
+    "control_count": 1,
+    "performance_status_counts": {
+      "Account-backed (anonymized)": 1
+    },
+    "performance_weight": 0.75,
+    "evidence_quality": "respaldado por conta (controles reais de conta, anonimizados; nomes de produto fictícios)",
+    "best_for": "Suplementos, skincare, rotinas e ferramentas em que expectativa e constância movem a conversão.",
+    "transferable_pattern": "O anúncio transforma um processo invisível em sequência: dia um, semana um, semana quatro ou marcos de uso esperado.",
+    "do_not_copy": "Não invente velocidade de resultado. Use a página do produto, avaliações, estudos ou os termos da garantia para a linha do tempo.",
+    "adaptation_rules": [
+      "Use marcos honestos e alinhamento de expectativa.",
+      "Mostre o que muda na rotina antes de alegar resultados.",
+      "Faça do marco final um momento de prova ou de confiança.",
+      "Responda 'quanto tempo leva?' antes do CTA."
+    ],
+    "common_frameworks": [
+      "Revelação em linha do tempo + mudança tensão/relaxamento de Wundt"
+    ],
+    "common_hook_types": [
+      "timeline"
+    ],
+    "common_visual_variables": [
+      "cartão de relógio/horário",
+      "transição do trabalho para o sofá",
+      "rotina de 15 minutos"
+    ],
+    "examples": [
+      {
+        "asset_name": "EaseWrap 5 PM Band Timeline Control",
+        "source_file": "illustrative-account-control",
+        "hook_type": "timeline",
+        "framework": "Revelação em linha do tempo + mudança tensão/relaxamento de Wundt"
+      }
+    ]
+  }
+]

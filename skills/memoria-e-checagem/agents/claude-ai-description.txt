@@ -1,0 +1,1 @@
+Preserva decisões e aprendizado entre sessões: lê a memória do projeto antes do trabalho, captura fatos duráveis com fontes depois, em modo de arquivo ou como um pacote para salvar e reanexar.

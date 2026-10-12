@@ -1,0 +1,6 @@
+interface:
+  display_name: "Revisor-chefe"
+  short_description: "Verificação de ofício em cada rascunho: 25 verificações, correções em linha"
+  default_prompt: "Use a skill revisor-chefe para revisar esta copy e mostrar a verificação completa por ponto."
+policy:
+  allow_implicit_invocation: true

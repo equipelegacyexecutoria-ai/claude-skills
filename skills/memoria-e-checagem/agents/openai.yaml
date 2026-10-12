@@ -1,0 +1,6 @@
+interface:
+  display_name: "Memória e Checagem"
+  short_description: "Preserva decisões e aprendizado entre sessões"
+  default_prompt: "Use a skill memoria-e-checagem para registrar o que decidimos hoje."
+policy:
+  allow_implicit_invocation: true

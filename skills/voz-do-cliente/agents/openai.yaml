@@ -1,0 +1,6 @@
+interface:
+  display_name: "Voz do Cliente"
+  short_description: "Levantamento de pesquisa guiado que constrói seu dossiê de evidências"
+  default_prompt: "Use a skill voz-do-cliente para aprender meu negócio e construir o dossiê de evidências de pesquisa."
+policy:
+  allow_implicit_invocation: true

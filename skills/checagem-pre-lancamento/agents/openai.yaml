@@ -1,0 +1,6 @@
+interface:
+  display_name: "Checagem Pré-lançamento"
+  short_description: "Checagem pré-lançamento para anúncios e páginas"
+  default_prompt: "Use a skill checagem-pre-lancamento para executar a checagem pré-lançamento nesta peça antes dela entrar no ar."
+policy:
+  allow_implicit_invocation: true

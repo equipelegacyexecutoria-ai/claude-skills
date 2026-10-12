@@ -1,0 +1,271 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theskill.ia/esquemas/perfil-de-voz.schema.json",
+  "title": "Perfil de Voz da Marca",
+  "description": "Perfil de voz estruturado de uma marca, escrito com posicionamento-de-marca (ou pela checagem de perfil de voz do Revisor-chefe) e lido por copy-de-conversao e revisor-chefe antes de trabalho sensível à voz. Salve um por marca no projeto do negócio.",
+  "type": "object",
+  "required": [
+    "brand_name",
+    "tone",
+    "vocabulary",
+    "personality_traits",
+    "examples"
+  ],
+  "properties": {
+    "brand_name": {
+      "type": "string",
+      "description": "O nome da marca ou do negócio ao qual este perfil de voz pertence.",
+      "minLength": 1
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date",
+      "description": "Data ISO 8601 em que este perfil foi escrito ou atualizado pela última vez."
+    },
+    "updated_by": {
+      "type": "string",
+      "description": "A skill que escreveu este arquivo pela última vez, ex.: 'posicionamento-de-marca'."
+    },
+    "tone": {
+      "type": "object",
+      "description": "O posicionamento tonal da marca em múltiplos espectros.",
+      "required": ["spectrum"],
+      "properties": {
+        "spectrum": {
+          "type": "array",
+          "description": "Array de dimensões tonais. Cada dimensão é um controle deslizante entre dois polos com a posição da marca marcada.",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["dimension", "left_pole", "right_pole", "position"],
+            "properties": {
+              "dimension": {
+                "type": "string",
+                "description": "Nome desta dimensão tonal, ex.: 'Formalidade', 'Energia', 'Humor'."
+              },
+              "left_pole": {
+                "type": "string",
+                "description": "O rótulo da extremidade esquerda do espectro, ex.: 'Casual'."
+              },
+              "right_pole": {
+                "type": "string",
+                "description": "O rótulo da extremidade direita do espectro, ex.: 'Formal'."
+              },
+              "position": {
+                "type": "number",
+                "minimum": 1,
+                "maximum": 10,
+                "description": "Onde a marca fica neste espectro. 1 = totalmente no polo esquerdo, 10 = totalmente no polo direito."
+              },
+              "notes": {
+                "type": "string",
+                "description": "Contexto opcional sobre esta dimensão, ex.: 'Mais formal em páginas de vendas, casual em e-mails'."
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "summary": {
+          "type": "string",
+          "description": "Um resumo de uma frase, em linguagem natural, do tom geral, ex.: 'Conversacional mas afiado, com humor seco e zero enrolação.'"
+        }
+      },
+      "additionalProperties": false
+    },
+    "vocabulary": {
+      "type": "object",
+      "description": "Palavras e frases que a marca adota ou evita.",
+      "required": ["preferred", "avoid"],
+      "properties": {
+        "preferred": {
+          "type": "array",
+          "description": "Palavras, frases ou padrões que a marca usa ativamente.",
+          "items": {
+            "type": "object",
+            "required": ["term"],
+            "properties": {
+              "term": {
+                "type": "string",
+                "description": "A palavra ou frase."
+              },
+              "context": {
+                "type": "string",
+                "description": "Quando ou como usar este termo, ex.: 'Usar em CTAs' ou 'Só em contextos casuais'."
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "avoid": {
+          "type": "array",
+          "description": "Palavras, frases ou padrões que a marca nunca usa.",
+          "items": {
+            "type": "object",
+            "required": ["term"],
+            "properties": {
+              "term": {
+                "type": "string",
+                "description": "A palavra ou frase a evitar."
+              },
+              "reason": {
+                "type": "string",
+                "description": "Por que este termo é evitado, ex.: 'Soa corporativo' ou 'Batido demais no nosso nicho'."
+              },
+              "alternative": {
+                "type": "string",
+                "description": "O que usar no lugar, se aplicável."
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "personality_traits": {
+      "type": "array",
+      "description": "3-7 adjetivos ou frases curtas que definem a personalidade da marca. Ordenados por proeminência.",
+      "minItems": 1,
+      "maxItems": 10,
+      "items": {
+        "type": "string"
+      }
+    },
+    "examples": {
+      "type": "object",
+      "description": "Exemplos concretos de escrita dentro e fora da marca para calibrar as skills que produzem conteúdo.",
+      "required": ["on_brand", "off_brand"],
+      "properties": {
+        "on_brand": {
+          "type": "array",
+          "description": "Amostras de escrita que acertam em cheio a voz desta marca. Recomenda-se pelo menos 2.",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["text"],
+            "properties": {
+              "text": {
+                "type": "string",
+                "description": "O texto do exemplo."
+              },
+              "source": {
+                "type": "string",
+                "description": "De onde veio, ex.: 'Hero da homepage', 'Assunto de e-mail', 'Fornecido pelo usuário'."
+              },
+              "why": {
+                "type": "string",
+                "description": "O que torna isto dentro da marca."
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "off_brand": {
+          "type": "array",
+          "description": "Amostras de escrita que violam a voz desta marca. Úteis para calibração.",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["text"],
+            "properties": {
+              "text": {
+                "type": "string",
+                "description": "O texto do exemplo."
+              },
+              "source": {
+                "type": "string",
+                "description": "De onde veio ou se foi fabricado como antiexemplo."
+              },
+              "why": {
+                "type": "string",
+                "description": "O que torna isto fora da marca."
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "platform_adaptations": {
+      "type": "object",
+      "description": "Como a voz muda entre plataformas. As chaves são nomes de plataforma, os valores descrevem as adaptações.",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "tone_shift": {
+            "type": "string",
+            "description": "Como o tom muda nesta plataforma, ex.: 'Mais casual, frases mais curtas'."
+          },
+          "format_preferences": {
+            "type": "string",
+            "description": "Preferências estruturais, ex.: 'Usar quebra de linha entre cada frase no LinkedIn'."
+          },
+          "length": {
+            "type": "string",
+            "description": "Extensão típica do conteúdo, ex.: 'Menos de 280 caracteres' ou '800-1200 palavras'."
+          },
+          "dos": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Coisas a fazer, específicas da plataforma."
+          },
+          "donts": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Coisas a evitar, específicas da plataforma."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "audience_awareness": {
+      "type": "object",
+      "description": "O quanto a voz da marca está consciente da sofisticação e das expectativas do seu público.",
+      "properties": {
+        "sophistication_level": {
+          "type": "string",
+          "enum": ["beginner", "intermediate", "advanced", "mixed"],
+          "description": "O quão técnico ou experiente é o público principal."
+        },
+        "jargon_tolerance": {
+          "type": "string",
+          "enum": ["none", "light", "moderate", "heavy"],
+          "description": "Quanto jargão do setor o público espera ou tolera."
+        },
+        "reading_level": {
+          "type": "string",
+          "description": "Nível de leitura alvo, ex.: 'ensino fundamental' ou 'profissional'."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Contexto adicional sobre as expectativas do público em relação à voz."
+        }
+      },
+      "additionalProperties": false
+    },
+    "signature_phrases": {
+      "type": "array",
+      "description": "Frases recorrentes, taglines ou tiques verbais que tornam a marca reconhecível. Podem ser entrelaçados no conteúdo quando for natural.",
+      "items": {
+        "type": "object",
+        "required": ["phrase"],
+        "properties": {
+          "phrase": {
+            "type": "string",
+            "description": "A frase de assinatura ou tagline."
+          },
+          "usage": {
+            "type": "string",
+            "description": "Quando usar, ex.: 'Despedidas de e-mail', 'Ganchos de abertura', 'Em todo lugar'."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

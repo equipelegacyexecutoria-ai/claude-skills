@@ -1,0 +1,6 @@
+interface:
+  display_name: "Biblioteca dos Mestres"
+  short_description: "Guias, prompts de exemplo e a Biblioteca dos Mestres"
+  default_prompt: "Use a skill biblioteca-dos-mestres para abrir os guias e a Biblioteca dos Mestres do CopyOS."
+policy:
+  allow_implicit_invocation: true

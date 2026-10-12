@@ -1,0 +1,6 @@
+interface:
+  display_name: "Briefing Inteligente"
+  short_description: "Checagem de instalação, entrevista do negócio e retomada"
+  default_prompt: "Use a skill briefing-inteligente para o trabalho que eu pedir: checagem de instalação do CopyOS, entrevista completa do negócio ou continuação deste projeto do negócio. Use os recursos próprios dela; não vasculhe contas conectadas em busca de arquivos de instalação."
+policy:
+  allow_implicit_invocation: true
