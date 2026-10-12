@@ -34,8 +34,10 @@ def norm(t):
 
 
 def parecido(a, b, n=60):
-    """0 a 1: quanto o começo de dois textos se parece (palavras)."""
-    a, b = norm(a)[:n], norm(b)[:n]
+    """0 a 1: quanto o começo de dois textos se parece (palavras), no tamanho do mais curto."""
+    a, b = norm(a), norm(b)
+    k = min(n, len(a), len(b))
+    a, b = a[:k], b[:k]
     if not a or not b:
         return 0.0
     return difflib.SequenceMatcher(None, a, b).ratio()
@@ -109,18 +111,34 @@ def main():
         if tipo == "STORY":
             continue  # stories não vêm nessa lista do Instagram
         ref = c.get("legenda") or c.get("pauta")
-        melhor, nota_melhor = None, 0.0
-        for p in posts[perfil]:
-            if p["id"] in usados:
-                continue
-            dt = abs((quando(p["timestamp"]) - plan).total_seconds()) / 3600
-            if dt > JANELA_H:
-                continue
-            sim = parecido(ref, p.get("caption"))
-            mesmo_tipo = (p.get("media_product_type") == "REELS") == (tipo == "REELS")
-            nota = sim * 0.7 + max(0, 1 - dt / JANELA_H) * 0.3 + (0.15 if mesmo_tipo else -0.2)
-            if nota > nota_melhor:
-                melhor, nota_melhor = p, nota
+
+        def procurar(perfil_busca, exigir_texto):
+            melhor, nota_melhor = None, 0.0
+            for p in posts.get(perfil_busca, []):
+                if p["id"] in usados:
+                    continue
+                dt = abs((quando(p["timestamp"]) - plan).total_seconds()) / 3600
+                if dt > JANELA_H:
+                    continue
+                sim = parecido(ref, p.get("caption"))
+                if exigir_texto and sim < 0.45:
+                    continue
+                mesmo_tipo = (p.get("media_product_type") == "REELS") == (tipo == "REELS")
+                nota = sim * 0.7 + max(0, 1 - dt / JANELA_H) * 0.3 + (0.15 if mesmo_tipo else -0.2)
+                if nota > nota_melhor:
+                    melhor, nota_melhor = p, nota
+            return melhor, nota_melhor
+
+        melhor, nota_melhor = procurar(perfil, False)
+        outro_perfil = None
+        if not melhor or nota_melhor < 0.35:
+            # pode ter saído em outro perfil (ex.: corte do podcast marcado para o Allan e postado na Legacy)
+            for outro in posts:
+                if outro == perfil:
+                    continue
+                m, n = procurar(outro, True)
+                if m and n > nota_melhor:
+                    melhor, nota_melhor, outro_perfil = m, n, outro
         item = {
             "pauta": c.get("pauta"), "url": c.get("url"), "perfil": NOME_PERFIL[perfil],
             "formato": "Reels" if tipo == "REELS" else "Feed", "andamento": c.get("andamento"),
@@ -132,6 +150,8 @@ def main():
             dif = round((pub - plan).total_seconds() / 60)
             status = "no_horario" if abs(dif) <= TOLERANCIA_MIN else ("atrasado" if dif > 0 else "antecipado")
             leg = parecido(c.get("legenda"), melhor.get("caption"), n=120) if c.get("legenda") else None
+            if outro_perfil:
+                item["saiu_em"] = NOME_PERFIL[outro_perfil]
             item.update({
                 "status": status, "diferenca_min": dif, "publicado": (pub + BR).strftime("%d/%m %H:%M"),
                 "link": melhor.get("permalink"), "legenda_igual": None if leg is None else round(leg, 2),
@@ -170,9 +190,14 @@ def main():
            f"- No horário: {resumo['no_horario']} · Atrasados: {resumo['atrasados']} · Antecipados: {resumo['antecipados']} · "
            f"Não saíram: {resumo['nao_sairam']} · Legenda diferente do Notion: {resumo['legenda_diferente']} · "
            f"Postados sem card no Notion: {resumo['fora_do_notion']}"]
+    outro = [c for c in conferidos if c.get("saiu_em")]
+    resumo["outro_perfil"] = len(outro)
+    out[1] += f" · Saíram em outro perfil: {len(outro)}"
     probl = [c for c in conferidos if c["status"] in ("atrasado", "antecipado", "nao_saiu")] + legenda_dif
-    if probl:
+    if probl or outro:
         out.append("\n**Pontos de atenção**")
+        for c in outro:
+            out.append(f"- 🔀 {c['pauta']}: marcado para o perfil {c['perfil']} e saiu no perfil {c['saiu_em']} ({c['publicado']}).")
         for c in probl:
             if c in legenda_dif and c["status"] == "no_horario":
                 out.append(f"- ✏️ {c['perfil']} · {c['pauta']}: legenda publicada diferente da do Notion ({int(c['legenda_igual'] * 100)}% igual).")
