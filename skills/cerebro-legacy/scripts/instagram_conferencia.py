@@ -23,7 +23,7 @@ from datetime import date, datetime, timedelta
 
 PERFIS = {"CLAILTON": "clailton", "LEGACY": "legacy", "ALLAN": "allan"}
 NOME_PERFIL = {"clailton": "Clailton", "legacy": "Legacy", "allan": "Allan"}
-TOLERANCIA_MIN = 15
+TOLERANCIA_MIN = 30  # combinado com o Igor em 12/10/2026: até 30 min antes ou depois = no horário
 JANELA_H = 36
 BR = timedelta(hours=-3)
 
@@ -142,7 +142,7 @@ def main():
         item = {
             "pauta": c.get("pauta"), "url": c.get("url"), "perfil": NOME_PERFIL[perfil],
             "formato": "Reels" if tipo == "REELS" else "Feed", "andamento": c.get("andamento"),
-            "planejado": (plan + BR).strftime("%d/%m %H:%M"),
+            "planejado": (plan + BR).strftime("%d/%m %H:%M"), "planejado_iso": c.get("publicacao"),
         }
         if melhor and nota_melhor >= 0.35:
             usados.add(melhor["id"])
@@ -154,7 +154,9 @@ def main():
                 item["saiu_em"] = NOME_PERFIL[outro_perfil]
             item.update({
                 "status": status, "diferenca_min": dif, "publicado": (pub + BR).strftime("%d/%m %H:%M"),
+                "publicado_iso": melhor["timestamp"], "post_id": melhor["id"],
                 "link": melhor.get("permalink"), "legenda_igual": None if leg is None else round(leg, 2),
+                "legenda_publicada": (melhor.get("caption") or "")[:1800],
                 **metricas(melhor),
             })
         else:
@@ -168,7 +170,10 @@ def main():
             if p["id"] in usados or t < inicio or p.get("media_product_type") == "STORY":
                 continue
             fora.append({"perfil": NOME_PERFIL.get(perfil, perfil), "publicado": (t + BR).strftime("%d/%m %H:%M"),
-                         "legenda": (p.get("caption") or "")[:90], "link": p.get("permalink"), **metricas(p)})
+                         "publicado_iso": p["timestamp"], "post_id": p["id"],
+                         "formato": "Reels" if p.get("media_product_type") == "REELS" else "Feed",
+                         "legenda": (p.get("caption") or "")[:90], "legenda_publicada": (p.get("caption") or "")[:1800],
+                         "link": p.get("permalink"), **metricas(p)})
 
     saiu = [c for c in conferidos if c["status"] in ("no_horario", "atrasado", "antecipado")]
     legenda_dif = [c for c in saiu if c.get("legenda_igual") is not None and c["legenda_igual"] < 0.8]
@@ -219,7 +224,7 @@ def main():
 
     if a.json:
         with open(a.json, "w", encoding="utf-8") as f:
-            json.dump({"resumo": resumo, "conferidos": conferidos, "fora_do_notion": fora[:20],
+            json.dump({"resumo": resumo, "conferidos": conferidos, "fora_do_notion": fora,
                        "top": por_views[:3], "fracos": por_views[-3:][::-1]}, f, ensure_ascii=False)
 
 
