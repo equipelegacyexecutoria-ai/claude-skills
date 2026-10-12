@@ -14,6 +14,15 @@ Arquivos desta skill:
 - `memoria/diario/AAAA-MM-DD.md` — um resumo curto por dia (escrito no fim de cada relatório).
 - `memoria/decisoes.md` — decisões e combinados que valem daqui pra frente.
 
+**Onde estou rodando.** Num PC, a skill fica em `~/.claude/skills/cerebro-legacy/`. Na rotina na
+nuvem, o cofre `claude-skills` está clonado na pasta de trabalho e a skill fica em
+`skills/cerebro-legacy/` (troque os caminhos `$HOME/.claude/skills/...` por esse). Na nuvem, no fim,
+faça commit só dos arquivos novos/alterados de `skills/cerebro-legacy/memoria/` (e de
+`referencias/fontes.md` ou `painel/mapa.json` se mudou) com a mensagem `auto(nuvem): cerebro-legacy
+AAAA-MM-DD` e `git push origin HEAD:main`; se o push for recusado, tente
+`git pull --rebase origin main` uma vez e empurre de novo; se ainda falhar, siga sem gravar e diga
+isso no fim do relatório.
+
 ## Regras de segurança (inegociáveis)
 
 1. A página **LEGACY** do Notion tem um bloco **SENHAS**. Nunca leia, copie, resuma ou repita
