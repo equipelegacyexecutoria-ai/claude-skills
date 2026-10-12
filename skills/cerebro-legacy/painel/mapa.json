@@ -1,0 +1,37 @@
+{
+  "atualizado": "2026-10-12",
+  "nos": [
+    {"id": "equipe", "camada": "contexto", "grupo": "Time", "nome": "Equipe", "r": 10, "resumo": "Quem é quem no time e quem decide. Igor coordena o Orgânico; Allan (CEO) e Clailton (expert) são os sócios.", "detalhe": "Santini: growth · Mac: social media · Paim: tráfego · Lucas: design e web · Alex: editor · João e Peterson: programação.", "onde": "~/.claude/skills/cerebro-legacy/referencias/equipe.md"},
+    {"id": "fontes", "camada": "contexto", "grupo": "Mapa", "nome": "Notion e Pipedrive", "resumo": "Onde está cada quadro do Notion, cada funil do Pipedrive e como separar lead orgânico, Quiz e pago.", "onde": "~/.claude/skills/cerebro-legacy/referencias/fontes.md"},
+    {"id": "narrativa", "camada": "contexto", "grupo": "Mensagem", "nome": "Narrativa 2027", "resumo": "\"Viva sem medo em 2027\": cenário econômico e eleições no orgânico da Legacy e do Clailton, base da Black Friday."},
+    {"id": "planejamento", "camada": "contexto", "grupo": "Mensagem", "nome": "Planejamento V4", "resumo": "Planejamento estratégico de conteúdo (V1 a V4, \"Modo Viral\"). O Igor vai validar na terça 13/10; até lá, não é verdade absoluta.", "url": "https://app.notion.com/p/a21c9747efab83198c63012fdaf1b4a2"},
+    {"id": "perfis", "camada": "contexto", "grupo": "Mensagem", "nome": "Perfis", "resumo": "Legacy (empresa), Clailton (expert), Allan (CEO) e Comunidade. Cada card do calendário diz para qual perfil é."},
+    {"id": "voz-clailton", "camada": "contexto", "grupo": "Mensagem", "nome": "Voz do Clailton", "resumo": "Como o Clailton fala, os formatos NV (novela), TD (tela dividida) e ES (edição simples) e o que performa.", "onde": "~/.claude/skills/roteirista-reels-clailton"},
+    {"id": "visual", "camada": "contexto", "grupo": "Padrões", "nome": "Padrão visual", "resumo": "Legenda sempre com sombra, área segura do Reels, B-roll sem marca d'água e só em português, Clailton sem barba nas imagens de IA.", "onde": "~/.claude/CLAUDE.md"},
+    {"id": "funis", "camada": "contexto", "grupo": "Mapa", "nome": "Funis de venda", "resumo": "Legado (MQL → venda), Impulsão (Allbound), Social Selling (novo seguidor) e Outbound, com as etapas de cada um."},
+    {"id": "seguranca", "camada": "contexto", "grupo": "Regras", "nome": "Regras de segurança", "resumo": "O bloco de SENHAS do Notion nunca é lido nem copiado. Dados de leads só entram como números na memória."},
+
+    {"id": "diario", "camada": "memoria", "grupo": "Diário", "nome": "Diário do dia", "r": 10, "resumo": "Resumo curto de cada dia: posts, alertas, decisões pendentes, leads e padrões que se repetem. O Claude lê os últimos 5 antes de cada relatório.", "onde": "~/.claude/skills/cerebro-legacy/memoria/diario/"},
+    {"id": "decisoes", "camada": "memoria", "grupo": "Decisões", "nome": "Decisões", "resumo": "Combinados que valem daqui pra frente (ex.: relatório só para o Igor; senhas nunca são lidas).", "onde": "~/.claude/skills/cerebro-legacy/memoria/decisoes.md"},
+    {"id": "teses", "camada": "memoria", "grupo": "Teses", "nome": "Teses em teste", "resumo": "O que o Orgânico está rodando e testando, desde quando e como mede. O Igor vai completar durante a semana.", "onde": "~/.claude/skills/cerebro-legacy/memoria/teses.md"},
+    {"id": "reunioes", "camada": "memoria", "grupo": "Reuniões", "nome": "Reuniões", "resumo": "Atas no Notion (LEGACY › Marketing › Reuniões). As novas entram no relatório do dia seguinte.", "url": "https://app.notion.com/p/3f3c9747efab80059a16f1d7ce86fb7c"},
+    {"id": "relatorios", "camada": "memoria", "grupo": "Diário", "nome": "Relatórios no Notion", "resumo": "Página privada com todos os relatórios diários e semanais.", "url": "https://app.notion.com/p/3f7c9747efab81949f1ee617dabb527c"},
+    {"id": "base-reels", "camada": "memoria", "grupo": "Desempenho", "nome": "Desempenho dos reels", "resumo": "Base com os resultados dos reels do Clailton, atualizada todo mês pelo analista de performance.", "onde": "~/.claude/skills/roteirista-reels-clailton"},
+
+    {"id": "r-diario", "camada": "acao", "grupo": "Rotinas", "nome": "Relatório 8h", "r": 10, "resumo": "Segunda a sexta às 8h: lê Notion e Pipedrive, escreve o relatório no Notion, atualiza este painel e o diário."},
+    {"id": "r-semanal", "camada": "acao", "grupo": "Rotinas", "nome": "Resumo semanal", "resumo": "Domingo às 18h: o que saiu e o que não saiu, quem está sobrecarregado, leads da semana e o que vem."},
+    {"id": "fila-render", "camada": "acao", "grupo": "Skills", "nome": "Fila de render", "resumo": "Edita os cards da coluna CLAUDE no PC de render e devolve na Sala de Revisão.", "onde": "~/.claude/skills/fila-de-render"},
+    {"id": "sala", "camada": "acao", "grupo": "Skills", "nome": "Sala de Revisão", "resumo": "Onde as prévias dos vídeos ficam para o Igor comentar no tempo exato.", "url": "https://claude.ai/artifact/HAcqomJqf9NXRNtyYbkX6v"},
+    {"id": "roteirista", "camada": "acao", "grupo": "Skills", "nome": "Roteirista", "resumo": "Escreve roteiros de reels do Clailton com auditor de alcance e checador de fatos.", "onde": "~/.claude/skills/roteirista-reels-clailton"},
+    {"id": "edicao", "camada": "acao", "grupo": "Skills", "nome": "Edição de reels", "resumo": "Novela, tela dividida, edição simples e caixinha 0800, cada uma com seu padrão aprovado."},
+    {"id": "carrossel", "camada": "acao", "grupo": "Skills", "nome": "Carrossel no Canva", "resumo": "Monta carrosséis Legacy e Clailton no Canva a partir da copy.", "onde": "~/.claude/skills/carrossel-canva"},
+    {"id": "subir-task", "camada": "acao", "grupo": "Skills", "nome": "Subir task", "resumo": "Renomeia brutos, sobe no Drive e cria os cards no Notion para o time editar.", "onde": "~/.claude/skills/subir-task"},
+    {"id": "motion", "camada": "acao", "grupo": "Skills", "nome": "Motion", "resumo": "Anúncios e animações (HyperFrames como base).", "onde": "~/.claude/skills/motion-legacy"},
+    {"id": "watch", "camada": "acao", "grupo": "Skills", "nome": "Assistir vídeo", "resumo": "Assiste vídeos de referência (YouTube, Instagram) e resume.", "onde": "~/.claude/skills/watch"},
+    {"id": "c-notion", "camada": "acao", "grupo": "Conexões", "nome": "Notion", "resumo": "Lê o calendário, os quadros de demandas e as reuniões; escreve os relatórios."},
+    {"id": "c-pipedrive", "camada": "acao", "grupo": "Conexões", "nome": "Pipedrive", "resumo": "Lê os leads e o funil (só leitura)."},
+    {"id": "c-drive", "camada": "acao", "grupo": "Conexões", "nome": "Google Drive", "resumo": "Brutos e vídeos editados."},
+    {"id": "c-discord", "camada": "acao", "grupo": "Conexões", "nome": "Discord (falta ligar)", "resumo": "Pronto para mandar o resumo do dia num canal privado do Igor; falta o Igor criar o webhook."},
+    {"id": "c-instagram", "camada": "acao", "grupo": "Conexões", "nome": "Instagram (falta ligar)", "resumo": "Métricas de alcance e seguidores, quando a API do Instagram for conectada."}
+  ]
+}

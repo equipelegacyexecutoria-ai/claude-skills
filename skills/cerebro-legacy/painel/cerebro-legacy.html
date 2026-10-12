@@ -1,0 +1,300 @@
+<title>Cérebro Legacy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: sala de comando — faixa de números no topo, briefing, e duas colunas (o que fazer hoje | pessoas e funil); aba "Cérebro" com o mapa em anéis contexto → memória → ação */
+:root{
+  --bg:#eef1f6; --surface:#ffffff; --ink:#0e1a33; --muted:#5a6680; --line:#d6dceb;
+  --accent:#1f4fe0; --accent-soft:#e3eafc;
+  --ok:#137a4a; --ok-soft:#dff3e8; --warn:#a35b00; --warn-soft:#fbeed8; --crit:#b42318; --crit-soft:#fde4e1;
+  --ctx:#1f4fe0; --mem:#7a3fd1; --act:#0f8a7a;
+  --f-display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0a1122; --surface:#111b31; --ink:#e7ecf7; --muted:#9aa6c2; --line:#22304f;
+  --accent:#6f95ff; --accent-soft:#1a2a52;
+  --ok:#4fd197; --ok-soft:#123528; --warn:#f0b04a; --warn-soft:#3a2a10; --crit:#ff7a6b; --crit-soft:#3d1714;
+  --ctx:#6f95ff; --mem:#b48cff; --act:#3fd1bd; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0a1122; --surface:#111b31; --ink:#e7ecf7; --muted:#9aa6c2; --line:#22304f;
+  --accent:#6f95ff; --accent-soft:#1a2a52;
+  --ok:#4fd197; --ok-soft:#123528; --warn:#f0b04a; --warn-soft:#3a2a10; --crit:#ff7a6b; --crit-soft:#3d1714;
+  --ctx:#6f95ff; --mem:#b48cff; --act:#3fd1bd; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:20px 48px;display:flex;flex-direction:column;gap:20px}
+header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
+.brand h1{font-family:var(--f-display);font-weight:800;font-size:clamp(26px,4vw,38px);letter-spacing:-.01em;margin:0;line-height:1.05;text-wrap:balance}
+.brand p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.stamp{font-family:var(--f-mono);font-size:12px;color:var(--muted);text-align:right}
+.tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px;width:max-content;max-width:100%}
+.tabs button{font:600 13px var(--f-body);border:0;background:transparent;color:var(--muted);padding:8px 16px;border-radius:999px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--surface)}
+.tabs button:focus-visible,button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.kpi .n{font-family:var(--f-display);font-weight:800;font-size:30px;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi .l{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.kpi.crit .n{color:var(--crit)} .kpi.warn .n{color:var(--warn)} .kpi.ok .n{color:var(--ok)}
+.brief{background:var(--ink);color:var(--surface);border-radius:var(--r);padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.brief .eyebrow{font:500 11px var(--f-mono);text-transform:uppercase;letter-spacing:.12em;opacity:.7}
+.brief p{margin:0;max-width:75ch}
+.cols{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:860px){.cols{grid-template-columns:minmax(0,1fr)}}
+.col{display:flex;flex-direction:column;gap:20px;min-width:0}
+section.box{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+section.box h2{font-family:var(--f-display);font-weight:700;font-size:17px;margin:0;display:flex;align-items:center;gap:8px;justify-content:space-between}
+section.box h2 .count{font:500 12px var(--f-mono);color:var(--muted)}
+ul.clean{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.alert{display:grid;grid-template-columns:4px 1fr;gap:10px;align-items:stretch}
+.alert .bar{border-radius:2px;background:var(--warn)} .alert.critico .bar{background:var(--crit)}
+a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+.posts{display:flex;flex-direction:column}
+.post{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:10px;padding:9px 0;border-top:1px solid var(--line);align-items:baseline}
+.post:first-child{border-top:0}
+.post time{font:500 13px var(--f-mono);font-variant-numeric:tabular-nums;color:var(--muted)}
+.post .meta{font-size:12px;color:var(--muted)}
+.pill{font:600 11px var(--f-body);padding:2px 8px;border-radius:999px;white-space:nowrap}
+.pill.ok{background:var(--ok-soft);color:var(--ok)} .pill.no{background:var(--warn-soft);color:var(--warn)}
+.check{display:flex;gap:10px;align-items:flex-start}
+.check input{width:18px;height:18px;margin-top:2px;accent-color:var(--accent);flex:none}
+.check.done .txt{text-decoration:line-through;color:var(--muted)}
+.check .when{font:500 12px var(--f-mono);color:var(--muted)}
+details.person{border-top:1px solid var(--line);padding:8px 0}
+details.person:first-of-type{border-top:0}
+details.person summary{cursor:pointer;display:flex;justify-content:space-between;gap:8px;align-items:baseline;list-style:none}
+details.person summary::-webkit-details-marker{display:none}
+details.person .who{font-weight:600} details.person .role{color:var(--muted);font-size:12px;margin-left:6px}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font:500 11px var(--f-mono);padding:2px 7px;border-radius:6px;background:var(--accent-soft);color:var(--accent)}
+.tag.late{background:var(--crit-soft);color:var(--crit)}
+details.person ul{margin:8px 0 2px;padding-left:18px;display:flex;flex-direction:column;gap:4px;font-size:14px}
+details.person .grp{font:600 11px var(--f-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-top:6px}
+.funil{display:flex;flex-direction:column;gap:14px}
+.funil h3{margin:0;font-size:14px;display:flex;justify-content:space-between;gap:8px}
+.funil h3 span{font:500 12px var(--f-mono);color:var(--muted);font-weight:400}
+.stage{display:grid;grid-template-columns:minmax(90px,150px) minmax(0,1fr) 92px;gap:8px;align-items:center;font-size:13px}
+.stage .track{height:14px;background:var(--bg);border-radius:4px;overflow:hidden}
+.stage .fill{height:100%;background:var(--accent);border-radius:4px;min-width:2px}
+.stage .num{font:500 12px var(--f-mono);text-align:right;font-variant-numeric:tabular-nums}
+.stage .num.low{color:var(--crit)}
+.spark{width:100%;height:110px;display:block}
+.spark text{font:500 10px var(--f-mono);fill:var(--muted)}
+.muted{color:var(--muted)} .small{font-size:13px}
+.empty{color:var(--muted);font-size:14px;padding:6px 0}
+.insight{display:grid;grid-template-columns:28px 1fr;gap:8px}
+.insight b.k{font:800 18px var(--f-display);color:var(--accent)}
+/* Cérebro */
+.brain{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:860px){.brain{grid-template-columns:minmax(0,1fr)}}
+.brain svg{width:100%;height:auto;display:block}
+.brain svg text{font-family:var(--f-body);fill:var(--ink)}
+.node{cursor:pointer}
+.node circle{stroke:var(--surface);stroke-width:2}
+.node.dim{opacity:.18}
+.node.sel circle{stroke:var(--ink);stroke-width:3}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.search{width:100%;font:15px var(--f-body);padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+.detail h3{margin:0;font-family:var(--f-display);font-size:20px}
+.detail .layer{font:600 11px var(--f-mono);text-transform:uppercase;letter-spacing:.1em}
+.detail p{margin:0}
+.results{display:flex;flex-direction:column;gap:4px;max-height:220px;overflow:auto}
+.results button{all:unset;cursor:pointer;padding:6px 8px;border-radius:6px;font-size:14px}
+.results button:hover,.results button:focus-visible{background:var(--accent-soft)}
+@media (prefers-reduced-motion:no-preference){.node circle{transition:r .2s}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1>Cérebro Legacy · Orgânico</h1>
+      <p id="sub">Painel do Igor. Atualiza sozinho de segunda a sexta às 8h.</p>
+    </div>
+    <div class="stamp" id="stamp">aguardando dados…</div>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="Seções">
+    <button role="tab" id="t-painel" aria-selected="true" aria-controls="v-painel">Painel do dia</button>
+    <button role="tab" id="t-cerebro" aria-selected="false" aria-controls="v-cerebro">Cérebro</button>
+  </div>
+
+  <main id="v-painel" role="tabpanel" aria-labelledby="t-painel" style="display:flex;flex-direction:column;gap:20px">
+    <div class="kpis" id="kpis"></div>
+    <div class="brief" id="brief"><span class="eyebrow">Briefing da manhã</span><p class="muted">O primeiro briefing aparece aqui assim que a rotina das 8h rodar.</p></div>
+    <div class="cols">
+      <div class="col">
+        <section class="box"><h2>Alertas <span class="count" id="c-alertas"></span></h2><ul class="clean" id="alertas"></ul></section>
+        <section class="box"><h2>Publicações de hoje <span class="count" id="c-posts"></span></h2><div class="posts" id="posts"></div><p class="small muted" id="semdata"></p></section>
+        <section class="box"><h2>Suas decisões <span class="count" id="c-dec"></span></h2><ul class="clean" id="decisoes"></ul></section>
+        <section class="box"><h2>Próximos 2 dias</h2><div id="proximos"></div></section>
+      </div>
+      <div class="col">
+        <section class="box"><h2>Tarefas por pessoa</h2><div id="pessoas"></div></section>
+        <section class="box"><h2>Leads orgânicos e Quiz <span class="count" id="c-leads"></span></h2><div id="leads"></div></section>
+        <section class="box"><h2>O que pode estar escapando</h2><div id="escapando" class="clean" style="display:flex;flex-direction:column;gap:10px"></div></section>
+      </div>
+    </div>
+  </main>
+
+  <main id="v-cerebro" role="tabpanel" aria-labelledby="t-cerebro" hidden>
+    <div class="brain">
+      <section class="box">
+        <div class="legend"><span><i style="background:var(--ctx)"></i>Contexto: quem somos e onde está cada coisa</span><span><i style="background:var(--mem)"></i>Memória: o que aconteceu e o que decidimos</span><span><i style="background:var(--act)"></i>Ação: rotinas, skills e conexões</span></div>
+        <svg id="map" viewBox="-130 -10 900 660" role="img" aria-label="Mapa do cérebro em três anéis"></svg>
+      </section>
+      <div class="col">
+        <section class="box">
+          <label for="q" class="small muted">Buscar no cérebro</label>
+          <input id="q" class="search" type="search" placeholder="ex.: funil, roteiro, Notion, decisões" autocomplete="off">
+          <div class="results" id="results"></div>
+        </section>
+        <section class="box detail" id="detail"><p class="muted">Clique em um ponto do mapa para ver o que ele guarda.</p></section>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const link = (t, u) => u ? `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>` : esc(t);
+let state = {painel:null, mapa:null, feitos:{}, db:null, canWrite:true, sel:null};
+
+/* abas */
+for (const b of document.querySelectorAll('[role=tab]')) b.addEventListener('click', () => {
+  for (const o of document.querySelectorAll('[role=tab]')) o.setAttribute('aria-selected', o === b);
+  $('#v-painel').hidden = b.id !== 't-painel'; $('#v-cerebro').hidden = b.id !== 't-cerebro';
+  try { localStorage.setItem('aba', b.id) } catch(e) {}
+});
+try { const a = localStorage.getItem('aba'); if (a === 't-cerebro') $('#t-cerebro').click() } catch(e) {}
+
+function renderPainel(){
+  const p = state.painel;
+  if (!p){
+    $('#kpis').innerHTML = ['Posts hoje','Não prontos','Decisões suas','Leads orgânicos','Leads parados'].map(l=>`<div class="kpi"><span class="n">—</span><span class="l">${l}</span></div>`).join('');
+    ['#alertas','#decisoes'].forEach(s=>$(s).innerHTML='<li class="empty">Sem dados ainda.</li>');
+    return;
+  }
+  $('#stamp').innerHTML = `${esc(p.titulo_data||p.data)}<br>gerado ${esc(p.gerado_em||'')}${p.notion_url?` · <a href="${esc(p.notion_url)}" target="_blank" rel="noopener">relatório completo no Notion</a>`:''}`;
+  const k = p.kpis||{};
+  const kp = [
+    [k.posts_hoje,'Posts hoje',''],[k.nao_prontos,'Não prontos',k.nao_prontos>0?'crit':'ok'],
+    [k.decisoes,'Decisões suas',k.decisoes>0?'warn':'ok'],[k.leads,k.leads_rotulo||'Leads orgânicos',''],
+    [k.parados,'Leads parados 3+ dias',k.parados>0?'warn':'ok'],[k.atrasadas,'Tarefas atrasadas',k.atrasadas>0?'warn':'ok']];
+  $('#kpis').innerHTML = kp.map(([n,l,c])=>`<div class="kpi ${c}"><span class="n">${n??'—'}</span><span class="l">${esc(l)}</span></div>`).join('');
+  $('#brief').innerHTML = `<span class="eyebrow">Briefing da manhã${p.feriado?' · feriado: '+esc(p.feriado):''}</span>` + (p.briefing||[]).map(t=>`<p>${esc(t)}</p>`).join('');
+  const al = p.alertas||[]; $('#c-alertas').textContent = al.length;
+  $('#alertas').innerHTML = al.length ? al.map(a=>`<li class="alert ${esc(a.nivel)}"><span class="bar"></span><span>${link(a.texto,a.url)}</span></li>`).join('') : '<li class="empty">Nenhum alerta hoje.</li>';
+  const ps = p.publicacoes||[]; $('#c-posts').textContent = `${ps.filter(x=>x.pronto).length}/${ps.length} prontos`;
+  $('#posts').innerHTML = ps.length ? ps.map(x=>`<div class="post"><time>${esc(x.hora)}</time><div style="min-width:0">${link(x.pauta,x.url)}<div class="meta">${esc(x.perfil)} · ${esc(x.formato)}</div></div><span class="pill ${x.pronto?'ok':'no'}">${esc(x.status)}</span></div>`).join('') : '<p class="empty">Nada marcado para hoje.</p>';
+  $('#semdata').textContent = p.sem_data || '';
+  renderDecisoes();
+  const pe = p.pessoas||[];
+  $('#pessoas').innerHTML = pe.length ? pe.map((x,i)=>{
+    const late = (x.atrasadas||[]).length + (x.outras||0);
+    const li = arr => arr.map(t=>`<li>${link(t.t,t.url)}${t.info?` <span class="muted small">· ${esc(t.info)}</span>`:''}</li>`).join('');
+    return `<details class="person" ${i<2?'open':''}><summary><span><span class="who">${esc(x.nome)}</span><span class="role">${esc(x.funcao||'')}</span></span><span class="tags">${(x.hoje||[]).length?`<span class="tag">${x.hoje.length} hoje</span>`:''}${late?`<span class="tag late">${late} atrasada${late>1?'s':''}</span>`:''}</span></summary>
+      ${(x.hoje||[]).length?`<div class="grp">Hoje e amanhã</div><ul>${li(x.hoje)}</ul>`:''}
+      ${(x.atrasadas||[]).length?`<div class="grp">Atrasadas</div><ul>${li(x.atrasadas)}${x.outras?`<li class="muted">+ ${x.outras} outras</li>`:''}</ul>`:''}
+      ${(x.sem_data||[]).length?`<div class="grp">Sem data</div><ul>${li(x.sem_data)}</ul>`:''}</details>`}).join('') : '<p class="empty">Sem tarefas.</p>';
+  renderLeads(p.leads);
+  const es = p.escapando||[];
+  $('#escapando').innerHTML = es.length ? es.map((t,i)=>`<div class="insight"><b class="k">${i+1}</b><span>${esc(t)}</span></div>`).join('') : '<p class="empty">Nada fora do normal.</p>';
+  const pr = p.proximos||[];
+  $('#proximos').innerHTML = pr.length ? pr.map(d=>`<div class="grp small" style="font-weight:600;margin-top:4px">${esc(d.dia)}</div><ul class="small" style="margin:4px 0 0;padding-left:18px">${(d.itens||[]).map(t=>`<li>${esc(t)}</li>`).join('')}</ul>`).join('') : '<p class="empty">Tudo pronto para os próximos dias.</p>';
+}
+
+function renderDecisoes(){
+  const p = state.painel; if (!p) return;
+  const ds = p.decisoes||[];
+  const feitas = ds.filter(d=>state.feitos[d.id]).length;
+  $('#c-dec').textContent = `${feitas}/${ds.length} resolvidas`;
+  $('#decisoes').innerHTML = ds.length ? ds.map(d=>`<li class="check ${state.feitos[d.id]?'done':''}"><input type="checkbox" id="d-${esc(d.id)}" data-id="${esc(d.id)}" ${state.feitos[d.id]?'checked':''} ${state.canWrite?'':'disabled'}><label for="d-${esc(d.id)}" class="txt">${esc(d.texto)}${d.quando?` <span class="when">· ${esc(d.quando)}</span>`:''}${d.url?` <a href="${esc(d.url)}" target="_blank" rel="noopener">abrir</a>`:''}</label></li>`).join('') : '<li class="empty">Nada esperando você.</li>';
+}
+$('#decisoes').addEventListener('change', async e => {
+  const id = e.target.dataset.id; if (!id || !state.db || !state.painel) return;
+  const feitos = {...state.feitos}; if (e.target.checked) feitos[id] = true; else delete feitos[id];
+  state.feitos = feitos; renderDecisoes();
+  try { await state.db.doc('checks/' + state.painel.data).set({feitos, atualizado: new Date().toISOString()}) }
+  catch(err){ if (err && err.code === 'invalid_argument'){ state.canWrite = false; renderDecisoes() } }
+});
+
+function renderLeads(L){
+  if (!L){ $('#leads').innerHTML = '<p class="empty">Sem dados do Pipedrive.</p>'; return }
+  $('#c-leads').textContent = L.rotulo||'';
+  const dias = L.por_dia||[]; const max = Math.max(1, ...dias.map(d=>d.n));
+  const W = 320, H = 110, pad = 18, bw = (W - pad*2) / Math.max(1,dias.length);
+  const bars = dias.map((d,i)=>{const h = (H-34) * d.n / max; const x = pad + i*bw + 4; const y = H-18-h;
+    return `<rect x="${x}" y="${y}" width="${bw-8}" height="${Math.max(h,1)}" rx="3" fill="${i===dias.length-1?'var(--accent)':'var(--accent-soft)'}" stroke="var(--accent)" stroke-width="${i===dias.length-1?0:1}"></rect><text x="${x+(bw-8)/2}" y="${y-4}" text-anchor="middle">${d.n}</text><text x="${x+(bw-8)/2}" y="${H-4}" text-anchor="middle">${esc(d.d)}</text>`}).join('');
+  const funis = (L.funis||[]).map(f=>{
+    const top = Math.max(1, ...(f.etapas||[]).map(e=>e.n));
+    return `<div><h3>${esc(f.nome)} <span>${esc(f.resultado||'')}</span></h3>${(f.etapas||[]).map(e=>`<div class="stage"><span>${esc(e.nome)}</span><span class="track"><span class="fill" style="display:block;width:${100*e.n/top}%"></span></span><span class="num ${e.taxa!=null&&e.taxa<10?'low':''}">${e.n}${e.taxa!=null?` · ${e.taxa}%`:''}</span></div>`).join('')}</div>`}).join('');
+  $('#leads').innerHTML = `
+    <div class="small">${(L.por_origem||[]).map(o=>`<span class="tag" style="margin:0 4px 4px 0;display:inline-block">${esc(o.origem)} ${o.n}</span>`).join('')}${L.pago_ref!=null?`<span class="muted"> · pago no mesmo período: ${L.pago_ref}</span>`:''}</div>
+    ${dias.length?`<svg class="spark" viewBox="0 0 ${W} ${H}" role="img" aria-label="Leads orgânicos por dia">${bars}</svg>`:''}
+    ${(L.avancaram||[]).length?`<p class="small"><b>Avançaram:</b> ${L.avancaram.map(esc).join(' · ')}</p>`:''}
+    ${(L.parados||[]).length?`<p class="small"><b>Parados há 3+ dias:</b> ${L.parados.map(x=>`${esc(x.etapa)} ${x.n}`).join(' · ')}</p>`:''}
+    <div class="funil">${funis}</div>
+    ${L.janela?`<p class="small muted">${esc(L.janela)}</p>`:''}`;
+}
+
+/* ---------- Cérebro: anéis ---------- */
+const COR = {contexto:'var(--ctx)', memoria:'var(--mem)', acao:'var(--act)'};
+const NOME = {contexto:'Contexto', memoria:'Memória', acao:'Ação'};
+function renderMapa(){
+  const svg = $('#map'); const nos = (state.mapa && state.mapa.nos) || [];
+  const C = 320, R = {contexto:115, memoria:195, acao:280};
+  let out = Object.entries(R).map(([k,r])=>`<circle cx="${C}" cy="${C}" r="${r}" fill="none" stroke="var(--line)" stroke-dasharray="3 5"></circle>`).join('');
+  out += `<circle cx="${C}" cy="${C}" r="46" fill="var(--ink)"></circle><text x="${C}" y="${C-2}" text-anchor="middle" style="fill:var(--surface);font:800 15px var(--f-display)">Cérebro</text><text x="${C}" y="${C+16}" text-anchor="middle" style="fill:var(--surface);font:500 11px var(--f-mono)">Legacy</text>`;
+  if (!nos.length){ svg.innerHTML = out + `<text x="${C}" y="${C+80}" text-anchor="middle" style="fill:var(--muted);font-size:13px">O mapa aparece quando os dados carregarem.</text>`; return }
+  const pos = {};
+  for (const camada of Object.keys(R)){
+    const grupo = nos.filter(n=>n.camada===camada); const off = camada==='memoria'? .35 : camada==='acao'? .12 : 0;
+    grupo.forEach((n,i)=>{ const a = -Math.PI/2 + off + i * 2*Math.PI/grupo.length; pos[n.id] = [C + R[camada]*Math.cos(a), C + R[camada]*Math.sin(a), a] });
+  }
+  out += nos.map(n=>{const [x,y]=pos[n.id]; return `<line x1="${C}" y1="${C}" x2="${x}" y2="${y}" stroke="var(--line)" stroke-width="1"></line>`}).join('');
+  const q = $('#q').value.trim().toLowerCase();
+  out += nos.map(n=>{const [x,y,a]=pos[n.id]; const hit = !q || (n.nome+' '+(n.resumo||'')+' '+(n.detalhe||'')).toLowerCase().includes(q);
+    const right = Math.cos(a) >= 0; const lx = x + (right?12:-12);
+    return `<g class="node ${hit?'':'dim'} ${state.sel===n.id?'sel':''}" data-id="${esc(n.id)}" tabindex="0" role="button" aria-label="${esc(n.nome)}"><circle cx="${x}" cy="${y}" r="${n.r||8}" fill="${COR[n.camada]}"></circle><text x="${lx}" y="${y+4}" text-anchor="${right?'start':'end'}" style="font-size:11.5px">${esc(n.nome)}</text></g>`}).join('');
+  svg.innerHTML = out;
+}
+function abrir(id){
+  const n = ((state.mapa&&state.mapa.nos)||[]).find(x=>x.id===id); if (!n) return;
+  state.sel = id; renderMapa();
+  $('#detail').innerHTML = `<span class="layer" style="color:${COR[n.camada]}">${NOME[n.camada]}${n.grupo?' · '+esc(n.grupo):''}</span><h3>${esc(n.nome)}</h3><p>${esc(n.resumo||'')}</p>${n.detalhe?`<p class="small muted" style="white-space:pre-line">${esc(n.detalhe)}</p>`:''}${n.url?`<p><a href="${esc(n.url)}" target="_blank" rel="noopener">Abrir</a></p>`:''}${n.onde?`<p class="small muted">Onde fica: <code>${esc(n.onde)}</code></p>`:''}`;
+}
+$('#map').addEventListener('click', e=>{const g=e.target.closest('.node'); if (g) abrir(g.dataset.id)});
+$('#map').addEventListener('keydown', e=>{const g=e.target.closest('.node'); if (g && (e.key==='Enter'||e.key===' ')){e.preventDefault(); abrir(g.dataset.id)}});
+$('#q').addEventListener('input', ()=>{
+  renderMapa(); const q = $('#q').value.trim().toLowerCase(); const nos = (state.mapa&&state.mapa.nos)||[];
+  const hits = q ? nos.filter(n=>(n.nome+' '+(n.resumo||'')+' '+(n.detalhe||'')).toLowerCase().includes(q)) : [];
+  $('#results').innerHTML = hits.map(n=>`<button data-id="${esc(n.id)}"><span style="color:${COR[n.camada]}">●</span> ${esc(n.nome)} <span class="muted small">· ${NOME[n.camada]}</span></button>`).join('') || (q?'<p class="empty">Nada encontrado.</p>':'');
+});
+$('#results').addEventListener('click', e=>{const b=e.target.closest('button'); if (b) abrir(b.dataset.id)});
+
+renderPainel(); renderMapa();
+
+(async () => {
+  const db = window.claude?.use ? await window.claude.use('db') : null;
+  if (!db){ $('#stamp').textContent = 'Entre no claude.ai para ver os dados.'; return }
+  state.db = db;
+  try { const user = await claude.use('user'); const w = user && await user.can('data.write'); if (w === false) state.canWrite = false } catch(e) {}
+  let unCheck = null;
+  db.doc('painel/hoje').onSnapshot(s=>{
+    state.painel = s.exists ? s.data() : null; renderPainel();
+    if (state.painel && (!unCheck || unCheck.data !== state.painel.data)){
+      if (unCheck) unCheck();
+      const dia = state.painel.data;
+      const u = db.doc('checks/' + dia).onSnapshot(c=>{ state.feitos = (c.exists && c.data().feitos) || {}; renderDecisoes() }, ()=>{});
+      unCheck = Object.assign(u, {data: dia});
+    }
+  }, ()=>{ $('#stamp').textContent = 'Não foi possível carregar os dados agora.' });
+  db.doc('cerebro/mapa').onSnapshot(s=>{ state.mapa = s.exists ? s.data() : null; renderMapa() }, ()=>{});
+})();
+</script>

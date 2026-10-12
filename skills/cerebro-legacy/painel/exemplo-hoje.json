@@ -1,0 +1,114 @@
+{
+  "data": "2026-10-12",
+  "titulo_data": "Segunda, 12/10",
+  "gerado_em": "12/10 às 01:30",
+  "feriado": "Nossa Senhora Aparecida",
+  "notion_url": "https://app.notion.com/p/3f7c9747efab81379b05c6a9efce205f",
+  "kpis": {"posts_hoje": 7, "nao_prontos": 4, "decisoes": 10, "leads": 12, "leads_rotulo": "Leads orgânicos sex–dom", "parados": 180, "atrasadas": 14},
+  "briefing": [
+    "Feriado, mas tem 7 posts marcados e 4 ainda não estão prontos: o ES \"Eu Ainda Não Sei Fazer Isso\" (13h, em edição), os dois carrosséis do Mac (18h e 21h, em design) e o NV do Mounjaro (18h), que só depende da sua aprovação.",
+    "Amanhã o Alex tem dois reels que publicam pela manhã e ainda estão em A Editar (Pessoas Negativas e Fórmula do Sucesso).",
+    "No Pipedrive, os leads orgânicos caíram de ~22 por dia (05 a 07/10) para ~4 por dia desde 08/10, e 129 leads do Social Selling estão parados em \"Lead\" sem ninguém qualificar."
+  ],
+  "alertas": [
+    {"nivel": "critico", "texto": "13:00 · ES Eu Ainda Não Sei Fazer Isso ainda em A Editar (Igor)", "url": "https://app.notion.com/3ebc9747efab81769ebbdf802358f552"},
+    {"nivel": "critico", "texto": "18:00 · Carrossel UMA DEVE BILHÕES ainda em A Design (Mac)", "url": "https://app.notion.com/3f4c9747efab80e28540d14868ba84ac"},
+    {"nivel": "critico", "texto": "18:00 · NV O Mounjaro É O Espelho Da Sociedade parado em Aprovação (você)", "url": "https://app.notion.com/3f3c9747efab81cd8e24ddd6efe5c7ac"},
+    {"nivel": "critico", "texto": "21:00 · Carrossel No teu funeral… ainda em A Design (Mac)", "url": "https://app.notion.com/3f4c9747efab80f199fffb26b67ca56f"},
+    {"nivel": "atencao", "texto": "URGENTE atrasado: subir os ads da campanha e corrigir o estático (Paim, era 09/10)", "url": "https://app.notion.com/3f3c9747efab8120adfbf5c2c8efe8bf"},
+    {"nivel": "atencao", "texto": "URGENTE atrasado: confirmar com o Pet o roteamento de MQL (Lucas, era 09/10)", "url": "https://app.notion.com/3f3c9747efab815c8976cf129feb74f7"},
+    {"nivel": "atencao", "texto": "URGENTE parado desde 29/09: Vídeos Lucas alunos nova turma (Igor). Ainda vale?", "url": "https://app.notion.com/3eac9747efab80b3ae1dd24e43f12c53"},
+    {"nivel": "atencao", "texto": "Estático ANTECIPAÇÃO LIVE era para sáb 10/10 e segue em Aguardando material. Saiu?", "url": "https://app.notion.com/3f0c9747efab80188fa1fabebfc6afdf"}
+  ],
+  "publicacoes": [
+    {"hora": "09:00", "perfil": "Clailton", "formato": "Reels", "pauta": "B-ROLL · Abrir uma Empresa para não ter mais chefe", "pronto": true, "status": "Publicar", "url": "https://app.notion.com/3ebc9747efab80bfbf94c1d1f561d1db"},
+    {"hora": "12:00", "perfil": "Legacy", "formato": "Carrossel", "pauta": "o Brasil passou de um trilhão", "pronto": true, "status": "Publicar", "url": "https://app.notion.com/3f4c9747efab80829006decfb705c6a0"},
+    {"hora": "13:00", "perfil": "Clailton", "formato": "Reels", "pauta": "ES · Eu Ainda Não Sei Fazer Isso", "pronto": false, "status": "A Editar", "url": "https://app.notion.com/3ebc9747efab81769ebbdf802358f552"},
+    {"hora": "17:00", "perfil": "Legacy", "formato": "Reels", "pauta": "Corte Metal Glass 06 · Eu sou outra pessoa", "pronto": true, "status": "Publicar", "url": "https://app.notion.com/3ebc9747efab812da021ed817c94e469"},
+    {"hora": "18:00", "perfil": "Legacy", "formato": "Carrossel", "pauta": "UMA DEVE BILHÕES. A OUTRA LUCROU BILHÕES…", "pronto": false, "status": "A Design", "url": "https://app.notion.com/3f4c9747efab80e28540d14868ba84ac"},
+    {"hora": "18:00", "perfil": "Clailton", "formato": "Reels", "pauta": "NV · O Mounjaro É O Espelho Da Sociedade", "pronto": false, "status": "Aprovação", "url": "https://app.notion.com/3f3c9747efab81cd8e24ddd6efe5c7ac"},
+    {"hora": "21:00", "perfil": "Clailton", "formato": "Carrossel", "pauta": "No teu funeral, você vai ser o assunto menos comentado…", "pronto": false, "status": "A Design", "url": "https://app.notion.com/3f4c9747efab80f199fffb26b67ca56f"}
+  ],
+  "sem_data": "Em Publicar sem dia marcado: Reels_0800_CX Faturo Out/Nov/Dez, Reels_0800_CX Faturo 600 Mil e D-1 Último Aviso (Novas Turmas LEGADO).",
+  "decisoes": [
+    {"id": "mounjaro", "texto": "Aprovar NV O Mounjaro É O Espelho Da Sociedade", "quando": "hoje 18:00", "url": "https://app.notion.com/3f3c9747efab81cd8e24ddd6efe5c7ac"},
+    {"id": "bom-coracao", "texto": "Aprovar NV O Lado Perigoso Do Bom Coração", "quando": "qua 14/10 18:00", "url": "https://app.notion.com/3f3c9747efab8180b871c8711787351a"},
+    {"id": "mg05", "texto": "Aprovar Corte Metal Glass 05 · Markup não é margem", "quando": "qua 14/10 17:00", "url": "https://app.notion.com/3ebc9747efab81a9b1a9e8082d756022"},
+    {"id": "amou-duas", "texto": "Aprovar NV Você Amou Essa Pessoa Duas Vezes", "quando": "qui 15/10 18:00", "url": "https://app.notion.com/3f3c9747efab81e3932edec78af87360"},
+    {"id": "gigantes", "texto": "Aprovar GIGANTES ESTÃO CORTANDO MILHARES DE VAGAS (ALTA)", "quando": "qui 15/10 15:00", "url": "https://app.notion.com/8b4c9747efab829eb2170137b145e5a5"},
+    {"id": "mg07", "texto": "Aprovar Corte Metal Glass 07 · Tem produtos que eu recuso venda", "quando": "sex 16/10 17:00", "url": "https://app.notion.com/3ebc9747efab8127b581cbbbc95c65bc"},
+    {"id": "poucos-amigos", "texto": "Aprovar NV Quem Tem Poucos Amigos", "quando": "sex 16/10 18:00", "url": "https://app.notion.com/3f3c9747efab81609b06c39182bc188d"},
+    {"id": "invejoso", "texto": "Aprovar NV Ser Feliz Diante De Um Invejoso", "quando": "sáb 17/10 18:00", "url": "https://app.notion.com/3f3c9747efab818c9e5dd4c086c61409"},
+    {"id": "td-versoes", "texto": "Escolher v2 ou v3 das 4 revisões TD do Claude (Walt Disney, A Pessoa Que Você Quer Na Chegada, Termômetro, Padre Antônio)", "quando": "desde 10/10", "url": "https://app.notion.com/3f6c9747efab811c9db7c450937632dd"},
+    {"id": "black-revisao", "texto": "Revisar Criativo Motion Black (ALTA) e as perguntas do gerador de Plano 2027", "quando": "até 14/10", "url": "https://app.notion.com/3f6c9747efab815f8de9f77081100dc3"}
+  ],
+  "pessoas": [
+    {"nome": "Mac", "funcao": "social media", "hoje": [
+      {"t": "Arte: UMA DEVE BILHÕES (publica 18:00)", "url": "https://app.notion.com/3f4c9747efab80e28540d14868ba84ac"},
+      {"t": "Arte: No teu funeral (publica 21:00)", "url": "https://app.notion.com/3f4c9747efab80f199fffb26b67ca56f"},
+      {"t": "Roteiro do novo vídeo do Clailton para o pop-up do Academy", "url": "https://app.notion.com/3f3c9747efab81f8a3b5d4fa50345f4f", "info": "ALTA · amanhã"},
+      {"t": "Story Sequência de 100k + Visão da Legacy", "url": "https://app.notion.com/3f4c9747efab806f938cd4dde138c090", "info": "amanhã"}],
+     "atrasadas": [
+      {"t": "Abrir ticket: pop-up da sessão estratégica + pop-up da Black", "url": "https://app.notion.com/3f3c9747efab8134b930fcf5db4c5325", "info": "ALTA · 09/10"},
+      {"t": "Destaque QUIZ", "url": "https://app.notion.com/3f2c9747efab80988c6ff34689b884bf", "info": "09/10"},
+      {"t": "ES Dirigir Uma Empresa Sem GPS", "url": "https://app.notion.com/3e9c9747efab80d68771c90485cdcb61", "info": "aguardando material desde 02/10 · publica 14/10"}]},
+    {"nome": "Alex", "funcao": "editor", "hoje": [
+      {"t": "TD INADIMPLÊNCIA", "url": "https://app.notion.com/3e4c9747efab831dbfbf81636a735023", "info": "publica amanhã 15:00"},
+      {"t": "D-12 História Executoria (Novas turmas)", "url": "https://app.notion.com/3f1c9747efab809eba0edd452b9413c4", "info": "ALTA · amanhã"},
+      {"t": "B-ROLL Pessimistas Estão Certos", "url": "https://app.notion.com/3ebc9747efab807da14bdbfba01c4d76", "info": "amanhã"}],
+     "atrasadas": [
+      {"t": "B-ROLL Pessoas Negativas", "url": "https://app.notion.com/3ebc9747efab80829a5de4fbfdbd7502", "info": "publica amanhã 09:00"},
+      {"t": "TD Fórmula Do Sucesso", "url": "https://app.notion.com/3ebc9747efab81169b8bd6b774a7d5de", "info": "publica amanhã 13:00"}]},
+    {"nome": "Lucas", "funcao": "design e web", "hoje": [
+      {"t": "Modelo de margens seguras para Story", "url": "https://app.notion.com/3f3c9747efab816e9f1fc94026d7225f", "info": "ALTA · amanhã"},
+      {"t": "Fundo preto no formulário da sessão estratégica", "url": "https://app.notion.com/3f3c9747efab81fabe43cdcc7dca7958", "info": "amanhã"}],
+     "atrasadas": [
+      {"t": "Confirmar com o Pet o roteamento de MQL", "url": "https://app.notion.com/3f3c9747efab815c8976cf129feb74f7", "info": "URGENTE · 09/10"},
+      {"t": "Pop-up de boas-vindas do Academy no design da Black", "url": "https://app.notion.com/3f3c9747efab81fc9845cccae799e24c", "info": "ALTA · 09/10 · vai ao ar 13/10"}],
+     "sem_data": [{"t": "Quiz: painel/planilha/Pixel, ajustes, página de obrigado, checkout", "url": "https://app.notion.com/p/e7488f7fc17f48d3882f08b1e7ada724"}]},
+    {"nome": "Paim", "funcao": "tráfego", "hoje": [
+      {"t": "Colocar o e-mail marketing da Black para rodar", "url": "https://app.notion.com/3f3c9747efab819abb4adf17db3a6c5d", "info": "URGENTE · amanhã"}],
+     "atrasadas": [
+      {"t": "Subir os ads da campanha e corrigir o estático pendente", "url": "https://app.notion.com/3f3c9747efab8120adfbf5c2c8efe8bf", "info": "URGENTE · 09/10"}]},
+    {"nome": "Santini", "funcao": "growth", "hoje": [
+      {"t": "Agendar a semana de leitura de dados e o início do Impulsão", "url": "https://app.notion.com/3f3c9747efab81078037cd68356e80dc", "info": "amanhã"}],
+     "atrasadas": [
+      {"t": "Levantar com o John confirmações de e-mail e acessos ao Academy", "url": "https://app.notion.com/3f3c9747efab81f2848bd68e04b1b0d4", "info": "ALTA · 09/10"}]},
+    {"nome": "Peterson", "funcao": "automações", "hoje": [
+      {"t": "MQL do quiz caindo na sessão estratégica com tag de origem", "url": "https://app.notion.com/3f3c9747efab8190a977dfdcc404eef6", "info": "ALTA · amanhã"}],
+     "sem_data": [{"t": "Quiz: Nina, avisos no Pipedrive/Discord, levantou a mão no WhatsApp", "url": "https://app.notion.com/p/e7488f7fc17f48d3882f08b1e7ada724"}]},
+    {"nome": "João", "funcao": "programação", "sem_data": [{"t": "Quiz: checkout com pagamento único e com o código do quiz, aviso de compra no Academy", "url": "https://app.notion.com/p/e7488f7fc17f48d3882f08b1e7ada724"}]},
+    {"nome": "Igor (você)", "funcao": "coordenação do orgânico", "hoje": [
+      {"t": "Fechar a edição do ES Eu Ainda Não Sei Fazer Isso", "url": "https://app.notion.com/3ebc9747efab81769ebbdf802358f552", "info": "publica 13:00"},
+      {"t": "Gravar vídeo do pop-up e Reels da nova narrativa da Black (com o Clailton)", "url": "https://app.notion.com/3f3c9747efab814597e0ca944b4533fd", "info": "ALTA · sex 16/10"}],
+     "atrasadas": [
+      {"t": "VOLKSWAGEN VAI FECHAR 4 FÁBRICAS", "url": "https://app.notion.com/872c9747efab8366b81181fe6fc1f09d", "info": "A Gravar · 08/10"},
+      {"t": "Vídeos Lucas ALUNOS NOVA TURMA", "url": "https://app.notion.com/3eac9747efab80b3ae1dd24e43f12c53", "info": "URGENTE · 29/09"}],
+     "sem_data": [
+      {"t": "Apresentar o novo fluxo para o líder dos SDRs", "url": "https://app.notion.com/3f5c9747efab812b8b8adcd501d29c73"},
+      {"t": "Gravar o vídeo de obrigado com o Clailton", "url": "https://app.notion.com/3f5c9747efab81a58712e8433b80d28d"}]}
+  ],
+  "leads": {
+    "rotulo": "sex 09 a dom 11/10",
+    "por_origem": [{"origem": "Bio Legacy", "n": 4}, {"origem": "Novo seguidor Clailton", "n": 3}, {"origem": "Story Legacy", "n": 3}, {"origem": "Quiz", "n": 1}, {"origem": "TikTok", "n": 1}],
+    "pago_ref": 64,
+    "por_dia": [{"d": "05/10", "n": 21}, {"d": "06/10", "n": 24}, {"d": "07/10", "n": 22}, {"d": "08/10", "n": 9}, {"d": "09/10", "n": 4}, {"d": "10/10", "n": 5}, {"d": "11/10", "n": 3}],
+    "avancaram": ["Legado → Tentativa de Conexão 2", "Legado → Agendamento Closer 1", "0 vendas, 0 perdas"],
+    "parados": [{"etapa": "Social Selling › Lead", "n": 129}, {"etapa": "Impulsão › Op Allbound", "n": 16}, {"etapa": "Legado › Tentativa de Conexão", "n": 15}, {"etapa": "Impulsão › Sem Resposta", "n": 13}, {"etapa": "Legado › Agendamento Closer", "n": 4}],
+    "funis": [
+      {"nome": "Social Selling", "resultado": "152 entraram · 132 abertos · 20 perdidos", "etapas": [{"nome": "Lead", "n": 152}, {"nome": "Lead Qualificado", "n": 0, "taxa": 0}, {"nome": "Agendamento", "n": 0, "taxa": 0}]},
+      {"nome": "Funil Legado", "resultado": "33 entraram · 1 venda", "etapas": [{"nome": "MQL", "n": 33}, {"nome": "Tentativa", "n": 29, "taxa": 88}, {"nome": "Lead Qualificado", "n": 9, "taxa": 31}, {"nome": "Agend. Closer", "n": 8, "taxa": 89}, {"nome": "Reunião", "n": 3, "taxa": 38}, {"nome": "Vendido", "n": 1, "taxa": 33}]},
+      {"nome": "Funil Impulsão", "resultado": "69 entraram · 35 perdidos", "etapas": [{"nome": "Op Allbound", "n": 69}, {"nome": "Em Atendimento", "n": 1, "taxa": 1}, {"nome": "Demo Agendada", "n": 0, "taxa": 0}]}
+    ],
+    "janela": "Funil: leads orgânicos e do Quiz que entraram nos últimos 15 dias. Conta quem chegou em cada etapa ou passou dela; a % é sobre a etapa anterior."
+  },
+  "escapando": [
+    "Ninguém está qualificando o Social Selling: 152 leads orgânicos em 15 dias (quase todos da automação de novo seguidor do Clailton) e nenhum passou de \"Lead\". Quem é o dono desse funil?",
+    "O Impulsão está perdendo os orgânicos sem atender: 69 entraram, 1 foi para Em Atendimento e 35 já foram perdidos (18 por falta de resposta).",
+    "Os leads orgânicos caíram de ~22 por dia para ~4 a partir de 08/10. Vale checar se a automação de novo seguidor (ManyChat) ou o link da bio mudou nesse dia."
+  ],
+  "proximos": [
+    {"dia": "Terça 13/10", "itens": ["09:00 B-ROLL Pessoas Negativas (A Editar)", "13:00 TD Fórmula do Sucesso (A Editar)", "15:00 TD INADIMPLÊNCIA (A Editar)", "Story Sequência de 100k (A fazer)", "Pop-up do Academy no design da Black (Lucas, em andamento)"]},
+    {"dia": "Quarta 14/10", "itens": ["09:00 B-ROLL Pessimistas Estão Certos (A Editar)", "13:00 ES Dirigir Uma Empresa Sem GPS (aguardando material desde 02/10)", "17:00 Corte Metal Glass 05 (Aprovação)", "18:00 NV O Lado Perigoso do Bom Coração (Aprovação)"]}
+  ]
+}
