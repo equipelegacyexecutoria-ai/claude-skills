@@ -18,15 +18,49 @@ voz.mkdir(parents=True, exist_ok=True)
 wav = voz / (Path(video).stem + ".wav")
 rodar(["ffmpeg", "-v", "error", "-y", "-i", video, "-vn", "-ac", "1", "-ar", "48000", str(wav)])
 ws = palavras(wav)
-# fronteiras: as (n-1) maiores pausas entre palavras ("..." no HeyGen vira uma pausa longa)
-gaps = sorted(range(1, len(ws)), key=lambda k: ws[k]["i"] - ws[k - 1]["f"], reverse=True)[:len(nomes) - 1]
-cortes = [0] + sorted(gaps) + [len(ws)]
 G = ler_json(R / "ganchos.json", {}).get("variacoes", {})
 FR = ler_json(voz / "frases.json", {})
 
 
 def norm(s):
     return re.sub(r"[^\w ]", "", s.lower())
+
+
+def tokens(s):
+    return [t for t in norm(s.replace("-", " ")).split() if t]
+
+
+if all(G.get(n, {}).get("texto") for n in nomes):
+    # fronteiras pelo texto: alinha as palavras ouvidas com as frases digitadas, em ordem
+    esperado, dono = [], []
+    for k, n in enumerate(nomes):
+        tk = tokens(G[n]["texto"])
+        esperado += tk
+        dono += [k] * len(tk)
+    ouvido, idx = [], []
+    for j, w in enumerate(ws):
+        for t in tokens(w["p"]):
+            ouvido.append(t)
+            idx.append(j)
+    sm = difflib.SequenceMatcher(None, esperado, ouvido, autojunk=False)
+    mapa = {}
+    for a, b, size in sm.get_matching_blocks():
+        for d in range(size):
+            mapa[a + d] = idx[b + d]
+    cortes = [0]
+    for k in range(1, len(nomes)):
+        primeiros = [i for i, o in enumerate(dono) if o == k and i in mapa]
+        if not primeiros:
+            sys.exit(f"não achei a fala de {nomes[k]} no áudio: confira a ordem dos nomes")
+        i0 = primeiros[0]
+        j = mapa[i0] - (i0 - dono.index(k))   # volta as palavras da frase que não casaram
+        cortes.append(max(cortes[-1] + 1, j))
+    cortes.append(len(ws))
+else:
+    # sem os textos: as (n-1) maiores pausas ("..." no HeyGen vira pausa longa; pode errar em frase com vírgula)
+    print("AVISO: sem os textos em ganchos.json; separei pelas maiores pausas")
+    gaps = sorted(range(1, len(ws)), key=lambda k: ws[k]["i"] - ws[k - 1]["f"], reverse=True)[:len(nomes) - 1]
+    cortes = [0] + sorted(gaps) + [len(ws)]
 
 
 for k, nome in enumerate(nomes):
