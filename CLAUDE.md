@@ -104,5 +104,7 @@ e sincronizam sozinhos (ao abrir a conversa e ao fim de cada resposta).
 - O passo a passo completo está na skill `fila-de-render`.
 - De qualquer PC: se o usuário pedir para "ativar/mandar o PC de render" editar, entregue o pedido à
   conversa **"Central de Render"** (ou "Render central") do PC de render (`ListAgents` + `SendMessage`), como na skill.
+- Variação de teste (ex.: gancho novo num reel já publicado): o nome leva `TESTE` logo depois do formato,
+  ex.: `Reels_Clailton_TD_TESTE_Termômetro_Ou_Termostato_V2` (regra do usuário, 13/10/2026).
 - Estilo: o nome da task manda (NV/Novela, TD, ES). O briefing (IDEIA, corpo, comentários) é lido sempre
   e manda nos detalhes; só decide o estilo quando o nome não tem NV/TD/ES.
