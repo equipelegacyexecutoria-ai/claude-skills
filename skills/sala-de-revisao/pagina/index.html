@@ -311,6 +311,10 @@ button:focus-visible, textarea:focus-visible, select:focus-visible, a:focus-visi
     const v = S.videos.find((x) => x.id === id) || S.videos[0];
     if (!v) { renderEmptyStage(); return; }
     S.vid = v.id; S.ver = ver || lastVer(v).v; S.pin = null;
+    // versão antiga: mostra tudo o que foi pedido nela (as notas resolvidas, com a resposta);
+    // versão atual: só as abertas (usuário, 13/10/2026)
+    S.fStatus = S.ver === lastVer(v).v ? "abertas" : "todas";
+    document.querySelectorAll("[data-f]").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.f === S.fStatus)));
     try { history.replaceState(null, "", "#" + v.id); } catch (e) {}
     try { localStorage.setItem("sala.ultimo", v.id); } catch (e) {}
     const cv = curVersion();
