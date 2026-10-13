@@ -23,6 +23,13 @@ Gravação em andamento · Edição em andamento · Design em produção · CLAU
 CLAUDE (Designer) · Aprovação · Correções (Claude) · **Publicar** (pronto) · Stand-by ·
 Finalizado · Publicado · 📌  MURAL (dois espaços).
 
+Cards do MURAL que são referência (não tarefa): "📌 GRADE DE CONTEÚDOS" (grade semanal) e
+"📌 BIBLIOGRAFIA PERFIL LEGACY" (3f8c9747efab80148173fc3e07d8fbbd): diário de testes do social media
+no perfil Legacy (o que mudou em legenda, criativo, CTA, link), com a tabela "Testes em andamento" e o
+registro por dia, o mais recente no topo. Leia esse card sempre que analisar métricas do Instagram ou
+do LinkedIn da Legacy: uma mudança de alcance ou retenção costuma ter um teste anotado lá. Desde 13/10
+substitui o Google Docs antigo de mesmo nome.
+
 ### Campos dos quadros de demandas (Black, Quiz)
 `Tarefa`, `Andamento` (A fazer · Documentos · Pendência · Andamento · Correção · Revisão ·
 Concluído), `Responsável` (lista), `Prioridade` (URGENTE/ALTA/MEDIA/BAIXA), `Formato`,
