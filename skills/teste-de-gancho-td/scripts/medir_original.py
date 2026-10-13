@@ -65,13 +65,29 @@ def achar_emenda(frs):
 
 
 def caixa_legenda(im, y_ini, y_fim):
-    """Linhas e colunas de texto branco (legenda) numa faixa da imagem."""
+    """Topo e base da linha de legenda (texto branco) mais perto do meio da faixa. Linha com branco em mais
+    de 60% da largura é fundo claro da imagem, não texto."""
     m = im.min(axis=2) > 243
-    b = m[y_ini:y_fim, 60:1020]
-    rows = np.where(b.sum(axis=1) > 25)[0]
-    if not len(rows):
+    n = m[y_ini:y_fim, 60:1020].sum(axis=1)
+    ok = (n > 25) & (n < 0.6 * 960)
+    runs, ini, buraco = [], None, 0
+    for r, v in enumerate(ok):
+        if v:
+            ini = r if ini is None else ini
+            fim, buraco = r, 0
+        elif ini is not None:
+            buraco += 1
+            if buraco > 4:
+                runs.append((ini, fim))
+                ini = None
+    if ini is not None:
+        runs.append((ini, fim))
+    runs = [(a, b) for a, b in runs if 20 <= b - a <= 140]
+    if not runs:
         return None
-    return int(rows.min() + y_ini), int(rows.max() + y_ini)
+    meio = (y_fim - y_ini) / 2
+    a, b = min(runs, key=lambda x: abs((x[0] + x[1]) / 2 - meio))
+    return int(a + y_ini), int(b + y_ini)
 
 
 def cmd_medir(pasta, t_fim):
@@ -87,6 +103,8 @@ def cmd_medir(pasta, t_fim):
 
     caixas = [c for c in (caixa_legenda(im, emenda - 90, emenda + 90) for im in frs) if c]
     if caixas:
+        m_alt = statistics.median(b - a for a, b in caixas)
+        caixas = [(a, b) for a, b in caixas if b - a <= 1.6 * m_alt]
         alturas = sorted(b - a for a, b in caixas)
         cap_px = int(np.percentile(alturas, 25))          # sem acento / cedilha
         cap_y = int(statistics.median((a + b) / 2 for a, b in caixas))
