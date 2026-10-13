@@ -15,7 +15,8 @@
   memória do dia fica na seção "🧠 Memória do dia" de cada relatório no Notion. As tarefas agendadas
   deste PC ficaram desligadas, como reserva.
 - **12/10/2026** — O site do cérebro fica em Desktop › PROJETOS ANTIGRAVIDADE › cerebro-legacy,
-  no GitHub privado `equipelegacyexecutoria-ai/cerebro-legacy` (remote `origin`, escolha do Igor) e na
+  no GitHub privado `legacyeducacao/cerebro-legacy` (remote `origin`; mudou da conta Executoria em
+  13/10 a pedido do Igor; commits assinados como legacyeducacao, senão a Vercel grátis bloqueia) e na
   Vercel `cerebro-legacy-organico` do time equipelegacyexecutoria-6387s-projects (push na main publica,
   e só quando o Igor pedir). O site lê
   o JSON da página Notion "Dados do painel (não editar)" (3f7c9747-efab-81c7-b08d-f989567f62eb),
