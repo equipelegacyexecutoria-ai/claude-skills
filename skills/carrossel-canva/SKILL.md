@@ -86,6 +86,21 @@ Referências (ler só quando precisar):
    `medir.py` já devolve o texto pronto em `corpo.pars` (detalhe em `copy.md` §2b): usar esse texto
    no `find_and_replace_text` e conferir cada fim de linha na miniatura antes de mostrar.
 
+## Central de Carrosséis (PC de render, regra do usuário, 13/10/2026)
+
+Os carrosséis são feitos na conversa **"Central de Carrosséis"** do PC de render (ELM-157, modo
+Automático, Controle Remoto ligado), separada da "Central de Render" dos vídeos.
+- **Celular ou navegador:** o usuário abre a conversa "Central de Carrosséis" e cola a copy; ela monta.
+- **Claude de outro PC** recebeu um pedido de carrossel e o usuário quer que seja feito lá ("manda pra
+  central de carrosséis", "faz no PC de render"): `ListAgents`, ache a sessão "Central de Carrosséis" e
+  mande com `SendMessage` o pedido **completo** (modelo, copy card a card, links e imagens indicadas),
+  sem instruções técnicas. Responda ao usuário que foi entregue e que o link do Canva aparece na própria
+  Central de Carrosséis. Se ela não aparecer na lista: PC de render desligado, app fechado ou Controle
+  Remoto caído; peça para alguém reabrir a conversa lá.
+- Pedido sem dizer onde: perguntar "aqui ou na Central de Carrosséis?".
+- A Central, ao receber pedido de outro Claude, faz na hora e termina com o link do Canva na conversa
+  (o usuário acompanha pelo celular); não precisa responder ao Claude que mandou.
+
 ## Fluxo rápido
 
 **1. Planejar e calcular (sem Canva).** Classificar cada card e montar a lista de páginas-modelo:
