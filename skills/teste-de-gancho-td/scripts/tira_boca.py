@@ -41,6 +41,6 @@ for n in nomes:
     cv2.putText(rot, n, (8, 45), 0, 0.8, (255, 255, 255), 2)
     cv2.putText(rot, f"mudanca {np.mean(difs) if difs else 0:.1f}", (8, 90), 0, 0.7, (0, 255, 255), 2)
     linhas.append(np.hstack([rot, linha]))
-    print(f"{n:18s} mudança média na boca {np.mean(difs) if difs else 0:5.1f}  ({len(crops)} quadros com rosto)")
+    print(f"{n:18s} mudança média na boca " + (f"{np.mean(difs):5.1f}" if difs else "  -  (sem fontes/" + n + ".mp4)") + f"  ({len(crops)} quadros com rosto)")
 cv2.imwrite(str(R / "ls/bocas.jpg"), np.vstack(linhas))
 print("conferir a olho:", R / "ls/bocas.jpg", "(a boca tem que abrir e fechar nas palavras desde o 1º quadro)")

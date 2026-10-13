@@ -1,0 +1,6 @@
+# Ambiente da skill teste-de-gancho-td. Usa as venvs que as skills de reels já instalam:
+#   principal (cv2, faster-whisper, PIL, numpy): %LOCALAPPDATA%\corte-viral\venv ou %LOCALAPPDATA%\reels-novela\venv
+#     (requirements.txt da skill reels-novela-clailton)
+#   separador de voz e ambiente (demucs), chamado pelo casar_voz.py: %LOCALAPPDATA%\reels-novela\venv-align
+#     <venv-align>\Scripts\python -m pip install -r requirements.txt   (instala só o que falta abaixo)
+demucs==4.1.0
