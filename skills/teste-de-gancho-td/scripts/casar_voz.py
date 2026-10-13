@@ -9,8 +9,11 @@ import subprocess, sys, tempfile
 from pathlib import Path
 import numpy as np
 
+sys.path.insert(0, str(Path(__file__).parent))
+from comum import py_com  # noqa: E402
+
 voz, original, corte, saida = sys.argv[1], sys.argv[2], int(sys.argv[3]), sys.argv[4]
-PY_SEP = str(Path.home() / "AppData/Local/reels-novela/venv-align/Scripts/python.exe")
+PY_SEP = py_com("demucs")   # separador de voz e ambiente (normalmente a venv-align)
 SR = 44100
 t_c = corte * 1001 / 30000
 

@@ -1,16 +1,16 @@
 """Corta o silêncio nas pausas do gancho e alterna o enquadramento (aberto/fechado) a cada corte,
 como nos TDs editados: zoom seco no corte, olhos na mesma altura. Mexe no vídeo da boca sincronizada
 (ls/<nome>.mp4), na voz (vozes/<nome>.wav) e nos tempos das palavras (vozes/frases.json); guarda os originais.
-Uso: python cortar_pausas.py <nome> <pausa1_ini>:<pausa1_fim>:<zoom> [...]
+Uso: python cortar_pausas.py <W> <nome> <pausa1_ini>:<pausa1_fim>:<zoom> [...]
      cada pausa: trecho de silêncio (s) procurado; corta o miolo e deixa ~0,08 s de respiro de cada lado.
 """
 import json, shutil, subprocess, sys
 from pathlib import Path
 import cv2, numpy as np
 
-R = Path(__file__).resolve().parent.parent
-nome = sys.argv[1]
-pausas = [tuple(float(x) for x in a.split(":")) for a in sys.argv[2:]]
+R = Path(sys.argv[1])
+nome = sys.argv[2]
+pausas = [tuple(float(x) for x in a.split(":")) for a in sys.argv[3:]]
 FPS = 30000 / 1001
 MOD = str(Path.home() / ".claude/skills/reels-novela-clailton/models/face_detection_yunet_2023mar.onnx")
 vid, voz, frs = R / f"ls/{nome}.mp4", R / f"vozes/{nome}.wav", R / "vozes/frases.json"
