@@ -75,7 +75,9 @@ e sincronizam sozinhos (ao abrir a conversa e ao fim de cada resposta).
 - Apagar skill ou arquivo só com `git rm` dentro de `~/.claude`; apagar pelo Explorer é revertido.
 - Pacote Python novo instalado para uma skill entra no requirements dela.
 - Não gerar mais zips de skill em `Desktop\Projetos Edições\SKILLS` (virou arquivo antigo); a sincronia distribui.
-  Exceção: skills que também vivem no claude.ai (carrossel-canva, corte-viral) precisam de reenvio manual lá.
+  Exceção: skills que também vivem no claude.ai (carrossel-canva, corte-viral, ofertaos e as 9 do CopyOS +
+  biblioteca-dos-mestres) precisam de reenvio manual lá. Dá para subir pelo Chrome do usuário (Claude in Chrome):
+  claude.ai → Personalização → Habilidades → Adicionar → Fazer upload, vários .zip de uma vez; descrição até 1024 caracteres.
 - Linha começando com `SYNC:` na abertura da conversa: seguir `~/.claude/sync/LEIA-ME.md`.
 - Pedido de edição de vídeo sem dizer onde: perguntar "aqui ou no PC de render?".
 
