@@ -107,6 +107,10 @@ e sincronizam sozinhos (ao abrir a conversa e ao fim de cada resposta).
   conversa **"Central de Render"** (ou "Render central") do PC de render (`ListAgents` + `SendMessage`), como na skill.
 - Variação de teste (ex.: gancho novo num reel já publicado): o nome leva `TESTE` logo depois do formato,
   ex.: `Reels_Clailton_TD_TESTE_Termômetro_Ou_Termostato_V2` (regra do usuário, 13/10/2026).
+- Motion (13/10/2026): tem conversa própria no PC de render, **"Central de Render Motion"**. De qualquer PC,
+  pedido de motion para "mandar pra central/PC de render" vai para ela (`ListAgents` + `SendMessage`, com o
+  briefing completo). Ela entrega pela Sala de Revisão com o link na conversa; Notion só se pedirem.
+  Pedido de reel/fila continua indo para a "Central de Render" (nome exato, sem "Motion").
 - Carrosséis (13/10/2026): têm conversa própria no PC de render, **"Central de Carrosséis"**. De qualquer PC,
   pedido de carrossel para "mandar pra central/PC de render" vai para ela (`ListAgents` + `SendMessage`, com a
   copy completa). Detalhes na skill `carrossel-canva`, seção "Central de Carrosséis".

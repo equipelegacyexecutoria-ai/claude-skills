@@ -52,8 +52,8 @@ A conversa de recepção no PC de render se chama **"Render central"** (ou "Cent
 - **Celular ou navegador:** o usuário abre o app do Claude (ou claude.ai/code), entra na conversa
   "Render central" e escreve o pedido; ela mesma começa a editar.
 - **Claude de outro PC** recebeu "manda o PC de render editar", "ativa o PC de render", "edita os vídeos
-  do Claude" (e o usuário quer que seja lá): use `ListAgents`, ache a sessão do PC de render (nome com "Central de Render" ou
-  "Render central") e mande com `SendMessage` o pedido do usuário (ex.: "edita os vídeos do Claude",
+  do Claude" (e o usuário quer que seja lá): use `ListAgents`, ache a sessão do PC de render (nome "Central de Render" ou
+  "Render central"; **não** a "Central de Render Motion", que é só para motion) e mande com `SendMessage` o pedido do usuário (ex.: "edita os vídeos do Claude",
   ou "edita só o card <PAUTA>"; se o usuário pediu outra conversa, diga qual). Mande só o pedido,
   sem instruções técnicas (nada de "dispare a tarefa"). Responda ao usuário que o pedido foi entregue
   e que o resultado aparece no Notion (cards em Aprovação) e na própria Central de Render.

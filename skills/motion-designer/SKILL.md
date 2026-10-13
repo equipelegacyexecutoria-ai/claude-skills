@@ -68,6 +68,12 @@ Detalhes, instalação e armadilhas de cada uma: `references/ferramentas.md`.
    conversa") e mandar o link na conversa com o que mudou e os pontos a confirmar; o usuário comenta as
    correções na Sala. Drive/Notion só quando pedido ("vai nas tasks"; padrões da marca em `references/marcas/`). Versões novas: `v2`, `v3`... sem apagar as antigas.
 
+## Pedido vindo de outro PC ou do celular
+
+O PC de render tem a conversa **"Central de Render Motion"** (Controle Remoto ligado). Pedido de motion para
+"mandar pro PC de render": `ListAgents` → `SendMessage` para ela com o briefing completo (texto, referências,
+links). Não aparece na lista: PC de render desligado ou app fechado; avise o usuário.
+
 ## 3. Regras fixas
 
 - **Margens e área segura** (vale para todo vídeo; tabela por formato em `references/area-segura.md`):
