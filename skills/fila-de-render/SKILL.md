@@ -41,6 +41,10 @@ O usuário não é técnico: relatórios curtos, pelo dia a dia dele (ver CLAUDE
   nova cortava a anterior no meio). Não religue nem dispare sem o usuário pedir.
 - Conversa ficando pesada: sugira ao usuário abrir uma nova (no Automático) e continue lá.
 
+- **Pedido direto na conversa, sem citar as tasks** (ex.: "faz esse motion", "edita esse reel"): não é fila.
+  Entrega pela Sala de Revisão com o link na própria conversa e sem tocar no Notion/Drive
+  (skill `sala-de-revisao`, seção "Pedido feito direto na conversa"). Notion só quando o usuário pedir.
+
 ## Pedido vindo de outro PC ou do celular
 
 A conversa de recepção no PC de render se chama **"Render central"** (ou "Central de Render"; pasta

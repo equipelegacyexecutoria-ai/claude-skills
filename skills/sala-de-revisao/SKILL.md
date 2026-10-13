@@ -30,7 +30,7 @@ move o card para **Correções (Claude)** no Notion. Ele não é técnico: fale 
 `Reels_Clailton_TD_Daqui_100_Anos` → `reels-clailton-td-daqui-100-anos`).
 
 Documento `videos/<id>`:
-`{titulo, pauta, formato: TD|NV|ES|CX, perfil, notion: <url do card>, atualizadoEm: <ISO>, versoes: [{v, arquivo, data, duracao, fps, obs, drive?, removido?}]}`
+`{titulo, pauta, formato: TD|NV|ES|CX|MOTION, perfil, notion: <url do card>, atualizadoEm: <ISO>, versoes: [{v, arquivo, data, duracao, fps, obs, drive?, removido?}]}`
 
 Documento `notas/<auto>` (a página cria):
 `{video: <id>, versao: "v1", t: <segundos naquela versão>, texto, status: "aberta"|"resolvida", autor: <id da pessoa>|"claude", criadaEm, resposta?, resolvidaEm?}`
@@ -62,6 +62,18 @@ quem tem acesso de **Colaborador** escreve notas; **Visualizador** só assiste.
    o Notion é o `link_revisao`.
 7. Depois que o arquivo final em alta aparecer no Drive: `update` em `videos/<id>` (com `if_version`) pondo
    `drive` na versão — a página mostra o botão "Arquivo final (Drive)".
+
+## Pedido feito direto na conversa (sem card) — regra do usuário, 13/10/2026
+
+Vídeo (motion ou reel) pedido **direto na conversa**, sem mandar "ir nas tasks/no Notion":
+1. Publica a versão na Sala como acima, **sem `--notion`** e sem mexer no Notion nem no Drive.
+   Sem PAUTA de card, monte uma: `Motion_<Marca>_<Nome_Curto>` para motion (etiqueta MOTION), ou o nome do reel
+   no padrão `Reels_Clailton_<TD|NV|ES|CX>_<Nome>`.
+2. Entrega **na própria conversa**: o link do vídeo na Sala (`link_revisao`) + o que mudou e os pontos a conferir
+   (e o MP4 pelo `SendUserFile`, se ajudar).
+3. Correção: o usuário deixa as notas na Sala e avisa na conversa ("corrigi lá", "faz a v2"); leia as notas
+   (seção abaixo), faça a v2 e entregue o link de novo na conversa.
+4. Notion/Drive (fluxo da `fila-de-render`) **só quando o usuário pedir** ("vai nas tasks", "edita os vídeos do Claude").
 
 ## Ler as notas e aplicar (card em Correções (Claude))
 

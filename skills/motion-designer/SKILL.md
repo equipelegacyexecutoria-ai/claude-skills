@@ -64,8 +64,9 @@ Detalhes, instalação e armadilhas de cada uma: `references/ferramentas.md`.
    - transcrever a mixagem (`scripts/transcrever.py`) para provar que a voz está clara;
    - renderizar (`npx hyperframes render --quality high --output renders/<nome>.mp4`) e montar a folha
      de quadros do MP4 final; corrigir e renderizar de novo se aparecer algo.
-9. **Entrega:** mandar o MP4 ao usuário com o que mudou e os pontos a confirmar. Drive/Notion só quando
-   pedido (padrões da marca em `references/marcas/`). Versões novas: `v2`, `v3`... sem apagar as antigas.
+9. **Entrega:** subir o vídeo na **Sala de Revisão** (skill `sala-de-revisao`, seção "Pedido feito direto na
+   conversa") e mandar o link na conversa com o que mudou e os pontos a confirmar; o usuário comenta as
+   correções na Sala. Drive/Notion só quando pedido ("vai nas tasks"; padrões da marca em `references/marcas/`). Versões novas: `v2`, `v3`... sem apagar as antigas.
 
 ## 3. Regras fixas
 

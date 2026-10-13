@@ -37,7 +37,7 @@ def slug(texto):
 
 def formato_da_pauta(pauta):
     p = "_" + pauta.upper() + "_"
-    for marca, nome in (("_TD_", "TD"), ("_NV_", "NV"), ("_NOVELA_", "NV"), ("_ES_", "ES"), ("_CX_", "CX")):
+    for marca, nome in (("_TD_", "TD"), ("_NV_", "NV"), ("_NOVELA_", "NV"), ("_ES_", "ES"), ("_CX_", "CX"), ("_MOTION_", "MOTION")):
         if marca in p:
             return nome
     return ""
