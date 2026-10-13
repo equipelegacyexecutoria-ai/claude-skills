@@ -1,7 +1,7 @@
 """Mostra as palavras (com tempo) em volta de instantes da aula, para cravar os pontos de corte.
 
 Uso: python palavras.py <trabalho> 00:11:10 00:26:04 ... [--janela 12]
-Cada palavra sai como  hh:mm:ss.cc palavra  e as pausas ≥ 0,4 s aparecem como  ·· 0.85s ··
+Cada palavra sai como  [mm:ss.cc]palavra~ss.cc (início e fim) e as pausas ≥ 0,4 s aparecem como  ·· 0.85s ··
 """
 from __future__ import annotations
 
@@ -30,7 +30,7 @@ def main() -> None:
                 print(" ".join(linha))
                 print(f"   ·· {w['ini'] - ant['fim']:.2f}s ··")
                 linha = []
-            linha.append(f"[{hms(w['ini'], True)[3:]}]{w['t']}")
+            linha.append(f"[{hms(w['ini'], True)[3:]}]{w['t']}~{w['fim'] % 60:05.2f}")
             ant = w
         if linha:
             print(" ".join(linha))

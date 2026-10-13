@@ -208,7 +208,8 @@ Correções depois de pronto:
 - **Trocar tomada/trecho**: novo `decupagem_ajustes.txt` → `--aplicar` → `editar.py montar`
   → a legenda precisa ser refeita (os índices mudam) → `finalizar`.
 - **Ajuste fino de corte sem mudar o texto**: `P S\montar_corte.py T --manter-palavras` (mesmos
-  índices; tempos remapeados pelo bruto, a legenda é aproveitada) → `finalizar`.
+  índices; tempos remapeados pelo bruto, a legenda é aproveitada) → `finalizar` (que mede o rosto de novo sozinho).
+  Precisa do bruto no PC (`C:\Render\brutos\<slug>`): se foi apagado na limpeza, copie de novo do Drive.
 - **Só legenda**: edite `legenda.txt` → `finalizar`.
 - **Áudio estourado / com ruído**: seção "Tratar o áudio no Adobe Podcast".
 - **Cor puxada (verde, amarela...)**: `P S\balanco_branco.py T "<vídeo editado>"` mede a parede branca e grava `T\cor.txt` (ganhos R/G/B até o branco quente dos aprovados); o render aplica sozinho. Apague `cor.txt` para voltar.
@@ -378,6 +379,17 @@ se existir, senão `legenda.json`).
   abaixo do pico, no meio da soltura da vogal, com saída de 8 ms. Agora `borda_voz.cauda` segue a vogal até o
   silêncio (piso + 6 dB, até `CAUDA_MAX` 0,10 s, parando antes de novo ataque) e o render faz saída suave de 25 ms
   (`FADE_FIM`). As emendas ficam com ~0,10–0,20 s (dentro do 0,10–0,26 s da referência).
+- **Soltura TARDIA da última vogal cortada** (13/10/2026, 7 palavras em 2 vídeos: "crescimento", "certo", "escuta",
+  "grupo" 3x, "desrespeito"): ele solta o "o"/"a" final DEPOIS de um vão de 60–120 ms, fraco (piso+8 a +24) e curto
+  (0,1–0,25 s); o `estende` desistia no vão (> 80 ms) e o corte caía no meio dele. Agora `borda_voz.soltura` acha esse
+  pedaço (começa até 0,15 s depois da voz, dura <= 0,25 s, abaixo de lim+6, silêncio de 40 ms depois) e o `aparar` o
+  inclui. No áudio do Adobe vale sempre (respiro já saiu); no bruto só se tiver tom (vogal; respiro/estalo não têm).
+  Testado em 35 vídeos: pega as 7, e no Palhaço só mexeu no "circo" (reclamado em 09/10). Conferência rápida depois
+  de qualquer corte: nenhum fim de trecho com voz acima de piso+6 nos 0,15 s seguintes.
+- **Legenda em cima do rosto depois de refazer o corte** (13/10/2026, "Comece um negócio" 1:42): o `rosto_corte.json`
+  era do corte de 08/10 e o corte mudou (v3, v4...), então o queixo era lido no tempo errado. Agora o `finalizar`
+  mede o queixo de novo (`enquadrar.py --so-rosto`, mantém o recorte aprovado) sempre que o corte é mais novo
+  que o `rosto_corte.json`. Bloco de 3 linhas que não cabe abaixo do queixo: divida em duas telas.
 - **Falso começo escondido NA PAUSA** ("populi-... popularidade", 09/10/2026): o Whisper juntou tudo numa palavra e o
   `aparar` manteve o pedaço de voz da pausa antes da frase. Sinal: no alinhamento a palavra atravessa a emenda
   (+0,73 s). O `conferir.py` agora reprova "palavra X atravessa a emenda" (> 0,4 s): ouça/olhe e corrija com

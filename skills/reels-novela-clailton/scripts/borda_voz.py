@@ -24,6 +24,15 @@ COLADO = 0.03            # s: chiado sem tom a até isso de uma palavra é parte
 AGUDO_FINAL = 0.35       # fração de energia > 4 kHz: acima disso é "s"/soltura de palavra, não respiro
 FINAL_DEPOIS = 0.35      # s: o "s" final pode vir até isso depois da vogal (ele solta o "s" separado)
 MIN_FINAL = 0.02         # s: menor pedaço considerado (a soltura de "escolhido" tem 0,03 s)
+# soltura TARDIA (13/10/2026, 7 palavras em 2 vídeos: "crescimento", "certo", "escuta", "grupo" 3x, "desrespeito"):
+# ele solta a última vogal DEPOIS de um vão de 80-120 ms, fraca (piso+8 a piso+16) e curta (0,1-0,2 s); o
+# `estende` desistia no vão (> 80 ms) ou no nível (piso+16) e o corte caía no meio dela.
+SOLTURA_VAO = 0.15       # s: vão máximo entre o fim da voz e o começo da soltura
+SOLTURA_MIN_DB = 8       # dB acima do piso: nível mínimo da soltura (respiro fica ~piso+11, mas é longo)
+SOLTURA_MAX = 0.25       # s: duração máxima da soltura (a de "grupo" tem 0,21 s; respiro dura 0,3 s ou mais)
+SOLTURA_SILENCIO = 0.04  # s: depois dela tem de cair no silêncio (piso+6) — senão é a próxima palavra/respiro
+SOLTURA_TOM = 0.15       # só no áudio SEM Adobe: fração mínima de quadros com tom (respiro/estalo ~0). No áudio do Adobe
+                         # (respiro já removido) não se exige: 2 das 6 solturas reais medem tom 0 dentro dela.
 
 
 def audio48(T: Path, fonte: str) -> np.ndarray:
@@ -87,6 +96,7 @@ class VozFina:
         x = audio48(T, fonte)
         self.env = _env(x)
         suf = "_tratado" if (T / "audio_tratado.wav").exists() else ""
+        self.tratado = bool(suf)
         arq = T / f"vozeado{suf}.npy"
         tom = np.load(arq) if arq.exists() else None
         if tom is None or len(tom) != len(self.env):
@@ -189,6 +199,38 @@ class VozFina:
                 if buraco > 3:
                     break
         return (borda + 1) * HOP if borda > k else t
+
+    def soltura(self, t: float) -> float:
+        """Fim da SOLTURA TARDIA da última vogal: depois de t (fim da voz), um pedaço curto (<= SOLTURA_MAX), fraco
+        (>= piso + SOLTURA_MIN_DB, abaixo do limiar de voz), que começa até SOLTURA_VAO depois e termina no silêncio.
+        Devolve o fim dele, ou t se não houver. Nova palavra (acima do limiar) ou som longo (respiro) = não é soltura."""
+        k = int(round(t / HOP))
+        vao_max, dur_max, sil = int(SOLTURA_VAO / HOP), int(SOLTURA_MAX / HOP), int(SOLTURA_SILENCIO / HOP)
+        n = len(self.env)
+        i = k
+        while i < min(n, k + 20) and self.env[i] >= self.piso + SOLTURA_MIN_DB:   # a voz ainda caindo (até 0,1 s)
+            i += 1
+        k = i
+        piso8, m = self.piso + SOLTURA_MIN_DB, int(MIN_FINAL / HOP)
+        # começo: >= MIN_FINAL seguidos acima de piso8 (um ressalto de 5 ms no vão não conta: "grupo", 34,8 s)
+        ini = next((j for j in range(k + 1, min(n - m, k + vao_max)) if (self.env[j:j + m] >= piso8).all()), None)
+        if ini is None:
+            return t
+        piso6 = self.piso + 6
+        i = ini
+        # a soltura segue acima de piso+6, aceitando quedas de até 10 ms dentro dela ("grupo" oscila 7-15)
+        while i < n and (self.env[i] >= piso6 or (self.env[i:i + 3] >= piso6).any()):
+            # forte demais (palavra nova; "escuta" chega a lim+4) ou longa demais (respiro): não é soltura
+            if self.env[i] >= self.lim + 6 or i - ini > dur_max:
+                return t
+            i += 1
+        # depois dela, silêncio (abaixo de piso+6) por SOLTURA_SILENCIO
+        if i + sil > n or (self.env[i:i + sil] >= piso6).any():
+            return t
+        # áudio sem Adobe: tem de ser VOGAL (com tom), não respiro nem estalo de boca (sem tom)
+        if not self.tratado and float((self.tom[ini:i] >= TOM).mean()) < SOLTURA_TOM:
+            return t
+        return i * HOP
 
     def estende(self, t: float, lado: int, janela: float) -> float:
         """Borda da voz seguindo a onda FRACA da própria palavra: sussurro/"s"/soltura (chiado agudo acima de

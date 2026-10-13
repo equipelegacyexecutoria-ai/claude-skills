@@ -72,6 +72,12 @@ def main() -> None:
     elif cmd == "finalizar":
         trabalho, saida = Path(sys.argv[2]), Path(sys.argv[3])
         plano = trabalho / ("legenda.txt" if (trabalho / "legenda.txt").exists() else "legenda.json")
+        # corte refeito depois da última medição do rosto (montar_corte --manter-palavras numa correção): mede o
+        # queixo de novo no corte atual, mantendo o recorte aprovado — senão a legenda pode subir no rosto (13/10/2026)
+        rosto, corte = trabalho / "rosto_corte.json", trabalho / "corte.json"
+        if not rosto.exists() or rosto.stat().st_mtime < corte.stat().st_mtime:
+            if etapa("enquadrar.py", [str(trabalho), "--so-rosto"]):
+                sys.exit(1)
         if etapa("legenda_novela.py", ["--plano", str(plano), "--palavras", str(trabalho / "palavras_corte.json"),
                                        "--rosto", str(trabalho / "rosto_corte.json"), "--corte",
                                        str(trabalho / "corte.json"), "--out", str(trabalho / "legenda.ass"),

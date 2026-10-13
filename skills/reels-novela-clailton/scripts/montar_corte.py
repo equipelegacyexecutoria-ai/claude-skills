@@ -309,7 +309,9 @@ def aparar(segs: list[dict], trabalho: Path, fonte: str, avisos: list[str], pal:
             meio_ant = (blocos[j - 1][1] + a) / 2 if j else -1e9
             meio_prox = (b + blocos[j + 1][0]) / 2 if j + 1 < len(blocos) else 1e9
             a2 = max(vf.estende(a, -1, ONDA_FRACA_ANTES), meio_ant)
-            b2 = min(vf.estende(b, +1, ONDA_FRACA_DEPOIS), meio_prox)
+            # + a soltura TARDIA da última vogal (depois de um vão de ~0,1 s; 13/10/2026: "crescimento", "certo",
+            # "escuta", "grupo" 3x, "desrespeito" cortados) — borda_voz.soltura
+            b2 = min(max(vf.estende(b, +1, ONDA_FRACA_DEPOIS), vf.soltura(b)), meio_prox)
             b3 = min(vf.cauda(b, CAUDA_MAX), meio_prox)          # a vogal final morrendo até o silêncio
             meia = RITMO["tipica"] / 2                    # pausa encurtada = pausa típica do vídeo
             n_in = max(f0, int(math.floor(max(min(a, a2) - meia, meio_ant) * FPS)))

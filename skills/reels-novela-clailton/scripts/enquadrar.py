@@ -78,6 +78,8 @@ def main() -> None:
     ap.add_argument("--zoom", type=float)
     ap.add_argument("--cx", type=float, default=ROSTO_CX)
     ap.add_argument("--cy", type=float, default=ROSTO_CY)
+    ap.add_argument("--so-rosto", action="store_true",
+                    help="mantém o enquadramento.json (recorte aprovado) e só refaz o rosto_corte.json no corte atual")
     a = ap.parse_args()
     trabalho = Path(a.trabalho)
     corte = ler_json(trabalho / "corte.json")
@@ -136,9 +138,14 @@ def main() -> None:
             avisos.append(f"seg{k:02d}: rosto {mw / fw:.0%} do tamanho mediano")
         if borda < 0.05:
             avisos.append(f"seg{k:02d}: rosto a {borda:.0%} da borda do recorte")
-    gravar_json(trabalho / "enquadramento.json", {"fonte_wh": [SW, SH], "crop": [cw, ch, x, y], "zoom": round(zoom, 3),
-                                                   "crops_segmento": por_seg, "rosto": rosto,
-                                                   "rosto_na_faixa": real, "avisos": avisos})
+    enq = trabalho / "enquadramento.json"
+    if a.so_rosto and enq.exists():
+        # corte refeito (correção v2, v3...): o recorte aprovado fica; só o queixo é medido de novo no corte atual
+        # (13/10/2026: o rosto_corte.json era de um corte antigo e a legenda subiu no rosto do Clailton)
+        cw, ch, x, y = ler_json(enq)["crop"]
+    else:
+        gravar_json(enq, {"fonte_wh": [SW, SH], "crop": [cw, ch, x, y], "zoom": round(zoom, 3),
+                          "crops_segmento": por_seg, "rosto": rosto, "rosto_na_faixa": real, "avisos": avisos})
     # queixo no quadro final (para a legenda não subir no rosto)
     queixos = []
     for t, f, _ in amostras:

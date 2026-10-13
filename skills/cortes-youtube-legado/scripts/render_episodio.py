@@ -33,8 +33,12 @@ import subprocess
 import sys
 from pathlib import Path
 
+import cv2
+import numpy as np
+from PIL import Image
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from comum import gravar_json, hms, ler_json, seg  # noqa: E402
+from comum import SKILL, gravar_json, hms, ler_json, seg  # noqa: E402
 
 BASE_URL = "https://formulario.legacyexecutoria.com.br/"
 CTA_DUR = 30.0                      # segundos na tela (igual ao Executoria Cast)
@@ -46,6 +50,70 @@ FADE_IN, FADE_OUT, DESLIZE = 0.35, 0.30, 26   # card: aparece + desliza 26 px da
 MARGEM_X, MARGEM_Y = 34, 28         # posição do card (canto superior esquerdo, em 1080p)
 ESCALA_CARD = 1.65                  # card ~500×250 em 1080p, QR ~185 px (5 px por módulo)
 AUDIO_PRE = "highpass=f=70,acompressor=threshold=-21dB:ratio=2.5:attack=15:release=250:makeup=2"
+
+
+CANTOS = {"se": 0.0, "ie": 0.03, "sd": 0.04, "id": 0.06}   # sup./inf. × esq./dir.; o número desempata (prefere sup. esq.)
+_ROSTO = None
+
+
+def tempo_na_aula(segs, t: float) -> float:
+    off = 0.0
+    for a, b in segs:
+        if t < off + (b - a):
+            return a + (t - off)
+        off += b - a
+    return segs[-1][1]
+
+
+def quadro(fonte: str, t_aula: float, largura: int = 960):
+    p = subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{t_aula:.2f}", "-i", fonte, "-frames:v", "1",
+                        "-vf", f"scale={largura}:-1", "-f", "image2pipe", "-vcodec", "png", "-"], capture_output=True)
+    return cv2.imdecode(np.frombuffer(p.stdout, np.uint8), cv2.IMREAD_COLOR)
+
+
+def rostos(img):
+    global _ROSTO
+    h, w = img.shape[:2]
+    if _ROSTO is None:
+        _ROSTO = cv2.FaceDetectorYN.create(str(SKILL / "models" / "face_detection_yunet_2023mar.onnx"), "",
+                                           (w, h), 0.6, 0.3, 50)
+    _ROSTO.setInputSize((w, h))
+    _, f = _ROSTO.detect(img)
+    return [] if f is None else [tuple(map(float, r[:4])) for r in f]
+
+
+def caixa_canto(canto: str, cw: float, ch: float, W: int = 1920, H: int = 1080):
+    """Posição (em 1080p) do card no canto; embaixo, fica acima dos 15% finais (barra do player/legenda)."""
+    x = MARGEM_X if canto[1] == "e" else W - MARGEM_X - cw
+    y = MARGEM_Y if canto[0] == "s" else H * 0.85 - ch
+    return x, y
+
+
+def escolher_canto(fonte: str, segs, t: float, cw: float, ch: float):
+    """Canto com menos coisa importante durante os 30 s: sem rosto/pessoa, sem texto de slide, sem área clara."""
+    notas = {c: 0.0 for c in CANTOS}
+    for k in range(4):
+        img = quadro(fonte, tempo_na_aula(segs, t + 2 + k * (CTA_DUR - 4) / 3))
+        if img is None:
+            continue
+        f = img.shape[1] / 1920
+        cinza = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        bordas = cv2.Canny(cinza, 60, 160)
+        caras = rostos(img)
+        for c in CANTOS:
+            x0, y0 = caixa_canto(c, cw, ch)
+            X0, Y0, X1, Y1 = int(x0 * f), int(y0 * f), int((x0 + cw) * f), int((y0 + ch) * f)
+            nota = bordas[Y0:Y1, X0:X1].mean() / 255 * 2 + (cinza[Y0:Y1, X0:X1] > 190).mean() * 0.6
+            for fx, fy, fw, fh in caras:          # rosto ampliado ~ cabeça e ombros
+                ax0, ay0, ax1, ay1 = fx - fw, fy - fh * 0.6, fx + fw * 2, fy + fh * 3
+                ix = max(0.0, min(X1, ax1) - max(X0, ax0)) * max(0.0, min(Y1, ay1) - max(Y0, ay0))
+                if ix > 0:
+                    nota += 5
+            notas[c] += nota / 4
+    for c, extra in CANTOS.items():
+        notas[c] += extra
+    melhor = min(notas, key=notas.get)
+    return melhor, {c: round(v, 3) for c, v in notas.items()}
 
 
 def url_qr(codigo: str, n: int) -> str:
@@ -157,9 +225,38 @@ def loudnorm_medir(fonte: str, segs) -> dict:
     return json.loads(m.group(0))
 
 
+def pretos_da_fonte(trab: Path, fonte: str) -> list[tuple[float, float]]:
+    """Piscares pretos da própria gravação (troca de câmera da transmissão): ~0,5 s a cada ~37 min.
+    Mede uma vez (~2 min) e guarda em <trabalho>/pretos_fonte.json."""
+    cache = trab / "pretos_fonte.json"
+    if cache.exists():
+        return [tuple(x) for x in ler_json(cache)]
+    p = subprocess.run(["ffmpeg", "-hide_banner", "-nostats", "-i", fonte, "-an", "-vf",
+                        "blackdetect=d=0.05:pix_th=0.08", "-f", "null", "-"], capture_output=True, text=True,
+                       encoding="utf-8", errors="replace")
+    pretos = [(float(a), float(b)) for a, b in re.findall(r"black_start:([\d.]+) black_end:([\d.]+)", p.stderr)]
+    gravar_json(cache, pretos)
+    return pretos
+
+
+def cortes_no_meio_de_palavra(todas, segs) -> list[str]:
+    """Ponta de trecho que cai dentro de uma palavra (corta a palavra no áudio)."""
+    erros = []
+    for a, b in segs:
+        for w in todas:
+            for ponta, nome in ((a, "início"), (b, "fim")):
+                if w["ini"] + 0.03 < ponta < w["fim"] - 0.03:
+                    erros.append(f"{nome} {hms(ponta, True)} corta a palavra '{w['t']}' "
+                                 f"({hms(w['ini'], True)}–{hms(w['fim'], True)})")
+    return erros
+
+
 def montar(trab: Path, ep: dict) -> dict:
     """Trechos finais, duração, palavras e CTAs de um episódio (sem renderizar)."""
     todas = ler_json(trab / "transcricao.json")["palavras"]
+    erros = cortes_no_meio_de_palavra(todas, [(seg(a), seg(b)) for a, b in ep.get("abertura", []) + ep["segmentos"]])
+    if erros:
+        raise SystemExit(f"[ep {ep['n']}] corte no meio de palavra:\n  " + "\n  ".join(erros))
     abertura = tirar_pausas([(seg(a), seg(b)) for a, b in ep.get("abertura", [])], todas, 1.2, 0.3)
     corpo = tirar_pausas([(seg(a), seg(b)) for a, b in ep["segmentos"]], todas)
     segs = abertura + corpo
@@ -204,6 +301,7 @@ def render(trab: Path, plano: dict, ep: dict, rapido: bool, so_mapa: bool = Fals
     subprocess.run([sys.executable, str(Path(__file__).parent / "qr_card.py"), url, str(card),
                     "--altura-video", str(altura), "--escala", str(ESCALA_CARD)], check=True)
 
+    pretos = pretos_da_fonte(trab, fonte)
     ln = loudnorm_medir(fonte, segs)
     print(f"[ep {ep['n']}] áudio de entrada {ln['input_i']} LUFS, pico {ln['input_tp']} dBTP", flush=True)
 
@@ -228,6 +326,11 @@ def render(trab: Path, plano: dict, ep: dict, rapido: bool, so_mapa: bool = Fals
             fv.append(f"fade=t=out:st={max(0.0, d - DIP):.3f}:d={DIP}")
         if dip_ini:
             fv.append(f"fade=t=in:st=0:d={DIP}")
+        for x, y in pretos:                       # tapa o piscar preto da gravação com o quadro vizinho
+            if x < b and y > a:
+                f0, f1 = int((max(x, a) - a) * 30), int(np.ceil((min(y, b) - a) * 30))
+                troca = f0 - 1 if f0 > 0 else f1 + 1
+                fv.insert(0, f"freezeframes=first={f0}:last={f1}:replace={troca}")
         extra = ("," + ",".join(fv)) if fv else ""
         fc.append(f"[{k}:v]{escala}fps=30,setpts=PTS-STARTPTS,format=yuv420p{extra}[v{k}]")
         fc.append(f"[{k}:a]aresample=48000,asetpts=PTS-STARTPTS{(',' + ','.join(fa)) if fa else ''}[a{k}]")
@@ -235,12 +338,22 @@ def render(trab: Path, plano: dict, ep: dict, rapido: bool, so_mapa: bool = Fals
     nc = max(1, len(ctas))
     fc.append(f"[{k_card}:v]format=rgba,split={nc}" + "".join(f"[c{i}]" for i in range(nc)))
     atual = "vc"
+    cw, ch = Image.open(card).size
+    posicoes = []
     for i, t in enumerate(ctas):
+        canto, notas = (ep.get("cantos") or {}).get(str(i + 1)), None
+        if not canto:
+            canto, notas = escolher_canto(fonte, segs, t, cw / s, ch / s)
+        x0, y0 = caixa_canto(canto, cw / s, ch / s)
+        posicoes.append({"cta": i + 1, "t": round(t, 2), "canto": canto, "x": round(x0), "y": round(y0),
+                         "notas": notas})
+        print(f"[ep {ep['n']}] CTA {i + 1} {hms(t)} -> canto {canto} {notas or ''}", flush=True)
         fim = t + CTA_DUR
         fc.append(f"[c{i}]fade=t=in:st={t:.2f}:d={FADE_IN}:alpha=1,"
                   f"fade=t=out:st={fim - FADE_OUT:.2f}:d={FADE_OUT}:alpha=1[k{i}]")
-        x = f"'{MARGEM_X * s:.0f}-{DESLIZE * s:.0f}*pow(max(0,1-(t-{t:.2f})/{FADE_IN}),2)'"
-        fc.append(f"[{atual}][k{i}]overlay=x={x}:y={MARGEM_Y * s:.0f}:enable='between(t,{t:.2f},{fim:.2f})'"
+        sinal = "-" if canto[1] == "e" else "+"       # desliza de fora para dentro
+        x = f"'{x0 * s:.0f}{sinal}{DESLIZE * s:.0f}*pow(max(0,1-(t-{t:.2f})/{FADE_IN}),2)'"
+        fc.append(f"[{atual}][k{i}]overlay=x={x}:y={y0 * s:.0f}:enable='between(t,{t:.2f},{fim:.2f})'"
                   f":eof_action=pass[o{i}]")
         atual = f"o{i}"
     if not ctas:
@@ -249,12 +362,12 @@ def render(trab: Path, plano: dict, ep: dict, rapido: bool, so_mapa: bool = Fals
               f"measured_TP={ln['input_tp']}:measured_LRA={ln['input_lra']}:measured_thresh={ln['input_thresh']}:"
               f"offset={ln['target_offset']}:linear=true,aresample=48000[aout]")
     cmd += ["-filter_complex", ";".join(fc), "-map", f"[{atual}]", "-map", "[aout]", "-t", f"{dur:.3f}"]
+    # libx264 (CPU): o h264_nvenc deste ffmpeg pede driver NVIDIA ≥ 610 e o PC de render tem 13.0 da API
     if rapido:
-        cmd += ["-c:v", "h264_nvenc", "-preset", "p4", "-cq", "30", "-b:v", "0"]
+        cmd += ["-c:v", "libx264", "-preset", "veryfast", "-crf", "28"]
     else:
-        cmd += ["-c:v", "h264_nvenc", "-preset", "p7", "-tune", "hq", "-rc", "vbr", "-cq", "19",
-                "-b:v", "0", "-maxrate", "20M", "-bufsize", "40M", "-profile:v", "high", "-spatial-aq", "1",
-                "-temporal-aq", "1", "-bf", "3", "-g", "60"]
+        cmd += ["-c:v", "libx264", "-preset", "medium", "-crf", "20", "-tune", "film", "-profile:v", "high",
+                "-g", "60", "-maxrate", "12M", "-bufsize", "24M"]
     cmd += ["-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-movflags", "+faststart",
             str(saida_dir / f"{nome}.mp4")]
     (saida_dir / f"_cmd_e{ep['n']}.txt").write_text(subprocess.list2cmdline(cmd), encoding="utf-8")
@@ -267,7 +380,7 @@ def render(trab: Path, plano: dict, ep: dict, rapido: bool, so_mapa: bool = Fals
         "ctas": [round(t, 2) for t in ctas], "cta_dur": CTA_DUR, "url_qr": url,
         "url_descricao": url_descricao(plano["codigo"], ep["n"]),
         "url_comentario": url_descricao(plano["codigo"], ep["n"], "comentario"),
-        "card": {"x": round(MARGEM_X * s), "y": round(MARGEM_Y * s), "png": card.name},
+        "card": {"png": card.name, "w": round(cw / s), "h": round(ch / s), "posicoes": posicoes},
         "loudnorm_entrada": ln})
     return saida_dir / f"{nome}.mp4"
 
