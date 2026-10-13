@@ -39,11 +39,12 @@ Em vídeo com virada de clima (problema → solução), usar duas trilhas: uma s
 virada e outra pra frente (ex.: rock) depois. A trilha tem que estar presente na mixagem, sem sumir
 sob a voz nem acabar antes do vídeo.
 
-## Qualquer pedido de motion: skill `motion-legacy`
+## Qualquer pedido de motion: skill `motion-designer`
 
-Antes de fazer qualquer motion/animação/anúncio animado, seguir a skill `motion-legacy`: ela diz qual
-ferramenta usar em cada caso (HyperFrames como base; Manim, Motion Canvas, Remotion, Diffusion Studio,
-Lottie, Blender, IA de vídeo como apoio) e o processo do briefing à entrega.
+Antes de fazer qualquer motion/animação/anúncio animado (qualquer marca), seguir a skill
+`motion-designer`: ela confere/instala as ferramentas do PC, diz qual usar em cada caso (HyperFrames como
+base; Manim, Motion Canvas, Remotion, Diffusion Studio, Lottie, Blender, IA da Magnific como apoio) e o
+processo do briefing à entrega. Dados de cada marca em `references/marcas/` dela.
 
 ## Clailton em imagens de IA (carrossel, B-roll, qualquer peça)
 
