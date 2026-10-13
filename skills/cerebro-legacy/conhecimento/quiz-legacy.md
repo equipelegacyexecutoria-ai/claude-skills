@@ -50,8 +50,9 @@ Para testar sem sujar painel e Pixel: `?interno` (ou `?debug`) no fim do endere�
 | **Produto** (vai para a Nina) | até R$ 25 mil · R$ 26 a 50 mil · R$ 51 a 70 mil |
 | **MQL** (vai para o SDR) | R$ 71 a 100 mil · R$ 101 a 400 mil · R$ 401 mil a 1 milhão · R$ 1 a 4 milhões · acima de R$ 4 milhões |
 
-- **MQL = faturamento a partir de R$ 71 mil por mês.** O corte é fixo, **inclusive durante a Black**: a
-  campanha da Black é separada do quiz (documento v5 e card
+- **MQL = faturamento a partir de R$ 71 mil por mês.** O corte é fixo, **inclusive durante a Black**
+  (confirmado pelo Igor em 13/10: o corte de R$ 50 mil vale **só nas campanhas da Black** e não afeta o quiz
+  nem o orgânico). A campanha da Black é separada do quiz (documento v5 e card
   [Ajustes no quiz](https://app.notion.com/p/3f5c9747efab81e8b4a4ef8bb98ccbf4)). O corte deve ficar num
   lugar só, fácil de trocar.
 - Se um lead da Nina disser que fatura R$ 71 mil ou mais, a Nina marca para virar MQL e ele vai para o SDR.
@@ -185,10 +186,9 @@ os negócios do MQL do quiz passam a ter também as etiquetas "Quiz Clailton · 
 
 ## Informação que não bate (conferir com o Igor)
 
-- **Corte de MQL:** o quiz usa **R$ 71 mil** "também durante a Black" (documento v5, 13/10). Mas a
-  reunião de 13/10 e o card [Confirmar com o Pet o roteamento de MQL](https://app.notion.com/p/3f3c9747efab815c8976cf129feb74f7)
-  dizem "corte de MQL confirmado em **R$ 50 mil**" (vale para a campanha da Black, não para o quiz; a
-  reunião não diz isso com essas palavras). Ver também `black-friday-2026.md`.
+- ~~Corte de MQL~~ **resolvido pelo Igor em 13/10:** quiz e orgânico = **R$ 71 mil ou mais**; só as
+  campanhas da Black usam **R$ 50 mil ou mais** (card
+  [Confirmar com o Pet o roteamento de MQL](https://app.notion.com/p/3f3c9747efab815c8976cf129feb74f7)).
 - **MQL do quiz direto na sessão:** o card da Black
   [MQL do quiz caindo na sessão estratégica com tag de origem](https://app.notion.com/p/3f3c9747efab8190a977dfdcc404eef6)
   foi concluído em 13/10, mas descreve o caminho **antigo**; o fluxo novo (prazo 19/10) tira esse caminho.

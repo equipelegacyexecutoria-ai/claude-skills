@@ -143,8 +143,9 @@ o leilão encarece (Brainstorm); migração gradual de 15% → 25% → ~50% da v
 
 ## Regra de contato, pré-vendas e closer
 
-- **MQL na Black:** roteamento de MQL para os SDRs **funcionando** (13/10). **Corte de MQL confirmado em
-  R$ 50 mil** (reunião 13/10). MQL recebe aviso de contato da equipe e acesso ao Academy; não MQL vai só
+- **MQL na Black:** roteamento de MQL para os SDRs **funcionando** (13/10). **Corte de MQL da Black: R$ 50 mil
+  ou mais** (reunião 13/10, confirmado pelo Igor em 13/10: vale **só nas campanhas da Black**; o quiz e o
+  orgânico seguem em R$ 71 mil ou mais). MQL recebe aviso de contato da equipe e acesso ao Academy; não MQL vai só
   para o Academy (bifurcação, 06/10).
 - **Regra de contato na hora** (contato imediato com o lead da campanha): card concluído, sem texto da regra
   ([card](https://app.notion.com/p/3f3c9747efab8113a0e1e6b500092702)).
@@ -228,10 +229,11 @@ nos anúncios desde outubro.
 
 ## Informação que não bate (conferir com o Igor)
 
-1. **Corte de MQL:** R$ 40 ou 50 mil (documento 1.0, 29/09) → R$ 50 ou 70 mil "a confirmar com o Allan"
-   (06/10) → R$ 50 mil "só valeria para a Black, a confirmar" (08/10) → "**confirmado em R$ 50 mil**" (13/10).
-   Na mesma reunião de 13/10, o gerador de Plano 2027 usa até R$ 70 mil / acima de R$ 71 mil, e o quiz usa
-   **R$ 71 mil inclusive durante a Black** (documento do quiz v5, 13/10).
+1. **Corte de MQL — RESOLVIDO (Igor, 13/10):** nas **campanhas da Black** o MQL é a partir de **R$ 50 mil**;
+   isso **não afeta o quiz nem o orgânico**, que seguem em R$ 71 mil ou mais. Histórico: R$ 40 ou 50 mil
+   (29/09) → 50 ou 70 mil (06/10) → 50 mil só na Black (08/10) → confirmado (13/10). Falta ajustar: o
+   rascunho do gerador de Plano 2027 ainda usa até R$ 70 mil / acima de R$ 71 mil (confirmar com o Igor se
+   o gerador conta como campanha da Black).
 2. **Oferta:** "não existe desconto da Black" (06/10) x "10 parcelas no Legado" (08/10 e 13/10, a confirmar)
    x ideias antigas de 30% e "até 70% só para a base".
 3. **Datas:** lançamento "no dia 15" (25/09) e calendário de 01/10 a 05/10 (documento 1.0) x ads subiram em
