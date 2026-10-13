@@ -85,6 +85,12 @@ links). Não aparece na lista: PC de render desligado ou app fechado; avise o us
 - **Legenda queimada** sempre com a "sombra v3" (CLAUDE.md global).
 - **Imagens de apoio:** sem marca d'água e sem texto em inglês (CLAUDE.md global).
 - Créditos pagos e downloads: avisar/pedir o "sim" antes.
+- **Anúncio pago na Meta** (reprovação real, out/2026: "temas sociais, eleições ou política"). Na fala
+  e na tela, evitar: crise/falência/recuperação judicial/demissão, imposto, reforma tributária, juros,
+  "cenário econômico incerto", governo/eleição; e frases que apontam atributo da pessoa ("você tem
+  medo", "dinheiro curto", "todo empresário está quebrado"). Preferir benefício neutro ("Organize sua
+  empresa para 2027", "gestão de caixa"). Conferir também prints e miniaturas dentro das telas.
+  Em versão corrigida, trocar fala e texto juntos (voz nova só nas frases que mudam, mesma voz/ajustes).
 
 ## 4. Armadilhas já resolvidas
 
@@ -101,5 +107,9 @@ links). Não aparece na lista: PC de render desligado ou app fechado; avise o us
 - Download do Artlist "não aparece": o Chrome pode estar perguntando onde salvar (janela do Windows que
   eu não clico) — pedir para o usuário desligar "Perguntar onde salvar" nas configurações de download.
 - Página no Chrome em segundo plano não renderiza: tirar um print da aba antes de procurar elementos.
+- Snapshots do HyperFrames novo ficam em `.hyperframes/artifacts/snapshots/<id>/` (não em `snapshots/`);
+  o `area_segura.py` sem `--pasta` já pega o mais recente.
+- Texto gigante (ano, número) passa da margem: medir no snapshot com a máscara e reduzir a fonte;
+  `white-space: nowrap` nas linhas que não podem quebrar.
 - Legenda do YouTube com erro 429: baixar o áudio e transcrever com `scripts/transcrever.py`, ou usar a
   skill `watch`.

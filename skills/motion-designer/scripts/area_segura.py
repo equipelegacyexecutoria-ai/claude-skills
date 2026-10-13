@@ -1,7 +1,8 @@
 """Pinta sobre os snapshots as zonas cobertas pela interface da rede (vermelho) e as margens (amarelo)
 e monta uma folha para conferir se nada importante ficou fora da área segura.
 
-Uso: python area_segura.py --formato 9x16 [--pasta snapshots] [--saida area-segura.jpg]
+Uso: python area_segura.py --formato 9x16 [--pasta <pasta dos frame-*.png>] [--saida area-segura.jpg]
+Sem --pasta, usa o snapshot mais recente do projeto (rodar de dentro da pasta do projeto).
 Formatos: 9x16 (Reels/Stories/TikTok/Shorts), 4x5, 1x1, 16x9 (YouTube).
 """
 import argparse, glob, os
@@ -9,9 +10,14 @@ from PIL import Image, ImageDraw, ImageFont
 
 p = argparse.ArgumentParser()
 p.add_argument("--formato", default="9x16", choices=["9x16", "4x5", "1x1", "16x9"])
-p.add_argument("--pasta", default="snapshots")
+p.add_argument("--pasta", default=None, help="padrão: snapshot mais recente do projeto atual")
 p.add_argument("--saida", default=None)
 a = p.parse_args()
+
+if not a.pasta:
+    # CLI novo grava em .hyperframes/artifacts/snapshots/<id>/; o antigo, em snapshots/
+    novas = glob.glob(os.path.join(".hyperframes", "artifacts", "snapshots", "*", ""))
+    a.pasta = max(novas, key=os.path.getmtime) if novas else "snapshots"
 
 # zonas na resolução de referência de cada formato; escaladas para o tamanho real do snapshot
 REF = {
