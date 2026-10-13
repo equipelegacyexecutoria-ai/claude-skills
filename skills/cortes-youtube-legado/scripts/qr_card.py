@@ -3,7 +3,8 @@
 Visual copiado do Executoria Cast (youtube.com/watch?v=v0jEA57pYL8, 17:08): caixa azul em degradê com cantos
 arredondados no canto superior esquerdo, QR em quadro branco à esquerda, texto branco à direita e
 "GRATUITA" numa pílula verde. Tamanho de referência em 1920×1080: ~300×150 px; aqui um pouco maior
-(escala 1,15) para o QR ler de longe na TV/computador.
+(escala 1,3: ~390×195) para o QR sair com 4 px por módulo e ler de longe na TV/computador.
+URL curta (≤106 caracteres = QR versão 5, 37 módulos): campanha com código curto, ex. t12a10e1.
 
 Uso: python qr_card.py "<url>" <saida.png> [--escala 1.15] [--altura-video 1080]
 Confere sozinho que o QR gerado lê a URL certa (OpenCV) e reprova se não ler.
@@ -30,7 +31,9 @@ def fonte(nome: str, px: float) -> ImageFont.FreeTypeFont:
 
 
 def qr_matriz(url: str) -> np.ndarray:
-    enc = cv2.QRCodeEncoder_create(cv2.QRCodeEncoder_Params())
+    prm = cv2.QRCodeEncoder_Params()
+    prm.correction_level = cv2.QRCodeEncoder_CORRECT_LEVEL_L   # tela limpa: L deixa o QR menos denso
+    enc = cv2.QRCodeEncoder_create(prm)
     m = enc.encode(url)                       # 0 = preto, 255 = branco, já com zona de silêncio
     return m
 
@@ -63,10 +66,7 @@ def desenhar(url: str, escala: float, altura_video: int) -> Image.Image:
     pad = int(12 * k)
     q = H - 2 * pad
     d.rounded_rectangle((pad, pad, pad + q, pad + q), int(8 * k), fill=(255, 255, 255, 255))
-    m = qr_matriz(url)
-    inner = int(q * 0.92)
-    qi = Image.fromarray(m).convert("L").resize((inner, inner), Image.NEAREST).convert("RGBA")
-    card.alpha_composite(qi, (pad + (q - inner) // 2, pad + (q - inner) // 2))
+    caixa_qr = (sombra + pad, sombra + pad, q)   # o QR entra depois da redução, em pixels inteiros
 
     # texto à direita, centralizado na coluna
     x0, x1 = pad + q + int(10 * k), W - int(10 * k)
@@ -95,7 +95,17 @@ def desenhar(url: str, escala: float, altura_video: int) -> Image.Image:
     centro("CÂMERA", fa, y)
 
     img.alpha_composite(card, (sombra, sombra))
-    return img.resize((img.width // SS, img.height // SS), Image.LANCZOS)
+    img = img.resize((img.width // SS, img.height // SS), Image.LANCZOS)
+
+    # QR em pixels inteiros por módulo, com 2 módulos de margem branca (+ a borda do quadro branco)
+    bx, by, bq = (v // SS for v in caixa_qr)
+    m = qr_matriz(url)
+    n = m.shape[0]
+    px = max(2, bq // (n + 4))
+    lado = n * px
+    qi = Image.fromarray(m).convert("L").resize((lado, lado), Image.NEAREST).convert("RGBA")
+    img.alpha_composite(qi, (bx + (bq - lado) // 2, by + (bq - lado) // 2))
+    return img
 
 
 def conferir(png: Path, url: str) -> bool:
@@ -103,9 +113,10 @@ def conferir(png: Path, url: str) -> bool:
     if im.shape[2] == 4:  # compõe sobre um fundo médio
         a = im[..., 3:4] / 255.0
         im = (im[..., :3] * a + 128 * (1 - a)).astype(np.uint8)
-    for fator in (1.0, 0.6):  # lê também reduzido (~ celular apontado para a TV de longe)
+    for fator in (1.0, 0.8):  # lê também reduzido (vídeo um pouco menor que a tela cheia)
         t = cv2.resize(im, None, fx=fator, fy=fator, interpolation=cv2.INTER_AREA)
-        val, _, _ = cv2.QRCodeDetector().detectAndDecode(t)
+        lidos = {d.detectAndDecode(t)[0] for d in (cv2.QRCodeDetector(), cv2.QRCodeDetectorAruco())}
+        val = url if url in lidos else next(iter(lidos - {""}), "")
         if val != url:
             print(f"[qr] NÃO leu a {fator:.0%}: {val!r}")
             return False
@@ -116,7 +127,7 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("url")
     ap.add_argument("saida")
-    ap.add_argument("--escala", type=float, default=1.15)
+    ap.add_argument("--escala", type=float, default=1.3)
     ap.add_argument("--altura-video", type=int, default=1080)
     a = ap.parse_args()
     img = desenhar(a.url, a.escala, a.altura_video)

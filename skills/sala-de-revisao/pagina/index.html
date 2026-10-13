@@ -83,6 +83,7 @@ button:focus-visible, textarea:focus-visible, select:focus-visible, a:focus-visi
 .ruler .mk { position: absolute; top: 0; width: 10px; margin-left: -5px; height: 11px; border: 0; padding: 0; background: none; }
 .ruler .mk::after { content: ""; position: absolute; left: 2px; top: 1px; width: 6px; height: 9px; border-radius: 2px; background: var(--accent); }
 .ruler .mk.res::after { background: var(--faint); }
+.ruler .mk.chg::after { background: var(--claude); }
 
 .controls { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .ibtn { background: none; border: 0; border-radius: 6px; width: 34px; height: 32px; display: grid; place-items: center; color: var(--fg); }
@@ -126,6 +127,7 @@ button:focus-visible, textarea:focus-visible, select:focus-visible, a:focus-visi
 .note.near { border-color: var(--accent); background: var(--accent-soft); }
 .note .tc { background: var(--accent-soft); color: var(--accent); border: 0; border-radius: 5px; font-family: var(--f-mono); font-size: 12px; font-weight: 600; padding: 2px 6px; height: fit-content; }
 .note.res .tc { background: var(--raised); color: var(--muted); }
+.note.chg .tc { background: var(--claude-soft); color: var(--claude); }
 .note .txt { white-space: pre-wrap; overflow-wrap: anywhere; }
 .note.res .txt { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--faint); }
 .note .foot { grid-column: 2; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; font-size: 11px; color: var(--faint); }
@@ -271,6 +273,10 @@ button:focus-visible, textarea:focus-visible, select:focus-visible, a:focus-visi
   const curVersion = () => { const v = curVideo(); return v ? v.versoes.find((x) => x.v === S.ver) || lastVer(v) : null; };
   const fps = () => (curVersion() || {}).fps || 30;
   const openCount = (vid, ver) => S.notes.filter((n) => n.video === vid && n.status !== "resolvida" && (!ver || n.versao === ver)).length;
+  // nota de uma versão anterior que foi resolvida NESTA versão: aparece aqui como "alteração", no tempo
+  // da versão nova (tNova, gravado pelo Claude ao resolver) — o usuário vai direto aos pontos alterados (13/10/2026)
+  const isChange = (n) => n.video === S.vid && n.status === "resolvida" && n.resolvidaEm === S.ver && n.versao !== S.ver;
+  const tOf = (n) => (isChange(n) && typeof n.tNova === "number" ? n.tNova : n.t);
   const flash = (msg) => { const el = $("footMsg"); el.textContent = msg; clearTimeout(flash.t); flash.t = setTimeout(() => (el.textContent = ""), 4000); };
   const safeUrl = (u) => (typeof u === "string" && /^https:\/\//.test(u) ? u : null);
 
@@ -393,13 +399,13 @@ button:focus-visible, textarea:focus-visible, select:focus-visible, a:focus-visi
     const box = $("markers"); box.textContent = "";
     const d = video.duration || (curVersion() || {}).duracao;
     if (!d) return;
-    for (const n of S.notes.filter((n) => n.video === S.vid && n.versao === S.ver)) {
-      const m = document.createElement("button");
-      m.className = "mk" + (n.status === "resolvida" ? " res" : "");
-      m.style.left = Math.min(100, (n.t / d) * 100) + "%";
-      m.title = fmt(n.t) + " · " + n.texto;
-      m.setAttribute("aria-label", "Ir para nota em " + fmt(n.t));
-      m.addEventListener("click", (e) => { e.stopPropagation(); video.pause(); seek(n.t); });
+    for (const n of S.notes.filter((n) => n.video === S.vid && (n.versao === S.ver || isChange(n)))) {
+      const m = document.createElement("button"), t = tOf(n);
+      m.className = "mk" + (isChange(n) ? " chg" : n.status === "resolvida" ? " res" : "");
+      m.style.left = Math.min(100, (t / d) * 100) + "%";
+      m.title = fmt(t) + " · " + (isChange(n) ? "alterado: " : "") + n.texto;
+      m.setAttribute("aria-label", (isChange(n) ? "Ir para alteração em " : "Ir para nota em ") + fmt(t));
+      m.addEventListener("click", (e) => { e.stopPropagation(); video.pause(); seek(t); });
       box.appendChild(m);
     }
   }
@@ -487,9 +493,13 @@ button:focus-visible, textarea:focus-visible, select:focus-visible, a:focus-visi
   function visibleNotes() {
     return S.notes
       .filter((n) => n.video === S.vid)
-      .filter((n) => S.fEscopo === "todas" || n.versao === S.ver)
-      .filter((n) => S.fStatus === "todas" || n.status !== "resolvida")
-      .sort((a, b) => (a.versao === b.versao ? a.t - b.t : verNum(a.versao) - verNum(b.versao)));
+      .filter((n) => S.fEscopo === "todas" || n.versao === S.ver || isChange(n))
+      .filter((n) => S.fStatus === "todas" || n.status !== "resolvida" || isChange(n))
+      .map((n) => ({ n, here: n.versao === S.ver || isChange(n) }))
+      .sort((a, b) => (a.here !== b.here ? (a.here ? -1 : 1)
+        : a.here ? tOf(a.n) - tOf(b.n)
+        : a.n.versao === b.n.versao ? a.n.t - b.n.t : verNum(a.n.versao) - verNum(b.n.versao)))
+      .map((x) => x.n);
   }
 
   async function resolveNames(ids) {
@@ -506,7 +516,8 @@ button:focus-visible, textarea:focus-visible, select:focus-visible, a:focus-visi
     const box = $("nlist"); box.textContent = "";
     const all = S.notes.filter((n) => n.video === S.vid && n.versao === S.ver);
     const open = all.filter((n) => n.status !== "resolvida").length;
-    $("ncount").textContent = S.vid ? open + " abertas · " + all.length + " no " + S.ver : "";
+    const changes = S.notes.filter(isChange).length;
+    $("ncount").textContent = S.vid ? open + " abertas · " + all.length + " no " + S.ver + (changes ? " · " + changes + (changes === 1 ? " alteração" : " alterações") : "") : "";
     renderMarkers();
     if (!S.db) {
       const e = document.createElement("div"); e.className = "nempty";
@@ -525,19 +536,20 @@ button:focus-visible, textarea:focus-visible, select:focus-visible, a:focus-visi
     for (const n of list) {
       if (n.autor && n.autor !== "claude") ids.add(n.autor);
       const el = document.createElement("div");
-      el.className = "note" + (n.status === "resolvida" ? " res" : "");
-      el.dataset.t = String(n.t); el.dataset.ver = n.versao;
-      const tc = document.createElement("button"); tc.className = "tc"; tc.textContent = fmt(n.t);
-      tc.title = "Ir para " + fmt(n.t) + (n.versao !== S.ver ? " (" + n.versao + ")" : "");
+      const chg = isChange(n), t = tOf(n);
+      el.className = "note" + (n.status === "resolvida" ? " res" : "") + (chg ? " chg" : "");
+      el.dataset.t = String(t); el.dataset.ver = chg ? S.ver : n.versao;
+      const tc = document.createElement("button"); tc.className = "tc"; tc.textContent = fmt(t);
+      tc.title = chg ? "Ir para o ponto alterado em " + fmt(t) : "Ir para " + fmt(n.t) + (n.versao !== S.ver ? " (" + n.versao + ")" : "");
       tc.addEventListener("click", () => {
-        if (n.versao !== S.ver) { selectVideo(S.vid, n.versao); video.addEventListener("loadedmetadata", () => seek(n.t), { once: true }); }
-        else { video.pause(); seek(n.t); }
+        if (chg || n.versao === S.ver) { video.pause(); seek(t); }
+        else { selectVideo(S.vid, n.versao); video.addEventListener("loadedmetadata", () => seek(n.t), { once: true }); }
       });
       const txt = document.createElement("div"); txt.className = "txt"; txt.textContent = n.texto;
       el.append(tc, txt);
       if (n.resposta) {
         const r = document.createElement("div"); r.className = "reply";
-        const h = document.createElement("b"); h.textContent = "Claude" + (n.resolvidaEm ? " · feito na " + n.resolvidaEm : "");
+        const h = document.createElement("b"); h.textContent = "Claude" + (chg ? " · alterado nesta versão (" + S.ver + ")" : n.resolvidaEm ? " · feito na " + n.resolvidaEm : "");
         r.append(h, document.createTextNode(n.resposta)); el.appendChild(r);
       }
       const foot = document.createElement("div"); foot.className = "foot";
