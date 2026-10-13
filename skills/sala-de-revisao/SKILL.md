@@ -33,7 +33,10 @@ Documento `videos/<id>`:
 `{titulo, pauta, formato: TD|NV|ES|CX|MOTION, perfil, notion: <url do card>, atualizadoEm: <ISO>, versoes: [{v, arquivo, data, duracao, fps, obs, drive?, removido?}]}`
 
 Documento `notas/<auto>` (a página cria):
-`{video: <id>, versao: "v1", t: <segundos naquela versão>, texto, status: "aberta"|"resolvida", autor: <id da pessoa>|"claude", criadaEm, resposta?, resolvidaEm?}`
+`{video: <id>, versao: "v1", t: <segundos naquela versão>, texto, status: "aberta"|"resolvida", autor: <id da pessoa>|"claude", criadaEm, resposta?, resolvidaEm?, tNova?: <segundos na versão em que foi resolvida>}`
+
+Na página: a versão mais nova abre mostrando as notas abertas + as alterações feitas nela (notas resolvidas com
+`resolvidaEm` = essa versão, no tempo `tNova`, em roxo); uma versão antiga abre mostrando todas as notas dela.
 
 Regras de acesso (já gravadas na página): todo mundo que abre lê; só o dono/editor muda `videos`;
 quem tem acesso de **Colaborador** escreve notas; **Visualizador** só assiste.
@@ -84,7 +87,11 @@ Vídeo (motion ou reel) pedido **direto na conversa**, sem mandar "ir nas tasks/
    (corte/decupagem guardados em `_trabalho\<slug>`), não na versão nova.
 4. Nota ambígua: não chute. `update` na nota com `resposta: "DÚVIDA: <pergunta curta>"` e deixe aberta.
 5. Depois de publicar a versão nova (seção acima), marque as aplicadas num `batch` (uma entrada por nota, com `if_version`):
-   `{op: "update", collection: "notas", doc_id, data: {status: "resolvida", resposta: "<o que foi feito, 1 linha>", resolvidaEm: "v2"}}`.
+   `{op: "update", collection: "notas", doc_id, data: {status: "resolvida", resposta: "<o que foi feito, 1 linha>", resolvidaEm: "v2", tNova: <s>}}`.
+   **`tNova` = onde a alteração fica NA VERSÃO NOVA** (segundos, ~0,8 s antes da palavra/tela alterada, tirado do
+   `palavras_corte.json` da versão nova). Regra do usuário (13/10/2026): ao abrir a versão nova, a página lista o que
+   foi alterado nela (as notas resolvidas nela, com a resposta) no tempo `tNova`, com marca roxa na barra do vídeo,
+   para ele ir direto aos pontos alterados. Sem `tNova`, a página usa o tempo da versão antiga (pode ficar deslocado).
 6. Nunca apague nota do usuário. A nota "[EXEMPLO]" de autor `claude` pode ser apagada.
 
 Texto para o comentário do Notion (copiar exatamente como o usuário escreveu):
