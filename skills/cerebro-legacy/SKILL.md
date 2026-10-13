@@ -1,6 +1,6 @@
 ---
 name: cerebro-legacy
-description: Cérebro da Legacy (começando pelo time do Orgânico) — contexto do time, mapa do Notion e do Pipedrive, memória diária e o relatório matinal do Igor. Gera o relatório diário (seg–sex 8h) com publicações do dia, posts que ainda não estão prontos, decisões que esperam o Igor, tarefas de hoje e atrasadas por pessoa e o funil dos leads orgânicos/Quiz do Pipedrive (novos, avançaram, parados, taxas por etapa); e o resumo semanal (domingo). Use quando pedirem "relatório do dia", "o que tem pra hoje", "o que está atrasado", "quem tem que fazer o quê", "como estão os leads", "funil do orgânico", "relatório da semana", "resumo do orgânico", ou quando uma rotina agendada mandar rodar o relatório.
+description: Cérebro da Legacy (começando pelo time do Orgânico) — contexto do time, mapa do Notion e do Pipedrive, memória diária e o relatório matinal do Igor. Gera o relatório diário (seg–sex 8h) com publicações do dia, posts que ainda não estão prontos, decisões que esperam o Igor, tarefas de hoje e atrasadas por pessoa e o funil dos leads orgânicos/Quiz do Pipedrive (novos, avançaram, parados, taxas por etapa); e o resumo semanal (domingo). Use quando pedirem "relatório do dia", "o que tem pra hoje", "o que está atrasado", "quem tem que fazer o quê", "como estão os leads", "funil do orgânico", "relatório da semana", "resumo do orgânico", quando perguntarem sobre o quiz do Clailton, MQL, a Black Friday 2026 ou a narrativa "Viva sem medo em 2027", ou quando uma rotina agendada mandar rodar o relatório.
 ---
 
 # Cérebro Legacy — Orgânico
@@ -13,6 +13,22 @@ Arquivos desta skill:
 - `referencias/fontes.md` — onde está cada coisa no Notion e no Pipedrive (IDs, campos, regras).
 - `memoria/diario/AAAA-MM-DD.md` — um resumo curto por dia (escrito no fim de cada relatório).
 - `memoria/decisoes.md` — decisões e combinados que valem daqui pra frente.
+- `conhecimento/` — o que a empresa está fazendo em cada projeto grande (ver abaixo).
+
+## Conhecimento (conhecimento/)
+
+Arquivos factuais, com a data e o link do Notion de cada fonte. Leia antes de responder ou de
+escrever o relatório sobre o assunto:
+- `conhecimento/quiz-legacy.md` — perguntas sobre o **quiz do Clailton** (Venda Mais, Lucre Mais), **MQL**
+  (corte de R$ 71 mil no quiz), faixas de faturamento, etiquetas "Quiz Clailton · ...", Nina, SDR,
+  checkout, página de obrigado, Pixel, planilha e painel do quiz, e quem faz cada card do quadro do Quiz.
+- `conhecimento/black-friday-2026.md` — perguntas sobre a **Black Friday**, a campanha e a narrativa
+  **"Viva sem medo em 2027"**, oferta, datas, identidade visual, criativos, Academy e pop-ups, gerador de
+  Plano 2027, pré-vendas e closer, decisões de cada reunião e pendências do quadro da Black.
+
+Os dois terminam com "Informação que não bate": avise o Igor quando a resposta depender de algo dali.
+Quando uma reunião ou card novo mudar esses assuntos, atualize o arquivo e a data do topo (na nuvem,
+inclua `skills/cerebro-legacy/conhecimento/` no commit).
 
 **Onde estou rodando.** Num PC, a skill fica em `~/.claude/skills/cerebro-legacy/`. Na rotina na
 nuvem, o cofre `claude-skills` está clonado na pasta de trabalho e a skill fica em
