@@ -89,6 +89,10 @@ Rede D'Or): imagem de IA da situação (sala vazia, obra parada, prédio entregu
 Capa LEGACY com **4 linhas** no briefing: linhas 1+2 (brancas, de tamanho parecido) juntas na `{{H1}}`
 com `\n`, linha 3 na `{{H2}}` (azul `#43d1ff`) e linha 4 na `{{H3}}`; tops recalculados com a H1
 valendo 2 linhas (feito no carrossel "trilhão").
+13/10/2026: `create_new_design` com várias páginas do modelo TD deu "Failed to commit session" 3 vezes;
+funcionou criar com **1 página** e ir somando as outras com `modify_existing_design` (uma página por
+chamada, a branca do LEGACY por último). Par com copy sem "Do mesmo setor,": trocar esse trecho por
+"vendeu " (BYD) ou por "" (Mercado Livre).
 Fotos das empresas: Wikimedia via navegador (`thumb.wikimedia.org/.../1920px-`, o `upload.` dá
 erro); foto de baixo com a marca escondida atrás do texto → `crop_media` subindo a imagem.
 
