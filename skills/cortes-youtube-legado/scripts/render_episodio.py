@@ -401,7 +401,7 @@ def montar(trab: Path, ep: dict) -> dict:
         if L.get("onde") != "abertura":
             x += dur_ab
         lets.append({"t": round(x, 2), "dur": float(L.get("dur", 6)), "texto": L["texto"], "tag": L.get("tag"),
-                     "estilo": L.get("estilo")})
+                     "estilo": L.get("estilo"), "arquivo": L.get("arquivo")})
     lets.sort(key=lambda z: z["t"])
     for a_, b_ in zip(lets, lets[1:]):                 # um letreiro sai quando o próximo entra
         a_["dur"] = round(max(2.5, min(a_["dur"], b_["t"] - a_["t"] - 0.15)), 2)
@@ -448,6 +448,10 @@ def render(trab: Path, plano: dict, ep: dict, rapido: bool, so_mapa: bool = Fals
             "-loop", "1", "-framerate", "30", "-i", str(cards["compacto"])]
     lets = []
     for i, L in enumerate(m["letreiros"]):
+        if L.get("estilo") == "video":            # animação pronta (MOV com transparência, tela inteira)
+            lets.append((L, None))
+            cmd += ["-i", L["arquivo"]]
+            continue
         if L.get("estilo") == "nome":
             img, somb = LT.desenhar_nome(L["texto"], L["tag"] or "", altura)
         else:
@@ -539,8 +543,14 @@ def render(trab: Path, plano: dict, ep: dict, rapido: bool, so_mapa: bool = Fals
         fc.append(f"[{atual}][k{i}]overlay=x={x}:y={by * s:.0f}:enable='between(t,{t:.2f},{fim:.2f})'"
                   f":eof_action=pass[o{i}]")
         atual = f"o{i}"
-    for i, (L, (lx, ly)) in enumerate(lets):           # letreiros: entram e saem com fade, embaixo à esquerda
+    for i, (L, pos) in enumerate(lets):               # letreiros: entram e saem com fade, embaixo à esquerda
         d = L["dur"]
+        if pos is None:                               # animação em vídeo: já traz a própria entrada e saída
+            fc.append(f"[{k_card + 2 + i}:v]{escala}format=rgba,setpts=PTS-STARTPTS+{L['t']:.2f}/TB[lt{i}]")
+            fc.append(f"[{atual}][lt{i}]overlay=0:0:eof_action=pass[ol{i}]")
+            atual = f"ol{i}"
+            continue
+        lx, ly = pos
         fc.append(f"[{k_card + 2 + i}:v]format=rgba,fade=t=in:st=0:d=0.3:alpha=1,"
                   f"fade=t=out:st={max(0.0, d - 0.3):.2f}:d=0.3:alpha=1,setpts=PTS-STARTPTS+{L['t']:.2f}/TB[lt{i}]")
         fc.append(f"[{atual}][lt{i}]overlay=x={lx}:y={ly}:eof_action=pass[ol{i}]")
