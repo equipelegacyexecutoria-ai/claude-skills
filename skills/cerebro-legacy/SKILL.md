@@ -28,6 +28,10 @@ escrever o relatório sobre o assunto:
 - `conhecimento/posts-e-leads.md` — as janelas **Posts** e **Leads** do painel (trazidas do Insights Hub em
   14/10/2026): de onde vêm os dados, quando atualizam, regras de MQL e canal, metas, números por mês e como
   analisar (cruzando com a Bibliografia do perfil Legacy).
+- `conhecimento/testes-e-aprendizados-perfis.md` — o que o social media testou nos perfis (Bibliografia do perfil
+  Legacy): o que já sabemos (tela pré-CTA gera leads da bio, carrossel de análise de grandes empresas é o que mais
+  performa, nichos que mais viram lead, tag de IA do Canva), os testes em andamento (3 reels por dia no Clailton etc.) e
+  a linha do tempo dia a dia. Leia antes de explicar qualquer subida ou queda de métrica.
 
 Os dois primeiros terminam com "Informação que não bate": avise o Igor quando a resposta depender de algo dali.
 Quando uma reunião ou card novo mudar esses assuntos, atualize o arquivo e a data do topo (na nuvem,
