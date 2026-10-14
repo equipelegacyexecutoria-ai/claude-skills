@@ -76,6 +76,45 @@ def desenhar(texto: str, tag: str | None = None, altura_video: int = 1080) -> tu
     return img, sombra // SS
 
 
+def desenhar_nome(nome: str, cargo: str, altura_video: int = 1080) -> tuple[Image.Image, int]:
+    """Identificação de quem fala (2 linhas): barra azul à esquerda, NOME em caixa-alta e o cargo embaixo."""
+    k = altura_video / 1080 * SS
+    fn = fonte("SF-Pro-Display-Bold.otf", 40 * k)
+    fc = fonte("SF-Pro-Display-Medium.otf", 24 * k)
+    tmp = ImageDraw.Draw(Image.new("RGBA", (10, 10)))
+    bn = tmp.textbbox((0, 0), nome.upper(), font=fn)
+    bc = tmp.textbbox((0, 0), cargo, font=fc)
+    barra, pad, gap = int(8 * k), int(26 * k), int(12 * k)
+    W = barra + pad + max(bn[2] - bn[0], bc[2] - bc[0]) + pad
+    H = int(20 * k) + (bn[3] - bn[1]) + gap + (bc[3] - bc[1]) + int(22 * k)
+    R = int(12 * k)
+    sombra = int(14 * k)
+    img = Image.new("RGBA", (W + 2 * sombra, H + 2 * sombra), (0, 0, 0, 0))
+    sh = Image.new("RGBA", img.size, (0, 0, 0, 0))
+    ImageDraw.Draw(sh).rounded_rectangle((sombra, sombra + int(3 * k), sombra + W, sombra + H + int(3 * k)),
+                                         R, fill=(0, 0, 0, 130))
+    img = Image.alpha_composite(img, sh.filter(ImageFilter.GaussianBlur(int(8 * k))))
+    yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
+    f = np.clip((xx / W) * 0.7 + (1 - yy / H) * 0.3, 0, 1)[..., None]
+    c0, c1 = np.array([6, 22, 52], np.float32), np.array([14, 44, 96], np.float32)   # azul-marinho da Legacy
+    grad = (c0 * (1 - f) + c1 * f).astype(np.uint8)
+    card = Image.fromarray(np.dstack([grad, np.full((H, W), 238, np.uint8)]), "RGBA")
+    mask = Image.new("L", (W, H), 0)
+    ImageDraw.Draw(mask).rounded_rectangle((0, 0, W - 1, H - 1), R, fill=238)
+    card.putalpha(mask)
+    d = ImageDraw.Draw(card)
+    d.rounded_rectangle((0, 0, barra + R, H - 1), R, fill=(60, 131, 246, 255))        # barra azul #3c83f6
+    d.rectangle((barra, 0, barra + R, H - 1), fill=tuple(int(v) for v in c0) + (238,))
+    x = barra + pad
+    y = int(20 * k)
+    d.text((x - bn[0], y - bn[1]), nome.upper(), font=fn, fill=(255, 255, 255, 255))
+    y += (bn[3] - bn[1]) + gap
+    d.text((x - bc[0], y - bc[1]), cargo, font=fc, fill=(150, 190, 255, 255))
+    img.alpha_composite(card, (sombra, sombra))
+    img = img.resize((img.width // SS, img.height // SS), Image.LANCZOS)
+    return img, sombra // SS
+
+
 def posicao(img: Image.Image, sombra: int, altura_video: int = 1080) -> tuple[int, int]:
     """Canto do PNG (com a sombra) no quadro: caixa em x 96, 34 px acima da borda de baixo."""
     s = altura_video / 1080

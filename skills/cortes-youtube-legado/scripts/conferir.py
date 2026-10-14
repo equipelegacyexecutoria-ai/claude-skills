@@ -66,8 +66,9 @@ def main() -> None:
         falhas.append(f"resolução {v['width']}×{v['height']}")
     if v["codec_name"] != "h264" or au["codec_name"] != "aac" or au.get("sample_rate") != "48000":
         falhas.append(f"codecs {v['codec_name']}/{au['codec_name']}/{au.get('sample_rate')}")
-    if abs(dur - info["duracao"]) > 1.0:
-        falhas.append(f"duração {hms(dur)} ≠ plano {hms(info['duracao'])}")
+    total = info.get("duracao_total", info["duracao"])           # com a vinheta da Legacy, se houver
+    if abs(dur - total) > 1.0:
+        falhas.append(f"duração {hms(dur)} ≠ plano {hms(total)}")
     if not 15 * 60 <= dur <= 45 * 60:
         falhas.append(f"duração {hms(dur)} fora de 15–45 min")
     ok.append(f"formato {v['width']}×{v['height']} {v['r_frame_rate']} · {hms(dur)}")
@@ -86,7 +87,7 @@ def main() -> None:
     log = ffmpeg_log(["-i", str(video), "-vf", "blackdetect=d=0.4:pix_th=0.08", "-an", "-f", "null", "-"])
     pretos = [(float(x), float(y)) for x, y in re.findall(r"black_start:([\d.]+) black_end:([\d.]+)", log)]
     ab = info.get("abertura_dur", 0)
-    fim = info["duracao"]
+    fim = info["duracao"] - 0.5             # respiro + vinheta: o preto do fim é esperado
     ruins = [p for p in pretos if not (ab and abs(p[0] - (ab - 0.3)) < 1.0) and p[1] - p[0] > 0.4
              and not p[1] >= fim - 0.5]                       # o escurecer do fim (respiro) é esperado
     if ruins:

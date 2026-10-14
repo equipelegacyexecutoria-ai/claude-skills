@@ -42,7 +42,7 @@ from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from achar import achar_frase, resolver_cortes, tirar_intervalos  # noqa: E402
-from comum import SKILL, gravar_json, hms, ler_json, seg  # noqa: E402
+from comum import SKILL, gravar_json, hms, ler_json, seg, sonda  # noqa: E402
 import letreiro as LT  # noqa: E402
 
 BASE_URL = "https://formulario.legacyexecutoria.com.br/"
@@ -51,6 +51,7 @@ CTA_POSICOES = (0.25, 0.70, None)   # automático: ~25%, ~70% e perto do fim (pe
 CTA_FOLGA_FIM = 25                  # o QR sai pelo menos 25 s antes do fim (tela final: últimos 5–20 s)
 MAX_PAUSA, FOLGA_PAUSA = 2.5, 0.45  # pausa sem fala > 2,5 s vira 0,9 s (0,45 s de cada lado)
 DIP = 0.30                          # mergulho no preto entre a abertura e o começo do episódio
+FLASH = 0.25                        # clarão branco entre frases da intro (como a referência do ROI Hunters)
 RESPIRO = 1.2                       # fim: a última frase termina, a imagem segura 1,2 s e escurece em silêncio
 FADE_IN, FADE_OUT, DESLIZE = 0.35, 0.30, 26   # card: aparece + desliza 26 px da esquerda; some
 MARGEM_X, MARGEM_Y = 34, 28         # posição do card (canto superior esquerdo, em 1080p)
@@ -331,15 +332,36 @@ def segurar_pico(mp4: Path, teto: float = -1.2) -> None:
           flush=True)
 
 
+def anexar_vinheta(mp4: Path, vinheta: str | None) -> float:
+    """Cola a vinheta da Legacy depois do respiro final (mesmo formato do episódio: H.264 high, 30 fps, AAC 48 kHz,
+    então junta sem recodificar). Devolve a duração da vinheta (0 se não houver)."""
+    if not vinheta:
+        return 0.0
+    vd = float(sonda(vinheta)["format"]["duration"])
+    lista = mp4.with_name(mp4.stem + "_lista.txt")
+    lista.write_text(f"file '{mp4.as_posix()}'\nfile '{Path(vinheta).as_posix()}'\n", encoding="utf-8")
+    tmp = mp4.with_name(mp4.stem + "_vinheta.mp4")
+    subprocess.run(["ffmpeg", "-nostdin", "-hide_banner", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i",
+                    str(lista), "-c", "copy", "-movflags", "+faststart", str(tmp)], check=True)
+    tmp.replace(mp4)
+    lista.unlink()
+    print(f"[vinheta] {Path(vinheta).name} ({vd:.1f} s) no fim de {mp4.name}", flush=True)
+    return vd
+
+
 def montar(trab: Path, ep: dict) -> dict:
     """Trechos finais, duração, palavras e CTAs de um episódio (sem renderizar)."""
     todas = ler_json(trab / "transcricao.json")["palavras"]
     # 3º item "audio" = ponta conferida no som (o Whisper às vezes estica a palavra para dentro da pausa)
     erros = cortes_no_meio_de_palavra(todas, [(seg(x[0]), seg(x[1])) for x in ep.get("abertura", []) + ep["segmentos"]
-                                              if len(x) < 3])
+                                              if "audio" not in x[2:]])
     if erros:
         raise SystemExit(f"[ep {ep['n']}] corte no meio de palavra:\n  " + "\n  ".join(erros))
-    abertura = tirar_pausas([(seg(x[0]), seg(x[1])) for x in ep.get("abertura", [])], todas, 1.2, 0.3)
+    abertura, flash = [], set()        # 3º item "flash": a parte entra com um clarão branco (montagem da intro)
+    for x in ep.get("abertura", []):
+        if "flash" in x[2:] and abertura:
+            flash.add(len(abertura))
+        abertura += tirar_pausas([(seg(x[0]), seg(x[1]))], todas, 1.2, 0.3)
     corpo = [(seg(x[0]), seg(x[1])) for x in ep["segmentos"]]
     cortes = resolver_cortes(todas, ep.get("cortar", []))          # frases/intervalos a tirar do corpo
     corpo = tirar_pausas(tirar_intervalos(corpo, cortes), todas)
@@ -378,11 +400,12 @@ def montar(trab: Path, ep: dict) -> dict:
             raise SystemExit(f"[ep {ep['n']}] letreiro '{L['texto']}' cai num trecho cortado ({hms(ta)})")
         if L.get("onde") != "abertura":
             x += dur_ab
-        lets.append({"t": round(x, 2), "dur": float(L.get("dur", 6)), "texto": L["texto"], "tag": L.get("tag")})
+        lets.append({"t": round(x, 2), "dur": float(L.get("dur", 6)), "texto": L["texto"], "tag": L.get("tag"),
+                     "estilo": L.get("estilo")})
     lets.sort(key=lambda z: z["t"])
     for a_, b_ in zip(lets, lets[1:]):                 # um letreiro sai quando o próximo entra
         a_["dur"] = round(max(2.5, min(a_["dur"], b_["t"] - a_["t"] - 0.15)), 2)
-    return {"segs": segs, "n_ab": len(abertura), "dur": dur, "dur_ab": dur_ab, "pal": pal, "ctas": ctas,
+    return {"segs": segs, "n_ab": len(abertura), "dur": dur, "dur_ab": dur_ab, "pal": pal, "ctas": ctas, "flash": flash,
             "conv_corpo": conv_corpo, "cortes": cortes, "letreiros": lets}
 
 
@@ -424,11 +447,18 @@ def render(trab: Path, plano: dict, ep: dict, rapido: bool, so_mapa: bool = Fals
             "-loop", "1", "-framerate", "30", "-i", str(cards["compacto"])]
     lets = []
     for i, L in enumerate(m["letreiros"]):
-        img, somb = LT.desenhar(L["texto"], L["tag"], altura)
+        if L.get("estilo") == "nome":
+            img, somb = LT.desenhar_nome(L["texto"], L["tag"] or "", altura)
+        else:
+            img, somb = LT.desenhar(L["texto"], L["tag"], altura)
         png = saida_dir / f"_let_e{ep['n']}_{i + 1}.png"
         img.save(png)
         lets.append((L, LT.posicao(img, somb, altura)))
         cmd += ["-loop", "1", "-framerate", "30", "-t", f"{L['dur']:.2f}", "-i", str(png)]
+    mus = ep.get("musica_abertura")         # trilha crescente só na intro; termina no ápice junto com a última frase
+    if mus and m["dur_ab"]:
+        D = m["dur_ab"]
+        cmd += ["-ss", f"{max(0.0, mus['fim_no_arquivo'] - D):.3f}", "-t", f"{D:.3f}", "-i", mus["arquivo"]]
     fc = []
     escala = "scale=960:540:flags=lanczos," if rapido else ""
     for k, (a, b) in enumerate(segs):
@@ -448,6 +478,10 @@ def render(trab: Path, plano: dict, ep: dict, rapido: bool, so_mapa: bool = Fals
             fv.append(f"fade=t=out:st={max(0.0, d - DIP):.3f}:d={DIP}")
         if dip_ini:
             fv.append(f"fade=t=in:st=0:d={DIP}")
+        if k in m["flash"]:                        # clarão branco entre as frases da intro
+            fv.append(f"fade=t=in:st=0:d={FLASH}:color=white")
+        if k + 1 in m["flash"]:
+            fv.append(f"fade=t=out:st={max(0.0, d - 0.1):.3f}:d=0.1:color=white")
         for x, y in pretos:                       # tapa o piscar preto da gravação com o quadro vizinho
             if x < b and y > a:
                 f0, f1 = int((max(x, a) - a) * 30), int(np.ceil((min(y, b) - a) * 30))
@@ -511,7 +545,17 @@ def render(trab: Path, plano: dict, ep: dict, rapido: bool, so_mapa: bool = Fals
         atual = f"ol{i}"
     fc.append(f"[ac]{AUDIO_PRE},loudnorm=I=-14:TP=-1.5:LRA=9:measured_I={ln['input_i']}:"
               f"measured_TP={ln['input_tp']}:measured_LRA={ln['input_lra']}:measured_thresh={ln['input_thresh']}:"
-              f"offset={ln['target_offset']}:linear=true,{LIMITADOR},aresample=48000[aout]")
+              f"offset={ln['target_offset']}:linear=true,aresample=48000,aformat=channel_layouts=stereo[vn]")
+    if mus and m["dur_ab"]:
+        D, g0, g1 = m["dur_ab"], mus.get("db_ini", -11), mus.get("db_fim", -12)
+        fc.append(f"[{k_card + 2 + len(lets)}:a]aresample=48000,aformat=sample_fmts=fltp:channel_layouts=stereo,"
+                  f"volume='pow(10,({g0}+({g1 - g0})*t/{D:.3f})/20)':eval=frame,afade=t=in:d=0.5,"
+                  f"afade=t=out:st={max(0.0, D - 0.15):.3f}:d=0.15[mus]")
+        fc.append("[vn]asplit[vn1][vn2]")
+        fc.append("[mus][vn2]sidechaincompress=threshold=0.04:ratio=5:attack=10:release=350[md]")   # abaixa sob a voz
+        fc.append(f"[vn1][md]amix=inputs=2:duration=first:normalize=0,{LIMITADOR},aresample=48000[aout]")
+    else:
+        fc.append(f"[vn]{LIMITADOR},aresample=48000[aout]")
     cmd += ["-filter_complex", ";".join(fc), "-map", f"[{atual}]", "-map", "[aout]", "-t", f"{dur:.3f}"]
     # libx264 (CPU): o h264_nvenc deste ffmpeg pede driver NVIDIA ≥ 610 e o PC de render tem 13.0 da API
     if rapido:
@@ -524,6 +568,7 @@ def render(trab: Path, plano: dict, ep: dict, rapido: bool, so_mapa: bool = Fals
     (saida_dir / f"_cmd_e{ep['n']}.txt").write_text(subprocess.list2cmdline(cmd), encoding="utf-8")
     subprocess.run(cmd, check=True)
     segurar_pico(saida_dir / f"{nome}.mp4")
+    vinheta_dur = anexar_vinheta(saida_dir / f"{nome}.mp4", ep.get("vinheta"))
 
     srt(pal, saida_dir / f"{nome}.srt", plano.get("correcoes"))
     gravar_json(saida_dir / f"{nome}.json", {
@@ -533,7 +578,7 @@ def render(trab: Path, plano: dict, ep: dict, rapido: bool, so_mapa: bool = Fals
         "url_descricao": url_descricao(plano["codigo"], ep["n"]),
         "url_comentario": url_descricao(plano["codigo"], ep["n"], "comentario"),
         "card": {"png": {k: v.name for k, v in cards.items()}, "posicoes": posicoes},
-        "letreiros": m["letreiros"],
+        "letreiros": m["letreiros"], "vinheta_dur": vinheta_dur, "duracao_total": round(dur + vinheta_dur, 2),
         "loudnorm_entrada": ln})
     return saida_dir / f"{nome}.mp4"
 
