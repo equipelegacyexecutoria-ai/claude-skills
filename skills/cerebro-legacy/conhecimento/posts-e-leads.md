@@ -64,8 +64,8 @@ Ao passar o mouse nas barras aparece o balão com o detalhe (ex.: num dia de MQL
 | out (até 13) | 75 · 26 | 87 · 0 |
 
 - Metas no Hub: set/2026 = vendas R$ 130 mil, 50 leads, 60 MQL; out/2026 = vendas R$ 150 mil, 200 leads, 180 MQL.
-  Vendas orgânicas lançadas no Hub: set = 5 (R$ 109 mil), out = 1 (R$ 33 mil). **Ainda não copiadas para o Cérebro
-  (14/10): dependem do ok do Igor.**
+  Vendas orgânicas lançadas no Hub: set = 5 (R$ 109 mil), out = 1 (R$ 33 mil). Copiadas para o Cérebro em 14/10
+  (com o ok do Igor), junto com os cliques no link por dia desde 18/09 (Legacy 8, Clailton 2). O Hub não é mais usado.
 - Seguidores em 13/10/2026: Legacy 102.389 · Clailton 262.227 · Allan 2.552.
 - Canais de outubro (Legacy): bio_clailton · tiktok é o que mais traz leads (28), bio_legacy o que mais traz MQL.
 
@@ -78,3 +78,16 @@ Ao passar o mouse nas barras aparece o balão com o detalhe (ex.: num dia de MQL
 - Nunca cite nome, telefone ou e-mail de lead.
 - Pendente (14/10): uma "porta de leitura" para o Claude consultar esses números direto do banco do Cérebro (proposta;
   depende da migração do Vigia, a 0004). Até lá, peça o print ou o número ao Igor, ou leia as planilhas.
+
+## Janela Resultados (14/10/2026, v1 no ar)
+
+`#resultados` cruza posts × leads × roteiros do Notion × testes da Bibliografia: **Linha do tempo** (por perfil, cada
+dia com posts, alcance, cliques, leads do link do perfil e as marcas dos testes), **Por formato** (TD, NV, B-roll, Do topo
+à falência, Análise de empresa, Cenário Brasil; leads por post numa janela de 24h; os Ganchos = 1ª frase do roteiro) e
+**Testes** (antes × depois de 7 ou 14 dias). Canal → perfil: Legacy = bio_legacy, Story_legacy, quiz Legacy; Clailton =
+bio_clailton (Instagram), Story_clailton, quiz Clailton; TikTok do Clailton à parte.
+Achados da v1 (dados até 14/10): "Do topo à falência" é o formato que mais traz lead por post na Legacy (só 5 posts);
+"Cenário Brasil" alcança ~10× mais; o teste de 3 reels/dia no Clailton aumentou os posts (23 → 32) mas o alcance médio
+por post caiu (43 mil → 12 mil) e os leads também (16 → 6); tirar a tag de IA subiu o alcance médio por post em 38%.
+Em construção (v2): curva diária de views de cada post, repartição estimada dos leads da bio/story pelos posts e
+stories em alta, e o aviso "bombando agora".
