@@ -2,160 +2,1049 @@
  "fonte": "C:/Render/brutos/legado_t14_aula06/LEGADO AULA 06.mp4",
  "aula": "Legado Empresarial · Turma 14 · Aula 06 (Mapa estratégico)",
  "codigo": "t14a06",
- "borrar": [["02:53:36.5", "02:53:48.0", 0, 0, 1920, 1080],
-            ["02:53:48.0", "02:54:50.0", 96, 205, 1190, 670]],
+ "borrar": [
+  [
+   "02:53:36.5",
+   "02:53:48.0",
+   0,
+   0,
+   1920,
+   1080
+  ],
+  [
+   "02:53:48.0",
+   "02:54:50.0",
+   96,
+   205,
+   1190,
+   670
+  ]
+ ],
  "episodios": [
-  {"n": 1, "arquivo": "EP01 - Aumente o sacrifício ou diminua o sonho (10X e Rocky)",
-   "abertura": [["02:56:29.06", "02:56:38.40"], ["02:56:43.25", "02:56:59.20"], ["02:57:09.55", "02:57:12.95"]],
-   "segmentos": [["00:16:29.80", "00:20:11.05"],
-                 ["00:20:29.60", "00:25:29.17"],
-                 ["00:31:14.85", "00:37:01.05"],
-                 ["02:49:51.05", "02:57:12.95"],
-                 ["02:57:17.55", "03:00:10.25"]],
-   "ctas_aula": ["00:20:02", "00:36:38", "02:58:21"],
+  {
+   "n": 1,
+   "arquivo": "EP01 - Aumente o sacrifício ou diminua o sonho (10X e Rocky)",
+   "abertura": [
+    [
+     "02:56:29.03",
+     "02:56:59.20"
+    ],
+    [
+     "02:57:09.55",
+     "02:57:12.95"
+    ]
+   ],
+   "segmentos": [
+    [
+     "00:16:29.80",
+     "00:20:11.05"
+    ],
+    [
+     "00:20:38.78",
+     "00:25:29.17"
+    ],
+    [
+     "00:31:18.10",
+     "00:37:01.05"
+    ],
+    [
+     "02:49:52.42",
+     "02:57:12.95"
+    ],
+    [
+     "02:57:16.03",
+     "03:00:10.36"
+    ]
+   ],
+   "ctas_aula": [
+    "00:20:02",
+    "00:36:38",
+    "02:58:21"
+   ],
    "meta": {
-    "titulos": ["Ou você aumenta o SACRIFÍCIO ou diminui o sonho | Legado Empresarial",
-                "A regra 10X: resultados FORA DO COMUM pedem ações fora do comum",
-                "Stallone vendeu o próprio CACHORRO por um sonho: a lição para empresários"],
-    "thumbs": ["VENDEU O CACHORRO", "10X MAIS AÇÃO", "A MÉDIA TE QUEBRA"],
+    "titulos": [
+     "Ou você aumenta o SACRIFÍCIO ou diminui o sonho: a regra 10X e a lição do Rocky",
+     "A regra 10X: resultados FORA DO COMUM pedem ações fora do comum",
+     "Stallone vendeu o próprio CACHORRO por um sonho: a lição para empresários",
+     "Ou você aumenta o SACRIFÍCIO ou diminui o sonho | Legado Empresarial"
+    ],
+    "thumbs": [
+     "VENDEU O CACHORRO",
+     "10X MAIS AÇÃO",
+     "A MÉDIA TE QUEBRA"
+    ],
     "resumo": "Grant Cardone diz que as pessoas fracassam não por falta de capacidade, mas por falta de ação em massa. Nesta aula do Legado Empresarial, o Clailton explica a regra 10X, a diferença entre tensão e pressão na equipe, o ritual que tira a empresa da média e a história de Sylvester Stallone, que vendeu o próprio cachorro para não desistir de Rocky.",
-    "bullets": ["A regra 10X de Grant Cardone: multiplique a visão e as ações",
-                "Por que a média é a fórmula segura para o fracasso",
-                "Tensão x pressão: como cobrar resultado sem adoecer a equipe",
-                "O ritual de apresentar o plano para a equipe (e a empresa que triplicou o faturamento)",
-                "Stallone e Rocky: o que a obsessão por um sonho ensina ao dono de empresa"],
-    "capitulos": [["abertura", "Ele vendeu o cachorro por um sonho"],
-                  ["00:16:29.80", "Você está jogando para vencer?"],
-                  ["00:17:04", "Grant Cardone e a regra 10X"],
-                  ["00:18:27", "Por que as pessoas fazem só o básico"],
-                  ["00:20:59", "A média é a fórmula segura para o fracasso"],
-                  ["00:22:15", "Multiplique por 10 a visão e as ações"],
-                  ["00:24:04", "Aumente o sacrifício ou diminua o sonho"],
-                  ["00:24:23", "Tensão x pressão na equipe"],
-                  ["00:31:14.85", "O ritual estratégico semanal"],
-                  ["00:31:37", "Apresente o plano para a sua equipe"],
-                  ["00:35:00", "A empresa de um funcionário só que triplicou"],
-                  ["02:49:51.05", "A história de Stallone"],
-                  ["02:52:38", "A luta que inspirou Rocky"],
-                  ["02:54:50", "Escrever, vender e insistir"],
-                  ["02:58:21", "O filme que custou 1 milhão e rendeu 200"]],
-    "tags": ["10x", "Grant Cardone", "ação em massa", "Stallone", "Rocky", "motivação para empresários",
-             "gestão empresarial", "Clailton Luiz", "Legado Empresarial", "Cleiton"],
-    "hashtags": ["#empreendedorismo", "#10x", "#gestaoempresarial", "#legadoempresarial"],
-    "fatos": ["Rocky (1976) ganhou 3 Oscars: melhor filme, direção e montagem (não 'melhor atriz' nem 'roteiro'); custou cerca de US$ 1 milhão e rendeu mais de US$ 200 milhões (ok).",
-              "A luta Ali x Chuck Wepner foi em 1975 e o Wepner era americano (na fala sai 'esse alemão').",
-              "Valores da história do Stallone (ofertas pelo roteiro, preço do cachorro e da recompra) variam entre os relatos: não citar números no título/descrição.",
-              "Na fala sai 'Graham Cardone': o nome certo é Grant Cardone."]}},
-  {"n": 2, "arquivo": "EP02 - Mapa estratégico, o GPS da empresa",
-   "abertura": [["01:21:02.20", "01:21:14.90"], ["01:21:23.45", "01:21:30.20"]],
-   "segmentos": [["00:51:26.85", "00:55:26.40"],
-                 ["00:56:12.30", "00:58:08.60"],
-                 ["00:58:33.05", "01:04:49.30"],
-                 ["01:05:48.70", "01:14:04.00"],
-                 ["01:15:12.45", "01:16:43.75"],
-                 ["01:17:09.75", "01:21:45.80"]],
-   "ctas_aula": ["00:59:02", "01:07:02", "01:16:35"],
+    "bullets": [
+     "A regra 10X de Grant Cardone: multiplique a visão e as ações",
+     "Por que a média é a fórmula segura para o fracasso",
+     "Tensão x pressão: como cobrar resultado sem adoecer a equipe",
+     "O ritual de apresentar o plano para a equipe (e a empresa que triplicou o faturamento)",
+     "Stallone e Rocky: o que a obsessão por um sonho ensina ao dono de empresa"
+    ],
+    "capitulos": [
+     [
+      "abertura",
+      "Ele vendeu o cachorro por um sonho"
+     ],
+     [
+      "00:16:29.80",
+      "Você está jogando para vencer?"
+     ],
+     [
+      "00:17:04",
+      "Grant Cardone e a regra 10X"
+     ],
+     [
+      "00:18:27",
+      "Por que as pessoas fazem só o básico"
+     ],
+     [
+      "00:20:59",
+      "A média é a fórmula segura para o fracasso"
+     ],
+     [
+      "00:22:15",
+      "Multiplique por 10 a visão e as ações"
+     ],
+     [
+      "00:24:04",
+      "Aumente o sacrifício ou diminua o sonho"
+     ],
+     [
+      "00:24:23",
+      "Tensão x pressão na equipe"
+     ],
+     [
+      "00:31:18.10",
+      "O ritual estratégico semanal"
+     ],
+     [
+      "00:31:37",
+      "Apresente o plano para a sua equipe"
+     ],
+     [
+      "00:35:00",
+      "A empresa de um funcionário só que triplicou"
+     ],
+     [
+      "02:49:51.05",
+      "A história de Stallone"
+     ],
+     [
+      "02:52:38",
+      "A luta que inspirou Rocky"
+     ],
+     [
+      "02:54:50",
+      "Escrever, vender e insistir"
+     ],
+     [
+      "02:58:21",
+      "O filme que custou 1 milhão e rendeu 200"
+     ]
+    ],
+    "tags": [
+     "10x",
+     "Grant Cardone",
+     "ação em massa",
+     "Stallone",
+     "Rocky",
+     "motivação para empresários",
+     "gestão empresarial",
+     "Clailton Luiz",
+     "Legado Empresarial",
+     "Cleiton"
+    ],
+    "hashtags": [
+     "#empreendedorismo",
+     "#10x",
+     "#gestaoempresarial",
+     "#legadoempresarial"
+    ],
+    "fatos": [
+     "Rocky (1976) custou cerca de US$ 1 milhão e rendeu mais de US$ 200 milhões (ok). As falas erradas sobre os prêmios ('melhor atriz, melhor roteiro') e o 'alemão' (Chuck Wepner era americano) foram cortadas.",
+     "Valores da história do Stallone (ofertas pelo roteiro, preço do cachorro e da recompra) variam entre os relatos: não citar números no título/descrição.",
+     "Na fala sai 'Graham Cardone': o nome certo é Grant Cardone (a legenda .srt já corrige)."
+    ]
+   },
+   "cortar": [
+    {
+     "frase": "através até do mapa estratégico que você vai entender hoje",
+     "perto": "00:31:43"
+    },
+    {
+     "frase": "Alguns já fizeram",
+     "perto": "00:33:00"
+    },
+    {
+     "frase": "que é o que nós vamos tratar aqui hoje",
+     "perto": "00:33:22"
+    },
+    {
+     "de": "no CDL, no centro de Floripa",
+     "ate_antes": "convidou uns cinco clientes",
+     "perto": "00:35:30"
+    },
+    {
+     "frase": "esse alemão",
+     "perto": "02:53:51"
+    },
+    {
+     "frase": "melhor atriz, melhor roteiro",
+     "perto": "02:59:09"
+    },
+    {
+     "de": "aí o cara, o comérciozinho",
+     "ate": "fez isso com um",
+     "perto": "02:56:59"
+    },
+    {
+     "frase": "Não sei se vocês já fizeram essa ressignificação inicial, não, esse ano, divagar na reta e pau na curva,",
+     "perto": "00:16:50"
+    },
+    {
+     "de": "Quem aqui assistiu ou já assistiu a série 90 dias",
+     "ate": "a gente está simplificando Essa roda que foi inventada",
+     "perto": "00:17:13"
+    },
+    {
+     "frase": "Se esforçando um pouco mais",
+     "perto": "00:21:47",
+     "raio": 3
+    },
+    {
+     "de": "E portanto nem precisam mais ler o livro",
+     "ate": "Sempre é muito bom",
+     "perto": "00:22:09"
+    },
+    {
+     "de": "E aí ele diz Eu teria que ligar",
+     "ate": "Então essa é a lógica dele",
+     "perto": "00:23:35"
+    },
+    {
+     "frase": "Uma delas é essa que nós estamos fazendo aqui, e",
+     "perto": "00:31:23"
+    },
+    {
+     "frase": "ações que a gente vai cobrar de vocês aqui para que vocês executem.",
+     "perto": "00:36:49"
+    }
+   ],
+   "letreiros": [
+    {
+     "aula": "02:56:29.10",
+     "onde": "abertura",
+     "texto": "Sylvester Stallone, antes de Rocky",
+     "dur": 5.5
+    },
+    {
+     "aula": "02:57:09.60",
+     "onde": "abertura",
+     "texto": "A história completa no fim do episódio",
+     "dur": 3.3
+    },
+    {
+     "aula": "02:53:36.60",
+     "tag": "A LUTA QUE INSPIROU ROCKY",
+     "texto": "Muhammad Ali x Chuck Wepner, 1975",
+     "dur": 12
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "arquivo": "EP02 - Mapa estratégico, o GPS da empresa",
+   "abertura": [
+    [
+     "01:21:05.18",
+     "01:21:14.90"
+    ],
+    [
+     "01:21:23.45",
+     "01:21:38.65"
+    ]
+   ],
+   "segmentos": [
+    [
+     "00:51:27.10",
+     "00:55:18.50",
+     "audio"
+    ],
+    [
+     "00:56:12.30",
+     "00:58:08.60"
+    ],
+    [
+     "00:58:33.05",
+     "01:04:41.81"
+    ],
+    [
+     "01:05:48.70",
+     "01:14:04.00"
+    ],
+    [
+     "01:15:20.80",
+     "01:16:43.75"
+    ],
+    [
+     "01:17:09.75",
+     "01:21:38.65"
+    ]
+   ],
+   "ctas_aula": [
+    "00:59:02",
+    "01:07:02",
+    "01:16:35"
+   ],
    "meta": {
-    "titulos": ["Mapa estratégico: o GPS que toda empresa precisa ter | Legado Empresarial",
-                "Ninguém gerencia o que não mede: o PAINEL da sua empresa",
-                "Ela contratou um vendedor que ganha MAIS que ela, e o salário dela subiu 10x"],
-    "thumbs": ["LUCRO É SINTOMA", "VOCÊ MEDE ISSO?", "SEM MAPA, SEM LUCRO"],
+    "titulos": [
+     "O financeiro é só a FEBRE: o mapa que mostra onde a empresa adoece",
+     "Mapa estratégico: o GPS que toda empresa precisa ter | Legado Empresarial",
+     "Ninguém gerencia o que não mede: o PAINEL da sua empresa",
+     "Ela contratou um vendedor que ganha MAIS que ela, e o salário dela subiu 10x"
+    ],
+    "thumbs": [
+     "LUCRO É SINTOMA",
+     "VOCÊ MEDE ISSO?",
+     "SEM MAPA, SEM LUCRO"
+    ],
     "resumo": "O financeiro é só a febre: ele mostra que algo vai mal na liderança, na entrega, no marketing ou no comercial. Nesta aula do Legado Empresarial, o Clailton apresenta o mapa estratégico, o GPS da empresa baseado no Balanced Scorecard, e mostra como conectar e medir todas as áreas para o lucro aparecer.",
-    "bullets": ["O mapa estratégico como GPS da empresa",
-                "Balanced Scorecard: por que todas as áreas precisam crescer juntas",
-                "Causa e efeito: da liderança até o lucro",
-                "Objetivo estratégico x meta, e por que quem não mede não gerencia",
-                "O caso da empresária que contratou um vendedor que ganha mais que ela"],
-    "capitulos": [["abertura", "Ela contratou alguém que ganha mais que ela"],
-                  ["00:51:26.85", "O GPS da empresa"],
-                  ["00:53:41", "O que é o mapa estratégico"],
-                  ["00:56:12.30", "Tarefas soltas, sem impacto no resultado"],
-                  ["00:58:33.05", "Todas as áreas conectadas"],
-                  ["00:59:38", "Balanced Scorecard: causa e efeito"],
-                  ["01:00:48", "A distração, maior inimiga do empresário"],
-                  ["01:01:40", "Transforme o plano em ritual"],
-                  ["01:02:21", "O mapa na parede e o 14º salário"],
-                  ["01:05:48.70", "Tudo está interligado"],
-                  ["01:07:47", "Os três elementos do mapa"],
-                  ["01:10:15", "As cinco áreas da empresa"],
-                  ["01:12:37", "O financeiro é o termômetro"],
-                  ["01:15:12.45", "Objetivo estratégico x meta"],
-                  ["01:16:35", "Consultoria x executoria"],
-                  ["01:17:09.75", "O semáforo dos indicadores"],
-                  ["01:19:08", "Ninguém gerencia o que não mede"],
-                  ["01:20:40", "O caso da empresária"]],
-    "tags": ["mapa estratégico", "planejamento estratégico", "balanced scorecard", "BSC", "indicadores de gestão",
-             "gestão empresarial", "Clailton Luiz", "Legado Empresarial", "Legacy Executoria", "Cleiton"],
-    "hashtags": ["#planejamentoestrategico", "#gestaoempresarial", "#indicadores", "#legadoempresarial"],
-    "fatos": ["Balanced Scorecard: Robert Kaplan e David Norton, Harvard Business Review, 1992 (ok, 'década de 90')."]}},
-  {"n": 3, "arquivo": "EP03 - Sua empresa não é um carro, é um avião",
-   "abertura": [["01:52:46.90", "01:53:20.22"]],
-   "segmentos": [["01:47:59.02", "01:57:25.20"],
-                 ["02:23:06.90", "02:28:36.20"],
-                 ["02:42:34.55", "02:46:37.30"]],
-   "ctas_aula": ["01:54:40", "02:26:37", "02:44:47"],
+    "bullets": [
+     "O mapa estratégico como GPS da empresa",
+     "Balanced Scorecard: por que todas as áreas precisam crescer juntas",
+     "Causa e efeito: da liderança até o lucro",
+     "Objetivo estratégico x meta, e por que quem não mede não gerencia",
+     "O caso da empresária que contratou um vendedor que ganha mais que ela"
+    ],
+    "capitulos": [
+     [
+      "abertura",
+      "Ela contratou alguém que ganha mais que ela"
+     ],
+     [
+      "00:51:26.85",
+      "O GPS da empresa"
+     ],
+     [
+      "00:53:41",
+      "O que é o mapa estratégico"
+     ],
+     [
+      "00:56:12.30",
+      "Tarefas soltas, sem impacto no resultado"
+     ],
+     [
+      "00:58:33.05",
+      "Todas as áreas conectadas"
+     ],
+     [
+      "00:59:38",
+      "Balanced Scorecard: causa e efeito"
+     ],
+     [
+      "01:00:48",
+      "A distração, maior inimiga do empresário"
+     ],
+     [
+      "01:01:40",
+      "Transforme o plano em ritual"
+     ],
+     [
+      "01:02:21",
+      "O mapa na parede da empresa"
+     ],
+     [
+      "01:05:48.70",
+      "Tudo está interligado"
+     ],
+     [
+      "01:07:47",
+      "Os três elementos do mapa"
+     ],
+     [
+      "01:10:15",
+      "As cinco áreas da empresa"
+     ],
+     [
+      "01:12:37",
+      "O financeiro é o termômetro"
+     ],
+     [
+      "01:15:20.80",
+      "Objetivo estratégico x meta"
+     ],
+     [
+      "01:16:35",
+      "Consultoria x executoria"
+     ],
+     [
+      "01:17:38",
+      "O semáforo dos indicadores"
+     ],
+     [
+      "01:19:08",
+      "Ninguém gerencia o que não mede"
+     ],
+     [
+      "01:20:53.60",
+      "O caso da empresária"
+     ]
+    ],
+    "tags": [
+     "mapa estratégico",
+     "planejamento estratégico",
+     "balanced scorecard",
+     "BSC",
+     "indicadores de gestão",
+     "gestão empresarial",
+     "Clailton Luiz",
+     "Legado Empresarial",
+     "Legacy Executoria",
+     "Cleiton"
+    ],
+    "hashtags": [
+     "#planejamentoestrategico",
+     "#gestaoempresarial",
+     "#indicadores",
+     "#legadoempresarial"
+    ],
+    "fatos": [
+     "Balanced Scorecard: Robert Kaplan e David Norton, Harvard Business Review, 1992 (ok, 'década de 90')."
+    ]
+   },
+   "cortar": [
+    {
+     "de": "Aí me lembrei agora de mais um",
+     "ate_antes": "O mapa conecta tudo",
+     "perto": "00:57:38"
+    },
+    {
+     "frase": "Semana que vem a gente já vai ver algumas",
+     "perto": "01:02:12"
+    },
+    {
+     "de": "tem algumas empresas que a gente olha",
+     "ate": "Isso aqui de lucro",
+     "perto": "01:07:05"
+    },
+    {
+     "frase": "da qual a gente já validou os indicadores na sua DRE",
+     "perto": "01:10:24"
+    },
+    {
+     "frase": "que começaremos a validar os indicadores nas próximas semanas",
+     "perto": "01:10:29"
+    },
+    {
+     "frase": "como o Adriano bem falou ali",
+     "perto": "01:10:44"
+    },
+    {
+     "frase": "eu vou mostrar daqui a pouco para vocês",
+     "perto": "01:17:27"
+    },
+    {
+     "de": "Dá o microfone ali",
+     "ate": "Nós nem acreditamos",
+     "perto": "01:20:37"
+    },
+    {
+     "frase": "ontem lá, o Claudio mostrando",
+     "perto": "01:20:40"
+    },
+    [
+     "01:20:52.40",
+     "01:20:53.45"
+    ],
+    {
+     "de": "Antes do GPS, nós tínhamos o mapa impresso",
+     "ate": "Isso é a mesma coisa.",
+     "perto": "00:52:44"
+    },
+    {
+     "de": "É isso que a gente tem, que eu quero entregar para você",
+     "ate_antes": "Ele funciona como um GPS corporativo",
+     "perto": "00:53:28"
+    },
+    {
+     "frase": "E essa ferramentinha que vocês têm aí na mesa,",
+     "perto": "01:01:01"
+    },
+    {
+     "frase": "Mas pelo menos uma vez por mês a gente vai trazer você aqui para a gente olhar o macro gerenciamento.",
+     "perto": "01:01:35"
+    },
+    {
+     "de": "ele tem ali uma coluna de percentual que você vai puxar da planilha",
+     "ate": "e por que essa versão impressa?",
+     "perto": "01:02:41"
+    },
+    {
+     "de": "Então nós temos aí, e aí você tem no impresso ainda",
+     "ate_antes": "Então, o primeiro elemento é a visão de futuro",
+     "perto": "01:08:08"
+    },
+    {
+     "frase": "porque tem um semáforo aí que pode fazer com que eles... Vai ficando assim.",
+     "perto": "01:17:34"
+    },
+    {
+     "frase": "que nós vamos dizer quais são",
+     "perto": "01:18:34",
+     "raio": 10
+    },
+    {
+     "frase": "conectado nessa planilha que vocês têm,",
+     "perto": "01:19:34",
+     "raio": 10
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "arquivo": "EP03 - Sua empresa não é um carro, é um avião",
+   "abertura": [
+    [
+     "01:52:39.50",
+     "01:53:20.22"
+    ]
+   ],
+   "segmentos": [
+    [
+     "01:48:08.00",
+     "01:57:25.38"
+    ],
+    [
+     "02:23:18.25",
+     "02:28:36.20"
+    ],
+    [
+     "02:42:34.55",
+     "02:47:03.60"
+    ]
+   ],
+   "ctas_aula": [
+    "01:51:19",
+    "02:26:37",
+    "02:44:47"
+   ],
    "meta": {
-    "titulos": ["Sua empresa NÃO é um carro (e isso muda tudo) | Legado Empresarial",
-                "Uma PICANHA esquecida revelou o prejuízo: por que medir salva a empresa",
-                "Pare de PEDALAR a sua empresa: o painel de controle do dono"],
-    "thumbs": ["PARE DE PEDALAR", "ELA É UM AVIÃO", "A PICANHA PODRE"],
+    "titulos": [
+     "Sua empresa NÃO é um carro, é um AVIÃO (e sem painel ela cai)",
+     "Sua empresa NÃO é um carro (e isso muda tudo) | Legado Empresarial",
+     "Uma PICANHA esquecida revelou o prejuízo: por que medir salva a empresa",
+     "Pare de PEDALAR a sua empresa: o painel de controle do dono"
+    ],
+    "thumbs": [
+     "PARE DE PEDALAR",
+     "ELA É UM AVIÃO",
+     "A PICANHA PODRE"
+    ],
     "resumo": "Carro sem painel ainda anda; avião sem painel cai. Nesta aula do Legado Empresarial, o Clailton mostra por que sua empresa precisa de um painel de indicadores, conta como um indicador revelou um prejuízo escondido num hotel e ensina o ritual mensal que coloca a equipe inteira no mesmo jogo.",
-    "bullets": ["Por que a empresa não é carro nem bicicleta, e sim avião",
-                "Como um indicador de custo revelou um freezer esquecido e um prejuízo",
-                "Da cabine para a torre de controle: como o dono deixa de pilotar sozinho",
-                "Gestão à vista e o ritual mensal de cultura com a equipe",
-                "O mapa pessoal e o poder do foco"],
-    "capitulos": [["abertura", "O mês em que o custo explodiu"],
-                  ["01:47:59.02", "Sua empresa não é um carro"],
-                  ["01:49:35", "Nem uma bicicleta"],
-                  ["01:50:36", "Por que ela é um avião"],
-                  ["01:51:32", "O caso do hotel e do custo da mercadoria"],
-                  ["01:54:40", "Só descobri porque estava medindo"],
-                  ["01:55:29", "Comece com 3 indicadores"],
-                  ["01:56:26", "Da cabine para a torre de controle"],
-                  ["02:23:06.90", "O mapa na parede"],
-                  ["02:26:32", "O ritual mensal com a equipe"],
-                  ["02:28:02", "Faça o que você nunca fez"],
-                  ["02:42:34.55", "A distração e o mapa como antídoto"],
-                  ["02:43:14", "O mapa estratégico pessoal"],
-                  ["02:45:10", "O videogame do filho e o poder do foco"]],
-    "tags": ["indicadores", "gestão à vista", "painel de indicadores", "CMV", "gestão empresarial",
-             "foco", "Clailton Luiz", "Legado Empresarial", "Legacy Executoria", "Cleiton"],
-    "hashtags": ["#gestaoempresarial", "#indicadores", "#empreendedorismo", "#legadoempresarial"],
-    "fatos": ["Elon Musk comanda cerca de 6 empresas (Tesla, SpaceX, X/xAI, Neuralink, The Boring Company), não '12'."]}},
-  {"n": 4, "arquivo": "EP04 - Os 15 objetivos estratégicos de toda empresa",
-   "abertura": [["02:06:51.70", "02:07:13.25"]],
-   "segmentos": [["01:27:00.66", "01:31:20.10"],
-                 ["01:57:25.40", "02:02:24.20"],
-                 ["02:04:02.05", "02:13:23.55"]],
-   "ctas_aula": ["01:30:46", "02:06:43", "02:11:44"],
+    "bullets": [
+     "Por que a empresa não é carro nem bicicleta, e sim avião",
+     "Como um indicador de custo revelou um freezer esquecido e um prejuízo",
+     "Da cabine para a torre de controle: como o dono deixa de pilotar sozinho",
+     "Gestão à vista e o ritual mensal de cultura com a equipe",
+     "O mapa pessoal e o poder do foco"
+    ],
+    "capitulos": [
+     [
+      "abertura",
+      "O mês em que o custo explodiu"
+     ],
+     [
+      "01:48:08.00",
+      "Sua empresa não é um carro"
+     ],
+     [
+      "01:49:35",
+      "Nem uma bicicleta"
+     ],
+     [
+      "01:50:36",
+      "Por que ela é um avião"
+     ],
+     [
+      "01:51:32",
+      "O caso do hotel e do custo da mercadoria"
+     ],
+     [
+      "01:54:40",
+      "Só descobri porque estava medindo"
+     ],
+     [
+      "01:55:29",
+      "Comece com 3 indicadores"
+     ],
+     [
+      "01:56:26",
+      "Da cabine para a torre de controle"
+     ],
+     [
+      "02:23:18.25",
+      "O mapa na parede"
+     ],
+     [
+      "02:26:32",
+      "O ritual mensal com a equipe"
+     ],
+     [
+      "02:28:02",
+      "Faça o que você nunca fez"
+     ],
+     [
+      "02:42:34.55",
+      "A distração e o mapa como antídoto"
+     ],
+     [
+      "02:43:14",
+      "O mapa estratégico pessoal"
+     ],
+     [
+      "02:45:10",
+      "O videogame do filho e o poder do foco"
+     ]
+    ],
+    "tags": [
+     "indicadores",
+     "gestão à vista",
+     "painel de indicadores",
+     "CMV",
+     "gestão empresarial",
+     "foco",
+     "Clailton Luiz",
+     "Legado Empresarial",
+     "Legacy Executoria",
+     "Cleiton"
+    ],
+    "hashtags": [
+     "#gestaoempresarial",
+     "#indicadores",
+     "#empreendedorismo",
+     "#legadoempresarial"
+    ],
+    "fatos": [
+     "A fala 'o Elon Musk tem umas 12 empresas' foi cortada (são cerca de 6)."
+    ]
+   },
+   "cortar": [
+    {
+     "de": "Aí eu peguei o regulamento interno",
+     "ate_antes": "Eu só subi disso",
+     "perto": "01:54:02"
+    },
+    {
+     "frase": "Como o Adriano falou, elas são",
+     "perto": "01:55:15"
+    },
+    {
+     "de": "Aí tem que fechar as portas",
+     "ate": "Ou levar ele para um software",
+     "perto": "01:56:07"
+    },
+    {
+     "frase": "umas 12 empresas, talvez muito mais do que isso hoje",
+     "perto": "01:57:05"
+    },
+    {
+     "de": "Então eles já escreveram aqui, entregar 10 milhões",
+     "ate_antes": "E uma vez, qual é o ritual",
+     "perto": "02:23:30",
+     "raio": 400
+    },
+    {
+     "frase": "Por isso que eu falei lá hoje no início, que",
+     "perto": "02:42:46"
+    },
+    {
+     "frase": "e você vai olhar porque nós vamos cobrar",
+     "perto": "02:42:57"
+    },
+    {
+     "frase": "E se você fizer...",
+     "perto": "02:28:10",
+     "raio": 20
+    },
+    {
+     "frase": "Por isso que existe pouca...",
+     "perto": "02:28:16",
+     "raio": 20
+    },
+    {
+     "frase": "Esse sábado agora, por exemplo,",
+     "perto": "02:43:16"
+    },
+    {
+     "frase": "inclusive vou compartilhar aí no meu Instagram essa reunião com ela,",
+     "perto": "02:43:21"
+    },
+    {
+     "de": "Meu filho casou recentemente",
+     "ate": "fizeram lá o Canva deles do ano.",
+     "perto": "02:45:02"
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "arquivo": "EP04 - Os 15 objetivos estratégicos de toda empresa",
+   "abertura": [
+    [
+     "02:06:51.70",
+     "02:06:54.72"
+    ],
+    [
+     "02:06:58.10",
+     "02:07:05.30"
+    ],
+    [
+     "02:00:04.84",
+     "02:00:12.66"
+    ]
+   ],
+   "segmentos": [
+    [
+     "01:27:02.62",
+     "01:31:02.80"
+    ],
+    [
+     "01:57:25.40",
+     "02:02:05.45"
+    ],
+    [
+     "02:04:02.05",
+     "02:09:12.80"
+    ],
+    [
+     "01:40:07.40",
+     "01:42:51.00"
+    ],
+    [
+     "02:09:30.05",
+     "02:13:23.55"
+    ]
+   ],
+   "ctas_aula": [
+    "02:00:17.8",
+    "01:41:26",
+    "02:12:20"
+   ],
    "meta": {
-    "titulos": ["Os 15 OBJETIVOS ESTRATÉGICOS que toda empresa deveria ter | Legado Empresarial",
-                "Você sabe o retorno do seu MARKETING? Os objetivos que todo dono precisa medir",
-                "Planejamento estratégico na prática: 3 objetivos para CADA ÁREA da empresa"],
-    "thumbs": ["META NÃO É OBJETIVO", "VOCÊ SABE SEU ROAS?", "3 POR ÁREA"],
-    "resumo": "Toda empresa com planejamento estratégico tem um mapa, de governos estaduais a gigantes como Gerdau e Sabesp. Nesta aula do Legado Empresarial, o Clailton mostra os 15 objetivos estratégicos que ele recomenda, 3 para cada área (financeiro, comercial, marketing, produção e liderança), e como medir cada um.",
-    "bullets": ["O mapa estratégico é padrão mundial (e por que poucos conseguem implantar)",
-                "Financeiro: lucro, custos variáveis e despesas operacionais",
-                "Comercial: faturamento, vendas por indicação e taxa de conversão",
-                "Marketing: Google, redes sociais e retorno do investimento (ROAS)",
-                "Produção e liderança: produtividade, experiência do cliente, talentos e cultura"],
-    "capitulos": [["abertura", "Você sabe o retorno do seu marketing?"],
-                  ["01:27:00.66", "O mapa estratégico é padrão mundial"],
-                  ["01:29:42", "Kaplan, Norton e o Balanced Scorecard"],
-                  ["01:30:41", "Por que poucos conseguem implantar"],
-                  ["01:57:25.40", "Os objetivos do financeiro"],
-                  ["02:00:40", "Quando trocar um objetivo"],
-                  ["02:04:02.05", "Os objetivos do comercial"],
-                  ["02:06:15", "Os objetivos do marketing"],
-                  ["02:08:02", "Os objetivos da produção"],
-                  ["02:10:10", "Os objetivos da liderança"],
-                  ["02:11:44", "Uma empresa desejável para trabalhar"]],
-    "tags": ["objetivos estratégicos", "planejamento estratégico", "mapa estratégico", "balanced scorecard",
-             "ROAS", "indicadores", "Clailton Luiz", "Legado Empresarial", "gestão empresarial", "Cleiton"],
-    "hashtags": ["#planejamentoestrategico", "#gestaoempresarial", "#marketing", "#legadoempresarial"],
-    "fatos": ["'Reconhecido por Harvard como a melhor ideia de gestão dos últimos 100 anos': a Harvard Business Review colocou o Balanced Scorecard entre as ideias de gestão mais influentes, mas esse título não existe.",
-              "'50% das empresas da lista da Forbes usam o método': o número que circula é cerca de 50% das Fortune 1000; não citar como Forbes.",
-              "Na transcrição aparece 'Ruas': é ROAS (retorno sobre o investimento em anúncios)."]}}
- ]
+    "titulos": [
+     "Os 15 OBJETIVOS ESTRATÉGICOS que toda empresa deveria ter (3 por área)",
+     "Você sabe o retorno do seu MARKETING? Os objetivos que todo dono precisa medir",
+     "Planejamento estratégico na prática: 3 objetivos para CADA ÁREA da empresa"
+    ],
+    "thumbs": [
+     "VOCÊ SABE SEU ROAS?",
+     "3 POR ÁREA",
+     "O MAPA TE OBRIGA"
+    ],
+    "resumo": "Toda empresa com planejamento estratégico tem um mapa, do governo do Rio Grande do Sul à Gerdau. Nesta aula do Legado Empresarial, o Clailton mostra os 15 objetivos estratégicos que ele recomenda, 3 para cada área (financeiro, comercial, marketing, produção e liderança), e como medir cada um.",
+    "bullets": [
+     "O mapa estratégico é padrão mundial (e por que poucos conseguem implantar)",
+     "Financeiro: lucro, custos variáveis e despesas operacionais",
+     "Comercial: faturamento, vendas por indicação e taxa de conversão",
+     "Marketing: Google, redes sociais e retorno do investimento (ROAS)",
+     "Produção e liderança: produtividade, experiência do cliente, talentos e cultura"
+    ],
+    "capitulos": [
+     [
+      "abertura",
+      "Você sabe o retorno do seu marketing?"
+     ],
+     [
+      "01:27:02.62",
+      "O mapa estratégico é padrão mundial"
+     ],
+     [
+      "01:29:42",
+      "Kaplan, Norton e por que poucos conseguem implantar"
+     ],
+     [
+      "01:57:25.40",
+      "Os objetivos do financeiro"
+     ],
+     [
+      "02:00:40",
+      "Quando trocar um objetivo"
+     ],
+     [
+      "02:04:02.05",
+      "Os objetivos do comercial"
+     ],
+     [
+      "02:06:15",
+      "Os objetivos do marketing"
+     ],
+     [
+      "02:08:02",
+      "Os objetivos da produção"
+     ],
+     [
+      "01:40:07.40",
+      "O sofá, a pesquisa e o cliente que some"
+     ],
+     [
+      "02:10:10",
+      "Os objetivos da liderança"
+     ],
+     [
+      "02:11:44",
+      "Uma empresa desejável para trabalhar"
+     ]
+    ],
+    "tags": [
+     "objetivos estratégicos",
+     "planejamento estratégico",
+     "mapa estratégico",
+     "balanced scorecard",
+     "ROAS",
+     "indicadores",
+     "Clailton Luiz",
+     "Legado Empresarial",
+     "gestão empresarial",
+     "Cleiton"
+    ],
+    "hashtags": [
+     "#planejamentoestrategico",
+     "#gestaoempresarial",
+     "#marketing",
+     "#legadoempresarial"
+    ],
+    "fatos": [
+     "As falas 'reconhecido por Harvard como a melhor ideia de gestão dos últimos 100 anos' e '50% da lista da Forbes' foram cortadas, mas os slides 'HARVARD 100 ANOS' e 'LISTA DA FORBES' aparecem de relance no telão (câmera em movimento, sem como borrar). Não citar esses dados no título/descrição.",
+     "Na transcrição aparece 'Ruas': é ROAS (a legenda .srt já corrige)."
+    ]
+   },
+   "cortar": [
+    {
+     "de": "Esse aqui é do Estado de Minas Gerais",
+     "ate_antes": "Esse aqui é um bem antigo, um clássico da Gerdau",
+     "perto": "01:27:43"
+    },
+    {
+     "de": "é, inclusive, reconhecido por essa universidade",
+     "ate": "a melhor ideia de gestão aqui do Brasil",
+     "perto": "01:29:50"
+    },
+    {
+     "de": "Inclusive, a sua DRE já está dizendo",
+     "ate": "O percentual geral desses três",
+     "perto": "01:57:54"
+    },
+    {
+     "de": "Então, o financeiro, olha só",
+     "ate": "é aumentar faturamento",
+     "perto": "02:04:24"
+    },
+    {
+     "de": "Deu 0",
+     "ate": "da lucratividade dele",
+     "perto": "02:12:29"
+    },
+    {
+     "de": "Entregou, vamos pegar aqui",
+     "ate": "o exemplo da Rick Entalho",
+     "perto": "01:40:09"
+    },
+    {
+     "frase": "como o Adriano falou",
+     "perto": "02:08:13"
+    },
+    {
+     "de": "Enfim, isso aqui a gente vai falar mais à frente",
+     "ate": "como você trabalha neles",
+     "perto": "02:10:00"
+    },
+    {
+     "frase": "Isso que a gente fez aqui hoje",
+     "perto": "02:10:46"
+    },
+    {
+     "de": "Esse aqui é um outro, Sabesp.",
+     "ate": "Gostei. Bem diferente.",
+     "perto": "01:29:03"
+    },
+    {
+     "frase": "Então, você só tem que aprender a jogar esse jogo.",
+     "perto": "01:30:37"
+    },
+    {
+     "frase": "como o da contabilidade,",
+     "perto": "01:30:43"
+    },
+    {
+     "frase": "No comercial, vamos aumentar a lucratividade,",
+     "perto": "01:57:30"
+    },
+    {
+     "de": "A empresa vai dar resultado. Se você ou tu diminui",
+     "ate_antes": "Então, esses são os objetivos",
+     "perto": "02:00:19"
+    },
+    {
+     "frase": "Você está entendendo? Está todo mundo comigo aqui, entenderam?",
+     "perto": "02:01:02"
+    },
+    {
+     "frase": "Essa frase, essa declaração que vocês fizeram aqui morreu.",
+     "perto": "02:11:17"
+    }
+   ],
+   "letreiros": [
+    {
+     "frase": "no financeiro, vamos aumentar a lucratividade",
+     "perto": "01:57:33",
+     "raio": 30,
+     "tag": "FINANCEIRO · 1/15",
+     "texto": "Aumentar lucratividade",
+     "dur": 7
+    },
+    {
+     "frase": "Ah, eu quero diminuir os custos variáveis",
+     "perto": "01:58:59",
+     "raio": 30,
+     "tag": "FINANCEIRO · 2/15",
+     "texto": "Diminuir custos variáveis",
+     "dur": 7
+    },
+    {
+     "frase": "Eu quero diminuir as despesas operacionais",
+     "perto": "01:59:08",
+     "raio": 30,
+     "tag": "FINANCEIRO · 3/15",
+     "texto": "Diminuir custos operacionais",
+     "dur": 7
+    },
+    {
+     "frase": "Eu quero aumentar o faturamento",
+     "perto": "02:04:05",
+     "raio": 30,
+     "tag": "COMERCIAL · 4/15",
+     "texto": "Aumentar faturamento",
+     "dur": 7
+    },
+    {
+     "frase": "aqui, aumentar venda por indicação",
+     "perto": "02:05:17",
+     "raio": 30,
+     "tag": "COMERCIAL · 5/15",
+     "texto": "Aumentar vendas por indicação",
+     "dur": 7
+    },
+    {
+     "frase": "Melhorar as taxas de conversão",
+     "perto": "02:05:50",
+     "raio": 30,
+     "tag": "COMERCIAL · 6/15",
+     "texto": "Melhorar taxas de conversão",
+     "dur": 7
+    },
+    {
+     "frase": "Eu quero melhorar a minha visibilidade no Google",
+     "perto": "02:06:16",
+     "raio": 30,
+     "tag": "MARKETING · 7/15",
+     "texto": "Aumentar a visibilidade da marca no Google",
+     "dur": 7
+    },
+    {
+     "frase": "a tua visibilidade da tua marca nas redes sociais",
+     "perto": "02:06:30",
+     "raio": 30,
+     "tag": "MARKETING · 8/15",
+     "texto": "Aumentar a visibilidade da marca nas redes sociais",
+     "dur": 7
+    },
+    {
+     "frase": "e o teu retorno sobre investimento no marketing",
+     "perto": "02:06:36",
+     "raio": 30,
+     "tag": "MARKETING · 9/15",
+     "texto": "Melhorar o retorno sobre o investimento no marketing",
+     "dur": 7
+    },
+    {
+     "frase": "Na produção, melhorar produtividade da equipe",
+     "perto": "02:08:02",
+     "raio": 30,
+     "tag": "PRODUÇÃO · 10/15",
+     "texto": "Melhorar produtividade",
+     "dur": 7
+    },
+    {
+     "frase": "Melhorar a experiência do cliente na produção",
+     "perto": "02:08:57",
+     "raio": 30,
+     "tag": "PRODUÇÃO · 11/15",
+     "texto": "Melhorar a experiência do cliente",
+     "dur": 7
+    },
+    {
+     "frase": "E melhorar o relacionamento com parceiros estratégicos",
+     "perto": "02:09:30",
+     "raio": 30,
+     "tag": "PRODUÇÃO · 12/15",
+     "texto": "Melhorar relacionamentos com parceiros estratégicos",
+     "dur": 7
+    },
+    {
+     "frase": "Desenvolver e capacitar talentos",
+     "perto": "02:10:14",
+     "raio": 30,
+     "tag": "LIDERANÇA · 13/15",
+     "texto": "Desenvolver e capacitar talentos",
+     "dur": 7
+    },
+    {
+     "frase": "Elevar e engajar o engajamento com a cultura",
+     "perto": "02:10:41",
+     "raio": 30,
+     "tag": "LIDERANÇA · 14/15",
+     "texto": "Elevar o engajamento com a cultura da empresa",
+     "dur": 7
+    },
+    {
+     "frase": "ser uma empresa desejável para se trabalhar",
+     "perto": "02:11:44",
+     "raio": 30,
+     "tag": "LIDERANÇA · 15/15",
+     "texto": "Ser uma empresa desejável para se trabalhar",
+     "dur": 7
+    }
+   ]
+  }
+ ],
+ "correcoes": {
+  "Cléuto": "Clailton",
+  "Cleuto": "Clailton",
+  "Cleiton": "Clailton",
+  "Clayilton": "Clailton",
+  "Clayuto": "Clailton",
+  "Graham Cardone": "Grant Cardone",
+  "Ruas": "ROAS",
+  "Blackbuster": "Blockbuster",
+  "Chuck Whip": "Chuck Wepner",
+  "Ryan Neal": "Ryan O'Neal",
+  "subi disso": "soube disso",
+  "brutamante": "brutamontes",
+  "Rock and Lutador": "Rocky, um Lutador",
+  "Rock, um lutador": "Rocky, um Lutador",
+  "Rock e um Lutador": "Rocky, um Lutador",
+  "Silvestre": "Sylvester",
+  "brutamente": "brutamontes",
+  "Cláudio": "Clailton",
+  "divagar na reta": "devagar na reta",
+  "muquif": "muquifo",
+  "editorias": "auditorias",
+  "balance scorecard": "Balanced Scorecard",
+  "Mário!": "Adrian!",
+  "pedando": "pedalando",
+  "Mohamed Ali": "Muhammad Ali",
+  "prolabore": "pró-labore",
+  "labore": "pró-labore"
+ }
 }

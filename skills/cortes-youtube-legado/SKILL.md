@@ -88,7 +88,12 @@ Rode no **PC de render** (`~/.claude/maquina.json` → `"papel": "render"`). Scr
 10. **Pacote do YouTube**: `"$P" scripts/metadados.py <trabalho>` (gera o `- YOUTUBE.txt` e acusa título longo,
     thumb fora de 2–4 palavras, capítulo inválido).
 11. **Entregar**: copie mp4, srt, YOUTUBE.txt e thumbs para a pasta do Drive (robocopy /J), espere aparecer no
-    Drive (conector `search_files`), publique a página de revisão (Artifact) com os links e mande o resumo.
+    Drive (conector `search_files` com `parentId = '<id da pasta>'`; o tamanho tem que bater com o do PC), grave
+    `drive.json`, rode `"$P" scripts/pagina.py <trabalho>` e publique a página (Artifact): copie `pagina/` para o
+    scratchpad e publique de lá pelo **caminho longo** (com o nome inteiro do usuário; pelo nome curto do Windows,
+    o que tem `~1`, a publicação dos vídeos é barrada), com `root` = a pasta e `files` = `media/*`.
+    Para trocar só os links depois: `pagina.py --sem-media`, copie o index.html e publique o mesmo arquivo.
+    Mande o resumo.
 
 ## Regras do episódio (o que é "começo, meio e fim")
 
@@ -188,8 +193,10 @@ Prompt pronto em `references/revisor-as-cegas.md`: um agente (`general-purpose`)
 (`qa/<arquivo>_texto.txt`), a abertura, o título e a thumb, e responde se dá para entender sem a aula, se o
 começo prende e o fim fecha, que emenda soa quebrada (com o tempo), se o título promete só o que o vídeo
 entrega, e dá nota 0–10 com as correções. **Abaixo de 8 ou qualquer "não": corrija o plano e refaça.**
-Na T14 A06 a 1ª rodada deu 6/6/7/5: o que ele pega é quase sempre frase de turma, teaser que entrega pedaço
-da história, começo que repete a frase anterior e fim sem ponto final. Para achar no tempo da aula o que ele
+Na T14 A06 foram 3 rodadas: 6/6/7/5 → 7/7/7/6 → 8/8/8/8. Na 1ª, o que ele pega é quase sempre frase de turma, teaser que entrega pedaço
+da história, começo que repete a frase anterior e fim sem ponto final; na 2ª, material da turma (planilha,
+impresso), lista sem letreiro e borrão sem explicação. Na rodada seguinte, diga ao revisor o que já foi decidido
+(ex.: "só a aula", limite do QR em 720p) para ele não pedir de novo, e peça a frase exata de cada correção. Para achar no tempo da aula o que ele
 apontou no tempo do episódio: `"$P" scripts/achar.py <trabalho> --ep "<arquivo>" 13:16`.
 
 ## Armadilhas desta máquina
