@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
+<title>Nome Clailton C grande</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+@font-face { font-family: "SFB"; src: url("assets/SF-Pro-Display-Bold.otf"); }
+@font-face { font-family: "SFM"; src: url("assets/SF-Pro-Display-Medium.otf"); }
+body { margin: 0; background: transparent; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; background: transparent; }
+#fundo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+#sombra { position: absolute; left: 0; bottom: 0; width: 1500px; height: 560px; opacity: 0;
+  background: radial-gradient(ellipse at 0% 100%, rgba(0,0,0,.55) 0%, rgba(0,0,0,.25) 45%, transparent 75%); }
+.lt { position: absolute; left: 96px; bottom: 112px; display: block; }
+.mask { overflow: hidden; display: block; }
+.nome { font-family: "SFB"; color: #fff; white-space: nowrap; display: block; }
+.cargo { font-family: "SFM"; white-space: nowrap; display: block; }
+#c .nome { font-size: 74px; text-shadow: 0 2px 14px rgba(0,0,0,.55); }
+#cfio { width: 760px; height: 3px; margin: 16px 0 14px; transform-origin: 0% 50%;
+  background: linear-gradient(90deg, #ffffff 0%, #6fa6ff 40%, rgba(47,111,224,0) 100%); }
+#c .cargo { font-size: 33px; letter-spacing: 1px; color: rgba(255,255,255,.85); text-shadow: 0 2px 10px rgba(0,0,0,.6); }
+</style></head>
+<body>
+<div id="root" data-composition-id="nome" data-start="0" data-width="1920" data-height="1080" data-duration="7">
+  
+  <div id="sombra"></div>
+  <div class="lt" id="c"><span class="mask"><span class="nome" id="cn">Clailton Luiz</span></span>
+<div id="cfio"></div><span class="mask"><span class="cargo" id="cc">Sócio Fundador · Legacy Executoria</span></span></div>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#sombra", {opacity: 0}, {opacity: 1, duration: 0.6}, 0.4);
+tl.fromTo("#cfio", {scaleX: 0}, {scaleX: 1, duration: 0.9, ease: "expo.inOut"}, 0.5);
+tl.fromTo("#cn", {yPercent: 105}, {yPercent: 0, duration: 0.7, ease: "power3.out"}, 0.85);
+tl.fromTo("#cc", {yPercent: -105}, {yPercent: 0, duration: 0.7, ease: "power3.out"}, 1.0);
+tl.to("#cn", {yPercent: 105, duration: 0.45, ease: "power2.in"}, 5.6);
+tl.to("#cc", {yPercent: -105, duration: 0.45, ease: "power2.in"}, 5.6);
+tl.to("#cfio", {scaleX: 0, transformOrigin: "100% 50%", duration: 0.5, ease: "power2.in"}, 5.9);
+tl.to("#sombra", {opacity: 0, duration: 0.5}, 6.0);
+window.__timelines["nome"] = tl;
+</script>
+</body></html>

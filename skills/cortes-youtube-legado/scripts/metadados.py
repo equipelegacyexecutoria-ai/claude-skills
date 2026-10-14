@@ -32,9 +32,15 @@ Acreditamos em negócios extraordinários, que dependam de pessoas comuns, e nã
 Para isso, desenvolvemos uma metodologia exclusiva, para que empresas possam funcionar como um relógio suíço, isto é, como um sistema previsível, mesmo sem a presença constante de seu dono.
 
 Conecte-se com a gente!
-Instagram: https://www.instagram.com/legacyexecutoria
+Clailton Luiz, sócio fundador: https://www.instagram.com/clailtonluiz
+Legacy Executoria no Instagram: https://www.instagram.com/legacyexecutoria
 Facebook: https://www.facebook.com/legacyexecutoria
 Linkedin: https://www.linkedin.com/company/legacyexecutoria"""
+
+# convite de vendas da sessão estratégica (vai depois dos bullets)
+PITCH = """📍 QUER ISSO FUNCIONANDO NA SUA EMPRESA?
+Na Sessão Estratégica gratuita, um especialista da Legacy senta com você, olha os números e a operação da sua empresa e mostra por onde começar a crescer com gestão: o que medir, o que ajustar e quais são os primeiros passos. A Legacy não só indica o caminho: a executoria instala o método dentro da empresa, com você e a sua equipe.
+É gratuita e sem compromisso. Agende aqui: {link}"""
 
 
 def mmss(t: float) -> str:
@@ -95,8 +101,7 @@ def main() -> None:
         link = info["url_descricao"]
         desc = [f"🔹 AGENDE SUA SESSÃO ESTRATÉGICA GRATUITA: {link}", "", mt["resumo"], "",
                 "Neste episódio:"] + [f"• {b}" for b in mt["bullets"]] + [
-                "", "Na sessão estratégica, um especialista da Legacy olha a sua empresa com você e mostra por onde "
-                "começar. É gratuita e sem compromisso: " + link, "", "CAPÍTULOS"] + [
+                "", PITCH.format(link=link), "", "CAPÍTULOS"] + [
                 f"{mmss(t)} {nome}" for t, nome in caps] + ["", RODAPE, "", " ".join(mt["hashtags"])]
         descricao = "\n".join(desc)
         if len(descricao) > 5000:

@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "historyId": "1d61c6fa-c11e-4bf9-850c-15338f3f6054",
+  "currentRevision": null,
+  "pendingChanges": false,
+  "files": {
+    "assets/SF-Pro-Display-Bold.otf": {
+      "hash": "a981001f6d4e70292fd26fa8e05437c4a9f0f8c5981027ff0ceead01bb30311f",
+      "content": "C:\\Users\\IgorAmanciodeOliveir\\.cache\\hyperframes\\history\\1d61c6fa-c11e-4bf9-850c-15338f3f6054\\blobs\\a9\\a981001f6d4e70292fd26fa8e05437c4a9f0f8c5981027ff0ceead01bb30311f"
+    },
+    "assets/SF-Pro-Display-Medium.otf": {
+      "hash": "cbfd17919856efcedabdd73781dad2984326928ae7c9635bef6227b1a7d71d21",
+      "content": "C:\\Users\\IgorAmanciodeOliveir\\.cache\\hyperframes\\history\\1d61c6fa-c11e-4bf9-850c-15338f3f6054\\blobs\\cb\\cbfd17919856efcedabdd73781dad2984326928ae7c9635bef6227b1a7d71d21"
+    },
+    "index.html": {
+      "hash": "7a2c4d2158914a21ce44c928e39955db917c37d87096ae93e48d8e5f28664d86",
+      "content": "C:\\Users\\IgorAmanciodeOliveir\\.cache\\hyperframes\\history\\1d61c6fa-c11e-4bf9-850c-15338f3f6054\\blobs\\7a\\7a2c4d2158914a21ce44c928e39955db917c37d87096ae93e48d8e5f28664d86"
+    }
+  },
+  "revisions": {},
+  "checks": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "snapshots": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "renders": {
+    "latest": {
+      "id": "ccb2b67b-0976-4cee-825e-142297dec875",
+      "completedAt": 1792016932439,
+      "output": "C:\\Render\\_youtube\\nome_clailton\\renders\\C_grande_alpha.mov",
+      "status": "completed",
+      "revision": null
+    },
+    "retainedRevisions": []
+  },
+  "pendingArtifactCleanup": []
+}

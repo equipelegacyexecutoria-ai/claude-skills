@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "historyId": "96e78036-f206-46b0-8307-bfee6fe13009",
+  "currentRevision": null,
+  "pendingChanges": false,
+  "files": {
+    "assets/SF-Pro-Display-Medium.otf": {
+      "hash": "cbfd17919856efcedabdd73781dad2984326928ae7c9635bef6227b1a7d71d21",
+      "content": "C:\\Users\\IgorAmanciodeOliveir\\.cache\\hyperframes\\history\\96e78036-f206-46b0-8307-bfee6fe13009\\blobs\\cb\\cbfd17919856efcedabdd73781dad2984326928ae7c9635bef6227b1a7d71d21"
+    },
+    "assets/logo_completo.png": {
+      "hash": "b864d610c3cfc5739efcb5ce934122f091159af03c9d868565bd5b8a1f0c2d23",
+      "content": "C:\\Users\\IgorAmanciodeOliveir\\.cache\\hyperframes\\history\\96e78036-f206-46b0-8307-bfee6fe13009\\blobs\\b8\\b864d610c3cfc5739efcb5ce934122f091159af03c9d868565bd5b8a1f0c2d23"
+    },
+    "assets/simbolo.png": {
+      "hash": "ffffcbbd6eb1ef4efba4dfeeef39eb135324b1128b65ecc0d8643ee8463d942e",
+      "content": "C:\\Users\\IgorAmanciodeOliveir\\.cache\\hyperframes\\history\\96e78036-f206-46b0-8307-bfee6fe13009\\blobs\\ff\\ffffcbbd6eb1ef4efba4dfeeef39eb135324b1128b65ecc0d8643ee8463d942e"
+    },
+    "assets/texto.png": {
+      "hash": "bbc25cb9c40dd56973912e9bac1e15a8a69b10aa7424118668ca97ff8c3a0655",
+      "content": "C:\\Users\\IgorAmanciodeOliveir\\.cache\\hyperframes\\history\\96e78036-f206-46b0-8307-bfee6fe13009\\blobs\\bb\\bbc25cb9c40dd56973912e9bac1e15a8a69b10aa7424118668ca97ff8c3a0655"
+    },
+    "index.html": {
+      "hash": "9880b9cde382899804c8f6d621f5b3aa622c0a9a9210c5e7be5a9eae9ea3b75d",
+      "content": "C:\\Users\\IgorAmanciodeOliveir\\.cache\\hyperframes\\history\\96e78036-f206-46b0-8307-bfee6fe13009\\blobs\\98\\9880b9cde382899804c8f6d621f5b3aa622c0a9a9210c5e7be5a9eae9ea3b75d"
+    }
+  },
+  "revisions": {},
+  "checks": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "snapshots": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "renders": {
+    "latest": {
+      "id": "4a53d5b1-a005-4e7b-a51f-d1569d9521ba",
+      "completedAt": 1792013483719,
+      "output": "C:\\Render\\_youtube\\vinheta_legacy\\renders\\opcao1.mp4",
+      "status": "completed",
+      "revision": null
+    },
+    "retainedRevisions": []
+  },
+  "pendingArtifactCleanup": []
+}
