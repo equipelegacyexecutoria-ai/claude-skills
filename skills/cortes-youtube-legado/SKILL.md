@@ -30,6 +30,54 @@ Pasta no Drive: `G:\Meu Drive\02. Captação de Vídeos\<AAAA>\<MM - Mês>\ORGÂ
 E uma **página de revisão** (Artifact) com todos os episódios da aula: link do Drive, duração, títulos, thumbs,
 descrição e as imagens candidatas — o usuário aprova pelo celular. Notion só se pedirem.
 
+## Padrão aprovado do episódio (usuário, 14/10/2026 — EP01 da T14 A06)
+
+- **Intro de 40–50 s só com conteúdo do Clailton valendo**: 4–6 falas dele (explicação, opinião, caso, conclusão),
+  **nunca** ele lendo frase de famoso/citação de slide (Grant Cardone, "a média é a fórmula...", "Ou você aumenta o
+  sacrifício..."), e evite trecho em que o telão mostra citação. Clarão branco (`"flash"` no 3º item da abertura)
+  entre blocos de assunto; última fala = a mais forte, no ápice da música. Ex. aprovado: "a maioria está perdida...
+  precisam de líderes inspiradores" → "as pessoas saem de lá supervalorizadas... triplicaram o faturamento" →
+  Stallone vendendo o cachorro → "nós vamos virar esse jogo".
+- **Música crescente só na intro** (`"musica_abertura"` no plano: arquivo, `fim_no_arquivo` = o ápice/corte da
+  faixa, `db_ini`/`db_fim`), abaixa sozinha sob a voz e corta no preto. Faixas do Artlist já baixadas da conta do
+  usuário ficam em `~/Downloads` ("Artista - Título.mp3"); aprovada: "Ian Post - Come Back Alive" (ápice em 60,9 s).
+  Meça a curva com `ebur128` e escolha uma que cresça sem parar até o ápice.
+- **Identificação** do Clailton quando o conteúdo começa e ele aparece de frente: animação "C · fio fino" (nome
+  grande, fio branco→azul que se desenha, cargo embaixo: "Clailton Luiz / Sócio Fundador · Legacy Executoria"),
+  arquivo com transparência em `C:\Render\_youtube\recursos\nome_clailton_C.mov` (se faltar: `npx hyperframes render --format mov` no projeto `references/identificacao/projeto_C`); no plano:
+  `{"aula": "<1 s antes de ele virar>", "estilo": "video", "arquivo": "<mov>", "texto": "Clailton Luiz", "dur": 7}`.
+  A versão com caixa (`estilo: "nome"`) foi **reprovada** ("animação ruim").
+- **Fim**: a imagem continua (ele se mexendo) e escurece em 1,2 s; nunca congelar o último quadro (reprovado).
+- **Vinheta da Legacy** depois do fim (`"vinheta"` no plano): "Feixe de luz", 4,5 s, com o acorde final da mesma
+  música (`references/vinheta/vinheta_legacy_feixe.mp4`, cópia em `C:\Render\_youtube\recursos`). Projeto HyperFrames das 3 opções em
+  `references/vinheta/` (refazer a partir dali se o logo mudar).
+
+## Crivo do corte (usuário, 14/10/2026)
+
+Nota 0–10 em cada ponto, média = nota do corte. **Por enquanto todo corte sobe para o Notion com a nota e a
+opinião** (o usuário quer calibrar o crivo com o julgamento dele antes de eu descartar algo); no card, escrever
+"publicaria" / "publicaria com ressalva" / "não publicaria" e por quê.
+
+| Ponto | O que vale 10 |
+| --- | --- |
+| Valor para o dono | Ele assiste e pensa "vou aplicar isso na minha empresa". **Conteúdo técnico e profundo vale tanto quanto história**: como montar processo, organograma, indicadores, planejamento, DRE. Não precisa ter caso com virada |
+| Tema buscável | Assunto que dono de empresa procura e que cabe num título forte e verdadeiro |
+| Começo, meio e fim | Entende-se sem a aula; fecha a ideia (explicação completa, conclusão ou moral) |
+| Gancho | Há 4–6 falas dele fortes o bastante para a intro (sem citação de famoso) |
+| Limpo | Pouca fala de turma/planilha/material, poucas emendas, duração ≥ 15 min sem enchimento |
+| Imagem | Slide legível ou Clailton visível; pouco tempo de citação no telão; sem aluno identificável |
+
+Melhor 1–2 cortes ótimos por aula do que 4–5 fracos.
+
+## Notion: Audiovisual Claude e aprovação
+
+Cortes do YouTube vão para o quadro **Audiovisual Claude** (mesma base do Calendário Editorial, aba YouTube),
+um card por episódio com: tema, nota do crivo e opinião, título recomendado + 2, texto da thumb, thumbs anexadas,
+descrição pronta (convite para a sessão estratégica com link, redes do Clailton e da Legacy), capítulos, tags,
+link da prévia (Sala de Revisão) e do Drive. Andamento: Claude editou → Aprovação (usuário) → Correções (Claude)
+(notas no tempo do vídeo na Sala de Revisão) → Aprovado → Agendado/Publicado.
+**Nunca publicar nada no YouTube** sem o usuário pedir explicitamente; postagem automática é etapa futura.
+
 ## Onde está cada coisa
 
 | Item | Onde |
