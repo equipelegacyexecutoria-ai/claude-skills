@@ -33,6 +33,13 @@ Os dois primeiros terminam com "Informação que não bate": avise o Igor quando
 Quando uma reunião ou card novo mudar esses assuntos, atualize o arquivo e a data do topo (na nuvem,
 inclua `skills/cerebro-legacy/conhecimento/` no commit).
 
+**A central tem que estar sempre atualizada (pedido do Igor, 14/10/2026: "é a nossa super inteligência").** Em
+qualquer conversa, em qualquer PC: toda decisão, regra, número de referência, mudança de processo, campanha, teste
+ou ferramenta nova da Legacy que aparecer entra aqui na hora, no arquivo do assunto (ou num arquivo novo em
+`conhecimento/`, com a linha dele na lista acima), com data e fonte. Decisão de rotina vai para `memoria/decisoes.md`.
+Se o assunto virou um ponto do painel, ligue também o nó do `api/mapa.json` do site. Nunca guarde senha, chave,
+nome/telefone/e-mail de lead.
+
 **Onde estou rodando.** Num PC, a skill fica em `~/.claude/skills/cerebro-legacy/`. Na rotina na
 nuvem, o cofre `claude-skills` está clonado na pasta de trabalho e a skill fica em
 `skills/cerebro-legacy/` (troque os caminhos `$HOME/.claude/skills/...` por esse). Na nuvem, no fim,
