@@ -335,3 +335,12 @@ o `merge-designs` falha com ele).
   classificador de permissões ("Modify Shared Resources"), até em rascunho descartado, quando o
   usuário não pediu aquela edição. Com o pedido explícito dele na conversa ("coloca as imagens no
   carrossel"), passou. Nunca contornar um bloqueio.
+
+**Lote 14/10/2026 (6 Twitter do Clailton de uma vez):**
+- Fundo azul escuro `#080e1c` na última página (pedido no briefing): numa chamada só, `insert_shape`
+  (página inteira, `M0 0H64V64H0z`), `format_text` branco no texto, no nome, no `@` e no contador, e
+  `layer_element front` no grupo do cabeçalho e no texto. Não precisa reler o design para achar o ID do shape.
+- Capa: a manchete em Bebas quebra em 3 linhas equilibradas (sem conector no fim); se não couber em
+  3 a 96 px, desce para 92. O `{{SUB}}` vai para topo da H + linhas × px × 0,99 + 0,2 × px + 30.
+- "Card só de frase, centralizado": mantido no layout padrão do post (alinhado à esquerda, em negrito).
+- Última página longa (≈700 caracteres): 32–36 px no `{{P1}}/{{B1}}/{{P2}}` da pág. 3.
