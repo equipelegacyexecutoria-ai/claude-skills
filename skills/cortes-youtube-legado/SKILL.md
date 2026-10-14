@@ -209,7 +209,9 @@ apontou no tempo do episódio: `"$P" scripts/achar.py <trabalho> --ep "<arquivo>
 - **Thumbs:** o detector de rosto acha também rosto de FOTO no slide (Stallone, Grant Cardone). O thumbs.py
   descarta rosto P&B e rosto com cabelo/chapéu (o Clailton é careca), mas **careca famoso passa** (Jeff Bezos
   apareceu como candidato): sempre olhe a folha e escolha à mão.
-- O áudio vai com limitador (−3 dBFS) depois do loudnorm: sem ele, o pico ficou em −0,6 dBTP e o conferir.py
-  reprovou. Para corrigir um vídeo já pronto sem refazer a imagem: `-c:v copy -af alimiter=limit=0.70:level=disabled`.
+- O áudio vai com limitador (−3 dBFS) depois do loudnorm, e mesmo assim um **estalo de microfone** (plosiva no
+  meio de uma palavra) pode passar de 0 dBTP depois do AAC (EP01 v3: +0,1). O render mede o pico real do mp4
+  pronto e, se passou de −1, refaz só o áudio com o limitador mais baixo (`segurar_pico`, ~20 s). Para um mp4
+  antigo: `"$P" scripts/render_episodio.py --so-pico "<arquivo.mp4>"`.
 - QR de 4 px por módulo (card compacto) lê no vídeo em 1080p; reduzido para 720p o leitor do OpenCV falha
   (celular costuma ler). O conferir.py só avisa; para TV/computador o vídeo roda em 1080p.

@@ -307,6 +307,30 @@ def cortes_no_meio_de_palavra(todas, segs) -> list[str]:
     return erros
 
 
+def pico_real(mp4: Path) -> float:
+    p = subprocess.run(["ffmpeg", "-nostdin", "-hide_banner", "-nostats", "-i", str(mp4), "-map", "0:a:0", "-af",
+                        "ebur128=peak=true", "-f", "null", "-"], capture_output=True, text=True, encoding="utf-8",
+                       errors="replace")
+    m = re.findall(r"Peak:\s+(-?[\d.]+|-inf) dBFS", p.stderr)
+    return float(m[-1]) if m and m[-1] != "-inf" else -99.0
+
+
+def segurar_pico(mp4: Path, teto: float = -1.2) -> None:
+    """Estalo de microfone (plosiva) passa do limitador depois do AAC: mede o pico real do arquivo pronto e,
+    se passou de −1 dBTP, refaz só o áudio com o limitador mais baixo (a imagem é copiada, ~20 s)."""
+    pk = pico_real(mp4)
+    if pk <= -1.0:
+        return
+    lim = 10 ** ((-3.0 - (pk - teto)) / 20)
+    tmp = mp4.with_name(mp4.stem + "_pico.mp4")
+    subprocess.run(["ffmpeg", "-nostdin", "-hide_banner", "-v", "error", "-y", "-i", str(mp4), "-map", "0:v", "-map", "0:a",
+                    "-c:v", "copy", "-af", f"alimiter=limit={lim:.3f}:attack=2:release=60:level=disabled",
+                    "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-movflags", "+faststart", str(tmp)], check=True)
+    tmp.replace(mp4)
+    print(f"[pico] {mp4.name}: {pk:+.1f} dBTP -> refeito o áudio com limite {lim:.2f} -> {pico_real(mp4):+.1f} dBTP",
+          flush=True)
+
+
 def montar(trab: Path, ep: dict) -> dict:
     """Trechos finais, duração, palavras e CTAs de um episódio (sem renderizar)."""
     todas = ler_json(trab / "transcricao.json")["palavras"]
@@ -497,6 +521,7 @@ def render(trab: Path, plano: dict, ep: dict, rapido: bool, so_mapa: bool = Fals
             str(saida_dir / f"{nome}.mp4")]
     (saida_dir / f"_cmd_e{ep['n']}.txt").write_text(subprocess.list2cmdline(cmd), encoding="utf-8")
     subprocess.run(cmd, check=True)
+    segurar_pico(saida_dir / f"{nome}.mp4")
 
     srt(pal, saida_dir / f"{nome}.srt", plano.get("correcoes"))
     gravar_json(saida_dir / f"{nome}.json", {
@@ -530,4 +555,7 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) == 3 and sys.argv[1] == "--so-pico":      # corrigir o pico de um mp4 já pronto
+        segurar_pico(Path(sys.argv[2]))
+    else:
+        main()
