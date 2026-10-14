@@ -9,8 +9,8 @@ Pedido do usuário (13/10/2026), ideia do Clailton: as aulas do **Legado presenc
 viram episódios de YouTube de **15 a 45 min**, cada um **com começo, meio e fim**, com **CTA de QR code para a
 sessão estratégica** igual ao do Executoria Cast (youtube.com/watch?v=v0jEA57pYL8, card no canto aos 17:08), e a
 **descrição direcionando para a sessão**. Edição: **só a aula** (sem vinheta, sem legenda queimada, sem música).
-Primeira aula feita: **Turma 14 · Aula 06** (mapa estratégico, versão com slide) → 4 episódios de 15–26 min
-depois de 2 rodadas do revisor às cegas (exemplo completo em `exemplos/t14a06_plano.json`, com `cortar`). A T12 · Aula 10 (só câmera) ficou de exemplo de aula sem
+Primeira aula feita: **Turma 14 · Aula 06** (mapa estratégico, versão com slide) → 4 episódios de 15–24 min
+depois de 3 rodadas do revisor às cegas (exemplo completo em `exemplos/t14a06_plano.json`, com `cortar`). A T12 · Aula 10 (só câmera) ficou de exemplo de aula sem
 versão com slide (`exemplos/t12a10_plano.json`).
 
 O usuário não é técnico: relatório curto, pelo dia a dia dele (ver CLAUDE.md global). Sempre em português.
@@ -120,12 +120,31 @@ Rode no **PC de render** (`~/.claude/maquina.json` → `"papel": "render"`). Scr
   "nos próximos encontros", "que é o que vamos tratar hoje", "como o Adriano falou", "o Claudio me mostrou
   ontem", "dá o microfone ali", "eu vou mostrar daqui a pouco", "você vai olhar porque nós vamos cobrar",
   "alguns já fizeram", "a planilha que vocês têm", nome de empresa de aluno ("o exemplo da Rick Entalho").
+  **Material da turma** é o mais traiçoeiro: "versão digital e versão impressa", "a ferramentinha que vocês têm
+  aí na mesa", "a coluninha do impresso", "puxar da planilha", "vocês vão colocar isso aí no local estratégico",
+  "a gente vai trazer você aqui uma vez por mês" — o espectador não recebe nada disso. Também: data presa à
+  aula ("esse sábado agora", "vou compartilhar no meu Instagram"), bordão de outra aula sem contexto ("devagar
+  na reta e pau na curva"), "para finalizar" no meio do vídeo, frase que morre no meio ("E se você fizer...").
   Também: **dúvida de memória** ("foi no CDL, não, não foi no CDL..."), **repetição** ("É surreal. É surreal."),
   **afirmação grandiosa sem fonte** ("melhor ideia de gestão dos últimos 100 anos", "50% das empresas da Forbes",
   "só gênios") e **tema trabalhista delicado** (cobrar prejuízo do funcionário em 7 vezes).
 - **Os cortes do revisor encurtam 10–25 %.** Planeje cada episódio com ≥ 18 min antes da revisão. Se cair
   abaixo de 15, traga uma história do mesmo tema de outro ponto da aula (EP04: a do entregador e da pesquisa de
   satisfação entrou em "melhorar a experiência do cliente"); os trechos tocam na ordem em que estão no plano.
+
+## Letreiros (só quando ajudam quem nunca viu a aula)
+
+`scripts/letreiro.py`: caixa azul no estilo do card, etiqueta verde opcional, embaixo à esquerda (x 96, na faixa
+escura abaixo do slide). No plano: `"letreiros": [{"frase": "...", "perto": "...", "tag": "FINANCEIRO · 1/15",
+"texto": "Aumentar lucratividade", "dur": 7}]` (ou `"aula": "hh:mm:ss"`; `"onde": "abertura"` para a abertura).
+Entra pela frase falada, como os cortes, e sai quando o próximo entra. Não é legenda nem vinheta. Use em:
+- **episódio que é lista** (os 15 objetivos do mapa): 1 letreiro por item, com o nome exato do slide;
+- **quem é o personagem** da abertura ("Sylvester Stallone, antes de Rocky") e "A história completa no fim do
+  episódio" quando a abertura é uma história que só volta no fim;
+- **o que está desfocado** ("A LUTA QUE INSPIROU ROCKY · Muhammad Ali x Chuck Wepner, 1975") — sem isso o
+  borrão parece defeito.
+Texto do telão que a câmera mostra andando (ex.: "HARVARD 100 ANOS" num plano aberto) não dá para borrar sem
+seguir o movimento: tire a fala e deixe a imagem.
 
 ## CTA da sessão estratégica (QR)
 

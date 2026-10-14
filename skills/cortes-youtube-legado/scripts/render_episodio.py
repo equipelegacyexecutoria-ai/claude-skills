@@ -41,8 +41,9 @@ import numpy as np
 from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from achar import resolver_cortes, tirar_intervalos  # noqa: E402
+from achar import achar_frase, resolver_cortes, tirar_intervalos  # noqa: E402
 from comum import SKILL, gravar_json, hms, ler_json, seg  # noqa: E402
+import letreiro as LT  # noqa: E402
 
 BASE_URL = "https://formulario.legacyexecutoria.com.br/"
 CTA_DUR = 30.0                      # segundos na tela (igual ao Executoria Cast)
@@ -336,8 +337,27 @@ def montar(trab: Path, ep: dict) -> dict:
     for t in ctas:
         if t + CTA_DUR > dur - CTA_FOLGA_FIM:
             raise SystemExit(f"[ep {ep['n']}] CTA em {hms(t)} termina perto demais do fim ({hms(dur)})")
+    conv_ab, _ = mapa_tempo(abertura)
+    lets = []
+    for L in ep.get("letreiros", []):
+        if "frase" in L:
+            r = achar_frase(todas, L["frase"], seg(L["perto"]) if L.get("perto") else None, L.get("raio", 120))
+            if not r:
+                raise SystemExit(f"[ep {ep['n']}] letreiro: não achei a frase {L['frase']!r}")
+            ta = todas[r[0]]["ini"]
+        else:
+            ta = seg(L["aula"])
+        x = conv_ab(ta) if L.get("onde") == "abertura" else conv_corpo(ta)
+        if x is None:
+            raise SystemExit(f"[ep {ep['n']}] letreiro '{L['texto']}' cai num trecho cortado ({hms(ta)})")
+        if L.get("onde") != "abertura":
+            x += dur_ab
+        lets.append({"t": round(x, 2), "dur": float(L.get("dur", 6)), "texto": L["texto"], "tag": L.get("tag")})
+    lets.sort(key=lambda z: z["t"])
+    for a_, b_ in zip(lets, lets[1:]):                 # um letreiro sai quando o próximo entra
+        a_["dur"] = round(max(2.5, min(a_["dur"], b_["t"] - a_["t"] - 0.15)), 2)
     return {"segs": segs, "n_ab": len(abertura), "dur": dur, "dur_ab": dur_ab, "pal": pal, "ctas": ctas,
-            "conv_corpo": conv_corpo, "cortes": cortes}
+            "conv_corpo": conv_corpo, "cortes": cortes, "letreiros": lets}
 
 
 def render(trab: Path, plano: dict, ep: dict, rapido: bool, so_mapa: bool = False) -> Path | None:
@@ -346,6 +366,8 @@ def render(trab: Path, plano: dict, ep: dict, rapido: bool, so_mapa: bool = Fals
     segs, n_ab, dur, ctas, pal = m["segs"], m["n_ab"], m["dur"], m["ctas"], m["pal"]
     print(f"[ep {ep['n']}] {hms(dur)} (abertura {m['dur_ab']:.0f}s) · {len(segs)} trechos · "
           f"CTAs {[hms(t) for t in ctas]} = {[f'{t / dur:.0%}' for t in ctas]}", flush=True)
+    for L in m["letreiros"]:
+        print(f"[ep {ep['n']}]   letreiro {hms(L['t'])} ({L['dur']:.1f}s) {L['tag'] or ''} {L['texto']}", flush=True)
     if so_mapa:
         return None
     saida_dir = trab / ("previa" if rapido else "render")
@@ -374,6 +396,13 @@ def render(trab: Path, plano: dict, ep: dict, rapido: bool, so_mapa: bool = Fals
     k_card, n = len(segs), len(segs)
     cmd += ["-loop", "1", "-framerate", "30", "-i", str(cards["grande"]),
             "-loop", "1", "-framerate", "30", "-i", str(cards["compacto"])]
+    lets = []
+    for i, L in enumerate(m["letreiros"]):
+        img, somb = LT.desenhar(L["texto"], L["tag"], altura)
+        png = saida_dir / f"_let_e{ep['n']}_{i + 1}.png"
+        img.save(png)
+        lets.append((L, LT.posicao(img, somb, altura)))
+        cmd += ["-loop", "1", "-framerate", "30", "-t", f"{L['dur']:.2f}", "-i", str(png)]
     fc = []
     escala = "scale=960:540:flags=lanczos," if rapido else ""
     for k, (a, b) in enumerate(segs):
@@ -448,6 +477,12 @@ def render(trab: Path, plano: dict, ep: dict, rapido: bool, so_mapa: bool = Fals
         fc.append(f"[{atual}][k{i}]overlay=x={x}:y={by * s:.0f}:enable='between(t,{t:.2f},{fim:.2f})'"
                   f":eof_action=pass[o{i}]")
         atual = f"o{i}"
+    for i, (L, (lx, ly)) in enumerate(lets):           # letreiros: entram e saem com fade, embaixo à esquerda
+        d = L["dur"]
+        fc.append(f"[{k_card + 2 + i}:v]format=rgba,fade=t=in:st=0:d=0.3:alpha=1,"
+                  f"fade=t=out:st={max(0.0, d - 0.3):.2f}:d=0.3:alpha=1,setpts=PTS-STARTPTS+{L['t']:.2f}/TB[lt{i}]")
+        fc.append(f"[{atual}][lt{i}]overlay=x={lx}:y={ly}:eof_action=pass[ol{i}]")
+        atual = f"ol{i}"
     fc.append(f"[ac]{AUDIO_PRE},loudnorm=I=-14:TP=-1.5:LRA=9:measured_I={ln['input_i']}:"
               f"measured_TP={ln['input_tp']}:measured_LRA={ln['input_lra']}:measured_thresh={ln['input_thresh']}:"
               f"offset={ln['target_offset']}:linear=true,{LIMITADOR},aresample=48000[aout]")
@@ -471,6 +506,7 @@ def render(trab: Path, plano: dict, ep: dict, rapido: bool, so_mapa: bool = Fals
         "url_descricao": url_descricao(plano["codigo"], ep["n"]),
         "url_comentario": url_descricao(plano["codigo"], ep["n"], "comentario"),
         "card": {"png": {k: v.name for k, v in cards.items()}, "posicoes": posicoes},
+        "letreiros": m["letreiros"],
         "loudnorm_entrada": ln})
     return saida_dir / f"{nome}.mp4"
 
