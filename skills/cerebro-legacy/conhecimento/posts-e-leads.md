@@ -35,6 +35,17 @@ Ao passar o mouse nas barras aparece o balão com o detalhe (ex.: num dia de MQL
 - **Metas e vendas orgânicas:** lançadas na própria janela ("Editar Meta", "+ Adicionar"). Uma meta por mês, que vale
   para a origem Legacy.
 
+## Os 3 grupos de lead (nunca misturar — explicado pelo Igor em 14/10/2026)
+
+| Grupo | De onde vem | Quem entra | Onde conta |
+|---|---|---|---|
+| **Orgânico** | formulário Legacy (abas "Leads Completos" e "V2"), todos com utm orgânico | MQL e não MQL | origem Legacy; por perfil pelo canal: bio_legacy, Story_legacy (Legacy); bio_clailton · instagram, Story_clailton (Clailton); bio_clailton · tiktok (TikTok do Clailton) |
+| **Quiz** | planilha do quiz (desde 07/10/2026) | **só os MQL** (≥ R$ 70 mil) | também orgânico e na origem Legacy, mas mostrado à parte ("QUIZ - Boas-vindas Legacy", "QUIZ - Link da bio Clailton"…) |
+| **Comunidade** | formulários da Comunidade (só utm orgânico) | todos | **totalmente à parte**: origem Comunidade, fora das contas de perfil, post e teste |
+
+Ao falar de leads, diga sempre de qual grupo é ("12 orgânicos (5 MQL) + 2 do Quiz"; "Comunidade: 30, à parte").
+Referência (planilhas, 13/10): orgânico 733 desde fev (343 MQL), Quiz 6 (todos MQL), Comunidade 745 desde abr (17 MQL).
+
 ## Regras (iguais às do Hub, com as correções)
 
 - **MQL = faturamento a partir de R$ 70 mil** (na prática a faixa "R$ 71 a 100 mil" para cima). É o mesmo corte do
