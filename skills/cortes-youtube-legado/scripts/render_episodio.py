@@ -235,7 +235,7 @@ def escolher_ctas(pal: list[dict], dur: float) -> list[float]:
 def corrigir(txt: str, correcoes: dict) -> str:
     """Troca nomes que o Whisper erra (plano.json "correcoes": {"Cléuto": "Clailton", "Ruas": "ROAS"})."""
     for errado, certo in (correcoes or {}).items():
-        txt = re.sub(rf"(?<!\w){re.escape(errado)}(?!\w)", certo, txt)          # maiúscula conta: "Ruas" ≠ "ruas"
+        txt = re.sub(rf"(?<![\w-]){re.escape(errado)}(?!\w)", certo, txt)          # maiúscula conta: "Ruas" ≠ "ruas"
     return txt
 
 
@@ -334,11 +334,13 @@ def segurar_pico(mp4: Path, teto: float = -1.2) -> None:
 def montar(trab: Path, ep: dict) -> dict:
     """Trechos finais, duração, palavras e CTAs de um episódio (sem renderizar)."""
     todas = ler_json(trab / "transcricao.json")["palavras"]
-    erros = cortes_no_meio_de_palavra(todas, [(seg(a), seg(b)) for a, b in ep.get("abertura", []) + ep["segmentos"]])
+    # 3º item "audio" = ponta conferida no som (o Whisper às vezes estica a palavra para dentro da pausa)
+    erros = cortes_no_meio_de_palavra(todas, [(seg(x[0]), seg(x[1])) for x in ep.get("abertura", []) + ep["segmentos"]
+                                              if len(x) < 3])
     if erros:
         raise SystemExit(f"[ep {ep['n']}] corte no meio de palavra:\n  " + "\n  ".join(erros))
-    abertura = tirar_pausas([(seg(a), seg(b)) for a, b in ep.get("abertura", [])], todas, 1.2, 0.3)
-    corpo = [(seg(a), seg(b)) for a, b in ep["segmentos"]]
+    abertura = tirar_pausas([(seg(x[0]), seg(x[1])) for x in ep.get("abertura", [])], todas, 1.2, 0.3)
+    corpo = [(seg(x[0]), seg(x[1])) for x in ep["segmentos"]]
     cortes = resolver_cortes(todas, ep.get("cortar", []))          # frases/intervalos a tirar do corpo
     corpo = tirar_pausas(tirar_intervalos(corpo, cortes), todas)
     segs = abertura + corpo
