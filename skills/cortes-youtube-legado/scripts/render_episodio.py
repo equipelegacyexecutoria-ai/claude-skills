@@ -440,8 +440,9 @@ def render(trab: Path, plano: dict, ep: dict, rapido: bool, so_mapa: bool = Fals
     print(f"[ep {ep['n']}] áudio de entrada {ln['input_i']} LUFS, pico {ln['input_tp']} dBTP", flush=True)
 
     cmd = ["ffmpeg", "-nostdin", "-hide_banner", "-y", "-stats_period", "30"]
-    for a, b in segs:
-        cmd += ["-ss", f"{a:.3f}", "-t", f"{b - a:.3f}", "-i", fonte]
+    for k, (a, b) in enumerate(segs):            # o último trecho lê 1,2 s a mais: a imagem segue viva no escurecer
+        extra_fim = RESPIRO if k == len(segs) - 1 else 0.0
+        cmd += ["-ss", f"{a:.3f}", "-t", f"{b - a + extra_fim:.3f}", "-i", fonte]
     k_card, n = len(segs), len(segs)
     cmd += ["-loop", "1", "-framerate", "30", "-i", str(cards["grande"]),
             "-loop", "1", "-framerate", "30", "-i", str(cards["compacto"])]
@@ -472,8 +473,9 @@ def render(trab: Path, plano: dict, ep: dict, rapido: bool, so_mapa: bool = Fals
             fo = DIP if dip_fim else 0.04
             fa.append(f"afade=t=out:st={max(0.0, d - fo):.3f}:d={fo}")
         else:                                      # fim do episódio: segura o último quadro e escurece em silêncio
-            fa += [f"afade=t=out:st={max(0.0, d - 0.12):.3f}:d=0.12", f"apad=pad_dur={RESPIRO}"]
-            fv += [f"tpad=stop_mode=clone:stop_duration={RESPIRO}", f"fade=t=out:st={d - 0.2:.3f}:d={RESPIRO + 0.2}"]
+            # som some logo depois da última palavra (o afade silencia o resto); a imagem continua e escurece
+            fa += [f"afade=t=out:st={max(0.0, d - 0.12):.3f}:d=0.12"]
+            fv += [f"fade=t=out:st={d - 0.2:.3f}:d={RESPIRO + 0.2}"]
         if dip_fim:
             fv.append(f"fade=t=out:st={max(0.0, d - DIP):.3f}:d={DIP}")
         if dip_ini:
