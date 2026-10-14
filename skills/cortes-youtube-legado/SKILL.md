@@ -77,6 +77,13 @@ descrição pronta (convite para a sessão estratégica com link, redes do Clail
 link da prévia (Sala de Revisão) e do Drive. Andamento: Claude editou → Aprovação (usuário) → Correções (Claude)
 (notas no tempo do vídeo na Sala de Revisão) → Aprovado → Agendado/Publicado.
 **Nunca publicar nada no YouTube** sem o usuário pedir explicitamente; postagem automática é etapa futura.
+Como montar (T14 A06, 14/10/2026): `scripts/cards_notion.py <trabalho> <cards_cfg.json>` gera o texto de cada card
+(`notion_card_epNN.md`, a partir do `- YOUTUBE.txt` e do `crivo.json`); crie os cards na base
+(`collection://f0cc9747-efab-822b-8678-07f92372d6b7`: ANDAMENTO "Aprovação", RESPONSÁVEL "🤖 CLAUDE", REDE SOCIAL
+["Youtube"], FORMATO ["🎥 Film (Video Longo)"], NOTA DO CRIVO), anexe as thumbs A e B `_1280.jpg` em MATERIAL
+FINALIZADO (`notion-create-file-upload` + `curl -F file=@...` + `update_properties` com `file_upload`), suba a
+prévia da intro + 2 min (540p, ~4 MB) na Sala de Revisão e grave `videos/<id>` com o link do card. Bloco de código
+sem linguagem vira "javascript" no Notion: o gerador já escreve ```` ```plain text ````.
 
 ## Onde está cada coisa
 
