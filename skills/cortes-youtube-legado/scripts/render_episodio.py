@@ -339,10 +339,10 @@ def anexar_vinheta(mp4: Path, vinheta: str | None) -> float:
         return 0.0
     vd = float(sonda(vinheta)["format"]["duration"])
     lista = mp4.with_name(mp4.stem + "_lista.txt")
-    lista.write_text(f"file '{mp4.as_posix()}'\nfile '{Path(vinheta).as_posix()}'\n", encoding="utf-8")
+    lista.write_text(f"file '{mp4.resolve().as_posix()}'\nfile '{Path(vinheta).resolve().as_posix()}'\n", encoding="utf-8")
     tmp = mp4.with_name(mp4.stem + "_vinheta.mp4")
     subprocess.run(["ffmpeg", "-nostdin", "-hide_banner", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i",
-                    str(lista), "-c", "copy", "-movflags", "+faststart", str(tmp)], check=True)
+                    str(lista.resolve()), "-c", "copy", "-movflags", "+faststart", str(tmp)], check=True)
     tmp.replace(mp4)
     lista.unlink()
     print(f"[vinheta] {Path(vinheta).name} ({vd:.1f} s) no fim de {mp4.name}", flush=True)
