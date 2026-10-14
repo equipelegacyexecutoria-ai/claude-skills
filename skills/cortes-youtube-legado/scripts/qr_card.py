@@ -38,7 +38,8 @@ def qr_matriz(url: str) -> np.ndarray:
     return m
 
 
-def desenhar(url: str, escala: float, altura_video: int) -> Image.Image:
+def desenhar(url: str, escala: float, altura_video: int, compacto: bool = False) -> Image.Image:
+    """compacto: margem menor em volta do QR (cabe na faixa de ~200 px acima do slide no layout slide + janela)."""
     k = escala * altura_video / 1080 * SS
     W, H, R = int(300 * k), int(150 * k), int(16 * k)
     sombra = int(14 * k)
@@ -63,7 +64,7 @@ def desenhar(url: str, escala: float, altura_video: int) -> Image.Image:
     d.rounded_rectangle((1, 1, W - 2, H - 2), R, outline=(120, 180, 255, 110), width=max(1, int(1.2 * k)))
 
     # QR em quadro branco
-    pad = int(12 * k)
+    pad = int((6 if compacto else 12) * k)
     q = H - 2 * pad
     d.rounded_rectangle((pad, pad, pad + q, pad + q), int(8 * k), fill=(255, 255, 255, 255))
     caixa_qr = (sombra + pad, sombra + pad, q)   # o QR entra depois da redução, em pixels inteiros
@@ -129,8 +130,9 @@ def main() -> None:
     ap.add_argument("saida")
     ap.add_argument("--escala", type=float, default=1.3)
     ap.add_argument("--altura-video", type=int, default=1080)
+    ap.add_argument("--compacto", action="store_true")
     a = ap.parse_args()
-    img = desenhar(a.url, a.escala, a.altura_video)
+    img = desenhar(a.url, a.escala, a.altura_video, a.compacto)
     img.save(a.saida)
     ok = conferir(Path(a.saida), a.url)
     print(f"{'ok' if ok else 'ERRO'}: {a.saida} {img.size} -> {a.url}")

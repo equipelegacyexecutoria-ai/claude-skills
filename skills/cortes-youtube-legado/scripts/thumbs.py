@@ -37,6 +37,24 @@ def nota_rosto(img, r) -> tuple[float, dict]:
     return fh * min(1.0, nitidez / 120), {"altura_rosto": round(fh), "nitidez": round(nitidez)}
 
 
+def parece_clailton(img, r) -> bool:
+    """Descarta rosto de foto no slide (Stallone, Grant Cardone...): o Clailton é careca e aparece em cor.
+    Pele com cor (não P&B) e o topo da cabeça com a mesma cor/brilho da pele (sem cabelo, sem chapéu)."""
+    fx, fy, fw, fh = map(int, r[:4])
+    H, W = img.shape[:2]
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    cx0, cx1 = max(0, fx + fw // 4), min(W, fx + 3 * fw // 4)
+    pele = hsv[max(0, fy + fh // 3):min(H, fy + 2 * fh // 3), cx0:cx1].reshape(-1, 3).astype(float)
+    topo = hsv[max(0, fy - int(fh * 0.15)):max(1, fy), cx0:cx1].reshape(-1, 3).astype(float)   # testa/careca
+    if len(pele) < 20 or len(topo) < 20:
+        return False
+    sp, vp, ht = pele[:, 1].mean(), pele[:, 2].mean(), topo
+    if sp < 35:                                   # foto preto e branco
+        return False
+    dh = abs(np.median(ht[:, 0]) - np.median(pele[:, 0]))
+    return ht[:, 2].mean() >= 0.8 * vp and ht[:, 1].mean() >= 0.4 * sp and min(dh, 180 - dh) <= 12
+
+
 def candidatos(trab: Path, plano: dict, ep: dict) -> None:
     m = montar(trab, ep)
     pontos = []
@@ -55,6 +73,9 @@ def candidatos(trab: Path, plano: dict, ep: dict) -> None:
         det.setInputSize((img.shape[1], img.shape[0]))
         _, f = det.detect(img)
         if f is None:
+            continue
+        f = [z for z in f if parece_clailton(img, z)]
+        if not f:
             continue
         r = max(f, key=lambda z: z[3])           # maior rosto = quem está mais perto da câmera
         fx, fy, fw, fh = map(float, r[:4])
@@ -107,10 +128,11 @@ def exportar(trab: Path, plano: dict, ep: dict, escolha: list[int]) -> None:
         c = cand[i - 1]
         img = quadro(plano["fonte"], c["t"], 1920)
         base = f"{ep['arquivo']} - thumb {k}"
-        cv2.imwrite(str(pasta / f"{base} (quadro inteiro).png"), img)
+        # cv2.imwrite estraga nome com acento no Windows: grava os bytes pelo Python
+        cv2.imencode(".png", img)[1].tofile(str(pasta / f"{base} (quadro inteiro).png"))
         x0, y0, cw, ch = c["recorte"]
         rec = cv2.resize(img[y0:y0 + ch, x0:x0 + cw], (1920, 1080), interpolation=cv2.INTER_LANCZOS4)
-        cv2.imwrite(str(pasta / f"{base} (recorte rosto).png"), rec)
+        cv2.imencode(".png", rec)[1].tofile(str(pasta / f"{base} (recorte rosto).png"))
         print(f"ok: {base} · aula {hms(c['t'])}")
 
 

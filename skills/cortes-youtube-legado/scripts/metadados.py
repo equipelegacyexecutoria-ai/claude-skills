@@ -79,6 +79,9 @@ def main() -> None:
         if "meta" not in ep:
             continue
         mt, problemas = ep["meta"], []
+        if not (trab / a.pasta / f"{ep['arquivo']}.json").exists():
+            print(f"pulado (sem render): {ep['arquivo']}")
+            continue
         info = ler_json(trab / a.pasta / f"{ep['arquivo']}.json")
         for t in mt["titulos"]:
             if len(t) > 100:

@@ -9,7 +9,9 @@ Pedido do usuário (13/10/2026), ideia do Clailton: as aulas do **Legado presenc
 viram episódios de YouTube de **15 a 45 min**, cada um **com começo, meio e fim**, com **CTA de QR code para a
 sessão estratégica** igual ao do Executoria Cast (youtube.com/watch?v=v0jEA57pYL8, card no canto aos 17:08), e a
 **descrição direcionando para a sessão**. Edição: **só a aula** (sem vinheta, sem legenda queimada, sem música).
-Primeira aula feita: Turma 12 · Aula 10 (Inovação) → 3 episódios (exemplo completo em `exemplos/t12a10_plano.json`).
+Primeira aula feita: **Turma 14 · Aula 06** (mapa estratégico, versão com slide) → 4 episódios de 15–26 min
+depois de 2 rodadas do revisor às cegas (exemplo completo em `exemplos/t14a06_plano.json`, com `cortar`). A T12 · Aula 10 (só câmera) ficou de exemplo de aula sem
+versão com slide (`exemplos/t12a10_plano.json`).
 
 O usuário não é técnico: relatório curto, pelo dia a dia dele (ver CLAUDE.md global). Sempre em português.
 
@@ -32,7 +34,9 @@ descrição e as imagens candidatas — o usuário aprova pelo celular. Notion s
 
 | Item | Onde |
 | --- | --- |
-| Aulas | `G:\Meu Drive\LEGADO - AULAS AO VIVO\TURMA NN\...` — **presenciais (auditório): Turma 12, 13, 14, 17**; Turma 15 e 16 são **online** (Zoom/OBS, não usar sem o usuário pedir). Turma 14 tem aulas de alunos apresentando (SWOT, aula 06): só servem os trechos do Clailton |
+| Aulas | `G:\Meu Drive\LEGADO - AULAS AO VIVO\TURMA NN\...` — **presenciais (auditório): Turma 12, 13, 14, 17**; Turma 15 e 16 são **online** (Zoom/OBS, não usar sem o usuário pedir). Os arquivos estão **espalhados** (usuário, 13/10/2026): procure também na raiz do Meu Drive e pelo conector do Drive (`search_files`) |
+| **Qual versão usar** | **Sempre a versão com o PowerPoint no quadro** (usuário, 13/10/2026: "são as versões finais que enviávamos para os alunos, melhores para o YouTube do que a imagem bruta da câmera"): a gravação do programa da transmissão (OBS/StreamYard), que alterna **slide grande + Clailton numa janela à direita sobre fundo vermelho escuro** com a câmera, às vezes com vinheta "LEGADO EMPRESARIAL". Nomes típicos: data-hora do OBS (`2025-12-04 09-40-39.mp4`) ou `LEGADO AULA 06.mp4`. Câmera crua (só auditório, sem slide na tela) = último recurso, e só se a aula não tiver versão com slide. Para saber: 12 quadros espalhados numa folha (`ffmpeg -nostdin -ss ...`) e olhar |
+| Mapa conhecido (13/10/2026) | **Com slide:** T14 `LEGADO AULA 06.mp4` (3h01, 1080p, Clailton) · T12 `AULA SOBRE MARKETING - 2025-10-16...` (mistura câmera/slide, tem convidados) · T14 `AULA 02\2025-12-04 09-40-39.mp4` (slide, mas quem fala é outro professor) · T14 `AULA 01 - LEGADO - TURMA 14.mp4` (slide, só 640×360). **Só câmera:** T12 `Turma 12 - Aula 10`, `AULA 11`, `MAIOR MENTIRA`; T14 `AULA 07`. **Alunos/convidado:** T14 `AULA 03 SWOT`, T12 `AULA DE DRE - ADRIANO`. **Editadas no Vimeo:** T12 Aulas 01–09 (links na planilha "Trilha de Lives do Legado", na pasta LEGADO - AULAS AO VIVO; status "No vimeo"/"Para Editar"). Pastas `INTELIGENCIA EMPRESARIAL\CURSO\LIVES` e `MODULO 02` são de **outro curso** (Inteligência Empresarial), não do Legado |
 | Link da sessão estratégica | `https://formulario.legacyexecutoria.com.br/` (o da bio do Instagram, conferido em 13/10/2026; o antigo `lp.legacyexecutoria.com.br/form-organico` **não existe mais**). Antes de cada aula, abrir o link e ver se responde "Legacy Educação — Agendamento"; se mudou, pegar o novo na bio do @legacyexecutoria |
 | UTM | `utm_source=organico&utm_medium=youtube&utm_campaign=<codigo>e<N>` (+ `&utm_content=descricao` / `comentario`). `codigo` = turma+aula curto, ex.: `t12a10`. O `utm_source=organico` é o que o relatório do orgânico (cerebro-legacy) já filtra |
 | Trabalho local | `C:\Render\brutos\legado_tNNaNN\` (cópia da aula) e `C:\Render\_youtube\legado_tNNaNN\` (transcrição, plano, render, qa, thumbs) |
@@ -44,8 +48,11 @@ descrição e as imagens candidatas — o usuário aprova pelo celular. Notion s
 Rode no **PC de render** (`~/.claude/maquina.json` → `"papel": "render"`). Scripts em `~/.claude/skills/cortes-youtube-legado/scripts/`.
 `P="$LOCALAPPDATA/corte-viral/venv/Scripts/python.exe"`, sempre `PYTHONUTF8=1`.
 
-1. **Achar a aula.** Liste `LEGADO - AULAS AO VIVO`, meça com `ffprobe` e tire 8 quadros espalhados (`ffmpeg -ss`)
-   para ver se é auditório e quem fala. Aula em várias partes (pasta `AULA 02\` com 3–4 arquivos): junte na ordem.
+1. **Achar a aula (a versão com slide).** Liste `LEGADO - AULAS AO VIVO`, a raiz do Meu Drive e busque pelo
+   conector (`search_files`: vídeo com "LEGADO AULA", data-hora do OBS, "TURMA NN"). Para cada candidata:
+   `"$P" scripts/folha_aula.py <folha.jpg> <video1> <video2> ...` e escolha a que tem **slide no quadro** e o
+   **Clailton** falando (ver "Qual versão usar"). Aula em várias partes (pasta `AULA 02\` com 3–4 arquivos):
+   junte na ordem. Em loop no bash, todo `ffmpeg` leva `-nostdin` (senão ele come a lista do laço).
 2. **Copiar** para o disco local (o G: baixa sob demanda; ~3 min para 5 GB):
    `robocopy "<pasta no G:>" "C:\Render\brutos\legado_tNNaNN" "<arquivo>" /J /R:3 /W:10` (código 1 = copiou).
 3. **Transcrever** (GPU, ~7 min por hora de aula): `"$P" scripts/transcrever.py <aula.mp4> <trabalho>`.
@@ -60,10 +67,15 @@ Rode no **PC de render** (`~/.claude/maquina.json` → `"papel": "render"`). Scr
 5. **Escolher os episódios** (regras abaixo) e cravar os cortes palavra a palavra:
    `"$P" scripts/palavras.py <trabalho> 00:11:25 00:26:04 ...` — corte logo antes da 1ª palavra (−0,1 a −0,3 s)
    e logo depois da última (+0,1 a +0,4 s), nunca no meio de palavra; no meio de frase só se a frase seguinte
-   continuar o sentido.
+   continuar o sentido. Para achar uma frase: `"$P" scripts/achar.py <trabalho> "frase" --perto 01:20:40`.
+   **Frase a tirar de dentro de um trecho: use `"cortar"` no plano, pelo texto** (não pelo relógio):
+   `{"frase": "como o Adriano bem falou ali", "perto": "01:10:44"}`, `{"de": "...", "ate": "..."}` ou
+   `{"de": "...", "ate_antes": "..."}` — o corte cai no meio da pausa e nunca pega meia palavra.
 6. **Escrever o `plano.json`** (formato no topo de `scripts/render_episodio.py`; exemplo em `exemplos/`):
-   trechos, abertura, CTAs (instantes da aula) e o bloco `meta` (títulos, thumbs, resumo, bullets, capítulos,
-   tags, hashtags, fatos imprecisos). Confira com `"$P" scripts/render_episodio.py <trabalho> --so-mapa`
+   trechos, `cortar`, abertura, CTAs (instantes da aula) e o bloco `meta` (títulos, thumbs, resumo, bullets,
+   capítulos, tags, hashtags, fatos imprecisos). No topo do plano, `"correcoes"`: nomes que o Whisper erra, para
+   a legenda .srt (`{"Cléuto": "Clailton", "Ruas": "ROAS", "Graham Cardone": "Grant Cardone"}`; maiúscula conta,
+   então "Ruas" não troca "ruas"). Confira com `"$P" scripts/render_episodio.py <trabalho> --so-mapa`
    (mostra duração e onde cai cada CTA em %; reclama se a CTA cair num trecho cortado ou perto do fim).
 7. **Renderizar**: `"$P" scripts/render_episodio.py <trabalho> [--so 1]` (~1 min de render por 2–3 min de vídeo
    no libx264). Em paralelo: `"$P" scripts/thumbs.py <trabalho> candidatos`.
@@ -88,7 +100,9 @@ Rode no **PC de render** (`~/.claude/maquina.json` → `"papel": "render"`). Scr
   de abertura + parte central), desde que a emenda faça sentido falada. Retomada de assunto do começo
   ("é isso que quase quebrou aquela empresa, a Lego") é ouro: fecha o laço.
 - **Fim:** a conclusão, a moral ou uma pergunta de reflexão do próprio Clailton ("Como eu posso melhorar?").
-  Nunca terminar em "agora vamos para a dinâmica", "pessoal de casa".
+  Nunca terminar em "agora vamos para a dinâmica", "pessoal de casa", nem em "uma boa semana a todos". O render
+  segura o último quadro 1,2 s e escurece em silêncio (`RESPIRO`), então pode parar logo depois da última palavra.
+  Fechar com a mesma história da abertura funciona (EP02: a dona que contratou um vendedor que ganha mais que ela).
 - **Abertura (cold open, 15–40 s):** o trecho mais forte do próprio episódio (frase-tese, pergunta, virada de
   história), sem entregar a solução. Entra antes do começo, com um mergulho de 0,3 s no preto. Nas pausas
   da abertura, nada acima de 1,2 s. Exemplos: "o problema é o líder desqualificado..." (EP1), "o nome dessa
@@ -96,8 +110,22 @@ Rode no **PC de render** (`~/.claude/maquina.json` → `"papel": "render"`). Scr
 - **Pausas sem fala > 2,5 s** viram 0,9 s sozinhas (o render faz). Risada/aplauso curto fica.
 - **Direitos autorais:** nada de vídeo de TV/terceiros nem música de animação. Se a fala do Clailton depende
   do vídeo, mantenha só a parte dele que se sustenta (ex.: o pipoqueiro de Curitiba: apresentação + comentário
-  depois, sem a reportagem).
+  depois, sem a reportagem). Se ele **narra por cima** de um clipe (ex.: a luta Ali x Wepner na T14 A06), mantenha
+  a fala e **desfoque o clipe**: `"borrar": [["ini", "fim", x, y, w, h], ...]` no plano (tempo da aula, px em
+  1080p; tela cheia = `0, 0, 1920, 1080`; só o slide no layout com janela = `96, 205, 1190, 670`). Para achar o
+  começo/fim do clipe: movimento quadro a quadro na área do slide (clipe = movimento alto; slide = ~0).
+  Foto parada de filme/pessoa famosa no slide pode ficar.
 - **Aluno identificável falando** (apresentação de trabalho): fora, sem autorização.
+- **Frases de turma** (o revisor pegou dezenas na 1ª rodada; tire com `cortar`): "semana que vem a gente vê",
+  "nos próximos encontros", "que é o que vamos tratar hoje", "como o Adriano falou", "o Claudio me mostrou
+  ontem", "dá o microfone ali", "eu vou mostrar daqui a pouco", "você vai olhar porque nós vamos cobrar",
+  "alguns já fizeram", "a planilha que vocês têm", nome de empresa de aluno ("o exemplo da Rick Entalho").
+  Também: **dúvida de memória** ("foi no CDL, não, não foi no CDL..."), **repetição** ("É surreal. É surreal."),
+  **afirmação grandiosa sem fonte** ("melhor ideia de gestão dos últimos 100 anos", "50% das empresas da Forbes",
+  "só gênios") e **tema trabalhista delicado** (cobrar prejuízo do funcionário em 7 vezes).
+- **Os cortes do revisor encurtam 10–25 %.** Planeje cada episódio com ≥ 18 min antes da revisão. Se cair
+  abaixo de 15, traga uma história do mesmo tema de outro ponto da aula (EP04: a do entregador e da pesquisa de
+  satisfação entrou em "melhorar a experiência do cliente"); os trechos tocam na ordem em que estão no plano.
 
 ## CTA da sessão estratégica (QR)
 
@@ -108,9 +136,11 @@ Rode no **PC de render** (`~/.claude/maquina.json` → `"papel": "render"`). Scr
   5–20 s fica a tela final do YouTube). **Estratégico** = logo depois de um ponto que dá vontade de ajuda: quando
   o Clailton fala do que a Legacy faz dentro da empresa, depois da moral de uma história, depois de "eles
   participaram do meu treinamento". Nunca em cima do clímax de uma história.
-- **Canto automático:** o render escolhe, a cada CTA, o canto com menos coisa (sem rosto, sem texto de slide,
-  sem área clara do telão); preferência pelo superior esquerdo. Forçar: `"cantos": {"2": "sd"}` no episódio
-  (`se`, `sd`, `ie`, `id`).
+- **Posição e tamanho automáticos:** o render olha 4 quadros dos 30 s de cada CTA e escolhe entre o card
+  **grande** (escala 1,65) nos 4 cantos e o **compacto** (escala 1,2, QR ~164 px) — no layout "slide + janela"
+  o compacto entra **na faixa escura de cima, alinhado com a borda do slide (`topo-e`) ou da janela do Clailton
+  (`topo-d`)**, sem cobrir nada. Critério: nada de rosto, de texto de slide ou de área clara embaixo do card;
+  prefere o grande se ele não cobrir nada. Forçar: `"cantos": {"2": "sd"}` ou `{"1": "topo-d/compacto"}`.
 - **URL curta no QR** (≤ 106 caracteres → QR versão 5): sem `utm_content`. O `conferir.py` lê o QR no vídeo
   final, nas 3 posições de cada CTA; se não ler, reprova.
 - Quem assiste no celular não escaneia a própria tela: por isso a **descrição abre com o link** e o comentário
@@ -135,11 +165,13 @@ Rode no **PC de render** (`~/.claude/maquina.json` → `"papel": "render"`). Scr
 
 ## Revisor às cegas (depois do conferir.py)
 
-Mande um agente (`general-purpose`) ler, para cada episódio, só: a abertura, os 90 primeiros e os 90 últimos
-segundos de texto (`qa/<arquivo>_qa.json`), a transcrição do episódio inteiro (`palavras_no_episodio`) e o título.
-Ele responde: (1) dá para entender sem ter visto a aula? (2) o começo prende e o fim fecha? (3) tem emenda que
-soa quebrada (cite o tempo)? (4) o título e a thumb prometem só o que o vídeo entrega? (5) nota 0–10.
-Abaixo de 8 ou qualquer "não": corrija o plano e refaça.
+Prompt pronto em `references/revisor-as-cegas.md`: um agente (`general-purpose`) lê só o texto de cada episódio
+(`qa/<arquivo>_texto.txt`), a abertura, o título e a thumb, e responde se dá para entender sem a aula, se o
+começo prende e o fim fecha, que emenda soa quebrada (com o tempo), se o título promete só o que o vídeo
+entrega, e dá nota 0–10 com as correções. **Abaixo de 8 ou qualquer "não": corrija o plano e refaça.**
+Na T14 A06 a 1ª rodada deu 6/6/7/5: o que ele pega é quase sempre frase de turma, teaser que entrega pedaço
+da história, começo que repete a frase anterior e fim sem ponto final. Para achar no tempo da aula o que ele
+apontou no tempo do episódio: `"$P" scripts/achar.py <trabalho> --ep "<arquivo>" 13:16`.
 
 ## Armadilhas desta máquina
 
@@ -153,3 +185,12 @@ Abaixo de 8 ou qualquer "não": corrija o plano e refaça.
 - O áudio das aulas chega com pico acima de 0 dBFS (+2 dBTP): o render comprime de leve e normaliza; o
   conferir.py exige pico ≤ −1 dBTP.
 - Comandos Python longos com aspas triplas dentro de heredoc no bash quebram: escreva um `.py` e rode.
+- `cv2.imwrite` estraga nome de arquivo com acento no Windows ("sacrifÃ­cio"): grave com
+  `cv2.imencode(".png", img)[1].tofile(caminho)` (o thumbs.py já faz).
+- **Thumbs:** o detector de rosto acha também rosto de FOTO no slide (Stallone, Grant Cardone). O thumbs.py
+  descarta rosto P&B e rosto com cabelo/chapéu (o Clailton é careca), mas **careca famoso passa** (Jeff Bezos
+  apareceu como candidato): sempre olhe a folha e escolha à mão.
+- O áudio vai com limitador (−3 dBFS) depois do loudnorm: sem ele, o pico ficou em −0,6 dBTP e o conferir.py
+  reprovou. Para corrigir um vídeo já pronto sem refazer a imagem: `-c:v copy -af alimiter=limit=0.70:level=disabled`.
+- QR de 4 px por módulo (card compacto) lê no vídeo em 1080p; reduzido para 720p o leitor do OpenCV falha
+  (celular costuma ler). O conferir.py só avisa; para TV/computador o vídeo roda em 1080p.

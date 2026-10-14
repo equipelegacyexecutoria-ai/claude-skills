@@ -104,7 +104,7 @@ def mmss(t: float) -> str:
 
 
 def cortar(video: Path, ini: float, dur: float, saida: Path, altura: int, crf: int) -> None:
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{ini:.2f}", "-i", str(video), "-t", f"{dur:.2f}",
+    subprocess.run(["ffmpeg", "-nostdin", "-v", "error", "-y", "-ss", f"{ini:.2f}", "-i", str(video), "-t", f"{dur:.2f}",
                     "-vf", f"scale=-2:{altura}", "-c:v", "libx264", "-preset", "slow", "-crf", str(crf),
                     "-c:a", "aac", "-b:a", "96k", "-movflags", "+faststart", str(saida)], check=True)
 
@@ -128,6 +128,9 @@ def main() -> None:
     fichas, total = [], 0.0
     for ep in plano["episodios"]:
         n, nome, mt = ep["n"], ep["arquivo"], ep["meta"]
+        if not (trab / "render" / f"{nome} - YOUTUBE.txt").exists():
+            print(f"pulado (sem render/metadados): {nome}")
+            continue
         info = ler_json(trab / "render" / f"{nome}.json")
         video = trab / "render" / f"{nome}.mp4"
         total += info["duracao"]

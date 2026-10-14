@@ -28,7 +28,7 @@ from render_episodio import palavras_no_episodio, rostos  # noqa: E402
 
 def quadro_video(video: Path, t: float, largura: int | None = None):
     vf = ["-vf", f"scale={largura}:-1"] if largura else []
-    p = subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{t:.2f}", "-i", str(video), "-frames:v", "1", *vf,
+    p = subprocess.run(["ffmpeg", "-nostdin", "-v", "error", "-ss", f"{t:.2f}", "-i", str(video), "-frames:v", "1", *vf,
                         "-f", "image2pipe", "-vcodec", "png", "-"], capture_output=True)
     return cv2.imdecode(np.frombuffer(p.stdout, np.uint8), cv2.IMREAD_COLOR)
 
@@ -38,7 +38,7 @@ def ler_qr(img) -> set[str]:
 
 
 def ffmpeg_log(args: list[str]) -> str:
-    p = subprocess.run(["ffmpeg", "-hide_banner", "-nostats", *args], capture_output=True, text=True,
+    p = subprocess.run(["ffmpeg", "-nostdin", "-hide_banner", "-nostats", *args], capture_output=True, text=True,
                        encoding="utf-8", errors="replace")
     return p.stderr
 
@@ -86,7 +86,9 @@ def main() -> None:
     log = ffmpeg_log(["-i", str(video), "-vf", "blackdetect=d=0.4:pix_th=0.08", "-an", "-f", "null", "-"])
     pretos = [(float(x), float(y)) for x, y in re.findall(r"black_start:([\d.]+) black_end:([\d.]+)", log)]
     ab = info.get("abertura_dur", 0)
-    ruins = [p for p in pretos if not (ab and abs(p[0] - (ab - 0.3)) < 1.0) and p[1] - p[0] > 0.4]
+    fim = info["duracao"]
+    ruins = [p for p in pretos if not (ab and abs(p[0] - (ab - 0.3)) < 1.0) and p[1] - p[0] > 0.4
+             and not p[1] >= fim - 0.5]                       # o escurecer do fim (respiro) é esperado
     if ruins:
         falhas.append("tela preta em " + ", ".join(f"{hms(x)}–{hms(y)}" for x, y in ruins))
 
@@ -98,7 +100,6 @@ def main() -> None:
 
     # 6–7. QR e rosto sob o card
     url = info["url_qr"]
-    cw, ch = info["card"]["w"], info["card"]["h"]
     quadros_cta = []
     for pos in info["card"]["posicoes"]:
         t = pos["t"]
@@ -110,12 +111,13 @@ def main() -> None:
             peq = cv2.resize(img, (1280, 720), interpolation=cv2.INTER_AREA)
             if url not in ler_qr(peq):
                 avisos.append(f"QR da CTA {pos['cta']} não lê em 720p ({hms(t + dt)})")
-            X0, Y0, X1, Y1 = pos["x"], pos["y"], pos["x"] + cw, pos["y"] + ch
+            bx, by, bw, bh = pos["box"]
+            X0, Y0, X1, Y1 = bx, by, bx + bw, by + bh
             for fx, fy, fw, fh in rostos(img):
                 if fx < X1 and fx + fw > X0 and fy < Y1 and fy + fh > Y0:
                     falhas.append(f"card da CTA {pos['cta']} cobre um rosto em {hms(t + dt)}")
             if dt == 15:
-                quadros_cta.append((f"CTA {pos['cta']} {hms(t + dt)} ({pos['canto']})", img))
+                quadros_cta.append((f"CTA {pos['cta']} {hms(t + dt)} ({pos['canto']}/{pos['tam']})", img))
     if not any("QR" in f for f in falhas):
         ok.append(f"QR lido nas {len(info['card']['posicoes'])} CTAs -> {url}")
 
@@ -147,6 +149,16 @@ def main() -> None:
     comeco = " ".join(w["t"] for w in corpo[:90])
     fim = " ".join(w["t"] for w in pal[-90:])
     abertura = " ".join(w["t"] for w in pal if w["ini"] < ab)
+    # texto inteiro com marca de tempo a cada ~30 s (para o revisor às cegas citar onde)
+    linhas, cur, marca = [], [], -30.0
+    for w in pal:
+        if w["ini"] - marca >= 30 and (not cur or cur[-1].endswith((".", "?", "!"))):
+            if cur:
+                linhas.append(" ".join(cur))
+            cur, marca = [f"[{hms(w['ini'])}]"], w["ini"]
+        cur.append(w["t"])
+    linhas.append(" ".join(cur))
+    (qa / f"{a.arquivo}_texto.txt").write_text("\n".join(linhas) + "\n", encoding="utf-8")
 
     veredito = "APROVADO" if not falhas else "REPROVADO"
     rel = {"arquivo": a.arquivo, "veredito": veredito, "falhas": falhas, "avisos": avisos, "ok": ok,

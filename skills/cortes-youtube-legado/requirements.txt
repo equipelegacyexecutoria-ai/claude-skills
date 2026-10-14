@@ -1,0 +1,6 @@
+numpy
+opencv-python>=4.10
+Pillow
+faster-whisper
+nvidia-cublas-cu12
+nvidia-cudnn-cu12
