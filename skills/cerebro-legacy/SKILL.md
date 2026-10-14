@@ -1,6 +1,6 @@
 ---
 name: cerebro-legacy
-description: Cérebro da Legacy (começando pelo time do Orgânico) — contexto do time, mapa do Notion e do Pipedrive, memória diária e o relatório matinal do Igor. Gera o relatório diário (seg–sex 8h) com publicações do dia, posts que ainda não estão prontos, decisões que esperam o Igor, tarefas de hoje e atrasadas por pessoa e o funil dos leads orgânicos/Quiz do Pipedrive (novos, avançaram, parados, taxas por etapa); e o resumo semanal (domingo). Use quando pedirem "relatório do dia", "o que tem pra hoje", "o que está atrasado", "quem tem que fazer o quê", "como estão os leads", "funil do orgânico", "relatório da semana", "resumo do orgânico", quando perguntarem sobre o quiz do Clailton, MQL, a Black Friday 2026 ou a narrativa "Viva sem medo em 2027", ou quando uma rotina agendada mandar rodar o relatório.
+description: Cérebro da Legacy (começando pelo time do Orgânico) — contexto do time, mapa do Notion e do Pipedrive, memória diária e o relatório matinal do Igor. Gera o relatório diário (seg–sex 8h) com publicações do dia, posts que ainda não estão prontos, decisões que esperam o Igor, tarefas de hoje e atrasadas por pessoa e o funil dos leads orgânicos/Quiz do Pipedrive (novos, avançaram, parados, taxas por etapa); e o resumo semanal (domingo). Use quando pedirem "relatório do dia", "o que tem pra hoje", "o que está atrasado", "quem tem que fazer o quê", "como estão os leads", "funil do orgânico", "relatório da semana", "resumo do orgânico", quando perguntarem sobre o quiz do Clailton, MQL, a Black Friday 2026 ou a narrativa "Viva sem medo em 2027", sobre o desempenho dos posts e as métricas do Instagram, leads por canal, metas do mês, vendas orgânicas ou cliques no link (janelas Posts e Leads do painel), ou quando uma rotina agendada mandar rodar o relatório.
 ---
 
 # Cérebro Legacy — Orgânico
@@ -25,8 +25,11 @@ escrever o relatório sobre o assunto:
 - `conhecimento/black-friday-2026.md` — perguntas sobre a **Black Friday**, a campanha e a narrativa
   **"Viva sem medo em 2027"**, oferta, datas, identidade visual, criativos, Academy e pop-ups, gerador de
   Plano 2027, pré-vendas e closer, decisões de cada reunião e pendências do quadro da Black.
+- `conhecimento/posts-e-leads.md` — as janelas **Posts** e **Leads** do painel (trazidas do Insights Hub em
+  14/10/2026): de onde vêm os dados, quando atualizam, regras de MQL e canal, metas, números por mês e como
+  analisar (cruzando com a Bibliografia do perfil Legacy).
 
-Os dois terminam com "Informação que não bate": avise o Igor quando a resposta depender de algo dali.
+Os dois primeiros terminam com "Informação que não bate": avise o Igor quando a resposta depender de algo dali.
 Quando uma reunião ou card novo mudar esses assuntos, atualize o arquivo e a data do topo (na nuvem,
 inclua `skills/cerebro-legacy/conhecimento/` no commit).
 
