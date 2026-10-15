@@ -3,7 +3,9 @@
 2) equaliza a voz clonada para o timbre médio da voz original (curva por bandas, +-9 dB);
 3) iguala o volume da voz original;
 4) põe por baixo o ambiente real do original (o "ar" do escritório), para a emenda não abrir.
-Uso: python casar_voz.py <voz.wav> <original.mp4> <corte_quadro> <saida.wav>
+Uso: python casar_voz.py <voz.wav> <original.mp4> <corte_quadro> <saida.wav> [antes]
+     antes = a fala nova entra DEPOIS do trecho de referência (CTA no fim): tudo é medido nos segundos antes
+     do corte; o fundo continua para a frente (com música) ou é o ambiente invertido (só sala).
 """
 import subprocess, sys, tempfile
 from pathlib import Path
@@ -13,6 +15,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from comum import py_com  # noqa: E402
 
 voz, original, corte, saida = sys.argv[1], sys.argv[2], int(sys.argv[3]), sys.argv[4]
+ANTES = len(sys.argv) > 5 and sys.argv[5] == "antes"
 PY_SEP = py_com("demucs")   # separador de voz e ambiente (normalmente a venv-align)
 SR = 44100
 t_c = corte * 1001 / 30000
@@ -51,14 +54,15 @@ def espectro(a):
 tmp = Path(tempfile.mkdtemp())
 dur_voz = len(ler(voz)) / SR
 # 1) original logo depois do corte: separa voz e ambiente
-subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{t_c:.4f}", "-t", "40", "-i", original, "-vn",
+t_sep = max(0.0, t_c - 40) if ANTES else t_c
+subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{t_sep:.4f}", "-t", f"{(t_c - t_sep) if ANTES else 40:.4f}", "-i", original, "-vn",
                 "-ac", "2", "-ar", str(SR), str(tmp / "corpo.wav")], check=True)
 subprocess.run([PY_SEP, "-m", "demucs", "--two-stems=vocals", "-n", "htdemucs", "-o", str(tmp), str(tmp / "corpo.wav")],
                check=True, capture_output=True)
 sep = tmp / "htdemucs" / "corpo"
 # 2) curva de equalização (em passadas): som do original (voz + sala, sem música) / voz clonada
 # referência: a voz real em volta da emenda (gancho original + 12 s depois do corte); mais longe o som muda
-c, ref = espectro(ler(original, t_c, 12))
+c, ref = espectro(ler(original, t_c - 12, 12) if ANTES else ler(original, t_c, 12))
 ref = ref - ref.mean()
 eq = tmp / "eq.wav"
 g_tot = np.zeros_like(ref)
@@ -93,10 +97,23 @@ def piso(a, pct):
 # 4) ambiente: o ambiente do original logo depois do corte, invertido no tempo (termina exatamente onde o
 #    original continua, sem pulo na emenda), no mesmo nível do "fundo" do original entre as palavras
 amb = tmp / "amb.wav"
-subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(sep / "no_vocals.wav"), "-t", f"{dur_voz:.4f}",
-                "-af", "areverse", "-ac", "1", str(amb)], check=True)
-alvo_piso = piso(ler(original, t_c, 10), 10) - 2
+if ANTES:
+    # fim do reel: o fundo que estava tocando antes do corte. Com música (fundo forte), repete os últimos
+    # segundos para a frente (música invertida soa errada); só sala, inverte (começa igual ao corte).
+    musica = lufs(sep / "no_vocals.wav") - lufs(sep / "vocals.wav") > -18
+    tam = min(dur_voz, t_c - t_sep)
+    af = (f"atrim=start={t_c - t_sep - tam:.4f},asetpts=PTS-STARTPTS,aloop=loop=-1:size={int(tam * SR)},"
+          f"atrim=0:{dur_voz:.4f}") if musica else f"atrim=start={t_c - t_sep - tam:.4f},areverse,apad,atrim=0:{dur_voz:.4f}"
+    print("fundo:", "música (segue para a frente)" if musica else "só ambiente (invertido)")
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(sep / "no_vocals.wav"), "-af", af, "-ac", "1",
+                    "-ar", str(SR), str(amb)], check=True)
+else:
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(sep / "no_vocals.wav"), "-t", f"{dur_voz:.4f}",
+                    "-af", "areverse", "-ac", "1", str(amb)], check=True)
+alvo_piso = piso(ler(original, t_c - 10, 10) if ANTES else ler(original, t_c, 10), 10) - 2
 g_amb = float(np.clip(alvo_piso - piso(ler(amb), 50), -6, 18))
+if ANTES and musica:
+    g_amb = 0.0   # música no mesmo volume em que já tocava
 subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(eq), "-i", str(amb), "-filter_complex",
                 f"[0:a]volume={ganho:.2f}dB[v];[1:a]volume={g_amb:.2f}dB[b];[v][b]amix=inputs=2:duration=first:normalize=0,"
                 f"alimiter=limit=0.97:level=false", "-ar", "48000", "-ac", "2", saida], check=True)

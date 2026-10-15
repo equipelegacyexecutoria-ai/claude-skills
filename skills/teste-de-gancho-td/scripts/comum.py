@@ -47,6 +47,13 @@ def py_com(*mods):
 
 
 def whisper(gpu=True):
+    # as DLLs do CUDA vêm dos pacotes nvidia-* da venv; o Windows não acha sozinho (registra as pastas bin)
+    base = Path(sys.prefix) / "Lib" / "site-packages" / "nvidia"
+    for sub in ("cublas", "cudnn", "cuda_nvrtc"):
+        d = base / sub / "bin"
+        if d.exists():
+            os.add_dll_directory(str(d))
+            os.environ["PATH"] = str(d) + os.pathsep + os.environ.get("PATH", "")
     from faster_whisper import WhisperModel
     if gpu:
         try:
