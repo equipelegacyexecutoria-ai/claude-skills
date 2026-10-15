@@ -356,3 +356,7 @@ o `merge-designs` falha com ele).
   modelo com as duas fotos montadas numa imagem só + página de par com os textos.
 - Pág. 2 com 9+ linhas: subir título, corpo e degradê 50–60 px já na primeira aplicação; o fim do
   degradê precisa passar ~30 px do fim da FOTO (senão aparece uma linha da foto).
+- "Imagem coringa de CTA para a Sessão Estratégica" no briefing = pág. 1 do design "Criativos | LEGACY"
+  `DAHMFvgSg18` (Clailton e Allan apontando para o link, 1080×1350). O `merge-designs` falha ao
+  inserir (tamanho diferente): exportar a pág. 1 em PNG, esticar a 1ª/última linha até 1080×1440,
+  subir, `add_page` 1080×1440 no fim e `insert_fill` da imagem em (0, 0, 1080, 1440). Feito no 5x2 (15/10).
