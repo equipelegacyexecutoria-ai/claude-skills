@@ -191,6 +191,10 @@ os negócios do MQL do quiz passam a ter também as etiquetas "Quiz Clailton · 
   ainda pode ser acaso (precisa de ~353 sessões por versão). Lead: 3,4% x 3,1%; checkout: 11,9% x 10,9%.
 - **Total desde 10/09:** 566 acessos, 475 visitantes, 230 iniciaram, 113 chegaram à captura, 65 leads no painel
   (a planilha tem 48: 26 do quiz antigo + 22 do atual; diferença a explicar), 56 cliques em comprar, 29 leads no checkout.
+  **Número oficial (decisão do Igor, 15/10): a planilha, sem testes = 47 leads (25 antigo + 22 atual), 16 MQL (8 + 8;
+  no antigo, faixa "acima de R$ 100 mil"), 18 no checkout abandonado.** Todos esses dados são do fluxo atual; o novo
+  entra no ar na terça 20/10 à meia-noite, junto com os criativos (copy e gravação dos criativos concluídas em 15/10).
+  Apresentação: https://claude.ai/artifact/TneFLpvpyKkrLqgB6sAJay
 - **MQL do quiz no Pipedrive (FUNIL LEGADO):** 15 negócios (7 do quiz antigo, 8 do atual). Os 8 MQL da planilha atual
   estão todos lá. Em 15/10: 2 em Reunião Realizada, 4 em Tentativa de Conexão, 9 perdidos (2 depois da reunião).
   Testes ("Igor Teste", "mac") seguem abertos no FUNIL IMPULSÃO.
