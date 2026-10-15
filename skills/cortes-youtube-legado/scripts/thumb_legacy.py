@@ -142,8 +142,8 @@ def variante_a(args) -> Image.Image:
     img = brilho(img, 960 * S, 300 * S, 420 * S, AZUL, 0.35)
     if args.objeto:
         img = objeto(img, args.objeto)
-    pes, (cx, ty) = pessoa_tratada(args.pessoa, 360 * S)
-    img.alpha_composite(pes, (980 * S - cx, 40 * S - ty))
+    pes, (cx, ty) = pessoa_tratada(args.pessoa, (args.cabeca or 360) * S)
+    img.alpha_composite(pes, ((args.x or 980) * S - cx, 40 * S - ty))
     # linha de apoio
     fa = fonte_para_altura(APOIO_FONTE, 40 * S)
     while fa.getlength(args.apoio) > 980 * S and fa.size > 20:
@@ -193,8 +193,8 @@ def variante_a(args) -> Image.Image:
 def variante_b(args) -> Image.Image:
     img = fundo(Image.open(args.fundo) if args.fundo else None)
     img = brilho(img, 980 * S, 330 * S, 460 * S, AZUL, 0.30)
-    pes, (cx, ty) = pessoa_tratada(args.pessoa, 420 * S)
-    img.alpha_composite(pes, (1000 * S - cx, 34 * S - ty))
+    pes, (cx, ty) = pessoa_tratada(args.pessoa, (args.cabeca or 420) * S)
+    img.alpha_composite(pes, ((args.x or 1000) * S - cx, 34 * S - ty))
     linhas = [l.strip() for l in args.linhas.split("|") if l.strip()]
     cap = 96 * S
     while True:
@@ -236,6 +236,8 @@ def main() -> None:
     ap.add_argument("--objeto")
     ap.add_argument("--balao")
     ap.add_argument("--fundo")
+    ap.add_argument("--cabeca", type=int, help="altura da cabeça em px de 1280×720 (A: 360, B: 420); diminua se a tarja cobrir o rosto")
+    ap.add_argument("--x", type=int, help="centro da cabeça em x (A: 980, B: 1000)")
     a = ap.parse_args()
     img = (variante_a if a.variante == "A" else variante_b)(a).convert("RGB")
     out = Path(a.saida)
