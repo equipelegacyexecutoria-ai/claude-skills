@@ -422,6 +422,8 @@ def render(trab: Path, plano: dict, ep: dict, rapido: bool, so_mapa: bool = Fals
     saida_dir = trab / ("previa" if rapido else "render")
     saida_dir.mkdir(exist_ok=True)
     nome = ep["arquivo"]
+    if re.search(r'[<>:"/\|?*]', nome):     # ":" no Windows vira fluxo alternativo e o mp4 sai vazio
+        sys.exit(f"[ep {ep['n']}] nome de arquivo inválido no Windows (tire : ? \" / | * < >): {nome}")
     url = url_qr(plano["codigo"], ep["n"])
     altura = 540 if rapido else 1080
     s = altura / 1080
