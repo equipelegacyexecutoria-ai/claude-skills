@@ -39,7 +39,7 @@ Ao passar o mouse nas barras aparece o balão com o detalhe (ex.: num dia de MQL
 
 | Grupo | De onde vem | Quem entra | Onde conta |
 |---|---|---|---|
-| **Orgânico** | formulário Legacy (abas "Leads Completos" e "V2"), todos com utm orgânico | MQL e não MQL | origem Legacy; por perfil pelo canal: bio_legacy, Story_legacy (Legacy); bio_clailton · instagram, Story_clailton (Clailton); bio_clailton · tiktok (TikTok do Clailton) |
+| **Orgânico** | formulário Legacy (abas "Leads Completos" e "V2"), todos com utm orgânico | MQL e não MQL | origem Legacy; por perfil pelo canal: bio_legacy, Story_legacy, boas_vindas (Legacy); bio_clailton · instagram, Story_clailton (Clailton); bio_clailton · tiktok (TikTok do Clailton) |
 | **Quiz** | planilha do quiz (desde 07/10/2026) | **só os MQL** (≥ R$ 70 mil) | também orgânico e na origem Legacy, mas mostrado à parte ("QUIZ - Boas-vindas Legacy", "QUIZ - Link da bio Clailton"…) |
 | **Comunidade** | formulários da Comunidade (só utm orgânico) | todos | **totalmente à parte**: origem Comunidade, fora das contas de perfil, post e teste |
 
@@ -57,6 +57,14 @@ Referência (planilhas, 13/10): orgânico 733 desde fev (343 MQL), Quiz 6 (todos
 - **Canal** = utm_campaign, senão utm_content, senão a origem, senão "Sem origem". Quando o mesmo canal chega por mais
   de uma rede, o nome ganha a rede ("bio_clailton · tiktok" e "bio_clailton · instagram").
 - **Quiz:** aparece como "QUIZ - Boas-vindas Legacy", "QUIZ - Link da bio Clailton" etc.
+- **Mudanças de caminho confirmadas pelo Igor (16/10/2026):**
+  - Desde ~05/10/2026 o **link da bio do Clailton leva ao Quiz** (Instagram e TikTok). Os formulários orgânicos do
+    Clailton despencam a partir daí (TikTok ~35/semana → 0; Instagram ~16 → 1) e o que chega vem pelo Quiz, que só guarda
+    MQL. Não ler como queda de interesse: comparar MQL (orgânico MQL antes × Quiz depois). O "3 reels por dia" começou
+    na mesma data.
+  - **boas_vindas** (utm_campaign, meio "legacy", desde 12/10/2026) é a mensagem de boas-vindas da Legacy: conta como
+    **Orgânico da Legacy**.
+  - legacy e legacy_v2 são só versões do mesmo formulário (troca no fim de setembro): não é mudança de caminho.
 - A mesma pessoa nas abas Legacy e V2 conta uma vez (a data mais antiga).
 - Cores do painel: meta abaixo do esperado em âmbar (vermelho nunca é usado para meta).
 
