@@ -8,6 +8,7 @@ cta.json:
   "pauta": "Reels_Clailton_TD_TESTE_CTA_Plano_Porco_E_O_Urso",   nome do arquivo final (TESTE depois do formato)
   "corte": 114.33,          segundo do original onde a CTA entra (tudo depois sai)
   "nome": "porco",          fala em <W>/vozes/<nome>.wav (+ frases.json) e boca em <W>/ls/<nome>.mp4
+  "boca": "heygen/porco.mp4",  (opcional) vídeo do Clailton falando a CTA; padrão ls/<nome>.mp4
   "estilo": "cheio",        "cheio" = Clailton em tela cheia (TD/ES); "novela" = faixa com barras pretas
   "trocas": [9, 25],        índices de palavra onde o plano troca aberto <-> fechado (zoom seco)
   "comeca": "fechado",      plano da 1ª tela da CTA (padrão: o contrário do último plano antes do corte)
@@ -46,22 +47,27 @@ def rodar(cmd):
 def rostos(vid, t0, t1, passo=0.2):
     cap = cv2.VideoCapture(str(vid))
     w, h = int(cap.get(3)), int(cap.get(4))
-    det = cv2.FaceDetectorYN.create(MOD, "", (w, h), 0.6, 0.3, 5000)
+    k = 540 / max(w, h) if max(w, h) > 960 else 1.0   # reduzido: o detector perde rosto muito perto (selfie)
+    dw, dh = round(w * k), round(h * k)
+    det = cv2.FaceDetectorYN.create(MOD, "", (dw, dh), 0.6, 0.3, 5000)
     out = []
     for t in np.arange(t0, t1, passo):
         cap.set(cv2.CAP_PROP_POS_MSEC, t * 1000)
         ok, fr = cap.read()
         if not ok:
             continue
-        _, f = det.detect(fr)
+        _, f = det.detect(cv2.resize(fr, (dw, dh), interpolation=cv2.INTER_AREA) if k != 1.0 else fr)
         if f is not None and len(f):
-            f = max(f, key=lambda r: r[2] * r[3])
+            f = max(f, key=lambda r: r[2] * r[3]) / k
             out.append(dict(t=round(t, 2), larg=f[2], cx=(f[4] + f[6]) / 2, olhos=(f[5] + f[7]) / 2))
     return out
 
 
 # 1) fim do original: os dois planos (aberto/fechado) do Clailton e a legenda
 fim = rostos(orig, max(0, t_c - 25), t_c)
+if fim:   # só o Clailton: B-roll com outras pessoas tem rosto bem menor que o dele
+    maior = np.percentile([r["larg"] for r in fim], 90)
+    fim = [r for r in fim if r["larg"] >= 0.55 * maior]
 if len(fim) < 5:
     sys.exit("rosto do Clailton não achado nos 25 s antes do corte")
 largs = sorted(r["larg"] for r in fim)
@@ -76,8 +82,22 @@ PLANOS = {"aberto": dict(larg=med(ab, "larg"), cx=med(ab, "cx"), olhos=med(ab, "
           "fechado": dict(larg=med(fe, "larg"), cx=med(fe, "cx"), olhos=med(fe, "olhos"))}
 if ab is fe:
     PLANOS["fechado"] = dict(PLANOS["aberto"], larg=PLANOS["aberto"]["larg"] * 1.3)
+# fechado no máximo 1,3x o aberto e olhos na mesma altura dos dois (regra dos reels: zoom seco sem pular o olhar)
+PLANOS["fechado"] = dict(PLANOS["aberto"], larg=min(PLANOS["fechado"]["larg"], PLANOS["aberto"]["larg"] * 1.3))
 ultimo = "fechado" if fim[-1]["larg"] >= largs[corte_l] and ab is not fe else "aberto"
 print("planos do fim:", {k: {a: round(b) for a, b in v.items()} for k, v in PLANOS.items()}, "| último:", ultimo)
+
+NOVELA = C.get("estilo") == "novela"
+if NOVELA:   # faixa de imagem entre as barras pretas (cada novela foi enquadrada de um jeito)
+    fx = []
+    for t in np.linspace(t_c - 8, t_c - 0.2, 9):
+        r = np.where(quadro(orig, t).astype(float).mean(axis=(1, 2)) > 6)[0]
+        fx.append((r.min(), r.max()))
+    BY0, BY1 = int(statistics.median(a for a, _ in fx)), int(statistics.median(b for _, b in fx))
+else:
+    BY0, BY1 = 0, H - 1
+BH = (BY1 - BY0 + 1) // 2 * 2
+print(f"faixa de imagem: y {BY0}..{BY0 + BH}")
 
 caixas = [c for c in (caixa_legenda(quadro(orig, t), 300, 1600) for t in np.linspace(t_c - 12, t_c - 0.2, 24)) if c]
 if not caixas:
@@ -88,7 +108,7 @@ cap_y = int(statistics.median((a + b) / 2 for a, b in caixas if b - a <= 1.6 * a
 print(f"legenda do original: centro y {cap_y}, maiúscula {cap_px} px")
 
 # 2) boca sincronizada: enquadra no plano de cada tela (rosto no mesmo tamanho, olhos na mesma altura)
-boca = R / "ls" / f"{C['nome']}.mp4"
+boca = R / C.get("boca", f"ls/{C['nome']}.mp4")   # HeyGen (look do próprio bruto) ou boca sincronizada
 rb = rostos(boca, 0.1, min(FR["dur"], 6), 0.25)
 b_larg, b_cx, b_olhos = med(rb, "larg"), med(rb, "cx"), med(rb, "olhos")
 dur = FR["dur"] + C.get("cauda", 0.6)
@@ -107,15 +127,25 @@ for k in sorted(C.get("trocas", [])) + [None]:
     ini, plano = t_fim, ("aberto" if plano == "fechado" else "fechado")
 
 
+BW_, BH_ = [int(v) for v in rodar(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries",
+                                   "stream=width,height", "-of", "csv=p=0", str(boca)]).stdout.split(",")]
+
+
 def geo(pl):
+    """Escala e recorte da fonte para o rosto ficar do tamanho e na altura do plano, dentro da faixa."""
     alvo = PLANOS[pl]
-    s = alvo["larg"] / b_larg
-    bw, bh = 1080, 1920
-    sw, sh = max(W, round(bw * s / 2) * 2), max(H, round(bh * s / 2) * 2)
-    s = sw / bw
+    s = max(alvo["larg"] / b_larg, W / BW_, BH / BH_)
+    sw, sh = round(BW_ * s / 2) * 2, round(BH_ * s / 2) * 2
+    s = sw / BW_
     x = int(np.clip(b_cx * s - alvo["cx"], 0, sw - W))
-    y = int(np.clip(b_olhos * s - alvo["olhos"], 0, sh - H))
+    y = int(np.clip(b_olhos * s - (alvo["olhos"] - BY0), 0, sh - BH))
     return sw, sh, x, y
+
+
+def montar_quadro(im, sw, sh, x, y):
+    tela = np.zeros((H, W, 3), np.uint8)
+    tela[BY0:BY0 + BH] = cv2.resize(im, (sw, sh), interpolation=cv2.INTER_LANCZOS4)[y:y + BH, x:x + W]
+    return tela
 
 
 # cor: curvas por canal do Clailton da CTA -> Clailton do fim do original (só a região do rosto/corpo)
@@ -124,14 +154,18 @@ sw, sh, x, y = geo(ultimo)
 nov = []
 for t in np.linspace(0.3, FR["dur"] - 0.3, 10):
     im = quadro(boca, t)
-    nov.append(cv2.resize(im, (sw, sh), interpolation=cv2.INTER_LANCZOS4)[y:y + H, x:x + W])
-zona = lambda a: np.concatenate([q[int(cap_y + 80):, 100:980].reshape(-1, 3) for q in a])  # noqa: E731
+    nov.append(montar_quadro(im, sw, sh, x, y))
+if NOVELA:   # parte de cima da faixa (a legenda fica embaixo)
+    zona = lambda a: np.concatenate([q[BY0 + 20:BY0 + int(0.55 * BH), 40:1040].reshape(-1, 3) for q in a])  # noqa: E731
+else:
+    zona = lambda a: np.concatenate([q[int(cap_y + 80):, 100:980].reshape(-1, 3) for q in a])  # noqa: E731
 r_, n_ = zona(ref).astype(np.uint8), zona(nov).astype(np.uint8)
 curvas = []
 for ch in range(3):
     hr = np.cumsum(np.bincount(r_[:, ch], minlength=256)).astype(float); hr /= hr[-1]
     hn = np.cumsum(np.bincount(n_[:, ch], minlength=256)).astype(float); hn /= hn[-1]
     m = 0.8 * np.interp(hn, hr, np.arange(256)) + 0.2 * np.arange(256)
+    m = np.clip(m, np.arange(256) - 35, np.arange(256) + 35)    # casa a cor sem estourar (máx. 35 níveis)
     curvas.append(np.clip(np.convolve(np.pad(m, 4, mode="edge"), np.ones(9) / 9, mode="valid") / 255, 0, 1))
 cube = tmp / "cor.cube"
 cube.write_text("LUT_1D_SIZE 256\n" + "".join(f"{curvas[0][i]:.6f} {curvas[1][i]:.6f} {curvas[2][i]:.6f}\n"
@@ -158,7 +192,59 @@ for k, g in enumerate(grupos):
     b = grupos[k + 1][0]["i"] if k + 1 < len(grupos) else dur
     legs.append(dict(txt=" ".join(x["p"] for x in g).rstrip(",."), ini=round(a, 3), fim=round(b, 3)))
 ass = tmp / "cta.ass"
-legenda_ass(legs, ass, cap_y, cap_px)
+if NOVELA:
+    # legenda no estilo da novela (skill reels-novela-clailton): telas de até 2 linhas, "CLICA NO LINK DA BIO"
+    # sozinho e em destaque
+    low = [w["p"].lower().strip(",.?!") for w in ws]
+    ic = low.index("clica") if "clica" in low else -1
+    ib = low.index("bio", max(ic, 0)) if "bio" in low[max(ic, 0):] else -1
+    telas, linha, tela = [], [], []
+    def fecha_linha():
+        global linha
+        if linha:
+            tela.append(linha)
+            linha = []
+    def fecha_tela():
+        global tela
+        fecha_linha()
+        if tela:
+            telas.append(tela)
+            tela = []
+    k = 0
+    while k < len(ws):
+        if k == ic and ib >= ic:
+            fecha_tela()
+            telas.append([[*range(ic, ib + 1)], "d2"])
+            k = ib + 1
+            continue
+        txt = " ".join(ws[j]["p"] for j in linha + [k])
+        if linha and len(txt) > 18:
+            fecha_linha()
+            if len(tela) == 2:
+                fecha_tela()
+        linha.append(k)
+        if ws[k]["p"][-1] in ",.?!":
+            fecha_linha()
+            fecha_tela() if ws[k]["p"][-1] in ".?!" or len(tela) == 2 else None
+        k += 1
+    fecha_tela()
+    out = []
+    for t in telas:
+        if len(t) == 2 and t[1] == "d2":
+            out.append("centro | **" + " ".join(ws[j]["p"] for j in t[0]).upper().rstrip(",.") + f" @{t[0][0]}")
+        else:
+            out.append("centro | " + " / ".join(" ".join(ws[j]["p"] for j in l).upper().rstrip(",") + f" @{l[0]}" for l in t))
+    (P / "cta_legenda.txt").write_text(chr(10).join(out) + chr(10), encoding="utf-8")
+    import json as _j
+    (tmp / "pal.json").write_text(_j.dumps({"alinhado": True, "palavras": [
+        dict(texto=w["p"], inicio=w["i"], fim=w["f"]) for w in ws]}, ensure_ascii=False), encoding="utf-8")
+    nov_py = Path.home() / ".claude/skills/reels-novela-clailton/scripts/legenda_novela.py"
+    r = rodar([sys.executable, str(nov_py), "--plano", str(P / "cta_legenda.txt"), "--palavras", str(tmp / "pal.json"),
+               "--out", str(ass), "--sem-cta", "--y-centro", f"{BY0 + 0.69 * BH:.0f}",
+               "--topo-min", f"{BY0 + 0.41 * BH:.0f}", "--base-max", f"{BY0 + BH - 30:.0f}"])
+    print("legenda novela:", (r.stdout + r.stderr).strip()[-600:])
+else:
+    legenda_ass(legs, ass, cap_y, cap_px)
 fdir = str(Path.home() / ".claude/skills/reels-novela-clailton/fonts").replace("\\", "/").replace(":", "\\:")
 ass_f = str(ass).replace("\\", "/").replace(":", "\\:")
 
@@ -167,9 +253,11 @@ partes = []
 for i, (a, b, pl) in enumerate(trechos):
     sw, sh, x, y = geo(pl)
     partes.append(f"[0:v]trim={a:.3f}:{b:.3f},setpts=PTS-STARTPTS,scale={sw}:{sh}:flags=lanczos,"
-                  f"crop={W}:{H}:{x}:{y}[p{i}]")
+                  f"crop={W}:{BH}:{x}:{y},pad={W}:{H}:0:{BY0}:black,setsar=1[p{i}]")
+# look do HeyGen feito com o próprio bruto já tem a cor do reel; a curva só estragava a pele (15/10/2026)
+cor = "" if C.get("cor") is False or (C.get("cor") is None and "heygen" in str(boca)) else f"lut1d=file='{lut}',"
 cadeia = ";".join(partes) + ";" + "".join(f"[p{i}]" for i in range(len(trechos))) + \
-    f"concat=n={len(trechos)}:v=1:a=0,lut1d=file='{lut}',ass='{ass_f}':fontsdir='{fdir}',format=yuv420p[v]"
+    f"concat=n={len(trechos)}:v=1:a=0,{cor}ass='{ass_f}':fontsdir='{fdir}',format=yuv420p[v]"
 cta_v = tmp / "cta.mp4"
 rodar(["ffmpeg", "-v", "error", "-y", "-stream_loop", "1", "-i", str(boca), "-filter_complex", cadeia,
        "-map", "[v]", "-t", f"{dur:.3f}", "-r", "30000/1001", "-c:v", "libx264", "-crf", "16", "-preset", "slow",
@@ -183,8 +271,8 @@ rodar([sys.executable, str(S / "casar_voz.py"), str(R / "vozes" / f"{C['nome']}.
 # 6) emenda: original até o corte + CTA (corte seco no vídeo, 30 ms de cruzamento no som)
 saida = P / f"{C['pauta']}.mp4"
 rodar(["ffmpeg", "-v", "error", "-y", "-i", str(orig), "-i", str(cta_v), "-i", str(casada), "-filter_complex",
-       f"[0:v]trim=0:{t_c:.4f},setpts=PTS-STARTPTS,fps=30000/1001,format=yuv420p[a];"
-       f"[1:v]fps=30000/1001,format=yuv420p[b];[a][b]concat=n=2:v=1:a=0[v];"
+       f"[0:v]trim=0:{t_c:.4f},setpts=PTS-STARTPTS,fps=30000/1001,setsar=1,format=yuv420p[a];"
+       f"[1:v]fps=30000/1001,setsar=1,format=yuv420p[b];[a][b]concat=n=2:v=1:a=0[v];"
        f"[0:a]atrim=0:{t_c + 0.03:.4f},asetpts=PTS-STARTPTS,aresample=48000,afade=t=out:st={t_c - 0.03:.4f}:d=0.06[x];"
        f"[2:a]aresample=48000,apad=whole_dur={dur:.3f},afade=t=out:st={dur - 0.35:.3f}:d=0.35[y];"
        f"[x][y]acrossfade=d=0.03:c1=tri:c2=tri[s]",

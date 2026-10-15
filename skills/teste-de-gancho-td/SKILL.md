@@ -199,6 +199,28 @@ Sincronia de boca e vídeo do Clailton: só no **HeyGen** (avatar Clailton 2, lo
 de lá acabam ("não é para usar o freepik para fazer isso!!"). Em 15/10 uma sincronia de 18 s no Magnific custou
 ~7.200 créditos e o usuário barrou. Os passos 3 e 5 abaixo que citam o Magnific ficam valendo só se ele pedir.
 
+## CTA nova no FIM de reels publicados — só HeyGen (aprovado o caminho em 15/10/2026)
+
+Card de exemplo: `Reels_Clailton_TESTE_CTA_Plano_17_Reels` (a task traz a CTA de cada vídeo e o trecho que sai).
+Vale TD, NV e ES. Sem Freepik/Magnific.
+1. **Voz:** HeyGen (avatar Clailton 2, voz padrão) com todas as CTAs numa gravação só (` ... ` entre elas) →
+   baixar só o **áudio** (download → aba Audio) → `separar_falas.py` (nomes na ordem) → `vozes/<nome>.wav`.
+2. **Look do próprio reel:** do bruto, 20 s do MESMO take da última frase do vídeo (mesma roupa e lugar), com
+   som, < 10 MB (`-b:v 3300k`, vertical 1080x1920 ou horizontal 1920x1080) → copiar para uma pasta da conversa
+   (o upload do Chrome só lê de lá) → HeyGen: avatar Clailton 2 → **Add looks** → enviar o vídeo → Create look
+   (~5 min; filmagem de lado/longe recebe aviso de qualidade, mas funciona). O look vira "Clailton 2 - N".
+3. **Vídeo da CTA:** criação rápida (avatar-shots) → escolher o look → "upload/record" → aba Upload Audio →
+   `vozes/<nome>.wav` → Add audio → orientação igual ao look (Landscape para novela) → 1080p → gerar
+   (~12–15 créditos HeyGen por vídeo). Baixar o MP4 → `heygen/<nome>.mp4`.
+4. **Montar:** `<W>/<reel>/cta.json` (formato no topo de `scripts/cta_final.py`, com `"boca": "heygen/<nome>.mp4"`,
+   `"estilo": "cheio"|"novela"`, `"trocas"` nos começos de frase) → `P S/cta_final.py <W> <reel>`.
+   Corta no quadro exato (CTA "me siga"/"comenta X" do original sai), rosto no mesmo tamanho do fim do original
+   (fechado ≤ 1,3x, olhos na mesma altura), faixa da novela medida em cada vídeo, legenda do estilo de cada
+   formato (novela pelo `legenda_novela.py`, com "CLICA NO LINK DA BIO" em destaque), voz e música do fim casadas.
+   **Não aplica curva de cor** no vídeo do HeyGen (o look já tem a cor do reel; a curva deixou a pele rosa).
+5. Conferir `<reel>_qa.jpg` e transcrever 3 s antes/4 s depois do corte (última palavra inteira + CTA limpa).
+6. Entrega: Sala de Revisão (pedido direto = link na conversa).
+
 ## Lições do teste de 10–11/10/2026
 
 - Avatar do HeyGen no gancho: boca e óculos "entortam", reprovado. HeyGen serve só para a **voz**.
