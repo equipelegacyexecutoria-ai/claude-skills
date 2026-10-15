@@ -92,7 +92,13 @@ boca = R / "ls" / f"{C['nome']}.mp4"
 rb = rostos(boca, 0.1, min(FR["dur"], 6), 0.25)
 b_larg, b_cx, b_olhos = med(rb, "larg"), med(rb, "cx"), med(rb, "olhos")
 dur = FR["dur"] + C.get("cauda", 0.6)
-ws = FR["palavras"]
+ws = [dict(w) for w in FR["palavras"]]
+texto = (ler_json(R / "ganchos.json", {}).get("variacoes", {}).get(C["nome"], {}).get("texto") or "").split()
+if len(texto) == len(ws):          # legenda com o texto da task ("bio", não "Bill" do transcritor)
+    for w, t in zip(ws, texto):
+        w["p"] = t
+else:
+    print(f"AVISO: a fala tem {len(ws)} palavras e o texto {len(texto)}; legenda pela transcrição, confira")
 plano = C.get("comeca") or ("aberto" if ultimo == "fechado" else "fechado")
 trechos, ini = [], 0.0
 for k in sorted(C.get("trocas", [])) + [None]:
