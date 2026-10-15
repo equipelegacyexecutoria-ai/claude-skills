@@ -60,9 +60,9 @@ def ffprobe(video):
     return float(info["format"]["duration"]), int(st["width"]), int(st["height"]), round(float(num) / float(den), 3)
 
 
-def gerar_previa(video, destino, dur, largura, altura):
+def gerar_previa(video, destino, dur, largura, altura, max_kbps=2000):
     total_kbit = LIMITE_MB * 8 * 1024 * 1024 / 1000 * 0.97
-    v_kbps = int(min(2000, total_kbit / dur - AUDIO_KBPS))
+    v_kbps = int(min(max_kbps, total_kbit / dur - AUDIO_KBPS))
     if v_kbps < 150:
         sys.exit(f"Vídeo longo demais para caber em {LIMITE_MB} MB ({dur:.0f}s). Divida em partes.")
     lado = 540 if v_kbps >= 350 else 432
@@ -97,6 +97,8 @@ def main():
     ap.add_argument("--notion", default="", help="link do card no Notion")
     ap.add_argument("--pasta", default=str(Path.cwd() / "_sala_revisao"))
     ap.add_argument("--so-pagina", action="store_true")
+    ap.add_argument("--max-kbps", type=int, default=2000,
+                    help="teto do vídeo da prévia; lote grande: 800 (~8 MB por reel de 75 s) para caber na Sala")
     a = ap.parse_args()
     pasta = Path(a.pasta).resolve()
 
@@ -114,7 +116,7 @@ def main():
     dur, w, h, fps = ffprobe(a.video)
     (pasta / "media").mkdir(exist_ok=True)
     rel = f"media/{vid}_{versao}.mp4"
-    kbps, mb = gerar_previa(a.video, pasta / rel, dur, w, h)
+    kbps, mb = gerar_previa(a.video, pasta / rel, dur, w, h, a.max_kbps)
 
     entrada = {"v": versao, "arquivo": rel, "data": dt.date.today().isoformat(),
                "duracao": round(dur, 2), "fps": fps, "obs": a.obs}
