@@ -32,6 +32,11 @@ escrever o relatório sobre o assunto:
   Legacy): o que já sabemos (tela pré-CTA gera leads da bio, carrossel de análise de grandes empresas é o que mais
   performa, nichos que mais viram lead, tag de IA do Canva), os testes em andamento (3 reels por dia no Clailton etc.) e
   a linha do tempo dia a dia. Leia antes de explicar qualquer subida ou queda de métrica.
+- `conhecimento/estilos-e-formatos.md` — os **estilos de conteúdo** (Reel Novela/NV, Tela dividida/TD, Edição simples/ES,
+  B-roll, Caixinha 0800, Corte de podcast, Depoimento; Carrossel Análise de empresa, Cenário Brasil, Do topo à falência,
+  Dicas práticas, Roteiro do Clailton, Reflexão; Estático Notícia, Frase, Aviso): como reconhecer cada um pelo nome do card,
+  exemplos reais, quantos posts e o desempenho de cada um, a regra "visita ao perfil é a métrica principal, sem lead por
+  post" e a proposta de padrão de nome dos cards (prefixo do estilo na PAUTA). Leia antes de comparar formatos ou estilos.
 
 Os dois primeiros terminam com "Informação que não bate": avise o Igor quando a resposta depender de algo dali.
 Quando uma reunião ou card novo mudar esses assuntos, atualize o arquivo e a data do topo (na nuvem,
