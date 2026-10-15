@@ -13,6 +13,36 @@
 Quadros novos "DEMANDAS | ..." entram sozinhos: ache pelo `notion-search`, busque o esquema e
 acrescente aqui.
 
+Os três quadros acima são fontes da mesma base **TASKS** (`73ac9747efab8374a5b5812011259272`), onde
+ficam as abas do time e as do Claude. O Quiz também tem base própria (`e7488f7fc17f48d3882f08b1e7ada724`).
+
+### Visões do Claude (ler no modo "view", sem gastar a cota do SQL)
+
+Criadas em 15/10/2026 como abas da base TASKS (tabela, só leitura para o relatório; ninguém precisa
+mexer). Datas relativas: continuam valendo todo dia. Concluído no calendário = Finalizado, Publicado,
+Stand-by, 📌  MURAL e Publicar (o grupo "concluído" do Notion; Publicar = pronto, só falta postar).
+Ler com `notion-query-data-sources` `{"mode": "view", "view_url": "<link>"}` e resumir com
+`scripts/notion_visao.py`.
+
+| Visão | Filtro | Link |
+|---|---|---|
+| Claude · Publicações (ontem a +7 dias) | publicação de ontem até daqui a 7 dias, qualquer andamento; ordem: publicação | https://app.notion.com/p/73ac9747efab8374a5b5812011259272?v=3fac9747efab8132b189000cc0adca65 |
+| Claude · Posts não prontos (próx. 7 dias) | publicação de hoje até +7 dias e andamento ≠ Publicar/Publicado | https://app.notion.com/p/73ac9747efab8374a5b5812011259272?v=3fac9747efab8150945d000c6021d4c4 |
+| Claude · Tarefas de hoje | conclusão = hoje e não concluído; ordem: responsável | https://app.notion.com/p/73ac9747efab8374a5b5812011259272?v=3fac9747efab81ab97a0000cb71d62cc |
+| Claude · Atrasados | conclusão antes de hoje e não concluído; ordem: responsável, conclusão | https://app.notion.com/p/73ac9747efab8374a5b5812011259272?v=3fac9747efab81428808000c5cff71ea |
+| Claude · Decisões (Aprovação e Revisão) | andamento Aprovação ou Revisão; ordem: publicação | https://app.notion.com/p/73ac9747efab8374a5b5812011259272?v=3fac9747efab81798830000c49c12edc |
+| Claude · Prontos sem data | andamento Publicar e sem data de publicação | https://app.notion.com/p/73ac9747efab8374a5b5812011259272?v=3fac9747efab81b98ba7000cd425a296 |
+| Claude · Semana passada | publicação **ou** conclusão nos últimos 7 dias (até hoje), qualquer andamento | https://app.notion.com/p/73ac9747efab8374a5b5812011259272?v=3fac9747efab8141906a000cc6f7ef2e |
+| Claude · Black em aberto (+ concluídas na semana) | Black: Andamento ≠ Concluído, ou Concluído com conclusão nos últimos 7 dias | https://app.notion.com/p/73ac9747efab8374a5b5812011259272?v=3fac9747efab819c90bb000cef48711e |
+| Claude · Quiz em aberto (+ concluídas na semana) | Quiz: Andamento ≠ Concluído e ≠ Documentos, ou Concluído com conclusão nos últimos 7 dias | https://app.notion.com/p/73ac9747efab8374a5b5812011259272?v=3fac9747efab81eda60e000ce9088d7d |
+
+O filtro "hoje/ontem" do Notion compara a data do card; publicações com horário vêm em UTC (um post
+de 21h de ontem aparece como `00:00Z` de hoje). Por isso a visão de publicações começa em ontem:
+classifique pelo horário de Brasília que o `notion_visao.py` já mostra.
+
+SQL (`notion-query-data-sources` modo "sql") **só como último recurso**: o plano tem cota
+compartilhada e ela acabou em 15/10/2026. A cota do modo "view" não existe.
+
 ### Campos do calendário (TIME DE CRIAÇÃO)
 `PAUTA` (título), `ANDAMENTO`, `RESPONSÁVEL` (um só), `PRIORIDADE` (URGENTE/ALTA/MÉDIA/BAIXA),
 `PERFIL`, `FORMATO` (lista), `REDE SOCIAL` (lista), `IDEIA`, `CORREÇÕES (Claude)`,

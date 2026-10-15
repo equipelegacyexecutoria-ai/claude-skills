@@ -84,15 +84,32 @@ Datas sempre no fuso de Brasília (UTC−3). O Notion devolve horários em UTC: 
 
 ### 1. Coletar
 
-**a) Calendário editorial** (`DEMANDAS | TIME DE CRIAÇÃO`) — uma consulta SQL
-(`notion-query-data-sources`, data source em `fontes.md`) pegando PAUTA, ANDAMENTO, RESPONSÁVEL,
-PRIORIDADE, PERFIL, FORMATO, REDE SOCIAL, DATA D/ CONCLUSÃO, DATA D/ PUBLICACÃO e url, com
-`ANDAMENTO` fora do grupo concluído **ou** publicação entre ontem e depois de amanhã.
+**Como ler o Notion: visões salvas "Claude · ...", não SQL.** Desde 15/10/2026 a consulta SQL do
+Notion tem cota no plano da Legacy e ela acaba; ler uma visão salva (modo "view") não gasta cota.
+As visões ficam como abas na base TASKS, com os filtros e datas relativas (ontem, hoje, +7 dias) já
+prontos; os links estão em `referencias/fontes.md` › "Visões do Claude". Para cada uma:
+`notion-query-data-sources` com `{"mode": "view", "view_url": "<link>"}`. A resposta traz todas as
+colunas e costuma ir para um arquivo; resuma com
+`python -I "$HOME/.claude/skills/cerebro-legacy/scripts/notion_visao.py" <arquivos>` (uma linha por
+card, datas já no horário de Brasília). Se vier `has_more: true`, peça a próxima página com
+`start_cursor`. **SQL só como último recurso** (visão sumiu ou deu erro e não dá para recriar com
+`notion-create-view`); se a cota tiver acabado, avise no relatório o que ficou de fora. Não altere
+nem apague as visões do time; se uma visão "Claude · ..." sumir, recrie igual (filtros em `fontes.md`).
 
-**b) Quadros de demandas** — consulte `DEMANDAS | BLACK FRIDAY` e `DEMANDAS | QUIZ CLAILTON`
-(`Andamento <> 'Concluído'`). Depois rode `notion-search` com `"DEMANDAS"`: se aparecer um quadro
-"DEMANDAS | ..." novo que não está em `fontes.md`, busque o esquema, inclua no relatório e acrescente
-o ID em `fontes.md`.
+**a) Calendário editorial** (`DEMANDAS | TIME DE CRIAÇÃO`) — leia as visões:
+- `Claude · Publicações (ontem a +7 dias)` → publicações de hoje, alertas, "foi ao ar ontem",
+  próximos 2 dias e decisões com publicação nos próximos 3 dias;
+- `Claude · Posts não prontos (próx. 7 dias)` → conferência dos alertas e dos próximos dias;
+- `Claude · Tarefas de hoje` e `Claude · Atrasados` → tarefas por pessoa;
+- `Claude · Decisões (Aprovação e Revisão)` → suas decisões;
+- `Claude · Prontos sem data` → cards em Publicar sem dia marcado (campo `sem_data` do painel).
+
+**b) Quadros de demandas** — leia `Claude · Black em aberto (+ concluídas na semana)` e
+`Claude · Quiz em aberto (+ concluídas na semana)`; no relatório diário use só as que **não** estão
+em `Concluído` (as concluídas da semana servem para o resumo de domingo). Depois rode `notion-search`
+com `"DEMANDAS"`: se aparecer um quadro "DEMANDAS | ..." novo que não está em `fontes.md`, busque o
+esquema, crie a visão "Claude · <quadro> em aberto" do mesmo jeito (aba na própria base, com
+`notion-create-view`), inclua no relatório e acrescente o ID e o link da visão em `fontes.md`.
 
 **c) Reuniões novas** — `notion-search` com query `"Reunião"` e
 `filters.created_date_range` de ontem até hoje (também tente `"Alinhamento"`). Para cada página nova,
@@ -181,7 +198,12 @@ repete. Se o Igor tomar uma decisão que vale para sempre, ela vai em `memoria/d
 ## Resumo da semana (domingo, 18h)
 
 Mesmo procedimento, olhando a semana (segunda a domingo) e a semana que vem, a partir dos diários
-de `memoria/diario/` e de novas consultas:
+de `memoria/diario/` e das visões salvas (sem SQL, ver "Como ler o Notion"): `Claude · Semana passada`
+(publicação ou prazo de conclusão nos últimos 7 dias, qualquer andamento) para o que saiu, o que
+não saiu e o que cada pessoa entregou; `Claude · Atrasados` para o que ficou para trás;
+`Claude · Black ...` e `Claude · Quiz ...` (inclui as concluídas na semana); e
+`Claude · Publicações (ontem a +7 dias)`, `Claude · Posts não prontos (próx. 7 dias)` e
+`Claude · Decisões (Aprovação e Revisão)` para a semana que vem:
 - quanto foi publicado por perfil e formato; o que estava marcado e não saiu;
 - tarefas concluídas vs. atrasadas por pessoa (quem está sobrecarregado);
 - leads orgânicos e do Quiz por dia;

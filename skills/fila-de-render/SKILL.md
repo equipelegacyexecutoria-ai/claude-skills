@@ -79,8 +79,11 @@ das colunas e campos. Se a coluna "Correções (Claude)" não existir, avise o u
 
 1. `powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "$HOME/.claude/sync/sync.ps1" -Modo agora` (skills em dia).
 2. Confira `G:\Meu Drive` (Google Drive para computador) e o espaço livre no C: (≥ 30 GB). Sem G:, pare e avise.
-3. Liste os cards com ANDAMENTO = CLAUDE ou Correções (Claude) (`notion-query-data-sources`/`notion-fetch`
-   da visão; se não der, `notion-search` na fonte). Ordene por PRIORIDADE (ALTA → MÉDIA → BAIXA) e DATA D/ PUBLICACÃO.
+3. Liste os cards com ANDAMENTO = CLAUDE (Editor) ou Correções (Claude) pela visão **"Fila do Claude"** (criada em
+   15/10/2026; só essas duas colunas, já ordenada por publicação; não gasta a cota de busca do Notion):
+   `notion-query-data-sources` com `{"mode": "view", "view_url": "https://app.notion.com/p/73ac9747efab8374a5b5812011259272?v=3fac9747efab81f4a0fc000c9bb955da"}`.
+   **Não use o modo `sql`** para a fila: ele tem cota no plano do Notion (acabou em 15/10/2026 e o relatório da
+   manhã depende dela). Ordene por PRIORIDADE (ALTA → MÉDIA → BAIXA) e DATA D/ PUBLICACÃO.
 4. Diga ao usuário em 2–4 linhas o que vai fazer (quantos cards, quais, em que ordem) e comece; não espere resposta.
 
 Um card por vez, do começo ao fim. Leia o **card inteiro** (`notion-fetch` na página: campos, corpo e
