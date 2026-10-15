@@ -52,6 +52,10 @@ descrição e as imagens candidatas — o usuário aprova pelo celular. Notion s
   música (`references/vinheta/vinheta_legacy_feixe.mp4`, cópia em `C:\Render\_youtube\recursos`). Projeto HyperFrames das 3 opções em
   `references/vinheta/` (refazer a partir dali se o logo mudar).
 
+- **Abertura sem eco** (revisor, 14/10/2026: aconteceu em 8 de 8 episódios na 1ª rodada): nenhuma frase da abertura pode
+  voltar no corpo antes de ~2,5 min (confira por script comparando as palavras da abertura com os primeiros minutos do
+  corpo), e cada trecho começa e termina em frase inteira (nada de "e quanto mais...", "São o antídoto..." sem sujeito).
+
 ## Crivo do corte (usuário, 14/10/2026)
 
 Nota 0–10 em cada ponto, média = nota do corte. **Por enquanto todo corte sobe para o Notion com a nota e a
@@ -255,6 +259,15 @@ impresso), lista sem letreiro e borrão sem explicação. Na rodada seguinte, di
 apontou no tempo do episódio: `"$P" scripts/achar.py <trabalho> --ep "<arquivo>" 13:16`.
 
 ## Armadilhas desta máquina
+
+- **Nome de arquivo com dois-pontos** ("EP02 - Missão da empresa: ...") vira fluxo alternativo no NTFS e o mp4 sai
+  com 0 byte; o render agora recusa `: ? " / | * < >` no `arquivo`. Use vírgula.
+- `pgrep` não existe no Git Bash desta máquina: para encadear renders, espere pelo arquivo/log, não pelo processo.
+- **Créditos da thumb:** o upscale 4x custa 180 créditos até ~600 px de largura e 270 acima disso. Recorte o busto
+  com ~3,6× a altura do rosto e, se passar de 600 px, reduza antes de enviar.
+- **Thumb A com rosto grande demais** (tarja cobrindo a boca): `thumb_legacy.py A ... --cabeca 290 --x 1030`.
+- **Sala de Revisão quase cheia** (~230 MB de 256 em 15/10/2026): prévia de episódio longo = **1 minuto** (intro +
+  entrada do nome), 540p, `-crf 28 -maxrate 300k -b:a 64k` (~2 MB). O episódio inteiro fica no Drive.
 
 - **h264_nvenc não abre** no PC de render ("Driver does not support the required nvenc API version 13.1, found
   13.0"): o ffmpeg do winget é mais novo que o driver. O render usa **libx264** (28 núcleos, rápido o bastante).
