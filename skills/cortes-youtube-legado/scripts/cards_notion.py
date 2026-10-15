@@ -1,6 +1,6 @@
 """Gera o conteúdo do card do Notion (notion_card_epNN.md) de cada episódio.
 Uso: python cards_notion.py <trabalho> <cards_cfg.json>
-cards_cfg.json: {"1": {"pauta", "origem", "drive", "thumbA", "thumbB"}, ...}; precisa de render/<arquivo> - YOUTUBE.txt e crivo.json.
+cards_cfg.json: {"1": {"pauta", "origem", "drive", "thumbA", "thumbB", "previa"?}, ...}; precisa de render/<arquivo> - YOUTUBE.txt e crivo.json.
 """
 import json, re, sys, unicodedata
 from pathlib import Path
@@ -33,7 +33,7 @@ for e in p["episodios"]:
 Notas por ponto: {notas}
 
 ## Assistir e corrigir
-- Prévia da intro e dos 2 primeiros minutos, com notas no tempo do vídeo: [Sala de Revisão]({sala})
+- {c.get('previa', 'Prévia da intro e dos 2 primeiros minutos')}, com notas no tempo do vídeo: [Sala de Revisão]({sala})
 - Episódio completo em alta: [Drive]({c['drive']})
 - Correção no resto do vídeo: escreva o tempo e o que mudar no campo CORREÇÕES (Claude) e mova o card para Correções (Claude).
 
