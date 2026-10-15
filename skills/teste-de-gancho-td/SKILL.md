@@ -192,6 +192,13 @@ Resumo ao usuário: link da pasta VARIAÇÕES TELA DIVIDIDA, lista das variaçõ
 e os **créditos gastos** (HeyGen: vídeos de voz; Magnific: ~2 mil por sincronia, mais os desenhos). Apague as
 cópias pesadas de `W` depois que tudo estiver no Drive (mantenha os `.json` e as vozes até a aprovação).
 
+## Créditos: Freepik/Magnific NÃO (regra do usuário, 15/10/2026)
+
+Sincronia de boca e vídeo do Clailton: só no **HeyGen** (avatar Clailton 2, looks dele, lipsync do HeyGen).
+**Nunca** usar o Magnific/Freepik (`video_speak`, `images_generate` etc.) sem o usuário pedir: os créditos
+de lá acabam ("não é para usar o freepik para fazer isso!!"). Em 15/10 uma sincronia de 18 s no Magnific custou
+~7.200 créditos e o usuário barrou. Os passos 3 e 5 abaixo que citam o Magnific ficam valendo só se ele pedir.
+
 ## Lições do teste de 10–11/10/2026
 
 - Avatar do HeyGen no gancho: boca e óculos "entortam", reprovado. HeyGen serve só para a **voz**.

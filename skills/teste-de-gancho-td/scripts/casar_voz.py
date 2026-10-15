@@ -101,12 +101,15 @@ if ANTES:
     # fim do reel: o fundo que estava tocando antes do corte. Com música (fundo forte), repete os últimos
     # segundos para a frente (música invertida soa errada); só sala, inverte (começa igual ao corte).
     musica = lufs(sep / "no_vocals.wav") - lufs(sep / "vocals.wav") > -18
-    tam = min(dur_voz, t_c - t_sep)
-    af = (f"atrim=start={t_c - t_sep - tam:.4f},asetpts=PTS-STARTPTS,aloop=loop=-1:size={int(tam * SR)},"
-          f"atrim=0:{dur_voz:.4f}") if musica else f"atrim=start={t_c - t_sep - tam:.4f},areverse,apad,atrim=0:{dur_voz:.4f}"
+    fundo = ler(sep / "no_vocals.wav")
+    seg = fundo[-int(min(dur_voz, len(fundo) / SR - 0.05) * SR):]
+    if not musica:
+        seg = seg[::-1]
+    n = int(dur_voz * SR)
+    bed = np.tile(seg, n // len(seg) + 1)[:n].astype(np.float32)
     print("fundo:", "música (segue para a frente)" if musica else "só ambiente (invertido)")
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(sep / "no_vocals.wav"), "-af", af, "-ac", "1",
-                    "-ar", str(SR), str(amb)], check=True)
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "f32le", "-ar", str(SR), "-ac", "1", "-i", "-",
+                    str(amb)], input=bed.tobytes(), check=True)
 else:
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(sep / "no_vocals.wav"), "-t", f"{dur_voz:.4f}",
                     "-af", "areverse", "-ac", "1", str(amb)], check=True)

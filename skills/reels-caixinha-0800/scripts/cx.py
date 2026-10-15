@@ -84,6 +84,8 @@ def ler_caixinha(T: Path) -> dict | None:
     if not p.exists():
         return None
     cx = {"cab": CABECALHO_PADRAO, "perg": "", "i0": None, "i1": None}
+    if any(l.strip().upper() == "SEM CAIXINHA" for l in p.read_text(encoding="utf-8").splitlines()):
+        return {"sem": True}       # vídeo sem pergunta (ex.: CTA da sessão estratégica, 15/10/2026)
     for ln in p.read_text(encoding="utf-8").splitlines():
         ln = ln.strip()
         if not ln or ln.startswith("#"):
@@ -214,10 +216,12 @@ def finalizar(T: Path, saida: Path, geral: bool) -> int:
     if cx is None:
         print(f"FALTA a caixinha: escreva {T / 'caixinha.txt'} (PERGUNTA ... e @a-b)")
         return 1
-    ev, info_cx = eventos_caixinha(T, cx)
-    ass = (T / "legenda.ass").read_text(encoding="utf-8").rstrip("\n") + "\n" + "\n".join(ev) + "\n"
-    (T / "legenda.ass").write_text(ass, encoding="utf-8")
-    print("caixinha:", json.dumps(info_cx, ensure_ascii=False))
+    info_cx = None
+    if not cx.get("sem"):
+        ev, info_cx = eventos_caixinha(T, cx)
+        ass = (T / "legenda.ass").read_text(encoding="utf-8").rstrip("\n") + "\n" + "\n".join(ev) + "\n"
+        (T / "legenda.ass").write_text(ass, encoding="utf-8")
+        print("caixinha:", json.dumps(info_cx, ensure_ascii=False))
 
     from comum import preparar_fontes  # noqa: E402
     dest = preparar_fontes(T)
@@ -238,7 +242,7 @@ def finalizar(T: Path, saida: Path, geral: bool) -> int:
     # quadro da caixinha para conferir (meio da pergunta)
     qa = T / "qa"
     qa.mkdir(exist_ok=True)
-    meio = (info_cx["t0"] + info_cx["t1"]) / 2
+    meio = (info_cx["t0"] + info_cx["t1"]) / 2 if info_cx else 1.0
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{meio:.2f}", "-i", str(saida), "-frames:v", "1",
                     str(qa / "caixinha.png")])
     print(f"folhas: {qa} (caixinha.png, fundo_mais_claro.png, zoom_olhos.jpg, relatorio.txt)")

@@ -59,6 +59,7 @@ Referências (2 vídeos, Drive): `G:\Meu Drive\EXECUTORIA 0800\Modelo prontos (r
 4. Escrever, a partir de `T\palavras_legenda.txt`:
    - `T\legenda.txt` (formato compacto da novela; `**0800` no "Executoria 0800" da abertura);
    - `T\caixinha.txt`: `PERGUNTA <texto>` e `@i0-i1` (palavras em que ele lê a pergunta);
+     vídeo sem pergunta (ex.: CTA da Sessão Estratégica, 15/10/2026): só a linha `SEM CAIXINHA`;
    - `T\plano.txt`: `SEMABERTURA`, `SEMCTA`, `ESTILO 0`, uma linha `@a-b arquivo "T\pexels\bNN_<id>.jpg"` por
      imagem (escolhidas pelas regras do B-roll acima) e `FECHADO @a-b` nas voltas de imagem.
 5. `P S\cx.py buscar T` (registra os arquivos). Linhas `foto`/`filme` também funcionam (busca automática da

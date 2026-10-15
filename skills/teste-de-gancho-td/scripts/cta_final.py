@@ -149,6 +149,9 @@ for k, w in enumerate(ws):
         g = []
 if g:
     grupos.append(g)
+for k in range(len(grupos) - 1, 0, -1):    # palavra curta sozinha ("BIO") volta para a tela de antes
+    if len(grupos[k]) == 1 and len(grupos[k][0]["p"]) <= 5 and             len(" ".join(x["p"] for x in grupos[k - 1] + grupos[k])) <= 22 and grupos[k - 1][-1]["p"][-1] not in ",.?!":
+        grupos[k - 1] += grupos.pop(k)
 legs = []
 for k, g in enumerate(grupos):
     a = 0.0 if k == 0 else g[0]["i"]
