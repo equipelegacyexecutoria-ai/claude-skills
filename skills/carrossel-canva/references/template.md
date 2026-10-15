@@ -344,3 +344,15 @@ o `merge-designs` falha com ele).
   3 a 96 px, desce para 92. O `{{SUB}}` vai para topo da H + linhas × px × 0,99 + 0,2 × px + 30.
 - "Card só de frase, centralizado": mantido no layout padrão do post (alinhado à esquerda, em negrito).
 - Última página longa (≈700 caracteres): 32–36 px no `{{P1}}/{{B1}}/{{P2}}` da pág. 3.
+
+**Lote 15/10/2026 (13 peças de uma vez, em paralelo):**
+- Lote grande: um subagente por 1–3 carrosséis, todos lendo um briefing comum (regras + lições) e
+  usando os scripts `lote.py`/`medir.py`. Para achar os IDs do `read-design` de um subagente, o
+  registro dele fica em `<scratchpad>/../tasks/<id>.output` (procurar pela transaction_id).
+- Capa LEGACY: a 3ª linha (H3) vem hoje no azul claro `#43d1ff` no modelo (não `#013e6a`). Manter a do modelo.
+- Selo de topo pedido na copy ("RECALCULANDO A ROTA", "DO TOPO À FALÊNCIA") não existe no modelo:
+  avisar o time para pôr à mão. "Arrasta pro lado ⟶" = a seta que já vem na capa.
+- Tela dividida com capa "manchete no meio + textos em cima e embaixo" não cabe numa página: capa do
+  modelo com as duas fotos montadas numa imagem só + página de par com os textos.
+- Pág. 2 com 9+ linhas: subir título, corpo e degradê 50–60 px já na primeira aplicação; o fim do
+  degradê precisa passar ~30 px do fim da FOTO (senão aparece uma linha da foto).
