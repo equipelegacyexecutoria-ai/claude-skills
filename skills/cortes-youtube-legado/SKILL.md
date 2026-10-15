@@ -233,6 +233,17 @@ seguir o movimento: tire a fala e deixe a imagem.
 
 ## Título, thumb e descrição (pesquisa em `references/pesquisa-youtube.md`)
 
+**Thumb = padrão do canal "Legacy Executoria Empresarial"** (usuário, 15/10/2026: "siga o padrão que já usamos no nosso
+canal ... use as fotos que já temos prontas do Clailton"): `scripts/thumb_canal.py` — fundo quase preto com brilho azul,
+Clailton recortado do **ensaio de estúdio** à direita e na frente do texto, linha branca (Montserrat ExtraBold) + palavra-
+chave grossa azul (vermelha se for negativa: QUEBREI, ERRADO, DESCULPA), sem logo. Duas por episódio (A/B), com fotos e
+textos diferentes. Fotos: `G:/Meu Drive/4. Design/11 - Fotos/Clailton/2026_02_23_Fotos_Estudio_Clailton` (117 fotos);
+recortes sem fundo prontos em `C:/Render/_youtube/fotos_clailton/recortes` (01–12, 18, 19; recorte novo = Magnific
+`images_remove_background`, 3 créditos). Não use mais quadro da aula ampliado (`thumb_legacy.py` fica de reserva).
+Evite fotos em que o ensaio cortou os braços (a 11) e as de braço aberto atrás do texto (a 12); a medição da cabeça erra
+com braço levantado: `--cab-foto`. Relatório do padrão: `C:/Render/_youtube/thumbs_canal/relatorio.md`; script de lote de
+exemplo: `C:/Render/_youtube/thumbs_canal/gerar_todas.sh`.
+
 - **Título:** promessa + palavra-chave nos primeiros ~45 caracteres; ideal ≤ 70 (máx. 100); 1–2 palavras em
   CAIXA-ALTA; número concreto ou enquadramento de erro/alerta; tag da série no fim (`| Legado Empresarial`).
   Nunca "Aula 10", "Turma 12", data, nome de evento. Tem que ser **verdade no vídeo** (confira na transcrição).
