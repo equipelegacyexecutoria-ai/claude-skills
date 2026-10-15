@@ -37,6 +37,10 @@ escrever o relatório sobre o assunto:
   Dicas práticas, Roteiro do Clailton, Reflexão; Estático Notícia, Frase, Aviso): como reconhecer cada um pelo nome do card,
   exemplos reais, quantos posts e o desempenho de cada um, a regra "visita ao perfil é a métrica principal, sem lead por
   post" e a proposta de padrão de nome dos cards (prefixo do estilo na PAUTA). Leia antes de comparar formatos ou estilos.
+- `conhecimento/pesquisa-perfil-clientes.md` — **pesquisa com 10 clientes** que fecharam (set–out/2026; card
+  "📌 PESQUISA PERFIL DOS CLIENTES" no MURAL): medos (70% quebrar), crenças, rotina, o que já tentaram, como chegaram
+  (60% anúncio, 70% fecham em menos de 1 semana), objeções (preço e "é sério?"), redes e formatos, e teses para conteúdo.
+  Leia antes de sugerir pauta, gancho, anúncio, CTA ou roteiro. Nunca cite o nome da empresa de um cliente.
 
 Os dois primeiros terminam com "Informação que não bate": avise o Igor quando a resposta depender de algo dali.
 Quando uma reunião ou card novo mudar esses assuntos, atualize o arquivo e a data do topo (na nuvem,
