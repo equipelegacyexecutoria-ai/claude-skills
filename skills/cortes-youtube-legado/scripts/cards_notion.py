@@ -33,9 +33,9 @@ for e in p["episodios"]:
 Notas por ponto: {notas}
 
 ## Assistir e corrigir
-- {c.get('previa', 'Prévia da intro e dos 2 primeiros minutos')}, com notas no tempo do vídeo: [Sala de Revisão]({sala})
-- Episódio completo em alta: [Drive]({c['drive']})
-- Correção no resto do vídeo: escreva o tempo e o que mudar no campo CORREÇÕES (Claude) e mova o card para Correções (Claude).
+- {c.get('previa', 'Episódio completo para assistir')}, com notas no tempo do vídeo: [Sala de Revisão]({sala})
+- Arquivo final em alta (o que sobe no YouTube): [Drive]({c['drive']})
+- Para pedir correção: deixe as notas na Sala de Revisão (ou escreva no campo CORREÇÕES (Claude)) e mova o card para Correções (Claude).
 
 ## Título (recomendado primeiro, os outros para o teste A/B do YouTube)
 """ + "\n".join(f"{i}. {t}" for i, t in enumerate(mt["titulos"][:3], 1)) + f"""

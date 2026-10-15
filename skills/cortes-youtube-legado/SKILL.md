@@ -85,8 +85,10 @@ Como montar (T14 A06, 14/10/2026): `scripts/cards_notion.py <trabalho> <cards_cf
 (`notion_card_epNN.md`, a partir do `- YOUTUBE.txt` e do `crivo.json`); crie os cards na base
 (`collection://f0cc9747-efab-822b-8678-07f92372d6b7`: ANDAMENTO "Aprovação", RESPONSÁVEL "🤖 CLAUDE", REDE SOCIAL
 ["Youtube"], FORMATO ["🎥 Film (Video Longo)"], NOTA DO CRIVO), anexe as thumbs A e B `_1280.jpg` em MATERIAL
-FINALIZADO (`notion-create-file-upload` + `curl -F file=@...` + `update_properties` com `file_upload`), suba a
-prévia da intro + 2 min (540p, ~4 MB) na Sala de Revisão e grave `videos/<id>` com o link do card. Bloco de código
+FINALIZADO (`notion-create-file-upload` + `curl -F file=@...` + `update_properties` com `file_upload`), suba o
+episódio inteiro na Sala de Revisão em partes (skill `sala-de-revisao`, "Vídeo longo") e grave `videos/<id>` com o
+link do card; em MATERIAL FINALIZADO vão o link da Sala (primeiro), o do Drive e as thumbs (`update_properties` com
+as duas URLs + os `file_upload`). Bloco de código
 sem linguagem vira "javascript" no Notion: o gerador já escreve ```` ```plain text ````.
 
 ## Onde está cada coisa
@@ -266,8 +268,8 @@ apontou no tempo do episódio: `"$P" scripts/achar.py <trabalho> --ep "<arquivo>
 - **Créditos da thumb:** o upscale 4x custa 180 créditos até ~600 px de largura e 270 acima disso. Recorte o busto
   com ~3,6× a altura do rosto e, se passar de 600 px, reduza antes de enviar.
 - **Thumb A com rosto grande demais** (tarja cobrindo a boca): `thumb_legacy.py A ... --cabeca 290 --x 1030`.
-- **Sala de Revisão quase cheia** (~230 MB de 256 em 15/10/2026): prévia de episódio longo = **1 minuto** (intro +
-  entrada do nome), 540p, `-crf 28 -maxrate 300k -b:a 64k` (~2 MB). O episódio inteiro fica no Drive.
+- **Sala de Revisão:** o episódio vai inteiro, em partes de 6 min no depósito de arquivos da página (1 GB), não em
+  `media/` (skill `sala-de-revisao`, "Vídeo longo"). Prévia curta não serve: o usuário quer comentar o vídeo todo.
 
 - **h264_nvenc não abre** no PC de render ("Driver does not support the required nvenc API version 13.1, found
   13.0"): o ffmpeg do winget é mais novo que o driver. O render usa **libx264** (28 núcleos, rápido o bastante).

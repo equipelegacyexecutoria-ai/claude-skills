@@ -78,6 +78,22 @@ Vídeo (motion ou reel) pedido **direto na conversa**, sem mandar "ir nas tasks/
    (seção abaixo), faça a v2 e entregue o link de novo na conversa.
 4. Notion/Drive (fluxo da `fila-de-render`) **só quando o usuário pedir** ("vai nas tasks", "edita os vídeos do Claude").
 
+## Vídeo longo (episódio de YouTube, 15–45 min) — 15/10/2026
+
+O usuário quer revisar o **episódio inteiro** na Sala, não só uma prévia. Vídeo longo não cabe em `media/` (15 MB por
+arquivo, 256 MB no total): vai para o **depósito de arquivos da página** (capacidade `assets` já declarada: 1 GB, até
+20 MiB por arquivo) e em **partes de 6 min** que a página toca em sequência, com o tempo do episódio inteiro (as notas,
+a régua e os atalhos usam o tempo total; no fim de uma parte a próxima começa sozinha).
+1. Partes (540p, ~10 MB cada): `ffmpeg -i <final>.mp4 -vf scale=960:540 -c:v libx264 -preset slow -crf 27 -maxrate 360k
+   -bufsize 720k -force_key_frames "expr:gte(t,n_forced*360)" -c:a aac -b:a 64k -ac 1 -f segment -segment_time 360
+   -reset_timestamps 1 -segment_format_options movflags=+faststart <id>_p%02d.mp4`; meça a duração real de cada parte (ffprobe).
+2. Copie as partes para **dentro da pasta de trabalho da conversa** e envie com `Artifact` `asset: true`, `url` = Sala,
+   `file_paths` (até 25 por chamada; arquivo fora da pasta de trabalho vai um por chamada). Cada um volta com `/_blob/<id>`.
+3. Na versão do documento `videos/<id>`: `partes: [{arquivo: "/_blob/<id>", dur: <s>}, ...]`, `arquivo` = a 1ª parte,
+   `duracao` = soma. Apague as cópias locais depois.
+4. Espaço: `Artifact` `action: "list"`, `scope: "assets"` mostra o uso (1 GB). Versão antiga de episódio: apague as partes
+   dela (`action: "delete"` com `path` = id) só quando o card estiver Publicado, e marque `removido: true`.
+
 ## Ler as notas e aplicar (card em Correções (Claude))
 
 1. `ArtifactData` `query` em `notas` com `where [["video","==","<id>"],["status","==","aberta"]]`.
