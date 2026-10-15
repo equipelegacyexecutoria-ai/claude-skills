@@ -42,3 +42,8 @@
     (`trig_01MJmrDxNLVXbzqg7baZt9Gd`) foi **desligada** (o proxy da nuvem bloqueava o Supabase).
   - As tabelas "Posts do Instagram", "Fotografias diárias" e "Tarefas por pessoa" criadas no Notion
     (página "Histórico do Cérebro (não editar)") não são mais usadas; o Igor não quer tabela no Notion.
+- **15/10/2026 — Chat do Cérebro pensa como analista (pedido do Igor).** Seja qual for a pergunta, o chat
+  mira a cadeia post → visita ao perfil → lead → MQL → reunião → venda: responde com números, abre os posts
+  um a um (melhores × piores do mesmo tipo, com gancho, estilo, dia/hora e roteiro do card no Notion), cruza
+  com leads e Pipedrive e fecha com **Padrão** (teses com evidência, tese ≠ prova) e um próximo teste.
+  Alcance comparado pela mediana (viral distorce a média). Nunca dizer que um post gerou lead.
