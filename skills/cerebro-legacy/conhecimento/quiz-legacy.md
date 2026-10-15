@@ -184,6 +184,22 @@ Material de apoio (coluna "Documentos"): [Narrativas para os SDRs](https://app.n
 Etiqueta `QUIZ` ou utm_source `QUIZ_LEGACY` (ver `referencias/fontes.md`). Quando o fluxo novo entrar,
 os negócios do MQL do quiz passam a ter também as etiquetas "Quiz Clailton · ..." da tabela acima.
 
+## Números e achados em 15/10/2026 (painel do quiz, planilha Quiz-Legacy, Pipedrive e Conversas)
+
+- **Teste A/B das capas** (desde 13/10, 50/50): /v1 "PARABÉNS. VOCÊ CHEGOU AO LUGAR CERTO." 54,2% de início
+  (32 de 59) x /v2 "AUMENTE EM ATÉ 30% O LUCRO DA SUA EMPRESA" 43,8% (28 de 64). /v1 à frente nos 3 dias, mas
+  ainda pode ser acaso (precisa de ~353 sessões por versão). Lead: 3,4% x 3,1%; checkout: 11,9% x 10,9%.
+- **Total desde 10/09:** 566 acessos, 475 visitantes, 230 iniciaram, 113 chegaram à captura, 65 leads no painel
+  (a planilha tem 48: 26 do quiz antigo + 22 do atual; diferença a explicar), 56 cliques em comprar, 29 leads no checkout.
+- **MQL do quiz no Pipedrive (FUNIL LEGADO):** 15 negócios (7 do quiz antigo, 8 do atual). Os 8 MQL da planilha atual
+  estão todos lá. Em 15/10: 2 em Reunião Realizada, 4 em Tentativa de Conexão, 9 perdidos (2 depois da reunião).
+  Testes ("Igor Teste", "mac") seguem abertos no FUNIL IMPULSÃO.
+- **Conversas dos 18 leads de checkout abandonado** (aba "Checkout abandonado", sem o teste do Mac): 6 conversaram,
+  2 só clicaram no botão, 1 só resposta automática, 5 sem resposta, 4 números sem WhatsApp. Nenhuma compra confirmada.
+  Objeções: falta de dinheiro (3), "esperava algo gratuito, a proposta é enganosa" (1). Falhas vistas: sem lembrete para
+  quem não responde; a Nina manda de novo o link do quiz para quem já fez; templates trocados ("especialista vai ligar",
+  "sua sessão" para lead de R$ 97); mensagens depois das 21h; validação de telefone só confere o formato.
+
 ## Informação que não bate (conferir com o Igor)
 
 - ~~Corte de MQL~~ **resolvido pelo Igor em 13/10:** quiz e orgânico = **R$ 71 mil ou mais**; só as
