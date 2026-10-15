@@ -49,6 +49,12 @@ ou ferramenta nova da Legacy que aparecer entra aqui na hora, no arquivo do assu
 Se o assunto virou um ponto do painel, ligue também o nó do `api/mapa.json` do site. Nunca guarde senha, chave,
 nome/telefone/e-mail de lead.
 
+**Chat do Cérebro** (https://claude.ai/artifact/6KeA7CtRT5W8znMHVzVjqo, 15/10/2026): página do claude.ai onde o Igor
+pergunta e o Claude responde cruzando o banco do site (só no aplicativo do Claude no PC), o Notion e esta central.
+A central fica copiada no banco da página (coleção `conhecimento`, um documento por arquivo: campo `texto`). Quando um
+arquivo de `conhecimento/`, `referencias/equipe.md` ou `memoria/decisoes.md` mudar, atualize também o documento de mesmo
+nome lá (ferramenta ArtifactData, `set`/`str_replace` com `if_version`).
+
 **Onde estou rodando.** Num PC, a skill fica em `~/.claude/skills/cerebro-legacy/`. Na rotina na
 nuvem, o cofre `claude-skills` está clonado na pasta de trabalho e a skill fica em
 `skills/cerebro-legacy/` (troque os caminhos `$HOME/.claude/skills/...` por esse). Na nuvem, no fim,
