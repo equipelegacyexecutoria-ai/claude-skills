@@ -46,24 +46,40 @@ GAP_MAX = 0.40          # s: maior silêncio aceito entre duas palavras
 FOLGA_PALAVRA = 0.06    # s: o que fica de cada lado da palavra (a cauda da vogal o corte acha sozinho)
 PASSADAS_APERTAR = 2
 FALA_MIN = 0.12         # s de palavra do bruto dentro do "silêncio" = é fala que o Whisper do corte perdeu
+VOZ_DB = -36.0          # e com som de voz (janela 50 ms) nesse pedaço: o Whisper estica palavras sobre o silêncio
 
 
 def _energia_db(T: Path):
-    """Palavras faladas do bruto (transcricao.json, s do bruto): [(inicio, fim)]; None se não houver."""
+    """Palavras faladas do bruto (transcricao.json) + energia do bruto em janelas de 50 ms; None se faltar."""
     import json
-    arq = T / "transcricao.json"
-    if not arq.exists():
+    import subprocess
+    import numpy as np
+    arq, wav = T / "transcricao.json", T / "audio16k.wav"
+    if not arq.exists() or not wav.exists():
         return None
     pal = json.loads(arq.read_text(encoding="utf-8"))
     pal = pal["palavras"] if isinstance(pal, dict) else pal
-    return [(w["inicio"], w["fim"]) for w in pal if not w.get("sem_voz")]
+    raw = subprocess.run(["ffmpeg", "-v", "error", "-i", str(wav), "-f", "f32le", "-ac", "1", "-ar", "16000", "-"],
+                         capture_output=True).stdout
+    x = np.frombuffer(raw, np.float32)
+    n = len(x) // 800
+    db = 20 * np.log10(np.sqrt((x[: n * 800].reshape(n, 800) ** 2).mean(1)) + 1e-9)
+    return [(w["inicio"], w["fim"]) for w in pal if not w.get("sem_voz")], db
 
 
 def _tem_voz(som, p: float, q: float) -> bool:
-    """O trecho [p, q] do bruto contém palavra transcrita (fôlego e ruído não contam)?"""
+    """O trecho [p, q] do bruto tem palavra transcrita E som de voz ao mesmo tempo (fôlego e ruído não contam)?"""
     if not som:
         return False
-    return any(min(q, b) - max(p, a) >= FALA_MIN for a, b in som)
+    pal, db = som
+    for a, b in pal:
+        a2, b2 = max(p, a), min(q, b)
+        if b2 - a2 < FALA_MIN:
+            continue
+        janela = db[int(a2 / 0.05):max(int(a2 / 0.05) + 1, int(b2 / 0.05))]
+        if len(janela) and (janela > VOZ_DB).sum() * 0.05 >= FALA_MIN:
+            return True
+    return False
 
 
 def apertar(T: Path) -> int:
