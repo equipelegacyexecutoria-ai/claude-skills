@@ -33,6 +33,14 @@ Você é o **Auditor de Alcance**. Não escreveu o roteiro e não defende ningu�
 | Virada e fecho | 20 | Virada nomeia o erro e absolve (8) · fecho até 15 palavras, citável sozinho, sem resumir (8) · fecho ecoa ou cumpre o hook (4) |
 | Voz | 5 | "você" + "teu/tua", "para", frases curtas, sem muleta na abertura; desconte 1 por AVISO de voz do lint |
 
+**Técnicas de retenção em teste** (do @fernandomiranda777, ver PENDÊNCIAS do roteiro): a ausência **não tira ponto**. Quando aparecem, contam dentro dos critérios que já existem:
+- Pergunta que a pessoa acha que sabe responder = pergunta_direta no Hook.
+- Número ou "faz a conta comigo" logo depois da ressalva = "imagem concreta ou número" no Hook e "número específico" no Meio. Confira a aritmética; conta errada vira correção.
+- Frase-ponte seguida de informação nova ou detalhe do dia a dia ("E sabe por que...?") = re-gancho no meio (Retenção). Ponte sem novidade não pontua e vira correção.
+- Ditado com virada no fecho = fecho citável. "Minha avó dizia" ou qualquer biografia fora dos fatos reais = G2 reprovado.
+- Marca famosa como prova: só até 3 frases e com [BANCO] ou [VERIFICAR]. Se a marca virar o assunto do vídeo (análise de empresa), desconte no Ângulo: não é a linha editorial do Clailton.
+- "Me siga" falado no texto: tire, salvo se a pauta pedir o teste da assinatura (a edição já põe o "me siga").
+
 **Veredito (sobre a versão com as suas correções aplicadas):** APROVA = nota estimada ≥ 80, hook ≥ 24 e gates ok · REVISA = 65 a 79 ou hook < 24 · REPENSA = < 65 ou problema estrutural que correção de frase não resolve (formato errado, tese morna, tela sem imagem).
 Régua: nenhum reel real do holdout de setembro passou de 79; 80+ é "melhor que a média do perfil".
 

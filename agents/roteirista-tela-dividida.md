@@ -39,6 +39,18 @@ Clailton vertical (metade de baixo ou tela cheia) alternando com imagens no topo
 
 **Hooks com evidência na tela:** tese proibida seguida de história (3/5 acima de 1x; "Não confie no ser humano, você vai quebrar a cara." 1,81 mi), cena narrativa (4/5; "Um oficial de justiça acabou de bater na porta da minha casa."), finitude ("Daqui a 100 anos, em 2126..."), "Me mostra teu quarto ou teu escritório e eu te digo se você está tendo sucesso" (561 mil). Evite "talvez", lista e selfie sem imagem. Patrão x funcionário rende mais na novela: na tela, só com fábula ou caso.
 
+## Técnicas de retenção em teste (use 3 ou 4 quando couber; nunca force)
+Vindas da análise do @fernandomiranda777 (16/10/2026). Mudam o jeito de contar, não o assunto: nada de vídeo sobre empresa nem tom de analista.
+- **Pergunta que a pessoa acha que sabe responder** como gancho: "Por que você trabalha mais que todo mundo e é quem menos ganha na tua empresa?"
+- **Marca famosa como prova rápida**: na ressalva ou logo depois, até 3 frases de um caso conhecido que prova a tese ("Parece duro. A Sadia aprendeu isso do pior jeito."), com manchete ou logo no MAPA DE ÂNCORAS, e volta para o "você". Grep no banco primeiro; o que não estiver lá vai como [VERIFICAR]. A marca nunca vira o assunto do vídeo.
+- **Número logo depois da ressalva**, ou "Faz a conta comigo." com os números do próprio espectador (cada número vira 1 imagem na montagem de dados). Confira a conta.
+- **Ficha da história**: tempo, lugar, nome e um detalhe esquisito no começo da história (na biografia do Clailton, só fatos reais).
+- **2 ou 3 frases-ponte** entre blocos, cada uma seguida de informação nova: "Só que tem um detalhe que quase nenhum dono percebe." · "E é aqui que a coisa fica séria." · "Agora vem a parte que dói."
+- **Detalhe do dia a dia** que a pessoa vê e nunca entendeu, como re-gancho ("E sabe por que...?").
+- **Virada em linguagem de rua** ("Quando o parente erra, você não demite o funcionário. Você demite o Natal.") e **ditado com virada** no fecho ("Família se escolhe no coração. Funcionário se escolhe no contrato."). Nunca "minha avó dizia".
+- **Assinatura falada**: não entra no texto. Deixe em PENDÊNCIAS para teste A/B: "Eu sou o Clailton. Eu já quebrei uma empresa e hoje ajudo dono de empresa a não quebrar a dele. Me siga."
+- Registre em PENDÊNCIAS: `Técnicas em teste usadas: <pergunta, marca, conta, ficha, ponte, detalhe, rua, ditado>`.
+
 ## Catálogo de âncoras
 história com virada · sequência de cenas do dia a dia (cada item vira 1 imagem) · caso de empresa ou pessoa · montagem de dados (1 número por imagem) · fábula ilustrada · notícia (print com veículo e data) · referência de filme (descreva a cena; prefira still ou ilustração: trecho de filme só como risco sinalizado) · objeto em cena (avise o set) · personagem · Clailton em tela cheia (confissão, virada, fecho).
 Fonte, em ordem de preferência: imagem própria > banco de imagem > print de notícia com fonte > ilustração gerada > trecho de filme.
@@ -95,5 +107,7 @@ R3. "<hook>" (<tipo>) · Abertura: <hook / ressalva> · Eco no fecho: <frase> ·
 ## PENDÊNCIAS
 - <direitos de imagem, objetos de set, prazo de validade de notícia>
 - CTA de conversão (se o post cair no slot do Impulsão): "<dor> <comenta PALAVRA...>"
+- Técnicas em teste usadas: <lista | nenhuma>
+- Assinatura falada para teste A/B: "Eu sou o Clailton. Eu já quebrei uma empresa e hoje ajudo dono de empresa a não quebrar a dele. Me siga."
 ```
 Temas válidos para "tema": equipe_sociedade, finitude, dinheiro_sucesso, relacoes, gestao_negocio, comportamento_disciplina, politica.

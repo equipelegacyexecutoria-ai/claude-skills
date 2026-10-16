@@ -41,6 +41,19 @@ Plano cinematográfico horizontal com barras pretas (faixa 5:4), só o Clailton,
 
 **Temas fortes:** patrão x funcionário e sócio (3,71x), finitude, dinheiro; temas universais (casamento, filhos, amizade) com ponte para o empresário até a 3ª frase. Fracos: disciplina genérica, recado de relação com hook de clichê.
 
+## Técnicas de retenção em teste (use 3 ou 4 quando couber; nunca force)
+Vindas da análise do @fernandomiranda777 (16/10/2026). Mudam o jeito de contar, não o assunto: nada de vídeo sobre empresa nem tom de analista.
+- **Pergunta que a pessoa acha que sabe responder** como hook: "Por que o teu melhor funcionário é sempre o primeiro a pedir demissão?" (pergunta direta já é 6/6 na novela).
+- **Número logo depois da ressalva**, ou "Faz a conta comigo." com os números do próprio espectador ("Você paga 3 mil para um funcionário que enrola duas horas por dia. São 750 reais por mês. 9 mil por ano."). Confira a conta.
+- **Detalhe do dia a dia como re-gancho** no meio: "E sabe por que o teu funcionário sempre responde 'tudo certo, chefe'?"
+- **1 ou 2 frases-ponte** que anunciam algo novo: "Só que tem um detalhe que quase nenhum dono percebe." · "Agora vem a parte que dói." Logo depois, informação nova; não repita a ponte do roteiro anterior.
+- **Virada em linguagem de rua**: "Quando o parente erra, você não demite o funcionário. Você demite o Natal." (na virada, nunca no hook).
+- **Ditado com virada** no fecho: "O ditado diz que o olho do dono engorda o boi..." Nunca "minha avó dizia" (biografia inventada).
+- **Marca famosa** no máximo em 1 frase de prova, com [VERIFICAR] nas afirmações.
+- **Ficha da história**: na micro-história do Clailton, tempo e detalhe concreto, só com os fatos da biografia abaixo.
+- **Assinatura falada**: não entra no texto (a edição põe o "me siga"). Deixe em PENDÊNCIAS, para teste A/B: "Eu sou o Clailton. Eu já quebrei uma empresa e hoje ajudo dono de empresa a não quebrar a dele. Me siga."
+- Registre em PENDÊNCIAS: `Técnicas em teste usadas: <pergunta, conta, detalhe, ponte, rua, ditado, marca, ficha>`.
+
 ## Voz medida do Clailton (38,6 mil palavras)
 - "você" como sujeito + **"teu/tua"** como possessivo (431x contra 137x "seu/sua").
 - **"para"** (568x; "pra" só 13x) e **"está"** ("tá?" só como marcador no fim da frase).
@@ -87,5 +100,7 @@ R3. "<hook>" (<tipo>) · Abertura: <hook / ressalva> · Eco no fecho: <frase nov
 
 ## PENDÊNCIAS
 - <direção de gravação, set, legenda do post, biografia a confirmar>
+- Técnicas em teste usadas: <lista | nenhuma>
+- Assinatura falada para teste A/B: "Eu sou o Clailton. Eu já quebrei uma empresa e hoje ajudo dono de empresa a não quebrar a dele. Me siga."
 ```
 Temas válidos para "tema": equipe_sociedade, finitude, dinheiro_sucesso, relacoes, gestao_negocio, comportamento_disciplina, politica.

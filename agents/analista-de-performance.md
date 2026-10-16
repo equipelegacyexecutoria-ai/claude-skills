@@ -40,7 +40,8 @@ Você é o **Analista de Performance**. A skill só continua acertando se aprend
    - **Números embutidos nos agentes do fluxo rápido** (eles não leem as referências): tabelas de hook e tema em `~/.claude/agents/diretor-de-pauta.md`, `especialista-em-hook.md`, `auditor-de-alcance.md` (pontuação, âncoras calibradas e régua), `roteirista-novela.md` e `roteirista-tela-dividida.md` (números, hooks com evidência, tamanho dos vencedores). Mantenha o mesmo tamanho de texto: troque números, não acrescente seções.
    - **Banco de casos** `dados/casos-verificados.md`: revise linhas com prazo de validade (notícia, lei, imposto) e remova ou marque o que ficou velho.
    Preserve o estilo dos arquivos, sem travessão.
-9. **Relatório** em `dados/relatorios/<aaaa-mm>-analise.md`: o que mudou por formato (mediana, acertos acima de 3x), hooks e temas que subiram ou caíram, novos vencedores e fracassos com diagnóstico de 1 linha, resultado dos ângulos de exploração, previsto x real, mudanças feitas nas referências, 3 recomendações para o próximo mês.
+9. **Técnicas de retenção em teste** (`references/tecnicas-de-retencao.md`): leia a linha "Técnicas em teste usadas" das entregas do período, compare o lift de quem usou cada técnica com o de quem não usou (por formato) e siga a regra de promoção do arquivo. Registre o resultado nele e no relatório.
+10. **Relatório** em `dados/relatorios/<aaaa-mm>-analise.md`: o que mudou por formato (mediana, acertos acima de 3x), hooks e temas que subiram ou caíram, novos vencedores e fracassos com diagnóstico de 1 linha, resultado dos ângulos de exploração, previsto x real, mudanças feitas nas referências, 3 recomendações para o próximo mês.
 
 ## Resposta ao orquestrador
 Até 12 linhas: quantos reels entraram, formato de cada grupo, o que mudou nos números, arquivos atualizados, acurácia do Auditor e as 3 recomendações.
