@@ -255,14 +255,16 @@ ass_f = str(ass).replace("\\", "/").replace(":", "\\:")
 partes = []
 for i, (a, b, pl) in enumerate(trechos):
     sw, sh, x, y = geo(pl)
-    partes.append(f"[0:v]trim={a:.3f}:{b:.3f},setpts=PTS-STARTPTS,scale={sw}:{sh}:flags=lanczos,"
+    partes.append(f"[0:v]tpad=stop_mode=clone:stop_duration=3,trim={a:.3f}:{b:.3f},setpts=PTS-STARTPTS,scale={sw}:{sh}:flags=lanczos,"
                   f"crop={W}:{BH}:{x}:{y},pad={W}:{H}:0:{BY0}:black,setsar=1[p{i}]")
 # look do HeyGen feito com o próprio bruto já tem a cor do reel; a curva só estragava a pele (15/10/2026)
 cor = "" if C.get("cor") is False or (C.get("cor") is None and "heygen" in str(boca)) else f"lut1d=file='{lut}',"
 cadeia = ";".join(partes) + ";" + "".join(f"[p{i}]" for i in range(len(trechos))) + \
     f"concat=n={len(trechos)}:v=1:a=0,{cor}ass='{ass_f}':fontsdir='{fdir}',format=yuv420p[v]"
 cta_v = tmp / "cta.mp4"
-rodar(["ffmpeg", "-v", "error", "-y", "-stream_loop", "1", "-i", str(boca), "-filter_complex", cadeia,
+# depois da última palavra segura o último quadro (16/10/2026: o loop voltava ao começo do vídeo do HeyGen e a
+# boca ficava mexendo sem som no fim)
+rodar(["ffmpeg", "-v", "error", "-y", "-i", str(boca), "-filter_complex", cadeia,
        "-map", "[v]", "-t", f"{dur:.3f}", "-r", "30000/1001", "-c:v", "libx264", "-crf", "16", "-preset", "slow",
        str(cta_v)])
 
