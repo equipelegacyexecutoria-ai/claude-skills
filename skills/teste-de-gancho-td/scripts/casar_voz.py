@@ -55,7 +55,7 @@ tmp = Path(tempfile.mkdtemp())
 dur_voz = len(ler(voz)) / SR
 # 1) original logo depois do corte: separa voz e ambiente
 t_sep = max(0.0, t_c - 40) if ANTES else t_c
-subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{t_sep:.4f}", "-t", f"{(t_c - t_sep) if ANTES else 40:.4f}", "-i", original, "-vn",
+subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{t_sep:.4f}", "-t", f"{(t_c - t_sep + 40) if ANTES else 40:.4f}", "-i", original, "-vn",
                 "-ac", "2", "-ar", str(SR), str(tmp / "corpo.wav")], check=True)
 subprocess.run([PY_SEP, "-m", "demucs", "--two-stems=vocals", "-n", "htdemucs", "-o", str(tmp), str(tmp / "corpo.wav")],
                check=True, capture_output=True)
@@ -70,12 +70,13 @@ atual = voz
 for passada in range(4):
     _, hk = espectro(ler(atual))
     g = ref - (hk - hk.mean())
-    g = np.convolve(np.pad(g, 1, mode="edge"), np.ones(3) / 3, mode="valid")
-    g_tot = np.clip(g_tot + g, -12, 12)
+    k_s = 7 if ANTES else 3     # CTA no fim: curva bem suave (1 oitava), sem dente de serra
+    g = np.convolve(np.pad(g, k_s // 2, mode="edge"), np.ones(k_s) / k_s, mode="valid")
+    g_tot = np.clip(g_tot + g, -4 if ANTES else -12, 4 if ANTES else 12)   # CTA no fim: EQ suave (16/10: "áudio zoado")
     g_tot[c < 130] = np.clip(g_tot[c < 130], -6, 3)   # grave bem baixo: só um toque (evita embolar)
     entradas = ";".join(f"entry({f:.0f},{v:.2f})" for f, v in zip(c, g_tot))
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", voz, "-af",
-                    f"aresample={SR},firequalizer=gain_entry='{entradas}',aecho=0.85:0.75:23|41:0.13|0.07",
+                    f"aresample={SR},firequalizer=gain_entry='{entradas}'" + ("" if ANTES else ",aecho=0.85:0.75:23|41:0.13|0.07"),
                     "-ac", "1", str(eq)], check=True)
     atual = str(eq)
     _, chk = espectro(ler(atual))
@@ -102,7 +103,12 @@ if ANTES:
     # segundos para a frente (música invertida soa errada); só sala, inverte (começa igual ao corte).
     musica = lufs(sep / "no_vocals.wav") - lufs(sep / "vocals.wav") > -18
     fundo = ler(sep / "no_vocals.wav")
-    seg = fundo[-int(min(dur_voz, len(fundo) / SR - 0.05) * SR):]
+    i_c = int((t_c - t_sep) * SR)
+    depois = fundo[i_c:]                         # o fundo que o original tocava depois do corte (continua sem pulo)
+    if musica and len(depois) >= int(dur_voz * SR):
+        seg = depois
+    else:
+        seg = fundo[max(0, i_c - int(dur_voz * SR)):i_c]
     if not musica:
         seg = seg[::-1]
     n = int(dur_voz * SR)

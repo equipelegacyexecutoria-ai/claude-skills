@@ -1,6 +1,6 @@
 ---
 name: teste-de-gancho-td
-description: Teste de gancho em reels TELA DIVIDIDA (TD) do Clailton já publicados — troca só os primeiros segundos do reel editado por um gancho novo (V2, V3...) e mantém o resto idêntico. Escreve as variações (ou usa as que o usuário trouxer prontas), gera a fala na voz clonada do Clailton no HeyGen (Chrome), usa o Clailton real de um trecho do bruto com só a boca sincronizada (Magnific lipsync-2.0), monta a tela dividida igual à do original (imagem em cima, legenda medida, sombra v3, flash), casa voz, ambiente e cor, emenda no quadro exato e entrega no Drive (VARIAÇÕES TELA DIVIDIDA), na Sala de Revisão e em cards Reels_Clailton_TD_TESTE_*_V2 em Aprovação. Use para "teste de gancho", "variação de gancho", "faz V2 e V3 desse reel", "troca o começo do reel", "teste A/B de abertura", "refaz o gancho dos reels que menos performaram" ou ganchos prontos para um reel TD já editado. Só tela dividida por enquanto.
+description: Teste de gancho em reels TELA DIVIDIDA (TD) do Clailton já publicados — troca só os primeiros segundos do reel editado por um gancho novo (V2, V3...) e mantém o resto idêntico. Escreve as variações (ou usa as que o usuário trouxer prontas), gera a fala na voz clonada do Clailton no HeyGen (Chrome), faz o Clailton falando no próprio HeyGen com um look criado a partir do bruto daquele reel (mesma roupa e lugar; NUNCA Freepik/Magnific), monta a tela dividida igual à do original (imagem em cima, legenda medida, sombra v3, flash), casa voz, ambiente e cor, emenda no quadro exato e entrega no Drive (VARIAÇÕES TELA DIVIDIDA), na Sala de Revisão e em cards Reels_Clailton_TD_TESTE_*_V2 em Aprovação. Também põe CTA falada nova no FIM de reels publicados (cta_final.py). Use para "teste de gancho", "CTA nova no fim", "variação de gancho", "faz V2 e V3 desse reel", "troca o começo do reel", "teste A/B de abertura", "refaz o gancho dos reels que menos performaram" ou ganchos prontos para um reel TD já editado. Só tela dividida por enquanto.
 ---
 
 # Teste de gancho — reels TELA DIVIDIDA do Clailton
@@ -48,7 +48,7 @@ diante é o reel publicado, sem mudar nada. Arquivo 1080×1920, H.264 CRF 18, AA
   `scripts/salvar_downloads.ps1`.
 - Pasta de trabalho `W`: no PC de render `C:\Render\_trabalho\ganchos\<AAAA-MM-DD>`; na estação, uma pasta
   em `C:\Render\_trabalho\` também (precisa de ~5 GB por reel).
-- Conectores: Chrome do usuário (Claude in Chrome) logado no HeyGen; Magnific (ferramentas `video_speak`,
+- Conectores: Chrome do usuário (Claude in Chrome) logado no HeyGen (voz e boca; **Freepik/Magnific proibido**, 15/10/2026);
   `creations_*`, `images_generate`); Notion; Frame.io (skill `frameio`); Google Drive para computador (G:).
 
 Estrutura de `W`:
@@ -91,7 +91,7 @@ Faça também a folha do reel inteiro com o tempo, para escolher as imagens de c
 Um bloco por reel (pauta, título, bruto) e um por variação (texto, imagens de cima). Formato completo no topo
 de `scripts/montar.py`. Imagens de cima, em ordem de prioridade:
 1. **cenas do próprio reel** (`topo`/`cheio` + segundo do original): mantêm a cara do vídeo;
-2. **desenho novo no mesmo traço** do reel (quando o reel é ilustrado, como o Padre): Magnific
+2. **desenho novo no mesmo traço** do reel (quando o reel é ilustrado, como o Padre): Magnific (SÓ se o usuário pedir: créditos do Freepik)
    `images_generate` com `references` de estilo = 2 quadros do reel (suba por `creations_request_upload` →
    PUT → `creations_finalize_upload`), `mode: imagen-nano-banana-2`, `aspectRatio: 4:3`, `count: 2-3`,
    prompt em inglês terminando em "No text, no letters, no signs with words, no logos.";
@@ -121,22 +121,20 @@ Leia antes a skill `chrome-browser`. Todas as frases numa gravação só:
    `P S/separar_falas.py W "<video_heygen.mp4>" padre_v2 padre_v3 chegada_v2 ...` (mesma ordem do roteiro).
    Ele confere cada fala com o texto do `ganchos.json` e avisa se não bater.
 
-### 5. Clailton real + sincronia da boca (Magnific)
-O avatar do HeyGen fica com cara de IA na boca e nos óculos (reprovado em 10/10). O que foi aprovado:
-**trecho real do bruto daquele reel, mesma roupa, e só a boca sincronizada** com a fala nova.
-1. `P S/achar_trechos.py "<bruto>" W/<reel>/trechos.json <dur_v2> <dur_v3>` (durações das falas + 0,1 s;
-   veja em `vozes/frases.json`). Ele só aceita trechos em que o Clailton **está falando desde o 1º quadro**,
-   de frente para a câmera e com o rosto firme.
-2. `P S/recortar_fonte.py "<bruto>" <início> <dur> W/fontes/<nome>.mp4` e **olhe a tira** `.jpg`: mão longe
-   da boca, olhando para a câmera, sem virar o rosto na 1ª palavra, roupa igual à do reel (no Termômetro,
-   sem óculos). Ruim → próximo candidato do `trechos.json`.
-3. Magnific: `creations_request_upload` (video/mp4 e audio/wav, `count` = nº de arquivos) → `curl -X PUT
-   -H "Content-Type: ..." --data-binary @arquivo "<url>"` → `creations_finalize_upload` (`visible: false`) →
-   `video_speak` com `videoUrl`/`audioUrl` = identificadores e **`mode: "lipsync-2.0"`** (máx. 30 s) →
-   `creations_wait` → baixe o `url` do resultado para `W/ls/<nome>.mp4`. Dá para disparar todas juntas.
-   Não use `veed-sync-2-v2v` (lábios inchados e pele com filtro, testado em 11/10).
-4. `P S/tira_boca.py W <nome> ...` → olhe `W/ls/bocas.jpg`: a boca tem que **abrir e fechar nas palavras
-   desde o 1º quadro**. Boca quase parada ou rosto virando → outro trecho e nova sincronia.
+### 5. Clailton real falando a frase nova — só HeyGen (regra do usuário, 15–16/10/2026)
+**Freepik/Magnific é proibido aqui** (créditos de lá acabam; o Porco e o Urso feito com lipsync do Magnific ficou
+"horrível"). O avatar padrão do HeyGen também foi reprovado (boca e óculos com cara de IA). O caminho aprovado:
+**look do Clailton 2 criado com o bruto daquele reel** + áudio da fala nova.
+1. Ache no bruto ~20 s do MESMO take que aparece no reel (mesma roupa e lugar), Clailton falando de frente:
+   `P S/achar_trechos.py "<bruto>" W/<reel>/trechos.json 20` (bruto deitado: `GIRAR=auto`), ou pela última frase
+   do vídeo (transcrição do bruto). Recorte com som, < 10 MB (`-b:v 3300k`, 1080x1920 ou 1920x1080) e copie para
+   uma pasta **da conversa** (o upload do Chrome só lê de lá).
+2. HeyGen → Avatar → **Clailton 2** → **Add looks** → enviar o vídeo → Create look (~5 min; vira "Clailton 2 - N").
+   Aviso de qualidade (filmagem de lado/longe) não impede.
+3. Criação rápida (avatar-shots): escolher o look → "upload/record" → **Upload Audio** → `vozes/<nome>.wav` →
+   Add audio → orientação do look (Landscape para novela) → 1080p → gerar (~12–15 créditos). Baixar o MP4.
+4. Gancho: use esse MP4 no lugar da boca sincronizada (`W/ls/<nome>.mp4`). CTA no fim: `"boca": "heygen/<nome>.mp4"`
+   no `cta.json` do `cta_final.py`. Confira a boca com `P S/tira_boca.py W <nome>`.
 
 ### 6. Pausas (quando ajudar)
 Gancho com pausa natural longa (≥ 0,25 s) fica mais dinâmico cortando o silêncio e alternando
@@ -189,7 +187,7 @@ Um card por variação (`notion-create-pages`, ícone 📹):
 
 ### 11. Fechar
 Resumo ao usuário: link da pasta VARIAÇÕES TELA DIVIDIDA, lista das variações, o que ficou de fora e por quê,
-e os **créditos gastos** (HeyGen: vídeos de voz; Magnific: ~2 mil por sincronia, mais os desenhos). Apague as
+e os **créditos gastos** (HeyGen: vídeos de voz e de look). Apague as
 cópias pesadas de `W` depois que tudo estiver no Drive (mantenha os `.json` e as vozes até a aprovação).
 
 ## Créditos: Freepik/Magnific NÃO (regra do usuário, 15/10/2026)
@@ -197,7 +195,7 @@ cópias pesadas de `W` depois que tudo estiver no Drive (mantenha os `.json` e a
 Sincronia de boca e vídeo do Clailton: só no **HeyGen** (avatar Clailton 2, looks dele, lipsync do HeyGen).
 **Nunca** usar o Magnific/Freepik (`video_speak`, `images_generate` etc.) sem o usuário pedir: os créditos
 de lá acabam ("não é para usar o freepik para fazer isso!!"). Em 15/10 uma sincronia de 18 s no Magnific custou
-~7.200 créditos e o usuário barrou. Os passos 3 e 5 abaixo que citam o Magnific ficam valendo só se ele pedir.
+~7.200 créditos e o usuário barrou. Desenho novo para a imagem de cima (passo 3): só com o pedido do usuário; prefira cenas do próprio reel.
 
 ## CTA nova no FIM de reels publicados — só HeyGen (aprovado o caminho em 15/10/2026)
 

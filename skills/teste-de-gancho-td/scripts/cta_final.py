@@ -268,13 +268,17 @@ casada = R / "vozes" / f"{C['nome']}_casada.wav"
 rodar([sys.executable, str(S / "casar_voz.py"), str(R / "vozes" / f"{C['nome']}.wav"), str(orig),
        str(round(t_c * FPS)), str(casada), "antes"])
 
+# volume da CTA = volume do fim do original (16/10/2026: a CTA ficava ~2 dB mais baixa)
+g_cta = float(np.clip(lufs(orig, max(0, t_c - 8), min(8, t_c)) - lufs(casada), -6, 6))
+print(f"volume da CTA ajustado em {g_cta:+.1f} dB")
+
 # 6) emenda: original até o corte + CTA (corte seco no vídeo, 30 ms de cruzamento no som)
 saida = P / f"{C['pauta']}.mp4"
 rodar(["ffmpeg", "-v", "error", "-y", "-i", str(orig), "-i", str(cta_v), "-i", str(casada), "-filter_complex",
        f"[0:v]trim=0:{t_c:.4f},setpts=PTS-STARTPTS,fps=30000/1001,setsar=1,format=yuv420p[a];"
        f"[1:v]fps=30000/1001,setsar=1,format=yuv420p[b];[a][b]concat=n=2:v=1:a=0[v];"
        f"[0:a]atrim=0:{t_c + 0.03:.4f},asetpts=PTS-STARTPTS,aresample=48000,afade=t=out:st={t_c - 0.03:.4f}:d=0.06[x];"
-       f"[2:a]aresample=48000,apad=whole_dur={dur:.3f},afade=t=out:st={dur - 0.35:.3f}:d=0.35[y];"
+       f"[2:a]aresample=48000,volume={g_cta:.2f}dB,apad=whole_dur={dur:.3f},afade=t=out:st={dur - 0.35:.3f}:d=0.35[y];"
        f"[x][y]acrossfade=d=0.03:c1=tri:c2=tri[s]",
        "-map", "[v]", "-map", "[s]", "-c:v", "libx264", "-crf", "18", "-preset", "slow", "-pix_fmt", "yuv420p",
        "-c:a", "aac", "-b:a", "320k", "-movflags", "+faststart", str(saida)])
