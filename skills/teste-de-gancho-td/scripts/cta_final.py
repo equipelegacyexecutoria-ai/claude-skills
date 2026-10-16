@@ -12,7 +12,8 @@ cta.json:
   "estilo": "cheio",        "cheio" = Clailton em tela cheia (TD/ES); "novela" = faixa com barras pretas
   "trocas": [9, 25],        índices de palavra onde o plano troca aberto <-> fechado (zoom seco)
   "comeca": "fechado",      plano da 1ª tela da CTA (padrão: o contrário do último plano antes do corte)
-  "cauda": 0.6              segundos de imagem depois da última palavra
+  "cauda": 0.6,             segundos de imagem depois da última palavra
+  "legenda_y": 1128, "legenda_px": 37   (opcional) centro e altura da maiúscula da legenda do original, se a medida automática errar
 }
 Grava <W>/<reel>/<pauta>.mp4 e <reel>_qa.jpg (fim do original x CTA, quadro a quadro).
 """
@@ -105,6 +106,8 @@ if not caixas:
 alturas = sorted(b - a for a, b in caixas)
 cap_px = int(np.percentile(alturas, 25))
 cap_y = int(statistics.median((a + b) / 2 for a, b in caixas if b - a <= 1.6 * alturas[len(alturas) // 2]))
+# medida à mão quando o detector pega mão/roupa clara no lugar da legenda (Pedro: mãos juntas no peito)
+cap_y, cap_px = C.get("legenda_y", cap_y), C.get("legenda_px", cap_px)
 print(f"legenda do original: centro y {cap_y}, maiúscula {cap_px} px")
 
 # 2) boca sincronizada: enquadra no plano de cada tela (rosto no mesmo tamanho, olhos na mesma altura)
