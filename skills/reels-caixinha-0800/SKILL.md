@@ -87,6 +87,25 @@ Referências (2 vídeos, Drive): `G:\Meu Drive\EXECUTORIA 0800\Modelo prontos (r
   e use `INICIO 0 <i>@<t>` no início do trecho limpo.
 - Imagem > 5 s em tela cheia: encurte a faixa `@a-b`. Imagens ~15–25% do tempo.
 
+## Infográficos no lugar de B-roll (padrão desde 15/10/2026)
+
+O usuário pediu "mais motions e infográficos para ilustrar o que o Lucas explica" no lugar das fotos. 7 vídeos feitos
+assim (15-16/10: O que entra e sai, Bolo, CTA Sessão, Salão, Levo trabalho, Sazonal, Gerente caro).
+- Um projeto HyperFrames por vídeo em `T\motion\` (fontes SF Pro em `motionssets`), uma cena por trecho, cada
+  elemento entrando NA PALAVRA (tempo local = palavra − início do trecho, tirado de `timeline.json` com um plano
+  provisório). Visual: fundo `#061422` com grade e brilho azul, cartões de vidro com borda `#03C6FA`, SF Pro.
+- Ideias que funcionaram: entra × sai, planilha somando, extrato, "AULA 00001", barras entradas − saídas = saldo, DRE
+  em cascata + anel de rentabilidade, ficha técnica somando o custo, calculadora de preço, checklist de dores,
+  medidor (ponteiro), calendário do mês, lista de tarefas com nota 1-10, delegar, balança custo × rentabilidade,
+  funil de vendas, gráfico sazonal do ano, pizza 50/50, números "imaginários" riscados.
+- Render: `npx hyperframes render`, recorta cada cena (`ffmpeg -ss <ini> -t <dur+0,12>`) e usa `@a-b arquivo "<cena>.mp4"`.
+  Cena mais curta que o trecho: estica com `setpts` (até ~5%) ou `tpad` (congela o 1º/último quadro).
+- **Armadilha:** elemento com `fromTo({opacity:0}, …, immediateRender:false)` aparece ANTES da hora; no script,
+  embrulhe `tl.fromTo` para dar `tl.set(alvo,{opacity:0},0)` quando o "de" tem opacity 0 (feito nos 4 últimos).
+- Imagens ~35-45% do tempo; trechos > 9 s viram 2 cenas ou saem. Números são exemplos ilustrativos (avisar).
+- Vídeo sem pergunta (CTA): `caixinha.txt` = `SEM CAIXINHA`.
+- Sala de Revisão perto de 256 MB: prévia com `--max-kbps 600` e tirar as prévias das versões antigas já trocadas.
+
 ## Onde ajustar
 
 | O quê | Onde |
