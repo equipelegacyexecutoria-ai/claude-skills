@@ -45,30 +45,25 @@ def etapa(script: Path, args: list[str]) -> int:
 GAP_MAX = 0.40          # s: maior silêncio aceito entre duas palavras
 FOLGA_PALAVRA = 0.06    # s: o que fica de cada lado da palavra (a cauda da vogal o corte acha sozinho)
 PASSADAS_APERTAR = 2
-VOZ_DB = -38.0          # dB RMS (janela 50 ms): acima disso em 25% do trecho = tem fala, não aperta
+FALA_MIN = 0.12         # s de palavra do bruto dentro do "silêncio" = é fala que o Whisper do corte perdeu
 
 
 def _energia_db(T: Path):
-    """Energia do bruto em janelas de 50 ms (dB RMS), de T/audio16k.wav; None se não houver."""
-    import subprocess
-    import numpy as np
-    wav = T / "audio16k.wav"
-    if not wav.exists():
+    """Palavras faladas do bruto (transcricao.json, s do bruto): [(inicio, fim)]; None se não houver."""
+    import json
+    arq = T / "transcricao.json"
+    if not arq.exists():
         return None
-    raw = subprocess.run(["ffmpeg", "-v", "error", "-i", str(wav), "-f", "f32le", "-ac", "1", "-ar", "16000", "-"],
-                         capture_output=True).stdout
-    x = np.frombuffer(raw, np.float32)
-    n = len(x) // 800
-    return 20 * np.log10(np.sqrt((x[: n * 800].reshape(n, 800) ** 2).mean(1)) + 1e-9)
+    pal = json.loads(arq.read_text(encoding="utf-8"))
+    pal = pal["palavras"] if isinstance(pal, dict) else pal
+    return [(w["inicio"], w["fim"]) for w in pal if not w.get("sem_voz")]
 
 
 def _tem_voz(som, p: float, q: float) -> bool:
-    if som is None:
+    """O trecho [p, q] do bruto contém palavra transcrita (fôlego e ruído não contam)?"""
+    if not som:
         return False
-    import numpy as np
-    a = int(p / 0.05)
-    trecho = som[a:max(a + 1, int(q / 0.05))]
-    return len(trecho) > 0 and float(np.mean(trecho > VOZ_DB)) >= 0.25
+    return any(min(q, b) - max(p, a) >= FALA_MIN for a, b in som)
 
 
 def apertar(T: Path) -> int:

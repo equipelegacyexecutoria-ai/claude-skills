@@ -67,6 +67,8 @@ Célula: mediana do lift · acertos > 1x / n · acertos ≥ 3x / n · evidência
 | "Depois de assistir esse vídeo, você não vai querer [ação]." + fecho que manda fazer a ação | Celular (3,98 mi) · só TELA, só com entrega literal |
 | "[Relação] é igual à famosa fábula de [fábula]." + "E eu vou te explicar porquê." | Escorpião e sapo (83 mil) · TELA com ilustração |
 | "Um [personagem] acabou de [cena tensa]." + "Calma, essa cena não aconteceu hoje." | Oficial de justiça (6,5x em julho) · TELA, biografia real |
+| **Em teste:** "Por que o teu [melhor X] é sempre o primeiro a [o contrário do esperado]?" | Pergunta que a pessoa acha que sabe responder, do @fernandomiranda777 ("Quem é o dono do Real Madrid?", 1,73 mi) · `tecnicas-de-retencao.md` |
+| **Em teste:** "Por que você [faz mais que todo mundo] e [recebe menos que todo mundo]?" | Idem: contradição que a pessoa vive e nunca explicou |
 
 ## Antipadrões (nunca na abertura)
 
@@ -89,6 +91,8 @@ Célula: mediana do lift · acertos > 1x / n · acertos ≥ 3x / n · evidência
 | Quebra a tensão da cena | "Calma, essa cena não aconteceu hoje." | "Calma, que essa história tem um detalhe." |
 | Promete explicação | "E eu vou te explicar porquê." | "Vem comigo que você vai entender." |
 | Pede salvamento em conteúdo de método | "Já salva esse vídeo, você vai querer assistir outras vezes." | só no objetivo salvamento |
+| Dobra com número (em teste) | (vinda do @fernandomiranda777) | "Faz a conta comigo." + conta com os números do espectador · "E não, não é por dinheiro." + número |
+| Prova famosa (em teste, tela) | (idem) | "Parece duro. [Marca famosa] aprendeu isso do pior jeito." + até 3 frases do caso, checadas |
 
 ## Reescritas sugeridas pelo estudo (ponto de partida para regravação)
 

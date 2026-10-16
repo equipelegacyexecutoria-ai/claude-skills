@@ -72,6 +72,10 @@ Regras: até ~15 palavras; não resumir o vídeo, entregar uma frase nova e cit�
 
 "Link da bio" falado: 7 roteiros, nenhum acima de 150 mil. O mesmo roteiro sem CTA de venda fez 332 mil; com "clique no link da bio", 27 mil. A pergunta na legenda não diferencia nada (quase todos os posts já têm).
 
+## Técnicas de retenção em teste
+
+Vindas da análise de @fernandomiranda777 (16/10/2026), detalhes em `tecnicas-de-retencao.md`. Somam às 7 camadas sem mudar a linha editorial: pergunta que a pessoa acha que sabe responder (hook) · número ou "faz a conta comigo" logo depois da ressalva · detalhe do dia a dia como re-gancho · frase-ponte a cada bloco · virada em linguagem de rua · marca famosa como prova em até 3 frases (tela) · ditado com virada no fecho · ficha da história (tempo, lugar, detalhe) · assinatura falada só em teste A/B. Status: em teste, a ausência não tira ponto.
+
 ## Checklist de 10 itens (aplicar antes de entregar)
 
 1. A primeira frase soa errada, ofensiva ou proibida para quem ouve pela primeira vez?

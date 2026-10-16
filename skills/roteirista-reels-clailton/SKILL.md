@@ -65,6 +65,7 @@ Medido em 26/09/2026 (novela "funcionário que só cumpre o combinado"): pauta 3
 - A base `<Raiz>\dados\reels_base.json` só muda pelo `importar-mes.ps1`.
 - Não publique, não poste e não envie nada: a entrega é texto para o usuário gravar.
 - Depois da entrega, o log `<Raiz>\roteiros\_log.csv` já foi atualizado pelo script; o Diretor usa esse log para evitar repetir hook e ressalva.
+- **Técnicas de retenção em teste** (análise do @fernandomiranda777, 16/10/2026): já estão embutidas nos agentes; detalhes e regra de medição em `references/tecnicas-de-retencao.md`. Os roteiros registram em PENDÊNCIAS quais usaram.
 
 ## Scripts (PowerShell 5.1; rodam de qualquer pasta)
 ```
