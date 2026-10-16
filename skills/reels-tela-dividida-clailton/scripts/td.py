@@ -45,6 +45,30 @@ def etapa(script: Path, args: list[str]) -> int:
 GAP_MAX = 0.40          # s: maior silêncio aceito entre duas palavras
 FOLGA_PALAVRA = 0.06    # s: o que fica de cada lado da palavra (a cauda da vogal o corte acha sozinho)
 PASSADAS_APERTAR = 2
+VOZ_DB = -38.0          # dB RMS (janela 50 ms): acima disso em 25% do trecho = tem fala, não aperta
+
+
+def _energia_db(T: Path):
+    """Energia do bruto em janelas de 50 ms (dB RMS), de T/audio16k.wav; None se não houver."""
+    import subprocess
+    import numpy as np
+    wav = T / "audio16k.wav"
+    if not wav.exists():
+        return None
+    raw = subprocess.run(["ffmpeg", "-v", "error", "-i", str(wav), "-f", "f32le", "-ac", "1", "-ar", "16000", "-"],
+                         capture_output=True).stdout
+    x = np.frombuffer(raw, np.float32)
+    n = len(x) // 800
+    return 20 * np.log10(np.sqrt((x[: n * 800].reshape(n, 800) ** 2).mean(1)) + 1e-9)
+
+
+def _tem_voz(som, p: float, q: float) -> bool:
+    if som is None:
+        return False
+    import numpy as np
+    a = int(p / 0.05)
+    trecho = som[a:max(a + 1, int(q / 0.05))]
+    return len(trecho) > 0 and float(np.mean(trecho > VOZ_DB)) >= 0.25
 
 
 def apertar(T: Path) -> int:
@@ -73,7 +97,11 @@ def apertar(T: Path) -> int:
                 novos.append([fim + FOLGA_PALAVRA, s["src_out"] + 0.05])
             if ini - s1["src_in"] > 2 * FOLGA_PALAVRA:
                 novos.append([s1["src_in"] - 0.05, ini - FOLGA_PALAVRA])
-    novos = [[round(p, 3), round(q, 3)] for p, q in novos if q - p > 0.05 and [round(p, 3), round(q, 3)] not in sil]
+    # só aperta o que é silêncio DE VERDADE: quando o Whisper do corte "perde" palavras (16/10/2026, 0800 Salão:
+    # "não sei aonde" e o "DRE" sumiram), o buraco parecia pausa e a fala real era cortada.
+    som = _energia_db(T)
+    novos = [[round(p, 3), round(q, 3)] for p, q in novos if q - p > 0.05 and [round(p, 3), round(q, 3)] not in sil
+             and not _tem_voz(som, p, q)]
     if novos:
         arq.write_text(json.dumps(sil + novos), encoding="utf-8")
         print(f"   pausa justa: {len(novos)} silêncio(s) acima de {GAP_MAX:.2f}s entre palavras -> corte refeito", flush=True)
