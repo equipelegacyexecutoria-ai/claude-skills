@@ -210,13 +210,21 @@ Vale TD, NV e ES. Sem Freepik/Magnific.
 3. **Vídeo da CTA:** criação rápida (avatar-shots) → escolher o look → "upload/record" → aba Upload Audio →
    `vozes/<nome>.wav` → Add audio → orientação igual ao look (Landscape para novela) → 1080p → gerar
    (~12–15 créditos HeyGen por vídeo). Baixar o MP4 → `heygen/<nome>.mp4`.
+   **Atalho (16/10/2026, mais simples):** pule o passo 1 e digite o texto da CTA direto na criação rápida com o
+   look + voz "Legacy Executoria" + vertical + 1080p. Baixe e rode `P S/voz_do_heygen.py <W> <nome>` (tira
+   `vozes/<nome>.wav` do vídeo e grava as palavras em `frases.json`). Confira a transcrição: palavra errada
+   ("Bill" no lugar de "bio") ou juntada ("acerta" = "a certa") estraga a legenda; corrija o `frases.json` para ter
+   o mesmo número de palavras do texto da task (`ganchos.json` → `variacoes`).
+   **Download:** cai na pasta Downloads do PC cujo Chrome está ligado ao Claude (às vezes como `.tmp` de ~20 MB:
+   confira com ffprobe e copie). Faça no Chrome do PC de render.
 4. **Montar:** `<W>/<reel>/cta.json` (formato no topo de `scripts/cta_final.py`, com `"boca": "heygen/<nome>.mp4"`,
    `"estilo": "cheio"|"novela"`, `"trocas"` nos começos de frase) → `P S/cta_final.py <W> <reel>`.
    Corta no quadro exato (CTA "me siga"/"comenta X" do original sai), rosto no mesmo tamanho do fim do original
    (fechado ≤ 1,3x, olhos na mesma altura), faixa da novela medida em cada vídeo, legenda do estilo de cada
    formato (novela pelo `legenda_novela.py`, com "CLICA NO LINK DA BIO" em destaque), voz e música do fim casadas.
    **Não aplica curva de cor** no vídeo do HeyGen (o look já tem a cor do reel; a curva deixou a pele rosa).
-5. Conferir `<reel>_qa.jpg` e transcrever 3 s antes/4 s depois do corte (última palavra inteira + CTA limpa).
+5. Conferir `<reel>_qa.jpg` (legenda da CTA do mesmo tamanho e altura da do original: mãos juntas no peito
+   enganam a medida — o Pedro saiu com letra 3x maior; meça e ponha `"legenda_y"`/`"legenda_px"` no cta.json) e transcrever 3 s antes/4 s depois do corte (última palavra inteira + CTA limpa).
 6. Entrega: Sala de Revisão (pedido direto = link na conversa).
 
 ## Lições do teste de 10–11/10/2026
