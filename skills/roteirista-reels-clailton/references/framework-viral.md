@@ -74,7 +74,7 @@ Regras: até ~15 palavras; não resumir o vídeo, entregar uma frase nova e cit�
 
 ## Técnicas de retenção em teste
 
-Vindas da análise de @fernandomiranda777 (16/10/2026), detalhes em `tecnicas-de-retencao.md`. Somam às 7 camadas sem mudar a linha editorial: pergunta que a pessoa acha que sabe responder (hook) · número ou "faz a conta comigo" logo depois da ressalva · detalhe do dia a dia como re-gancho · frase-ponte a cada bloco · virada em linguagem de rua · marca famosa como prova em até 3 frases (tela) · ditado com virada no fecho · ficha da história (tempo, lugar, detalhe) · assinatura falada só em teste A/B. Status: em teste, a ausência não tira ponto.
+Vindas da análise de @fernandomiranda777 (16/10/2026), detalhes em `tecnicas-de-retencao.md`. Somam às 7 camadas sem mudar a linha editorial: pergunta que a pessoa acha que sabe responder (hook) · (conta vetada pelo Clailton em 16/10/2026) · na tela, "Preste atenção nessa história" abrindo cena ou fábula · detalhe do dia a dia como re-gancho · frase-ponte a cada bloco · virada em linguagem de rua · marca famosa como prova em até 3 frases (tela) · ditado com virada no fecho · ficha da história (tempo, lugar, detalhe) · assinatura falada só em teste A/B. Status: em teste, a ausência não tira ponto.
 
 ## Checklist de 10 itens (aplicar antes de entregar)
 

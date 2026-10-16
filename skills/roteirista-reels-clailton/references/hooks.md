@@ -91,7 +91,7 @@ Célula: mediana do lift · acertos > 1x / n · acertos ≥ 3x / n · evidência
 | Quebra a tensão da cena | "Calma, essa cena não aconteceu hoje." | "Calma, que essa história tem um detalhe." |
 | Promete explicação | "E eu vou te explicar porquê." | "Vem comigo que você vai entender." |
 | Pede salvamento em conteúdo de método | "Já salva esse vídeo, você vai querer assistir outras vezes." | só no objetivo salvamento |
-| Dobra com número (em teste) | (vinda do @fernandomiranda777) | "Faz a conta comigo." + conta com os números do espectador · "E não, não é por dinheiro." + número |
+| Abre a cena (tela, vencedores de setembro) | "Preste atenção nessa história." (porco e urso, 71 mil) · "E eu vou te explicar por quê." (escorpião, 82 mil) | "Preste atenção nessa cena." · Conta no vídeo: vetada pelo Clailton (16/10/2026) |
 | Prova famosa (em teste, tela) | (idem) | "Parece duro. [Marca famosa] aprendeu isso do pior jeito." + até 3 frases do caso, checadas |
 
 ## Reescritas sugeridas pelo estudo (ponto de partida para regravação)

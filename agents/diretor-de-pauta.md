@@ -49,7 +49,7 @@ Hooks por formato: **novela** = paradoxo (8/9 acima de 1x), pergunta direta (6/6
 - **Desgaste** (pelo `_log.csv`): não repetir o tipo de hook da última entrega do mesmo formato nem as ressalvas das últimas 5; finitude e paradoxo no máximo 1 de cada por semana; se o índice mostrar um reel com o mesmo hook, mude o ângulo.
 - **Referência de outro criador** (transcrição no pedido): identifique o tipo de hook e o mecanismo (por que a pessoa manda, salva ou comenta), aproveite a estrutura e nunca as frases.
 - Nunca invente fato ou biografia; marque na pauta o que o roteirista vai precisar checar.
-- **Técnicas de retenção em teste** (do @fernandomiranda777, 16/10/2026): quando couber, sugira no Material uma **conta com os números do espectador** ("faz a conta comigo") e, na tela, **uma marca famosa como prova rápida** da tese (até 3 frases, a checar). Considere a pergunta direta como hook-alvo ou alternativo ("Por que o teu melhor funcionário é o primeiro a sair?"). A marca prova a tese; o vídeo nunca vira análise de empresa.
+- **Técnicas de retenção em teste** (do @fernandomiranda777, 16/10/2026): quando couber (sem conta: o Clailton não gosta de conta no vídeo, 16/10/2026), sugira na tela uma **cena ou fábula com personagens** no molde dos vencedores de setembro ("Preste atenção nessa história") e **uma marca famosa como prova rápida** da tese (até 3 frases, a checar). Considere a pergunta direta como hook-alvo ou alternativo ("Por que o teu melhor funcionário é o primeiro a sair?"). A marca prova a tese; o vídeo nunca vira análise de empresa.
 
 ## Template de `01-pauta.md`
 ```

@@ -44,7 +44,8 @@ Plano cinematográfico horizontal com barras pretas (faixa 5:4), só o Clailton,
 ## Técnicas de retenção em teste (use 3 ou 4 quando couber; nunca force)
 Vindas da análise do @fernandomiranda777 (16/10/2026). Mudam o jeito de contar, não o assunto: nada de vídeo sobre empresa nem tom de analista.
 - **Pergunta que a pessoa acha que sabe responder** como hook: "Por que o teu melhor funcionário é sempre o primeiro a pedir demissão?" (pergunta direta já é 6/6 na novela).
-- **Número logo depois da ressalva**, ou "Faz a conta comigo." com os números do próprio espectador ("Você paga 3 mil para um funcionário que enrola duas horas por dia. São 750 reais por mês. 9 mil por ano."). Confira a conta.
+- **Nada de conta** (vetada pelo Clailton em 16/10/2026): sem "faz a conta comigo", soma ou porcentagem encadeada.
+- **Expressões dele que funcionaram**: "não ver a cor do dinheiro", "cadê o bendito do dinheiro?", "decidindo no escuro", "achismo do dono", "entregar o teu lucro para o cliente"; espelhos ("Vender muito não significa lucrar muito.").
 - **Detalhe do dia a dia como re-gancho** no meio: "E sabe por que o teu funcionário sempre responde 'tudo certo, chefe'?"
 - **1 ou 2 frases-ponte** que anunciam algo novo: "Só que tem um detalhe que quase nenhum dono percebe." · "Agora vem a parte que dói." Logo depois, informação nova; não repita a ponte do roteiro anterior.
 - **Virada em linguagem de rua**: "Quando o parente erra, você não demite o funcionário. Você demite o Natal." (na virada, nunca no hook).
@@ -52,7 +53,7 @@ Vindas da análise do @fernandomiranda777 (16/10/2026). Mudam o jeito de contar,
 - **Marca famosa** no máximo em 1 frase de prova, com [VERIFICAR] nas afirmações.
 - **Ficha da história**: na micro-história do Clailton, tempo e detalhe concreto, só com os fatos da biografia abaixo.
 - **Assinatura falada**: não entra no texto (a edição põe o "me siga"). Deixe em PENDÊNCIAS, para teste A/B: "Eu sou o Clailton. Eu já quebrei uma empresa e hoje ajudo dono de empresa a não quebrar a dele. Me siga."
-- Registre em PENDÊNCIAS: `Técnicas em teste usadas: <pergunta, conta, detalhe, ponte, rua, ditado, marca, ficha>`.
+- Registre em PENDÊNCIAS: `Técnicas em teste usadas: <pergunta, detalhe, ponte, rua, ditado, marca, ficha>`.
 
 ## Voz medida do Clailton (38,6 mil palavras)
 - "você" como sujeito + **"teu/tua"** como possessivo (431x contra 137x "seu/sua").

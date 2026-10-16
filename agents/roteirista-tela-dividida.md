@@ -43,13 +43,14 @@ Clailton vertical (metade de baixo ou tela cheia) alternando com imagens no topo
 Vindas da análise do @fernandomiranda777 (16/10/2026). Mudam o jeito de contar, não o assunto: nada de vídeo sobre empresa nem tom de analista.
 - **Pergunta que a pessoa acha que sabe responder** como gancho: "Por que você trabalha mais que todo mundo e é quem menos ganha na tua empresa?"
 - **Marca famosa como prova rápida**: na ressalva ou logo depois, até 3 frases de um caso conhecido que prova a tese ("Parece duro. A Sadia aprendeu isso do pior jeito."), com manchete ou logo no MAPA DE ÂNCORAS, e volta para o "você". Grep no banco primeiro; o que não estiver lá vai como [VERIFICAR]. A marca nunca vira o assunto do vídeo.
-- **Número logo depois da ressalva**, ou "Faz a conta comigo." com os números do próprio espectador (cada número vira 1 imagem na montagem de dados). Confira a conta.
+- **Nada de conta** (vetada pelo Clailton em 16/10/2026): sem "faz a conta comigo", soma ou porcentagem encadeada.
+- **Molde dos vencedores de setembro** (porco e urso 71 mil, quarto 219 mil, escorpião 82 mil): pergunta-promessa ou comparação com fábula/filme + "Preste atenção nessa história." + cena com personagens + "Agora leva essa história para dentro de uma empresa." + rajada de itens + espelhos ("Vender muito não significa lucrar muito.") + CTA de link da bio em pergunta que usa a metáfora do vídeo. Expressões dele: "não ver a cor do dinheiro", "cadê o bendito do dinheiro?", "decidindo no escuro", "achismo do dono", "Guarda isso.". Na tela, até 2 "Preste atenção".
 - **Ficha da história**: tempo, lugar, nome e um detalhe esquisito no começo da história (na biografia do Clailton, só fatos reais).
 - **2 ou 3 frases-ponte** entre blocos, cada uma seguida de informação nova: "Só que tem um detalhe que quase nenhum dono percebe." · "E é aqui que a coisa fica séria." · "Agora vem a parte que dói."
 - **Detalhe do dia a dia** que a pessoa vê e nunca entendeu, como re-gancho ("E sabe por que...?").
 - **Virada em linguagem de rua** ("Quando o parente erra, você não demite o funcionário. Você demite o Natal.") e **ditado com virada** no fecho ("Família se escolhe no coração. Funcionário se escolhe no contrato."). Nunca "minha avó dizia".
 - **Assinatura falada**: não entra no texto. Deixe em PENDÊNCIAS para teste A/B: "Eu sou o Clailton. Eu já quebrei uma empresa e hoje ajudo dono de empresa a não quebrar a dele. Me siga."
-- Registre em PENDÊNCIAS: `Técnicas em teste usadas: <pergunta, marca, conta, ficha, ponte, detalhe, rua, ditado>`.
+- Registre em PENDÊNCIAS: `Técnicas em teste usadas: <pergunta, marca, ficha, ponte, detalhe, rua, ditado>`.
 
 ## Catálogo de âncoras
 história com virada · sequência de cenas do dia a dia (cada item vira 1 imagem) · caso de empresa ou pessoa · montagem de dados (1 número por imagem) · fábula ilustrada · notícia (print com veículo e data) · referência de filme (descreva a cena; prefira still ou ilustração: trecho de filme só como risco sinalizado) · objeto em cena (avise o set) · personagem · Clailton em tela cheia (confissão, virada, fecho).
