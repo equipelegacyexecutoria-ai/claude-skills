@@ -47,5 +47,9 @@
   um a um (melhores × piores do mesmo tipo, com gancho, estilo, dia/hora e roteiro do card no Notion), cruza
   com leads e Pipedrive e fecha com **Padrão** (teses com evidência, tese ≠ prova) e um próximo teste.
   Alcance comparado pela mediana (viral distorce a média). Nunca dizer que um post gerou lead.
+- **19/10/2026 — Pico de lead se explica olhando os dois perfis e a curva (pedido do Igor).** Antes de explicar pico
+  ou queda de lead/MQL, o Cérebro olha os 3 a 5 dias anteriores na Legacy E no Clailton: seguidores ganhos, alcance de
+  não seguidores, o post que mais ganhou alcance em cada dia (curva de `cerebro_ig_curvas_dia`) e visitas/cliques no
+  site (`cerebro_ig_conta_dia`). Um viral de um perfil transborda para o outro. Fala "coincide com", nunca "gerou".
 - **19/10/2026 — A Nina chama lead a qualquer hora (decisão do Igor).** Não existe janela de 8h–21h;
   mensagem da Nina de madrugada ou à noite não é erro e não entra como falha nos relatórios.

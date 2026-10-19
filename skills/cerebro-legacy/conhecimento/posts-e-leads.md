@@ -1,6 +1,6 @@
 # Posts e Leads no painel do Cérebro (trazidos do Legacy Insights Hub)
 
-Atualizado em 14/10/2026. Pedido do Igor (13/10): abandonar o Legacy Insights Hub e deixar o Cérebro como o único
+Atualizado em 19/10/2026 (curva de cada post, números do perfil por dia e hora do lead). Pedido do Igor (13/10): abandonar o Legacy Insights Hub e deixar o Cérebro como o único
 painel de gestão do time. As telas de **Posts** e de **Leads** do Hub viraram janelas do site do Cérebro
 (https://cerebro-legacy-organico.vercel.app), publicadas em 14/10/2026. O Hub não é mais fonte: só foi lido e copiado.
 
@@ -24,6 +24,15 @@ Ao passar o mouse nas barras aparece o balão com o detalhe (ex.: num dia de MQL
   últimos 90 dias; também os seguidores do dia. Botão "Atualizar" na janela busca na hora.
   Banco do Cérebro: `cerebro_ig_posts`, `cerebro_ig_fotos`, `cerebro_ig_seguidores`; views `cerebro_ig_cliques_dia`
   e `cerebro_ig_visitas_dia` (o do dia = fotografia de hoje − a de ontem).
+  - **A curva de cada post** (desde 14/10/2026): view `cerebro_ig_curvas_dia` = quanto cada post ganhou de alcance,
+    views e cliques em cada dia. A Meta não dá essa curva pronta (só o total da vida do post): ela sai das fotografias.
+    Dia sem fotografia (ex.: Legacy em 18/10/2026, a Meta demorou) = o ganho aparece somado no dia seguinte.
+    Desde 19/10 a coleta tenta de novo quando a Meta demora, há repescagem à 01h e às 02h e o sino avisa o Igor.
+  - **Os números do perfil por dia** (desde 19/10/2026, tabela `cerebro_ig_conta_dia`, direto da Meta, inclusive dias
+    passados até 90 dias): alcance do perfil (seguidores × não seguidores; reels, feed, stories, anúncio), views,
+    visitas ao perfil, cliques no site da bio, quem seguiu e quem deixou de seguir, interações. Coleta às ~03h–04h.
+  - **A hora de cada lead** (desde 19/10/2026, `leads_legacy.lead_em`): para ver se os leads de um dia vieram em rajada
+    logo depois de um post/story. Leads antigos ficam só com a data.
   - Visitas ao perfil e novos seguidores: a Meta não informa para Reels.
   - Engajamento = interações ÷ seguidores do próprio perfil do post.
 - **Leads:** 5 planilhas Google lidas por CSV público, ~7h, ~12h e ~18h e pelo botão "Sincronizar":
@@ -90,6 +99,12 @@ Referência (planilhas, 13/10): orgânico 733 desde fev (343 MQL), Quiz 6 (todos
 
 ## Como usar nas análises
 
+- **Pico ou queda de lead num dia ("por que domingo foi o melhor dia?", "algum post decolou?")**: olhe os 3 a 5 dias
+  antes nos DOIS perfis, Legacy e Clailton: seguidores ganhos por dia, alcance de não seguidores, o post que mais ganhou
+  alcance em cada dia (a curva) e visitas/cliques no site. Um viral de um perfil puxa gente para o outro. Caso real:
+  em 17/10/2026 a Legacy ganhou +7.800 seguidores com os próprios posts somando só ~12 mil de alcance novo, no mesmo dia
+  em que o reel do Clailton "palácio vira circo" (publicado 16/10) passou de 1,8 milhão de alcance e o Clailton ganhou
+  +18 mil; no domingo 18/10 veio o melhor dia de MQL da bio da Legacy. Sinal, não prova: diga "coincide com".
 - Antes de explicar uma mudança de alcance, retenção ou cliques, leia o card **📌 BIBLIOGRAFIA PERFIL LEGACY** do
   Notion (os testes do social media por dia; ver `referencias/fontes.md`) e cruze com as datas.
 - Compare sempre com o período anterior do mesmo tamanho e com a média do mesmo perfil e tipo de post.
