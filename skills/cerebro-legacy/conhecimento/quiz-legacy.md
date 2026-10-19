@@ -1,6 +1,6 @@
 # Quiz Legacy · "Venda Mais, Lucre Mais" (quiz do Clailton)
 
-Atualizado pelo Claude em **13/10/2026**, lendo o Notion e os documentos do Google Docs ligados aos cards.
+Atualizado pelo Claude em **19/10/2026** (horário da Nina; antes 13/10), lendo o Notion e os documentos do Google Docs ligados aos cards.
 Quando uma fonte do Notion e um documento discordarem, vale o mais novo; as diferenças estão em
 "Informação que não bate", no fim.
 
@@ -110,7 +110,8 @@ etiqueta "Nina".
 | Comprou | N7 na hora, N8 no 3º dia, N9 no 10º dia | N7 na hora; se não pediu a sessão, M3 em 30 min, M3.2, M3.3 |
 | Levantou a mão | — | M4 na hora do clique (M4b fora do horário comercial) |
 
-- Só sai mensagem **entre 8h e 21h** (Brasília) e só para quem deu consentimento de WhatsApp.
+- **A Nina chama a qualquer hora**, sem limite de horário (decisão do Igor em 19/10/2026; o documento
+  antigo falava em 8h–21h, isso não vale mais). Só para quem deu consentimento de WhatsApp.
 - Todos os modelos (N1–N9 e os 11 de MQL) precisam ser **aprovados na Meta** antes de ir ao ar. Textos em
   [Modelos de WhatsApp da Nina](https://app.notion.com/p/3f8c9747efab816f9e68fe5f73322e02) (13/10);
   instruções da agente no [Guia da Nina](https://app.notion.com/p/3f5c9747efab81e7b301db71c076852a) (13/10).
@@ -202,7 +203,8 @@ os negócios do MQL do quiz passam a ter também as etiquetas "Quiz Clailton · 
   2 só clicaram no botão, 1 só resposta automática, 5 sem resposta, 4 números sem WhatsApp. Nenhuma compra confirmada.
   Objeções: falta de dinheiro (3), "esperava algo gratuito, a proposta é enganosa" (1). Falhas vistas: sem lembrete para
   quem não responde; a Nina manda de novo o link do quiz para quem já fez; templates trocados ("especialista vai ligar",
-  "sua sessão" para lead de R$ 97); mensagens depois das 21h; validação de telefone só confere o formato.
+  "sua sessão" para lead de R$ 97); validação de telefone só confere o formato. (Mensagem depois das 21h
+  não é falha: a Nina pode chamar a qualquer hora, decisão do Igor em 19/10.)
 
 ## Informação que não bate (conferir com o Igor)
 

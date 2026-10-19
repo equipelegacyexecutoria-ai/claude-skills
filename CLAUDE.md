@@ -54,6 +54,18 @@ Regras do usuário (08/10/2026):
 - Ele tem **um filho só, menino**; a esposa tem **cabelo cacheado e claro** (castanho-claro/mel, nunca preto ou castanho-escuro).
 - **Nunca mostrar o rosto da esposa nem do filho**: de costas, rosto escondido ou fora do quadro.
 
+## Texto que outra pessoa vai ler: sem cara de IA
+
+Regra do usuário (19/10/2026): copy, anúncio, legenda, roteiro, e-mail e mensagem que ele vai mandar
+(para lead, time, fornecedor) não podem parecer feitos por IA. Antes de entregar, seguir a skill
+`escrita-sem-cara-de-ia` (resumo dos guias da Wikipédia sobre sinais de texto de IA). O principal:
+- fato concreto (número, nome, o que aconteceu) no lugar de frase genérica ou elogio vago;
+- **nunca usar travessão (—)**; nada de "não é só X, é Y", regra de três em tudo, "Além disso",
+  "crucial", "fundamental", "potencializar", "jornada", "vale ressaltar", "Em resumo";
+- mensagem de WhatsApp é conversa: sem títulos, sem emoji como marcador, sem lista com título em
+  negrito e dois-pontos, quase sem negrito;
+- sem abertura e fecho de atendente ("Claro!", "Espero que ajude", "Fico à disposição").
+
 ## Como falar com o usuário
 
 **Sempre responder em português do Brasil**, inclusive resumos finais, perguntas e as frases curtas
