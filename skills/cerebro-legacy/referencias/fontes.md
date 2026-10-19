@@ -99,7 +99,9 @@ Etiquetas: `BLACK FRIDAY`, `QUIZ`.
 
 Usuários (a conexão não lê a lista de usuários; tirado das anotações em 19/10/2026): 25959419 Isaque Inacio (SDR),
 27917925 Rodrigo Fernandes (SDR), 28885573 Guilherme Galante Martins (closer), 26808278 Petherson Bueno (automação/Nina);
-25952181 provável Leonardo (closer, citado no handoff da Nacional Óticas); 25952137 e 25955327 a confirmar.
+25952181 Leonardo Padilha (closer; também é o dono padrão de quase todo o FUNIL LEGADO), 25959529 Leonardo Souza (closer),
+25952137 Joel Carlos, 25955327 Luan Gabriel (SDR), 27698167 Melqui Martins (SDR), confirmado pelas notas em 19/10/2026.
+Para saber quem fechou um negócio, use o campo de usuário "Closer" (chave começa com `b9061b46`), não o dono.
 
 **Regra de origem** (o Igor chama de "UTM source orgânico"):
 - **Quiz**: etiqueta QUIZ ou utm_source `QUIZ_LEGACY`.
