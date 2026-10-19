@@ -90,8 +90,16 @@ Campos personalizados do negócio (códigos):
 - utm_source `8edcf78215c52bc6cd4e609bbcc9556e9340d237`
 - utm_campaign `ad2d705d02225947afb06abb446e71b45925619a`
 - utm_medium `e3d3416c2ffc921e46b99ceb5ff1acb7e987b55c`
+- Faturamento `81ca52211a45a2b3ff984ad2ae511ebdf27f53eb` (texto da faixa; MQL = 71 mil para cima)
+- Closer: reunião qualificada? `1039cf9d358ab4959642001a2c326088eb605255` · justifique `c44215ad65a9b4ffabf4aafb4c52e7e7eb77e016`
+  · explique `2830e2ff92f873097546040a4bc32a04597c9c66` (use `include_option_labels: true`). O handoff do SDR vem nas
+  anotações do negócio (`getNotes` com `deal_id`).
 
 Etiquetas: `BLACK FRIDAY`, `QUIZ`.
+
+Usuários (a conexão não lê a lista de usuários; tirado das anotações em 19/10/2026): 25959419 Isaque Inacio (SDR),
+27917925 Rodrigo Fernandes (SDR), 28885573 Guilherme Galante Martins (closer), 26808278 Petherson Bueno (automação/Nina);
+25952181 provável Leonardo (closer, citado no handoff da Nacional Óticas); 25952137 e 25955327 a confirmar.
 
 **Regra de origem** (o Igor chama de "UTM source orgânico"):
 - **Quiz**: etiqueta QUIZ ou utm_source `QUIZ_LEGACY`.
