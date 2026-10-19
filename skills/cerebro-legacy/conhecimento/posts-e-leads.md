@@ -75,6 +75,11 @@ Referência (planilhas, 13/10): orgânico 733 desde fev (343 MQL), Quiz 6 (todos
     **Orgânico da Legacy**.
   - legacy e legacy_v2 são só versões do mesmo formulário (troca no fim de setembro): não é mudança de caminho.
 - A mesma pessoa nas abas Legacy e V2 conta uma vez (a data mais antiga).
+- **Planilha × Pipedrive (conferido em 19/10/2026):** os MQL do painel (origem Legacy) = formulário orgânico + Quiz
+  somados (out até 19/10: 39 + 11 = 50). No Pipedrive deram 38 + 11: a diferença foi 1 pessoa que preencheu o formulário
+  do anúncio e, 5 min depois, o do story; o Pipedrive não duplica e ficou com a UTM do anúncio (conta como pago lá).
+  Ao comparar, contar orgânico e Quiz juntos e esperar essa pequena sobra. Os negócios de teste do Quiz ("mac",
+  "Igor Teste") seguem abertos no FUNIL IMPULSÃO e têm de sair da conta do Pipedrive.
 - Cores do painel: meta abaixo do esperado em âmbar (vermelho nunca é usado para meta).
 
 ## Números para referência (planilhas em 13/10/2026)
