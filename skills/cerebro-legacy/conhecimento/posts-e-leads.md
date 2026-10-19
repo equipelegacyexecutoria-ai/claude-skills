@@ -105,6 +105,14 @@ Referência (planilhas, 13/10): orgânico 733 desde fev (343 MQL), Quiz 6 (todos
   em 17/10/2026 a Legacy ganhou +7.800 seguidores com os próprios posts somando só ~12 mil de alcance novo, no mesmo dia
   em que o reel do Clailton "palácio vira circo" (publicado 16/10) passou de 1,8 milhão de alcance e o Clailton ganhou
   +18 mil; no domingo 18/10 veio o melhor dia de MQL da bio da Legacy. Sinal, não prova: diga "coincide com".
+- **Achado de 19/10/2026 (90 dias, 21/07 a 17/10, números do perfil direto da Meta):** os seguidores da Legacy andam
+  junto com os do Clailton, não com os posts da própria Legacy. Seguidores novos por dia, Legacy × Clailton:
+  correlação 0,95 (0,82 tirando os 10 dias de viral); Legacy × alcance da própria Legacy: −0,01. A Legacy ganha
+  ~50% do que o Clailton ganha, todo mês (jul 53%, ago 52%, set 52%, out 50%). As views e interações da conta da
+  Legacy acompanham as do Clailton quase 1 para 1 (views da Legacy = 111% das do Clailton, na mediana diária): sinal
+  de que os reels do Clailton aparecem também na Legacy (colaboração; a confirmar com o Igor). Exceção: o reel de
+  07/08 (3,3 mi) deu só 24% para a Legacy. Leads da bio da Legacy por semana × visitas ao perfil da Legacy: 0,79
+  (MQL 0,67); × seguidores ganhos pelo Clailton: 0,66 (MQL 0,56). Dia a dia o MQL é ruidoso: ler por semana.
 - Antes de explicar uma mudança de alcance, retenção ou cliques, leia o card **📌 BIBLIOGRAFIA PERFIL LEGACY** do
   Notion (os testes do social media por dia; ver `referencias/fontes.md`) e cruze com as datas.
 - Compare sempre com o período anterior do mesmo tamanho e com a média do mesmo perfil e tipo de post.
