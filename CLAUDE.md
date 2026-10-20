@@ -89,7 +89,7 @@ e sincronizam sozinhos (ao abrir a conversa e ao fim de cada resposta).
 - Pacote Python novo instalado para uma skill entra no requirements dela.
 - Não gerar mais zips de skill em `Desktop\Projetos Edições\SKILLS` (virou arquivo antigo); a sincronia distribui.
   Exceção: skills que também vivem no claude.ai (carrossel-canva, corte-viral, ofertaos, copyos e as 9 do CopyOS +
-  biblioteca-dos-mestres) precisam de reenvio manual lá. A conta Legacy Educação no claude.ai tem em
+  biblioteca-dos-mestres, escrita-sem-cara-de-ia desde 20/10/2026) precisam de reenvio manual lá. A conta Legacy Educação no claude.ai tem em
   "Instruções para o Claude" a regra "copyos/ofertaos → usar a skill e fechar com o selo ✅ CopyOS". Dá para subir pelo Chrome do usuário (Claude in Chrome):
   claude.ai → Personalização → Habilidades → Adicionar → Fazer upload, vários .zip de uma vez; descrição até 1024 caracteres.
 - Linha começando com `SYNC:` na abertura da conversa: seguir `~/.claude/sync/LEIA-ME.md`.
