@@ -188,6 +188,71 @@ def bruto_em_pe(bruto: Path, T: Path) -> Path:
     return saida
 
 
+# ---- câmera fixa (usuário, 20/10/2026, "Negócio Sazonal": "retire os reenquadramentos, faça apenas zoom-ins e
+# zoom-outs, os reenquadramentos estão ficando esquisitos"). Padrão da caixinha: UM enquadramento para o vídeo
+# inteiro (nada de fechado seco nem rosto recentralizado a cada corte) + zoom suave contínuo, entrando e saindo.
+# A linha REENQUADRAR no plano.txt volta ao aberto/fechado antigo.
+CF_ZOOM, CF_ENTRA, CF_SEGURA, CF_SAI, CF_PAUSA = 1.12, 3.5, 2.5, 3.5, 2.0   # escala máx. e tempos (s) do ciclo
+
+
+def camera_fixa(T: Path) -> bool:
+    p = T / "plano.txt"
+    return not (p.exists() and "REENQUADRAR" in p.read_text(encoding="utf-8").upper())
+
+
+def enquadramento_fixo(T: Path) -> None:
+    """Grava enquadramento_td.json com o MESMO aberto (e olhos) em todos os trechos; o original fica em
+    enquadramento_td_orig.json (refeito pelo montar)."""
+    import statistics as st
+    atual, orig = T / "enquadramento_td.json", T / "enquadramento_td_orig.json"
+    if "camera_fixa" not in ler(atual):
+        shutil.copyfile(atual, orig)          # ainda não fixado (ou montar novo): o atual é o original
+    e = ler(orig)
+    segs = e["segmentos"]
+    W0, H0 = e["wh_rot"]
+    w = st.median(s["aberto"][2] for s in segs)
+    h = w * 16 / 9
+    cx = st.median(s["aberto"][0] + s["aberto"][2] / 2 for s in segs)
+    cy = st.median(s["aberto"][1] + s["aberto"][3] / 2 for s in segs)
+    x = min(max(cx - w / 2, 0), W0 - w)
+    y = min(max(cy - h / 2, 0), H0 - h)
+    ab = [round(x, 1), round(y, 1), round(w, 1), round(h, 1)]
+    olhos = [st.median(s["olhos"][0] for s in segs if s.get("olhos")),
+             st.median(s["olhos"][1] for s in segs if s.get("olhos"))]
+    for s in segs:
+        s["aberto"] = ab
+        s["fechado"] = ab
+        s["olhos"] = olhos
+    e["camera_fixa"] = {"aberto": ab, "olhos": olhos}
+    atual.write_text(json.dumps(e, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"câmera fixa: aberto {ab} para os {len(segs)} trechos", flush=True)
+
+
+def zoom_continuo(T: Path) -> None:
+    """Depois do plano_td: todo plano do Lucas vira aberto com a escala de uma curva única no tempo (entra até
+    CF_ZOOM, segura, sai, pausa), contínua através dos cortes: nada pula na emenda."""
+    sys.path.insert(0, str(TD))
+    from td_comum import suave  # noqa: E402
+    tl = ler(T / "timeline.json")
+    fps, n = tl["fps"], tl["frames_fala"]
+    ciclo = [(CF_ENTRA, 1.0, CF_ZOOM), (CF_SEGURA, CF_ZOOM, CF_ZOOM), (CF_SAI, CF_ZOOM, 1.0), (CF_PAUSA, 1.0, 1.0)]
+    curva, f = [], 0
+    while len(curva) < n + 1:
+        for dur, a, b in ciclo:
+            k = max(1, int(round(dur * fps)))
+            curva += [a + (b - a) * suave(i / k) for i in range(k)]
+    olhos = ler(T / "enquadramento_td.json")["camera_fixa"]["olhos"]
+    for p in tl["planos"]:
+        if p["zoom"] not in ("aberto", "fechado"):
+            continue
+        p["zoom"] = "aberto"
+        p.pop("rect", None)
+        p["escala"] = [round(v, 4) for v in curva[p["f0"]:p["f1"]]]
+        p["ancora"] = olhos
+    (T / "timeline.json").write_text(json.dumps(tl, ensure_ascii=False), encoding="utf-8")
+    print(f"zoom contínuo: até {CF_ZOOM}x, ciclo de {sum(c[0] for c in ciclo):.1f}s, sem reenquadrar", flush=True)
+
+
 def finalizar(T: Path, saida: Path, geral: bool) -> int:
     if etapa(NOVELA / "emendas_literal.py", [str(T)]):
         print(f"REPETIÇÃO NA EMENDA: leia {T / 'emendas_literal.txt'}")
@@ -195,8 +260,13 @@ def finalizar(T: Path, saida: Path, geral: bool) -> int:
     plano = T / "plano.txt"
     if not plano.exists():
         plano.write_text(PLANO_PADRAO, encoding="utf-8")
+    fixa = camera_fixa(T)
+    if fixa:
+        enquadramento_fixo(T)
     if etapa(TD / "plano_td.py", [str(T)]):
         return 1
+    if fixa:
+        zoom_continuo(T)
     esc = T / "midia" / "escolhas.json"
     if not esc.exists():
         esc.parent.mkdir(parents=True, exist_ok=True)
