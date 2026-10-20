@@ -205,6 +205,13 @@ os negócios do MQL do quiz passam a ter também as etiquetas "Quiz Clailton · 
   quem não responde; a Nina manda de novo o link do quiz para quem já fez; templates trocados ("especialista vai ligar",
   "sua sessão" para lead de R$ 97); validação de telefone só confere o formato. (Mensagem depois das 21h
   não é falha: a Nina pode chamar a qualquer hora, decisão do Igor em 19/10.)
+- **Conversas de 17/10 a 20/10 10h** (planilha Leads + tela de Conversas, lidas em 20/10): 23 leads (2 MQL, 21 de R$ 97),
+  2 compras (17 e 18/10). O fluxo novo já está no ar: desde 20/10 01h o 1º contato é a mensagem nova da Nina ("Aqui é a
+  Nina, do time do Clailton..."). Achados: os 4 leads de produto de 19/10 **não receberam nenhuma mensagem** (só o registro
+  "Novo cadastro pelo formulário"; o MQL do mesmo dia recebeu); até 18/10 o template de MQL ("pra agilizar a sua sessão")
+  ainda saía para lead de R$ 97; 2 números sem WhatsApp passaram; 1 lead bloqueou mensagem de marketing; MQL de 19/10
+  desistiu porque esperava um diagnóstico gratuito (2ª vez que essa objeção aparece); a Nina prometeu a um comprador um
+  material de margens que não existe e ele chamou de golpe até o SDR assumir. SDRs estão abordando leads de produto.
 
 ## Informação que não bate (conferir com o Igor)
 
