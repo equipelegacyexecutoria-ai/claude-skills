@@ -281,6 +281,16 @@ se existir, senão `legenda.json`).
 
 ## Armadilhas já resolvidas (não repetir)
 
+- **Câmera balançando no próprio bruto** (20/10/2026, "corte todo bugado" no "O pobre dorme"): estabilize SÓ o trecho
+  (`vidstabdetect` + `vidstabtransform=smoothing=20:zoom=6:optzoom=0`, "tripod" deixa faixa preta quando a câmera
+  desce muito) num arquivo à parte e aponte o segmento para ele no `corte.json`: `"fonte_video": <arquivo>`,
+  `"fonte_t0": <segundo do bruto em que o arquivo começa>` (`render_final.py` lê). Picote de 0,5 s dentro do
+  movimento piora: junte os dois pedaços num plano só.
+- **Bruto com marca de rotação de -90°** (Gente Morna, 20/10/2026: "crop ... Invalid too big"): o ffmpeg gira sozinho.
+  Remuxe sem a marca: `ffmpeg -display_rotation:v:0 0 -i in -map 0:v -map 0:a -c copy -f mov out` (mesmos tempos).
+- **Rosto não detectado (carro, perfil)**: o `rosto_corte.json` fica vazio e a legenda cai na boca. Meça o queixo nos
+  quadros e grave um valor fixo (`[{"t":..,"queixo":1070},...]` a cada 0,25 s) depois do corte.
+
 - **libass desliga o kerning quando há `\fsp`.** Com espaçamento negativo, "VA/TA/AT" se
   atropelavam. O `texto.py` aplica o kerning à mão: um `\fsp` por letra (espaçamento +
   kerning do par, via HarfBuzz). Não troque por `\fsp` único.

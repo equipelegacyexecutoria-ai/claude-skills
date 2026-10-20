@@ -123,3 +123,18 @@ Sem a pasta de trabalho da versão anterior (ela ficou em outro PC): refaça do 
 | olhos na mesma altura | `td_comum.py` (`rect_zoom`, `rect_plano`); `plano_td.py` (`olhos_na_linha`, `Olhos`); olhos medidos em `enquadrar_td.py`; conferência `olhos_qa.py` |
 | palavra repetida na emenda | novela: `emendas_literal.py` (`JANELA`, `fragmentos`) |
 | legenda (tamanhos, sombra, CTA) | novela: `legenda_novela.py` (vale para as duas skills) |
+
+## Correções de 20/10/2026 (lote "6 maiores medos" e "A vida é uma festa")
+
+- **Legenda "pulando" / "vai lá pra baixo"** (usuário: "tem que ficar pela mesma região, não pode acontecer essas
+  quebras brutas"): a medida dos olhos tinha picos falsos (mão na frente, cabeça virando) e o queixo calculado caía
+  fora da tela. Agora (`es.py rosto_no_quadro`): mediana de 1,5 s, olhos no máximo 0,35 x rosto abaixo do normal, UM
+  valor por plano (a legenda só muda de altura na emenda) e sem amostra nos 0,2 s iniciais do plano. `BASE_MAX` 1480
+  (área segura do Instagram; era 1680).
+- **Enquadramento pulando em microcorte** ("não aproximou mas parece ter posto o vídeo mais pra cima"): cada segmento
+  tinha o próprio aberto; agora o aberto parado continua com o mesmo recorte até o próximo corte visível
+  (`plano_td.py`). Para dar zoom num trecho que não começa em corte visível, force o pedaço inteiro entre dois cortes.
+- `FECHADO @a-b x1.45` no `plano.txt`: punch-in escolhido sobre o aberto (o limite da cabeça continua valendo). Com
+  zoom muito forte (1,7x) o queixo desce e a legenda não cabe abaixo dele antes de 1480: use ~1,45x.
+- Realce baixo do bruto (IDEIA "diminuir os realces"): curva `0/0 0.5/0.5 0.7/0.67 0.85/0.79 1/0.93` (ver
+  `C:\Render\_trabalho\realce_2026-10-20.sh` no PC de render) -> `<slug>_REALCE.mov`, que vira a fonte.
