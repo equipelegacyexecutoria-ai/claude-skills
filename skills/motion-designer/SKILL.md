@@ -79,6 +79,11 @@ links). Não aparece na lista: PC de render desligado ou app fechado; avise o us
 - **Margens e área segura** (vale para todo vídeo; tabela por formato em `references/area-segura.md`):
   Reels/Stories 9:16 em 1080×1920 — margem lateral ≥ 80 px, nada importante acima de 220 px, abaixo de
   1480 px nem à direita (x > 950) entre y 1000 e 1720. Texto que não cabe quebra linha ou diminui.
+- **Formato antes de tudo** (out/2026: v2 do manifesto da Legacy foi montada em 9:16 e o usuário queria 16:9):
+  confirmar o formato (16:9, 9:16, 4:5) no briefing antes de buscar imagem ou montar, e buscar banco já na
+  orientação certa. Recortar 4K horizontal para vertical deixou o enquadramento "horrível".
+- **Uma imagem por fala** (mesma revisão): narrado com banco de imagens troca de cena a cada frase (1 a 3 s), e
+  cada cena ilustra literalmente o que está sendo dito. Nunca a mesma imagem por vários segundos.
 - **Duas músicas** quando há virada de clima (problema → solução): tensa antes, pra frente depois. A
   trilha chega até o fim do vídeo e fica presente, abaixando sob a voz.
 - **Identidade de campanha** só onde o usuário pedir; a parte do produto segue o visual do produto.
