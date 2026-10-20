@@ -1,6 +1,6 @@
 # Posts e Leads no painel do Cérebro (trazidos do Legacy Insights Hub)
 
-Atualizado em 20/10/2026 (raio-x de seguidores, alcance e cliques, 01/09 a 19/10). Pedido do Igor (13/10): abandonar o Legacy Insights Hub e deixar o Cérebro como o único
+Atualizado em 20/10/2026 (raio-x de seguidores, alcance e cliques; carrosséis jun–out por esqueleto, formato e capa). Pedido do Igor (13/10): abandonar o Legacy Insights Hub e deixar o Cérebro como o único
 painel de gestão do time. As telas de **Posts** e de **Leads** do Hub viraram janelas do site do Cérebro
 (https://cerebro-legacy-organico.vercel.app), publicadas em 14/10/2026. O Hub não é mais fonte: só foi lido e copiado.
 
@@ -161,3 +161,20 @@ Página: https://claude.ai/artifact/So1kQKCf4fFXxT5TnhYYpF (planilha dos 74 carr
   2 com seguidor), fecho "a lição que fica" (24, 5 com seguidor). Do topo à falência: 17 posts, 3 seguidores; os 9 de
   outubro têm todos capa em pergunta. Cliques: 6 dos 14 vieram de comparação do mesmo setor (Habib's × Giraffas etc.).
   Típico set 2.347 → out 1.539.
+
+## Carrosséis jun–out/2026: esqueleto, formato e capa (20/10/2026)
+
+191 carrosséis da Legacy (01/06 a 19/10), pacote do Extrator + banco do Cérebro (seguidores/visitas/cliques só desde 16/07).
+Página: https://claude.ai/artifact/DuTQJ6F3By2yBJTsAJt5RJ. 2,2 mi de alcance; 19 passaram de 10 mil = 84,5% do alcance e
+1.613 dos 1.736 seguidores; 36 cliques em 156 posts.
+- Esqueleto: "alerta do cenário → impacto na sua empresa" = 72 posts, 10 dos 19 acertos, 1.427 seguidores (82%). "Linha do
+  tempo de uma marca" = 22 posts, 0 acertos, 4 seguidores, engajamento 1,7%. "Comparação lado a lado" = 11 posts, 9 dos 36
+  cliques, 3,4 visitas/mil (média 1,2). Onda / várias marcas = melhor post típico (3.230).
+- Formato: Cenário Brasil 1.203 seguidores (1,41/mil). Do topo à falência como notícia (Quero-Quero 220 mil, Piá 214 mil) ×
+  como história (13 posts, típico 1.335, 3 seguidores). Listas de famosos: Neymar 472.868 (26/06), Messi 53.288, depois
+  CR7 837, Kutcher 468, Xuxa 1.046 (cansou). Dicas práticas: típico 556, 0 acertos.
+- Capa: afirmação com número 14 dos 19 acertos; "?" na capa = 29 posts, 0 acertos, 22 seguidores; capa com "você" 0,63
+  seg/mil × 1,11; 16–25 palavras = 16 dos 19 acertos. Imagem: foto real 14% acertam × 4% das outras; IA evidente 0 acertos;
+  círculo de logo/detalhe 16% × 5%. Combo afirmação com número + foto real + círculo = 38 posts, 10 acertos, 69% dos seguidores.
+- Cuidado: 06–14/08 (20 posts) = 48% do alcance e 71% dos seguidores, coincide com o reel do Clailton de 07/08.
+
