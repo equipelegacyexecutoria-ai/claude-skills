@@ -193,7 +193,10 @@ def bruto_em_pe(bruto: Path, T: Path) -> Path:
 # no rosto do Lucas". Padrão da caixinha: UM aberto para o vídeo inteiro, centrado na horizontal nos olhos do Lucas;
 # zoom seco (aberto <-> fechado) nas emendas continua, e todo fechado e todo zoom animado aproximam em volta do MESMO
 # ponto (centro do quadro na horizontal, altura dos olhos): nada desliza de lado. REENQUADRAR no plano volta ao antigo.
-CF_FECHADO = 1.30          # fechado sobre o aberto (o plano_td reduz se cortar a cabeça)
+CF_FECHADO = 1.25          # fechado sobre o aberto (o plano_td reduz se cortar a cabeça)
+CF_ROSTO = 0.26            # largura do rosto / largura do quadro no aberto
+CF_DESVIO = 0.06           # zoom de pulo só se os olhos do trecho estão a menos disso (fração do quadro) do centro
+CF_OLHOS_Y = 0.36         # altura dos olhos no quadro (fração): espaço acima da cabeça mesmo quando ele se inclina
 
 
 def camera_fixa(T: Path) -> bool:
@@ -215,11 +218,13 @@ def enquadramento_fixo(T: Path) -> None:
     W0, H0 = e["wh_rot"]
     ox = st.median(s["olhos"][0] for s in segs if s.get("olhos"))
     oy = st.median(s["olhos"][1] for s in segs if s.get("olhos"))
-    w = st.median(s["aberto"][2] for s in segs)
+    # tamanho pelo rosto (CF_ROSTO da largura) e olhos a CF_OLHOS_Y da altura: com o aberto mediano do
+    # enquadrar_td os olhos ficavam a 27% e a cabeça encostava/era cortada em cima ("Gerente Caro", 20/10/2026)
+    fw = st.median(s["rosto"][2] for s in segs if s.get("rosto"))
+    w = min(W0, H0 * 9 / 16, max(fw / CF_ROSTO, W0 / float(os.environ.get("TD_UPSCALE_MAX", "1.8"))))
     h = w * 16 / 9
-    cy = st.median(s["aberto"][1] + s["aberto"][3] / 2 for s in segs)
     x = min(max(ox - w / 2, 0), W0 - w)
-    y = min(max(cy - h / 2, 0), H0 - h)
+    y = min(max(oy - CF_OLHOS_Y * h, 0), H0 - h)
     ab = [round(x, 1), round(y, 1), round(w, 1), round(h, 1)]
     olhos = [round(x + w / 2, 1), round(oy, 1)]          # âncora: centro horizontal do quadro, altura dos olhos
     fe = [round(v, 1) for v in rect_zoom(ab, olhos, CF_FECHADO)]
@@ -237,12 +242,19 @@ def centrar_zooms(T: Path) -> None:
     cf = ler(T / "enquadramento_td.json")["camera_fixa"]
     ab, olhos = cf["aberto"], cf["olhos"]
     cxa = ab[0] + ab[2] / 2
+    orig = T / "enquadramento_td_orig.json"
+    olhos_seg = {s["k"]: s["olhos"] for s in ler(orig)["segmentos"] if s.get("olhos")} if orig.exists() else {}
     n = {"aberto": 0, "fechado": 0, "animado": 0}
     for p in tl["planos"]:
         if p["zoom"] not in ("aberto", "fechado"):
             continue
         if p["zoom"] == "fechado" and (p["f1"] - p["f0"]) / tl["fps"] < 1.0:
             p["zoom"] = "aberto"               # pulo de menos de 1 s pisca: fica no aberto
+        if p["zoom"] == "fechado" and p.get("seg") in olhos_seg:
+            ox, oy = olhos_seg[p["seg"]]       # rosto longe do centro (ele se inclinou): o pulo o deixaria no canto
+            if abs(ox - cxa) > CF_DESVIO * ab[2] or oy < olhos[1] - CF_DESVIO * ab[3]:
+                p["zoom"] = "aberto"
+                n["sem_pulo"] = n.get("sem_pulo", 0) + 1
         if p.get("escala"):
             p["ancora"] = olhos
             n["animado"] += 1
