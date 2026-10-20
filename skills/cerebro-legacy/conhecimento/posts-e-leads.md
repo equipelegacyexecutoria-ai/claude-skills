@@ -99,6 +99,8 @@ Referência (planilhas, 13/10): orgânico 733 desde fev (343 MQL), Quiz 6 (todos
 - Metas no Hub: set/2026 = vendas R$ 130 mil, 50 leads, 60 MQL; out/2026 = vendas R$ 150 mil, 200 leads, 180 MQL.
   Vendas orgânicas lançadas no Hub: set = 5 (R$ 109 mil), out = 1 (R$ 33 mil). Copiadas para o Cérebro em 14/10
   (com o ok do Igor), junto com os cliques no link por dia desde 18/09 (Legacy 8, Clailton 2). O Hub não é mais usado.
+  **Essas vendas vieram do perfil da Legacy** (Igor, 20/10/2026). Ainda não há venda marcada como vinda do perfil do
+  Clailton: não atribua essas vendas a ele nem as use como "vendas do Clailton".
 - Seguidores em 13/10/2026: Legacy 102.389 · Clailton 262.227 · Allan 2.552.
 - Canais de outubro (Legacy): bio_clailton · tiktok é o que mais traz leads (28), bio_legacy o que mais traz MQL.
 
