@@ -25,6 +25,12 @@ inglês; texto só em português. Sempre alta resolução e casando com a emoç�
 Buscar além da busca automática (Pexels pelo navegador, Unsplash, Pinterest, TikTok, YouTube) e conferir
 cada imagem escolhida em tamanho real. Passo a passo: skill `reels-caixinha-0800`, seção "B-roll".
 
+## Créditos da Freepik/Magnific: só com autorização
+
+Regra do usuário (20/10/2026): é proibido gastar créditos da Freepik/Magnific (gerar imagem, vídeo,
+narração, música ou baixar banco pela conexão) sem ele autorizar antes, peça por peça. Simular custo pode.
+Para banco de vídeos/fotos, baixar pelo site no Chrome logado (não desconta crédito no Premium+).
+
 ## Vídeo vertical (Reels/Stories): margens e área segura
 
 Regra do usuário (11/10/2026): nada importante colado na borda nem embaixo da interface do Instagram.
