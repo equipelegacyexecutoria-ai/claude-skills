@@ -152,6 +152,12 @@ Página: https://claude.ai/artifact/So1kQKCf4fFXxT5TnhYYpF (planilha dos 74 carr
   > 57%: 11 mil. Abertura "Você...?" 17 mil × outras 12 mil. Alcance × compartilhamento 0,97. 3 reels/dia não derrubou
   a mediana por reel (15 mil antes, 16,5 mil depois).
 - Reels da Legacy (25): mediana 940; notícia "Você sabia" 1.250 (pulo 54%) × depoimento entre aspas 753 (pulo 68%).
-- Carrosséis da Legacy (74, estilo pela capa): 2 posts = 41% do alcance (FMI 2027: 85 mil, 186 seguidores; R$ 1,18 tri de
-  juros: 82 mil). Capa com pergunta: mediana 1.384 e 0,18 seguidor/mil × sem pergunta 1.956 e 1,11/mil. Do topo à falência:
-  17 posts, 3 seguidores, mediana 2.088 em set → 948 em out. Seguidor ~1 por mil de alcance (correlação 0,90).
+- Carrosséis da Legacy (74, API atualizada 20/10 10h53 + transcrições do Extrator; página https://claude.ai/artifact/So1kQKCf4fFXxT5TnhYYpF):
+  410.641 de alcance, 418 seguidores (47 posts com zero), 694 visitas, 14 cliques. 7 passaram de 10 mil = 64% do alcance.
+  Roteiro dos acertos (FMI 2027 e R$ 1,18 tri de juros): capa com fato novo + número gigante → "o que isso significa na
+  prática" → "é aí que chega na sua empresa" → "você não controla X, controla Y" → prova com empresa real → oferta. Os 3
+  posts com o roteiro completo trouxeram 261 dos 418 seguidores. Card "na prática": 6 posts, alcance típico 4.709 × 1.740.
+  Puxam para baixo: capa com pergunta (18 posts, típico 1.384, 4 com seguidor), história com 3+ datas (18, típico 1.186,
+  2 com seguidor), fecho "a lição que fica" (24, 5 com seguidor). Do topo à falência: 17 posts, 3 seguidores; os 9 de
+  outubro têm todos capa em pergunta. Cliques: 6 dos 14 vieram de comparação do mesmo setor (Habib's × Giraffas etc.).
+  Típico set 2.347 → out 1.539.
