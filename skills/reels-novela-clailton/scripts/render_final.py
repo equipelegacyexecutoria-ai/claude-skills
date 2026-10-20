@@ -62,9 +62,12 @@ def render_segmentos(fonte: str, segs: list[dict], crop: list[int], tmp: Path, c
         vf = (f"crop={cw}:{ch}:{x}:{y},scale={FAIXA_W}:{FAIXA_H}:flags=lanczos+accurate_rnd+full_chroma_int,"
               f"setsar=1,format=yuv420p,{COR}")
         out = tmp / f"seg_{k:03d}.mkv"
-        t_seek = (s["frame_in"] - 0.5) / FPS
+        # trecho com arquivo próprio (ex.: câmera mexendo estabilizada à parte, 20/10/2026): "fonte_video" = o
+        # arquivo, "fonte_t0" = em que segundo do bruto ele começa (mesma imagem, mesmo fps, só o trecho)
+        t_seek = (s["frame_in"] - 0.5) / FPS - float(s.get("fonte_t0", 0.0))
         args = (["-hwaccel", "cuda"] if cuda else []) + [
-            "-ss", f"{max(0.0, t_seek):.6f}", "-i", fonte, "-frames:v", str(s["frames"]), "-an", "-sn", "-dn",
+            "-ss", f"{max(0.0, t_seek):.6f}", "-i", s.get("fonte_video", fonte), "-frames:v", str(s["frames"]),
+            "-an", "-sn", "-dn",
             "-vf", vf, "-fps_mode", "passthrough", "-c:v", "libx264", "-qp", "0", "-preset", "ultrafast",
             str(out)]
         try:

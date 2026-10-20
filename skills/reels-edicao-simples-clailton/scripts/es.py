@@ -34,7 +34,9 @@ from td_comum import rect_plano  # noqa: E402
 
 # posição da legenda medida na referência (instagram.com/p/DdHziJUhn0N): centro do bloco a ~52,5%
 # da altura (peito), nunca em cima do queixo
-Y_CENTRO, TOPO_MIN, BASE_MAX = 1100.0, 700.0, 1680.0   # 28/09/2026: usuário pediu "um pouco mais baixa" (era 1010)
+Y_CENTRO, TOPO_MIN, BASE_MAX = 1100.0, 700.0, 1480.0   # 28/09/2026: usuário pediu "um pouco mais baixa" (era 1010)
+# BASE_MAX 1480 (20/10/2026, "texto muito na parte inferior, centralize"): abaixo de 1480 é a área do nome/legenda
+# do Instagram (regra global de área segura); era 1680 e a legenda descia até o pé do vídeo
 QUEIXO_FATOR = 0.62        # queixo ~ centro da caixa do rosto + 0,62 x largura (caixa do YuNet ~1,25 x mais alta)
 PLANO_PADRAO = ("# edição simples: sem imagens; começa direto no Clailton em tela cheia,\n"
                 "# só o aberto/fechado automático (FECHADO/ABERTO @a-b forçam um trecho)\n"
@@ -71,14 +73,22 @@ def rosto_no_quadro(T: Path) -> list[dict]:
         am = s.get("olhos_t") or []
         olho_med = (s.get("olhos") or [0, cy])[1]
         dq = max(0.0, queixo_med - olho_med) * 1.15
+        # 20/10/2026 ("a legenda vai lá pra baixo", "não pode acontecer essas quebras brutas"): a medida dos
+        # olhos tem picos falsos (mão na frente, cabeça virando: queixo calculado fora da tela) e o max() de
+        # cada momento jogava a legenda para o pé do vídeo. Agora: mediana de 1,5 s (tira o pico), olhos no
+        # máximo 0,35 x largura do rosto abaixo do normal da tomada, e UM valor por plano (o maior depois do
+        # filtro) -> a legenda fica parada dentro do plano e só muda de altura na emenda.
+        qs = []
         f = p["f0"]
         while f < p["f1"]:                     # recorte do quadro (zoom animado / olhos na linha mexem)
             x, y, w, h = rect_plano(p, s, f - p["f0"])
-            perto = [a[2] for a in am if abs(a[0] - f / fps) <= 0.5]
-            queixo = max(queixo_med, max(perto) + dq) if perto else queixo_med
-            q = (queixo - y) / h * 1920
-            out.append({"t": round(f / fps, 3), "queixo": round(q, 1)})
+            perto = sorted(a[2] for a in am if abs(a[0] - f / fps) <= 0.75)
+            olho = min(perto[len(perto) // 2], olho_med + 0.35 * fw) if perto else olho_med
+            queixo = max(queixo_med, olho + dq)
+            qs.append((f, (queixo - y) / h * 1920))
             f += max(1, int(fps / 4))
+        q_plano = max(q for _, q in qs) if qs else None
+        out += [{"t": round(f / fps, 3), "queixo": round(q_plano, 1)} for f, _ in qs]
     return out
 
 
