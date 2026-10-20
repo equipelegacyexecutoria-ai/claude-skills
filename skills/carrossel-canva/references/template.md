@@ -360,3 +360,7 @@ o `merge-designs` falha com ele).
   `DAHMFvgSg18` (Clailton e Allan apontando para o link, 1080×1350). O `merge-designs` falha ao
   inserir (tamanho diferente): exportar a pág. 1 em PNG, esticar a 1ª/última linha até 1080×1440,
   subir, `add_page` 1080×1440 no fim e `insert_fill` da imagem em (0, 0, 1080, 1440). Feito no 5x2 (15/10).
+- 20/10/2026: `create_new_design` do TWITTER com várias páginas falhou 3 vezes ("Failed to commit
+  session"); funcionou criar só com a pág. 1 e somar o resto (`[2,2,2,2,2,2,3]`) numa chamada
+  `modify_existing_design`. Frase curta em negrito que quebra feio: `\n` dentro do próprio trecho
+  ("Se alguém não gosta de você,\no problema é dela.\nNão transforme…").
