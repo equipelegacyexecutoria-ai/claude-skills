@@ -1,6 +1,6 @@
 # Posts e Leads no painel do Cérebro (trazidos do Legacy Insights Hub)
 
-Atualizado em 19/10/2026 (curva de cada post, números do perfil por dia e hora do lead). Pedido do Igor (13/10): abandonar o Legacy Insights Hub e deixar o Cérebro como o único
+Atualizado em 20/10/2026 (raio-x de seguidores, alcance e cliques, 01/09 a 19/10). Pedido do Igor (13/10): abandonar o Legacy Insights Hub e deixar o Cérebro como o único
 painel de gestão do time. As telas de **Posts** e de **Leads** do Hub viraram janelas do site do Cérebro
 (https://cerebro-legacy-organico.vercel.app), publicadas em 14/10/2026. O Hub não é mais fonte: só foi lido e copiado.
 
@@ -138,3 +138,20 @@ Achados da v1 (dados até 14/10): "Do topo à falência" é o formato que mais t
 por post caiu (43 mil → 12 mil) e os leads também (16 → 6); tirar a tag de IA subiu o alcance médio por post em 38%.
 Em construção (v2): curva diária de views de cada post, repartição estimada dos leads da bio/story pelos posts e
 stories em alta, e o aviso "bombando agora".
+
+## Raio-x de 20/10/2026 (01/09 a 19/10, API da Meta no banco do Cérebro)
+
+Página: https://claude.ai/artifact/So1kQKCf4fFXxT5TnhYYpF (planilha dos 74 carrosséis completa, com reels da Legacy e do Clailton).
+- Seguidores: a Legacy ganhou 62.418 de 01/09 a 18/10; os posts de feed dela registram só 691 (1,1%; 418 de carrossel, 273
+  de foto). Ganho diário Legacy × Clailton: 0,98; × alcance dos reels do Clailton: 0,90; × alcance do feed da Legacy: 0,39.
+  Estimativa: ~4,4 seguidores da Legacy por mil de alcance dos reels do Clailton + ~140/dia de base.
+- Cliques no link da bio da Legacy: 414 em 48 dias; só 22 vieram de post de feed. Por dia, clique × visitas ao perfil 0,67;
+  × alcance dos reels do Clailton 0,66; × alcance do feed da Legacy 0,16.
+- Reels do Clailton (122, 9,5 mi de alcance): 15 passaram de 100 mil e somam 74%. De 05/10 a 19/10, mediana por reel:
+  Novela 34,8 mil (22), B-roll 12,4 mil (9), TD 8,1 mil (12), TD TESTE 876 (6). Pulo no início < 48%: mediana 34 mil;
+  > 57%: 11 mil. Abertura "Você...?" 17 mil × outras 12 mil. Alcance × compartilhamento 0,97. 3 reels/dia não derrubou
+  a mediana por reel (15 mil antes, 16,5 mil depois).
+- Reels da Legacy (25): mediana 940; notícia "Você sabia" 1.250 (pulo 54%) × depoimento entre aspas 753 (pulo 68%).
+- Carrosséis da Legacy (74, estilo pela capa): 2 posts = 41% do alcance (FMI 2027: 85 mil, 186 seguidores; R$ 1,18 tri de
+  juros: 82 mil). Capa com pergunta: mediana 1.384 e 0,18 seguidor/mil × sem pergunta 1.956 e 1,11/mil. Do topo à falência:
+  17 posts, 3 seguidores, mediana 2.088 em set → 948 em out. Seguidor ~1 por mil de alcance (correlação 0,90).
