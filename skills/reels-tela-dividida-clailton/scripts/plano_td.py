@@ -123,7 +123,9 @@ def ler_plano(p: Path) -> dict:
             cor = re.search(r"\b(vermelha|azul|branca|preta)\b", linha, re.I)
             pl["etiqueta"] = {"texto": aspas.group(1).upper() if aspas else "", "cor": (cor.group(1).lower() if cor else "vermelha")}
         elif up.startswith("FECHADO") or up.startswith("ABERTO"):
-            pl["forca"].append({"zoom": "fechado" if up.startswith("FECHADO") else "aberto", "i0": a, "i1": b})
+            fx = re.search(r"\bx\s*(\d+(?:[.,]\d+)?)\b", linha[7:]) if up.startswith("FECHADO") else None
+            pl["forca"].append({"zoom": "fechado" if up.startswith("FECHADO") else "aberto", "i0": a, "i1": b,
+                                "fator": float(fx.group(1).replace(",", ".")) if fx else None})
         elif up.startswith("NUMERO") or up.startswith("NÚMERO"):
             pl["numeros"].append({"i0": a, "i1": b, "texto": aspas.group(1) if aspas else ""})
         elif up.startswith("TOPO") or linha.startswith("@"):
@@ -266,11 +268,13 @@ def montar(T: Path) -> dict:
     # ---------------- aberto/fechado do Clailton
     zoom = ["aberto"] * F_FALA
     forcado = [None] * F_FALA
+    fator_forcado = [None] * F_FALA              # FECHADO @a-b x1.8: punch-in sobre o aberto (20/10/2026)
     for fz in pl["forca"]:
         for f in range(f_ini(fz["i0"]), fim_item(fz["i1"])):
             if 0 <= f < F_FALA:
                 forcado[f] = fz["zoom"]
                 zoom[f] = fz["zoom"]
+                fator_forcado[f] = fz.get("fator")
     linha_olhos = None
     escala = [1.0] * F_FALA                      # zoom animado (ZOOMCORTE): escala sobre o aberto
     if pl.get("zoom_corte"):
@@ -295,11 +299,35 @@ def montar(T: Path) -> dict:
     for f in range(1, F_FALA + 1):
         if f == F_FALA or seg_de[f] != seg_de[f0] or zoom[f] != zoom[f0] or (estado[f] == "coberto") != (estado[f0] == "coberto"):
             planos.append({"f0": f0, "f1": f, "seg": seg_de[f0], "zoom": zoom[f0], "visivel": estado[f0] != "coberto"})
+            if zoom[f0] == "fechado" and fator_forcado[f0]:
+                planos[-1]["fator"] = fator_forcado[f0]
             f0 = f
     for p in planos:                            # zoom animado: escala quadro a quadro no plano inteiro
         esc = escala[p["f0"]:p["f1"]]
         if p["zoom"] == "aberto" and max(esc) > 1.0005:
             p["escala"] = [round(v, 4) for v in esc]
+    cs = corte["segmentos"]                     # plano que começa num corte VISÍVEL (não microcorte do aparar)
+    for p0, p1 in zip(planos, planos[1:]):
+        k = p1["seg"]
+        p1["corte_visivel"] = (k != p0["seg"] and 0 < k < len(cs)
+                               and (cs[k]["i0"] != cs[k - 1]["i0"] or cs[k]["src_in"] - cs[k - 1]["src_out"] >= CORTE_VISIVEL))
+    # 20/10/2026 ("corte esquisito, não aproximou mas parece ter posto o vídeo mais pra cima", 0:54 e 0:57 do
+    # "A vida é uma festa"): cada segmento tem o próprio aberto (rosto normalizado), então num MICROcorte do
+    # aparar o recorte pulava (zoom 1,06-1,15 x e subida) sem corte de verdade. Aberto parado que continua
+    # depois de microcorte usa o recorte do aberto anterior: o enquadramento só muda em corte visível.
+    if (T / "enquadramento_td.json").exists():
+        ab_seg = {s["k"]: s["aberto"] for s in ler_json(T / "enquadramento_td.json")["segmentos"]}
+        ab_ant = None
+        for i, p in enumerate(planos):
+            if p["zoom"] != "aberto" or p.get("escala") or not p["visivel"]:
+                ab_ant = None
+                continue
+            ant = planos[i - 1] if i else None
+            if (ab_ant is not None and ant is not None and ant["zoom"] == "aberto" and ant["f1"] == p["f0"]
+                    and not p.get("corte_visivel")):
+                p["rect"] = ab_ant
+            else:
+                ab_ant = ab_seg.get(p["seg"])
     if pl.get("zoom_corte") and (T / "enquadramento_td.json").exists():
         enq = ler_json(T / "enquadramento_td.json")
         medir = Olhos(T, corte, enq)
@@ -662,7 +690,9 @@ def olhos_na_linha(planos: list[dict], enq: dict, medir=None) -> tuple[list[str]
     # trechos fechados: planos fechados colados (só microcortes entre eles)
     trechos, cur = [], []
     for p in vis:
-        if p["zoom"] == "fechado" and (not cur or cur[-1]["f1"] == p["f0"]):
+        # 20/10/2026: dois fechados forçados seguidos separados por corte visível têm recorte próprio cada
+        # (o 2º pode ser mais fechado: FECHADO @a-b x1.8 no plano.txt)
+        if p["zoom"] == "fechado" and (not cur or (cur[-1]["f1"] == p["f0"] and not p.get("corte_visivel"))):
             cur.append(p)
             continue
         if cur:
@@ -686,7 +716,7 @@ def olhos_na_linha(planos: list[dict], enq: dict, medir=None) -> tuple[list[str]
                     tops.append(a[4] if len(a) > 4 else a[2] - CABECA_K * segs[p["seg"]]["rosto"][2])
         tops = [x for x in tops if x is not None]
         topo = min(tops) if tops else ey - CABECA_K * s0["rosto"][2]
-        fator = ab[2] / s0["fechado"][2]
+        fator = p0.get("fator") or ab[2] / s0["fechado"][2]
         den = linha / H_SAIDA - CABECA_FOLGA
         if ey - topo > 0 and den > 0:
             fator = min(fator, ab[3] * den / (ey - topo))

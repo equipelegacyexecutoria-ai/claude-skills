@@ -88,7 +88,10 @@ def rosto_no_quadro(T: Path) -> list[dict]:
             qs.append((f, (queixo - y) / h * 1920))
             f += max(1, int(fps / 4))
         q_plano = max(q for _, q in qs) if qs else None
-        out += [{"t": round(f / fps, 3), "queixo": round(q_plano, 1)} for f, _ in qs]
+        # sem amostra nos 0,2 s iniciais do plano: tela que termina uns quadros depois da emenda não herda a
+        # altura do plano seguinte (fechado) e cai toda (0:53 do "6 maiores medos" v2)
+        validos = [f for f, _ in qs if f >= p["f0"] + 0.2 * fps] or [qs[len(qs) // 2][0]] if qs else []
+        out += [{"t": round(f / fps, 3), "queixo": round(q_plano, 1)} for f in validos]
     return out
 
 
