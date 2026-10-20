@@ -177,4 +177,7 @@ Página: https://claude.ai/artifact/DuTQJ6F3By2yBJTsAJt5RJ. 2,2 mi de alcance; 1
   seg/mil × 1,11; 16–25 palavras = 16 dos 19 acertos. Imagem: foto real 14% acertam × 4% das outras; IA evidente 0 acertos;
   círculo de logo/detalhe 16% × 5%. Combo afirmação com número + foto real + círculo = 38 posts, 10 acertos, 69% dos seguidores.
 - Cuidado: 06–14/08 (20 posts) = 48% do alcance e 71% dos seguidores, coincide com o reel do Clailton de 07/08.
+- No Notion: card "📌 CAPAS QUE FUNCIONAM" no MURAL do quadro de tarefas (https://app.notion.com/p/3ffc9747efab8173bed3e444dc48c591),
+  com checklist da capa, números, exemplos e o HTML. Pedido do Igor (20/10): as análises novas ficam no MURAL, uma por card, e
+  cada atualização entra no topo de "Atualizações" com a data.
 
