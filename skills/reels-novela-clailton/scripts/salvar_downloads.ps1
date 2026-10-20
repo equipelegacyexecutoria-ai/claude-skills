@@ -17,6 +17,7 @@ public class Dlg {
   [DllImport("user32.dll")] static extern int GetWindowText(IntPtr h, StringBuilder s, int n);
   [DllImport("user32.dll")] public static extern uint GetWindowThreadProcessId(IntPtr h, out uint p);
   [DllImport("user32.dll")] static extern bool IsWindowVisible(IntPtr h);
+  [DllImport("user32.dll")] public static extern bool IsWindowEnabled(IntPtr h);
   [DllImport("user32.dll")] public static extern IntPtr GetDlgItem(IntPtr h, int id);
   [DllImport("user32.dll", CharSet=CharSet.Unicode)] public static extern IntPtr FindWindowEx(IntPtr p, IntPtr a, string c, string t);
   [DllImport("user32.dll", CharSet=CharSet.Unicode)] static extern IntPtr SendMessage(IntPtr h, int m, IntPtr w, StringBuilder l);
@@ -65,6 +66,7 @@ do {
         if (-not $d) { continue }
         if ($d.titulo -match "^(Salvar como|Save As)$") {
             $abertas++
+            if (-not [Dlg]::IsWindowEnabled($d.h)) { Start-Sleep -Milliseconds 300; continue }   # esperando um aviso: não aperta Salvar de novo
             $campo = [Dlg]::CampoNome($d.h)
             if ($campo -eq [IntPtr]::Zero) {
                 $falhas++
@@ -74,6 +76,13 @@ do {
             $nome = Split-Path -Leaf ([Dlg]::Texto($campo))
             $nome = $nome -replace ' \(\d+\)(?=\.[^.]+$)', ''      # "x (1).mp3" -> "x.mp3"
             $destino = Join-Path $Pasta $nome
+            # 20/10/2026: arquivo já existente abria "Confirmar Salvar como"; o "Sim" não pegava (diálogo novo do
+            # Windows) e a cada volta o script apertava Salvar de novo -> centenas de avisos empilhados e os
+            # downloads seguintes presos. Agora o nome nunca colide: x.png -> x_2.png, x_3.png...
+            $k = 2
+            while (Test-Path -LiteralPath $destino) {
+                $destino = Join-Path $Pasta ([IO.Path]::GetFileNameWithoutExtension($nome) + "_$k" + [IO.Path]::GetExtension($nome)); $k++
+            }
             [Dlg]::PorTexto($campo, $destino)
             [Dlg]::Comando($d.h, 1)                                     # Salvar
             Write-Output "salvo: $destino"
