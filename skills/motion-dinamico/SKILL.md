@@ -47,10 +47,16 @@ Segue também as regras da skill `motion-designer` (área segura, revisão quadr
 - **B-roll de filme/série e tela dividida** (notas da v4, 21/10/2026): as cenas também podem ser trechos reais do acervo
   `Desktop/B-ROLLS` (o mesmo da tela dividida: `acervo.json`, `MAPA DE SITUACOES.md`), escolhidos pelo sentido da fala.
   Três jeitos de usar: **B-roll em tela cheia** com o texto por cima (escurecido em cima/embaixo indo até a borda);
-  **tela dividida**: B-roll em cima (1080x900) e o Clailton embaixo (1080x1020), linha azul na emenda e o texto na parte
-  de cima; **Clailton em tela cheia** sem moldura (sem o cartão de fundo azul) com o texto embaixo. Enumeração
+  **tela dividida**: B-roll em cima (1080x900) e o Clailton embaixo (1080x1020), **sem linha na emenda**: faixa em degradê
+  escuro de y 680 a 1120 (esmaecendo uma tela na outra) com o texto **centralizado em y 900** (v6, 21/10/2026). Carimbo
+  e texto não encostam na cabeça do Clailton (cabeça começa por volta de y 1060); **Clailton em tela cheia** sem moldura (sem o cartão de fundo azul) com o texto embaixo. Enumeração
   ("treinar, estudar, economizar") = um B-roll por palavra, só a palavra na tela. Evite trecho com legenda queimada ou
   logo (ROC-01) e desenho animado quando a fala é séria. Quando o usuário pede B-roll, o elemento 3D daquela cena sai.
+  O B-roll tem que ilustrar a fala de verdade (v5 reprovada: Gladiador no trigo para "futuro", close do Rocky para
+  "treinar"): para "futuro", alguém olhando o horizonte; "treinar", alguém treinando/correndo; "estudar", alguém na mesa
+  ou no computador (Walter Mitty, MIT-02); recompensa/"café delicioso", alguém comendo (Kevin com pizza, HA2-01).
+  Um trecho por fala, sem corte de câmera no meio (`planos` do acervo.json); confira o rosto em cada quadro do recorte.
+  Trecho de animação (elementos 3D) pode virar tela dividida com o Clailton embaixo: elementos só na metade de cima.
 
 ## Passo a passo
 
