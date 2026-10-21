@@ -44,6 +44,10 @@ Segue também as regras da skill `motion-designer` (área segura, revisão quadr
 - **Vermelho** (`rd`, `#ff3b3b`) para palavra/risco negativo (prejudique, desconforto, roube); dourado só em recompensa.
 - Sino de boxe é de **fim de round**: `sfx("sinofim", t)` terminando exatamente no corte da cena.
 - Efeito que o usuário achar alto ou demais: tirar (`semsom`), não só baixar.
+- **Ícones adultos, não infantis** (v8, 21/10/2026: "utilize ícones mais adultos e menos infantis", "calendário mais
+  sério"): nada de despertador/ampulheta/calendário 3D de desenho. Use ícone de traço (linha branca, detalhe azul ou
+  dourado) desenhado em SVG ou objeto fotográfico sóbrio. Exemplos prontos em `references/exemplo_cenas.py`
+  (`RELOGIO`, `AMPULHETA`, `CAL`, `cartao_svg`). Na dúvida, troque a animação por B-roll ou pelo especialista.
 - **Pausa longa do especialista** ("esqueceu de cortar, fica em silêncio tempo demais", v7): meça o silêncio na `voz.wav`
   e deixe ~0,15 s. O corte é no vídeo pronto, com `PY S/cortar_pausa.py "<P>" <render_longo.mp4> <ini> <fim> trilhas.json
   <final.mp4>`: tira imagem e voz, adianta os efeitos e refaz a mixagem com a música contínua. Antes de renderizar, o texto

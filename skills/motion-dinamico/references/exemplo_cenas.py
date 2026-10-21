@@ -1,4 +1,8 @@
-# Motion Dinâmico: "Seu Cérebro Tem Um Defeito De Fábrica" (v7: treinar/estudar/economizar em tela dividida; v6, 21/10/2026): tela dividida com emenda em degradê
+# Motion Dinâmico: "Seu Cérebro Tem Um Defeito De Fábrica" (v9, 21/10/2026: True Detective, B-roll 1-080,
+# calendário sério, ícones de traço, fim só com o Clailton; v8, 21/10/2026: Succession no começo, dinheiro na
+# máquina de lavar no economizar, pausa de 0,4 s cortada depois do "Precisa estudar?"; v7, 21/10/2026): treinar/estudar/economizar em
+# tela dividida com o Clailton, estudar com outro take do Walter Mitty.
+# (cabeçalho da v6:): tela dividida com emenda em degradê
 # e texto no centro, B-rolls trocados pelo sentido da fala, Clailton no trecho do baú.
 # (cabeçalho da v5:): B-roll do acervo B-ROLLS e tela dividida
 # com o Clailton nas cenas das notas da v4; o resto como na v4.
@@ -13,11 +17,45 @@
 import os, sys
 sys.path.insert(0, os.path.join(os.path.expanduser("~"), ".claude", "skills", "motion-dinamico", "scripts"))
 from motion_lib import *  # noqa: F401,F403
-# fundos de texto sobre B-roll e emenda em degradê da tela dividida
+# fundos de texto sobre B-roll, emenda em degradê da tela dividida e ícones de traço (adultos)
 GRAD_BAIXO = "background: linear-gradient(to bottom, rgba(3,6,13,0) 0%, rgba(3,6,13,.82) 100%)"
 GRAD_CIMA = "background: linear-gradient(to top, rgba(3,6,13,0) 0%, rgba(3,6,13,.82) 100%)"
 EMENDA_GRAD = ("background: linear-gradient(to bottom, rgba(3,6,13,0) 0%, rgba(3,6,13,.94) 30%, "
                "rgba(3,6,13,.94) 70%, rgba(3,6,13,0) 100%)")
+
+CAL = ('<svg class="it" id="s4-cal" viewBox="0 0 300 320" style="position:absolute; left:105px; top:772px; width:240px; height:256px;'
+       ' overflow:visible; filter:drop-shadow(0 18px 30px rgba(0,0,0,.5))">'
+       '<rect x="0" y="22" width="300" height="298" rx="22" fill="#f3f5f9"/>'
+       '<path d="M0 44 a22 22 0 0 1 22 -22 h256 a22 22 0 0 1 22 22 v52 h-300z" fill="#0b1630"/>'
+       '<rect x="0" y="94" width="300" height="5" fill="#17adfd"/>'
+       '<rect x="66" y="0" width="18" height="48" rx="9" fill="#aab4c4"/><rect x="216" y="0" width="18" height="48" rx="9" fill="#aab4c4"/>'
+       + "".join(f'<rect x="{26 + c * 36}" y="{122 + r * 44}" width="26" height="26" rx="5" fill="{"#17adfd" if (r, c) == (2, 4) else "#d6dce6"}"/>'
+                 for r in range(4) for c in range(7))
+       + '</svg>')
+
+RELOGIO = ('<svg viewBox="-40 -30 280 260" style="width:100%; height:100%">'
+           '<circle cx="100" cy="100" r="78" fill="none" stroke="#fff" stroke-width="7"/>'
+           + "".join(f'<line x1="100" y1="{30 if k % 3 == 0 else 34}" x2="100" y2="42" stroke="#fff" stroke-width="{6 if k % 3 == 0 else 3}"'
+                     f' stroke-linecap="round" transform="rotate({k * 30} 100 100)" opacity=".85"/>' for k in range(12))
+           + '<line x1="100" y1="100" x2="100" y2="58" stroke="#fff" stroke-width="8" stroke-linecap="round"/>'
+           '<line x1="100" y1="100" x2="140" y2="118" stroke="#17adfd" stroke-width="6" stroke-linecap="round"/>'
+           '<circle cx="100" cy="100" r="8" fill="#17adfd"/></svg>')
+
+AMPULHETA = ('<svg viewBox="-40 -30 280 260" style="width:100%; height:100%">'
+             '<line x1="48" y1="22" x2="152" y2="22" stroke="#fff" stroke-width="8" stroke-linecap="round"/>'
+             '<line x1="48" y1="178" x2="152" y2="178" stroke="#fff" stroke-width="8" stroke-linecap="round"/>'
+             '<path d="M62 22 C62 78 94 88 94 100 C94 112 62 122 62 178 M138 22 C138 78 106 88 106 100 C106 112 138 122 138 178"'
+             ' fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>'
+             '<path d="M74 178 Q100 140 126 178 Z" fill="#e7aa51"/><path d="M80 46 Q100 74 120 46 Z" fill="#e7aa51" opacity=".9"/>'
+             '<line x1="100" y1="100" x2="100" y2="150" stroke="#e7aa51" stroke-width="3" stroke-dasharray="4 6"/></svg>')
+
+
+def cartao_svg(ident, svg, cx, cy, rotulo, rot=0, tam=42, w=420, h=440, z=0):
+    """Como cartao(), com um ícone desenhado (SVG) no lugar da imagem."""
+    c = (f'<div class="card" style="width:{w}px; height:{h}px; transform:rotate({rot}deg)"><div class="foto" style="height:{h - 100}px">'
+         f'{svg}</div><div class="rot" style="font-size:{tam}px">{rotulo}</div></div>')
+    return caixa(ident, cx, cy, w, h, c, z)
+
 
 AZ, OURO = "23,173,253", "231,170,81"
 # palco inteiro 70 px acima: o conteúdo fica no centro da área segura (gabarito do Reels: 250 a 1500)
@@ -35,38 +73,34 @@ v.cena("s1", 0, 3.45, "tenso", [], "", sobre=[
 carimbo("#s1-car", 1.67);
 """)
 
-# ---- 3.45–5.90 ele prefere aliviar o desconforto de agora: só B-roll (Huell na cama de dinheiro, Breaking Bad)
-v.video("assets/broll/s2.mp4", 3.45, 2.45)
+# ---- 3.45–5.90 ele prefere aliviar o desconforto de agora: só B-roll (Rust acende o cigarro no canavial, True Detective)
+v.video("assets/broll/s2c.mp4", 3.45, 2.45)
 v.cena("s2", 3.45, 5.90, "tenso", [], "", sobre=[
-    caixa("s2-grad", 540, 420, 1080, 700, "", 0, estilo=GRAD_CIMA),
+    caixa("s2-grad", 540, 1520, 1080, 1100, "", 0, estilo=GRAD_BAIXO),
     titulo("s2-tit", [(56, [("Ele", 3.55, "fino"), ("prefere", 3.73, "fino")]), (140, [("aliviar", 4.21, "hl")]),
-                      (64, [("o", 4.59, "fino"), ("desconforto", 4.67, ""), ("de", 5.22, "fino"), ("agora", 5.32, "ac")])], 540, 385, 0),
+                      (64, [("o", 4.59, "fino"), ("desconforto", 4.67, ""), ("de", 5.22, "fino"), ("agora", 5.32, "ac")])], 470, 1180, 0, w=780),
 ], js_sobre="")
 
-# ---- 5.90–8.62 mesmo que isso prejudique o teu futuro
-CRACK = '<path id="s3-trinca" d="M 300 120 L 255 230 L 320 300 L 240 420 L 300 500 L 250 600" fill="none" stroke="#ff3b3b" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" class="luz"/>'
-v.cena("s3", 5.90, 8.62, "tenso", [
-    brilho("s3-luz", 540, 960, 500, AZ, .35),
-    img("s3-amp", "ampulheta", 540, 960, 440, 0, dentro=f'<svg viewBox="0 0 520 708" style="position:absolute; left:0; top:0; width:100%; height:100%; overflow:visible">{CRACK}</svg>'),
-    titulo("s3-t1", [(54, [("mesmo", 5.98, "fino"), ("que", 6.44, "fino"), ("isso", 6.66, "fino"), ("prejudique", 6.94, "rd")])], 540, 400),
-    titulo("s3-t2", [(64, [("o", 7.82, "fino"), ("teu", 7.90, "fino")]), (120, [("futuro", 8.04, "ac")])], 470, 1285, w=780),
-], """
-bz("#s3-bz", 5.90); cam("#s3-mundo", 5.90, 2.72, {y:-20, z:0, rotationY:-2}, {y:0, z:200, rotationY:1.5});
-entra("#s3-amp", 5.95, "sobe"); flutua("#s3-amp", 6.5, 2.1, 6, 2.6, 1);
-traco("#s3-trinca", 6.94, 0.45); soco("#s3-bz", 6.94, 1.04, 0.3);
-tl.to("#s3-amp", {rotation:-7, y:20, duration:0.6, ease:"power2.out"}, 6.94);
+# ---- 5.90–8.62 mesmo que isso prejudique o teu futuro: B-roll do usuário (homem de charuto, 1-080) com os textos no alto
+v.video("assets/broll/s3b.mp4", 5.90, 2.72)
+v.cena("s3", 5.90, 8.62, "tenso", [], "", sobre=[
+    caixa("s3-grad", 540, 420, 1080, 700, "", 0, estilo=GRAD_CIMA),
+    titulo("s3-t1", [(54, [("mesmo", 5.98, "fino"), ("que", 6.44, "fino"), ("isso", 6.66, "fino"), ("prejudique", 6.94, "rd")])], 540, 360, 0),
+    titulo("s3-t2", [(64, [("o", 7.82, "fino"), ("teu", 7.90, "fino")]), (120, [("futuro", 8.04, "ac")])], 540, 330, 0),
+], js_sobre="""
+sai("#s3-t1", 7.40, 0.15);
 """)
 
-# ---- 8.62–10.22 em 1997
+# ---- 8.62–10.22 em 1997: folha de calendário sóbria (no lugar do calendário de desenho)
 DIG = "".join(f'<span class="dg">{d}</span>' for d in "1997")
 v.cena("s4", 8.62, 10.22, "escuro", [
     raios("s4-raios", -500, .5),
-    img("s4-cal", "calendario", 240, 900, 300, 0),
+    camada(0, CAL),
     etiqueta("s4-em", "EM", 650, 720, 50, cls="tag lin"),
     camada(120, f'<div class="it ctr" id="s4-ano" style="left:330px; top:900px; width:640px; text-align:center">{DIG}</div>'),
 ], """
-bz("#s4-bz", 8.62); cam("#s4-mundo", 8.62, 1.6, {z:0, rotationY:2}, {z:240, rotationY:-2});
-entra("#s4-cal", 8.66, "pop", {rot:-14}); entra("#s4-em", 8.69, "pop");
+bz("#s4-bz", 8.62); cam("#s4-mundo", 8.62, 1.6, {z:0, rotationY:2}, {z:150, rotationY:-2});
+entra("#s4-cal", 8.66, "pop", {rot:-5}); entra("#s4-em", 8.69, "pop");
 gsap.utils.toArray("#s4-ano .dg").forEach((d, i) => tl.fromTo(d, {opacity:0, y:30, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.2, ease:"power3.out", immediateRender:false}, 8.77 + i * 0.12));
 soco("#s4-bz", 9.13, 1.05, 0.3); semsom("soco", 9.13);
 """)
@@ -104,10 +138,10 @@ gsap.set("#s6-ponto", {opacity:0}); tl.fromTo("#s6-ponto", {opacity:0}, {opacity
 corre("#s6-curva", "#s6-ponto", 15.42, 0.9);
 """)
 
-# ---- 16.50–21.12 nós tendemos a dar mais valor ao que sentimos no presente
+# ---- 16.50–21.12 nós tendemos a dar mais valor ao que sentimos no presente: ícones de traço (relógio x ampulheta)
 v.cena("s7", 16.50, 21.12, "escuro", [
-    cartao("s7-a", "despertador", 300, 820, "PRESENTE", -2, w=380, h=420),
-    cartao("s7-b", "ampulheta", 780, 820, "FUTURO", 2, w=380, h=420),
+    cartao_svg("s7-a", RELOGIO, 300, 820, "PRESENTE", -2, w=380, h=420),
+    cartao_svg("s7-b", AMPULHETA, 780, 820, "FUTURO", 2, w=380, h=420),
     titulo("s7-t1", [(56, [("Nós", 16.55, "fino"), ("tendemos", 16.77, "fino"), ("a", 17.55, "fino"), ("dar", 17.67, "fino")]),
                      (120, [("mais", 18.07, ""), ("valor", 18.43, "hl")])], 540, 385),
     titulo("s7-t2", [(56, [("ao", 19.14, "fino"), ("que", 19.26, "fino"), ("sentimos", 19.44, "fino")]),
@@ -149,7 +183,7 @@ sfx("pop", 26.54);
 # ---- 27.12–29.35 treinar, estudar, economizar: tela dividida, um B-roll por palavra em cima, Clailton embaixo
 v.video("assets/broll/treinar_topo.mp4", 27.12, 0.73, 0, 0, 1080, 900, zoom=0)
 v.video("assets/broll/estudar_topo.mp4", 27.85, 0.70, 0, 0, 1080, 900, zoom=0)
-v.video("assets/broll/economizar_topo.mp4", 28.55, 0.80, 0, 0, 1080, 900, zoom=0)
+v.video("assets/broll/economizar_topo2.mp4", 28.55, 0.80, 0, 0, 1080, 900, zoom=0)
 v.expert("assets/treinodiv_0.mp4", 27.12, 2.23, cx=540, cy=1410, w=1080, h=1020, moldura=False)
 v.cena("s10", 27.12, 29.35, "escuro", [], "", sobre=[
     caixa("s10-emenda", 540, 970, 1080, 440, "", 0, estilo=EMENDA_GRAD),
@@ -300,10 +334,10 @@ v.expert("assets/dividida_2.mp4", 54.58, 4.84, cx=540, cy=1410, w=1080, h=1020, 
 v.cena("s18", 54.58, 59.42, "quente", [], "", sobre=[
     caixa("s18-emenda", 540, 970, 1080, 440, "", 0, estilo=EMENDA_GRAD),
     titulo("s18-t1", [(100, [("Precisa", 54.63, "fino"), ("estudar?", 54.99, "ac")])], 540, 910, 0),
-    titulo("s18-t2", [(56, [("Tome", 56.01, "fino"), ("aquele", 56.45, "fino")]), (92, [("café", 56.79, "ac"), ("delicioso", 57.15, "ac")])], 540, 882, 0),
+    titulo("s18-t2", [(56, [("Tome", 56.11, "fino"), ("aquele", 56.45, "fino")]), (92, [("café", 56.79, "ac"), ("delicioso", 57.15, "ac")])], 540, 882, 0),
     titulo("s18-t3", [(56, [("depois", 57.81, "fino"), ("de", 58.17, "fino")]), (92, [("cumprir", 58.30, ""), ("essa", 58.68, "fino"), ("meta", 58.94, "hl")])], 540, 882, 0),
 ], js_sobre="""
-sai("#s18-t1", 55.7, 0.15); sai("#s18-t2", 57.5, 0.15);
+sai("#s18-t1", 55.40, 0.15); sai("#s18-t2", 57.5, 0.15);
 sfx("sobe", 56.70); sfx("ok", 58.94);
 """)
 
@@ -347,22 +381,13 @@ gsap.utils.toArray("#s20-faiscas .faisca").forEach((f, i) => { gsap.set(f, {opac
 sfx("brilho", 67.48);
 """)
 
-# ---- 68.52–71.05 sem deixar que ele roube o teu futuro (ladrão caracterizado)
-ESCUDO = '<circle id="s21-escudo" class="luz" cx="540" cy="1000" r="320" fill="none" stroke="#17adfd" stroke-width="12" stroke-dasharray="40 22"/>'
-v.cena("s21", 68.52, 71.05, "quente", [
-    brilho("s21-luz", 540, 1000, 520, AZ, .45),
-    img("s21-amp", "ampulheta", 540, 1000, 400, 0),
-    svg("s21-svg", ESCUDO, 30),
-    titulo("s21-t1", [(56, [("sem", 68.56, "fino"), ("deixar", 68.73, "fino"), ("que", 69.15, "fino"), ("ele", 69.33, "fino")]), (100, [("roube", 69.92, "rd")])], 540, 385),
-    titulo("s21-t2", [(96, [("o", 70.25, "fino"), ("teu", 70.31, "fino"), ("futuro", 70.47, "hl")])], 470, 1350, w=780),
-], """
-bz("#s21-bz", 68.52); cam("#s21-mundo", 68.52, 2.53, {z:0, rotationY:-2}, {z:150, rotationY:2});
-entra("#s21-amp", 68.55, "sobe"); flutua("#s21-amp", 69.0, 2.0, 6, 2.6, 1);
-traco("#s21-escudo", 69.92, 0.4);
-tl.fromTo("#s21-amp > .fl", {x:0}, {x:8, duration:0.05, yoyo:true, repeat:5, ease:"none", immediateRender:false}, 69.92);
-tl.fromTo("#s21-escudo", {strokeDashoffset:0}, {strokeDashoffset:-310, duration:1.1, ease:"none", immediateRender:false}, 69.92);
-soco("#s21-bz", 69.95, 1.04, 0.3);
-""")
+# ---- 68.52–71.05 sem deixar que ele roube o teu futuro: só o Clailton em tela cheia, textos embaixo (fora do rosto)
+v.expert("assets/cheiafim_0.mp4", 68.52, 2.53, cx=540, cy=960, w=1080, h=1920, moldura=False)
+v.cena("s21", 68.52, 71.05, "quente", [], "", sobre=[
+    caixa("s21-grad", 540, 1520, 1080, 1100, "", 0, estilo=GRAD_BAIXO),
+    titulo("s21-tit", [(56, [("sem", 68.56, "fino"), ("deixar", 68.73, "fino"), ("que", 69.15, "fino"), ("ele", 69.33, "fino")]), (100, [("roube", 69.92, "rd")]),
+                       (80, [("o", 70.25, "fino"), ("teu", 70.31, "fino"), ("futuro", 70.47, "hl")])], 470, 1220, 0, w=780),
+], js_sobre="")
 
 # ---- 71.05–73.60 CTA digitada (sem a cabeça do Clailton)
 v.cena("s22", 71.05, 73.60, "quente", [
