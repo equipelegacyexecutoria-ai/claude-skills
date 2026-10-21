@@ -211,7 +211,7 @@ v.cena("s13", 35.50, 38.05, "tenso", [
 bz("#s13-bz", 35.50); cam("#s13-mundo", 35.50, 2.55, {z:0, rotationY:-2}, {z:160, rotationY:2});
 entra("#s13-homem", 35.52, "sobe");
 tl.fromTo("#s13-homem > .fl", {rotation:-1.2}, {rotation:1.2, transformOrigin:"50% 100%", duration:1.2, ease:"sine.inOut", yoyo:true, repeat:2, immediateRender:false}, 35.52);
-sai("#s13-tit", 37.42, 0.15);
+sai("#s13-tit", 37.25, 0.15);
 carimbo("#s13-aqui", 37.52); traco("#s13-seta", 37.62, 0.25);
 """)
 
@@ -273,11 +273,11 @@ cam("#s16-mundo", 47.0, 2.85, {x:20, z:110, rotationY:2}, {x:0, z:40, rotationY:
 entra("#s16-bauw", 43.15, "fade", {d:0.8}); flutua("#s16-bauw", 43.2, 6.6, 8, 2.6, 1.2);
 gsap.set("#s16-luz", {opacity:0}); tl.fromTo("#s16-luz", {opacity:0}, {opacity:1, duration:1, immediateRender:false}, 43.3);
 carimbo("#s16-pare", 43.17); sai("#s16-pare", 44.5, 0.2);
-sai("#s16-t1", 46.85, 0.2); sai("#s16-t2", 46.9, 0.2);
+sai("#s16-t1", 46.6, 0.18); sai("#s16-t2", 46.62, 0.18);
 tl.fromTo("#s16-bauz", {z:-1300, x:0, y:0}, {z:0, x:-220, y:140, duration:1.4, ease:"power2.inOut", immediateRender:false}, 46.99);
 sfx("doc", 46.99);
 tl.to("#s16-luz", {opacity:0, duration:0.6}, 47.0);
-sai("#s16-t3", 48.95, 0.15);
+sai("#s16-t3", 48.7, 0.15);
 gsap.utils.toArray("#s16-moedas .moeda").forEach((m, i) => { gsap.set(m, {opacity:0}); tl.fromTo(m, {opacity:0, y:60, scale:0.3, transformOrigin:"50% 50%"}, {opacity:1, y:-40 - (i % 3) * 30, scale:1, duration:0.6, ease:"power2.out", immediateRender:false}, 48.48 + i * 0.05); });
 sfx("brilho", 48.48); soco("#s16-bz", 48.48, 1.05, 0.3);
 """)
@@ -295,7 +295,7 @@ v.cena("s17", 49.85, 54.58, "quente", [
 ], """
 bz("#s17-bz", 49.85); cam("#s17-mundo", 49.85, 4.73, {x:-30, z:0, rotationY:-2}, {x:30, z:150, rotationY:2});
 entra("#s17-homem", 49.9, "esq", {dist:300}); entra("#s17-n1", 50.13, "pop");
-sai("#s17-t1", 50.78, 0.15); sai("#s17-t2", 53.38, 0.15);
+sai("#s17-t1", 50.55, 0.15); sai("#s17-t2", 53.15, 0.15);
 entra("#s17-tv", 52.38, "dir", {dist:400}); flutua("#s17-tv", 53.0, 1.55, 6, 2.4, 1);
 entra("#s17-n2", 52.62, "pop"); traco("#s17-seta", 53.46, 0.4);
 """)
@@ -315,7 +315,7 @@ v.cena("s18", 54.58, 59.42, "quente", [
 ], """
 bz("#s18-bz", 54.58); cam("#s18-mundo", 54.58, 4.84, {x:30, z:0, rotationY:2}, {x:-30, z:150, rotationY:-2});
 entra("#s18-aluno", 54.63, "esq", {dist:300});
-sai("#s18-t1", 55.95, 0.15); sai("#s18-t2", 57.75, 0.15);
+sai("#s18-t1", 55.7, 0.15); sai("#s18-t2", 57.5, 0.15);
 entra("#s18-cafe", 56.79, "pop"); flutua("#s18-cafe", 57.3, 2.1, 5, 2.4, 1);
 gsap.utils.toArray("#s18-vapor .vapor").forEach((p, i) => tl.fromTo(p, {opacity:0, y:30}, {opacity:.85, y:-30, duration:1.2, ease:"sine.out", immediateRender:false}, 57.0 + i * 0.25));
 entra("#s18-alvo", 58.30, "pop", {rot:-14});
@@ -342,7 +342,7 @@ entra("#s19-cerebro", 59.46, "pop"); flutua("#s19-cerebro", 60.0, 5.5, 7, 2.8, 1
 gsap.set("#s19-luz", {opacity:0}); tl.fromTo("#s19-luz", {opacity:0, scale:.6}, {opacity:1, scale:1, duration:0.6, ease:"power2.out", immediateRender:false}, 60.60);
 tl.fromTo("#s19-luz", {scale:1}, {scale:1.12, duration:0.5, ease:"sine.inOut", yoyo:true, repeat:7, immediateRender:false}, 61.2);
 soco("#s19-bz", 61.20, 1.05, 0.3); sfx("brilho", 60.6);
-sai("#s19-t1", 61.9, 0.15);
+sai("#s19-t1", 61.68, 0.15);
 entra("#s19-trofeu", 62.69, "dir", {dist:300}); flutua("#s19-trofeu", 63.2, 2.3, 6, 2.2, 2);
 entra("#s19-amp", 64.37, "fade", {d:0.6});
 """)

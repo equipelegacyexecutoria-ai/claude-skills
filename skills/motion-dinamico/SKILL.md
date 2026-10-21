@@ -40,6 +40,7 @@ Segue também as regras da skill `motion-designer` (área segura, revisão quadr
   Composição centrada na área segura: se o vídeo ficar "muito embaixo", suba o palco com `Video(..., css=".bz, .cena > .palco
   { top: -70px; bottom: 70px; }")` e suba o cartão do especialista o mesmo tanto.
 - **Texto entra 0,15 s antes da palavra** (o molde já faz): no tempo exato o usuário achou atrasado.
+  Texto que sai para outro entrar no mesmo lugar: `sai` pelo menos 0,25 s antes da primeira palavra do próximo (senão encavala).
 - **Vermelho** (`rd`, `#ff3b3b`) para palavra/risco negativo (prejudique, desconforto, roube); dourado só em recompensa.
 - Sino de boxe é de **fim de round**: `sfx("sinofim", t)` terminando exatamente no corte da cena.
 - Efeito que o usuário achar alto ou demais: tirar (`semsom`), não só baixar.
