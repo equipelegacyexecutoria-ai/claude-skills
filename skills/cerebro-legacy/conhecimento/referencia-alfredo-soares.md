@@ -96,6 +96,19 @@ eles; o Instagram do G4 não traz conteúdo deles todo dia mesmo vendendo mais a
 - Patrocínio ou evento só vale com o dobro do valor reservado para distribuir o conteúdo; usar o ativo depois (vlog,
   dump, "30 dias depois do que aprendi").
 
+## Retrato do Clailton na mesma régua (01/09 a 20/10/2026, 156 posts)
+
+- Regra do Igor (21/10/2026): post sobre funcionário (contratar, salário, senso de dono, pena do funcionário) conta
+  como alcance, porque chega mais em funcionário do que em dono. No Alfredo, "time" é bastidor do G4 e fica em gestão.
+- Resultado: alcance 72% (59% vida e comportamento + 13% funcionário), gestão 25%, vida pessoal 3%, oferta 1%.
+  Nos reels, 81% é alcance. Alfredo: alcance 10%, gestão 63%, vida 14%, oferta 13%.
+- Formatos: 65 novelas, 40 telas divididas, 10 B-roll, 8 outros vídeos, 32 carrosséis e 1 foto. Novela é quase toda
+  alcance; carrossel é onde está a gestão (20 de 39). Reel sobre funcionário tem alcance típico de 29,5 mil, contra
+  8,7 mil do reel de gestão.
+- Formato de setembro (sem card no Notion) foi tirado da capa do reel: barra preta = novela, imagem em cima = tela
+  dividida. Planilha post a post (categoria, formato, chamada) em
+  cerebro-legacy/documentos/classificacao-posts-clailton-set-out-2026.csv, só no PC do Igor.
+
 ## Para a Black Friday (YcAsGGnYwcU e IVS0ejIm-5E)
 
 - Gravar numa sessão só banco de ganchos, meios e CTAs, trocando 2 ou 3 camisas ("projeto 1000 ads").
