@@ -314,5 +314,14 @@ apontou no tempo do episódio: `"$P" scripts/achar.py <trabalho> --ep "<arquivo>
   voltam para 50% ao trocar de arquivo na lista: confira com zoom antes de baixar (o nome sai `-esv2-100p-bg-m-music-m`).
   Script: `C:\Render\_youtube\legado_t12_aula08\audio_v2\juntar_v2.py 100p <saida.mp4> 0.6`.
   O `salvar_downloads.ps1` pega qualquer "Salvar como" do Chrome, inclusive de outra conversa: desligue logo depois.
+- **Subir o episódio no YouTube Studio pelo Chrome** (EP03, 21/10/2026, não listado a pedido do usuário): a janela "Abrir"
+  não aparece (a aba do Claude fica em segundo plano) e o `file_upload` aceita só 10 MB por chamada. O que funcionou:
+  dividir o mp4 em pedaços de 9,5 MB, criar na página um `<input type=file>` próprio que guarda cada arquivo recebido,
+  mandar os pedaços com `file_upload` (até ~15 chamadas em paralelo; o `browser_batch` soma tudo e recusa), juntar
+  num `File` com `new Blob([...])`, conferir o SHA-256 com o do PC e entregar ao input do Studio com `DataTransfer` +
+  evento `change`. Título e descrição: `execCommand('insertText')` no `#textbox` (preserva quebras). Thumb (JPG
+  1280×720) e legenda (`#captions-file-loader`, depois de "Enviar arquivo" → "Com marcação de tempo") vão por
+  `file_upload` direto. O canal já preenche ~20 tags padrão. Servidor local (127.0.0.1) não serve: o Chrome pede
+  permissão de rede local. Comentário fixado só depois de o vídeo sair de "Pendente".
 - QR de 4 px por módulo (card compacto) lê no vídeo em 1080p; reduzido para 720p o leitor do OpenCV falha
   (celular costuma ler). O conferir.py só avisa; para TV/computador o vídeo roda em 1080p.
