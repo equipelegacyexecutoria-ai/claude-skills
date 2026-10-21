@@ -229,8 +229,15 @@ com valores mínimos. A 121 começou em 24/07. Semanas 27/07 a 18/10; MQL orgân
 - **Seguidor não segue o MQL (21/10):** seguidores ganhos (da 121 ou no total da Legacy) × MQL, mesmo dia ou com atraso de até 14 dias,
   por 7 dias ou por semana: de −0,25 a +0,13 (nada). Desde setembro a 121 passou a entregar seguidor barato (R$ 6 a 11 → R$ 2,2 por
   seguidor; 112 a 232/semana → 373 a 488) e o MQL caiu nas mesmas semanas. O sinal com atraso está no gasto e nas visitas, não no seguidor.
-- **Visita barata, visitante pior:** semanas com a visita da 121 mais barata (R$ 0,16 a 0,21: 10/08, 17/08, 12/10) tiveram 1,3 a 2,7 MQL
-  por mil visitas pagas; semanas com R$ 0,42 a 0,57 (24/08, 31/08) tiveram 5,3 a 5,6. Sinal, não prova.
+- **Custo do seguidor e da visita da 121 × MQL (revisto em 21/10, mês, semana e dia):** a leitura "visita barata, visitante pior" era
+  efeito da conta (MQL dividido pelas visitas) e caiu: medido direto, visita mais cara vem com MQL um pouco menor (−0,35 a −0,49 com 1 semana).
+  O que muda é o jeito da campanha: até ~30/08 ela entregava visita com pouco seguidor (1,4 a 6,8 seguidores por 100 visitas, R$ 6 a 11 por
+  seguidor); de 31/08 em diante, muito seguidor (10 a 20 por 100 visitas, R$ 2,2 a 3,3). Por mês: jul (8 dias) R$ 7,33/seg 1,62 MQL/dia;
+  ago R$ 7,43 1,87; set R$ 2,68 1,53; out (1–19) R$ 2,26 1,74. Por semana, custo do seguidor × MQL 2 semanas depois +0,66 sem Growth e
+  Clailton; seguidores por visita × MQL 1 a 2 semanas depois −0,54. Por dia (custo/seguidor dos últimos 7 dias × MQL dos 7 seguintes)
+  +0,42, mas só +0,16 antes de outubro; dentro de agosto 0,05, dentro de setembro 0,76. É uma virada só (fim de agosto), não um padrão que
+  se repete mês a mês; outubro foge (seguidor barato e a melhor semana, 12/10, com viral, Growth e Black). Clailton (119) não dá para testar:
+  MQL dos canais do Clailton só a partir de 09/09 (~37).
 - **Anúncio do Clailton (119) × MQL da Legacy:** nenhuma relação (−0,29).
 - **Investimento do Growth × MQL orgânico da Legacy:** por dia, tirando a tendência, 0,32 (91 dias); por semana 0,62. Não passa pelos
   leads pagos (0,03) nem pelo Clailton (0,10). Hipótese: quem vê o anúncio do Growth e não preenche vai ao perfil e entra pela bio.
