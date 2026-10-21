@@ -183,6 +183,12 @@ sempre dias 1 a 20 de cada mês para comparar igual. Canal bio_legacy, sem Quiz:
 - Copy: o CTA quase não mudou (formulário + Sessão Estratégica Gratuita). Desde 11/10, 26 dos 29 posts abrem com "Você sabia
   que...". A oferta de aniversário (26 de 31 posts na 2ª quinzena de setembro) saiu; post de 02/10 ainda citava "condição de
   aniversário". Bibliografia sem registro novo desde 13/10.
+- **Julho (o melhor mês, 83·49):** 68 dos 83 leads vieram de 01 a 20/07 (pico 06–08/07: 20 leads); de 21 a 31/07, só 15.
+  O feed da Legacy viveu da Copa do Mundo (fim em 19/07): "10 negócios do Neymar" (26/06) = 472.868 de alcance, o maior post
+  de jun–out; Messi (08/07) 53.288; Cazé × Globo, lições da eliminação da Seleção (06/07), Argentina, Adidas. As listas
+  seguintes cansaram (CR7 837, Bellingham 1.136, Kutcher 468, Xuxa 1.046). O CTA era o mesmo de hoje (formulário + Sessão
+  Estratégica Gratuita). Story_legacy forte só a partir de 20/07. Métricas do perfil antes de 21/07 não existem no banco
+  (a Meta guarda 90 dias): o elo alcance → lead em julho é coincidência de datas, não prova.
 
 ## Carrosséis jun–out/2026: esqueleto, formato e capa (20/10/2026)
 
