@@ -44,6 +44,10 @@ Segue também as regras da skill `motion-designer` (área segura, revisão quadr
 - **Vermelho** (`rd`, `#ff3b3b`) para palavra/risco negativo (prejudique, desconforto, roube); dourado só em recompensa.
 - Sino de boxe é de **fim de round**: `sfx("sinofim", t)` terminando exatamente no corte da cena.
 - Efeito que o usuário achar alto ou demais: tirar (`semsom`), não só baixar.
+- **Motion emendado no fim de um reel** (CTA do "Os 3 Trabalhos Do Dono", 21/10/2026): o usuário achou "horríveis" os efeitos
+  do kit básico (pop, whoosh, clique do `media-use`) e mandou tirar todos (`sfx.json` vazio). A música tem que aparecer do
+  começo ao fim, sem timidez: use o trecho forte da trilha (não a introdução) com `ajuste` ~+9. Na passagem do vídeo para o
+  motion, um **riser** subindo nos ~3 s antes e chegando no auge exatamente no corte.
 - **Texto sobre B-roll ou sobre o especialista: centralizado e nunca em cima do rosto** (v9, 21/10/2026). Olhe onde está
   o rosto em cada B-roll (folha de quadros) e ponha o texto na área livre (embaixo do queixo, sobre a roupa ou o fundo),
   centrado em x 540. Para ler, **escureça o B-roll inteiro** (camada `rgba(3,6,13,.42)` na tela toda); nada de faixa
