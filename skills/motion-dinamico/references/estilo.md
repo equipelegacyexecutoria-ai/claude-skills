@@ -4,7 +4,8 @@ Tirada das referências que o usuário mandou em 21/10/2026 (Instagram `Dept_TiC
 como direção ("quero algo moderno"). A terceira referência (`Depvl87JNTc`, ilustração 2D plana de história) só
 sai com imagem gerada por IA, que gasta créditos: usar apenas com autorização.
 
-## Cor e fundo
+## Cor e fundo (atualizado na v3: paleta Legacy, ver SKILL.md)
+- Hoje: azul-marinho `#03060d`–`#1b3a66`, azul claro `#17adfd`, azul `#0094ff`, dourado `#e7aa51`. O texto abaixo é da v2 (referências).
 - Fundo escuro quente: vinho/marrom quase preto (`#0b0605` nas bordas, `#3a1711` a `#5a2a10` no centro) com
   brilho no alto; grade de pontos discreta; vinheta preta; grão leve.
 - Fundos por clima: `tenso` (brilho avermelhado), `escuro` (neutro), `quente` (laranja/dourado, solução),

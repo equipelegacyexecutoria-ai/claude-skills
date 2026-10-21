@@ -1,6 +1,6 @@
 ---
 name: motion-dinamico
-description: Faz vídeos no estilo MOTION DINÂMICO (nome dado pelo usuário em 21/10/2026) — reel vertical 1080x1920 em que a fala de um especialista (Clailton ou outro) vira animação moderna, com o especialista aparecendo só ~10% do tempo num cartão luminoso e o resto ilustrado palavra a palavra. Visual: fundo escuro com brilho laranja/amarelo e grade de pontos, ícones e pessoas 3D recortados com borda branca de adesivo (Freepik pelo Chrome), cartões com contorno luminoso, polaroid com alfinete, selos circulares, linha do tempo luminosa, carimbos vermelhos, títulos em fonte tipo Helvetica que entram na hora exata em que cada palavra é falada, legenda que acende palavra por palavra, câmera 3D suave, uma trilha do Artlist por emoção e efeitos sonoros em cada animação. Use quando o usuário pedir "motion dinâmico", "no estilo motion dinâmico", "ilustra a fala com motion", "transforma esse reel em motion", "igual ao vídeo do cérebro com defeito de fábrica", ou mandar um bruto/roteiro pedindo animação moderna com o especialista pouco tempo na tela.
+description: "Faz vídeos no estilo MOTION DINÂMICO: reel vertical 1080x1920 em que a fala de um especialista (Clailton ou outro) vira animação moderna na identidade da Legacy, com o especialista só ~10% do tempo num cartão de contorno azul e o resto ilustrado palavra a palavra. Fundo azul-marinho com brilho, ícones e pessoas 3D recortados com borda branca (Freepik pelo Chrome), cartões e selos com contorno azul luminoso, polaroid com alfinete, linha do tempo luminosa, carimbos azuis preenchidos, e a fala inteira em texto animado tipo Helvetica (sem legenda), cada palavra no tempo exato, com hierarquia e sem cobrir os elementos; câmera 3D suave, uma trilha do Artlist por emoção e efeito sonoro em cada animação. Use quando o usuário pedir \"motion dinâmico\", \"no estilo motion dinâmico\", \"ilustra a fala com motion\", \"transforma esse reel em motion\", \"igual ao vídeo do cérebro com defeito de fábrica\", ou mandar um bruto/roteiro pedindo animação moderna com o especialista pouco tempo na tela."
 ---
 
 # Motion Dinâmico
@@ -26,6 +26,15 @@ Segue também as regras da skill `motion-designer` (área segura, revisão quadr
 - Animações suaves, sem exagero. Texto que o especialista fala errado: escrever **como ele fala**
   (nota do usuário: "aqui está escrito 'desconto' e não desconforto").
 - Elementos sem marca d'água e sem texto em inglês; Freepik **pelo Chrome** (sem crédito da Magnific).
+- **Sem legenda** (v3, 21/10/2026): a fala inteira vira texto animado na tela, cada palavra no tempo dela e uma vez só
+  (nada repetido entre texto, etiqueta e carimbo). Hierarquia: palavras de ligação finas e menores (`fino`), palavra-chave
+  grande em destaque; o texto nunca cobre um elemento (use topo a partir de y 385 e base até y 1460). Não chamar `v.legenda()`.
+- **Paleta Legacy**: azul-marinho no fundo, azul claro `#17adfd` e azul `#0094ff` nos destaques, dourado `#e7aa51` para
+  recompensa/alerta. Nada de laranja/vermelho/amarelo.
+- **Carimbos preenchidos** (fundo azul, texto branco), nunca só o contorno. **Sem etiqueta fixa no topo** (kicker vazio).
+- **Sons específicos** quando a cena pede: soco + sino de boxe, despertador analógico, ronco, passos, acerto de dardo
+  (`sfx("punch"|"sino"|"despertador"|"ronco"|"passos"|"acerto", t)`); tire o que o usuário apontar com `semsom("tipo", t)`.
+- Pessoas reais da equipe/especialista: recorte de cabeça vem do Drive do usuário (ex.: cabeça do Clailton na CTA).
 
 ## Passo a passo
 
@@ -78,14 +87,14 @@ Posição sempre pelo centro (cx, cy) em 1080x1920; `z` = profundidade (negativo
 | `selo(id, nome, cx, cy, d)` | ícone em círculo com anel luminoso (linha do tempo) |
 | `linha(id, d, tracejada, seta)` | caminho luminoso que se desenha (`traco`) |
 | `brilho`, `raios`, `svg`, `caixa`, `camada` | luz atrás do objeto, raios, desenho livre |
-| `v.expert(arquivo, t0, dur, cx, cy, w, h)` | especialista no cartão amarelo |
+| `v.expert(arquivo, t0, dur, cx, cy, w, h)` | especialista no cartão com contorno azul |
 
 Animações no JS da cena: `entra(sel, t, "sobe|esq|dir|pop|fade")`, `sai`, `flutua`, `cam` (câmera 3D),
 `bz` (desfoque de entrada da cena), `soco`, `traco`, `corre` (ponto na curva), `digita`, `carimbo`, `pulsa`,
 `sfx("brilho|ok|tique|tag|teclado|virada|doc|soco|esq|dir|pop", t)` (efeito extra).
 Regras aprendidas: títulos com `top` ≥ 375 (a câmera empurra para cima e encosta na etiqueta do topo);
 objeto que nasce com a cena entra já visível (sem quadro vazio no corte); nada importante em x > 950 entre
-y 1000–1720; legenda fica em y 1300.
+y 1000–1720; texto que troca na mesma cena: `sai("#tit", t)` antes do próximo entrar no mesmo lugar.
 
 ## Trilhas (uma por emoção)
 
