@@ -221,6 +221,11 @@ com valores mínimos. A 121 começou em 24/07. Semanas 27/07 a 18/10; MQL orgân
 - **MQL orgânico × anúncio da Legacy:** por semana, gasto da 121 × MQL 0,78; visitas da 121 × MQL 0,56; visitas que não vêm da 121 × MQL
   0,72. Mas o gasto da 121 sobe nas mesmas semanas do viral do Clailton (0,59) e da verba do Growth (0,63), então não dá para separar; e
   dia a dia, sem a tendência, visitas e gasto da 121 × MQL = −0,07. MQL por mil visitas: 0,26 nas da 121 × 0,99 nas outras (aproximado).
+- **Dia a dia e com atraso (88 dias, 24/07–19/10):** no mesmo dia o anúncio da Legacy não mexe no MQL (tirando o Growth: 0,04; dias de
+  Growth baixo: R$ 116 de 121 → 1,14 MQL/dia × R$ 219 → 1,07). Com atraso aparece um sinal: atraso de 2 a 12 dias, +0,12 a +0,20; verba
+  da 121 nos últimos 7 dias × MQL dos 7 dias seguintes ~0,5, mantido tirando o Growth e o Clailton e antes de outubro (0,34 a 0,49).
+  Semanas sem sobreposição (11): 0,40. Depois de semanas com ~R$ 870 na 121 vieram 7 a 8 MQL; depois da maior (R$ 1.786), 18.
+  O que puxa o MQL no mesmo dia: verba do Growth (0,42 nos dias sem viral) e alcance do Clailton (0,36 a 0,43 nos dias de Growth baixo).
 - **Visita barata, visitante pior:** semanas com a visita da 121 mais barata (R$ 0,16 a 0,21: 10/08, 17/08, 12/10) tiveram 1,3 a 2,7 MQL
   por mil visitas pagas; semanas com R$ 0,42 a 0,57 (24/08, 31/08) tiveram 5,3 a 5,6. Sinal, não prova.
 - **Anúncio do Clailton (119) × MQL da Legacy:** nenhuma relação (−0,29).
