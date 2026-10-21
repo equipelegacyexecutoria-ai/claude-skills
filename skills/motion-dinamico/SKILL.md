@@ -44,6 +44,13 @@ Segue também as regras da skill `motion-designer` (área segura, revisão quadr
 - **Vermelho** (`rd`, `#ff3b3b`) para palavra/risco negativo (prejudique, desconforto, roube); dourado só em recompensa.
 - Sino de boxe é de **fim de round**: `sfx("sinofim", t)` terminando exatamente no corte da cena.
 - Efeito que o usuário achar alto ou demais: tirar (`semsom`), não só baixar.
+- **Pausa longa do especialista** ("esqueceu de cortar, fica em silêncio tempo demais", v7): meça o silêncio na `voz.wav`
+  e deixe ~0,15 s. O corte é no vídeo pronto, com `PY S/cortar_pausa.py "<P>" <render_longo.mp4> <ini> <fim> trilhas.json
+  <final.mp4>`: tira imagem e voz, adianta os efeitos e refaz a mixagem com a música contínua. Antes de renderizar, o texto
+  da tela sai antes de `ini` e o seguinte entra em `fim`. Confira também o vídeo inteiro: pausa acima de ~0,4 s em tela
+  com o especialista falando é para cortar já na v1.
+- Vídeo que o usuário manda fora do acervo (ex.: baixado em Downloads): `"arquivo": "<caminho>"` no `trechos.json`
+  no lugar de `"acervo"`.
 - **B-roll de filme/série e tela dividida** (notas da v4, 21/10/2026): as cenas também podem ser trechos reais do acervo
   `Desktop/B-ROLLS` (o mesmo da tela dividida: `acervo.json`, `MAPA DE SITUACOES.md`), escolhidos pelo sentido da fala.
   Três jeitos de usar: **B-roll em tela cheia** com o texto por cima (escurecido em cima/embaixo indo até a borda);
@@ -147,7 +154,7 @@ y 1000–1720; texto que troca na mesma cena: `sai("#tit", t)` antes do próximo
 ## Arquivos
 
 - `scripts/motion_lib.py` (gerador), `scripts/molde.html` (visual), `novo_projeto.py`, `preparar_elementos.py`,
-  `recortar_cabeca.py`, `expert.py`, `preparar_broll.py`, `montar_mix.py`, `premiere_motion.py` (projeto do Premiere em camadas).
+  `recortar_cabeca.py`, `expert.py`, `preparar_broll.py`, `cortar_pausa.py`, `montar_mix.py`, `premiere_motion.py` (projeto do Premiere em camadas).
 - `assets/fonts` (TeX Gyre Heros), `assets/fx/grao.png`, `assets/sfx` (teclado da CTA, whoosh documental).
   Kit de efeitos: `~/.claude/skills/media-use/audio/assets/sfx` (Pixabay, uso livre).
 - `references/estilo.md` (gramática visual), `references/exemplo_cenas.py` (vídeo do cérebro).

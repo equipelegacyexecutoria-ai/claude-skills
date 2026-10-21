@@ -1,7 +1,7 @@
 # B-roll do acervo (pasta B-ROLLS da tela dividida) para o Motion Dinâmico: corta o trecho exato, tira a tarja preta
 # (cropdetect), enquadra no tamanho do lugar (tela cheia 1080x1920 ou metade de cima da tela dividida) e tira o som.
 # uso: python preparar_broll.py <projeto> trechos.json
-#   trechos.json = [{"nome": "s2", "acervo": "BB-06", "t": 80.2, "dur": 2.45, "fonte_dur": 1.0, "lugar": "cheia"|"topo",
+#   trechos.json = [{"nome": "s2", "acervo": "BB-06" (ou "arquivo": "<caminho de um vídeo fora do acervo>"), "t": 80.2, "dur": 2.45, "fonte_dur": 1.0, "lugar": "cheia"|"topo",
 #                    "x": 0.5, "y": 0.5}]   fonte_dur < dur = câmera lenta (trecho curto esticado); x/y = centro do recorte (0–1);
 #   y vale quando a fonte é mais alta que o lugar (vídeo vertical no topo da tela dividida: suba para não cortar a cabeça)
 import json, os, re, subprocess, sys
@@ -24,7 +24,13 @@ def tarja(f, t, d):
 
 
 for tr in TRECHOS:
-    v = A[tr["acervo"]]; f = os.path.join(R, v["arquivo"])
+    if "arquivo" in tr:  # vídeo fora do acervo (ex.: baixado pelo usuário)
+        f = tr["arquivo"]
+        w, h = map(int, subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height",
+                                        "-of", "csv=p=0", f], capture_output=True, text=True).stdout.strip().split(",")[:2])
+        v = {"w": w, "h": h}; tr.setdefault("acervo", os.path.basename(f)[:20])
+    else:
+        v = A[tr["acervo"]]; f = os.path.join(R, v["arquivo"])
     W, H = LUGAR[tr["lugar"]]; fd = tr.get("fonte_dur", tr["dur"])
     cw, ch, cx, cy = tarja(f, tr["t"], fd) or (v["w"], v["h"], 0, 0)
     # recorte "cobrir" com a proporção do lugar, centrado em x (padrão meio)
