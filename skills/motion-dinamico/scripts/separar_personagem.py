@@ -62,6 +62,7 @@ if "--fundo-so" not in sys.argv:
             tam = ndimage.sum(m, lab, range(1, n + 1))
             keep = [int(np.argmax(tam)) + 1]
         m = np.isin(lab, keep)
+    m = ndimage.binary_closing(m, iterations=10)  # fecha buracos onde roupa e cenário têm a mesma cor
     m = ndimage.binary_fill_holes(m)
     mask = Image.fromarray((m * 255).astype(np.uint8)).filter(ImageFilter.MaxFilter(3)).filter(ImageFilter.GaussianBlur(1.3))
     pers = A.convert("RGBA"); pers.putalpha(mask)
