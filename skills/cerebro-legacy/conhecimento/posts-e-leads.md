@@ -164,6 +164,26 @@ Página: https://claude.ai/artifact/So1kQKCf4fFXxT5TnhYYpF (planilha dos 74 carr
   outubro têm todos capa em pergunta. Cliques: 6 dos 14 vieram de comparação do mesmo setor (Habib's × Giraffas etc.).
   Típico set 2.347 → out 1.539.
 
+## Diagnóstico dos leads da bio da Legacy em outubro (21/10/2026)
+
+Pergunta do Igor: "pior mês de leads da bio da Legacy". Banco do Cérebro (leads_legacy, cerebro_ig_conta_dia, cerebro_ig_posts),
+sempre dias 1 a 20 de cada mês para comparar igual. Canal bio_legacy, sem Quiz:
+- Leads · MQL até o dia 20: mai 37·17, jun 31·19, jul 68·41, ago 50·27, set 40·24, **out 41·19**. Em volume outubro empata com
+  setembro; o que caiu é o **MQL** (pior desde junho) e a taxa de MQL (46% × 59–64% em jul–ago). Faixa até R$ 25 mil: 18% dos
+  leads em jul–ago, 24% em set, 27% em out.
+- Somando as portas da Legacy (bio 41·19 + boas_vindas 16·2 + Quiz boas-vindas Legacy 3·3) outubro dá 60·24: igual a setembro
+  no MQL. A mensagem de boas-vindas (desde 12/10) divide a porta e traz lead pior (2 MQL em 16).
+- Perfil Legacy, média por dia (1–20): visitas ago 1.922, set 1.385, out 2.232; cliques na bio 178, 179, 191; alcance do feed
+  da própria Legacy 52.966, 17.042, **9.495**. Ou seja, chega mais gente (puxada pelos virais do Clailton) e o conteúdo de
+  negócio da Legacy é visto por muito menos gente antes do clique. Lead a cada 100 cliques: ~28 ago, 22 set, 21 out.
+- Posts da Legacy (1–20/10): estático mediana 1.178 de alcance (set 3.139), 63 visitas (set 250); carrossel mediana 1.520
+  (set 2.181), 98 seguidores (set 304).
+- Semana 05–11/10 foi a pior: alcance do feed 3.305/dia (o menor da série), 3 MQL. Coincide com o início dos 3 reels/dia,
+  link do Clailton indo para o Quiz, teste de "Dicas práticas" e "Do topo à falência" com capa em pergunta.
+- Copy: o CTA quase não mudou (formulário + Sessão Estratégica Gratuita). Desde 11/10, 26 dos 29 posts abrem com "Você sabia
+  que...". A oferta de aniversário (26 de 31 posts na 2ª quinzena de setembro) saiu; post de 02/10 ainda citava "condição de
+  aniversário". Bibliografia sem registro novo desde 13/10.
+
 ## Carrosséis jun–out/2026: esqueleto, formato e capa (20/10/2026)
 
 191 carrosséis da Legacy (01/06 a 19/10), pacote do Extrator + banco do Cérebro (seguidores/visitas/cliques só desde 16/07).
