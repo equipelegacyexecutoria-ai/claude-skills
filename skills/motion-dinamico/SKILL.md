@@ -5,7 +5,7 @@ description: "Faz vídeos no estilo MOTION DINÂMICO: reel vertical 1080x1920 em
 
 # Motion Dinâmico
 
-Exemplo aprovado como base: **"Seu Cérebro Tem Um Defeito De Fábrica"** (v2, 21/10/2026), projeto
+Exemplo aprovado como base: **"Seu Cérebro Tem Um Defeito De Fábrica"** (v2, 21/10/2026; v5 com B-roll e tela dividida), projeto
 `Desktop/Projetos Edições/Motion Designer/videos/cerebro-dinamico`, cenas em `references/exemplo_cenas.py`.
 Referências de estilo que o usuário mandou (Instagram): `Dept_TiCu6m` (dados com brilho amarelo em fundo
 vinho), `DetkzN8CPRP` (quadro de investigação: fotos com alfinete, carimbo, legenda que acende). Gramática em
@@ -44,6 +44,13 @@ Segue também as regras da skill `motion-designer` (área segura, revisão quadr
 - **Vermelho** (`rd`, `#ff3b3b`) para palavra/risco negativo (prejudique, desconforto, roube); dourado só em recompensa.
 - Sino de boxe é de **fim de round**: `sfx("sinofim", t)` terminando exatamente no corte da cena.
 - Efeito que o usuário achar alto ou demais: tirar (`semsom`), não só baixar.
+- **B-roll de filme/série e tela dividida** (notas da v4, 21/10/2026): as cenas também podem ser trechos reais do acervo
+  `Desktop/B-ROLLS` (o mesmo da tela dividida: `acervo.json`, `MAPA DE SITUACOES.md`), escolhidos pelo sentido da fala.
+  Três jeitos de usar: **B-roll em tela cheia** com o texto por cima (escurecido em cima/embaixo indo até a borda);
+  **tela dividida**: B-roll em cima (1080x900) e o Clailton embaixo (1080x1020), linha azul na emenda e o texto na parte
+  de cima; **Clailton em tela cheia** sem moldura (sem o cartão de fundo azul) com o texto embaixo. Enumeração
+  ("treinar, estudar, economizar") = um B-roll por palavra, só a palavra na tela. Evite trecho com legenda queimada ou
+  logo (ROC-01) e desenho animado quando a fala é séria. Quando o usuário pede B-roll, o elemento 3D daquela cena sai.
 
 ## Passo a passo
 
@@ -67,6 +74,10 @@ Variáveis: `S = ~/.claude/skills/motion-dinamico/scripts`, `PY` = Python da ven
    no pescoço, linha de corte) e rode `PY S/recortar_cabeca.py "<P>" cortes.json`.
 7. **Especialista e voz**: `PY S/expert.py "<T>" "<P>" 0-3.40 40.62-43.10 [--realce]` → `expert_<n>.mp4`
    (retrato 4:5, rosto medido no próprio bruto, do alto da cabeça até a base) e `assets/audio/voz.wav`.
+   Tela dividida/tela cheia: `--wh 1080x1020 --prefixo dividida --sem-voz` ou `--wh 1080x1920 --prefixo cheia --sem-voz`.
+   **B-roll**: `trechos.json` (`nome`, `acervo` = código do B-ROLLS, `t`, `dur`, `lugar` "cheia"/"topo", `x` 0–1 para o
+   recorte, `fonte_dur` < `dur` = câmera lenta) e `PY S/preparar_broll.py "<P>" trechos.json` → `assets/broll/<nome>.mp4`
+   (sem tarja preta, sem som). Confira um quadro de cada (rosto inteiro, sem legenda queimada).
    Confira um quadro de cada janela (rosto centrado, cabeça com folga). `--realce` se o card pedir "diminuir realces".
 8. **Cenas**: copie `references/exemplo_cenas.py` para `T/cenas.py` e reescreva as cenas (peças na seção
    "Peças"). Rode `PY T/cenas.py "<P>" "<T>/palavras_corte.json"` → `index.html` + `assets/audio/sfx.json`.
@@ -102,6 +113,8 @@ Posição sempre pelo centro (cx, cy) em 1080x1920; `z` = profundidade (negativo
 | `linha(id, d, tracejada, seta)` | caminho luminoso que se desenha (`traco`) |
 | `brilho`, `raios`, `svg`, `caixa`, `camada` | luz atrás do objeto, raios, desenho livre |
 | `v.expert(arquivo, t0, dur, cx, cy, w, h)` | especialista no cartão com contorno azul |
+| `v.expert(..., moldura=False)` | especialista sem cartão (tela dividida embaixo: `cx=540, cy=1410, w=1080, h=1020`; tela cheia: `cy=960, h=1920`) |
+| `v.video(arquivo, t0, dur, x, y, w, h, zoom)` | B-roll (tela cheia por padrão; topo da tela dividida: `0, 0, 1080, 900, zoom=0`). Texto por cima vai em `sobre=[...]` da cena, y +70 se o palco subiu |
 
 Animações no JS da cena: `entra(sel, t, "sobe|esq|dir|pop|fade")`, `sai`, `flutua`, `cam` (câmera 3D),
 `bz` (desfoque de entrada da cena), `soco`, `traco`, `corre` (ponto na curva), `digita`, `carimbo`, `pulsa`,
@@ -127,7 +140,7 @@ y 1000–1720; texto que troca na mesma cena: `sai("#tit", t)` antes do próximo
 ## Arquivos
 
 - `scripts/motion_lib.py` (gerador), `scripts/molde.html` (visual), `novo_projeto.py`, `preparar_elementos.py`,
-  `recortar_cabeca.py`, `expert.py`, `montar_mix.py`, `premiere_motion.py` (projeto do Premiere em camadas).
+  `recortar_cabeca.py`, `expert.py`, `preparar_broll.py`, `montar_mix.py`, `premiere_motion.py` (projeto do Premiere em camadas).
 - `assets/fonts` (TeX Gyre Heros), `assets/fx/grao.png`, `assets/sfx` (teclado da CTA, whoosh documental).
   Kit de efeitos: `~/.claude/skills/media-use/audio/assets/sfx` (Pixabay, uso livre).
 - `references/estilo.md` (gramática visual), `references/exemplo_cenas.py` (vídeo do cérebro).

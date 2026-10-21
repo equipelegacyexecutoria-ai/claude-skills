@@ -182,14 +182,20 @@ class Video:
         pj = os.path.join(projeto, "assets", "partes", "partes.json")
         _RIG.clear(); _RIG.update(json.load(open(pj, encoding="utf-8")) if os.path.exists(pj) else {})
         self.ws = json.load(open(palavras, encoding="utf-8"))["palavras"]
-        self.cenas, self.experts, self.leg, self.sfx_extra = [], [], [], []
+        self.cenas, self.experts, self.leg, self.sfx_extra, self.videos = [], [], [], [], []
 
     def cena(self, ident, t0, t1, fundo, itens, js, sobre=None, js_sobre=""):
         self.cenas.append(dict(id=ident, t0=t0, t1=t1, fundo=fundo, itens=itens, js=js, sobre=sobre or [], js_sobre=js_sobre))
 
-    def expert(self, arquivo, t0, dur, cx=540, cy=760, w=640, h=800):
-        """Clailton (vídeo) num cartão com contorno luminoso. Fica na raiz (regra do HyperFrames para vídeo)."""
-        self.experts.append(dict(arquivo=arquivo, t0=t0, dur=dur, cx=cx, cy=cy, w=w, h=h))
+    def expert(self, arquivo, t0, dur, cx=540, cy=760, w=640, h=800, moldura=True):
+        """Clailton (vídeo) num cartão com contorno luminoso. Fica na raiz (regra do HyperFrames para vídeo).
+        moldura=False: o vídeo solto, sem cartão (tela cheia ou metade de baixo da tela dividida)."""
+        self.experts.append(dict(arquivo=arquivo, t0=t0, dur=dur, cx=cx, cy=cy, w=w, h=h, moldura=moldura))
+
+    def video(self, arquivo, t0, dur, x=0, y=0, w=1080, h=1920, zoom=0.04):
+        """B-roll (preparar_broll.py) solto na tela, na raiz. Os textos da cena vão em `sobre` (ficam por cima).
+        zoom: aproximação lenta durante o trecho (0 = parado; use 0 na metade de cima da tela dividida)."""
+        self.videos.append(dict(arquivo=arquivo, t0=t0, dur=dur, x=x, y=y, w=w, h=h, zoom=zoom))
 
     def legenda(self, troca=None, destaque=None, fora=None, max_pal=4, max_car=24):
         """Legenda palavra a palavra: o grupo aparece apagado e cada palavra acende quando é falada (destaque em amarelo)."""
@@ -232,8 +238,19 @@ class Video:
                 js.append(c["js_sobre"].strip())
                 eventos += _coleta_sfx(c["js_sobre"])
         ex_html, ex_js = [], []
+        for k, b in enumerate(self.videos):
+            ex_html.append(f'''
+      <video id="bv{k}" class="clip broll" src="{b["arquivo"]}" muted playsinline data-start="{b["t0"]}" data-duration="{b["dur"]}" data-track-index="{100 + k}"
+        style="inset:auto; left:{b["x"]}px; top:{b["y"]}px; width:{b["w"]}px; height:{b["h"]}px"></video>''')
+            if b["zoom"]:
+                ex_js.append(f'tl.fromTo("#bv{k}", {{scale:1}}, {{scale:{1 + b["zoom"]}, duration:{b["dur"]}, ease:"none", immediateRender:false}}, {b["t0"]});')
         for k, e in enumerate(self.experts):
             l, t = e["cx"] - e["w"] / 2, e["cy"] - e["h"] / 2
+            if not e.get("moldura", True):
+                ex_html.append(f'''
+      <video id="ex{k}v" class="clip expert solto" src="{e["arquivo"]}" muted playsinline data-start="{e["t0"]}" data-duration="{e["dur"]}" data-track-index="{41 + 2 * k}"
+        style="inset:auto; left:{l:.0f}px; top:{t:.0f}px; width:{e["w"]}px; height:{e["h"]}px"></video>''')
+                continue
             ex_html.append(f'''
       <div id="ex{k}m" class="moldura clip" data-start="{e["t0"]}" data-duration="{e["dur"]}" data-track-index="{40 + 2 * k}" style="left:{l - 14:.0f}px; top:{t - 14:.0f}px; width:{e["w"] + 28}px; height:{e["h"] + 28}px"></div>
       <video id="ex{k}v" class="clip expert" src="{e["arquivo"]}" muted playsinline data-start="{e["t0"]}" data-duration="{e["dur"]}" data-track-index="{41 + 2 * k}"

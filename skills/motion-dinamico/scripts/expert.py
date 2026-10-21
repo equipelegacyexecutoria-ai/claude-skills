@@ -6,9 +6,15 @@
 #   O rosto é medido no próprio bruto (OpenCV), não no enquadramento.json.
 import json, os, subprocess, sys
 
-args = [a for a in sys.argv[1:] if not a.startswith("--")]
+_opc = {"--wh", "--rosto-y", "--prefixo"}
+args = [a for i, a in enumerate(sys.argv[1:], 1) if not a.startswith("--") and sys.argv[i - 1] not in _opc]
 T, PROJ, janelas = args[0], args[1], [tuple(map(float, j.split("-"))) for j in args[2:]]
 REALCE = "--realce" in sys.argv
+# --wh 1080x1020: outro formato (ex.: metade de baixo da tela dividida, 1080x1920 = tela cheia) com o rosto em --rosto-y
+WH = tuple(map(int, sys.argv[sys.argv.index("--wh") + 1].split("x"))) if "--wh" in sys.argv else None
+RY = float(sys.argv[sys.argv.index("--rosto-y") + 1]) if "--rosto-y" in sys.argv else 0.40
+PREF = sys.argv[sys.argv.index("--prefixo") + 1] if "--prefixo" in sys.argv else "expert"
+SEM_VOZ = "--sem-voz" in sys.argv
 c = json.load(open(os.path.join(T, "corte.json"), encoding="utf-8"))
 e = json.load(open(os.path.join(T, "enquadramento.json"), encoding="utf-8"))
 FPS = 30000 / 1001
@@ -65,11 +71,16 @@ y = max(0.0, topo_cab - 0.10 * ch); ch = int(min(ch, FH - y)) // 2 * 2; y = int(
 cw = round(ch * 4 / 5 / 2) * 2
 if cw > FW: cw = FW // 2 * 2
 x = int(max(0, min(FW - cw, cx - cw / 2)))
+if WH:  # maior recorte com a proporção pedida, rosto na altura RY
+    ow, oh = WH
+    cw, ch = (FW, int(FW * oh / ow)) if FW / FH < ow / oh else (int(FH * ow / oh), FH)
+    cw, ch = cw // 2 * 2, ch // 2 * 2
+    x = int(max(0, min(FW - cw, cx - cw / 2))); y = int(max(0, min(FH - ch, cy - RY * ch)))
 print("rosto", round(cx), round(cy), round(fh))
 os.makedirs(os.path.join(PROJ, "assets", "audio"), exist_ok=True)
 tmp = os.path.join(PROJ, ".expert_tmp"); os.makedirs(tmp, exist_ok=True)
 CUR = "0/0 0.5/0.5 0.7/0.67 0.85/0.79 1/0.93"
-vf = f"crop={cw}:{ch}:{x}:{y},scale=1080:1350:flags=lanczos" + (f",format=gbrp10le,curves=all='{CUR}'" if REALCE else "") + ",format=yuv420p"
+vf = f"crop={cw}:{ch}:{x}:{y},scale={WH[0] if WH else 1080}:{WH[1] if WH else 1350}:flags=lanczos" + (f",format=gbrp10le,curves=all='{CUR}'" if REALCE else "") + ",format=yuv420p"
 for n, (a, b) in enumerate(janelas):
     partes = []
     for k, (t0, t1, s) in enumerate(segs):
@@ -85,8 +96,10 @@ for n, (a, b) in enumerate(janelas):
     open(lista, "w").write("".join(f"file '{p}'\n" for p in partes))
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", lista, "-vf", "setpts=N*1001/30000/TB", "-r", "30000/1001",
                     "-c:v", "libx264", "-crf", "17", "-preset", "medium", "-pix_fmt", "yuv420p", "-g", "15",
-                    os.path.join(PROJ, "assets", f"expert_{n}.mp4")], check=True)
-    print(f"expert_{n}.mp4", a, b)
+                    os.path.join(PROJ, "assets", f"{PREF}_{n}.mp4")], check=True)
+    print(f"{PREF}_{n}.mp4", a, b)
+if SEM_VOZ:
+    print("ok (sem refazer a voz) | recorte", cw, ch, x, y); sys.exit(0)
 aud = os.path.join(T, "audio_tratado.wav") if os.path.exists(os.path.join(T, "audio_tratado.wav")) else os.path.join(T, "audio48k.wav")
 fc = ";".join(f"[0:a]atrim={s['frame_in'] / FPS:.6f}:{(s['frame_in'] + s['frames']) / FPS:.6f},asetpts=PTS-STARTPTS,afade=t=in:d=0.012,"
               f"afade=t=out:st={max(0, s['frames'] / FPS - 0.025):.4f}:d=0.025[a{k}]" for k, s in enumerate(c["segmentos"]))
