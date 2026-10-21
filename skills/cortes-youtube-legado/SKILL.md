@@ -307,7 +307,12 @@ apontou no tempo do episódio: `"$P" scripts/achar.py <trabalho> --ep "<arquivo>
   O Adobe tira a música da intro: remixe a `musica_abertura` do plano por cima da voz tratada (mesmo sidechain do
   render) e deixe a vinheta com o som original. Não use o compressor do `AUDIO_PRE` depois do Adobe (sobe o fundo
   5 dB); só passa-alta, ganho até −14 LUFS e `alimiter` com `latency=true` (sem isso o som atrasa 4 ms).
-  Resultado: fundo 48 dB abaixo da voz, imagem idêntica (md5). Script: `C:\Render\_youtube\legado_t12_aula08\audio_v2\juntar_v2.py`.
+  **Use Fala 100%, Música 0%, Fundo 0%** (pedido do usuário em 21/10/2026, "precisa dar uma tratada mais forte", depois de "ainda ficou bem chiado" na v2 a 50%): a 50%
+  o Adobe mistura metade do original e traz junto o chiado, deixando os "s" 6 dB mais ardidos que o próprio original
+  (5–12 kHz sobre 300–3000 Hz, p95: v1 +14, 50% +20, 100% +2 dB). A 100% a correlação com o original cai para ~0,77
+  (atraso continua 0) e o limitador tira ~0,6 dB (compense no alvo). Os ajustes do Adobe valem por arquivo e às vezes
+  voltam para 50% ao trocar de arquivo na lista: confira com zoom antes de baixar (o nome sai `-esv2-100p-bg-m-music-m`).
+  Script: `C:\Render\_youtube\legado_t12_aula08\audio_v2\juntar_v2.py 100p <saida.mp4> 0.6`.
   O `salvar_downloads.ps1` pega qualquer "Salvar como" do Chrome, inclusive de outra conversa: desligue logo depois.
 - QR de 4 px por módulo (card compacto) lê no vídeo em 1080p; reduzido para 720p o leitor do OpenCV falha
   (celular costuma ler). O conferir.py só avisa; para TV/computador o vídeo roda em 1080p.
