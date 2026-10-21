@@ -56,6 +56,11 @@ if "--fundo-so" not in sys.argv:
     if n:
         tam = ndimage.sum(m, lab, range(1, n + 1))
         keep = [i + 1 for i, t in enumerate(tam) if t > max(4000, tam.max() * 0.04)]
+        if "--so-maior" in sys.argv:  # só a maior mancha (tira filetes de cenário que mudaram por deslocamento)
+            m = ndimage.binary_opening(m, iterations=4)
+            lab, n = ndimage.label(m)
+            tam = ndimage.sum(m, lab, range(1, n + 1))
+            keep = [int(np.argmax(tam)) + 1]
         m = np.isin(lab, keep)
     m = ndimage.binary_fill_holes(m)
     mask = Image.fromarray((m * 255).astype(np.uint8)).filter(ImageFilter.MaxFilter(3)).filter(ImageFilter.GaussianBlur(1.3))

@@ -301,5 +301,13 @@ apontou no tempo do episódio: `"$P" scripts/achar.py <trabalho> --ep "<arquivo>
   meio de uma palavra) pode passar de 0 dBTP depois do AAC (EP01 v3: +0,1). O render mede o pico real do mp4
   pronto e, se passou de −1, refaz só o áudio com o limitador mais baixo (`segurar_pico`, ~20 s). Para um mp4
   antigo: `"$P" scripts/render_episodio.py --so-pico "<arquivo.mp4>"`.
+- **Adobe Podcast num episódio pronto** (EP03 T12A08, 21/10/2026: o usuário achou o áudio ruim no YouTube; fundo
+  só 25 dB abaixo da voz, eco e zumbido de 60/120 Hz do auditório). O envio pelo Chrome aceita até 10 MB por arquivo:
+  mande só a fala (0 → `duracao` do json do render, sem a vinheta) em 3 partes MP3 mono 192k cortadas em pausas.
+  O Adobe tira a música da intro: remixe a `musica_abertura` do plano por cima da voz tratada (mesmo sidechain do
+  render) e deixe a vinheta com o som original. Não use o compressor do `AUDIO_PRE` depois do Adobe (sobe o fundo
+  5 dB); só passa-alta, ganho até −14 LUFS e `alimiter` com `latency=true` (sem isso o som atrasa 4 ms).
+  Resultado: fundo 48 dB abaixo da voz, imagem idêntica (md5). Script: `C:\Render\_youtube\legado_t12_aula08\audio_v2\juntar_v2.py`.
+  O `salvar_downloads.ps1` pega qualquer "Salvar como" do Chrome, inclusive de outra conversa: desligue logo depois.
 - QR de 4 px por módulo (card compacto) lê no vídeo em 1080p; reduzido para 720p o leitor do OpenCV falha
   (celular costuma ler). O conferir.py só avisa; para TV/computador o vídeo roda em 1080p.
