@@ -11,11 +11,11 @@ from PIL import Image
 AQUI = os.path.dirname(os.path.abspath(__file__))
 _TAM, _RIG = {}, {}
 
-FUNDOS = {  # fundo escuro com brilho (referências: dados com brilho amarelo; quadro de investigação)
-    "escuro": "radial-gradient(ellipse 90% 55% at 50% 30%, #3a1711 0%, #1d0c09 55%, #0b0605 100%)",
-    "tenso": "radial-gradient(ellipse 90% 55% at 50% 32%, #44120e 0%, #1f0908 55%, #090404 100%)",
-    "quente": "radial-gradient(ellipse 90% 58% at 50% 32%, #5a2a10 0%, #2a120a 55%, #0d0604 100%)",
-    "frio": "radial-gradient(ellipse 90% 55% at 50% 32%, #1d2230 0%, #10121a 55%, #06070a 100%)",
+FUNDOS = {  # paleta Legacy: azul-marinho com brilho azul (tenso: mais fechado; quente: brilho dourado da solução)
+    "escuro": "radial-gradient(ellipse 90% 55% at 50% 30%, #0f2a52 0%, #081630 55%, #03060d 100%)",
+    "tenso": "radial-gradient(ellipse 90% 55% at 50% 32%, #141c3a 0%, #090d1f 55%, #030409 100%)",
+    "quente": "radial-gradient(ellipse 90% 58% at 50% 32%, #1b3a66 0%, #0b1a35 55%, #03070e 100%)",
+    "frio": "radial-gradient(ellipse 90% 55% at 50% 32%, #12233d 0%, #0a1426 55%, #04070c 100%)",
 }
 
 
@@ -98,7 +98,7 @@ def svg(ident, conteudo, z=60, vb="0 0 1080 1920", estilo="left:0; top:0; width:
     return camada(z, f'<svg class="it" id="{ident}" viewBox="{vb}" style="position:absolute; {estilo}; overflow:visible">{conteudo}</svg>')
 
 
-def brilho(ident, cx, cy, r, cor="255,120,40", a=0.55, z=-300):
+def brilho(ident, cx, cy, r, cor="23,173,253", a=0.45, z=-300):  # dourado da Legacy: "231,170,81"
     it = (f'<div class="it" id="{ident}" style="left:{cx - r}px; top:{cy - r}px; width:{2 * r}px; height:{2 * r}px; border-radius:50%;'
           f' background: radial-gradient(circle, rgba({cor},{a}) 0%, rgba({cor},{a * .4:.2f}) 38%, rgba({cor},0) 70%)"></div>')
     return camada(z, it)
@@ -131,7 +131,7 @@ def selo(ident, nome, cx, cy, d=200, rotulo="", z=0):
     return caixa(ident, cx, cy, d, d, c, z)
 
 
-def linha(ident_path, d, z=40, cor="#ffc414", larg=8, tracejada=False, seta=False):
+def linha(ident_path, d, z=40, cor="#17adfd", larg=8, tracejada=False, seta=False):
     """Caminho luminoso (linha do tempo / ligação). Animar com traco('#id', t, dur)."""
     das = ' stroke-dasharray="2 22"' if tracejada else ""
     mk = ' marker-end="url(#seta)"' if seta else ""
@@ -151,6 +151,9 @@ SFX = {
     "bz": ("whoosh.mp3", 0.4), "soco": ("impact-bass-2.mp3", 0.35), "marca": ("click-soft.mp3", 0.35), "brilho": ("sparkle.mp3", 0.45),
     "ok": ("chime.mp3", 0.4), "tag": ("click.mp3", 0.35), "teclado": ("cta_teclado.mp3", 1.0), "tique": ("click-soft.mp3", 0.5),
     "virada": ("riser.mp3", 0.5), "doc": ("whoosh-doc.mp3", 0.4),
+    # Artlist (21/10/2026): soco + sino de boxe, despertador analógico, ronco, passos, acerto (dardo no alvo)
+    "punch": ("soco.mp3", 0.8), "sino": ("sino-boxe.mp3", 0.6), "despertador": ("despertador.mp3", 0.6), "ronco": ("ronco.mp3", 0.7),
+    "passos": ("passos.mp3", 0.7), "acerto": ("soco.mp3", 0.45),
 }
 
 
@@ -161,8 +164,10 @@ def _coleta_sfx(js):
     for nome in ("carimbo", "digita", "traco", "bz", "soco"):
         for m in re.finditer(nome + r'\("([^"]+)",\s*([\d.]+)', js):
             ev.append((float(m.group(2)), nome, m.group(1)))
-    for m in re.finditer(r'sfx\("(\w+)",\s*([\d.]+)', js):  # pedido explícito na cena: sfx("brilho", 48.5)
-        ev.append((float(m.group(2)), m.group(1), ""))
+    for m in re.finditer(r'sfx\("(\w+)",\s*([\d.]+)', js):  # pedido explícito na cena: sfx("brilho", 48.5) (nunca é cortado)
+        ev.append((float(m.group(2)), m.group(1), "!"))
+    for m in re.finditer(r'semsom\("(\w+)",\s*([\d.]+)', js):  # tira um efeito automático: semsom("tag", 31.7)
+        ev.append((float(m.group(2)), "-" + m.group(1), ""))
     return ev
 
 
@@ -241,12 +246,14 @@ class Video:
         open(os.path.join(self.proj, "index.html"), "w", encoding="utf-8").write(out)
         # efeitos sonoros: um por evento, sem empilhar (mínimo 0,12 s entre efeitos)
         sfx, ult = [], -9
-        for t, tipo, _ in sorted(eventos):
+        tirar = {(round(t, 2), tipo[1:]) for t, tipo, _ in eventos if tipo.startswith("-")}
+        for t, tipo, origem in sorted(eventos):
             arq, vol = SFX.get(tipo, (None, 0))
-            if not arq or t - ult < 0.12:
+            if not arq or (round(t, 2), tipo) in tirar or (origem != "!" and t - ult < 0.12):
                 continue
             sfx.append({"arquivo": f"sfx/{arq}", "momento": round(t + (0.1 if tipo in ("pop", "carimbo") else 0), 3), "volume": vol, "tipo": tipo})
-            ult = t
+            if origem != "!":
+                ult = t
         os.makedirs(os.path.join(self.proj, "assets", "audio"), exist_ok=True)
         json.dump(sfx, open(os.path.join(self.proj, "assets", "audio", "sfx.json"), "w", encoding="utf-8"), indent=1, ensure_ascii=False)
         print("ok", len(self.cenas), "cenas,", len(self.leg), "grupos de legenda,", len(sfx), "efeitos sonoros")
