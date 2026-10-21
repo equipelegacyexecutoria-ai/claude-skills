@@ -206,27 +206,29 @@ sem anúncio (o "alcance" da conta inclui ~90 a 270 mil/semana de anúncio).
   semana), que lota as visitas da Legacy. 12/10 veio depois da semana com o pior alcance próprio da série.
 - Contraexemplo: 27/07 teve o maior alcance próprio da série (558 mil no feed) e só 10 MQL.
 
-## Mídia paga × visitas × MQL (21/10/2026, planilha "Marketing - Legacy Educação")
+## Mídia paga × visitas × MQL (21/10/2026, planilha "Marketing - Legacy Educação" + Gerenciador)
 
-Fonte: planilha do Growth https://docs.google.com/spreadsheets/d/1lmEBMrpX_mzdz7iYwyCCaLdoLHqDnj6DKGwryTdaYL0 (lida pelo Chrome do
-Igor, só leitura; a conta Google ligada ao Claude não tem acesso). Abas usadas: "Overview - Mídia" (anúncios do Growth por dia:
-investimento, page view, lead, MQL) e "Meta - Orgânico" (= "Overview - Orgânico"): **anúncio pago que leva gente ao perfil da
-Legacy** (investimento, impressões, visitas ao perfil, seguidores; ~R$ 250 a 500/dia, ~R$ 0,15 a 0,39 por visita). É da Legacy:
-por dia, impressões × alcance de anúncio da Legacy 0,84 (Clailton 0,54); visitas pagas × visitas da Legacy 0,77 (Clailton 0,45).
-Semanas 27/07 a 18/10, MQL orgânico = perfil Legacy (bio, story, boas-vindas, Quiz Legacy).
-- **A maior parte das visitas ao perfil da Legacy é paga:** 97.923 visitas pagas × 126.762 visitas no total (77%; a conta da Meta
-  e a do anúncio não batem 100%, algumas semanas passam de 100%). Visitas por dia ≈ 1 × visitas pagas + 2,1 por mil de alcance do
-  Clailton (explica 86% da variação diária). Isso corrige a leitura anterior de que as visitas vinham quase todas do Clailton.
-- **Visita paga vira pouco MQL:** MQL orgânico por semana ≈ 0,37 por mil visitas pagas × 0,94 por mil das outras visitas (12
-  semanas, número aproximado). As piores semanas (21/09 e 28/09, 7 MQL) tiveram quase só visita paga; as melhores (07/09 = 16,
-  12/10 = 22, 17/08 = 13) tiveram 5 a 8 mil visitas além das pagas, nas semanas de viral do Clailton. Dia a dia, sem a tendência,
-  visitas pagas × MQL orgânico = −0,06.
-- **Investimento do Growth × MQL orgânico da Legacy:** por dia, tirando a tendência, 0,32 (91 dias); por semana 0,62. Não passa
-  pelos leads pagos (0,03) nem pelo Clailton (0,10). Hipótese: quem vê o anúncio e não preenche vai ao perfil e entra pela bio.
-- **MQL pago:** até 28/09, gastar mais não trouxe mais MQL pago (0,02) e encareceu o MQL (CPMQL × investimento 0,50 a 0,67). Em
-  outubro o MQL pago subiu (semana 05/10 = 76, 12/10 = 121, CPMQL R$ 144) junto com os anúncios da Black "Viva Sem Medo" (06/10;
-  corte de MQL da Black é R$ 50 mil). Alcance do Clailton não mexe no MQL pago (−0,06 antes da Black).
-- 12 semanas: Growth R$ 159.400 e 685 MQL pagos; impulsionamento do perfil R$ 24.809; MQL orgânico da Legacy 146.
+Fontes: planilha do Growth https://docs.google.com/spreadsheets/d/1lmEBMrpX_mzdz7iYwyCCaLdoLHqDnj6DKGwryTdaYL0 (lida pelo Chrome do
+Igor, só leitura; a conta Google ligada ao Claude não tem acesso), abas "Overview - Mídia" (anúncios do Growth por dia: investimento,
+page view, lead, MQL) e "Meta - Orgânico" (= "Overview - Orgânico"). **"Meta - Orgânico" soma as DUAS campanhas de visita ao perfil**
+(conferido no Gerenciador, por dia: 14/10 = 1.327 + 761 = 2.088 × 2.081 na planilha): 121 Anúncios Insta Legacy e 119 Anúncios Insta
+Clailton. Para separar, ler o Gerenciador por dia (Detalhamento › Dia, filtro "Anúncios Insta"); a 122 [BOM DE GARFO] só rodou 27/07–03/08,
+com valores mínimos. A 121 começou em 24/07. Semanas 27/07 a 18/10; MQL orgânico = perfil Legacy (bio, story, boas-vindas, Quiz Legacy).
+- **Peso dos anúncios nas visitas:** 121 = 52.941 de 126.762 visitas da Legacy (42%) e 4.131 de 84.609 seguidores novos (5%), R$ 14.804.
+  119 = 45.214 de 195.091 visitas do Clailton (23%) e 15.982 de 174.364 seguidores (9%), R$ 9.257. Visitas da Legacy por dia ≈ 131 +
+  1,36 × visitas da 121 + 2,0 por mil de alcance do Clailton (explica 93%). A 119 não mexe nas visitas da Legacy (0,20).
+  (Uma leitura anterior do mesmo dia, de 77% pagas, somava as duas campanhas por engano.)
+- **MQL orgânico × anúncio da Legacy:** por semana, gasto da 121 × MQL 0,78; visitas da 121 × MQL 0,56; visitas que não vêm da 121 × MQL
+  0,72. Mas o gasto da 121 sobe nas mesmas semanas do viral do Clailton (0,59) e da verba do Growth (0,63), então não dá para separar; e
+  dia a dia, sem a tendência, visitas e gasto da 121 × MQL = −0,07. MQL por mil visitas: 0,26 nas da 121 × 0,99 nas outras (aproximado).
+- **Visita barata, visitante pior:** semanas com a visita da 121 mais barata (R$ 0,16 a 0,21: 10/08, 17/08, 12/10) tiveram 1,3 a 2,7 MQL
+  por mil visitas pagas; semanas com R$ 0,42 a 0,57 (24/08, 31/08) tiveram 5,3 a 5,6. Sinal, não prova.
+- **Anúncio do Clailton (119) × MQL da Legacy:** nenhuma relação (−0,29).
+- **Investimento do Growth × MQL orgânico da Legacy:** por dia, tirando a tendência, 0,32 (91 dias); por semana 0,62. Não passa pelos
+  leads pagos (0,03) nem pelo Clailton (0,10). Hipótese: quem vê o anúncio do Growth e não preenche vai ao perfil e entra pela bio.
+- **MQL pago (Growth):** até 28/09, gastar mais não trouxe mais MQL pago (0,02) e encareceu o MQL (0,50 a 0,67). Em outubro subiu (semana
+  05/10 = 76, 12/10 = 121, CPMQL R$ 144) junto com os anúncios da Black "Viva Sem Medo" (06/10; corte de MQL da Black é R$ 50 mil).
+  Alcance do Clailton não mexe no MQL pago (−0,06 antes da Black). 12 semanas: Growth R$ 159.400 e 685 MQL pagos; MQL orgânico 146.
 
 ## Carrosséis jun–out/2026: esqueleto, formato e capa (20/10/2026)
 
