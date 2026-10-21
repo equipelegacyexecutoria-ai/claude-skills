@@ -1,0 +1,2 @@
+TeX Gyre Heros (desenho da Helvetica), GUST Font License (livre, uso comercial permitido).
+Baixada de https://mirrors.ctan.org/fonts/tex-gyre/opentype/ em 21/10/2026.

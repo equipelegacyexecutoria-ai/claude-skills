@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Motion Dinâmico</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      /* fonte: TeX Gyre Heros (desenho da Helvetica, licença livre) */
+      @font-face { font-family: "Heros"; src: url("assets/fonts/texgyreheros-regular.otf"); font-weight: 400; font-style: normal; }
+      @font-face { font-family: "Heros"; src: url("assets/fonts/texgyreheros-bold.otf"); font-weight: 700; font-style: normal; }
+      @font-face { font-family: "Heros"; src: url("assets/fonts/texgyreheros-italic.otf"); font-weight: 400; font-style: italic; }
+      @font-face { font-family: "Heros"; src: url("assets/fonts/texgyreheros-bolditalic.otf"); font-weight: 700; font-style: italic; }
+      :root { --ac: #ffc414; --rd: #ff4a2a; --txt: #ffffff; --dim: rgba(255,255,255,.32); --card: rgba(34,15,12,.9); }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0b0605; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Heros", "Helvetica Neue", Arial, sans-serif; color: var(--txt); }
+      .cena { position: absolute; inset: 0; overflow: hidden; }
+      .fundo { position: absolute; inset: 0; }
+      .pontos { position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.075) 1.6px, transparent 1.7px); background-size: 36px 36px;
+        -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 45%, #000 30%, transparent 100%); mask-image: radial-gradient(ellipse 80% 70% at 50% 45%, #000 30%, transparent 100%); }
+      .bz { position: absolute; inset: 0; transform-origin: 50% 50%; }
+      .palco { position: absolute; inset: 0; perspective: 1600px; perspective-origin: 50% 50%; }
+      .mundo { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-style: preserve-3d; transform-origin: 50% 50%; }
+      .z { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 50% 50%; }
+      .it { position: absolute; }
+      .fl { position: relative; width: 100%; height: 100%; }
+      .rec { filter: drop-shadow(0 18px 22px rgba(0,0,0,.55)); }
+      .longe { filter: blur(1.4px) drop-shadow(0 10px 14px rgba(0,0,0,.45)); }
+      .frente { filter: blur(8px) brightness(.55); }
+      .raios { position: absolute; left: -200px; top: -300px; width: 1480px; height: 1400px; mix-blend-mode: screen;
+        background: conic-gradient(from 180deg at 50% 0%, transparent 0deg, rgba(255,170,60,.18) 8deg, transparent 16deg, rgba(255,170,60,.12) 26deg, transparent 34deg, rgba(255,170,60,.16) 44deg, transparent 52deg, transparent 308deg, rgba(255,170,60,.14) 318deg, transparent 326deg, rgba(255,170,60,.18) 336deg, transparent 344deg, rgba(255,170,60,.12) 352deg, transparent 360deg); }
+      .boneco { position: absolute; }
+      .boneco > img.corpo { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+      .boneco > img.parte { position: absolute; filter: drop-shadow(1px 3px 2px rgba(0,0,0,.35)); }
+
+      #kicker { position: absolute; left: 0; top: 236px; width: 1080px; text-align: center; font-family: Consolas, "Courier New", monospace; font-weight: 700;
+        font-size: 30px; letter-spacing: 6px; color: rgba(255,255,255,.78); z-index: 8; }
+      #kicker .pt { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: var(--rd); margin-right: 14px; vertical-align: 3px; box-shadow: 0 0 12px var(--rd); }
+
+      .tit .ln { line-height: 1.04; white-space: nowrap; font-weight: 700; letter-spacing: -1px; text-shadow: 0 6px 26px rgba(0,0,0,.6); }
+      .pw { display: inline-block; opacity: 0; }
+      .pw.ac { color: var(--ac); } .pw.rd { color: var(--rd); } .pw.dim { color: rgba(255,255,255,.55); font-weight: 400; }
+      .pw.it { font-style: italic; }
+      .hl { position: relative; padding: 0 18px; color: #160a06; text-shadow: none; }
+      .hl .marca { position: absolute; left: 0; top: 8%; width: 100%; height: 88%; background: var(--ac); transform-origin: 0 50%; border-radius: 10px;
+        box-shadow: 0 0 34px rgba(255,196,20,.45); }
+      .hl .txt { position: relative; }
+      .tag { display: inline-block; background: var(--ac); color: #160a06; font-weight: 700; letter-spacing: 1px; padding: 2px 18px; border-radius: 8px; line-height: 1.2;
+        box-shadow: 0 0 22px rgba(255,196,20,.35); }
+      .tag.lin { background: rgba(30,12,8,.85); color: var(--ac); border: 2px solid var(--ac); }
+      .tag.rd { background: var(--rd); color: #fff; box-shadow: 0 0 22px rgba(255,74,42,.45); }
+      .carimbo { display: inline-block; font-weight: 700; color: var(--rd); border: 7px solid var(--rd); border-radius: 10px; padding: 0 26px; letter-spacing: 2px;
+        line-height: 1.12; background: rgba(255,74,42,.08); text-shadow: 0 0 18px rgba(255,74,42,.35); box-shadow: 0 0 26px rgba(255,74,42,.25); }
+      .card { background: var(--card); border: 2px solid rgba(255,196,20,.85); border-radius: 26px; padding: 14px; box-shadow: 0 0 34px rgba(255,196,20,.22), 0 24px 40px rgba(0,0,0,.5); }
+      .card .foto { width: 100%; overflow: hidden; border-radius: 16px; background: radial-gradient(circle at 50% 40%, #3b1b12, #1a0b08); }
+      .card .foto img { width: 100%; height: 100%; }
+      .card .rot { font-weight: 700; color: #fff; text-align: center; line-height: 82px; letter-spacing: .5px; white-space: nowrap; }
+      .polaroid { position: relative; background: #f3efe8; padding: 18px 18px 0; box-shadow: 0 26px 44px rgba(0,0,0,.6); }
+      .polaroid img { display: block; object-fit: cover; }
+      .polaroid .pleg { font-weight: 700; font-style: italic; color: #1a1210; text-align: center; font-size: 44px; line-height: 92px; white-space: nowrap; letter-spacing: .5px; }
+      .pino { position: absolute; left: 50%; top: -14px; width: 30px; height: 30px; margin-left: -15px; border-radius: 50%; z-index: 2;
+        background: radial-gradient(circle at 35% 35%, #ff8c75, #d8261a 55%, #7c0d07); box-shadow: 0 6px 10px rgba(0,0,0,.5); }
+      .selo { position: relative; border-radius: 50%; background: radial-gradient(circle at 50% 40%, #3a1a10, #160906); border: 5px solid var(--ac);
+        box-shadow: 0 0 30px rgba(255,196,20,.45), inset 0 0 22px rgba(255,196,20,.2); display: flex; align-items: center; justify-content: center; }
+      .selo img { width: 70%; height: 70%; object-fit: contain; filter: drop-shadow(0 6px 8px rgba(0,0,0,.5)); }
+      .selo-rot { position: absolute; left: 50%; top: 100%; transform: translate(-50%, 12px); white-space: nowrap; font-weight: 700; font-size: 34px;
+        background: rgba(30,12,8,.9); border: 2px solid rgba(255,196,20,.6); border-radius: 8px; padding: 2px 14px; }
+      path.luz { filter: drop-shadow(0 0 10px rgba(255,196,20,.75)); }
+      .ch { opacity: 0; }
+      /* partículas e peças que só aparecem quando a cena manda (bolhas, moedas, faíscas, vapor, zz) */
+      .moeda, .faisca, .bolha, .vapor, .zz { opacity: 0; }
+      .zz { font-family: "Heros", sans-serif; font-weight: 700; fill: var(--ac); }
+      .gtx { font-family: "Heros", sans-serif; font-size: 42px; font-weight: 700; fill: rgba(255,255,255,.85); }
+      /* número grande (ano, quantidade): dígitos entram um a um */
+      .dg { display: inline-block; opacity: 0; }
+      #s4-ano, .numero { font-weight: 700; font-size: 250px; color: var(--ac); line-height: 1; letter-spacing: -6px; text-shadow: 0 0 40px rgba(255,196,20,.45); }
+      /* página em branco de um ícone (calendário, placa): texto que vira com rotationX */
+      .calpag { position: absolute; left: 0; top: 40%; width: 100%; height: 48%; perspective: 600px; }
+      .calpag span { position: absolute; left: 0; top: 50%; width: 100%; text-align: center; transform: translateY(-50%); font-weight: 700; font-size: 64px; color: #d8261a; }
+      /* etiqueta que troca embaixo de um objeto (FUTURO -> AGORA) */
+      .bautag { position: absolute; left: 0; bottom: -34px; width: 100%; height: 70px; perspective: 600px; }
+      .bautag .tag { position: absolute; left: 50%; top: 0; font-size: 50px; transform: translateX(-50%); }
+      .cta { font-weight: 700; font-size: 74px; text-align: center; line-height: 1.12; letter-spacing: -1px; }
+      .cta .ac { color: var(--ac); }
+
+      .moldura { position: absolute; border-radius: 36px; background: rgba(255,196,20,.9); box-shadow: 0 0 46px rgba(255,196,20,.45), 0 34px 60px rgba(0,0,0,.6); z-index: 5; }
+      .expert { position: absolute; object-fit: cover; border-radius: 26px; z-index: 6; }
+
+      #leg { z-index: 25; }
+      #legendas { position: absolute; left: 80px; top: 0; width: 860px; height: 1920px; }
+      .grupo { position: absolute; left: 0; top: 1300px; width: 860px; text-align: center; font-size: 60px; font-weight: 700; opacity: 0; white-space: nowrap; letter-spacing: -.5px;
+        text-shadow: 0 3px 22px rgba(0,0,0,.45), 1px 4px 4px rgba(0,0,0,.72); }
+      .w { display: inline-block; color: #fff; }
+      .w.ac { color: var(--ac); }
+
+      #acab { z-index: 20; pointer-events: none; }
+      #grao { position: absolute; left: -256px; top: -256px; width: 1592px; height: 2432px; background: url("assets/fx/grao.png"); opacity: .16; mix-blend-mode: overlay; }
+      #vinheta { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 46%, transparent 52%, rgba(0,0,0,.55) 100%); }
+      #preto { position: absolute; inset: 0; background: #000; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="%%DUR%%" data-width="1080" data-height="1920">
+      %%SECOES%%
+      %%EXPERT%%
+
+      <section id="leg" class="cena clip" data-start="0" data-duration="%%DUR%%" data-track-index="90">
+        %%KICKER%%
+        <div id="legendas">
+          %%LEGENDA%%
+        </div>
+      </section>
+
+      <section id="acab" class="cena clip" data-start="0" data-duration="%%DUR%%" data-track-index="91">
+        <div id="grao"></div>
+        <div id="vinheta"></div>
+        <div id="preto"></div>
+      </section>
+
+      <audio id="mix" src="assets/audio/mix.wav" data-start="0" data-duration="%%DUR%%" data-track-index="92"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      (async () => {
+        const P = 1600;
+        const RIG = %%RIG%%;
+        const MOV = {}; // balanço da cabeça por boneco: [graus, período]; padrão [2.2, 1.8]
+
+        for (const b of document.querySelectorAll(".boneco[data-rig]")) {
+          const nome = b.dataset.rig, r = RIG[nome];
+          const c = document.createElement("img"); c.className = "corpo"; c.alt = ""; c.src = `assets/partes/${nome}_corpo.png`; b.appendChild(c);
+          for (const p of r.partes) {
+            const im = document.createElement("img"); im.className = "parte"; im.alt = "";
+            im.src = `assets/partes/${nome}_${p.nome}.png`; im.dataset.rig = nome;
+            Object.assign(im.style, { left: (100 * p.x / r.W) + "%", top: (100 * p.y / r.H) + "%", width: (100 * p.w / r.W) + "%", height: (100 * p.h / r.H) + "%",
+              transformOrigin: `${(100 * p.px / p.w).toFixed(3)}% ${(100 * p.py / p.h).toFixed(3)}%` });
+            b.appendChild(im);
+          }
+        }
+        for (const z of document.querySelectorAll(".z")) {
+          const Z = parseFloat(z.dataset.z || 0);
+          gsap.set(z, { z: Z, scale: z.dataset.nocomp ? 1 : (P - Z) / P });
+        }
+        gsap.set(".ctr", { yPercent: -50 });
+        await Promise.all([...document.images].map((i) => i.decode().catch(() => {})));
+
+        const tl = gsap.timeline({ paused: true });
+        const ini = (sel) => parseFloat(document.querySelector(sel).closest("section").dataset.start);
+        // entrada: sobe | esq | dir | pop | fade. Objeto que nasce com a cena entra já visível (sem quadro vazio no corte)
+        const entra = (sel, t, tipo = "sobe", o = {}) => {
+          const de = { opacity: 0, filter: "blur(10px)" }, para = { opacity: 1, filter: "blur(0px)", duration: o.d || 0.55, ease: o.ease || "power3.out", immediateRender: false };
+          if (tipo === "sobe") { de.y = o.dist || 140; de.rotation = o.rot ?? -2; para.y = 0; para.rotation = 0; }
+          if (tipo === "esq") { de.x = -(o.dist || 500); de.rotation = o.rot ?? -5; para.x = 0; para.rotation = 0; }
+          if (tipo === "dir") { de.x = o.dist || 500; de.rotation = o.rot ?? 5; para.x = 0; para.rotation = 0; }
+          if (tipo === "pop") { de.scale = o.de || 0.5; de.rotation = o.rot ?? -6; para.scale = 1; para.rotation = 0; para.ease = o.ease || "back.out(1.7)"; para.duration = o.d || 0.45; }
+          if (t - ini(sel) < 0.15) { de.opacity = 1; de.filter = "blur(6px)"; } else gsap.set(sel, { opacity: 0 });
+          tl.fromTo(sel, de, para, t);
+        };
+        const sai = (sel, t, d = 0.25) => tl.to(sel, { opacity: 0, filter: "blur(8px)", duration: d, ease: "power1.in" }, t);
+        const flutua = (sel, t0, D, amp = 6, per = 2.4, rot = 0.8) => {
+          const n = Math.max(1, Math.ceil(D / (per / 2)));
+          tl.fromTo(sel + " > .fl", { y: amp / 2, rotation: -rot }, { y: -amp / 2, rotation: rot, duration: per / 2, ease: "sine.inOut", repeat: n, yoyo: true, immediateRender: false }, t0);
+        };
+        // câmera contida (50% do z) para os títulos não subirem para o cabeçalho do Reels
+        const zc = (o) => ("z" in o ? { ...o, z: o.z * 0.5 } : o);
+        const cam = (sel, t, d, de, para, ease = "sine.inOut") => tl.fromTo(sel, zc(de), { ...zc(para), duration: d, ease, immediateRender: false }, t);
+        const bz = (sel, t, de = 1.12, du = 0.38, blur = 12) =>
+          tl.fromTo(sel, { scale: de, filter: `blur(${blur}px)` }, { scale: 1, filter: "blur(0px)", duration: du, ease: "power3.out", immediateRender: false }, t);
+        const soco = (sel, t, s = 1.05, du = 0.26) => tl.to(sel, { scale: s, duration: du, ease: "power2.out" }, t);
+        const traco = (sel, t, d = 0.5) => {
+          const el = document.querySelector(sel);
+          if (el.getAttribute("stroke-dasharray")) { gsap.set(el, { opacity: 0 }); tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: d, ease: "power1.out", immediateRender: false }, t); return; }
+          const L = el.getTotalLength();
+          gsap.set(el, { strokeDasharray: L, strokeDashoffset: L, opacity: 0 });
+          tl.set(el, { opacity: 1 }, t);
+          tl.fromTo(el, { strokeDashoffset: L }, { strokeDashoffset: 0, duration: d, ease: "power1.inOut", immediateRender: false }, t);
+        };
+        const corre = (caminho, ponto, t, d) => {
+          const c = document.querySelector(caminho), p = document.querySelector(ponto), L = c.getTotalLength(), o = { p: 0 };
+          tl.fromTo(o, { p: 0 }, { p: 1, duration: d, ease: "power1.inOut", immediateRender: false,
+            onUpdate: () => { const q = c.getPointAtLength(o.p * L); p.setAttribute("cx", q.x); p.setAttribute("cy", q.y); } }, t);
+        };
+        const digita = (sel, t, passo = 0.035) => gsap.utils.toArray(sel).forEach((c, i) =>
+          tl.fromTo(c, { opacity: 0 }, { opacity: 1, duration: 0.01, ease: "none", immediateRender: false }, t + i * passo));
+        const carimbo = (sel, t) => {
+          gsap.set(sel + " .carimbo", { opacity: 0 });
+          tl.fromTo(sel + " .carimbo", { opacity: 0, scale: 2.2 }, { opacity: 1, scale: 1, duration: 0.2, ease: "power3.in", immediateRender: false }, t - 0.1);
+          tl.fromTo(sel, { y: 0 }, { y: 6, duration: 0.07, ease: "power1.out", yoyo: true, repeat: 1, immediateRender: false }, t + 0.1);
+        };
+        const pulsa = (sel, t, d = 2, s = 1.06) => tl.fromTo(sel, { scale: 1 }, { scale: s, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: Math.max(1, Math.round(d / 0.5)), immediateRender: false }, t);
+        const sfx = () => {}; // marca um efeito sonoro extra no tempo (lido pelo gerador)
+        const cartaoVideo = (alvos, t0, d, lado) => {
+          tl.fromTo(alvos, { scale: 0.9, rotation: lado ? 2.5 : -2.5, filter: "blur(14px)" }, { scale: 1, rotation: lado ? 1 : -1, filter: "blur(0px)", duration: 0.45, ease: "power3.out", immediateRender: false }, t0);
+          tl.fromTo(alvos, { scale: 1, rotation: lado ? 1 : -1 }, { scale: 1.04, rotation: 0, duration: Math.max(0.5, d - 0.45), ease: "sine.inOut", immediateRender: false }, t0 + 0.45);
+        };
+        gsap.set(".tit .pw", { opacity: 0 });
+
+        for (const im of document.querySelectorAll("img.parte")) {
+          const [A, T] = MOV[im.dataset.rig] || [2.2, 1.8];
+          const sec = im.closest("section"), t0 = parseFloat(sec.dataset.start), D = parseFloat(sec.dataset.duration), meio = T / 2;
+          tl.fromTo(im, { rotation: -A }, { rotation: A, duration: meio, ease: "sine.inOut", repeat: Math.ceil(D / meio), yoyo: true, immediateRender: false }, t0);
+        }
+        // títulos: cada palavra entra quando é falada; a caixa amarela passa logo depois
+        for (const w of document.querySelectorAll(".tit .pw")) {
+          const t = parseFloat(w.dataset.t);
+          tl.fromTo(w, { opacity: 0, y: 22, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.22, ease: "power3.out", immediateRender: false }, t);
+          const m = w.querySelector(".marca");
+          if (m) tl.fromTo(m, { scaleX: 0 }, { scaleX: 1, duration: 0.28, ease: "power2.out", immediateRender: false }, t + 0.05);
+        }
+
+        tl.fromTo("#preto", { opacity: 1 }, { opacity: 0, duration: 0.12, ease: "none" }, 0);
+        %%EXPERTJS%%
+
+        %%CENAS%%
+
+        // legenda: o grupo aparece apagado e cada palavra acende quando é falada (referência "quadro de investigação")
+        for (const g of document.querySelectorAll(".grupo")) {
+          const ws = g.querySelectorAll(".w");
+          const a = parseFloat(ws[0].dataset.t);
+          tl.set(g, { opacity: 1 }, a - 0.02);
+          tl.set(g, { opacity: 0 }, parseFloat(g.dataset.fim));
+          ws.forEach((w) => tl.fromTo(w, { opacity: 0.28 }, { opacity: 1, duration: 0.1, ease: "power1.out", immediateRender: false }, parseFloat(w.dataset.t)));
+          gsap.set(ws, { opacity: 0.28 });
+        }
+        tl.fromTo("#grao", { x: 0, y: 0 }, { x: 180, y: 140, duration: %%DUR%%, ease: "steps(590)", immediateRender: false }, 0);
+        tl.seek(%%DUR%%, false); tl.seek(0, false);
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>

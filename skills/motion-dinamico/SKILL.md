@@ -1,0 +1,111 @@
+---
+name: motion-dinamico
+description: Faz vídeos no estilo MOTION DINÂMICO (nome dado pelo usuário em 21/10/2026) — reel vertical 1080x1920 em que a fala de um especialista (Clailton ou outro) vira animação moderna, com o especialista aparecendo só ~10% do tempo num cartão luminoso e o resto ilustrado palavra a palavra. Visual: fundo escuro com brilho laranja/amarelo e grade de pontos, ícones e pessoas 3D recortados com borda branca de adesivo (Freepik pelo Chrome), cartões com contorno luminoso, polaroid com alfinete, selos circulares, linha do tempo luminosa, carimbos vermelhos, títulos em fonte tipo Helvetica que entram na hora exata em que cada palavra é falada, legenda que acende palavra por palavra, câmera 3D suave, uma trilha do Artlist por emoção e efeitos sonoros em cada animação. Use quando o usuário pedir "motion dinâmico", "no estilo motion dinâmico", "ilustra a fala com motion", "transforma esse reel em motion", "igual ao vídeo do cérebro com defeito de fábrica", ou mandar um bruto/roteiro pedindo animação moderna com o especialista pouco tempo na tela.
+---
+
+# Motion Dinâmico
+
+Exemplo aprovado como base: **"Seu Cérebro Tem Um Defeito De Fábrica"** (v2, 21/10/2026), projeto
+`Desktop/Projetos Edições/Motion Designer/videos/cerebro-dinamico`, cenas em `references/exemplo_cenas.py`.
+Referências de estilo que o usuário mandou (Instagram): `Dept_TiCu6m` (dados com brilho amarelo em fundo
+vinho), `DetkzN8CPRP` (quadro de investigação: fotos com alfinete, carimbo, legenda que acende). Gramática em
+`references/estilo.md`.
+
+Fale com o usuário pelo resultado ("o título entra na palavra", "a música vira na virada"), nunca por código.
+Segue também as regras da skill `motion-designer` (área segura, revisão quadro a quadro, entrega) e do CLAUDE.md.
+
+## Regras do estilo (o que o usuário pediu)
+
+- **Especialista ~10% do vídeo**: gancho (primeiros 3 s) e a virada da fala. O resto é animação.
+- **Cada palavra/frase ilustrada literalmente**, no tempo exato em que é dita (título entra na palavra).
+- **Moderno, não vintage** (21/10/2026: "esqueça a ideia de utilizar estilo vintage, quero algo moderno").
+- **Fonte Helvetica bold/regular** → TeX Gyre Heros (mesmo desenho, licença livre), já em `assets/fonts`.
+- **Uma música por emoção** do Artlist (tensão, mistério, tristeza, alegria, motivacional épica…), trocando
+  quando a linguagem muda; nunca uma trilha só. Detalhe em "Trilhas".
+- **Efeitos sonoros em todas as animações** (o gerador anota sozinho: pop, whoosh, impacto, digitação, brilho…).
+- Animações suaves, sem exagero. Texto que o especialista fala errado: escrever **como ele fala**
+  (nota do usuário: "aqui está escrito 'desconto' e não desconforto").
+- Elementos sem marca d'água e sem texto em inglês; Freepik **pelo Chrome** (sem crédito da Magnific).
+
+## Passo a passo
+
+Variáveis: `S = ~/.claude/skills/motion-dinamico/scripts`, `PY` = Python da venv do corte-viral
+(`%LOCALAPPDATA%\corte-viral\venv\Scripts\python.exe`, com `PYTHONUTF8=1`), `T` = pasta de trabalho do reel
+(`C:\Render\_trabalho\<slug>`), `P` = projeto (`Desktop/Projetos Edições/Motion Designer/videos/<nome>`).
+
+1. **Corte e voz do especialista** com a skill de reels do formato (TD/NV): decupagem, `corte.json`,
+   `palavras_corte.json` alinhado e, se o áudio pedir, o Adobe Podcast (`audio_tratado.wav`). Não renderiza o reel.
+2. **Mapa de emoções e de cenas**: leia `palavras_corte.json` e divida a fala em cenas de 2–5 s (uma ideia
+   por cena) e em trechos de emoção (para as trilhas). Marque as 1–2 janelas do especialista (≈10%).
+3. **Elementos**: para cada cena, um ícone/pessoa 3D do Freepik (PNG sem fundo) pelo Chrome — busca
+   `freepik.com/search?query=<termo>%20png&type=psd`, item → "Download by file types" → PNG, ~18 s
+   (o watcher `reels-novela-clailton/scripts/salvar_downloads.ps1 -Pasta <pasta>` salva o "Salvar como").
+   Pessoa real citada (cientista, autor): foto livre do Wikimedia Commons (licença CC BY/domínio público).
+   Monte uma folha e confira cada imagem (texto em inglês, marca, moeda com "BITCOIN"… troca).
+4. `PY S/novo_projeto.py "<P>"` → projeto com fontes, grão e kit de efeitos sonoros.
+5. `PY S/preparar_elementos.py <pasta_baixados> "<P>" mapa.json` → `assets/img/<nome>.png` com borda branca
+   e `grade/<nome>.jpg` (linhas a cada 100 px).
+6. **Bonecos** (pessoas cuja cabeça balança): olhe a grade, escreva `cortes.json` (polígono da cabeça, pivô
+   no pescoço, linha de corte) e rode `PY S/recortar_cabeca.py "<P>" cortes.json`.
+7. **Especialista e voz**: `PY S/expert.py "<T>" "<P>" 0-3.40 40.62-43.10 [--realce]` → `expert_<n>.mp4`
+   (retrato 4:5, rosto medido no próprio bruto, do alto da cabeça até a base) e `assets/audio/voz.wav`.
+   Confira um quadro de cada janela (rosto centrado, cabeça com folga). `--realce` se o card pedir "diminuir realces".
+8. **Cenas**: copie `references/exemplo_cenas.py` para `T/cenas.py` e reescreva as cenas (peças na seção
+   "Peças"). Rode `PY T/cenas.py "<P>" "<T>/palavras_corte.json"` → `index.html` + `assets/audio/sfx.json`.
+9. **Trilhas** (Artlist pelo Chrome deste PC, logado) e `trilhas.json`; `PY S/montar_mix.py "<P>" trilhas.json`
+   → `assets/audio/mix.wav` (-14 LUFS).
+10. **Revisão** (obrigatória): `npx hyperframes lint`; `npx hyperframes snapshot --no-end -o snaps --at <um
+    momento por cena>`; olhar a folha; `motion-designer/scripts/area_segura.py --formato 9x16 --pasta snaps
+    --saida qa/area.jpg`; transcrever o `mix.wav` (`motion-designer/scripts/transcrever.py`) para provar a voz.
+11. `npx hyperframes render --quality high --fps 30 --output renders/<nome>_v1.mp4`; folha de quadros do MP4
+    (`fps=2,tile`) para achar quadro vazio ou elemento fora de hora.
+12. **Entrega**: Sala de Revisão (skill `sala-de-revisao`; prévia como asset `/_blob/`), link na conversa.
+    Card do Notion/Drive só se for da fila (`fila-de-render`).
+
+## Peças (motion_lib.py)
+
+Posição sempre pelo centro (cx, cy) em 1080x1920; `z` = profundidade (negativo = longe, positivo = perto).
+
+| Peça | Para quê |
+| --- | --- |
+| `img(id, nome, cx, cy, w, z)` | ícone/objeto 3D recortado |
+| `boneco(id, rig, cx, cy, w)` | pessoa com a cabeça balançando |
+| `titulo(id, [(tam, [(palavra, t, estilo)])], cx, top)` | título palavra a palavra; estilo `ac` amarelo, `rd` vermelho, `hl` caixa amarela, `dim`, `it` |
+| `etiqueta(id, texto, cx, cy, cls="tag"/"tag lin"/"tag rd")` | pílula (1. TREINO, NO FUTURO) |
+| `carimbo(id, texto, cx, cy, tam, rot)` | carimbo vermelho (AQUI, VENCE, PARE) |
+| `cartao(id, nome, cx, cy, rotulo)` | cartão escuro com contorno luminoso (comparações, listas) |
+| `polaroid(id, foto, cx, cy, w, legenda)` | foto presa com alfinete (pessoa citada) |
+| `selo(id, nome, cx, cy, d)` | ícone em círculo com anel luminoso (linha do tempo) |
+| `linha(id, d, tracejada, seta)` | caminho luminoso que se desenha (`traco`) |
+| `brilho`, `raios`, `svg`, `caixa`, `camada` | luz atrás do objeto, raios, desenho livre |
+| `v.expert(arquivo, t0, dur, cx, cy, w, h)` | especialista no cartão amarelo |
+
+Animações no JS da cena: `entra(sel, t, "sobe|esq|dir|pop|fade")`, `sai`, `flutua`, `cam` (câmera 3D),
+`bz` (desfoque de entrada da cena), `soco`, `traco`, `corre` (ponto na curva), `digita`, `carimbo`, `pulsa`,
+`sfx("brilho|ok|tique|tag|teclado|virada|doc|soco|esq|dir|pop", t)` (efeito extra).
+Regras aprendidas: títulos com `top` ≥ 375 (a câmera empurra para cima e encosta na etiqueta do topo);
+objeto que nasce com a cena entra já visível (sem quadro vazio no corte); nada importante em x > 950 entre
+y 1000–1720; legenda fica em y 1300.
+
+## Trilhas (uma por emoção)
+
+- Mapeie a fala: gancho/problema (tensão curiosa), explicação/ciência (mistério de documentário), dor/adiar
+  (tensa ou triste), virada "então se você quiser…" (épica motivacional), dicas práticas (leve, alegre),
+  fechamento (épica inspiradora). Troque a música no começo da frase que muda a linguagem.
+- Artlist pelo Chrome **deste PC** (`list_connected_browsers`: o "Browser 2/3" pode estar em outro computador;
+  baixa lá e o arquivo não chega aqui). Sem login: peça ao usuário para entrar (Claude não digita senha).
+  Busca `artlist.io/royalty-free-music/search?terms=<termos>` → botão de download → MP3. Termos que servem:
+  "dark tension suspense", "mystery documentary curious", "sad emotional piano", "epic motivational inspiring",
+  "happy upbeat light".
+- `trilhas.json`: `{"duracao": D, "trilhas": [{"arquivo": "musicas/x.mp3", "entra": 0, "sai": 8.6,
+  "inicio_no_arquivo": 0, "ajuste": 0}, ...]}` — o `montar_mix.py` iguala volumes (voz -20, música -33 +ajuste),
+  cruza as trilhas (0,8 s), abaixa a música sob a voz e soma os efeitos do `sfx.json`.
+
+## Arquivos
+
+- `scripts/motion_lib.py` (gerador), `scripts/molde.html` (visual), `novo_projeto.py`, `preparar_elementos.py`,
+  `recortar_cabeca.py`, `expert.py`, `montar_mix.py`.
+- `assets/fonts` (TeX Gyre Heros), `assets/fx/grao.png`, `assets/sfx` (teclado da CTA, whoosh documental).
+  Kit de efeitos: `~/.claude/skills/media-use/audio/assets/sfx` (Pixabay, uso livre).
+- `references/estilo.md` (gramática visual), `references/exemplo_cenas.py` (vídeo do cérebro).
+- Python: pillow, opencv, numpy, soundfile (venv do corte-viral já tem; `requirements.txt`).

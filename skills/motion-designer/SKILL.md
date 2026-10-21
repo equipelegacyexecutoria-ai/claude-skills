@@ -23,6 +23,7 @@ Instalar programa novo, baixar arquivo ou gastar crédito: pedir o "sim" do usu�
 
 | Pedido / trecho | Ferramenta | Observação |
 | --- | --- | --- |
+| Fala de especialista (Clailton etc.) ilustrada palavra a palavra, especialista ~10% na tela, visual moderno escuro com brilho | **skill `motion-dinamico`** (Motion Dinâmico) | Estilo nomeado pelo usuário em 21/10/2026; tem gerador e molde próprios |
 | Montagem do vídeo inteiro: anúncio, demonstração, Reels animado, vinheta, texto animado | **HyperFrames** | Base sempre. HTML + GSAP, grátis. Catálogo com 446 efeitos: `npx hyperframes catalog --query "<efeito em inglês>"` antes de desenhar à mão |
 | Gráfico, curva, juros, crescimento, fórmula, dado "matemático" | **Manim** | Gera um MP4 da cena que entra no HyperFrames. Modelo: `templates/manim_grafico.py` |
 | Diagrama explicativo com muito ajuste de tempo (setas, fluxos, passo a passo) | **Motion Canvas** | Editor visual no navegador; render pelo botão do editor. Modelo em `templates/motion-canvas/` |
