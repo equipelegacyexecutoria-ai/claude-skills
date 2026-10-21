@@ -110,6 +110,16 @@ Variáveis: `S = ~/.claude/skills/motion-dinamico/scripts`, `PY` = Python da ven
 13. **Entrega**: Sala de Revisão (skill `sala-de-revisao`; prévia como asset `/_blob/`), link na conversa.
     Card do Notion/Drive só se for da fila (`fila-de-render`).
 
+## Usuário editando na tela do HyperFrames (Studio)
+
+O usuário quis mexer em cada elemento e o Premiere não dava (21/10/2026). O aplicativo do HyperFrames para Windows ainda
+não existe ("Coming soon" em hyperframes.dev/studio); a tela de edição abre no navegador. Atalho pronto em
+`assets/HyperFrames Studio.cmd`: copie para a Área de Trabalho do PC; clicar abre o projeto do cérebro, arrastar a
+pasta de outro projeto em cima abre aquele (a janela preta precisa ficar aberta). Só funciona no próprio PC (localhost).
+Depois que ele editar no Studio, **não rode de novo o `cenas_*.py`** (apaga a edição dele): continue a partir do
+`index.html` editado (`npx hyperframes history` mostra o que mudou) e só então renderize; refaça o `cortar_pausa.py`
+se houver pausa cortada.
+
 ## Peças (motion_lib.py)
 
 Posição sempre pelo centro (cx, cy) em 1080x1920; `z` = profundidade (negativo = longe, positivo = perto).
