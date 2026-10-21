@@ -1,6 +1,6 @@
 # Posts e Leads no painel do Cérebro (trazidos do Legacy Insights Hub)
 
-Atualizado em 21/10/2026 (melhores semanas de MQL × alcance; raio-x de seguidores, alcance e cliques; carrosséis jun–out por esqueleto, formato e capa). Pedido do Igor (13/10): abandonar o Legacy Insights Hub e deixar o Cérebro como o único
+Atualizado em 21/10/2026 (mídia paga × visitas × MQL; melhores semanas de MQL × alcance; raio-x de seguidores, alcance e cliques; carrosséis jun–out por esqueleto, formato e capa). Pedido do Igor (13/10): abandonar o Legacy Insights Hub e deixar o Cérebro como o único
 painel de gestão do time. As telas de **Posts** e de **Leads** do Hub viraram janelas do site do Cérebro
 (https://cerebro-legacy-organico.vercel.app), publicadas em 14/10/2026. O Hub não é mais fonte: só foi lido e copiado.
 
@@ -205,6 +205,28 @@ sem anúncio (o "alcance" da conta inclui ~90 a 270 mil/semana de anúncio).
   seguinte colhendo; set/out (07/09, 12/10) com o feed da Legacy fraco e o Clailton viralizando (3,5 e 3,6 mi de alcance na
   semana), que lota as visitas da Legacy. 12/10 veio depois da semana com o pior alcance próprio da série.
 - Contraexemplo: 27/07 teve o maior alcance próprio da série (558 mil no feed) e só 10 MQL.
+
+## Mídia paga × visitas × MQL (21/10/2026, planilha "Marketing - Legacy Educação")
+
+Fonte: planilha do Growth https://docs.google.com/spreadsheets/d/1lmEBMrpX_mzdz7iYwyCCaLdoLHqDnj6DKGwryTdaYL0 (lida pelo Chrome do
+Igor, só leitura; a conta Google ligada ao Claude não tem acesso). Abas usadas: "Overview - Mídia" (anúncios do Growth por dia:
+investimento, page view, lead, MQL) e "Meta - Orgânico" (= "Overview - Orgânico"): **anúncio pago que leva gente ao perfil da
+Legacy** (investimento, impressões, visitas ao perfil, seguidores; ~R$ 250 a 500/dia, ~R$ 0,15 a 0,39 por visita). É da Legacy:
+por dia, impressões × alcance de anúncio da Legacy 0,84 (Clailton 0,54); visitas pagas × visitas da Legacy 0,77 (Clailton 0,45).
+Semanas 27/07 a 18/10, MQL orgânico = perfil Legacy (bio, story, boas-vindas, Quiz Legacy).
+- **A maior parte das visitas ao perfil da Legacy é paga:** 97.923 visitas pagas × 126.762 visitas no total (77%; a conta da Meta
+  e a do anúncio não batem 100%, algumas semanas passam de 100%). Visitas por dia ≈ 1 × visitas pagas + 2,1 por mil de alcance do
+  Clailton (explica 86% da variação diária). Isso corrige a leitura anterior de que as visitas vinham quase todas do Clailton.
+- **Visita paga vira pouco MQL:** MQL orgânico por semana ≈ 0,37 por mil visitas pagas × 0,94 por mil das outras visitas (12
+  semanas, número aproximado). As piores semanas (21/09 e 28/09, 7 MQL) tiveram quase só visita paga; as melhores (07/09 = 16,
+  12/10 = 22, 17/08 = 13) tiveram 5 a 8 mil visitas além das pagas, nas semanas de viral do Clailton. Dia a dia, sem a tendência,
+  visitas pagas × MQL orgânico = −0,06.
+- **Investimento do Growth × MQL orgânico da Legacy:** por dia, tirando a tendência, 0,32 (91 dias); por semana 0,62. Não passa
+  pelos leads pagos (0,03) nem pelo Clailton (0,10). Hipótese: quem vê o anúncio e não preenche vai ao perfil e entra pela bio.
+- **MQL pago:** até 28/09, gastar mais não trouxe mais MQL pago (0,02) e encareceu o MQL (CPMQL × investimento 0,50 a 0,67). Em
+  outubro o MQL pago subiu (semana 05/10 = 76, 12/10 = 121, CPMQL R$ 144) junto com os anúncios da Black "Viva Sem Medo" (06/10;
+  corte de MQL da Black é R$ 50 mil). Alcance do Clailton não mexe no MQL pago (−0,06 antes da Black).
+- 12 semanas: Growth R$ 159.400 e 685 MQL pagos; impulsionamento do perfil R$ 24.809; MQL orgânico da Legacy 146.
 
 ## Carrosséis jun–out/2026: esqueleto, formato e capa (20/10/2026)
 
