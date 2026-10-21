@@ -77,7 +77,12 @@ Variáveis: `S = ~/.claude/skills/motion-dinamico/scripts`, `PY` = Python da ven
     --saida qa/area.jpg`; transcrever o `mix.wav` (`motion-designer/scripts/transcrever.py`) para provar a voz.
 11. `npx hyperframes render --quality high --fps 30 --output renders/<nome>_v1.mp4`; folha de quadros do MP4
     (`fps=2,tile`) para achar quadro vazio ou elemento fora de hora.
-12. **Entrega**: Sala de Revisão (skill `sala-de-revisao`; prévia como asset `/_blob/`), link na conversa.
+12. **Projeto do Premiere** (quando pedirem "gera o projeto para o Premiere"):
+    `PY S/premiere_motion.py "<P>" "C:\Render\Reels Editados\<nome> - PREMIERE"` → XML (Arquivo > Importar) + `midia/`:
+    V1 fundo e animações sem texto (MP4), V2 textos/carimbos/CTA transparentes (ProRes 4444), V3 final (desligada),
+    A1 voz, A2/A3 trilhas com fades, A4+ cada efeito sonoro, mix final (desligada); `LEIA-ME.txt` explica. Copie a pasta
+    para o Drive (EDITADO do mês) para a equipe abrir em outro PC.
+13. **Entrega**: Sala de Revisão (skill `sala-de-revisao`; prévia como asset `/_blob/`), link na conversa.
     Card do Notion/Drive só se for da fila (`fila-de-render`).
 
 ## Peças (motion_lib.py)
@@ -122,7 +127,7 @@ y 1000–1720; texto que troca na mesma cena: `sai("#tit", t)` antes do próximo
 ## Arquivos
 
 - `scripts/motion_lib.py` (gerador), `scripts/molde.html` (visual), `novo_projeto.py`, `preparar_elementos.py`,
-  `recortar_cabeca.py`, `expert.py`, `montar_mix.py`.
+  `recortar_cabeca.py`, `expert.py`, `montar_mix.py`, `premiere_motion.py` (projeto do Premiere em camadas).
 - `assets/fonts` (TeX Gyre Heros), `assets/fx/grao.png`, `assets/sfx` (teclado da CTA, whoosh documental).
   Kit de efeitos: `~/.claude/skills/media-use/audio/assets/sfx` (Pixabay, uso livre).
 - `references/estilo.md` (gramática visual), `references/exemplo_cenas.py` (vídeo do cérebro).
