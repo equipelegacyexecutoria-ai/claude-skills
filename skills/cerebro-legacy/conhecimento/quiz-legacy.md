@@ -21,6 +21,7 @@ Fontes principais (com a data da última edição):
 - Endereços: quiz em `quiz.legacyexecutoria.com.br`, painel em `quiz.legacyexecutoria.com.br/painel`,
   planilha "Quiz-Legacy". Checkout dentro do Legacy Academy.
 - Entrada: link da bio, DM de boas-vindas, TikTok e Facebook (sempre com UTM).
+- **Na fala dos reels (21/10/2026):** a CTA chama o resultado do quiz de **"caminho"**, não "plano" ("eu te mostro o caminho pra vender mais e fazer esse dinheiro sobrar").
 - **Objetivo:** vender o VMLM para quem fatura até R$ 70 mil por mês e, com quem fatura R$ 71 mil ou mais
   (MQL), abrir a porta da **sessão estratégica** e depois do **Legado Empresarial**. Para o MQL o destino
   é a sessão, não o curso (documento dos SDRs).
