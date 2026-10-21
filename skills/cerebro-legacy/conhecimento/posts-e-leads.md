@@ -1,6 +1,6 @@
 # Posts e Leads no painel do Cérebro (trazidos do Legacy Insights Hub)
 
-Atualizado em 20/10/2026 (raio-x de seguidores, alcance e cliques; carrosséis jun–out por esqueleto, formato e capa). Pedido do Igor (13/10): abandonar o Legacy Insights Hub e deixar o Cérebro como o único
+Atualizado em 21/10/2026 (melhores semanas de MQL × alcance; raio-x de seguidores, alcance e cliques; carrosséis jun–out por esqueleto, formato e capa). Pedido do Igor (13/10): abandonar o Legacy Insights Hub e deixar o Cérebro como o único
 painel de gestão do time. As telas de **Posts** e de **Leads** do Hub viraram janelas do site do Cérebro
 (https://cerebro-legacy-organico.vercel.app), publicadas em 14/10/2026. O Hub não é mais fonte: só foi lido e copiado.
 
@@ -189,6 +189,22 @@ sempre dias 1 a 20 de cada mês para comparar igual. Canal bio_legacy, sem Quiz:
   seguintes cansaram (CR7 837, Bellingham 1.136, Kutcher 468, Xuxa 1.046). O CTA era o mesmo de hoje (formulário + Sessão
   Estratégica Gratuita). Story_legacy forte só a partir de 20/07. Métricas do perfil antes de 21/07 não existem no banco
   (a Meta guarda 90 dias): o elo alcance → lead em julho é coincidência de datas, não prova.
+
+## Melhores semanas de MQL da Legacy × alcance (21/10/2026)
+
+Pergunta do Igor: as melhores semanas de MQL do perfil da Legacy têm a ver com o alcance da mesma semana ou da anterior?
+Banco do Cérebro, semanas de segunda a domingo, 27/07 a 18/10 (12 semanas; a Meta só guarda 90 dias). MQL do perfil Legacy =
+bio_legacy + Story_legacy + boas_vindas + Quiz boas-vindas Legacy + Manychat_legacy, cada pessoa uma vez. Alcance da Legacy
+sem anúncio (o "alcance" da conta inclui ~90 a 270 mil/semana de anúncio).
+- Melhores semanas: 12–18/10 = 22 MQL; 24–30/08 = 18; 07–13/09 = 16; 10–16/08 = 15; 17–23/08 = 13. Piores: 21/09 e 28/09 = 7.
+  A melhor antes disso foi 06–12/07 (20 MQL, Copa), sem dado de alcance.
+- Correlação com o MQL semanal (com 12 semanas só vale a partir de ~0,58): alcance próprio da Legacy na mesma semana 0,13, na
+  anterior 0,10 (fraco); visitas ao perfil da Legacy na mesma semana 0,71; alcance do Clailton na mesma semana 0,70; views da
+  conta Legacy 0,67. Só o MQL da bio: alcance da Legacy da semana anterior 0,43 a 0,49 (sinal fraco, puxado por agosto).
+- Dois tipos de semana boa: agosto (10/08, 17/08, 24/08) com o feed da própria Legacy forte (300 a 490 mil/semana) e a semana
+  seguinte colhendo; set/out (07/09, 12/10) com o feed da Legacy fraco e o Clailton viralizando (3,5 e 3,6 mi de alcance na
+  semana), que lota as visitas da Legacy. 12/10 veio depois da semana com o pior alcance próprio da série.
+- Contraexemplo: 27/07 teve o maior alcance próprio da série (558 mil no feed) e só 10 MQL.
 
 ## Carrosséis jun–out/2026: esqueleto, formato e capa (20/10/2026)
 
