@@ -1,4 +1,6 @@
-# Motion Dinâmico: "Seu Cérebro Tem Um Defeito De Fábrica" (v5, 21/10/2026): B-roll do acervo B-ROLLS e tela dividida
+# Motion Dinâmico: "Seu Cérebro Tem Um Defeito De Fábrica" (v6, 21/10/2026): tela dividida com emenda em degradê
+# e texto no centro, B-rolls trocados pelo sentido da fala, Clailton no trecho do baú.
+# (cabeçalho da v5:): B-roll do acervo B-ROLLS e tela dividida
 # com o Clailton nas cenas das notas da v4; o resto como na v4.
 # (cabeçalho da v4:) Notas da v3: sem ladrão, texto adiantado,
 # sino de fim de round terminando no corte, tudo 70 px acima (gabarito de área segura), sem efeito em 1997,
@@ -11,24 +13,24 @@
 import os, sys
 sys.path.insert(0, os.path.join(os.path.expanduser("~"), ".claude", "skills", "motion-dinamico", "scripts"))
 from motion_lib import *  # noqa: F401,F403
-# fundos de texto sobre B-roll e linha azul da tela dividida
+# fundos de texto sobre B-roll e emenda em degradê da tela dividida
 GRAD_BAIXO = "background: linear-gradient(to bottom, rgba(3,6,13,0) 0%, rgba(3,6,13,.82) 100%)"
 GRAD_CIMA = "background: linear-gradient(to top, rgba(3,6,13,0) 0%, rgba(3,6,13,.82) 100%)"
-EMENDA = "background:#17adfd; box-shadow: 0 0 18px rgba(23,173,253,.85)"
+EMENDA_GRAD = ("background: linear-gradient(to bottom, rgba(3,6,13,0) 0%, rgba(3,6,13,.94) 30%, "
+               "rgba(3,6,13,.94) 70%, rgba(3,6,13,0) 100%)")
 
 AZ, OURO = "23,173,253", "231,170,81"
 # palco inteiro 70 px acima: o conteúdo fica no centro da área segura (gabarito do Reels: 250 a 1500)
 v = Video(sys.argv[1], sys.argv[2], 73.6, css=".bz, .cena > .palco { top: -70px; bottom: 70px; }")
 
-# ---- 0–3.45 gancho: tela dividida, B-roll em cima (homem aflito, Succession) e Clailton embaixo
+# ---- 0–3.45 gancho: tela dividida, B-roll em cima (homem aflito, Succession) e Clailton embaixo, texto na emenda
 v.video("assets/broll/s1.mp4", 0, 3.45, 0, 0, 1080, 900, zoom=0)
 v.expert("assets/dividida_0.mp4", 0, 3.45, cx=540, cy=1410, w=1080, h=1020, moldura=False)
 v.cena("s1", 0, 3.45, "tenso", [], "", sobre=[
-    caixa("s1-grad", 540, 760, 1080, 420, "", 0, estilo=GRAD_BAIXO),
-    caixa("s1-emenda", 540, 970, 1080, 6, "", 0, estilo=EMENDA),
-    titulo("s1-t1", [(54, [("O", 0.14, "fino"), ("teu", 0.26, "fino"), ("cérebro", 0.52, "ac"), ("está", 1.14, "fino"), ("com", 1.46, "fino"), ("um", 1.58, "fino")])], 540, 660, 0),
-    carimbo("s1-car", "DEFEITO DE FÁBRICA", 540, 800, 64, 0, -3),
-    titulo("s1-t2", [(62, [("salva", 2.69, "ac"), ("isso.", 2.99, "")])], 540, 865, 0),
+    caixa("s1-emenda", 540, 970, 1080, 440, "", 0, estilo=EMENDA_GRAD),
+    titulo("s1-t1", [(54, [("O", 0.14, "fino"), ("teu", 0.26, "fino"), ("cérebro", 0.52, "ac"), ("está", 1.14, "fino"), ("com", 1.46, "fino"), ("um", 1.58, "fino")])], 540, 840, 0),
+    carimbo("s1-car", "DEFEITO DE FÁBRICA", 540, 960, 64, 0, -3),
+    titulo("s1-t2", [(62, [("salva", 2.69, "ac"), ("isso.", 2.99, "")])], 540, 1020, 0),
 ], js_sobre="""
 carimbo("#s1-car", 1.67);
 """)
@@ -118,8 +120,8 @@ tl.to("#s7-b", {scale:0.86, opacity:0.4, duration:0.5, ease:"power2.out"}, 18.43
 pulsa("#s7-a .card", 20.26, 0.6, 1.04); soco("#s7-bz", 20.26, 1.04, 0.3);
 """)
 
-# ---- 21.12–24.98 do que o benefício que só receberemos no futuro: B-roll (mão no trigo, Gladiador)
-v.video("assets/broll/s8.mp4", 21.12, 3.86)
+# ---- 21.12–24.98 do que o benefício que só receberemos no futuro: B-roll (Kendall olhando o horizonte, Succession)
+v.video("assets/broll/s8b.mp4", 21.12, 3.86)
 v.cena("s8", 21.12, 24.98, "escuro", [], "", sobre=[
     caixa("s8-grad1", 540, 420, 1080, 700, "", 0, estilo=GRAD_CIMA),
     caixa("s8-grad2", 540, 1520, 1080, 1100, "", 0, estilo=GRAD_BAIXO),
@@ -145,7 +147,7 @@ sfx("pop", 26.54);
 """)
 
 # ---- 27.12–31.22 treinar, estudar, economizar ou começar aquele projeto: B-roll em tela cheia, um por palavra
-v.video("assets/broll/treinar.mp4", 27.12, 0.73)
+v.video("assets/broll/treinar2.mp4", 27.12, 0.73)
 v.video("assets/broll/estudar.mp4", 27.85, 0.70)
 v.video("assets/broll/economizar.mp4", 28.55, 0.80)
 v.video("assets/broll/projeto.mp4", 29.35, 1.88)
@@ -212,16 +214,14 @@ sai("#s13-tit", 37.25, 0.15);
 carimbo("#s13-aqui", 37.52); traco("#s13-seta", 37.62, 0.25);
 """)
 
-# ---- 38.05–40.62 e o aqui e agora quase sempre vence: tela dividida, boxe (Touro Indomável) em cima e Clailton embaixo
-v.video("assets/broll/agora.mp4", 38.05, 1.90, 0, 0, 1080, 900, zoom=0)
-v.video("assets/broll/vence.mp4", 39.95, 0.67, 0, 0, 1080, 900, zoom=0)
+# ---- 38.05–40.62 e o aqui e agora quase sempre vence: tela dividida, boxe (Touro Indomável) num trecho só, sem cortes
+v.video("assets/broll/agora2.mp4", 38.05, 2.57, 0, 0, 1080, 900, zoom=0)
 v.expert("assets/dividida_1.mp4", 38.05, 2.57, cx=540, cy=1410, w=1080, h=1020, moldura=False)
 v.cena("s14", 38.05, 40.62, "tenso", [], "", sobre=[
-    caixa("s14-grad", 540, 760, 1080, 420, "", 0, estilo=GRAD_BAIXO),
-    caixa("s14-emenda", 540, 970, 1080, 6, "", 0, estilo=EMENDA),
-    titulo("s14-t1", [(84, [("E", 38.10, "fino"), ("o", 38.20, "fino"), ("aqui", 38.30, ""), ("e", 38.66, "fino"), ("agora", 38.72, "hl")])], 540, 610, 0),
-    titulo("s14-t2", [(54, [("quase", 39.23, "fino"), ("sempre", 39.63, "fino")])], 540, 720, 0),
-    carimbo("s14-vence", "VENCE", 540, 860, 88, 0, -5),
+    caixa("s14-emenda", 540, 970, 1080, 440, "", 0, estilo=EMENDA_GRAD),
+    titulo("s14-t1", [(84, [("E", 38.10, "fino"), ("o", 38.20, "fino"), ("aqui", 38.30, ""), ("e", 38.66, "fino"), ("agora", 38.72, "hl")])], 540, 765, 0),
+    titulo("s14-t2", [(54, [("quase", 39.23, "fino"), ("sempre", 39.63, "fino")])], 540, 868, 0),
+    carimbo("s14-vence", "VENCE", 540, 1030, 88, 0, -5),
 ], js_sobre="""
 sfx("punch", 39.97); sfx("sinofim", 40.02);
 carimbo("#s14-vence", 40.11); semsom("carimbo", 40.11);
@@ -238,32 +238,32 @@ sfx("bz", 40.62);
 ], js_sobre="")
 
 # ---- 43.10–49.85 pare de deixar toda a recompensa para o futuro / traga uma parte dela agora, para o presente
+# tela dividida: baú em cima, Clailton embaixo, texto na emenda
 MOEDAS = "".join(f'<circle class="moeda" cx="{x}" cy="{y}" r="{r}" fill="#e7aa51" stroke="#8a5d1e" stroke-width="4"/>' for x, y, r in
-                 [(430, 860, 16), (660, 820, 13), (380, 1000, 11), (720, 960, 18), (560, 750, 12), (300, 920, 9), (790, 860, 10)])
+                 [(430, 570, 16), (660, 530, 13), (380, 710, 11), (720, 670, 18), (560, 460, 12), (300, 630, 9), (790, 570, 10)])
+v.expert("assets/baudiv_0.mp4", 43.10, 6.75, cx=540, cy=1410, w=1080, h=1020, moldura=False)
 v.cena("s16", 43.10, 49.85, "quente", [
     raios("s16-raios", -1600, .45),
-    camada(-1300, '<div class="it" id="s16-bauw" style="left:550px; top:700px; width:420px; height:406px">'
-                  '<div class="fl"><img class="rec" src="assets/img/bau.png" alt="" style="width:100%; height:100%" /></div></div>', nocomp=True, ident="s16-bauz"),
-    brilho("s16-luz", 760, 903, 420, OURO, .55, -1350),
-    carimbo("s16-pare", "PARE", 540, 420, 110, 160, -4),
-    titulo("s16-t1", [(56, [("de", 43.64, "fino"), ("deixar", 43.78, "fino"), ("toda", 44.68, "fino"), ("a", 45.00, "fino")]), (130, [("recompensa", 45.06, "hl")])], 540, 505),
-    titulo("s16-t2", [(56, [("para", 45.89, "fino"), ("o", 46.09, "fino")]), (100, [("futuro", 46.19, "ac")])], 470, 1290, w=780),
-    titulo("s16-t3", [(60, [("Traga", 46.99, ""), ("uma", 47.29, "fino"), ("parte", 47.49, "fino"), ("dela", 47.84, "fino")]), (110, [("agora,", 48.48, "ac")])], 540, 385),
-    titulo("s16-t4", [(60, [("para", 49.04, "fino"), ("o", 49.16, "fino")]), (140, [("presente", 49.24, "hl")])], 540, 385),
+    brilho("s16-luz", 540, 590, 380, OURO, .55),
+    camada(0, '<div class="it" id="s16-bauw" style="left:360px; top:416px; width:360px; height:348px">'
+              '<div class="fl"><img class="rec" src="assets/img/bau.png" alt="" style="width:100%; height:100%" /></div></div>', nocomp=True, ident="s16-bauz"),
+    carimbo("s16-pare", "PARE", 540, 520, 110, 160, -4),
     svg("s16-moedas", MOEDAS, 120),
 ], """
-bz("#s16-bz", 43.10); cam("#s16-mundo", 43.10, 3.9, {x:-20, z:0, rotationY:-2}, {x:20, z:110, rotationY:2});
-cam("#s16-mundo", 47.0, 2.85, {x:20, z:110, rotationY:2}, {x:0, z:40, rotationY:0}, "power2.inOut");
+bz("#s16-bz", 43.10); cam("#s16-mundo", 43.10, 6.75, {z:0}, {z:60});
 entra("#s16-bauw", 43.15, "fade", {d:0.8}); flutua("#s16-bauw", 43.2, 6.6, 8, 2.6, 1.2);
 gsap.set("#s16-luz", {opacity:0}); tl.fromTo("#s16-luz", {opacity:0}, {opacity:1, duration:1, immediateRender:false}, 43.3);
 carimbo("#s16-pare", 43.17); sai("#s16-pare", 44.5, 0.2);
-sai("#s16-t1", 46.6, 0.18); sai("#s16-t2", 46.62, 0.18);
-tl.fromTo("#s16-bauz", {z:-1300, x:0, y:0}, {z:0, x:-220, y:140, duration:1.4, ease:"power2.inOut", immediateRender:false}, 46.99);
-sfx("doc", 46.99);
-tl.to("#s16-luz", {opacity:0, duration:0.6}, 47.0);
-sai("#s16-t3", 48.7, 0.15);
 gsap.utils.toArray("#s16-moedas .moeda").forEach((m, i) => { gsap.set(m, {opacity:0}); tl.fromTo(m, {opacity:0, y:60, scale:0.3, transformOrigin:"50% 50%"}, {opacity:1, y:-40 - (i % 3) * 30, scale:1, duration:0.6, ease:"power2.out", immediateRender:false}, 48.48 + i * 0.05); });
 sfx("brilho", 48.48); soco("#s16-bz", 48.48, 1.05, 0.3);
+""", sobre=[
+    caixa("s16-emenda", 540, 970, 1080, 440, "", 0, estilo=EMENDA_GRAD),
+    titulo("s16-t1", [(56, [("de", 43.64, "fino"), ("deixar", 43.78, "fino"), ("toda", 44.68, "fino"), ("a", 45.00, "fino")]), (110, [("recompensa", 45.06, "hl")]),
+                      (64, [("para", 45.89, "fino"), ("o", 46.09, "fino"), ("futuro", 46.19, "ac")])], 540, 833, 0),
+    titulo("s16-t3", [(60, [("Traga", 46.99, ""), ("uma", 47.29, "fino"), ("parte", 47.49, "fino"), ("dela", 47.84, "fino")]), (110, [("agora,", 48.48, "ac")])], 540, 870, 0),
+    titulo("s16-t4", [(60, [("para", 49.04, "fino"), ("o", 49.16, "fino")]), (140, [("presente", 49.24, "hl")])], 540, 852, 0),
+], js_sobre="""
+sai("#s16-t1", 46.6, 0.18); sai("#s16-t3", 48.6, 0.15);
 """)
 
 # ---- 49.85–54.58 quer treinar? então só assista a tua série favorita depois do treino
@@ -284,17 +284,16 @@ entra("#s17-tv", 52.38, "dir", {dist:400}); flutua("#s17-tv", 53.0, 1.55, 6, 2.4
 entra("#s17-n2", 52.62, "pop"); traco("#s17-seta", 53.46, 0.4);
 """)
 
-# ---- 54.58–59.42 precisa estudar? café delicioso depois de cumprir a meta: tela dividida com B-roll em cima
-v.video("assets/broll/estudo2.mp4", 54.58, 2.12, 0, 0, 1080, 900, zoom=0)
-v.video("assets/broll/cafe.mp4", 56.70, 1.55, 0, 0, 1080, 900, zoom=0)
+# ---- 54.58–59.42 precisa estudar? café delicioso depois de cumprir a meta: tela dividida, texto na emenda
+v.video("assets/broll/estudo3.mp4", 54.58, 2.12, 0, 0, 1080, 900, zoom=0)
+v.video("assets/broll/cafe2.mp4", 56.70, 1.55, 0, 0, 1080, 900, zoom=0)
 v.video("assets/broll/meta.mp4", 58.25, 1.17, 0, 0, 1080, 900, zoom=0)
 v.expert("assets/dividida_2.mp4", 54.58, 4.84, cx=540, cy=1410, w=1080, h=1020, moldura=False)
 v.cena("s18", 54.58, 59.42, "quente", [], "", sobre=[
-    caixa("s18-grad", 540, 760, 1080, 420, "", 0, estilo=GRAD_BAIXO),
-    caixa("s18-emenda", 540, 970, 1080, 6, "", 0, estilo=EMENDA),
-    titulo("s18-t1", [(100, [("Precisa", 54.63, "fino"), ("estudar?", 54.99, "ac")])], 540, 720, 0),
-    titulo("s18-t2", [(56, [("Tome", 56.01, "fino"), ("aquele", 56.45, "fino")]), (92, [("café", 56.79, "ac"), ("delicioso", 57.15, "ac")])], 540, 690, 0),
-    titulo("s18-t3", [(56, [("depois", 57.81, "fino"), ("de", 58.17, "fino")]), (92, [("cumprir", 58.30, ""), ("essa", 58.68, "fino"), ("meta", 58.94, "hl")])], 540, 690, 0),
+    caixa("s18-emenda", 540, 970, 1080, 440, "", 0, estilo=EMENDA_GRAD),
+    titulo("s18-t1", [(100, [("Precisa", 54.63, "fino"), ("estudar?", 54.99, "ac")])], 540, 910, 0),
+    titulo("s18-t2", [(56, [("Tome", 56.01, "fino"), ("aquele", 56.45, "fino")]), (92, [("café", 56.79, "ac"), ("delicioso", 57.15, "ac")])], 540, 882, 0),
+    titulo("s18-t3", [(56, [("depois", 57.81, "fino"), ("de", 58.17, "fino")]), (92, [("cumprir", 58.30, ""), ("essa", 58.68, "fino"), ("meta", 58.94, "hl")])], 540, 882, 0),
 ], js_sobre="""
 sai("#s18-t1", 55.7, 0.15); sai("#s18-t2", 57.5, 0.15);
 sfx("sobe", 56.70); sfx("ok", 58.94);
