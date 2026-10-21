@@ -1,4 +1,4 @@
-# Motion Dinâmico: "Seu Cérebro Tem Um Defeito De Fábrica" (v6, 21/10/2026): tela dividida com emenda em degradê
+# Motion Dinâmico: "Seu Cérebro Tem Um Defeito De Fábrica" (v7: treinar/estudar/economizar em tela dividida; v6, 21/10/2026): tela dividida com emenda em degradê
 # e texto no centro, B-rolls trocados pelo sentido da fala, Clailton no trecho do baú.
 # (cabeçalho da v5:): B-roll do acervo B-ROLLS e tela dividida
 # com o Clailton nas cenas das notas da v4; o resto como na v4.
@@ -146,20 +146,28 @@ gsap.utils.toArray("#s9-bolhas .bolha").forEach((b, i) => { gsap.set(b, {opacity
 sfx("pop", 26.54);
 """)
 
-# ---- 27.12–31.22 treinar, estudar, economizar ou começar aquele projeto: B-roll em tela cheia, um por palavra
-v.video("assets/broll/treinar2.mp4", 27.12, 0.73)
-v.video("assets/broll/estudar.mp4", 27.85, 0.70)
-v.video("assets/broll/economizar.mp4", 28.55, 0.80)
-v.video("assets/broll/projeto.mp4", 29.35, 1.88)
-v.cena("s10", 27.12, 31.22, "escuro", [], "", sobre=[
-    caixa("s10-grad", 540, 1520, 1080, 1100, "", 0, estilo=GRAD_BAIXO),
-    titulo("s10-a", [(120, [("treinar,", 27.19, "hl")])], 470, 1250, 0, w=780),
-    titulo("s10-b", [(120, [("estudar,", 27.89, "hl")])], 470, 1250, 0, w=780),
-    titulo("s10-c", [(120, [("economizar", 28.61, "hl")])], 470, 1250, 0, w=780),
-    titulo("s10-d", [(56, [("ou", 29.27, "fino"), ("começar", 29.41, "fino"), ("aquele", 29.94, "fino")]), (110, [("projeto", 30.34, "ac")])], 470, 1230, 0, w=780),
+# ---- 27.12–29.35 treinar, estudar, economizar: tela dividida, um B-roll por palavra em cima, Clailton embaixo
+v.video("assets/broll/treinar_topo.mp4", 27.12, 0.73, 0, 0, 1080, 900, zoom=0)
+v.video("assets/broll/estudar_topo.mp4", 27.85, 0.70, 0, 0, 1080, 900, zoom=0)
+v.video("assets/broll/economizar_topo.mp4", 28.55, 0.80, 0, 0, 1080, 900, zoom=0)
+v.expert("assets/treinodiv_0.mp4", 27.12, 2.23, cx=540, cy=1410, w=1080, h=1020, moldura=False)
+v.cena("s10", 27.12, 29.35, "escuro", [], "", sobre=[
+    caixa("s10-emenda", 540, 970, 1080, 440, "", 0, estilo=EMENDA_GRAD),
+    titulo("s10-a", [(120, [("treinar,", 27.19, "hl")])], 540, 898, 0),
+    titulo("s10-b", [(120, [("estudar,", 27.89, "hl")])], 540, 898, 0),
+    titulo("s10-c", [(120, [("economizar", 28.61, "hl")])], 540, 898, 0),
 ], js_sobre="""
-sai("#s10-a", 27.66, 0.08); sai("#s10-b", 28.38, 0.08); sai("#s10-c", 29.06, 0.08);
-sfx("sobe", 27.85); sfx("sobe", 28.55); sfx("sobe", 29.35);
+sai("#s10-a", 27.66, 0.08); sai("#s10-b", 28.38, 0.08);
+sfx("sobe", 27.85); sfx("sobe", 28.55);
+""")
+
+# ---- 29.35–31.22 ou começar aquele projeto: B-roll em tela cheia (reunião)
+v.video("assets/broll/projeto.mp4", 29.35, 1.88)
+v.cena("s10p", 29.35, 31.22, "escuro", [], "", sobre=[
+    caixa("s10p-grad", 540, 1520, 1080, 1100, "", 0, estilo=GRAD_BAIXO),
+    titulo("s10p-d", [(56, [("ou", 29.27, "fino"), ("começar", 29.41, "fino"), ("aquele", 29.94, "fino")]), (110, [("projeto", 30.34, "ac")])], 470, 1230, 0, w=780),
+], js_sobre="""
+sfx("sobe", 29.35);
 """)
 
 # ---- 31.22–33.60 mas continua adiando (ronco)

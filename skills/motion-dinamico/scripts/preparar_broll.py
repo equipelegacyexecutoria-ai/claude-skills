@@ -2,7 +2,8 @@
 # (cropdetect), enquadra no tamanho do lugar (tela cheia 1080x1920 ou metade de cima da tela dividida) e tira o som.
 # uso: python preparar_broll.py <projeto> trechos.json
 #   trechos.json = [{"nome": "s2", "acervo": "BB-06", "t": 80.2, "dur": 2.45, "fonte_dur": 1.0, "lugar": "cheia"|"topo",
-#                    "x": 0.5}]   fonte_dur < dur = câmera lenta (trecho curto esticado); x = centro horizontal do recorte (0–1)
+#                    "x": 0.5, "y": 0.5}]   fonte_dur < dur = câmera lenta (trecho curto esticado); x/y = centro do recorte (0–1);
+#   y vale quando a fonte é mais alta que o lugar (vídeo vertical no topo da tela dividida: suba para não cortar a cabeça)
 import json, os, re, subprocess, sys
 
 PROJ, TRECHOS = sys.argv[1], json.load(open(sys.argv[2], encoding="utf-8"))
@@ -32,7 +33,7 @@ for tr in TRECHOS:
         x0 = cx + int(max(0, min(cw - nw, tr.get("x", 0.5) * cw - nw / 2))); y0 = cy
     else:
         nw = cw // 2 * 2; nh = int(cw * H / W) // 2 * 2
-        x0 = cx; y0 = cy + (ch - nh) // 2
+        x0 = cx; y0 = cy + int(max(0, min(ch - nh, tr.get("y", 0.5) * ch - nh / 2)))
     vel = tr["dur"] / fd
     vf = f"crop={nw}:{nh}:{x0}:{y0},scale={W}:{H}:flags=lanczos,setpts={vel:.4f}*(PTS-STARTPTS),fps=30,format=yuv420p"
     o = os.path.join(OUT, f"{tr['nome']}.mp4")

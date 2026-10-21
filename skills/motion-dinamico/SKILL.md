@@ -50,7 +50,8 @@ Segue também as regras da skill `motion-designer` (área segura, revisão quadr
   **tela dividida**: B-roll em cima (1080x900) e o Clailton embaixo (1080x1020), **sem linha na emenda**: faixa em degradê
   escuro de y 680 a 1120 (esmaecendo uma tela na outra) com o texto **centralizado em y 900** (v6, 21/10/2026). Carimbo
   e texto não encostam na cabeça do Clailton (cabeça começa por volta de y 1060); **Clailton em tela cheia** sem moldura (sem o cartão de fundo azul) com o texto embaixo. Enumeração
-  ("treinar, estudar, economizar") = um B-roll por palavra, só a palavra na tela. Evite trecho com legenda queimada ou
+  ("treinar, estudar, economizar") = um B-roll por palavra, só a palavra na tela; aprovado (v7, 21/10/2026) em tela dividida:
+  um B-roll por palavra em cima, o Clailton embaixo e a palavra sozinha na emenda. Evite trecho com legenda queimada ou
   logo (ROC-01) e desenho animado quando a fala é séria. Quando o usuário pede B-roll, o elemento 3D daquela cena sai.
   O B-roll tem que ilustrar a fala de verdade (v5 reprovada: Gladiador no trigo para "futuro", close do Rocky para
   "treinar"): para "futuro", alguém olhando o horizonte; "treinar", alguém treinando/correndo; "estudar", alguém na mesa
@@ -81,8 +82,8 @@ Variáveis: `S = ~/.claude/skills/motion-dinamico/scripts`, `PY` = Python da ven
 7. **Especialista e voz**: `PY S/expert.py "<T>" "<P>" 0-3.40 40.62-43.10 [--realce]` → `expert_<n>.mp4`
    (retrato 4:5, rosto medido no próprio bruto, do alto da cabeça até a base) e `assets/audio/voz.wav`.
    Tela dividida/tela cheia: `--wh 1080x1020 --prefixo dividida --sem-voz` ou `--wh 1080x1920 --prefixo cheia --sem-voz`.
-   **B-roll**: `trechos.json` (`nome`, `acervo` = código do B-ROLLS, `t`, `dur`, `lugar` "cheia"/"topo", `x` 0–1 para o
-   recorte, `fonte_dur` < `dur` = câmera lenta) e `PY S/preparar_broll.py "<P>" trechos.json` → `assets/broll/<nome>.mp4`
+   **B-roll**: `trechos.json` (`nome`, `acervo` = código do B-ROLLS, `t`, `dur`, `lugar` "cheia"/"topo", `x`/`y` 0–1 para o
+   recorte (vídeo vertical no topo: `y` ~0,35 para não cortar a cabeça), `fonte_dur` < `dur` = câmera lenta) e `PY S/preparar_broll.py "<P>" trechos.json` → `assets/broll/<nome>.mp4`
    (sem tarja preta, sem som). Confira um quadro de cada (rosto inteiro, sem legenda queimada).
    Confira um quadro de cada janela (rosto centrado, cabeça com folga). `--realce` se o card pedir "diminuir realces".
 8. **Cenas**: copie `references/exemplo_cenas.py` para `T/cenas.py` e reescreva as cenas (peças na seção
