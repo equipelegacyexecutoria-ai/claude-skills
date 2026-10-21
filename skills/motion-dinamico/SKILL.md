@@ -46,7 +46,8 @@ Segue também as regras da skill `motion-designer` (área segura, revisão quadr
 - Efeito que o usuário achar alto ou demais: tirar (`semsom`), não só baixar.
 - **Texto sobre B-roll ou sobre o especialista: centralizado e nunca em cima do rosto** (v9, 21/10/2026). Olhe onde está
   o rosto em cada B-roll (folha de quadros) e ponha o texto na área livre (embaixo do queixo, sobre a roupa ou o fundo),
-  centrado em x 540 com faixa escura em degradê atrás. Abaixo de y 1110 use `w=694` centrado em 540 (não passa de x 887).
+  centrado em x 540. Para ler, **escureça o B-roll inteiro** (camada `rgba(3,6,13,.42)` na tela toda); nada de faixa
+  escura só atrás do texto (v10: "pode retirar essa sombra do meio dos textos e apenas escurecer o b-roll"). Abaixo de y 1110 use `w=694` centrado em 540 (não passa de x 887).
 - **Ícones adultos, não infantis** (v8, 21/10/2026: "utilize ícones mais adultos e menos infantis", "calendário mais
   sério"): nada de despertador/ampulheta/calendário 3D de desenho. Use ícone de traço (linha branca, detalhe azul ou
   dourado) desenhado em SVG ou objeto fotográfico sóbrio. Exemplos prontos em `references/exemplo_cenas.py`
