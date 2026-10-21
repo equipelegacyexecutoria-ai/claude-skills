@@ -33,10 +33,10 @@ Para banco de vídeos/fotos, baixar pelo site no Chrome logado (não desconta cr
 
 ## Vídeo vertical (Reels/Stories): margens e área segura
 
-Regra do usuário (11/10/2026): nada importante colado na borda nem embaixo da interface do Instagram.
-Em 1080×1920: margem lateral mínima de 80 px; topo até 220 px é do cabeçalho do Reels; abaixo de
-1480 px ficam nome, legenda e áudio; de x 950 em diante, entre y 1000 e 1720, ficam os botões
-(curtir, comentar, compartilhar). Texto grande que não cabe quebra linha ou diminui, nunca corta.
+Regra do usuário (11/10/2026, gabarito atualizado em 21/10/2026): nada importante colado na borda nem embaixo da
+interface do Instagram. Em 1080×1920: topo até 250 px é do cabeçalho do Reels; abaixo de 1500 px ficam nome,
+legenda e áudio; margem esquerda 70 px e direita 55 px; de y 1110 até 1500 a coluna dos botões ocupa de x 887 em diante
+(curtir, comentar, compartilhar). Gabarito: Full Stack Creative "Instagram Reels Safe Zone". Texto grande que não cabe quebra linha ou diminui, nunca corta.
 Conferir cada cena com a máscara dessas zonas antes de entregar.
 
 ## Motion/anúncio com virada: duas músicas

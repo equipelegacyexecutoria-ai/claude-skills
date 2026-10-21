@@ -35,6 +35,14 @@ Segue também as regras da skill `motion-designer` (área segura, revisão quadr
 - **Sons específicos** quando a cena pede: soco + sino de boxe, despertador analógico, ronco, passos, acerto de dardo
   (`sfx("punch"|"sino"|"despertador"|"ronco"|"passos"|"acerto", t)`); tire o que o usuário apontar com `semsom("tipo", t)`.
 - Pessoas reais da equipe/especialista: recorte de cabeça vem do Drive do usuário (ex.: cabeça do Clailton na CTA).
+- **Área segura pelo gabarito do usuário** (v4, 21/10/2026): conteúdo entre y 250 e 1500, margem esquerda 70 e direita 55;
+  de y 1110 para baixo nada importante passa de x 887 (botões). Textos de baixo: centro em x 470, largura 780.
+  Composição centrada na área segura: se o vídeo ficar "muito embaixo", suba o palco com `Video(..., css=".bz, .cena > .palco
+  { top: -70px; bottom: 70px; }")` e suba o cartão do especialista o mesmo tanto.
+- **Texto entra 0,15 s antes da palavra** (o molde já faz): no tempo exato o usuário achou atrasado.
+- **Vermelho** (`rd`, `#ff3b3b`) para palavra/risco negativo (prejudique, desconforto, roube); dourado só em recompensa.
+- Sino de boxe é de **fim de round**: `sfx("sinofim", t)` terminando exatamente no corte da cena.
+- Efeito que o usuário achar alto ou demais: tirar (`semsom`), não só baixar.
 
 ## Passo a passo
 

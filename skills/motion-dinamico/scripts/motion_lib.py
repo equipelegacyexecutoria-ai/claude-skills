@@ -154,6 +154,7 @@ SFX = {
     # Artlist (21/10/2026): soco + sino de boxe, despertador analógico, ronco, passos, acerto (dardo no alvo)
     "punch": ("soco.mp3", 0.8), "sino": ("sino-boxe.mp3", 0.6), "despertador": ("despertador.mp3", 0.6), "ronco": ("ronco.mp3", 0.7),
     "passos": ("passos.mp3", 0.7), "acerto": ("soco.mp3", 0.45),
+    "sinofim": ("sino-fim.mp3", 0.6),  # sino cortado em 0,62 s: posicione para terminar no corte da cena
 }
 
 
@@ -172,8 +173,9 @@ def _coleta_sfx(js):
 
 
 class Video:
-    def __init__(self, projeto, palavras, dur, kicker=""):
-        self.proj, self.dur, self.kicker = projeto, dur, kicker
+    def __init__(self, projeto, palavras, dur, kicker="", css=""):
+        """css: estilo extra só deste vídeo (ex.: subir o palco inteiro para o centro da área segura)."""
+        self.proj, self.dur, self.kicker, self.css = projeto, dur, kicker, css
         _PROJ[0] = projeto
         imgdir = os.path.join(projeto, "assets", "img")
         _TAM.clear(); _TAM.update({f.rsplit(".", 1)[0]: Image.open(os.path.join(imgdir, f)).size for f in os.listdir(imgdir) if f.endswith((".png", ".jpg"))})
@@ -241,7 +243,7 @@ class Video:
         tpl = open(os.path.join(AQUI, "molde.html"), encoding="utf-8").read()
         kick = f'<div id="kicker"><span class="pt"></span>{esc(self.kicker)}</div>' if self.kicker else ""
         out = (tpl.replace("%%DUR%%", str(self.dur)).replace("%%SECOES%%", "".join(secoes)).replace("%%EXPERT%%", "".join(ex_html))
-               .replace("%%KICKER%%", kick).replace("%%LEGENDA%%", "\n          ".join(self.leg)).replace("%%RIG%%", json.dumps(_RIG))
+               .replace("%%KICKER%%", kick).replace("%%CSS%%", self.css).replace("%%LEGENDA%%", "\n          ".join(self.leg)).replace("%%RIG%%", json.dumps(_RIG))
                .replace("%%EXPERTJS%%", "\n        ".join(ex_js)).replace("%%CENAS%%", "\n\n        ".join(js)))
         open(os.path.join(self.proj, "index.html"), "w", encoding="utf-8").write(out)
         # efeitos sonoros: um por evento, sem empilhar (mínimo 0,12 s entre efeitos)

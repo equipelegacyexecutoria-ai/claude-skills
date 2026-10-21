@@ -21,7 +21,9 @@ if not a.pasta:
 
 # zonas na resolução de referência de cada formato; escaladas para o tamanho real do snapshot
 REF = {
-    "9x16": ((1080, 1920), [(0, 0, 1080, 220), (950, 1000, 1080, 1720), (0, 1480, 1080, 1920)], 80),
+    # 9:16 pelo gabarito de área segura do Reels que o usuário mandou (21/10/2026, fullstackcreative): topo 250, base 420,
+    # esquerda 70, direita 55 até y 1110 e 193 dali para baixo (coluna de botões)
+    "9x16": ((1080, 1920), [(0, 0, 1080, 250), (1025, 250, 1080, 1110), (887, 1110, 1080, 1500), (0, 1500, 1080, 1920), (0, 250, 70, 1500)], 70),
     "4x5": ((1080, 1350), [], 80),
     "1x1": ((1080, 1080), [], 80),
     "16x9": ((1920, 1080), [(0, 960, 1920, 1080)], 96),

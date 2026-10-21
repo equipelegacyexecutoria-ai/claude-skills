@@ -12,7 +12,7 @@
       @font-face { font-family: "Heros"; src: url("assets/fonts/texgyreheros-italic.otf"); font-weight: 400; font-style: italic; }
       @font-face { font-family: "Heros"; src: url("assets/fonts/texgyreheros-bolditalic.otf"); font-weight: 700; font-style: italic; }
       /* paleta Legacy (21/10/2026: "identidade visual precisa ser da legacy"): azul-marinho, azul claro, azul, dourado */
-      :root { --ac: #17adfd; --ac2: #0094ff; --ouro: #e7aa51; --rd: #e7aa51; --txt: #ffffff; --dim: rgba(255,255,255,.32); --card: rgba(6,18,38,.92); --tinta: #031022; }
+      :root { --ac: #17adfd; --ac2: #0094ff; --ouro: #e7aa51; --rd: #ff3b3b; --txt: #ffffff; --dim: rgba(255,255,255,.32); --card: rgba(6,18,38,.92); --tinta: #031022; }
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body { width: 1080px; height: 1920px; overflow: hidden; background: #03060d; }
       #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Heros", "Helvetica Neue", Arial, sans-serif; color: var(--txt); }
@@ -101,6 +101,7 @@
       #grao { position: absolute; left: -256px; top: -256px; width: 1592px; height: 2432px; background: url("assets/fx/grao.png"); opacity: .16; mix-blend-mode: overlay; }
       #vinheta { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 46%, transparent 52%, rgba(0,0,0,.55) 100%); }
       #preto { position: absolute; inset: 0; background: #000; }
+      %%CSS%%
     </style>
   </head>
   <body>
@@ -169,7 +170,7 @@
         // câmera contida (50% do z) para os títulos não subirem para o cabeçalho do Reels
         const zc = (o) => ("z" in o ? { ...o, z: o.z * 0.5 } : o);
         const cam = (sel, t, d, de, para, ease = "sine.inOut") => tl.fromTo(sel, zc(de), { ...zc(para), duration: d, ease, immediateRender: false }, t);
-        const bz = (sel, t, de = 1.12, du = 0.38, blur = 12) =>
+        const bz = (sel, t, de = 1.08, du = 0.3, blur = 6) =>
           tl.fromTo(sel, { scale: de, filter: `blur(${blur}px)` }, { scale: 1, filter: "blur(0px)", duration: du, ease: "power3.out", immediateRender: false }, t);
         const soco = (sel, t, s = 1.05, du = 0.26) => tl.to(sel, { scale: s, duration: du, ease: "power2.out" }, t);
         const traco = (sel, t, d = 0.5) => {
@@ -209,9 +210,10 @@
         // títulos: cada palavra entra quando é falada; a caixa amarela passa logo depois
         for (const w of document.querySelectorAll(".tit .pw")) {
           const t = parseFloat(w.dataset.t);
-          tl.fromTo(w, { opacity: 0, y: 22, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.22, ease: "power3.out", immediateRender: false }, t);
+          // entra 0,15 s ANTES da palavra (21/10/2026: no tempo exato parecia atrasado) e fica legível quando ela soa
+          tl.fromTo(w, { opacity: 0, y: 18, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.16, ease: "power3.out", immediateRender: false }, Math.max(0, t - 0.15));
           const m = w.querySelector(".marca");
-          if (m) tl.fromTo(m, { scaleX: 0 }, { scaleX: 1, duration: 0.28, ease: "power2.out", immediateRender: false }, t + 0.05);
+          if (m) tl.fromTo(m, { scaleX: 0 }, { scaleX: 1, duration: 0.24, ease: "power2.out", immediateRender: false }, Math.max(0, t - 0.06));
         }
 
         tl.fromTo("#preto", { opacity: 1 }, { opacity: 0, duration: 0.12, ease: "none" }, 0);

@@ -1,4 +1,7 @@
-# Motion Dinâmico: "Seu Cérebro Tem Um Defeito De Fábrica" (v3, 21/10/2026).
+# Motion Dinâmico: "Seu Cérebro Tem Um Defeito De Fábrica" (v4, 21/10/2026). Notas da v3: sem ladrão, texto adiantado,
+# sino de fim de round terminando no corte, tudo 70 px acima (gabarito de área segura), sem efeito em 1997,
+# VENCE separado do "quase sempre", vermelho no lugar do laranja.
+# (cabeçalho da v3:)
 # Notas da v2: sem legenda (a fala inteira vira texto animado, sem repetir e sem cobrir elementos), paleta Legacy,
 # carimbos preenchidos, sem a etiqueta do topo, flecha no alvo, ladrão no lugar da mão, cabeça do Clailton no fim,
 # sons de soco + sino, despertador, ronco e passos.
@@ -8,19 +11,20 @@ sys.path.insert(0, os.path.join(os.path.expanduser("~"), ".claude", "skills", "m
 from motion_lib import *  # noqa: F401,F403
 
 AZ, OURO = "23,173,253", "231,170,81"
-v = Video(sys.argv[1], sys.argv[2], 73.6)
+# palco inteiro 70 px acima: o conteúdo fica no centro da área segura (gabarito do Reels: 250 a 1500)
+v = Video(sys.argv[1], sys.argv[2], 73.6, css=".bz, .cena > .palco { top: -70px; bottom: 70px; }")
 
 # ---- 0–3.45 gancho: Clailton no cartão
-v.expert("assets/expert_0.mp4", 0, 3.45, cx=540, cy=760, w=600, h=750)
+v.expert("assets/expert_0.mp4", 0, 3.45, cx=540, cy=690, w=600, h=750)
 BOOK = '<path d="M 18 6 H 102 V 120 L 60 92 L 18 120 Z" fill="#17adfd" stroke="#031022" stroke-width="6" stroke-linejoin="round"/>'
 v.cena("s1", 0, 3.45, "tenso", [brilho("s1-luz", 540, 760, 620, AZ, .4)], """
 cam("#s1-mundo", 0, 3.45, {z:0}, {z:100});
 """, sobre=[
     img("s1-cerebro", "cerebro", 245, 455, 280, 0),
-    titulo("s1-t1", [(52, [("O", 0.14, "fino"), ("teu", 0.26, "fino"), ("cérebro", 0.52, "ac"), ("está", 1.14, "fino"), ("com", 1.46, "fino"), ("um", 1.58, "fino")])], 540, 1165, 0),
-    carimbo("s1-car", "DEFEITO DE FÁBRICA", 540, 1290, 64, 0, -3),
-    titulo("s1-t2", [(62, [("salva", 2.69, "ac"), ("isso.", 2.99, "")])], 500, 1380, 0, w=600),
-    svg("s1-salva", BOOK, 0, "0 0 120 126", "left:740px; top:1378px; width:76px; height:80px"),
+    titulo("s1-t1", [(52, [("O", 0.14, "fino"), ("teu", 0.26, "fino"), ("cérebro", 0.52, "ac"), ("está", 1.14, "fino"), ("com", 1.46, "fino"), ("um", 1.58, "fino")])], 470, 1165, 0, w=780),
+    carimbo("s1-car", "DEFEITO DE FÁBRICA", 470, 1290, 60, 0, -3),
+    titulo("s1-t2", [(62, [("salva", 2.69, "ac"), ("isso.", 2.99, "")])], 430, 1380, 0, w=600),
+    svg("s1-salva", BOOK, 0, "0 0 120 126", "left:670px; top:1378px; width:76px; height:80px"),
 ], js_sobre="""
 entra("#s1-cerebro", 0.52, "pop", {rot:-12}); flutua("#s1-cerebro", 1.0, 2.5, 7, 2.4, 2);
 carimbo("#s1-car", 1.67);
@@ -39,12 +43,12 @@ entra("#s2-mulher", 3.5, "sobe");
 """)
 
 # ---- 5.90–8.62 mesmo que isso prejudique o teu futuro
-CRACK = '<path id="s3-trinca" d="M 300 120 L 255 230 L 320 300 L 240 420 L 300 500 L 250 600" fill="none" stroke="#e7aa51" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" class="luz"/>'
+CRACK = '<path id="s3-trinca" d="M 300 120 L 255 230 L 320 300 L 240 420 L 300 500 L 250 600" fill="none" stroke="#ff3b3b" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" class="luz"/>'
 v.cena("s3", 5.90, 8.62, "tenso", [
     brilho("s3-luz", 540, 960, 500, AZ, .35),
     img("s3-amp", "ampulheta", 540, 960, 440, 0, dentro=f'<svg viewBox="0 0 520 708" style="position:absolute; left:0; top:0; width:100%; height:100%; overflow:visible">{CRACK}</svg>'),
-    titulo("s3-t1", [(60, [("mesmo", 5.98, "fino"), ("que", 6.44, "fino"), ("isso", 6.66, "fino"), ("prejudique", 6.94, "rd")])], 540, 385),
-    titulo("s3-t2", [(64, [("o", 7.82, "fino"), ("teu", 7.90, "fino")]), (120, [("futuro", 8.04, "ac")])], 540, 1285),
+    titulo("s3-t1", [(54, [("mesmo", 5.98, "fino"), ("que", 6.44, "fino"), ("isso", 6.66, "fino"), ("prejudique", 6.94, "rd")])], 540, 400),
+    titulo("s3-t2", [(64, [("o", 7.82, "fino"), ("teu", 7.90, "fino")]), (120, [("futuro", 8.04, "ac")])], 470, 1285, w=780),
 ], """
 bz("#s3-bz", 5.90); cam("#s3-mundo", 5.90, 2.72, {y:-20, z:0, rotationY:-2}, {y:0, z:200, rotationY:1.5});
 entra("#s3-amp", 5.95, "sobe"); flutua("#s3-amp", 6.5, 2.1, 6, 2.6, 1);
@@ -63,7 +67,7 @@ v.cena("s4", 8.62, 10.22, "escuro", [
 bz("#s4-bz", 8.62); cam("#s4-mundo", 8.62, 1.6, {z:0, rotationY:2}, {z:240, rotationY:-2});
 entra("#s4-cal", 8.66, "pop", {rot:-14}); entra("#s4-em", 8.69, "pop");
 gsap.utils.toArray("#s4-ano .dg").forEach((d, i) => tl.fromTo(d, {opacity:0, y:30, filter:"blur(10px)"}, {opacity:1, y:0, filter:"blur(0px)", duration:0.2, ease:"power3.out", immediateRender:false}, 8.77 + i * 0.12));
-sfx("tique", 8.77); sfx("tique", 8.89); sfx("tique", 9.01); sfx("tique", 9.13); soco("#s4-bz", 9.13, 1.05, 0.3);
+soco("#s4-bz", 9.13, 1.05, 0.3); semsom("soco", 9.13);
 """)
 
 # ---- 10.22–12.85 o economista David Laibson mostrou isso
@@ -71,7 +75,7 @@ v.cena("s5", 10.22, 12.85, "escuro", [
     brilho("s5-luz", 540, 840, 560, AZ, .35),
     titulo("s5-t1", [(70, [("o", 10.27, "fino"), ("economista", 10.33, "ac")])], 540, 390),
     polaroid("s5-foto", "laibson", 540, 845, 520, "DAVID LAIBSON", rot=3),
-    titulo("s5-t2", [(64, [("mostrou", 12.01, ""), ("isso", 12.47, "fino")])], 540, 1200),
+    titulo("s5-t2", [(64, [("mostrou", 12.01, ""), ("isso", 12.47, "fino")])], 470, 1200, w=780),
 ], """
 bz("#s5-bz", 10.22); cam("#s5-mundo", 10.22, 2.63, {z:0, rotationY:3}, {z:200, rotationY:-2});
 entra("#s5-foto", 10.27, "sobe", {rot:8}); flutua("#s5-foto", 10.9, 1.95, 5, 2.6, .6);
@@ -106,7 +110,7 @@ v.cena("s7", 16.50, 21.12, "escuro", [
     titulo("s7-t1", [(56, [("Nós", 16.55, "fino"), ("tendemos", 16.77, "fino"), ("a", 17.55, "fino"), ("dar", 17.67, "fino")]),
                      (120, [("mais", 18.07, ""), ("valor", 18.43, "hl")])], 540, 385),
     titulo("s7-t2", [(56, [("ao", 19.14, "fino"), ("que", 19.26, "fino"), ("sentimos", 19.44, "fino")]),
-                     (104, [("no", 20.10, "fino"), ("presente", 20.26, "ac")])], 540, 1110),
+                     (104, [("no", 20.10, "fino"), ("presente", 20.26, "ac")])], 470, 1110, w=780),
 ], """
 bz("#s7-bz", 16.50); cam("#s7-mundo", 16.50, 4.62, {x:-20, z:0, rotationY:-2}, {x:20, z:160, rotationY:2});
 entra("#s7-a", 16.77, "pop", {rot:-8}); entra("#s7-b", 17.00, "pop", {rot:8});
@@ -123,7 +127,7 @@ v.cena("s8", 21.12, 24.98, "escuro", [
     selo("s8-trofeu", "trofeu", 820, 760, 220, z=20),
     titulo("s8-t1", [(56, [("do", 21.18, "fino"), ("que", 21.34, "fino"), ("o", 21.72, "fino")]), (130, [("benefício", 21.82, "hl")])], 540, 385),
     titulo("s8-t2", [(56, [("que", 22.66, "fino"), ("só", 22.86, "fino"), ("receberemos", 23.17, "fino")]),
-                     (96, [("no", 24.49, "fino"), ("futuro", 24.61, "ac")])], 540, 1250),
+                     (96, [("no", 24.49, "fino"), ("futuro", 24.61, "ac")])], 470, 1250, w=780),
 ], """
 bz("#s8-bz", 21.12); cam("#s8-mundo", 21.12, 3.86, {x:40, z:0, rotationY:3}, {x:-40, z:200, rotationY:-2});
 entra("#s8-hoje", 21.2, "pop"); traco("#s8-linha", 21.45, 1.2);
@@ -148,11 +152,11 @@ sfx("pop", 26.54);
 
 # ---- 27.12–31.22 treinar, estudar, economizar ou começar aquele projeto
 v.cena("s10", 27.12, 31.22, "escuro", [
-    cartao("s10-a", "halter", 300, 590, "TREINAR", -2, "50% 0%", w=400, h=420),
-    cartao("s10-b", "estudante", 770, 590, "ESTUDAR", 2, "50% 0%", w=400, h=420),
-    cartao("s10-c", "cofrinho", 300, 1040, "ECONOMIZAR", 2, w=400, h=420),
-    cartao("s10-d", "lampada", 770, 1040, "PROJETO", -2, w=400, h=420),
-    titulo("s10-t", [(56, [("ou", 29.27, "fino"), ("começar", 29.41, "fino"), ("aquele", 29.94, "fino")])], 540, 1300),
+    cartao("s10-a", "halter", 280, 590, "TREINAR", -2, "50% 0%", w=400, h=420),
+    cartao("s10-b", "estudante", 720, 590, "ESTUDAR", 2, "50% 0%", w=400, h=420),
+    cartao("s10-c", "cofrinho", 280, 1040, "ECONOMIZAR", 2, w=400, h=420),
+    cartao("s10-d", "lampada", 720, 1040, "PROJETO", -2, w=400, h=420),
+    titulo("s10-t", [(56, [("ou", 29.27, "fino"), ("começar", 29.41, "fino"), ("aquele", 29.94, "fino")])], 470, 1300, w=780),
 ], """
 bz("#s10-bz", 27.12); cam("#s10-mundo", 27.12, 4.1, {x:-30, z:0, rotationY:-2}, {x:30, z:140, rotationY:2});
 entra("#s10-a", 27.19, "pop", {rot:-10}); entra("#s10-b", 27.89, "pop", {rot:10}); entra("#s10-c", 28.61, "pop", {rot:-10}); entra("#s10-d", 30.34, "pop", {rot:10});
@@ -212,15 +216,15 @@ carimbo("#s13-aqui", 37.52); traco("#s13-seta", 37.62, 0.25);
 """)
 
 # ---- 38.05–40.62 e o aqui e agora quase sempre vence (despertador, soco, sino)
-ANEIS = '<path id="s14-aneis" class="luz" d="M 310 570 Q 280 620 310 670 M 270 550 Q 230 620 270 690 M 770 570 Q 800 620 770 670 M 810 550 Q 850 620 810 690" fill="none" stroke="#17adfd" stroke-width="7" stroke-linecap="round"/>'
+ANEIS = '<path id="s14-aneis" class="luz" d="M 350 610 Q 320 660 350 710 M 310 590 Q 270 660 310 730 M 770 610 Q 800 660 770 710 M 810 590 Q 850 660 810 730" fill="none" stroke="#17adfd" stroke-width="7" stroke-linecap="round"/>'
 v.cena("s14", 38.05, 40.62, "tenso", [
     brilho("s14-luz", 540, 860, 480, AZ, .3),
-    img("s14-relogio", "despertador", 540, 860, 400, 0),
+    img("s14-relogio", "despertador", 560, 880, 360, 0),
     svg("s14-svg", ANEIS, 20),
     img("s14-luva", "luva", 290, 960, 380, 200),
     titulo("s14-t1", [(100, [("E", 38.10, "fino"), ("o", 38.20, "fino"), ("aqui", 38.30, ""), ("e", 38.66, "fino"), ("agora", 38.72, "hl")])], 540, 385),
-    titulo("s14-t2", [(56, [("quase", 39.23, "fino"), ("sempre", 39.63, "fino")])], 540, 1265),
-    carimbo("s14-vence", "VENCE", 540, 1380, 96, 220, -5),
+    titulo("s14-t2", [(60, [("quase", 39.23, "fino"), ("sempre", 39.63, "fino")])], 540, 505),
+    carimbo("s14-vence", "VENCE", 470, 1250, 100, 220, -5),
 ], """
 bz("#s14-bz", 38.05); cam("#s14-mundo", 38.05, 2.57, {x:20, z:0, rotationY:2}, {x:-20, z:160, rotationY:-2});
 entra("#s14-relogio", 38.08, "sobe");
@@ -229,12 +233,12 @@ gsap.set("#s14-aneis", {opacity:0}); tl.fromTo("#s14-aneis", {opacity:0}, {opaci
 sfx("despertador", 38.72);
 gsap.set("#s14-luva", {x:-760}); tl.fromTo("#s14-luva", {x:-760, rotation:-30}, {x:0, rotation:-8, duration:0.26, ease:"power4.out", immediateRender:false}, 39.88);
 tl.to("#s14-relogio", {x:70, rotation:14, duration:0.3, ease:"power2.out"}, 40.12);
-sfx("punch", 40.11); sfx("sino", 40.16);
+sfx("punch", 40.11); sfx("sinofim", 40.02);
 carimbo("#s14-vence", 40.11); semsom("carimbo", 40.11); soco("#s14-bz", 40.11, 1.06, 0.25);
 """)
 
 # ---- 40.62–43.10 virada: Clailton "então se você quiser corrigir esse defeito"
-v.expert("assets/expert_1.mp4", 40.62, 2.48, cx=540, cy=740, w=560, h=700)
+v.expert("assets/expert_1.mp4", 40.62, 2.48, cx=540, cy=670, w=560, h=700)
 v.cena("s15", 40.62, 43.10, "quente", [raios("s15-raios", -500, .6), brilho("s15-luz", 540, 740, 620, AZ, .5)], """
 cam("#s15-mundo", 40.62, 2.48, {z:0}, {z:140});
 gsap.set("#s15-raios", {opacity:0}); tl.fromTo("#s15-raios", {opacity:0, rotation:-4}, {opacity:.6, rotation:4, duration:2.48, ease:"sine.inOut", immediateRender:false}, 40.62);
@@ -242,7 +246,7 @@ gsap.set("#s15-raios", {opacity:0}); tl.fromTo("#s15-raios", {opacity:0, rotatio
 """, sobre=[
     img("s15-chave", "chave", 810, 400, 380, 0),
     titulo("s15-tit", [(52, [("Então", 40.73, "fino"), ("se", 40.95, "fino"), ("você", 41.05, "fino"), ("quiser", 41.25, "fino")]),
-                       (84, [("corrigir", 41.53, "hl"), ("esse", 41.97, "fino"), ("defeito", 42.21, "ac")])], 540, 1125, 0),
+                       (84, [("corrigir", 41.53, "hl"), ("esse", 41.97, "fino"), ("defeito", 42.21, "ac")])], 470, 1095, 0, w=780),
 ], js_sobre="""
 gsap.set("#s15-chave", {opacity:0}); tl.fromTo("#s15-chave", {x:520, rotation:40, opacity:0}, {x:0, rotation:-14, opacity:1, duration:0.55, ease:"power3.out", immediateRender:false}, 41.40);
 sfx("dir", 41.40);
@@ -259,7 +263,7 @@ v.cena("s16", 43.10, 49.85, "quente", [
     brilho("s16-luz", 760, 903, 420, OURO, .55, -1350),
     carimbo("s16-pare", "PARE", 540, 420, 110, 160, -4),
     titulo("s16-t1", [(56, [("de", 43.64, "fino"), ("deixar", 43.78, "fino"), ("toda", 44.68, "fino"), ("a", 45.00, "fino")]), (130, [("recompensa", 45.06, "hl")])], 540, 505),
-    titulo("s16-t2", [(56, [("para", 45.89, "fino"), ("o", 46.09, "fino")]), (100, [("futuro", 46.19, "ac")])], 540, 1290),
+    titulo("s16-t2", [(56, [("para", 45.89, "fino"), ("o", 46.09, "fino")]), (100, [("futuro", 46.19, "ac")])], 470, 1290, w=780),
     titulo("s16-t3", [(60, [("Traga", 46.99, ""), ("uma", 47.29, "fino"), ("parte", 47.49, "fino"), ("dela", 47.84, "fino")]), (110, [("agora,", 48.48, "ac")])], 540, 385),
     titulo("s16-t4", [(60, [("para", 49.04, "fino"), ("o", 49.16, "fino")]), (140, [("presente", 49.24, "hl")])], 540, 385),
     svg("s16-moedas", MOEDAS, 120),
@@ -281,9 +285,9 @@ sfx("brilho", 48.48); soco("#s16-bz", 48.48, 1.05, 0.3);
 # ---- 49.85–54.58 quer treinar? então só assista a tua série favorita depois do treino
 v.cena("s17", 49.85, 54.58, "quente", [
     boneco("s17-homem", "halter", 290, 1010, 460, 0),
-    img("s17-tv", "tv", 765, 960, 380, 0),
+    img("s17-tv", "tv", 740, 960, 340, 0),
     linha("s17-seta", "M 450 640 C 510 600, 580 600, 630 635 M 596 611 L 634 637 L 598 665", z=30, larg=9),
-    etiqueta("s17-n1", "1º", 290, 640, 52), etiqueta("s17-n2", "2º", 765, 640, 52),
+    etiqueta("s17-n1", "1º", 290, 640, 52), etiqueta("s17-n2", "2º", 740, 640, 52),
     titulo("s17-t1", [(130, [("Quer", 49.89, "fino"), ("treinar?", 50.13, "ac")])], 540, 390),
     titulo("s17-t2", [(56, [("Então", 50.87, "fino"), ("só", 51.23, "fino"), ("assista", 51.39, "fino")]),
                       (84, [("a", 52.04, "fino"), ("tua", 52.12, "fino"), ("série", 52.38, "ac"), ("favorita", 52.62, "ac")])], 540, 385),
@@ -331,7 +335,7 @@ v.cena("s19", 59.42, 65.52, "quente", [
                       (130, [("sentir", 60.60, ""), ("agora", 61.20, "hl")])], 540, 385),
     titulo("s19-t2", [(80, [("uma", 62.02, "fino"), ("parte", 62.28, "ac"), ("do", 62.56, "fino")]), (120, [("benefício", 62.69, "hl")])], 540, 385),
     titulo("s19-t3", [(56, [("que", 63.35, "fino"), ("só", 63.61, "fino"), ("viria", 63.73, "fino")]),
-                      (88, [("muito", 64.37, ""), ("tempo", 64.63, ""), ("depois", 64.85, "ac")])], 540, 1200, 160),
+                      (72, [("muito", 64.37, ""), ("tempo", 64.63, ""), ("depois", 64.85, "ac")])], 470, 1200, 160, w=780),
 ], """
 bz("#s19-bz", 59.42); cam("#s19-mundo", 59.42, 6.1, {x:-20, z:0, rotationY:-2}, {x:20, z:200, rotationY:2});
 entra("#s19-cerebro", 59.46, "pop"); flutua("#s19-cerebro", 60.0, 5.5, 7, 2.8, 1);
@@ -352,7 +356,7 @@ v.cena("s20", 65.52, 68.52, "quente", [
     img("s20-presente", "presente", 540, 930, 480, 0),
     svg("s20-faiscas", BRILHOS, 80),
     titulo("s20-tit", [(56, [("Dê", 65.57, "fino"), ("ao", 65.89, "fino"), ("presente", 66.03, "ac")]),
-                       (72, [("uma", 66.70, "fino"), ("pequena", 66.92, ""), ("recompensa", 67.48, "hl")])], 540, 385),
+                       (62, [("uma", 66.70, "fino"), ("pequena", 66.92, ""), ("recompensa", 67.48, "hl")])], 540, 385),
 ], """
 bz("#s20-bz", 65.52); cam("#s20-mundo", 65.52, 3.0, {x:20, z:0, rotationY:2}, {x:-20, z:160, rotationY:-2});
 entra("#s20-presente", 65.57, "pop", {rot:-10}); flutua("#s20-presente", 66.2, 2.3, 7, 2.4, 1.5);
@@ -367,16 +371,13 @@ v.cena("s21", 68.52, 71.05, "quente", [
     brilho("s21-luz", 540, 1000, 520, AZ, .45),
     img("s21-amp", "ampulheta", 540, 1000, 400, 0),
     svg("s21-svg", ESCUDO, 30),
-    img("s21-ladrao", "ladrao", 900, 1060, 560, 60),
     titulo("s21-t1", [(56, [("sem", 68.56, "fino"), ("deixar", 68.73, "fino"), ("que", 69.15, "fino"), ("ele", 69.33, "fino")]), (100, [("roube", 69.92, "rd")])], 540, 385),
-    titulo("s21-t2", [(96, [("o", 70.25, "fino"), ("teu", 70.31, "fino"), ("futuro", 70.47, "hl")])], 540, 1350),
+    titulo("s21-t2", [(96, [("o", 70.25, "fino"), ("teu", 70.31, "fino"), ("futuro", 70.47, "hl")])], 470, 1350, w=780),
 ], """
 bz("#s21-bz", 68.52); cam("#s21-mundo", 68.52, 2.53, {z:0, rotationY:-2}, {z:150, rotationY:2});
 entra("#s21-amp", 68.55, "sobe"); flutua("#s21-amp", 69.0, 2.0, 6, 2.6, 1);
-gsap.set("#s21-ladrao", {x:560}); tl.fromTo("#s21-ladrao", {x:560, rotation:6}, {x:60, rotation:-4, duration:1.0, ease:"power2.out", immediateRender:false}, 68.85);
-sfx("passos", 68.85);
-tl.to("#s21-ladrao", {x:640, rotation:10, duration:0.4, ease:"power3.in"}, 70.02);
-traco("#s21-escudo", 69.92, 0.4); sfx("punch", 69.97); sfx("dir", 70.02);
+traco("#s21-escudo", 69.92, 0.4);
+tl.fromTo("#s21-amp > .fl", {x:0}, {x:8, duration:0.05, yoyo:true, repeat:5, ease:"none", immediateRender:false}, 69.92);
 tl.fromTo("#s21-escudo", {strokeDashoffset:0}, {strokeDashoffset:-310, duration:1.1, ease:"none", immediateRender:false}, 69.92);
 soco("#s21-bz", 69.95, 1.04, 0.3);
 """)
