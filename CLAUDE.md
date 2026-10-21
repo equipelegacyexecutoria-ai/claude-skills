@@ -84,6 +84,11 @@ recebe, o que cada PC precisa ter, com exemplo concreto ("você diz X → aconte
 Evite termos como repositório, commit, hook e merge. Em mudança grande, converse e tire as
 dúvidas antes; só execute quando ele pedir. Objetivo dele: produtividade, não complicação.
 
+**PC NOT-LIVE-LAIR = Igor** (21/10/2026): pedido feito neste PC é do Igor. Para usar o navegador dele (Claude in
+Chrome), escolha o Chrome **"NOT-LIVE-LAIR Chrome Igor"**, que está logado na conta da empresa (canal Legacy
+Executoria Empresarial no YouTube). Os outros Chromes conectados (Browser 1/2/3) são de outros PCs: confira com
+`list_connected_browsers` e, na dúvida, use `switch_browser` para ele clicar em Conectar no Chrome certo.
+
 ## Skills sincronizadas entre os PCs
 
 Skills, agentes e este arquivo ficam no cofre privado `equipelegacyexecutoria-ai/claude-skills`
