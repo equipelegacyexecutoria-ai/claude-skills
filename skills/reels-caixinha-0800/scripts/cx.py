@@ -222,6 +222,11 @@ def enquadramento_fixo(T: Path) -> None:
     # enquadrar_td os olhos ficavam a 27% e a cabeça encostava/era cortada em cima ("Gerente Caro", 20/10/2026)
     fw = st.median(s["rosto"][2] for s in segs if s.get("rosto"))
     w = min(W0, H0 * 9 / 16, max(fw / CF_ROSTO, W0 / float(os.environ.get("TD_UPSCALE_MAX", "1.8"))))
+    # selfie (rosto grande, olhos perto do meio do quadro): sem zoom os olhos ficavam a 50% e sobrava
+    # espaço em cima ("Criativo Story CTA", 22/10/2026); aproxima até os olhos poderem ficar a CF_OLHOS_Y
+    h_max = (H0 - oy) / (1 - CF_OLHOS_Y)
+    if h_max * 9 / 16 < w:
+        w = max(h_max * 9 / 16, W0 / float(os.environ.get("TD_UPSCALE_MAX", "1.8")))
     h = w * 16 / 9
     x = min(max(ox - w / 2, 0), W0 - w)
     y = min(max(oy - CF_OLHOS_Y * h, 0), H0 - h)
