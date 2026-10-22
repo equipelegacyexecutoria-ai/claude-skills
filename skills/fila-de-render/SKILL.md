@@ -87,7 +87,7 @@ das colunas e campos. Se a coluna "Correções (Claude)" não existir, avise o u
 4. Diga ao usuário em 2–4 linhas o que vai fazer (quantos cards, quais, em que ordem) e comece; não espere resposta.
 
 **Andamento do card (regra do usuário, 22/10/2026, vale também para pedido direto com link de card):** ao começar a
-editar, mova o card para **CLAUDE (Editor)**; ao entregar (v1, v2...), mova para **Aprovação** com RESPONSÁVEL = **Mac**.
+editar, mova o card para **CLAUDE (Editor)** com RESPONSÁVEL = **🤖 CLAUDE** (também na v2, v3...); ao entregar (v1, v2...), mova para **Aprovação** com RESPONSÁVEL = **Mac**.
 
 Um card por vez, do começo ao fim. Leia o **card inteiro** (`notion-fetch` na página: campos, corpo e
 comentários com `notion-get-comments`) — às vezes há mais informação, às vezes menos.
