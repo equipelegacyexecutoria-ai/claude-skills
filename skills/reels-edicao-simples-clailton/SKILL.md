@@ -138,3 +138,21 @@ Sem a pasta de trabalho da versão anterior (ela ficou em outro PC): refaça do 
   zoom muito forte (1,7x) o queixo desce e a legenda não cabe abaixo dele antes de 1480: use ~1,45x.
 - Realce baixo do bruto (IDEIA "diminuir os realces"): curva `0/0 0.5/0.5 0.7/0.67 0.85/0.79 1/0.93` (ver
   `C:\Render\_trabalho\realce_2026-10-20.sh` no PC de render) -> `<slug>_REALCE.mov`, que vira a fonte.
+
+## Correções de 22/10/2026 ("6 maiores medos" v3: notas da Sala)
+
+- **"Enquadramento errado, use o mesmo padrão"** (fechado em que ele se inclina para a câmera logo depois do corte e a
+  cabeça desce): o fechado continua parado, mas quando a mediana dos olhos no trecho fica mais de 150 px ABAIXO da do
+  1º quadro, o recorte usa a mediana (`plano_td.py`, `OLHO_DERIVA`; aviso "posicionado pela mediana do trecho").
+  Só para baixo: subir não deixa o quadro vazio em cima.
+- **Música pedida** ("faltou uma música impactante e coerente"): ES continua sem música por padrão; quando pedirem,
+  mixe DEPOIS do render, sobre o vídeo pronto: tira a voz (`ffmpeg -vn`), `motion-designer/scripts/mix_audio.py`
+  (exemplo em `scripts/exemplo_mix_musica.json`) e junta com `-c:v` do vídeo. Vídeo com virada (medos → "então
+  comece"): duas trilhas (regra global), tensa antes e épica com o pico do arquivo no quadro da virada
+  (`analisar_audio.py` + envelope de 10 ms para achar o pico exato). Trilhas já baixadas do Artlist no PC de render:
+  `C:\Render\motion_ref\cerebro\musicas\`. Nível medido: tensa ~10 dB abaixo da voz, épica ~8 dB (a 15 dB "some").
+  A conferência acusa "teclado da CTA fora" por causa das batidas da música: confira o atraso por correlação com a voz.
+- **Animação em cima da cabeça** (relógio no "60 segundos"): `scripts/relogio_animado.py <pasta> <duração>` gera os
+  quadros RGBA (cronômetro Legacy com ponteiro correndo, arco enchendo, sombra v3, entra/sai com escala) e o
+  `tique_taque.wav` sintetizado; overlay com `setpts=PTS+<quadro>/(30000/1001)/TB` entre a palavra e o corte seguinte
+  (mínimo 1 s). Topo do Reels: nada acima de y 250 (o relógio ficou em y 269–463).

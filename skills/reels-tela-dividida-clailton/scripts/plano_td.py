@@ -55,6 +55,7 @@ PUNCH_MAX_PALAVRAS = 6
 PUNCH_MIN, PUNCH_MAX = 0.6, 2.8      # s: fechado em frase curta de fecho
 FECHADO_MAX_FRACAO = 0.40
 PAUSA_FRASE = 0.15
+OLHO_DERIVA = 150     # px da saída: olhos que se afastam disso da linha DENTRO do fechado -> recorte pela mediana
 # tempo mínimo na tela (pedido do usuário, 27/09/2026: "pareceu que piscou"). Exceção só marcada no plano.
 # 09/10/2026: "cada cena deve ficar pelo menos 1-2 segundos, salvo exceções" -> 1,2 s; lasca até 1 s.
 MIN_IMAGEM = 1.2      # s: nenhuma imagem/cena fica menos que isso
@@ -705,6 +706,18 @@ def olhos_na_linha(planos: list[dict], enq: dict, medir=None) -> tuple[list[str]
         s0 = segs[p0["seg"]]
         ab = s0["aberto"]
         _, ey = medir(p0["seg"], p0["f0"] / FPS)       # olhos no 1º quadro depois do corte
+        # ele se inclina DENTRO do trecho (22/10/2026, "6 maiores medos" 0:55: começou alto e desceu ~190 px; o
+        # usuário: "o enquadramento ficou errado, use o mesmo padrão"): se a mediana dos olhos no trecho fica
+        # longe da do 1º quadro, o recorte (parado) usa a mediana — fica certo na maior parte do trecho
+        amostras = sorted(a[2] for p in tr for a in segs[p["seg"]].get("olhos_t", [])
+                          if p["f0"] / FPS - 0.1 <= a[0] <= p["f1"] / FPS)
+        if len(amostras) >= 3:
+            med = amostras[len(amostras) // 2]
+            h0 = ab[3] / (p0.get("fator") or ab[2] / s0["fechado"][2])
+            if (med - ey) / h0 * H_SAIDA > OLHO_DERIVA:   # só quando ele DESCE (sobra espaço acima da cabeça)
+                avisos.append(f"olhos: fechado em {p0['f0'] / FPS:.2f}s posicionado pela mediana do trecho "
+                              f"(ele desce {(med - ey) / h0 * H_SAIDA:.0f}px depois do corte)")
+                ey = med
         # ponto mais alto da cabeça no trecho: topo REAL medido na imagem (pele) no 1º quadro, a cada 0,5 s e
         # no fim do trecho — a estimativa pela largura do rosto errou com ele inclinado (v4: "Pensa comigo",
         # "O estado atual"); sem medida, olhos - CABECA_K x largura do rosto

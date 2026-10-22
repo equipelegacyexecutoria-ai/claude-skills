@@ -1,0 +1,14 @@
+{
+  "duracao": 60.560500,
+  "saida": "mix_v3.wav",
+  "voz": {"arquivo": "<voz do vídeo pronto>.wav", "volume": 1.0},
+  "trilhas": [
+    {"arquivo": "C:/Render/motion_ref/cerebro/musicas/Piotr Hummel - Dark Silence.mp3", "inicio_no_arquivo": 8.0, "entra": 0, "sai": 51.45, "volume": 0.55, "fade_entrada": 0.4, "fade_saida": 0.35},
+    {"arquivo": "C:/Render/motion_ref/cerebro/musicas/Stephen Keech - Beyond Boundaries.mp3", "inicio_no_arquivo": 102.30, "entra": 50.85, "sai": 60.560500, "volume": 0.45, "fade_entrada": 0.25, "fade_saida": 1.8}
+  ],
+  "abaixar_musica_sob_voz": {"threshold": 0.03, "ratio": 4},
+  "efeitos": [
+    {"arquivo": "<pasta do relogio>/tique_taque.wav", "momento": 2.936, "pico": 0, "volume": 0.8}
+  ],
+  "loudness": -16
+}
