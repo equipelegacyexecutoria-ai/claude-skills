@@ -214,7 +214,13 @@ os negócios do MQL do quiz passam a ter também as etiquetas "Quiz Clailton · 
   desistiu porque esperava um diagnóstico gratuito (2ª vez que essa objeção aparece); a Nina prometeu a um comprador um
   material de margens que não existe e ele chamou de golpe até o SDR assumir. SDRs estão abordando leads de produto.
 
-- **22/10 (planilha Quiz 2 + Pipedrive, de 21/10 10h a 22/10 09h; conversas não lidas por falha no Chrome):** 43 leads
+- **22/10, conversas (tela de Conversas, 43 leads + a compradora):** o N1 já sai com "Pelas suas respostas..." e 1 h
+  depois; N4 sai 30 min depois. Continuam: a Nina responde a mensagem automática da empresa do lead (5 casos) e pergunta
+  o faturamento que o quiz já tem; nenhum modelo tem o rodapé SAIR; número sem WhatsApp segue "Válido" na planilha.
+  Novo: 5 envios barrados pelo WhatsApp ("limite de engajamento do número"), 1 deles de MQL; a compradora de 21/10 não
+  recebeu boas-vindas (N7) nem contato do time até a manhã seguinte. A única venda do período saiu da conversa com a
+  Nina (perguntou o que teria acesso, pediu o link). Leitura feita sem marcar nada como lida.
+- **22/10 (planilha Quiz 2 + Pipedrive, de 21/10 10h a 22/10 09h):** 43 leads
   (8 MQL, 35 de R$ 97), 1 compra no período anterior (21/10 17h33, lead de até R$ 25 mil; a compra já volta para a
   planilha e para o Pipedrive). Corrigido desde 21/10 13h: o MQL recebe M1 (`mql_pagina`), M1.2 (`mql_pagina_d1`) e
   M2 (`mql_checkout`); saem N2 (`vmlm_pagina_d1_v2`) e N4 (`vmlm_checkout_30min`). Novos achados: quem entra de

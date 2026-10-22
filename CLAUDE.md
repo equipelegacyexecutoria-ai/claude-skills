@@ -87,9 +87,10 @@ dúvidas antes; só execute quando ele pedir. Objetivo dele: produtividade, não
 **PC NOT-LIVE-LAIR = Igor** (21/10/2026): pedido feito neste PC é do Igor. Para usar o navegador dele (Claude in
 Chrome), use **sempre o Chrome logado com Igor Oliveira** (regra do Igor, 22/10/2026), que está logado na conta da
 empresa (canal Legacy Executoria Empresarial no YouTube; no site de Conversas aparece igor.oliveira@legacyeducacaocorp...).
-Nesse PC, nunca pegue o "Browser 1" só porque a ferramenta diz que ele é "deste computador": em 22/10 isso abriu o
-Chrome errado. Antes de agir, use `switch_browser` para ele clicar em Conectar no Chrome do Igor Oliveira e confira o
-login na primeira página aberta.
+Nunca use o "ELM-157" (Chrome de outro PC, logado como joao.gaspar). Em 22/10 o certo foi o "Browser 1"; a aba
+sumia do grupo logo depois de criada, e funcionou abrindo com `navigate` sem tabId e seguindo direto. Confira o login
+na primeira página aberta. Nesse perfil, o site de Conversas está logado como petherson.bueno, e o Igor liberou ler
+assim (sempre com a marcação de "lida" bloqueada).
 
 ## Skills sincronizadas entre os PCs
 
