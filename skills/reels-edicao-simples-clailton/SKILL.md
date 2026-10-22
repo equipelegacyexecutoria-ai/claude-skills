@@ -145,7 +145,8 @@ Sem a pasta de trabalho da versão anterior (ela ficou em outro PC): refaça do 
   cabeça desce): o fechado continua parado, mas quando a mediana dos olhos no trecho fica mais de 150 px ABAIXO da do
   1º quadro, o recorte usa a mediana (`plano_td.py`, `OLHO_DERIVA`; aviso "posicionado pela mediana do trecho").
   Só para baixo: subir não deixa o quadro vazio em cima.
-- **Música pedida** ("faltou uma música impactante e coerente"): ES continua sem música por padrão; quando pedirem,
+- **Música:** na v3 entrou trilha (pedida numa nota) e na v4 o usuário mandou **retirar** ("deixar somente a animação e o
+  efeito sonoro"): ES fica SEM música; animação e efeito sonoro pontuais podem. Se pedirem música de novo,
   mixe DEPOIS do render, sobre o vídeo pronto: tira a voz (`ffmpeg -vn`), `motion-designer/scripts/mix_audio.py`
   (exemplo em `scripts/exemplo_mix_musica.json`) e junta com `-c:v` do vídeo. Vídeo com virada (medos → "então
   comece"): duas trilhas (regra global), tensa antes e épica com o pico do arquivo no quadro da virada
