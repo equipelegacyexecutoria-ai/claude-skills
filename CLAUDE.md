@@ -85,9 +85,11 @@ Evite termos como repositório, commit, hook e merge. Em mudança grande, conver
 dúvidas antes; só execute quando ele pedir. Objetivo dele: produtividade, não complicação.
 
 **PC NOT-LIVE-LAIR = Igor** (21/10/2026): pedido feito neste PC é do Igor. Para usar o navegador dele (Claude in
-Chrome), escolha o Chrome **"NOT-LIVE-LAIR Chrome Igor"**, que está logado na conta da empresa (canal Legacy
-Executoria Empresarial no YouTube). Os outros Chromes conectados (Browser 1/2/3) são de outros PCs: confira com
-`list_connected_browsers` e, na dúvida, use `switch_browser` para ele clicar em Conectar no Chrome certo.
+Chrome), use **sempre o Chrome logado com Igor Oliveira** (regra do Igor, 22/10/2026), que está logado na conta da
+empresa (canal Legacy Executoria Empresarial no YouTube; no site de Conversas aparece igor.oliveira@legacyeducacaocorp...).
+Nesse PC, nunca pegue o "Browser 1" só porque a ferramenta diz que ele é "deste computador": em 22/10 isso abriu o
+Chrome errado. Antes de agir, use `switch_browser` para ele clicar em Conectar no Chrome do Igor Oliveira e confira o
+login na primeira página aberta.
 
 ## Skills sincronizadas entre os PCs
 

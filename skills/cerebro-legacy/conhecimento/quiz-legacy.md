@@ -214,7 +214,19 @@ os negócios do MQL do quiz passam a ter também as etiquetas "Quiz Clailton · 
   desistiu porque esperava um diagnóstico gratuito (2ª vez que essa objeção aparece); a Nina prometeu a um comprador um
   material de margens que não existe e ele chamou de golpe até o SDR assumir. SDRs estão abordando leads de produto.
 
+- **22/10 (planilha Quiz 2 + Pipedrive, de 21/10 10h a 22/10 09h; conversas não lidas por falha no Chrome):** 43 leads
+  (8 MQL, 35 de R$ 97), 1 compra no período anterior (21/10 17h33, lead de até R$ 25 mil; a compra já volta para a
+  planilha e para o Pipedrive). Corrigido desde 21/10 13h: o MQL recebe M1 (`mql_pagina`), M1.2 (`mql_pagina_d1`) e
+  M2 (`mql_checkout`); saem N2 (`vmlm_pagina_d1_v2`) e N4 (`vmlm_checkout_30min`). Novos achados: quem entra de
+  madrugada só recebe a 1ª mensagem às 8h (contra a decisão de 19/10, "a Nina chama a qualquer hora"); 1 M1 não
+  entregue por "limite de marketing da Meta para este número"; leads de **R$ 51 a 70 mil** (Produto na planilha) entram
+  no FUNIL LEGADO como Oportunidade (MQL) e os SDRs trabalham; os de até R$ 50 mil entram em outro funil, dono Petherson.
+  A anotação "JORNADA DO QUIZ" é escrita pela Nina em cada negócio.
+
 ## Informação que não bate (conferir com o Igor)
+
+- **Lead de R$ 51 a 70 mil no FUNIL LEGADO (22/10):** o documento diz que Produto (até R$ 70 mil) não entra no FUNIL
+  LEGADO, mas os de R$ 51 a 70 mil estão entrando lá, em Oportunidade (MQL). Parece o corte de R$ 50 mil da Black.
 
 - ~~Corte de MQL~~ **resolvido pelo Igor em 13/10:** quiz e orgânico = **R$ 71 mil ou mais**; só as
   campanhas da Black usam **R$ 50 mil ou mais** (card
