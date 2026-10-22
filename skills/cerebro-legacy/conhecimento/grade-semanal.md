@@ -1,17 +1,32 @@
 # Grade semanal de conteúdo (Legacy, Clailton e Comunidade)
 
-Atualizado em 22/10/2026, a partir da página "Grade semanal de conteúdo" que o Mac (social media) atualizou nesse dia
-(https://claude.ai/artifact/FUib9oHRw88mVEsoCTiod2), anexada ao card 📌 GRADE DE CONTEÚDOS no MURAL do quadro de tarefas
-(https://app.notion.com/p/3f2c9747efab80649e6bff197a2b1f9e). Conferida pelo Igor em 22/10 ("é isso mesmo").
+**A fonte é a grade de dentro do Cérebro** (pedido do Igor, 22/10/2026): janela **Posts › Grade de conteúdos** do site
+(https://cerebro-legacy-organico.vercel.app/#posts/grade), guardada no banco do Cérebro na tabela `cerebro_grade`
+(migração 0013; formato em `api/_grade.js` do projeto cerebro-legacy). O card 📌 GRADE DE CONTEÚDOS do Notion e a página
+antiga do Mac **não valem mais** como fonte.
 
-Leia antes de dizer se um post saiu no horário certo, sugerir pauta ou horário, ou explicar uma mudança de métrica: a
-grade diz o que deveria sair em cada horário. Quando o Mac mudar a página, atualize este arquivo e a data do topo. O que
-é teste está também em `testes-e-aprendizados-perfis.md`; os estilos (NV, TD, B-roll, Do topo à falência...) estão em
-`estilos-e-formatos.md`.
+Antes de responder qualquer coisa sobre a grade (o que sai em tal horário, se um post saiu no horário da grade, o que está
+em teste), **leia a tabela** e use o que vier de lá; o resto deste arquivo é só a foto de 22/10/2026 e pode estar velho:
 
-## Perfis do Instagram
+```sql
+select dados, resumo, atualizado_em, atualizado_por from public.cerebro_grade where id = 'atual';
+-- histórico (cada mudança guarda a versão anterior):
+select resumo, valia_desde, guardada_em from public.cerebro_grade_versoes order by id desc limit 10;
+```
 
-### @clailtonluiz: 4 posts todo dia (os 7 dias)
+Quem muda a grade: os gestores, pelo **Editor da Grade** (https://claude.ai/artifact/Tjxs8R1ZiL3oqHJZvxv1r1, botão
+"Editar grade" na janela): a grade atual em cima, a mudança escrita num chat embaixo, prévia do que muda antes de salvar.
+Grava pelo Supabase do aplicativo do Claude no PC (o conector Supabase Cérebro do claude.ai só lê).
+Quando a grade mudar, este arquivo não precisa ser reescrito: a tabela é a verdade. Atualize só se a mudança for grande
+(ex.: um perfil novo) e diga a data.
+
+Ligado a `testes-e-aprendizados-perfis.md` (o que é teste) e `estilos-e-formatos.md` (NV, TD, B-roll, Do topo à falência...).
+
+## Foto de 22/10/2026 (a carga inicial da tabela, conferida pelo Igor)
+
+### Perfis do Instagram
+
+#### @clailtonluiz: 4 posts todo dia (os 7 dias)
 
 | Horário | O quê | Formato |
 |---|---|---|
@@ -20,7 +35,7 @@ grade diz o que deveria sair em cada horário. Quando o Mac mudar a página, atu
 | 18h | Novela | Reels |
 | 20h | Carrossel Twitter (o único carrossel do Clailton) | Carrossel |
 
-### @legacyexecutoria
+#### @legacyexecutoria
 
 | Horário | Seg | Ter | Qua | Qui | Sex | Sáb | Dom |
 |---|---|---|---|---|---|---|---|
@@ -35,7 +50,7 @@ grade diz o que deveria sair em cada horário. Quando o Mac mudar a página, atu
   Análise de cenário 2×, Verdades duras 2×, Antecipação da LIVE 1×.
 - O sábado é o dia da antecipação da LIVE de segunda (12h, estático branco na página).
 
-## Comunidade (gratuita, no Discord; quem conduz é o Lucas)
+### Comunidade (gratuita, no Discord; quem conduz é o Lucas)
 
 | Horário | Seg | Ter | Qua | Qui | Sex | Sáb e dom |
 |---|---|---|---|---|---|---|
@@ -48,7 +63,7 @@ grade diz o que deveria sair em cada horário. Quando o Mac mudar a página, atu
 - Em dia variável: o Lucas pega um post da Legacy que performou bem e traz uma análise "traduzida" para os membros
   aplicarem no próprio negócio.
 
-## Grade de teste (desde 13/10)
+### Grade de teste (desde 13/10)
 
 Nos horários abaixo o formato alterna entre as duas opções:
 
@@ -62,7 +77,7 @@ Nos horários abaixo o formato alterna entre as duas opções:
 
 Regras do teste: carrosséis da Legacy às 09h30 (seg a sex), 16h e 18h; carrosséis do Clailton só o Twitter, às 20h.
 
-## O que mudou em relação à grade anterior
+### O que mudou em relação à grade anterior
 
 - Clailton: a grade de 05/10 era 10h30 B-roll · 13h tela dividida · 18h novela · carrossel de roteiro antigo no fim do
   dia. Agora é 09h novela (B-roll só às vezes) · 13h TD · 18h novela · 20h carrossel Twitter.

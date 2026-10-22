@@ -37,7 +37,9 @@ escrever o relatório sobre o assunto:
   Dicas práticas, Roteiro do Clailton, Reflexão; Estático Notícia, Frase, Aviso): como reconhecer cada um pelo nome do card,
   exemplos reais, quantos posts e o desempenho de cada um, a regra "visita ao perfil é a métrica principal, sem lead por
   post" e a proposta de padrão de nome dos cards (prefixo do estilo na PAUTA). Leia antes de comparar formatos ou estilos.
-- `conhecimento/grade-semanal.md` — a **grade semanal de conteúdo** (página do Mac, conferida pelo Igor em 22/10/2026):
+- `conhecimento/grade-semanal.md` — a **grade semanal de conteúdo**. A fonte é a tabela `cerebro_grade` do banco do Cérebro
+  (janela Posts › Grade de conteúdos, editada pelo Editor da Grade; não mais o card do Notion): leia a tabela antes de
+  responder (a consulta está no arquivo). Foto de 22/10/2026:
   o que sai em cada horário no @clailtonluiz (09h novela, 13h TD, 18h novela, 20h carrossel Twitter), no
   @legacyexecutoria (09h30 extra em teste, 12h notícia, 16h Do topo à falência/cenário, 17h corte, 18h conteúdo técnico
   em colab; sábado antecipação da LIVE) e na Comunidade (pilar do dia às 12h, Diário Legacy às 18h), e a grade de teste
