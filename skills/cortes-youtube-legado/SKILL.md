@@ -314,6 +314,10 @@ apontou no tempo do episódio: `"$P" scripts/achar.py <trabalho> --ep "<arquivo>
   voltam para 50% ao trocar de arquivo na lista: confira com zoom antes de baixar (o nome sai `-esv2-100p-bg-m-music-m`).
   Script: `C:\Render\_youtube\legado_t12_aula08\audio_v2\juntar_v2.py 100p <saida.mp4> 0.6`.
   O `salvar_downloads.ps1` pega qualquer "Salvar como" do Chrome, inclusive de outra conversa: desligue logo depois.
+- **Borrão de slide (`"borrar"` no plano)** (EP02 T12A01, 22/10/2026: o Igor reclamou do borrão no 2:10): desfoque só o
+  que precisa sumir (foto e nome do autor errado), dentro da moldura do slide, e deixe a frase legível; ache o começo
+  e o fim do slide varrendo o bruto (o slide do Freud entrava 26 s antes da área marcada). Área com menos de ~170 px
+  de largura quebra o `boxblur` (raio 40 no croma). Não desfoque o telão da câmera se o Clailton anda por ali.
 - **Subir o episódio no YouTube Studio pelo Chrome** (EP03, 21/10/2026, não listado a pedido do usuário): a janela "Abrir"
   não aparece (a aba do Claude fica em segundo plano) e o `file_upload` aceita só 10 MB por chamada. O que funcionou:
   dividir o mp4 em pedaços de 9,5 MB, criar na página um `<input type=file>` próprio que guarda cada arquivo recebido,
