@@ -37,6 +37,11 @@ escrever o relatório sobre o assunto:
   Dicas práticas, Roteiro do Clailton, Reflexão; Estático Notícia, Frase, Aviso): como reconhecer cada um pelo nome do card,
   exemplos reais, quantos posts e o desempenho de cada um, a regra "visita ao perfil é a métrica principal, sem lead por
   post" e a proposta de padrão de nome dos cards (prefixo do estilo na PAUTA). Leia antes de comparar formatos ou estilos.
+- `conhecimento/grade-semanal.md` — a **grade semanal de conteúdo** (página do Mac, conferida pelo Igor em 22/10/2026):
+  o que sai em cada horário no @clailtonluiz (09h novela, 13h TD, 18h novela, 20h carrossel Twitter), no
+  @legacyexecutoria (09h30 extra em teste, 12h notícia, 16h Do topo à falência/cenário, 17h corte, 18h conteúdo técnico
+  em colab; sábado antecipação da LIVE) e na Comunidade (pilar do dia às 12h, Diário Legacy às 18h), e a grade de teste
+  desde 13/10. Leia antes de conferir horário de post, sugerir pauta ou horário, ou explicar mudança de métrica.
 - `conhecimento/pesquisa-perfil-clientes.md` — **pesquisa com 10 clientes** que fecharam (set–out/2026; card
   "📌 PESQUISA PERFIL DOS CLIENTES" no MURAL): medos (70% quebrar), crenças, rotina, o que já tentaram, como chegaram
   (60% anúncio, 70% fecham em menos de 1 semana), objeções (preço e "é sério?"), redes e formatos, e teses para conteúdo.

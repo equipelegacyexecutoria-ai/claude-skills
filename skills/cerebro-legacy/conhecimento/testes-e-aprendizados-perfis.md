@@ -1,6 +1,6 @@
 # Testes e aprendizados dos perfis (Bibliografia do social media)
 
-Atualizado em 14/10/2026, a partir do card 📌 BIBLIOGRAFIA PERFIL LEGACY
+Atualizado em 22/10/2026 (grade de teste de 13/10, ver `grade-semanal.md`); antes, em 14/10/2026, a partir do card 📌 BIBLIOGRAFIA PERFIL LEGACY
 (https://app.notion.com/p/3f8c9747efab80148173fc3e07d8fbbd, no MURAL do quadro de tarefas). O Mac (social media) anota
 ali, todo dia, o que mudou ou começou a testar; os registros de 16/09 a 13/10 vieram do caderno dele (fotos de 14/10).
 
@@ -34,9 +34,18 @@ este arquivo (o que entrou de novo vai no topo de "Linha do tempo"; resultado no
 | Conteúdo para os nichos alimentício, construção civil e varejo | Instagram Legacy | semana de 28/09 | leads desses nichos |
 | **3 reels por dia no Clailton: 10h30 B-roll, 13h tela dividida, 18h novela + carrossel de roteiro antigo no fim do dia** | Instagram Clailton | 05/10 | alcance e cliques por formato |
 | Carrosséis Legacy × Clailton com dicas práticas (narrativa de blindagem da empresa) | Instagram Legacy e Clailton | 05/10 | alcance, salvamentos, leads |
+| **Grade de teste (página do Mac):** 09h30 extra na Legacy (Mudança do consumidor seg/qua/sex; Verdades duras, estilo Twitter, ter/qui) | Instagram Legacy | 13/10 | alcance e visitas ao perfil do horário novo |
+| 16h da Legacy alternando Cenário (Brasil) e Do topo à falência | Instagram Legacy | 13/10 | qual dos dois rende mais no mesmo horário |
+| 18h da Legacy alternando Cenário e Tela dividida | Instagram Legacy | 13/10 | qual dos dois rende mais no mesmo horário |
+| Clailton com um carrossel só, o Twitter das 20h; 09h novela que às vezes vira B-roll | Instagram Clailton | 13/10 | alcance do carrossel Twitter; novela × B-roll às 09h |
 
 ## Linha do tempo (o mais recente primeiro)
 
+- **22/10** — O Mac atualizou a página da grade semanal (card 📌 GRADE DE CONTEÚDOS); o Igor conferiu. A grade do
+  Clailton passou a ser 09h novela (às vezes B-roll) · 13h TD · 18h novela · 20h carrossel Twitter. Detalhes em
+  `grade-semanal.md`.
+- **13/10** — Começa a grade de teste: 09h30 extra na Legacy (Mudança do consumidor / Verdades duras), 16h alternando
+  Cenário e Do topo à falência, 18h alternando Cenário e Tela dividida; no Clailton, só o carrossel Twitter das 20h.
 - **13/10** — Primeiros conteúdos feitos a partir da análise dos carrosséis que mais performaram já deram resultado
   (carrossel "cenário Brasil" viralizou; tela dividida: menos alcance, alguns cliques). Esta semana: aprofundar nesses
   formatos para validar.
