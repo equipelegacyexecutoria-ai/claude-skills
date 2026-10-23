@@ -109,6 +109,12 @@ Para saber quem fechou um negócio, use o campo de usuário "Closer" (chave come
   `automacao-novo-seguidor` = automação de novo seguidor do Clailton; `bio_legacy`, `bio_clailton`,
   `Story_legacy`, `Story_clailton`; medium `tiktok` = bio do TikTok).
 - **Pago**: utm_source `facebook` (anúncios) — só como referência.
+- Cuidado (23/10/2026): utm_source `Instagram` com campanha de anúncio (ex.: `105 - [Legado] - [CAD] ...`, medium
+  `Instagram_Feed`) é anúncio pago no Instagram, não orgânico; o script ainda conta como orgânico, então confira à mão.
+- **Marcada / realizada / venda por closer** (pedido do Igor, 23/10/2026): só o FUNIL LEGADO tem campo Closer. Marcada =
+  campo Closer Responsável preenchido e etapa 9 ou além; realizada = campo "Closer - A Reunião foi Qualificada?"
+  preenchido (Sim ou Não) ou etapa 10/20/11; venda = status ganho. Não existe campo com a data da reunião: o mês é o da
+  entrada do lead (add_time). Puxe `getDeals` com `pipeline_id: 2`.
 
 Como puxar sem estourar: `getDeals` com `updated_since` (15 dias atrás, em UTC), `status`
 open/won/lost, `include_labels: true`, `sort_by: add_time`, `sort_direction: desc`, `limit: 500`.
