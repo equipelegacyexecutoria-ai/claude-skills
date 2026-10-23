@@ -228,6 +228,17 @@ os negócios do MQL do quiz passam a ter também as etiquetas "Quiz Clailton · 
   entregue por "limite de marketing da Meta para este número"; leads de **R$ 51 a 70 mil** (Produto na planilha) entram
   no FUNIL LEGADO como Oportunidade (MQL) e os SDRs trabalham; os de até R$ 50 mil entram em outro funil, dono Petherson.
   A anotação "JORNADA DO QUIZ" é escrita pela Nina em cada negócio.
+- **23/10, conversas (planilha Quiz 2 + tela de Conversas, de 22/10 09h a 23/10 09h, lidas sem marcar nada como lida):**
+  52 leads (15 MQL, 37 de R$ 97), nenhuma compra. Corrigido: a Nina já manda de madrugada (N1 às 00h50, M1 às 05h28);
+  os modelos têm o rodapé "Para não receber mais, responda SAIR"; a Nina não responde mais a mensagem automática da
+  empresa do lead. Horários certos: N1 1 h depois, N4 e M1/M2 30 min depois. Continuam: 3 envios barrados por "limite de
+  engajamento do número" e 1 por "experimento" da Meta; 4 números sem WhatsApp (1 nome falso "jgyfy") seguem "Válido".
+  Novos achados: 10 de 37 leads de R$ 97 responderam; a Nina manda preço e link já na 1ª resposta, mesmo para quem disse
+  "não sei se serve" ou "não estou preparada", e quase não usa a meta/sobra do quiz (contra o Guia); insistiu com 6
+  perguntas numa lead que disse "semana que vem"; num "SAIR" fez 2 perguntas em vez de confirmar e parar, e disse que
+  manteria "comunicações pontuais"; num MQL que clicou "Concluir a compra" só passou para o time em vez de ajudar a pagar
+  (2 mensagens repetidas, com emoji). 5 leads de Portugal (+351) recebem "R$ 97 no Pix". Uma lead reclamou que teve que
+  fazer o quiz inteiro para descobrir o preço e achava que era mentoria.
 
 ## Informação que não bate (conferir com o Igor)
 
