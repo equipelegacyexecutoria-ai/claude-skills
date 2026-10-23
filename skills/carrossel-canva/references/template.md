@@ -364,3 +364,15 @@ o `merge-designs` falha com ele).
   session"); funcionou criar só com a pág. 1 e somar o resto (`[2,2,2,2,2,2,3]`) numa chamada
   `modify_existing_design`. Frase curta em negrito que quebra feio: `\n` dentro do próprio trecho
   ("Se alguém não gosta de você,\no problema é dela.\nNão transforme…").
+
+## Lote de 23/10/2026 (16 carrosséis, 6 subagentes em paralelo)
+- Sem créditos Freepik/Magnific (regra do usuário): imagens de Pexels/Unsplash (original via curl), Wikimedia,
+  Agência Brasil e site da empresa. Funcionou bem para os 16.
+- O logo da capa LEGACY no modelo agora tem 74 px (antes 128): o `capa()` antigo não o encontra; posicionar à mão,
+  centralizado, ~109 px acima da manchete. Capas de 4–5 linhas: linhas 1+2 brancas na {{H1}}, o resto azul #43d1ff.
+- TWITTER no perfil LEGACY: trocar o cabeçalho (avatar = asset MAHWscUPxuI "Logo Legacy 3d.jpg", nome
+  "Legacy Executoria", @legacyexecutoria) em todas as páginas; script pronto `twlg.py` (scratchpad lote23/twitter).
+- TD: empresa sem foto livre → painel na cor da marca com o logo oficial em branco, ou cena genérica sem marca.
+- Limite do conector: frase azul no meio de texto branco (e o azul do par que vai até o fim da frase) não sai;
+  o time pinta à mão no editor.
+- Subagentes em paralelo no navegador embutido: cada um abre e fecha a própria aba.
