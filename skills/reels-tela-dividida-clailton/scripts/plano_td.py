@@ -854,7 +854,14 @@ def legenda(pal, ini, F_FALA, quebras_forcadas: set, fim_abertura: int) -> list[
     for k, grupo in enumerate(telas):
         f0 = ini[grupo[0]]
         f1 = ini[telas[k + 1][0]] if k + 1 < len(telas) else F_FALA
-        texto = " ".join(texto_legenda(pal[j]["texto"]) for j in grupo)
+        partes = []
+        for j in grupo:                          # ênclise ("sustentá" + "-la") volta a ser uma palavra só
+            t = texto_legenda(pal[j]["texto"])
+            if partes and pal[j]["texto"].strip().startswith("-"):
+                partes[-1] += "-" + t
+            else:
+                partes.append(t)
+        texto = " ".join(partes)
         out.append({"i0": grupo[0], "i1": grupo[-1], "f0": f0, "f1": f1, "texto": texto,
                     "estilo": "tarja" if grupo[-1] <= fim_abertura else "normal"})
     return out
