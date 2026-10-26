@@ -1,6 +1,6 @@
 ---
 name: reels-case-legacy
-description: Escreve roteiros de REELS DE CASE para o perfil da Legacy (@legacyexecutoria), no molde do caso do pastelão (anúncio 037, o seguidor mais barato da campanha 121 - Legacy). Transforma o caso de um cliente da executoria em fala de ~80 s com gancho de contraste (fatura alto e não sobra dinheiro), o erro escondido explicado com um exemplo do ramo, a virada com a executoria só depois dos 35 s, resultado com números por mês, lição para quem assiste e CTA da Sessão Estratégica; entrega no formato do card do Notion (fala + texto na tela + imagens + capa + legenda). Use quando o usuário pedir "reels case legacy", "case da Legacy", "faz um case igual ao do pastelão", "copy de case de cliente", "roteiro de caso de sucesso", "transforma esse case em reels", ou mandar dados de um cliente da executoria para virar vídeo ou anúncio. Não serve para reels do Clailton (roteirista-reels-clailton), depoimento gravado de aluno nem caixinha 0800.
+description: Escreve roteiros de REELS DE CASE para o perfil da Legacy (@legacyexecutoria), no molde do caso do pastelão (anúncio 037, o seguidor mais barato da campanha 121 - Legacy). Recebe o nome da empresa (e às vezes um direcionamento), lê as reuniões do executor com o cliente no Legacy Meet pelo Chrome e transforma o caso em fala de ~80 s com gancho de contraste, o erro escondido explicado com um exemplo do ramo, a virada com a executoria só depois dos 35 s, resultado com números por mês, lição para quem assiste e CTA da Sessão Estratégica; entrega no formato do card do Notion (fala + texto na tela + imagens + capa + legenda). Use quando o usuário pedir "reels case legacy", "case da Legacy", "faz um case igual ao do pastelão", "copy de case de cliente", "roteiro de caso de sucesso", "transforma esse case em reels", ou mandar dados de um cliente da executoria para virar vídeo ou anúncio. Não serve para reels do Clailton (roteirista-reels-clailton), depoimento gravado de aluno nem caixinha 0800.
 ---
 
 # Reels Case Legacy (molde do pastelão)
@@ -21,10 +21,32 @@ ensina uma coisa útil (a perda da carne moída). A Legacy entra depois disso.
 Histórico completo dos ads, se o projeto estiver aberto: `cerebro-legacy/historico-ads/` (padroes.md e os CSVs).
 Roteiro de referência na íntegra: [references/exemplo-pastelao.md](references/exemplo-pastelao.md).
 
-## Passo 1: juntar o caso
+## Passo 1: juntar o caso no Legacy Meet
 
-Fontes, nesta ordem: o que o usuário mandou, o card do Notion do caso (base "DEMANDAS | TIME DE CRIAÇÃO",
-pautas `Reels_Case_Legacy_*`), transcrição de depoimento ou reunião com o executor.
+Normalmente o usuário manda **só o nome da empresa** e, às vezes, um direcionamento ("foca na margem", "usa a fala X").
+O resto sai das reuniões gravadas do executor com o cliente no **Legacy Meet**, pelo Chrome do usuário
+(Claude in Chrome, perfil logado como **Igor Oliveira**; conferir o nome no canto de baixo da barra lateral).
+
+1. Abrir `https://meet.legacyexecutoria.com.br/gravacoes`. Só leitura: nunca clicar em "Transcrever novamente",
+   apagar ou editar nada.
+2. Digitar o nome da empresa no campo "Buscar por título ou usuário…". Cada card mostra título, data, duração,
+   número de falas e o executor (ex.: "EXECUTORIA - FOX FERREIRA · 20/10/2026 · 57 min · Mariza").
+   Pegar os links de todas as gravações com JS:
+   `[...document.querySelectorAll('a')].filter(a => /EMPRESA/i.test(a.innerText)).map(a => a.innerText.split('\n').slice(0,3).join(' | ') + ' => ' + a.href)`.
+   Ignorar as de 0 falas e a Sessão Estratégica de 2 min.
+3. Em cada gravação, a transcrição fica no painel da direita. O texto inteiro sai com JS:
+   `[...document.querySelectorAll('aside, section, div')].find(e => e.innerText && e.innerText.startsWith('Transcrição') && e.innerText.length > 2000).innerText`.
+   (Há também o botão "Transcrição (.txt)".)
+4. Com mais de 4 ou 5 reuniões, mandar um subagente ler todas em ordem e devolver um resumo em arquivo com:
+   quem é o cliente e como chegou, linha do tempo por reunião, resultados reais separados de metas e projeções
+   (com data e minuto), falas literais fortes com minuto, mudanças no dono e pendências.
+5. **Conferir na própria transcrição cada número e fala que vai para o roteiro** (buscar o termo no texto e ler o trecho
+   em volta). O rótulo de quem fala costuma vir trocado (cliente chamado pelo nome da consultora, "Desconhecido",
+   "FOX"): quando a autoria for incerta, o roteiro não atribui a fala a uma pessoa ("como eles mesmos contaram").
+6. Fechar a aba no fim.
+
+Outras fontes, se existirem: o card do Notion do caso (base "DEMANDAS | TIME DE CRIAÇÃO", pautas `Reels_Case_Legacy_*`)
+e o vídeo de depoimento do cliente.
 
 O caso precisa ter (pergunte só o que faltar e mudar o roteiro):
 1. Quem é e o ramo (sem nome completo se o cliente não autorizou).
@@ -100,6 +122,10 @@ Imagem: ...
 Nome da pauta: `Reels_Case_Legacy_<Cliente ou Produto>_<Ramo>` (ex.: `Reels_Case_Legacy_Pastelão_Restaurante`).
 Só criar card no Notion se o usuário pedir (para subir bruto e card, usar a skill `subir-task`).
 
+Salvar o roteiro em `documentos/<nome da pauta>.md` quando o projeto cerebro-legacy estiver aberto, e mostrar no chat.
+No fim do arquivo, uma seção "⚠️ CONFERIR ANTES DE GRAVAR" com cada número, a reunião e o minuto de onde saiu,
+o que ainda é estimativa e o pedido de autorização do cliente.
+
 Antes de entregar, conferir:
 - a Legacy só aparece no bloco da virada;
 - todo número veio do caso (nada inventado), com mês;
@@ -111,3 +137,8 @@ Antes de entregar, conferir:
 
 Quando um case novo rodar como anúncio, comparar o custo por seguidor com o 037 e anotar aqui o que mudou
 (gancho, ramo, duração, visual), para o molde melhorar com o tempo.
+
+Cases já escritos no molde:
+- 26/10/2026, Fox Ferreira Laticínios (Alexandre e Adriana, consultora Mariza): gancho "250 mil por mês e menos de 20 mil
+  de lucro em sete meses"; exemplo do ramo foi a reentrega que não era cobrada ("ia duas vezes e deixava lá", +R$ 4 mil
+  no mês); resultado margem de 8,2% para 9,7%. Ainda não rodou como anúncio.
