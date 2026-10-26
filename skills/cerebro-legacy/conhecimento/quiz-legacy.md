@@ -252,6 +252,12 @@ os negócios do MQL do quiz passam a ter também as etiquetas "Quiz Clailton · 
   voltou a responder mensagem automática da empresa do lead (Andrade recebeu o link do checkout num robô; Rosimari 3x);
   insiste depois de "não" (Sonia disse não 3 vezes). Ponto bom: 6 leads de formulário/comunidade fizeram o quiz minutos
   depois de a Nina mandar o link (3 chegaram ao checkout).
+- **26/10, funil de outubro até 26/10 17h (planilhas Quiz-Legacy + Quiz 2 + FUNIL LEGADO, sem testes e repetidos):**
+  298 leads (232 Produto, 66 MQL; 225 Instagram orgânico, 29 TikTok, 17 anúncio, 17 direto, 8 Facebook do Clailton),
+  137 clicaram em comprar, 8 compras do VMLM (R$ 776; a compra só volta para o quiz desde 17/10; 5 do Instagram, 2 de
+  anúncio, 1 do TikTok; 7 Produto e 1 MQL). MQL: 86 negócios do quiz no FUNIL LEGADO (inclui os de R$ 51–70 mil),
+  3 com reunião marcada (Wendel 10/10, april.sp 12/10, Caramelle 23/10), 2 realizadas, 0 vendas; ninguém clicou em
+  "Levantou a mão". Acessos e início do quiz ficam só no /painel (precisa login).
 
 ## Informação que não bate (conferir com o Igor)
 
