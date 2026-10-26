@@ -44,6 +44,14 @@ O resto sai das reuniões gravadas do executor com o cliente no **Legacy Meet**,
    em volta). O rótulo de quem fala costuma vir trocado (cliente chamado pelo nome da consultora, "Desconhecido",
    "FOX"): quando a autoria for incerta, o roteiro não atribui a fala a uma pessoa ("como eles mesmos contaram").
 6. Fechar a aba no fim.
+7. **Minutagem para o editor (trecho da reunião que entra no reel):** os tempos da transcrição do Legacy Meet
+   ficam adiantados em relação ao vídeo (na reunião de 29/06 da Lucena, uns 40 s no fim da gravação). Antes de passar
+   minutagem ao editor, baixar a gravação (pedir ok ao usuário: o tamanho sai de `fetch('/api/recordings/<id>/video',
+   {headers:{Range:'bytes=0-1'}})`, header content-range), com um `<a download>` apontando para esse endereço, e
+   transcrever só o trecho com faster-whisper e `word_timestamps=True` (ffmpeg `-ss` no começo do trecho, somar o
+   deslocamento). Passar ao editor o tempo do vídeo e a frase de início e fim de cada corte.
+8. Se o Chrome aberto pedir login no Legacy Meet, é o perfil errado: listar os navegadores e usar o
+   "NOT-LIVE-LAIR Chrome Igor" (logado como Igor Oliveira). Nunca digitar senha.
 
 Outras fontes, se existirem: o card do Notion do caso (base "DEMANDAS | TIME DE CRIAÇÃO", pautas `Reels_Case_Legacy_*`)
 e o vídeo de depoimento do cliente.
