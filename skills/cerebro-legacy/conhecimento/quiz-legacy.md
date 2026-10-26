@@ -239,6 +239,19 @@ os negócios do MQL do quiz passam a ter também as etiquetas "Quiz Clailton · 
   manteria "comunicações pontuais"; num MQL que clicou "Concluir a compra" só passou para o time em vez de ajudar a pagar
   (2 mensagens repetidas, com emoji). 5 leads de Portugal (+351) recebem "R$ 97 no Pix". Uma lead reclamou que teve que
   fazer o quiz inteiro para descobrir o preço e achava que era mentoria.
+- **26/10, conversas de 23 a 25/10 (planilha Quiz 2 + Pipedrive + Conversas lidas pela base, sem marcar nada como lida):**
+  102 leads (25 MQL, 77 de R$ 97; 72 do Instagram orgânico, 10 de anúncio, 9 direto). **3 vendas, todas pelo quiz e
+  todas antes da 1ª mensagem da Nina** (3 a 12 min entre o quiz e a compra): Luiz (23/10, orgânico IG), Tauan/Sense
+  Cuidados (25/10, MQL R$ 101–400 mil, orgânico IG) e Juliano (25/10, anúncio campanha 126). Depois da venda a Nina só
+  mandou o N7; o M3 do Tauan (sessão) foi barrado pelo "limite de engajamento" e só saiu no dia seguinte. 39 de 215
+  modelos falharam (13 limite de engajamento, 9 sem WhatsApp, 2 "experimento", 1 opt-out); 16 leads não receberam nada.
+  20 leads responderam de verdade. Achados: a Nina abandona quem estava quase pagando (Bruno, "limite insuficiente",
+  e Richard, MQL R$ 1–4 mi com problema de login: última pergunta sem resposta e ninguém retomou); passa para "o Time de
+  Executivos" e ninguém chama (Ivair, 2 dias); dá consultoria grátis longa sem oferecer o VMLM (Arnaldo 32 mensagens,
+  Anderson 31, inclusive prometendo "modelo de anúncio às 19h"); inventa "perguntas do diagnóstico" no chat (Geison);
+  voltou a responder mensagem automática da empresa do lead (Andrade recebeu o link do checkout num robô; Rosimari 3x);
+  insiste depois de "não" (Sonia disse não 3 vezes). Ponto bom: 6 leads de formulário/comunidade fizeram o quiz minutos
+  depois de a Nina mandar o link (3 chegaram ao checkout).
 
 ## Informação que não bate (conferir com o Igor)
 
