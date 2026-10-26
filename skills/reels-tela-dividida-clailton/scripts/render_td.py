@@ -33,7 +33,7 @@ import numpy as np
 from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from td_comum import (CARTAO_CY, CARTAO_LARG, EMENDA, FLASH_ANTES, FLASH_DEPOIS, FPS, FPS_DEN, FPS_NUM, H,  # noqa: E402
+from td_comum import (COSTURA_ALT, COSTURA_BLUR, CARTAO_CY, CARTAO_LARG, EMENDA, FLASH_ANTES, FLASH_DEPOIS, FPS, FPS_DEN, FPS_NUM, H,  # noqa: E402
                       W, ZOOM_CARTAO, ZOOM_FOTO, ZOOM_FOTO_MAX, filtro_recorte, gravar_json, ler_json, movel,
                       rect_plano, regiao_plano, wh_video)
 from midia_util import area_util, caixa_cover  # noqa: E402  (area_util: premiere_td importa daqui)
@@ -92,6 +92,27 @@ class Leitor(threading.Thread):
         if k != chave:
             raise SystemExit(f"leitor fora de ordem: esperava {chave}, veio {k}")
         return fr
+
+
+_PESO_COSTURA = None
+
+
+def costura(fr: np.ndarray) -> np.ndarray:
+    """Tela dividida sem linha seca: em volta da emenda, mistura o quadro com uma versão desfocada,
+    peso 1 na emenda e 0 nas bordas da faixa (degradê de desfoque entre o B-roll e o Clailton)."""
+    global _PESO_COSTURA
+    a = COSTURA_ALT
+    if a <= 0 or COSTURA_BLUR <= 0:
+        return fr
+    y0, y1 = EMENDA - a, EMENDA + a
+    if _PESO_COSTURA is None:
+        d = 1.0 - np.abs(np.arange(y0, y1) + 0.5 - EMENDA) / a
+        _PESO_COSTURA = (d * d * (3 - 2 * d)).astype(np.float32)[:, None, None]
+    faixa = fr[y0:y1].astype(np.float32)
+    borrada = cv2.GaussianBlur(faixa, (0, 0), COSTURA_BLUR)
+    out = fr.copy()
+    out[y0:y1] = (faixa + (borrada - faixa) * _PESO_COSTURA).astype(np.uint8)
+    return out
 
 
 def filtro_trecho(m: dict, c: dict) -> tuple[list[str], str, int, int]:
@@ -431,7 +452,7 @@ def main() -> None:
                 else:
                     img = fonte_quadro(c).quadro(escala(c, k))
                 if c["layout"] in ("topo", "dividida"):
-                    fr = np.vstack([img, cl]) if cl is not None and cl.shape[0] == BAIXO_H else img
+                    fr = costura(np.vstack([img, cl])) if cl is not None and cl.shape[0] == BAIXO_H else img
                     area = (0, EMENDA)
                 else:
                     fr = img

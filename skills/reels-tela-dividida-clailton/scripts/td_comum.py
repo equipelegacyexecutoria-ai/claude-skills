@@ -24,6 +24,8 @@ W, H = 1080, 1920
 
 # ---------------- quadro (medido) ----------------
 EMENDA = 768                 # tela dividida: imagem em y 0..EMENDA (medido 32-50%, mediana ~40%)
+COSTURA_ALT = 110             # tela dividida: faixa (px para cima e para baixo da emenda) com degradê de desfoque
+COSTURA_BLUR = 28.0           # entre o B-roll e o Clailton, sem linha seca (pedido do usuário, 26/10/2026); 0 desliga
 ROSTO_ABERTO = float(os.environ.get("TD_ROSTO_ABERTO", "0.30"))  # largura do rosto / largura do quadro no plano aberto (caixinha 0800: 0.34)
 ROSTO_CY_ABERTO = float(os.environ.get("TD_ROSTO_CY", "0.30"))  # centro do rosto (fração da altura) no aberto; mais baixo com TD_ROSTO_CY (área segura do Reels, 22/10/2026)
 FECHADO_FATOR = 1.50         # punch-in do fechado sobre o aberto (medido 1,45-1,6)
