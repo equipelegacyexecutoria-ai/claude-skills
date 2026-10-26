@@ -20,6 +20,8 @@ Sintaxe do plano.txt (uma decisão por linha; # comenta; @a-b = índices de pala
   NUMERO @120-121 "0,07%"                 número grande sobre o Clailton
   SEMCTA                                  termina sem a CTA
   SEMZOOM                                 desliga o aberto/fechado automático (só o que o plano marcar)
+  ZOOMSUAVE @15-18 [x1.18]                zoom in suave durante a frase (aproxima até o fim dela e segura até a
+                                          próxima emenda); vale mesmo com SEMZOOM (pedido do usuário, 26/10/2026)
   (padrão)                                zoom seco só nas emendas + zoom animado (keyframes) dentro
                                           do pedaço, olhos sempre na mesma altura (regra do usuário)
   ZOOMLIVRE                               volta ao fechado antigo (punch-in no meio da fala; evitar)
@@ -109,6 +111,9 @@ def ler_plano(p: Path) -> dict:
             pl["cta"] = False
         elif up.startswith("SEMZOOM"):
             pl["auto_zoom"] = False
+        elif up.startswith("ZOOMSUAVE"):
+            fx = re.search(r"\bx\s*(\d+(?:[.,]\d+)?)\b", linha[9:])
+            pl.setdefault("zoom_frase", []).append({"i0": a, "i1": b, "fator": float(fx.group(1).replace(",", ".")) if fx else ZOOM_SUAVE})
         elif up.startswith("ZOOMCORTE"):                 # já é o padrão (planos antigos da ES trazem a linha)
             pl["zoom_corte"] = True
         elif up.startswith("ZOOMLIVRE"):
@@ -284,6 +289,12 @@ def montar(T: Path) -> dict:
         if pl["auto_zoom"]:
             auto_fechado(pal, ini, F_FALA, estado, zoom, forcado, seg_f0, f_ini)
         limpar_zoom(zoom, forcado, seg_f0, F_FALA)
+    for zf in pl.get("zoom_frase", []):          # ZOOMSUAVE @a-b: aproxima ao longo da frase, segura até a emenda
+        g0, g1 = f_ini(zf["i0"]), min(fim_item(zf["i1"]), F_FALA)
+        fim = next((x for x in seg_f0 if x >= g1), F_FALA)
+        for f in range(g0, fim):
+            if zoom[f] == "aberto":
+                escala[f] = 1.0 + (zf["fator"] - 1.0) * suave(min(1.0, (f - g0) / max(1, g1 - g0)))
     for f in range(F_FALA):
         if estado[f] == "dividida":
             zoom[f] = "dividida"
