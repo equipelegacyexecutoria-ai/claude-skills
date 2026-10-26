@@ -104,7 +104,7 @@ As mesmas venvs da novela/tela dividida: `P = %LOCALAPPDATA%\corte-viral\venv\Sc
    (medido no teste de 18 s: render 41 s, conferência 38 s). Código 0 = aprovado.
    Sem `T\plano.txt`, ele cria um com `SEMABERTURA`. Para forçar o enquadramento, acrescente ao plano
    `FECHADO @a-b` ou `ABERTO @a-b` (vale para o pedaço inteiro entre emendas em que ele cai);
-   `SEMZOOM` desliga o aberto/fechado automático.
+   `SEMZOOM` desliga o aberto/fechado automático. `ZOOMSUAVE @a-b [x1.18]` dá zoom in suave só naquela frase (aproxima até o fim dela e volta na emenda seguinte), vale mesmo com `SEMZOOM` (pedido do usuário, 26/10/2026).
 6. **Olhar** — `T\qa\fundo_mais_claro.png`, `T\qa\zoom_olhos.jpg`, `T\qa\relatorio.txt` (e
    `folha_geral_NN.jpg` no 1º do lote).
 7. **Entregar** — vídeo + relatório curto: tempo por etapa, diferenças fala × roteiro, decisões a confirmar.
