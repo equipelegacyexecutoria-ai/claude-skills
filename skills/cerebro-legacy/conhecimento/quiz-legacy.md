@@ -276,6 +276,13 @@ os negócios do MQL do quiz passam a ter também as etiquetas "Quiz Clailton · 
   "Agora não"; numa lead que aceitou a ligação ninguém ligou. SDR marcou 1 sessão (MQL R$ 401 mil–1 mi, 2h43 depois do quiz).
   Taxa de resposta de quem não comprou e recebeu pelo menos 1 mensagem: 7 de 39 (18%) responderam de verdade no WhatsApp
   (6 à Nina, 1 só ao SDR; 3 só com botão); MQL 3 de 11 (27%), R$ 97 4 de 28 (14%); outros 4 só tiveram robô respondendo.
+- **27/10, taxa de resposta de 21/10 a 26/10 (cadastro; respostas lidas até 27/10 16h, Conversas pela base, sem marcar
+  lida):** 232 pessoas que não compraram (sem as 6 compras e o teste). 204 receberam pelo menos 1 mensagem (88%); 28 não
+  receberam nada (15 sem WhatsApp, 10 limite de engajamento, 2 experimento, 1 sem tentativa). Das 204, **55 responderam de
+  verdade (27%)**: 50 à Nina e 5 só ao SDR; 18 só com botão, então resposta escrita = 37 (18%). Outras 14 só tiveram robô
+  da empresa respondendo. MQL 15 de 47 (32%), R$ 97 40 de 157 (25%). Por dia de cadastro: 21/10 19%, 22/10 37%, 23/10
+  28%, 24/10 30%, 25/10 23%, 26/10 17%. Dos MQL sem resposta no WhatsApp, 30 receberam ligação do SDR.
+  O tempo do quiz (começo ao fim) não está na planilha nem no banco do Cérebro (leads_quiz2): só no /painel, com login.
 
 ## Nina com leads NÃO-MQL de Legado (anúncio), Black e orgânico (lido em 27/10/2026)
 
