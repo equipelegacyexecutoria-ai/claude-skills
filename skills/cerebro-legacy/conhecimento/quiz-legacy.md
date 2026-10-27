@@ -277,6 +277,27 @@ os negócios do MQL do quiz passam a ter também as etiquetas "Quiz Clailton · 
   Taxa de resposta de quem não comprou e recebeu pelo menos 1 mensagem: 7 de 39 (18%) responderam de verdade no WhatsApp
   (6 à Nina, 1 só ao SDR; 3 só com botão); MQL 3 de 11 (27%), R$ 97 4 de 28 (14%); outros 4 só tiveram robô respondendo.
 
+## Nina com leads NÃO-MQL de Legado (anúncio), Black e orgânico (lido em 27/10/2026)
+
+Fonte: site de Conversas (regras de primeiro contato, modelos e conversas, só leitura) + Pipedrive (negócios de 22 a 27/10).
+- **Onde caem:** não-MQL dessas origens vão para o **FUNIL IMPULSÃO › Op Allbound** (etapa 41), dono Petherson (a
+  automação). De 22 a 27/10: 137 da Black, 13 do orgânico, 10 do anúncio do Legado.
+- **1ª mensagem (regra automática por origem, igual para MQL e não-MQL):**
+  - Black (`origem = black_friday`) → modelo `blackfriday`: "Aqui é a Nina da Legacy... enviamos o acesso às nossas
+    estratégias no seu email... estamos selecionando empresários para receberem um diagnóstico estratégico. Você tem
+    interesse?" (botões Tenho interesse / Agora não). Vários leads respondem "QUERO ENTRAR NA COMUNIDADE" e a Nina manda
+    o link do grupo de WhatsApp.
+  - Legado (anúncio) e orgânico caem na regra padrão → `legado_disparo_anuncio`: "recebemos seu cadastro... seu maior
+    gargalo é X... **o especialista vai ligar pra você**... qual o melhor horário?". Promete ligação para quem não tem SDR.
+- **Depois, se o lead responde,** a Nina (IA) pergunta o faturamento e o gargalo e decide sozinha: às vezes manda o
+  **link do quiz** ("Diagnóstico Legacy"), às vezes o **VMLM direto** (R$ 97 + link do checkout), às vezes dá
+  consultoria grátis longa sem oferta. Não há roteiro fixo para não-MQL fora do quiz.
+- **Amostra de 36 conversas (14 Black, 10 Legado, 12 orgânico, 22–27/10):** 19 nunca responderam e **não receberam
+  nenhuma 2ª mensagem**; 4 primeiras mensagens falharam (limite de engajamento / "experimento" da Meta); só 2 receberam
+  a oferta do VMLM e 3 o link do quiz; 6 (Black) pegaram só o link da comunidade.
+- **Reativação automática da Nina** (config de 16/10): roda só nas etapas 7, 8 e 9 do FUNIL LEGADO; o FUNIL IMPULSÃO
+  fica de fora. Ou seja, o não-MQL que não responde à 1ª mensagem fica parado.
+
 ## Informação que não bate (conferir com o Igor)
 
 - **Lead de R$ 51 a 70 mil no FUNIL LEGADO (22/10):** o documento diz que Produto (até R$ 70 mil) não entra no FUNIL
