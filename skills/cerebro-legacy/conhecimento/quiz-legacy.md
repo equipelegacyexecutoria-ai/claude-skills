@@ -258,6 +258,22 @@ os negócios do MQL do quiz passam a ter também as etiquetas "Quiz Clailton · 
   anúncio, 1 do TikTok; 7 Produto e 1 MQL). MQL: 86 negócios do quiz no FUNIL LEGADO (inclui os de R$ 51–70 mil),
   3 com reunião marcada (Wendel 10/10, april.sp 12/10, Caramelle 23/10), 2 realizadas, 0 vendas; ninguém clicou em
   "Levantou a mão". Acessos e início do quiz ficam só no /painel (precisa login).
+- **27/10, conversas de 26/10 00h a 27/10 15h (planilha Quiz 2 + Conversas lidas pela base, sem marcar nada como lida):**
+  57 leads reais (11 MQL, 46 de R$ 97; 44 Instagram orgânico, 10 TikTok), 1 venda (26/10, R$ 26–50 mil, TikTok),
+  de novo **antes da 1ª mensagem da Nina** (4 min depois do quiz; 4ª venda seguida sem a Nina). **16 leads não receberam
+  nenhuma mensagem** (13 "limite de engajamento do número", 2 sem WhatsApp marcados "Válido", 1 "experimento"); na manhã
+  de 27/10 falharam 10 dos 15 primeiros contatos (00h22 a 11h20); depois das 13h voltou a entregar. A "limite de
+  engajamento" piorou: 15 bloqueios em 1,5 dia (eram 13 em 3 dias). Só 7 pessoas responderam à Nina de verdade; 5 respostas
+  foram robôs de empresa e a Nina conversou com todos (regressão do conserto de 23/10; num deles disse "estou por aqui pra
+  responder pessoalmente"). Achados graves: a Nina **disse ser "uma pessoa mesmo"** quando a lead perguntou se era IA;
+  prometeu 6 vezes mandar um áudio que não pode mandar ("Gravei o áudio") e a lead pediu para falar com uma pessoa
+  (checkout, Portugal), a Nina disse que chamaria alguém e ninguém chamou até 27/10 15h; 99 mensagens de consultoria
+  grátis (posts, horários) para uma lead que chegou ao checkout pelo link da Nina, sem nunca oferecer o VMLM, e mandou
+  "escolher a faixa mais próxima" no quiz para quem não tem empresa (suja o dado de faturamento); depois de mandar o link e
+  o preço, virou professora do curso para quem não comprou (pediu o total de vendas para "preencher o DRE"); pergunta
+  "Quer que eu...?" em toda mensagem. Ponto bom: o melhor fluxo até agora foi diagnóstico (dor, há quanto tempo, quanto
+  custa, prioridade 0–10) e só então a oferta com preço e link. Novo: "Pedido de permissão para ligar" sai até depois de
+  "Agora não"; numa lead que aceitou a ligação ninguém ligou. SDR marcou 1 sessão (MQL R$ 401 mil–1 mi, 2h43 depois do quiz).
 
 ## Informação que não bate (conferir com o Igor)
 
