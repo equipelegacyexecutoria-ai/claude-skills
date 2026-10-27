@@ -376,3 +376,14 @@ o `merge-designs` falha com ele).
 - Limite do conector: frase azul no meio de texto branco (e o azul do par que vai até o fim da frase) não sai;
   o time pinta à mão no editor.
 - Subagentes em paralelo no navegador embutido: cada um abre e fecha a própria aba.
+
+## Lote de 27/10/2026 (6 Twitter do Clailton)
+- Capa TWITTER: o `{{SUB}}` fica em **Poppins médio** como vem do modelo (regra do usuário). Não aplicar
+  `font_weight: bold` nele: a API só volta para "normal" (400), não para médio. Se já saiu em negrito, inserir a
+  pág. 1 do modelo de novo (`merge-designs` insert after 0 + delete da capa antiga) e preencher sem o negrito.
+- CTA da sessão estratégica no fim: o link em 3 linhas equilibradas, com `\n` no próprio trecho:
+  "Clica no link da bio e agenda\numa sessão estratégica gratuita\ncom um especialista Legacy." Frase em negrito
+  do CTA também com quebras manuais se sobrar linha curta.
+- Card 6 "só a frase" só quando o briefing pede; não aplicar 56 px em card normal.
+- O modelo (`DAHWW8zqYcQ`) não deixa pintar/riscar só um trecho: pergunta errada em texto normal e certa em
+  negrito; avisar o time se o briefing pedir azul/riscado.
