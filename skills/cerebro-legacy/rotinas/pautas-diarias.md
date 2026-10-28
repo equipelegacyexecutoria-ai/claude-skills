@@ -63,9 +63,12 @@ Erros reais (não repita):
    - "FORMATO": ["🎞️ Carrossel (Sequência de imagens)"]
    - "REDE SOCIAL": ["Instagram / Facebook"]
    - "PRIORIDADE": "ALTA" se nota 8 a 10; "MÉDIA" se 6 ou 7
-   - "IDEIA": "Nota N/10 · <Brasil | Setor | Empresa | Comparação> · <o fato em uma frase com o número>"
+   - "IDEIA": "Nota N/10 · <Brasil | Setor | Empresa | Comparação> · <o fato em uma frase com o número> · Notícia: <link da notícia principal>"
    Não preencha RESPONSÁVEL nem as datas. Ícone do card: 📰.
    Conteúdo do card (Notion Markdown), nesta ordem:
+   **📰 LEIA A NOTÍCIA:**
+   Logo no topo do card, para o time conferir e ler antes de qualquer coisa: o link da notícia principal como link clicável com o título da matéria, seguido do veículo e da data (ex.: [TCU aprova alíquota da CBS em 11,3%](https://...) · Agência Brasil, 28/10/2026). Embaixo, os outros links que confirmam o mesmo fato, um por linha, no mesmo formato. Sempre pelo menos 1 link; de preferência 2 veículos diferentes.
+   ---
    **📌 DIRECIONAMENTO CRIATIVO:**
    O fato em 2 ou 3 frases, com os números e a data em que saiu. Por que é pauta agora e em qual tipo de capa ele se encaixa (cite o acerto parecido da lista acima).
    ---
@@ -77,7 +80,7 @@ Erros reais (não repita):
    1. Capa · 2. O que aconteceu, com o número · 3. O que isso significa na prática · 4. Como isso chega na empresa de quem está lendo · 5. Você não controla X, mas controla Y · 6. Prova com uma empresa real do mesmo cenário (só se houver na fonte) · 7. Fecho e oferta da Sessão Estratégica Gratuita. Uma linha por slide, sem texto pronto longo. Máximo de 30 palavras por slide.
    ---
    **🔍 FONTES:**
-   Cada link com o nome do veículo e a data.
+   Todos os links usados (inclusive os de dados secundários dos slides), cada um clicável, com o nome do veículo e a data.
    ---
    **⚠️ CONFERIR ANTES DE POSTAR:**
    O que pode ter mudado ou o que não foi possível confirmar.
