@@ -18,6 +18,12 @@ Padrão aprovado — "sombra v3", duas camadas discretas, sem contorno duro e se
 - Detalhes, scripts e o restante do padrão de legenda: skill `cortes-podcast-instagram`
   (`~/.claude/skills/cortes-podcast-instagram`).
 
+## Voz de qualquer vídeo: tratar no Adobe Podcast
+
+Regra do usuário (28/10/2026): toda edição com fala (reels, criativos, stories, cortes) passa a voz no Adobe Podcast
+(podcast.adobe.com/pt/enhance) sem ele precisar pedir. Passo a passo: skill `reels-novela-clailton`, seção "Tratar o
+áudio no Adobe Podcast". Trilha de criativo tem que ser ouvida: ~12 dB abaixo da voz (a -19 dB ele achou que não tinha).
+
 ## Imagens de apoio (B-roll) em qualquer vídeo
 
 Regra do usuário (01/10/2026): nunca imagem com marca d'água (Freepik, banco com "PREVIEW") nem com texto em

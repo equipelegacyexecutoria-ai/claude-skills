@@ -303,6 +303,24 @@ def finalizar(T: Path, saida: Path, geral: bool) -> int:
                                             "--y-centro", str(es.Y_CENTRO), "--topo-min", str(es.TOPO_MIN),
                                             "--base-max", str(es.BASE_MAX), "--sem-cta", "--cor-destaque", AZUL]):
         return 1
+    # sem_legenda.txt: linhas "@a-b" (índices de palavra) em que a animação já mostra o que ele fala — a legenda
+    # some ali (usuário, 28/10/2026: "não precisa ter a legenda pois o motion já mostra"). As telas da legenda.txt
+    # precisam começar em a e terminar em b.
+    sl = T / "sem_legenda.txt"
+    if sl.exists():
+        pal = ler(T / "palavras_corte.json")["palavras"]
+        janelas = []
+        for a_, b_ in re.findall(r"@(\d+)-(\d+)", sl.read_text(encoding="utf-8")):
+            janelas.append((pal[int(a_)]["inicio"] - 0.15, pal[int(b_)]["fim"] + 0.05))
+
+        def seg(s: str) -> float:
+            h, m, x = s.split(":")
+            return int(h) * 3600 + int(m) * 60 + float(x)
+        linhas = (T / "legenda.ass").read_text(encoding="utf-8").split("\n")
+        fica = [ln for ln in linhas if not (ln.startswith("Dialogue:") and ",Cap," in ln
+                                             and any(j0 <= seg(ln.split(",")[1]) < j1 for j0, j1 in janelas))]
+        (T / "legenda.ass").write_text("\n".join(fica), encoding="utf-8")
+        print(f"sem legenda: {len(linhas) - len(fica)} eventos tirados em {janelas}")
     cx = ler_caixinha(T)
     if cx is None:
         print(f"FALTA a caixinha: escreva {T / 'caixinha.txt'} (PERGUNTA ... e @a-b)")
