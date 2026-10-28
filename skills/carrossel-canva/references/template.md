@@ -6,6 +6,8 @@ Trocar a foto de exemplo de uma página-modelo é seguro.
 
 ## Modelos atuais (lidos em 30/09/2026 — valem estes; o resto do arquivo é histórico)
 
+Os 5 modelos ficam juntos na pasta **MODELOS** do Canva (https://www.canva.com/folder/FAHZTlOdd3I, criada em 28/10/2026): LEGACY, LEGACY + CLAILTON, TWITTER (CLAILTON), LEGACY NOTÍCIA e LEGACY TELA DIVIDIDA. Modelo novo que a skill passar a usar vai para essa pasta.
+
 Os IDs de elemento mudam a cada montagem: achar pelo marcador e pelo tipo, como abaixo.
 
 **LEGACY — `DAHWWhuFIEI`** (https://canva.link/6uw20gnd9l3y8e9), 3 páginas 1080×1440:
