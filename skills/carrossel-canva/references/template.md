@@ -372,8 +372,11 @@ o `merge-designs` falha com ele).
   Agência Brasil e site da empresa. Funcionou bem para os 16.
 - O logo da capa LEGACY no modelo agora tem 74 px (antes 128): o `capa()` antigo não o encontra; posicionar à mão,
   centralizado, ~109 px acima da manchete. Capas de 4–5 linhas: linhas 1+2 brancas na {{H1}}, o resto azul #43d1ff.
-- TWITTER no perfil LEGACY: trocar o cabeçalho (avatar = asset MAHWscUPxuI "Logo Legacy 3d.jpg", nome
-  "Legacy Executoria", @legacyexecutoria) em todas as páginas; script pronto `twlg.py` (scratchpad lote23/twitter).
+- TWITTER no perfil LEGACY: trocar o cabeçalho (nome "Legacy Executoria", @legacyexecutoria, largura 420, selo
+  azul em x 585,6 na capa / 603,4 nas outras) em todas as páginas; script pronto `twlg.py` (scratchpad lote23/twitter).
+  **Modelo novo (aprovado em 28/10/2026):** avatar = logo nova do triângulo com o "E", asset `MAHZOmVAmgU`
+  (não mais o `MAHWscUPxuI` 3D); última página em fundo `#0f0f0f` (não `#080e1c`), mesmo se o briefing pedir
+  azul-marinho; `{{SUB}}` da capa em Poppins médio. Fundo escuro já existente: `recolor_element` no shape.
 - TD: empresa sem foto livre → painel na cor da marca com o logo oficial em branco, ou cena genérica sem marca.
 - Limite do conector: frase azul no meio de texto branco (e o azul do par que vai até o fim da frase) não sai;
   o time pinta à mão no editor.
