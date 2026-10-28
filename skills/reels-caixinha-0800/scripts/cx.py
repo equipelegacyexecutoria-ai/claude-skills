@@ -56,6 +56,11 @@ CX_PAD_V = 34                      # respiro em cima/embaixo da pergunta
 CX_LARG_TEXTO = 600                # largura máxima de uma linha da pergunta
 FS_CAB, FS_PERG = 27, 34           # corpo do cabeçalho e da pergunta (px)
 ENTRADA, SAIDA_FADE, SOBRA = 0.5, 0.12, 0.30   # entrada (desfoque + fade), saída e quanto fica depois da pergunta
+# CX_ESCALA (ambiente): aumenta a caixinha inteira (stories do Clailton, 28/10/2026: "letras da caixinha muito pequenas")
+_ESC = float(os.environ.get("CX_ESCALA", "1"))
+if _ESC != 1:
+    CX_W, CX_FAIXA, CX_RAIO, CX_PAD_V, CX_LARG_TEXTO = (round(v * _ESC) for v in (CX_W, CX_FAIXA, CX_RAIO, CX_PAD_V, CX_LARG_TEXTO))
+    FS_CAB, FS_PERG = round(FS_CAB * _ESC), round(FS_PERG * _ESC)
 FONTE_CAB = ("SF-Pro-Display-Bold.otf", "SFProDisplay-Bold")        # nome PostScript (o nome completo cai em Arial no libass)
 FONTE_PERG = ("SF-Pro-Display-Medium.otf", "SFProDisplay-Medium")
 
