@@ -66,6 +66,7 @@ Medido em 26/09/2026 (novela "funcionário que só cumpre o combinado"): pauta 3
 - Não publique, não poste e não envie nada: a entrega é texto para o usuário gravar.
 - Depois da entrega, o log `<Raiz>\roteiros\_log.csv` já foi atualizado pelo script; o Diretor usa esse log para evitar repetir hook e ressalva.
 - **Técnicas de retenção em teste** (análise do @fernandomiranda777, 16/10/2026): já estão embutidas nos agentes; detalhes e regra de medição em `references/tecnicas-de-retencao.md`. Os roteiros registram em PENDÊNCIAS quais usaram.
+- **Versão claude.ai** (28/10/2026): `versao-claude-ai/roteirista-reels-clailton/` é a mesma skill numa passada só, sem agentes nem PowerShell, com cópia do banco de fatos e dos exemplos-ouro. Mudou regra, número ou técnica aqui ou nos agentes? Atualize lá também e reenvie o .zip no claude.ai (Personalização > Habilidades).
 
 ## Scripts (PowerShell 5.1; rodam de qualquer pasta)
 ```
