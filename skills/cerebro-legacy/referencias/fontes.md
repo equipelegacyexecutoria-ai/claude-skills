@@ -35,6 +35,7 @@ Ler com `notion-query-data-sources` `{"mode": "view", "view_url": "<link>"}` e r
 | Claude · Semana passada | publicação **ou** conclusão nos últimos 7 dias (até hoje), qualquer andamento | https://app.notion.com/p/73ac9747efab8374a5b5812011259272?v=3fac9747efab8141906a000cc6f7ef2e |
 | Claude · Black em aberto (+ concluídas na semana) | Black: Andamento ≠ Concluído, ou Concluído com conclusão nos últimos 7 dias | https://app.notion.com/p/73ac9747efab8374a5b5812011259272?v=3fac9747efab819c90bb000cef48711e |
 | Claude · Quiz em aberto (+ concluídas na semana) | Quiz: Andamento ≠ Concluído e ≠ Documentos, ou Concluído com conclusão nos últimos 7 dias | https://app.notion.com/p/73ac9747efab8374a5b5812011259272?v=3fac9747efab81eda60e000ce9088d7d |
+| Claude · Pautas diárias | andamento PAUTAS DIÁRIAS (cards criados pela rotina de pautas) | https://app.notion.com/p/73ac9747efab8374a5b5812011259272?v=407c9747efab8159bcdc000c846b2556 |
 
 O filtro "hoje/ontem" do Notion compara a data do card; publicações com horário vêm em UTC (um post
 de 21h de ontem aparece como `00:00Z` de hoje). Por isso a visão de publicações começa em ontem:
@@ -48,7 +49,7 @@ compartilhada e ela acabou em 15/10/2026. A cota do modo "view" não existe.
 `PERFIL`, `FORMATO` (lista), `REDE SOCIAL` (lista), `IDEIA`, `CORREÇÕES (Claude)`,
 datas `date:DATA D/ CONCLUSÃO:start` e `date:DATA D/ PUBLICACÃO:start` (sem acento no "CAO").
 
-ANDAMENTO: A fazer · Aguardando material · Correção · Copy · A Gravar · A Editar · A Design ·
+ANDAMENTO: PAUTAS DIÁRIAS (desde 28/10/2026, coluna das pautas sugeridas pela rotina) · A fazer · Aguardando material · Correção · Copy · A Gravar · A Editar · A Design ·
 Gravação em andamento · Edição em andamento · Design em produção · CLAUDE (Editor) ·
 CLAUDE (Designer) · Aprovação · Correções (Claude) · **Publicar** (pronto) · Stand-by ·
 Finalizado · Publicado · 📌  MURAL (dois espaços).

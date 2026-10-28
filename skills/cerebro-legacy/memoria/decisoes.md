@@ -53,3 +53,9 @@
   site (`cerebro_ig_conta_dia`). Um viral de um perfil transborda para o outro. Fala "coincide com", nunca "gerou".
 - **19/10/2026 — A Nina chama lead a qualquer hora (decisão do Igor).** Não existe janela de 8h–21h;
   mensagem da Nina de madrugada ou à noite não é erro e não entra como falha nos relatórios.
+- **28/10/2026 — Rotina "Pautas diárias" (pedido do Igor).** Todo dia às 9h (Brasília), na nuvem
+  (`trig_016PBRSmGLbW7xrUb8CUxm8k`, https://claude.ai/code/routines/trig_016PBRSmGLbW7xrUb8CUxm8k), o Claude pesquisa
+  fatos novos (Brasil, setor, empresas gigantes, comparações) e cria de 2 a 8 cards de carrossel da Legacy na coluna
+  **PAUTAS DIÁRIAS** do quadro (visão Social Media), sem responsável nem data, com capa sugerida, roteiro e fontes.
+  Tema de consumidor fica de fora (0 de 14 passou de 2,2 mil em set–out). O texto da rotina está em
+  `rotinas/pautas-diarias.md`; mudou o texto, atualize a rotina na nuvem também. Ela só cria cards, não mexe em mais nada.
