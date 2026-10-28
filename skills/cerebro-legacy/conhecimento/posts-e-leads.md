@@ -1,6 +1,6 @@
 # Posts e Leads no painel do Cérebro (trazidos do Legacy Insights Hub)
 
-Atualizado em 21/10/2026 (mídia paga × visitas × MQL; melhores semanas de MQL × alcance; raio-x de seguidores, alcance e cliques; carrosséis jun–out por esqueleto, formato e capa). Pedido do Igor (13/10): abandonar o Legacy Insights Hub e deixar o Cérebro como o único
+Atualizado em 28/10/2026 (capas e headlines set–out); antes em 21/10/2026 (mídia paga × visitas × MQL; melhores semanas de MQL × alcance; raio-x de seguidores, alcance e cliques; carrosséis jun–out por esqueleto, formato e capa). Pedido do Igor (13/10): abandonar o Legacy Insights Hub e deixar o Cérebro como o único
 painel de gestão do time. As telas de **Posts** e de **Leads** do Hub viraram janelas do site do Cérebro
 (https://cerebro-legacy-organico.vercel.app), publicadas em 14/10/2026. O Hub não é mais fonte: só foi lido e copiado.
 
@@ -244,6 +244,26 @@ com valores mínimos. A 121 começou em 24/07. Semanas 27/07 a 18/10; MQL orgân
 - **MQL pago (Growth):** até 28/09, gastar mais não trouxe mais MQL pago (0,02) e encareceu o MQL (0,50 a 0,67). Em outubro subiu (semana
   05/10 = 76, 12/10 = 121, CPMQL R$ 144) junto com os anúncios da Black "Viva Sem Medo" (06/10; corte de MQL da Black é R$ 50 mil).
   Alcance do Clailton não mexe no MQL pago (−0,06 antes da Black). 12 semanas: Growth R$ 159.400 e 685 MQL pagos; MQL orgânico 146.
+
+## Capas e headlines dos carrosséis, 01/09 a 25/10/2026 (28/10/2026)
+
+Pergunta do Igor: "nossas headlines estão ruins?". 125 capas lidas (86 da Legacy sem promo/tweet, 37 do Clailton), números da
+Meta de 27/10. "Acerto" = 10 mil+ de alcance. A frase "Você sabia que..." é a abertura da **legenda**, não da capa.
+- Legacy, por tipo de capa: **cenário do Brasil** (FMI, juros, dívida do país, onda de quebras, varejo) 22 posts, 7 acertos,
+  429 dos 545 seguidores; com número grande 11 posts, 5 acertos, mediana 4.645. **Tema do consumidor/setor** (bets, cartão,
+  blusinhas, nome sujo, carros chineses, 6x1, eleição) 19 posts, 0 acertos, mediana 1.180, 5 seguidores. **História de empresa**
+  28 posts, 1 acerto, 18 seguidores; com pergunta no fim ("O que aconteceu com a X?") 17 posts, 0 acertos, mediana 1.312.
+  **Comparação lado a lado** 10 posts, 1 acerto (Habib's × Giraffas 25 mil; Toyota × BYD 8.778).
+- Compartilhamentos por mil de alcance: cenário do Brasil 48, empresa 9, setor 4. O alcance do carrossel vem do envio.
+- Mesma abertura, resultado oposto: "recorde que ninguém queria" + varejo 16 meses em queda (21/10) = 54.314; + dívida das
+  famílias sem número (01/10) = 1.925; + 83,9 mi com nome sujo "e o seu cliente pode ser um deles" (10/10) = 1.917.
+- "Você" na capa de cenário/setor não ajudou (mediana 1.917 × 1.965). Capa com 26+ palavras: mediana 1.312 × 2.164 (16–25).
+- Desde 20/10 (card "CAPAS QUE FUNCIONAM") nenhuma capa da Legacy usa pergunta. Na semana 19–25/10, 8 dos 16 carrosséis da
+  Legacy foram tema do consumidor/setor (todos entre 511 e 3.269).
+- Clailton, formato tweet (fundo branco) × foto escura com texto: mediana 9.718 (27) × 2.745 (10); de 30/09 a 16/10, 9,9 mil × 2,6 mil.
+  Os 6 acima de 15 mil são opinião curta que contraria o senso comum sobre gestão/funcionário ("Quanto mais reunião...", 92.730;
+  "O maior erro de um empresário é ter pena do funcionário", 37.368). Na semana 19–25/10 só saiu reflexão de empreendedor (6.942 a 13.214).
+- Em 25/10 às 20h saiu na Legacy um carrossel no formato tweet do Clailton ("O segredo do sucesso..."), 7.651; o Clailton ficou sem carrossel.
 
 ## Carrosséis jun–out/2026: esqueleto, formato e capa (20/10/2026)
 
