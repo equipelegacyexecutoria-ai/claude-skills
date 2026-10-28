@@ -46,7 +46,7 @@ Evidência: roteiros com história ou caso nos primeiros ~600 caracteres tiveram
 
 ### 5. Virada
 Uma frase que dá nome ao erro ou revela a verdade escondida, geralmente no último terço.
-- "Compara o peso da realidade com a perfeição de uma fantasia." · "Essa tela nunca acaba, mas a tua vida sim." · "Confiar em alguém não é o problema. O problema é achar que confiança substitui prova." · "Salário paga trabalho, mas não compra comprometimento."
+- "Compara o peso da realidade com a perfeição de uma fantasia." · "Essa tela nunca acaba, mas a tua vida sim." · "Salário paga trabalho, mas não compra comprometimento."
 
 Regra de ofício: **o hook acusa, a virada absolve.** A virada pode suavizar a tese radical do hook para algo que todo mundo aceita. O hook atrai, a virada convence. Ela tira a culpa do espectador e aponta o erro (a crença, o sistema, a falta de estrutura), para ele sair concordando.
 
@@ -54,7 +54,7 @@ Regra de ofício: **o hook acusa, a virada absolve.** A virada pode suavizar a t
 A frase que a pessoa repete, reposta e manda para alguém. Formatos que funcionaram:
 - **Quiasmo**: "Não prepare o caminho para o teu filho. Prepare o teu filho para o caminho."
 - **Inversão**: "Essa tela nunca acaba, mas a tua vida sim."
-- **Redefinição**: "A empresa que precisa do dono não é uma empresa, é um emprego caro."
+- **Redefinição**: "A empresa que precisa do dono é um emprego caro." (sem "não é X, é Y", vetado em 28/10/2026)
 - **Retoma a imagem do hook**: "Esprema a maldita gota da vida." (o hook falava de "cada maldita gota de suor")
 - **Paralelismo curto**: "A vergonha passa. A oportunidade também."
 - **Metáfora final**: "Não viva como figurante da tua própria vida." / "Depois não é um lugar."

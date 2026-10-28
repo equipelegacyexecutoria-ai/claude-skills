@@ -1,5 +1,7 @@
 # Exemplos-ouro · NOVELA
 
+> **Atenção (28/10/2026):** o usuário vetou a construção "não é X, é Y" em qualquer forma. Alguns roteiros reais abaixo têm essa construção; não a repita.
+
 Vencedores anotados camada por camada, com a fala completa, e fracassos com diagnóstico. Use para calibrar estrutura e voz; nunca copie frases (o lint confere sequências de 8+ palavras). Lift = views ÷ mediana do mês.
 
 ---

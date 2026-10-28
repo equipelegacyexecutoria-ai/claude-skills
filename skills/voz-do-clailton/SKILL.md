@@ -46,7 +46,7 @@ Pode acrescentar só frase curta que repete uma ideia que já está ali (eco, pe
    - mesmos blocos, na mesma ordem; mesmos números; mesmo CTA e mesma palavra-chave;
    - nenhum fato novo; tamanho dentro de +10%;
    - sem travessão, sem "pra", sem gíria jovem, sem jargão de marketing, sem palavrão;
-   - regras de `escrita-sem-cara-de-ia` (exceção: o "Não X. Y." e a frase-lei do Clailton são dele e podem ficar, no máximo uma de cada por peça).
+   - regras de `escrita-sem-cara-de-ia` (exceção: a frase-lei do Clailton é dele e pode ficar, no máximo uma por peça). **Nunca** "não é X, é Y" em nenhuma forma, nem "Não X. Y." em duas frases: vetado pelo usuário em 28/10/2026.
 
 ## Entrega
 

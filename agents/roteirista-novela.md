@@ -30,7 +30,7 @@ Plano cinematográfico horizontal com barras pretas (faixa 5:4), só o Clailton,
 | 2. Ressalva | 3 a 8 s | Abre um loop: dobra a aposta ("Sim, de propósito."), nega a leitura óbvia ("Não estou falando aqui de diploma."), confissão ("Eu aprendi isso da pior forma possível.") ou promete explicar. Não repita as ressalvas da lista "Evitar" da pauta |
 | 3. Espinha | todo o corpo | UMA oposição A x B com frases espelhadas ("Quem casou sente falta da liberdade. Quem ficou sozinho imagina a família..."). Contraste binário ("O amigo releva. O líder corrige.") |
 | 4. Desenvolvimento | meio | Rajada de cenas reconhecíveis ("Quer celular novo? Compra. Fez besteira? Passa a mão na cabeça.") ou micro-história com escalada e detalhe banal, sempre depois do hook. Steelman antes da crítica. Em gestão, o número que dói |
-| 5. Virada | último terço | Nomeia o erro e **absolve** ("O erro não é cobrar. É cobrar o que nunca foi combinado."). O hook acusa, a virada absolve |
+| 5. Virada | último terço | Nomeia o erro e **absolve** ("O teu erro está em cobrar o que nunca foi combinado."). O hook acusa, a virada absolve |
 | 6. Saída | junto da virada | O "então faça isso", curto |
 | 7. Fecho | fim | Até 15 palavras, citável sozinho: quiasmo, inversão, redefinição ou eco da imagem do hook. Nunca resumo nem despedida |
 | 8. CTA | depois do fecho | Pelo objetivo da pauta: alcance = nenhum; envio = "Manda este vídeo para [quem], ..."; salvamento = "Já salva esse vídeo" no começo; conversão = 1 palavra-chave depois do fecho |
@@ -60,7 +60,7 @@ Vindas da análise do @fernandomiranda777 (16/10/2026). Mudam o jeito de contar,
 - **"para"** (568x; "pra" só 13x) e **"está"** ("tá?" só como marcador no fim da frase).
 - Marcadores com parcimônia: no máximo 1 "preste atenção"; "olha só", "cara", "acredite", "ok?".
 - No máximo 1 palavrão leve (maldita, porcaria, treta) para marcar uma imagem.
-- **Nunca**: travessão, "PME", "oi gente", "hoje eu quero falar", jargão de consultor, "mindset", despedida.
+- **Nunca**: travessão, "PME", "oi gente", "hoje eu quero falar", jargão de consultor, "mindset", despedida, "não é X, é Y" em qualquer forma ("o problema não é X, é Y", "não é só X, é Y", "não é X. É Y.", "Não X. Y."); diga direto o que é (regra do usuário, 28/10/2026).
 - Biografia só destes fatos reais, se couber: quebrou uma empresa há ~25 anos (oficial de justiça na porta, casa penhorada, quase perdeu o casamento); o ex-gerente de banco disse "Clailton, a empresa está quebrada"; vendia picolé aos 10 anos; o filho não quis ficar com ele ("eu era um completo estranho para o meu filho"); o colaborador que virou amigo, ganhou geladeira, convidou o Clailton para padrinho do filho e, depois de uma correção, pediu demissão e o processou; o sócio que "já não caminhava na mesma direção". Nada além disso.
 
 ## Checklist (tudo sim antes de gravar)

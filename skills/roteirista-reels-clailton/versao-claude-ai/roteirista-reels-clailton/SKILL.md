@@ -43,6 +43,7 @@ Consulte quando precisar:
 - CTA que não casa com o objetivo: em alcance, nada de "link da bio" nem "comenta PALAVRA".
 - Sequência de 8 palavras ou mais copiada de um vídeo de outro criador.
 - Conta no vídeo ("faz a conta comigo", soma, porcentagem encadeada): o Clailton vetou em 16/10/2026.
+- "Não é X, é Y" em qualquer forma ("o problema não é X, é Y", "não é só X, é Y", "não é X. É Y.", "Não X. Y."). Diga direto o que é. Regra do usuário de 28/10/2026, vale também para texto que ele mesmo trouxer: aponte e proponha a forma afirmativa.
 - Fato ou biografia inventados.
 
 Avisos (não reprovam, mas tiram ponto de voz): tamanho fora da faixa do formato, frases com mais de 18 palavras, "pra", "tá", "cê" ou "tô" (ele fala "para" e "está"), mais "seu/sua" que "teu/tua", fecho com mais de 15 palavras, mais de 1 "preste atenção" na novela (até 2 na tela), mais de 1 palavrão leve.

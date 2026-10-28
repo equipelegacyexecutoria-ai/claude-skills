@@ -50,7 +50,7 @@ CTA: "nenhum" é o padrão (82 de 108). "Envie para um amigo" foi 2 de 2 acima d
 | 2. Ressalva / ancoragem | 3 a 8 s | Segura quem ia sair | Uma de: dobra a aposta ("Sim, de propósito."), nega a leitura óbvia ("Não estou falando de diploma."), confissão ("Eu aprendi isso da pior forma possível."), promessa de explicar, preempção da objeção |
 | 3. Espinha | todo o corpo | UMA oposição A x B | Frases espelhadas ("Quem casou sente falta da liberdade. Quem ficou sozinho..."); contraste binário ("O amigo releva. O líder corrige.") |
 | 4. Desenvolvimento | meio | Espelhamento da dor por enumeração OU micro-história com escalada | Listas em rajada de cenas reconhecíveis; na micro-história, detalhe banal e específico (geladeira, ventilador, madrugada da maternidade); steelman antes da crítica ("o funcionário tem compromisso com o salário, e tá tudo bem") |
-| 5. Virada | último terço | Nomeia o erro e absolve | "O problema não é X, é Y"; o hook acusou, a virada tira a culpa do espectador e aponta a crença errada |
+| 5. Virada | último terço | Nomeia o erro e absolve | afirmação direta do erro ("O teu erro está em cobrar o que nunca foi combinado."); nunca "não é X, é Y" (vetado em 28/10/2026); o hook acusou, a virada tira a culpa do espectador e aponta a crença errada |
 | 6. Reframe / saída | junto da virada | Entrega o "então faça isso" | Nunca parar na provocação; a saída pode ser uma lista curta de ações |
 | 7. Fecho | últimos 3 a 5 s | Frase citável ≤ 15 palavras | Quiasmo, inversão, redefinição ou eco da imagem do hook; nada de despedida |
 | 8. CTA | depois do fecho | Pelo objetivo | Alcance: nenhum falado (o "me siga" já entra digitado na edição); envio: "manda para quem..." casado com o tema |

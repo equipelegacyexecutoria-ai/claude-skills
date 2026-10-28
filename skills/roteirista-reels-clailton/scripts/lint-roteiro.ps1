@@ -79,6 +79,9 @@ elseif ($trav -gt 0) { $avisos.Add("Travessão fora da fala (no resto do arquivo
 $pme = Cnt $fala '\bPMEs?\b'
 if ($pme -gt 0) { $falhas.Add("'PME' na fala ($pme). Diga 'dono de empresa', 'empresário' ou o porte em número.") }
 
+$naoE = Cnt $fala '(?i)\bnão (é|está) (só |apenas |sobre )?[^.!?;:]{1,60}?[,;.]\s*(mas |e sim )?(é|está)\b'
+if ($naoE -gt 0) { $falhas.Add("'Não é X, é Y' ($naoE): vetado pelo usuário em 28/10/2026. Diga direto o que é.") }
+
 $linkBio = Cnt $fala '(?i)link\s+(da|na)\s+bio'
 # Palavra-chave: verbo + (aqui/embaixo/a palavra) + UMA palavra + fim de frase ou "aqui embaixo"/"que eu te mando"...
 $kwPat = '(?i)\b(comenta|comente|digita|digite|escreve|escreva)\b(\s+aqui:?)?(\s+embaixo:?)?(\s+a\s+palavra)?\s+["“'']?(\p{L}+)["”'']?(?=\s*[\.\!,;]|\s*$|\s+(aqui|que\s+eu|e\s+eu|embaixo|no\s+coment|nos\s+coment|pra\s+mim|para\s+mim))'

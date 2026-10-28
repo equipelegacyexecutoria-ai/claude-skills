@@ -22,7 +22,7 @@ Ritmo: ~2,7 a 2,95 palavras por segundo; frases de 5 a 14 palavras na maioria; r
 
 1. Hook é tese categórica, sem aquecimento.
 2. Absolutos: jamais, nunca, sempre, o maior, todo mundo.
-3. Estrutura "não é X, é Y" para quebrar o óbvio.
+3. **Nunca** a estrutura "não é X, é Y", em nenhuma forma (vetada pelo usuário em 28/10/2026): para quebrar o óbvio, diga direto o que é ("A empresa que precisa do dono é um emprego caro.").
 4. "Você" no singular, como quem aconselha uma pessoa só.
 5. Marcadores de oralidade e quebra da quarta parede: "olha só", "preste atenção", "acredite", "tá?", "ok?", "cara".
 6. Steelman antes da crítica ("o funcionário tem compromisso com o salário, e tá tudo bem") e só depois a virada.

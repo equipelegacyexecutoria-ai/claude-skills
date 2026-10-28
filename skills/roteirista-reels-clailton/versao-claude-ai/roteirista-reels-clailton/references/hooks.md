@@ -52,7 +52,7 @@ Em paradoxo, a oposição carrega o gancho mesmo sem "você".
 
 ## Antipadrões (nunca na abertura)
 
-"talvez", "pode ser" · promessa vazia ("isso que eu vou te dizer é muito forte") · constatação sobre "as pessoas" · mais de 20 palavras sem imagem · começar no meio da fala ("E olha só...") · clichê já ouvido ("vão te abraçar pela frente e te apunhalar pelas costas") · "oi gente", "hoje eu quero falar" · pronome vago no lugar da imagem ("faz isso debaixo dos teus olhos" sem dizer o quê).
+"talvez", "pode ser" · promessa vazia ("isso que eu vou te dizer é muito forte") · constatação sobre "as pessoas" · mais de 20 palavras sem imagem · começar no meio da fala ("E olha só...") · clichê já ouvido ("vão te abraçar pela frente e te apunhalar pelas costas") · "oi gente", "hoje eu quero falar" · "não é X, é Y" em qualquer forma (vetado em 28/10/2026) · pronome vago no lugar da imagem ("faz isso debaixo dos teus olhos" sem dizer o quê).
 
 ## Banco de ressalvas (varie; os exemplos mostram o tipo, prefira uma frase própria do mesmo tipo)
 

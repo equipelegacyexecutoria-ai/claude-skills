@@ -51,8 +51,10 @@ Então, antes de qualquer regra abaixo:
   "priorizar", "de forma prática", "silenciosamente", "estável/consistente" usado como elogio.
 - **Fugir do "é/tem":** "serve como", "se destaca como", "funciona como", "representa", "conta
   com", "oferece", "possui" quando dava para escrever "é" ou "tem". Use "é" e "tem" sem medo.
-- **Paralelismo negativo:** "Não é só X, é Y", "não X, mas Y", "Y em vez de X", "sem X, sem Y,
-  só Z". Um de vez em quando pode; em série é assinatura de IA.
+- **"Não é X, é Y" é proibido** em qualquer forma ("não é só X, é Y", "o problema não é X, é Y",
+  "não é X. É Y.", "Não X. Y."): regra do usuário de 28/10/2026, vale para toda copy. Diga direto o que é.
+- **Outro paralelismo negativo:** "não X, mas Y", "Y em vez de X", "sem X, sem Y, só Z". Um de vez em
+  quando pode; em série é assinatura de IA.
 - **Regra de três** em tudo: "rápido, simples e eficiente"; três itens só quando são três de fato.
 - **Sinônimo rebuscado:** "utilizar" (usar), "realizar" (fazer), "efetuar", "adquirir" (comprar),
   "auxiliar" (ajudar), "visando", "a fim de" (para), "no que tange".

@@ -81,6 +81,10 @@ def main():
     elif re.search(r"\bfa(z|ça|zendo|zer)\s+(a|as)\s+contas?\b|\bmultiplica\b|\bvezes\s+\d|\d+\s*%.*\d+\s*%", fala, re.I):
         avisos.append("Parece haver conta no vídeo (multiplicação, 'faz as contas', porcentagens encadeadas). O Clailton vetou conta em 16/10/2026; confira.")
 
+    nao_e = re.findall(r"\b(?:o problema|o erro|a quest[ãa]o)?\s*não (?:é|está) (?:só |apenas |sobre )?[^.!?;:]{1,60}?[,;.]\s*(?:mas |e sim )?(?:é|está)\b", fala, re.I)
+    if nao_e:
+        falhas.append(f"'Não é X, é Y' ({len(nao_e)}): vetado pelo usuário em 28/10/2026. Diga direto o que é.")
+
     link_bio = cnt(fala, r"link\s+(da|na)\s+bio")
     kw_pat = (r"\b(comenta|comente|digita|digite|escreve|escreva)\b(\s+aqui:?)?(\s+embaixo:?)?(\s+a\s+palavra)?"
               r"\s+[\"“']?(\w+)[\"”']?(?=\s*[\.\!,;]|\s*$|\s+(aqui|que\s+eu|e\s+eu|embaixo|no\s+coment|nos\s+coment|pra\s+mim|para\s+mim))")

@@ -44,13 +44,13 @@ Numa série (vários stories, vários anúncios), variar as marcas de uma peça 
     - "Ninguém gerencia o que não mede."
     - "Sem diagnóstico, a solução vira suposição."
     - "Se você não sabe para onde está indo, qualquer caminho serve."
-    - "O que é combinado não é caro nem barato, é o que é combinado."
+    - "O que é combinado não é caro nem barato, é o que é combinado." (exemplo de aula; a construção está vetada nas copys)
     - "Sempre existirá um jeito melhor de fazer o que nós estamos fazendo."
     - "Você joga o jogo do ano, não o jogo do mês."
     - "Empresa valiosa é empresa que tem processo."
 13. **Bordão de cutucada carinhosa** (no máximo 1 por peça e 1 por série): "cara pálida", "esse abacaxi é teu", "esse riscado é teu". Dureza no conteúdo, carinho na forma.
 14. **Imagem concreta no lugar de abstração** (sem trocar o argumento): "a cor do dinheiro", "ralo", "aos pingadinhos", "boleto", "maquininha", "Casas Bahia", "Ferrari andando de fusquinha", "dono da padaria protegendo o caixa".
-15. **"Não X. Y." em duas frases**, mais do que "não é X, é Y" de fórmula. Variantes dele: "Ninguém quer X, quer Y"; "não há nada de errado em X... o que está errado é Y".
+15. **Vetado (28/10/2026):** "não é X, é Y" em qualquer forma, inclusive "Não X. Y." em duas frases e "Ninguém quer X, quer Y". Ele fala assim nas aulas, mas o usuário não quer essa construção nas copys: diga direto o que é.
 16. **Ponte para a casa** (quando a copy permite): "isso vale para a tua empresa e para a tua casa também".
 17. **"Acredite" / "acreditem"** antes de uma afirmação que pede confiança: "Acredite, isso tem solução."
 
@@ -68,7 +68,7 @@ Não meter metáfora nova onde a copy não tinha imagem: isso muda a estrutura.
 - Se coloca como réu antes de cobrar ("eu quebrei, quebrei com força", "eu era um boçal em gestão"), mas só use biografia que a copy já trouxer (banco em `roteirista-reels-clailton/references/voz-clailton.md`).
 - Humor de tio, sem ironia ácida: "use sem moderação", "pedir ajuda aos universitários".
 - Confiança de quem já viu muita empresa: "eu conheço muito empresário que...", "já vi caso de...". Sem se gabar de dinheiro.
-- Contra atalho e contra místico: "não existe sucesso sem esforço", "não é o universo, é biológico".
+- Contra atalho e contra místico: "não existe sucesso sem esforço", "é biológico" (sem o "não é X, é Y", vetado nas copys).
 
 ## 5. O que não é ele
 

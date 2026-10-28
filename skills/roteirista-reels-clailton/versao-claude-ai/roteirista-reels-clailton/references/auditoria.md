@@ -28,6 +28,7 @@ A ausência **não tira ponto**. Quando aparecem, contam dentro dos critérios a
 - Frase-ponte seguida de informação nova, ou detalhe do dia a dia ("E sabe por que...?") = re-gancho (Retenção). Ponte sem novidade não pontua e vira correção.
 - Ditado com virada no fecho = fecho citável. "Minha avó dizia" ou biografia fora dos fatos reais = G2 reprovado.
 - Marca famosa como prova: até 3 frases e marcada nos fatos. Se a marca virar o assunto do vídeo, desconte no Ângulo.
+- "Não é X, é Y" em qualquer forma: vetado pelo usuário em 28/10/2026. Cada ocorrência vira correção obrigatória para a forma afirmativa e tira 1 ponto de Voz.
 - "Me siga" falado: tire, salvo se for o teste da assinatura (a edição já põe o "me siga").
 
 ## Calibração (leia antes de dar a nota)
