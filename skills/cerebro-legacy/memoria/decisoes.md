@@ -59,3 +59,6 @@
   **PAUTAS DIÁRIAS** do quadro (visão Social Media), sem responsável nem data, com capa sugerida, roteiro e fontes.
   Tema de consumidor fica de fora (0 de 14 passou de 2,2 mil em set–out). O texto da rotina está em
   `rotinas/pautas-diarias.md`; mudou o texto, atualize a rotina na nuvem também. Ela só cria cards, não mexe em mais nada.
+  Roda no ambiente de nuvem **"Pautas Com Internet"** (`env_01QK79MFZn2AYrGn2jPrtQWN`, rede liberada; o "Default" bloqueia
+  sites de notícia) com o modelo Opus 5.5. 1º teste com internet (28/10): 4 cards (CBS 11,3% nota 9; Santander × Bradesco 8;
+  BC 20,3 mi endividados de risco 7; comércio de SP corta investimento 6).
