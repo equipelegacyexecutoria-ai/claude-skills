@@ -51,13 +51,16 @@ Quando o usuário já escreveu o texto com "pra" ou outro jeito dele, respeite a
 
 ## Entrega (nesta ordem, no chat)
 
-1. Uma linha: formato, objetivo, nota e veredito, palavras e tempo estimado (2,8 palavras por segundo).
+O template de cada formato é o seu rascunho de trabalho. Ao usuário, entregue assim:
+
+1. Uma linha: formato, objetivo, nota e veredito, palavras e tempo estimado (2,8 palavras por segundo). Logo abaixo, as subnotas numa linha (ângulo, gancho, retenção, meio, virada e fecho, voz).
 2. **1º FRAME**: título da novela (2 a 4 linhas, palavra de destaque em maiúsculas) ou imagem e etiqueta da tela dividida.
 3. **ROTEIRO FALADO** completo, uma frase por linha, pronto para o teleprompter.
 4. **MAPA DE ÂNCORAS** (só tela dividida): tabela com trecho da fala, imagem, onde entra e fonte sugerida.
-5. **Outras aberturas**: as 4 melhores que não entraram, cada uma com a ressalva e o eco no fecho.
-6. **Antes de gravar**: afirmações a conferir, objetos de set, direitos de imagem, a linha de CTA de conversão pronta (se o post puder cair no Impulsão ou no quiz) e as técnicas em teste usadas.
-7. **Ângulo alternativo** em 1 linha.
+5. **Outras aberturas**: as 4 melhores entre R2, R3 e H1 a H5 que não entraram no texto, cada uma com a ressalva, o eco no fecho e o título ou etiqueta.
+6. **Por que deve performar**: 3 pontos ligados aos números do perfil.
+7. **Antes de gravar**: afirmações a conferir (com a marca de cada uma: [BANCO], [CONFERIDO], [VERIFICAR] ou [BIOGRAFIA]), objetos de set, direitos de imagem, a linha de CTA de conversão pronta (se o post puder cair no Impulsão ou no quiz), as técnicas em teste usadas e a assinatura falada para teste A/B.
+8. **Ângulo alternativo** em 1 linha.
 
 Se o usuário quiser editar junto, ofereça montar o roteiro num documento editável.
 

@@ -7,6 +7,7 @@ Decida o que dizer e em que formato, rápido e sem pedir confirmação. Números
 - A força está numa **frase que vira título** (paradoxo, finitude, ordem contraintuitiva, pergunta direta, tese proibida) sobre vida ou sobre **patrão x funcionário/sócio** → **NOVELA**.
 - A ideia tem ou ganha **3 ou mais âncoras visuais mostráveis** (história com personagens, caso de empresa com nome e número, fábula, notícia com print, sequência de cenas do dia a dia, montagem de dados) → **TELA DIVIDIDA**.
 - As duas servem: escolha pela tabela e ponha a outra como Alternativo.
+- Tema de dono que centraliza, não delega, não tira folga ou não confia na equipe conta como **patrão x funcionário** (novela), não como gestão técnica. Vai para tela só se houver caso, fábula ou cenas fortes para mostrar.
 - Nenhuma serve: radicalize a tese (o que o dono de empresa acredita e está errado?) ou ache o caso concreto. Se ainda assim não sustentar, diga isso ao usuário.
 
 | Tema | NOVELA (acima de 1x / n) | TELA (acima de 1x / n) | Escolha |
@@ -26,7 +27,7 @@ Na tela dividida, **com imagens a mediana é 1,40x o mês (n=24); sem imagens, 0
 | Objetivo | Quando | CTA |
 |---|---|---|
 | **Alcance** (padrão) | sempre que o pedido não falar de venda | nenhum. Na novela a edição já põe "ME SIGA PARA MAIS CONTEÚDOS COMO ESTE"; não escreva "me siga" na fala |
-| **Envio** | há destinatário óbvio (o sócio, o pai, o amigo) | "Manda este vídeo para [quem]..." |
+| **Envio** | o tema aponta para uma pessoa específica que o espectador conhece (o sócio, o pai, o amigo) e o usuário não pediu alcance. Na dúvida, fique em alcance | "Manda este vídeo para [quem]..." |
 | **Salvamento** | método, fórmula ou dados | "Já salva esse vídeo" no começo |
 | **Conversão** | o pedido fala em captação, venda, quiz, aula ou episódio | 1 CTA só, depois do fecho, com a dor do vídeo nomeada antes |
 

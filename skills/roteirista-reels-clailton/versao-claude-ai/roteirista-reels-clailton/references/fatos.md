@@ -18,7 +18,7 @@ Quando conferir um fato novo, mostre-o no fim da entrega no formato do banco (ch
 
 ## Biografia do Clailton
 
-Só valem os fatos de `voz-e-biografia.md`. Fora deles: "não confirmado, pedir ao usuário". Atenção aos conflitos já conhecidos:
+Só valem os fatos da tabela de `voz-e-biografia.md`; marque cada um como [BIOGRAFIA: fato da tabela]. Fora deles: "não confirmado, pedir ao usuário". Atenção aos conflitos já conhecidos:
 - "Primeiro emprego": os reels dizem açougueiro; uma aula fala em caipirinha aos 16. Não afirme "primeiro emprego" sem confirmar.
 - A frase do ex-gerente do Banco do Brasil é "Clailton, a empresa está quebrada" (não "Cláudio, quebramos").
 - "Minha avó dizia" e parentes citando ditados são biografia inventada.

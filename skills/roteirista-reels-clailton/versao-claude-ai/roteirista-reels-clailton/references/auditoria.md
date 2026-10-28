@@ -5,7 +5,7 @@ Releia como se não tivesse escrito o roteiro. O juiz é o **espectador frio**: 
 ## Gates (todos precisam passar)
 
 - **G1 · CTA x objetivo.** Alcance: nenhum CTA de venda ("link da bio" nunca). Envio: pedido de envio casado com o tema. Salvamento: "já salva" no começo. Conversão: 1 CTA depois do fecho.
-- **G2 · Fatos declarados.** Todo número, nome, data, caso ou notícia está em AFIRMAÇÕES FACTUAIS, marcado [BANCO], [CONFERIDO: fonte] ou [VERIFICAR]. Biografia só dos fatos reais do Clailton.
+- **G2 · Fatos declarados.** Todo número, nome, data, caso ou notícia está em AFIRMAÇÕES FACTUAIS, marcado [BANCO], [CONFERIDO: fonte] ou [VERIFICAR]. Biografia só dos fatos reais do Clailton, marcada [BIOGRAFIA: fato da tabela].
 - **G3 · Revisão automática** sem FALHA (ou a lista "O que reprova" conferida à mão).
 - **G4 · Tela.** Cada bloco da fala tem âncora no MAPA DE ÂNCORAS (mínimo 3). Na novela, não se aplica.
 
@@ -15,7 +15,7 @@ Releia como se não tivesse escrito o roteiro. O juiz é o **espectador frio**: 
 |---|---|---|
 | Ângulo | 15 | Ponte para o dono de empresa até a 3ª frase (6; tema universal sem ponte explícita = 3) · força do tema no formato (5: novela forte em patrão x funcionário/sócio, finitude, dinheiro; tela forte com caso, história, notícia e dado; fracos: disciplina genérica, gestão sem número) · pessoa óbvia para quem mandar (4) |
 | Gancho | 30 | Tipo com evidência no formato (10: novela = paradoxo 8/9, pergunta direta 6/6, ordem 13/23, tese 21/36, finitude; tela = tese + história, cena 4/5, finitude; narrativa na novela, aforismo, lista e "talvez" valem 0 a 2) · soa errado, contestável (8) · "você" com certeza total (6; em paradoxo, a oposição substitui o "você") · imagem concreta ou número (6) |
-| Retenção | 15 | Ressalva até 5 s que abre loop (5) · UMA oposição espelhada que volta nos blocos (5) · re-gancho no meio (5) |
+| Retenção | 15 | Ressalva que começa até 5 s e abre loop (5) · UMA oposição espelhada que volta nos blocos (5) · re-gancho no meio (5) |
 | Meio concreto | 15 | Cena, história ou número específico (8) · novela: tudo visível na fala, sem depender de imagem (7) / tela: âncora mostrável em todo bloco (7) |
 | Virada e fecho | 20 | Virada nomeia o erro e absolve (8) · fecho até 15 palavras, citável sozinho, sem resumir (8) · fecho ecoa ou cumpre o gancho (4) |
 | Voz | 5 | "você" + "teu/tua", "para", frases curtas, sem muleta na abertura; desconte 1 por aviso de voz |
@@ -29,6 +29,10 @@ A ausência **não tira ponto**. Quando aparecem, contam dentro dos critérios a
 - Ditado com virada no fecho = fecho citável. "Minha avó dizia" ou biografia fora dos fatos reais = G2 reprovado.
 - Marca famosa como prova: até 3 frases e marcada nos fatos. Se a marca virar o assunto do vídeo, desconte no Ângulo.
 - "Me siga" falado: tire, salvo se for o teste da assinatura (a edição já põe o "me siga").
+
+## Calibração (leia antes de dar a nota)
+
+Quem escreveu tende a dar nota alta para o próprio texto. Para compensar: pontue cada item procurando o motivo para tirar ponto, não para dar; compare o roteiro com as âncoras abaixo antes de passar de 80; e lembre que 80 ou mais é "melhor que a média do perfil", não o normal. Uma ressalva ou ponte copiada dos exemplos da skill ("Sim, de propósito.", "Agora vem a parte que dói.") vale menos que uma frase própria do mesmo tipo: os exemplos mostram o tipo, não a frase a usar.
 
 ## Veredito (sobre a versão já corrigida)
 

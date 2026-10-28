@@ -54,7 +54,7 @@ Em paradoxo, a oposição carrega o gancho mesmo sem "você".
 
 "talvez", "pode ser" · promessa vazia ("isso que eu vou te dizer é muito forte") · constatação sobre "as pessoas" · mais de 20 palavras sem imagem · começar no meio da fala ("E olha só...") · clichê já ouvido ("vão te abraçar pela frente e te apunhalar pelas costas") · "oi gente", "hoje eu quero falar" · pronome vago no lugar da imagem ("faz isso debaixo dos teus olhos" sem dizer o quê).
 
-## Banco de ressalvas (varie)
+## Banco de ressalvas (varie; os exemplos mostram o tipo, prefira uma frase própria do mesmo tipo)
 
 Reconhece a reação e abre história ("E antes que você me cancele por falar isso, deixa eu te contar uma história.") · dobra a aposta ("Sim, de propósito." / "Acredite.") · nega a leitura óbvia ("Não estou falando aqui de diploma.") · admite o exagero ("Parece exagerado." / "Eu sei, parece duro.") · quebra a cena ("Calma, essa cena não aconteceu hoje.") · promete explicar ("E eu vou te explicar por quê.") · confissão ("Eu aprendi isso da pior forma possível.") · "Preste atenção nessa história." (tela) · em teste: prova famosa na tela.
 

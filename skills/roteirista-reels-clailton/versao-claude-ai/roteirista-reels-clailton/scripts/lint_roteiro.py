@@ -76,8 +76,10 @@ def main():
         avisos.append(f"Travessão fora da fala: {trav}. Não afeta a gravação, mas evite.")
     if re.search(r"\bPMEs?\b", fala):
         falhas.append("'PME' na fala. Diga 'dono de empresa', 'empresário' ou o porte em número.")
-    if re.search(r"faz(er)? a conta comigo|vamos fazer a conta|fa[çc]a a conta", fala, re.I):
+    if re.search(r"\bfa(z|ça|zer)\s+(a|as)\s+contas?\s+comigo\b|\bvamos (fazer|às) (a |as )?contas?\b", fala, re.I):
         falhas.append("Conta no vídeo ('faz a conta comigo'): o Clailton vetou em 16/10/2026.")
+    elif re.search(r"\bfa(z|ça|zendo|zer)\s+(a|as)\s+contas?\b|\bmultiplica\b|\bvezes\s+\d|\d+\s*%.*\d+\s*%", fala, re.I):
+        avisos.append("Parece haver conta no vídeo (multiplicação, 'faz as contas', porcentagens encadeadas). O Clailton vetou conta em 16/10/2026; confira.")
 
     link_bio = cnt(fala, r"link\s+(da|na)\s+bio")
     kw_pat = (r"\b(comenta|comente|digita|digite|escreve|escreva)\b(\s+aqui:?)?(\s+embaixo:?)?(\s+a\s+palavra)?"
@@ -89,6 +91,13 @@ def main():
             falhas.append(f"'Link da bio' com objetivo {a.objetivo} (7 roteiros assim, nenhum passou de 150 mil).")
         if kw:
             falhas.append(f"CTA de palavra-chave ({', '.join(kw)}) com objetivo {a.objetivo}. Só em conversão.")
+        envio = cnt(fala, r"\b(manda|mande|envia|envie|compartilha|compartilhe) (este|esse) v[íi]deo")
+        if envio and a.objetivo != "envio":
+            avisos.append(f"Pedido de envio ('manda este vídeo') com objetivo {a.objetivo}. Use --objetivo envio ou tire a linha.")
+        if a.objetivo == "envio" and not envio:
+            avisos.append("Objetivo envio sem o pedido 'Manda este vídeo para [quem]...'.")
+        if a.objetivo == "salvamento" and not re.search(r"salva", " ".join(frases[:3]), re.I):
+            avisos.append("Objetivo salvamento sem 'Já salva esse vídeo' no começo.")
     else:
         if not kw and not link_bio:
             avisos.append("Objetivo conversão sem CTA (palavra-chave ou link da bio do quiz), depois do fecho.")
@@ -104,11 +113,9 @@ def main():
     # AVISOS
     n = len(w)
     seg = round(n / 2.8)
-    alvo, lim = ((170, 260), (120, 300)) if formato == "novela" else ((280, 460), (220, 520))
-    if n < lim[0] or n > lim[1]:
+    alvo = (170, 260) if formato == "novela" else (280, 460)
+    if n < alvo[0] or n > alvo[1]:
         avisos.append(f"Tamanho: {n} palavras (~{seg} s). Faixa dos vencedores de {formato}: {alvo[0]} a {alvo[1]}.")
-    elif n < alvo[0] or n > alvo[1]:
-        infos.append(f"Tamanho um pouco fora do alvo ({alvo[0]} a {alvo[1]}), mas tolerável.")
     longas = [f for f in frases if len(palavras(f)) > 18]
     if len(longas) > 2:
         ex = " | ".join((f.strip()[:70] + "…") if len(f.strip()) > 70 else f.strip() for f in longas[:2])
