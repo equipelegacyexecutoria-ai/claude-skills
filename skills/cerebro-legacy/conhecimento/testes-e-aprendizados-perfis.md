@@ -18,6 +18,7 @@ este arquivo (o que entrou de novo vai no topo de "Linha do tempo"; resultado no
 | **Tag de IA nas imagens: a causa parece ser o Canva (metadados).** Encaminhar as imagens pelo WhatsApp tira os metadados e a tag some; esses posts pareceram ter entrega melhor (acompanhando). | Legacy | testes de 21–22/09 |
 | **Carrossel baseado em análise do que já performou funciona:** o 1º carrossel "cenário Brasil" viralizou. A tela dividida alcançou menos gente, mas trouxe cliques. | Legacy e Clailton | 13/10 |
 | Posts feitos com IA ainda não estão prontos: precisam de ajustes; o problema é o garimpo e a criação das imagens. | Legacy | 24–25/09 |
+| **Anúncio de seguidor: no Clailton o seguidor sai ~4x mais barato que na Legacy.** Clailton (campanha 119, anúncio em parceria, visita para @clailtonluiz): 10.327 seguidores com R$ 3.783,11 = R$ 0,37. Legacy (campanha 121, @legacyexecutoria): 2.913 com R$ 4.221,48 = R$ 1,45. Os mais baratos são reels com história/fábula e pergunta no fim, sem oferta (012 R$ 0,26; 015 R$ 0,46); os mais caros são copys longas que vendem a Sessão Estratégica (032 R$ 1,66; 030 R$ 1,49). | Clailton e Legacy | prints do Gerenciador do Igor + leitura das copys, 29/10/2026 |
 
 ## Testes em andamento (sem resultado ainda)
 
