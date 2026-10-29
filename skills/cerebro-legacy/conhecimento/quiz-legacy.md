@@ -283,6 +283,18 @@ os negócios do MQL do quiz passam a ter também as etiquetas "Quiz Clailton · 
   da empresa respondendo. MQL 15 de 47 (32%), R$ 97 40 de 157 (25%). Por dia de cadastro: 21/10 19%, 22/10 37%, 23/10
   28%, 24/10 30%, 25/10 23%, 26/10 17%. Dos MQL sem resposta no WhatsApp, 30 receberam ligação do SDR.
   O tempo do quiz (começo ao fim) não está na planilha nem no banco do Cérebro (leads_quiz2): só no /painel, com login.
+- **29/10, conversas com os 6 compradores do VMLM de 21 a 29/10 (planilha Quiz 2 + Conversas pela base, sem marcar
+  lida; nenhuma outra compra apareceu nas 298 conversas mais recentes):** só 1 compra de 26/10 em diante (Allan, 26/10).
+  A única venda com ajuda da Nina foi a da Zenir (21/10: Nina tirou a dúvida, mandou o link às 17h03, pagou às 17h33),
+  mas a Nina disse "já passei para o time conferir a sua compra" antes do pagamento e a confirmação só saiu 17 h depois.
+  Nenhum comprador respondeu ao pós-venda além do Marcos ("Já entrei") e do Juliano ("Ainda não comecei"). Achados: a
+  Nina ofereceu ao Juliano o "roteiro do exercício da Etapa 3", ele disse "Sim" e nunca recebeu; o Marcos não recebeu o
+  lembrete do 3º dia (Zenir, Luiz e Juliano receberam); o Tauan (MQL, sessão de presente) nunca abriu nada: o aviso da
+  sessão falhou por limite de engajamento, saiu no dia seguinte e não foi lido, 2 mensagens do Isaque falharam, ligações
+  sem resposta; o Luan conversa com o robô da empresa do Luiz (27/10 o robô perguntou "como a Legacy ajuda?" e ninguém
+  respondeu) e em 28/10 o discador ligou 8 vezes para o Luiz (7 falharam); no número da Nina o SDR escreve "Meu nome é
+  Luan" 20 min depois de "Aqui é a Nina" (Allan); a ligação da Raislana para o Juliano fala em "Ayrton", "Edson" e
+  "Maceió" (conferir se ligou com a ficha de outro lead).
 
 ## Nina com leads NÃO-MQL de Legado (anúncio), Black e orgânico (lido em 27/10/2026)
 
