@@ -87,3 +87,11 @@ O que ficou intocado: ideia, ordem dos blocos, números, texto de tela, finais A
 - "Cara pálida" uma vez na série foi aprovado.
 - Os diminutivos ("rapidinho", "perguntinhas") foram alternados entre os stories para não repetir em todos.
 - Texto de tela não foi mexido.
+
+---
+
+## Mensagem para empresário indicado (29/10/2026)
+
+Mensagem do Clailton para quem foi indicado por um empresário que fez sessão estratégica.
+- Aprovado: "deixa eu te contar uma coisa", "E quanto custa isso para você? Nada." no lugar de "sem custo nenhum", "tua empresa", "tá?" no fim.
+- Correção do Igor: "a gente" repetido várias vezes (e lido como "agente") ficou esquisito. Quando o sujeito é o time que atende, usar "um especialista do nosso time" / "o especialista" e, quando é o Clailton oferecendo, "eu". Máximo um "a gente" numa mensagem curta.
