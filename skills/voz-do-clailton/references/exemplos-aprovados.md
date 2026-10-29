@@ -95,3 +95,4 @@ O que ficou intocado: ideia, ordem dos blocos, números, texto de tela, finais A
 Mensagem do Clailton para quem foi indicado por um empresário que fez sessão estratégica.
 - Aprovado: "deixa eu te contar uma coisa", "E quanto custa isso para você? Nada." no lugar de "sem custo nenhum", "tua empresa", "tá?" no fim.
 - Correção do Igor: "a gente" repetido várias vezes (e lido como "agente") ficou esquisito. Quando o sujeito é o time que atende, usar "um especialista do nosso time" / "o especialista" e, quando é o Clailton oferecendo, "eu". Máximo um "a gente" numa mensagem curta.
+- Segunda correção: não pôr fala entre aspas na boca de quem indicou ("E no final ele falou: ...") e falar da indicação logo depois de o Clailton se apresentar ("Você não me conhece ainda, mas um empresário indicou você."). Nesse caso a mudança de ordem foi pedida pelo Igor.
