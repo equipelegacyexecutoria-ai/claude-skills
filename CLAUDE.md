@@ -98,6 +98,9 @@ sumia do grupo logo depois de criada, e funcionou abrindo com `navigate` sem tab
 na primeira página aberta. Nesse perfil, o site de Conversas está logado como petherson.bueno, e o Igor liberou ler
 assim (sempre com a marcação de "lida" bloqueada).
 
+**Respostas diretas** (pedido em 29/10/2026): resposta curta, começando pelo que ele perguntou. Só os números e
+fatos principais, sem tabela grande, sem lista longa de ressalvas e sem explicar o processo. Detalhe só se ele pedir.
+
 ## Skills sincronizadas entre os PCs
 
 Skills, agentes e este arquivo ficam no cofre privado `equipelegacyexecutoria-ai/claude-skills`
