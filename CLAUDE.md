@@ -45,6 +45,13 @@ legenda e áudio; margem esquerda 70 px e direita 55 px; de y 1110 até 1500 a c
 (curtir, comentar, compartilhar). Gabarito: Full Stack Creative "Instagram Reels Safe Zone". Texto grande que não cabe quebra linha ou diminui, nunca corta.
 Conferir cada cena com a máscara dessas zonas antes de entregar.
 
+## Agendar: sempre a versão mais recente do Notion
+
+Regra do usuário (29/10/2026, depois de repetir o erro em estático e reels do Clailton): antes de agendar
+qualquer post, baixar o arquivo **que está agora** em MATERIAL FINALIZADO do card (ou a última versão do vídeo
+indicada no card/Drive) e agendar esse, nunca uma cópia local ou versão gerada antes. Conferir olhando a imagem
+baixada antes de subir na mLabs.
+
 ## Motion/anúncio com virada: duas músicas
 
 Em vídeo com virada de clima (problema → solução), usar duas trilhas: uma sombria/tensa antes da
