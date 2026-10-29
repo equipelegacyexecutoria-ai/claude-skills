@@ -22,6 +22,9 @@ escrever o relatório sobre o assunto:
 - `conhecimento/quiz-legacy.md` — perguntas sobre o **quiz do Clailton** (Venda Mais, Lucre Mais), **MQL**
   (corte de R$ 71 mil no quiz), faixas de faturamento, etiquetas "Quiz Clailton · ...", Nina, SDR,
   checkout, página de obrigado, Pixel, planilha e painel do quiz, e quem faz cada card do quadro do Quiz.
+- `conhecimento/vmlm-treinamento.md` — o **conteúdo do treinamento Venda Mais, Lucre Mais** (76 aulas lidas em 29/10/2026):
+  método, casos contados, números de exemplo, planilha de DRE, o que existe e o que não existe no curso, link da transcrição
+  no Drive e códigos das aulas. Leia antes de escrever copy, bump, oferta, e-mail ou roteiro sobre o VMLM.
 - `conhecimento/black-friday-2026.md` — perguntas sobre a **Black Friday**, a campanha e a narrativa
   **"Viva sem medo em 2027"**, oferta, datas, identidade visual, criativos, Academy e pop-ups, gerador de
   Plano 2027, pré-vendas e closer, decisões de cada reunião e pendências do quadro da Black.
