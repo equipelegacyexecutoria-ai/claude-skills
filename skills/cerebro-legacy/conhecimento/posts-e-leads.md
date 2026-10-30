@@ -1,6 +1,6 @@
 # Posts e Leads no painel do Cérebro (trazidos do Legacy Insights Hub)
 
-Atualizado em 28/10/2026 (capas e headlines set–out); antes em 21/10/2026 (mídia paga × visitas × MQL; melhores semanas de MQL × alcance; raio-x de seguidores, alcance e cliques; carrosséis jun–out por esqueleto, formato e capa). Pedido do Igor (13/10): abandonar o Legacy Insights Hub e deixar o Cérebro como o único
+Atualizado em 30/10/2026 (melhores semanas de MQL × alcance, com 19/10 a 29/10); em 28/10/2026 (capas e headlines set–out); antes em 21/10/2026 (mídia paga × visitas × MQL; melhores semanas de MQL × alcance; raio-x de seguidores, alcance e cliques; carrosséis jun–out por esqueleto, formato e capa). Pedido do Igor (13/10): abandonar o Legacy Insights Hub e deixar o Cérebro como o único
 painel de gestão do time. As telas de **Posts** e de **Leads** do Hub viraram janelas do site do Cérebro
 (https://cerebro-legacy-organico.vercel.app), publicadas em 14/10/2026. O Hub não é mais fonte: só foi lido e copiado.
 
@@ -205,6 +205,19 @@ sem anúncio (o "alcance" da conta inclui ~90 a 270 mil/semana de anúncio).
   seguinte colhendo; set/out (07/09, 12/10) com o feed da Legacy fraco e o Clailton viralizando (3,5 e 3,6 mi de alcance na
   semana), que lota as visitas da Legacy. 12/10 veio depois da semana com o pior alcance próprio da série.
 - Contraexemplo: 27/07 teve o maior alcance próprio da série (558 mil no feed) e só 10 MQL.
+
+**Atualização de 30/10/2026** (mesmo critério; 13 semanas fechadas, 27/07 a 25/10, mais 26–29/10 parcial):
+- Nova melhor semana: **19–25/10 = 23 MQL** (50 leads, recorde). Alcance do Clailton 8,4 mi (recorde, 2,3× a semana de 12/10),
+  visitas ao perfil da Legacy 30,5 mil (recorde), views da Legacy 12,6 mi. Alcance próprio da Legacy 116 mil (fraco de novo).
+  Semana 26–29/10 (4 dias): 11 MQL, ritmo de ~19.
+- Correlação com o MQL semanal (13 semanas): visitas da Legacy 0,81 (era 0,71); alcance do Clailton 0,75; views da Legacy 0,74;
+  seguidores ganhos pela Legacy 0,70 (puxado pelos virais); alcance próprio da Legacy 0,02. O padrão de 21/10 se confirmou.
+- **Retorno caindo:** MQL por mil visitas à Legacy ≈ 1,2 em ago–set, 1,0 em 12–18/10, 0,75 em 19–25/10 e 0,66 em 26–29/10. As visitas
+  subiram 42% de uma semana para a outra e o MQL só +1: o viral do Clailton lota o perfil, mas traz proporcionalmente menos empresa ≥ R$ 70 mil.
+- Dia a dia o MQL vem ~1 dia depois das visitas (0,41 com 1 dia × 0,26 no mesmo dia). Ex.: 19 e 20/10 com visitas altas e 0 MQL;
+  22/10 = 8 MQL, o melhor dia da série.
+- A mensagem de boas-vindas cresceu como porta de MQL: 8 dos 23 de 19–25/10 e 5 dos 11 de 26–29/10; a bio da Legacy segue em ~13/semana.
+- Não atualizado em 30/10: mídia paga (121 e Growth), que depende do Gerenciador e da planilha do Growth lidos pelo Chrome do Igor.
 
 ## Mídia paga × visitas × MQL (21/10/2026, planilha "Marketing - Legacy Educação" + Gerenciador)
 
