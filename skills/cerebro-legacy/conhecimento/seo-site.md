@@ -51,9 +51,19 @@ Página: https://claude.ai/artifact/9oKo5ChUkwr7Sp3bwHPXkR
   com exemplo do ramo, erro comum, caso real (sem nome do cliente), perguntas frequentes, chamada.
 - Chamada pelo que o leitor buscou: aprender → planilha ou trilha do Academy (liberado, nunca "grátis");
   entender a empresa → quiz ou Plano 2027; escolher ajuda → sessão estratégica.
-- Ritmo: 2 artigos por semana (terça e quinta), junto com o carrossel ou reel do mesmo tema.
+- Ritmo: **1 artigo por semana** (decisão do Igor, 30/10/2026), junto com o carrossel ou reel do mesmo tema.
+- Ordem (v1.1): semanas 2 a 9 fluxo de caixa (com a página principal), planejamento estratégico 2027, DRE, pró-labore,
+  precificação, markup ou margem, CMV, indicadores; depois consultoria, mentoria, gestão de restaurante, como tomar decisões.
 
 ## Artigos do blog
 | Artigo | Busca | Situação | Link do rascunho |
 |---|---|---|---|
 | Fluxo de caixa: como fazer em 30 minutos por semana | fluxo de caixa | Rascunho 30/10/2026. Falta: caso real de cliente, nome da trilha do Academy, aprovação do Clailton, data e foto | https://claude.ai/artifact/KRUs3LpQ4pJZyb2rMHKNbi |
+
+## Apresentação "Legacy_Copy_Site_e_Blog_v3" (Canva, conferida em 30/10/2026)
+https://canva.link/3nuyd7kmigxex9t. Propõe nova copy do site, blog + LinkedIn, 1 artigo por semana, CTA único (sessão estratégica)
+e 8 primeiras pautas. Divergências apontadas ao Igor: as pautas deixam de fora os temas mais buscados (fluxo de caixa,
+pró-labore, CMV, markup, planejamento estratégico); S2, S3 e S6 têm pouca busca no Google; "consultoria empresarial" aparece
+como busca "antiga" mas tem 1 mil a 10 mil/mês; CTA único x CTA por intenção do Documento Mãe. Copy do site com "não é X, é Y"
+em 4 lugares, erro "transnformadas", "20 mil empresas" x "20 mil empresários", e alegações a validar ("única Executoria do
+Brasil", "R$ 1 BI+ em resultados", garantia em contrato). Ritmo de 1 por semana foi adotado no Documento Mãe.
