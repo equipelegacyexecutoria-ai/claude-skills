@@ -51,6 +51,9 @@ escrever o relatório sobre o assunto:
   "📌 PESQUISA PERFIL DOS CLIENTES" no MURAL): medos (70% quebrar), crenças, rotina, o que já tentaram, como chegaram
   (60% anúncio, 70% fecham em menos de 1 semana), objeções (preço e "é sério?"), redes e formatos, e teses para conteúdo.
   Leia antes de sugerir pauta, gancho, anúncio, CTA ou roteiro. Nunca cite o nome da empresa de um cliente.
+- `conhecimento/seo-site.md` — **SEO do site** (Google e ChatGPT, 30/10/2026): situação do legacyexecutoria.com.br (sem blog,
+  sitemap/robots apontando para endereço de modelo), quem aparece nas buscas do cliente e o plano de 24 artigos em 6 grupos.
+  Leia antes de falar de site, blog, Google, SEO ou de aparecer no ChatGPT.
 - `conhecimento/referencia-alfredo-soares.md` — **referência de mercado**: o que o Alfredo Soares (G4) ensina em 17
   vídeos (20/10/2026) sobre conteúdo que vende e **posicionamento**: seguidor é a última métrica, hierarquia de métricas
   (venda, MQL, lead, encaminhamento, alcance, engajamento, seguidores), identidade x posicionamento, grade de posts,
