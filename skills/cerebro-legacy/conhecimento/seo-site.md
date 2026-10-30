@@ -37,3 +37,16 @@ equipelegacyexecutoria (o Chrome do Igor, igor.oliveira@legacyeducacaocorp, não
   página principal (semanas 2–3); depois por ordem de busca (precificação/markup, CMV, indicadores, mentoria/consultoria,
   restaurante); temas de pouca busca por último; leitura no Search Console no mês 3.
 - Cada artigo sai junto com carrossel ou reel do mesmo tema.
+
+## Linha editorial do blog (30/10/2026, proposta para o Igor aprovar)
+Página: https://claude.ai/artifact/9oKo5ChUkwr7Sp3bwHPXkR
+- Promessa: todo artigo resolve uma conta da empresa do leitor, com número, exemplo do ramo dele e o passo seguinte.
+- Pilares e peso no calendário: caixa e lucro 30%, preço e margem 25%, números e planejamento 15%, por ramo 15%,
+  gestão e equipe 10%, escolher ajuda (mentoria/consultoria/confiança) 5%.
+- Voz: a do Clailton nas aulas passada para texto ("você", "empresário", "colaborador", conta com número redondo,
+  objeção encenada); regras de escrita-sem-cara-de-ia (sem travessão, sem "não é X, é Y").
+- Anatomia: título com a palavra buscada, abertura com cena/número, resposta direta em até 3 frases, passo a passo
+  com exemplo do ramo, erro comum, caso real (sem nome do cliente), perguntas frequentes, chamada.
+- Chamada pelo que o leitor buscou: aprender → planilha ou trilha do Academy (liberado, nunca "grátis");
+  entender a empresa → quiz ou Plano 2027; escolher ajuda → sessão estratégica.
+- Ritmo: 2 artigos por semana (terça e quinta), junto com o carrossel ou reel do mesmo tema.
