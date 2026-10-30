@@ -50,3 +50,8 @@ Página: https://claude.ai/artifact/9oKo5ChUkwr7Sp3bwHPXkR
 - Chamada pelo que o leitor buscou: aprender → planilha ou trilha do Academy (liberado, nunca "grátis");
   entender a empresa → quiz ou Plano 2027; escolher ajuda → sessão estratégica.
 - Ritmo: 2 artigos por semana (terça e quinta), junto com o carrossel ou reel do mesmo tema.
+
+## Artigos do blog
+| Artigo | Busca | Situação | Link do rascunho |
+|---|---|---|---|
+| Fluxo de caixa: como fazer em 30 minutos por semana | fluxo de caixa | Rascunho 30/10/2026. Falta: caso real de cliente, nome da trilha do Academy, aprovação do Clailton, data e foto | https://claude.ai/artifact/KRUs3LpQ4pJZyb2rMHKNbi |
