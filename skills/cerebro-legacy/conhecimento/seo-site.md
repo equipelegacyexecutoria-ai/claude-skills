@@ -2,6 +2,8 @@
 
 Atualizado em 30/10/2026. Fonte: análise feita com o kit Claude SEO (skills `seo-*`, instalado em 30/10/2026 a pedido do Igor).
 Plano completo (página no claude.ai): https://claude.ai/artifact/84JfYpHzhaZV8qFVyC9gv7
+**Documento Mãe do Blog** (Google Docs, referência única para o time, criado em 30/10/2026): https://docs.google.com/document/d/15uYwa5OFOe1KKtQvfj5nxQ1E4LzraHzPF_1-sDwnoM4/edit
+(pasta BLOG LEGACY no Drive equipelegacyexecutoria: https://drive.google.com/drive/folders/1MP95xzRDNmQOXPq0b8aSBzVD-yp_xPeL). Mudou regra do blog, muda lá primeiro.
 
 ## Situação do site (legacyexecutoria.com.br) em 30/10/2026
 - Só páginas institucionais: Home, Sobre, Time, Produtos (Impulsão, InCompany, iPreço, Legacy Plan, Legado), Serviços, Cases, FAQ, Contato.
