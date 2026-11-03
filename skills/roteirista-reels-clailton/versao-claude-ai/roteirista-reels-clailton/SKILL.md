@@ -38,6 +38,7 @@ Consulte quando precisar:
 
 - Travessão (— ou –) na fala. Use ponto, vírgula ou dois-pontos.
 - "PME". Diga "dono de empresa", "empresário" ou o porte em número.
+- Tradução ao pé da letra de viral estrangeiro ("senta um do lado e ele reconhece", "dividindo ele em dois", "criou interação, emoção e proximidade"). Adapte para como um brasileiro fala e leia em voz alta.
 - Primeira frase com "talvez", "pode ser" ou "às vezes".
 - Abertura de apresentador: "oi gente", "fala pessoal", "hoje eu quero falar sobre".
 - CTA que não casa com o objetivo: em alcance, nada de "link da bio" nem "comenta PALAVRA".

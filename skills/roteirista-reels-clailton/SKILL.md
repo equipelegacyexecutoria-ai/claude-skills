@@ -61,6 +61,7 @@ Medido em 26/09/2026 (novela "funcionário que só cumpre o combinado"): pauta 3
 
 ## Regras gerais
 - Português do Brasil. Nos roteiros: zero travessão, zero "PME", voz medida (teu/tua, para, está).
+- Viral em outra língua: adaptar para como um brasileiro fala, nunca traduzir ao pé da letra (o Igor reprovou "senta um do lado e ele reconhece", "dividindo ele em dois", "criou interação, emoção e proximidade" em 03/11/2026). Ler cada frase em voz alta antes de entregar.
 - Nunca invente fato, número, caso ou biografia. Fato confirmado vai para `<Raiz>\dados\casos-verificados.md` (o script faz isso).
 - A base `<Raiz>\dados\reels_base.json` só muda pelo `importar-mes.ps1`.
 - Não publique, não poste e não envie nada: a entrega é texto para o usuário gravar.
