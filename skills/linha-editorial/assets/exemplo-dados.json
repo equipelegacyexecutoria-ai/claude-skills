@@ -1,0 +1,120 @@
+{
+  "_leia": "Exemplo FICTÍCIO para mostrar a estrutura. Não reaproveitar o conteúdo.",
+  "empresa": {"nome": "Clínica Sorriso Exemplo", "segmento": "Odontologia (clínica geral e estética)", "cidade": "Goiânia (GO)", "instagram": "@sorrisoexemplo"},
+  "cor_marca": "#0f766e",
+  "elaborado_por": "Equipe de conteúdo",
+  "periodo": {"inicio": "2026-11-09", "semanas": 4},
+  "segmentos": ["saude"],
+  "resumo": "Instagram como porta de entrada para quem tem medo de dentista. Reels para alcançar gente nova em Goiânia, carrossel para tirar o medo e explicar preço, e casos reais para levar ao agendamento pelo WhatsApp.",
+  "missao_editorial": "A Clínica Sorriso Exemplo é onde adultos de Goiânia que adiam o dentista por medo ou por preço encontram explicações simples e casos reais para voltar a cuidar do sorriso sem susto.",
+  "diferencial": "A dona, Dra. Paula, fala de preço e de dor sem rodeio: mostra quanto custa, quanto tempo leva e o que a pessoa vai sentir em cada tratamento.",
+  "nao_falamos": ["Preço de concorrente", "Promessa de resultado garantido (proibido pelo CFO)", "Foto de antes e depois sem autorização por escrito do paciente", "Política e religião"],
+  "objetivos": [
+    {"objetivo": "Gerar agendamentos de avaliação pelo WhatsApp", "meta": "40 conversas por mês vindas do Instagram", "prazo": "fevereiro de 2027", "metrica": "Conversas com a mensagem automática do link da bio"},
+    {"objetivo": "Ser conhecida no bairro e arredores", "meta": "Alcance de não seguidores acima de 60% nos Reels", "prazo": "3 meses", "metrica": "Insights do Instagram"}
+  ],
+  "publico": {
+    "resumo": "Adultos de 28 a 50 anos, Setor Bueno e região, que não vão ao dentista há mais de 2 anos.",
+    "persona": {"nome": "Marcos, 38 anos", "descricao": "Gerente de loja, dois filhos. Está com um dente sensível há meses e adia porque teve uma experiência ruim na infância e acha que vai sair caro."},
+    "dores": ["Medo de sentir dor", "Vergonha do estado dos dentes", "Medo de levar um orçamento enorme", "Falta de tempo no horário comercial"],
+    "desejos": ["Sorrir em foto sem esconder", "Resolver de uma vez sem idas e vindas", "Saber o preço antes de começar"],
+    "objecoes": ["É caro", "Vai doer", "Não tenho tempo", "Vão querer me vender tratamento que eu não preciso"],
+    "perguntas": ["Clareamento estraga o dente?", "Canal dói?", "Quanto custa uma lente de contato dental?", "Aceita parcelar?", "Atende no sábado?"],
+    "onde_consome": ["Instagram (Reels no almoço e à noite)", "WhatsApp", "Google Maps (avaliações)"]
+  },
+  "tom_de_voz": {
+    "resumo": "Fala como uma dentista amiga: explica com calma, sem termo técnico, com um pouco de humor para tirar o peso do assunto.",
+    "dimensoes": {"humor": 3, "formalidade": 4, "respeito": 2, "entusiasmo": 3},
+    "somos": ["Claros", "Acolhedores", "Honestos sobre preço e dor"],
+    "nao_somos": ["Professorais", "Vendedores insistentes", "Infantis"],
+    "usar": ["você", "vamos ver juntos", "sem susto", "na prática"],
+    "evitar": ["Termos como 'exodontia' sem explicar", "Promessas como 'sorriso perfeito'", "Emojis em excesso"],
+    "exemplos": [
+      {"errado": "Realizamos procedimentos endodônticos com tecnologia de ponta e máximo conforto.", "certo": "Canal dói? Com anestesia, a sensação é parecida com a de uma obturação. O que dói é deixar para depois."}
+    ]
+  },
+  "pilares": [
+    {"nome": "Mitos e cuidados", "percentual": 30, "descricao": "Derruba crenças comuns e ensina cuidados simples do dia a dia.", "objetivo": "Alcançar quem ainda não conhece a clínica", "funil": "descoberta", "papel": "Help", "formatos": ["Reels", "Carrossel"], "exemplos_temas": ["Clareamento estraga o dente?", "Escovar com força limpa mais?", "Fio dental faz a gengiva sangrar: devo parar?"]},
+    {"nome": "Tratamentos sem medo", "percentual": 25, "descricao": "Explica como é cada tratamento: o que a pessoa sente, quanto tempo leva e faixa de preço.", "objetivo": "Tirar o medo e a dúvida de preço", "funil": "consideracao", "papel": "Help", "formatos": ["Carrossel", "Reels"], "exemplos_temas": ["Canal passo a passo: o que você sente em cada etapa", "Quanto custa uma lente dental em Goiânia e por que varia", "Implante x prótese: qual escolher"]},
+    {"nome": "Casos e resultados", "percentual": 25, "descricao": "Histórias de pacientes (com autorização) e respostas às objeções antes do agendamento.", "objetivo": "Levar ao agendamento da avaliação", "funil": "decisao", "papel": "Hub", "formatos": ["Reels", "Carrossel"], "exemplos_temas": ["O paciente que ficou 8 anos sem dentista", "Por que a avaliação é gratuita", "Parcelamento: como funciona aqui"]},
+    {"nome": "Gente da clínica", "percentual": 20, "descricao": "Bastidores, equipe, rotina e comunidade de pacientes.", "objetivo": "Criar confiança e fazer o paciente indicar", "funil": "fidelizacao", "papel": "Hub", "formatos": ["Reels", "Stories"], "exemplos_temas": ["Como esterilizamos os instrumentos", "Um dia com a recepção", "O que tem na sala de espera para as crianças"]}
+  ],
+  "cadencia": {
+    "help": {"o_que": "Mitos, cuidados e explicação de tratamentos", "frequencia": "2 por semana"},
+    "hub": {"o_que": "Quadro 'Caso da Semana' e bastidor de sábado", "frequencia": "2 por semana, dia fixo"},
+    "hero": {"o_que": "Campanha Black Friday da avaliação + clareamento", "frequencia": "Novembro (1 a 2 por ano)"}
+  },
+  "estilos": [
+    {"nome": "Mito ou verdade", "formato": "Reels", "objetivo": "Alcance com tema que todo mundo já ouviu", "estrutura": ["Dra. Paula lê a frase do mito", "Responde mito ou verdade em 1 palavra", "Explica em 20 segundos com 1 fato", "CTA: manda para quem acredita nisso"], "exemplo": "Clareamento estraga o dente? Mito, se for feito com acompanhamento."},
+    {"nome": "Como é na cadeira", "formato": "Carrossel", "objetivo": "Tirar o medo mostrando cada etapa", "estrutura": ["Capa: 'Canal dói? O que você sente em cada etapa'", "1 etapa por card com o que a pessoa sente", "Quanto tempo leva e faixa de preço", "CTA: salva para quando precisar"], "exemplo": "Canal em 4 etapas, da anestesia à coroa."},
+    {"nome": "Caso da Semana", "formato": "Reels", "objetivo": "Prova social que leva ao agendamento", "estrutura": ["Gancho com a situação do paciente", "O problema e o medo dele", "O que foi feito e em quanto tempo", "Fala do paciente", "CTA: chama no WhatsApp para avaliação"], "exemplo": "8 anos sem dentista e 3 consultas para resolver."},
+    {"nome": "Resposta à caixinha", "formato": "Reels", "objetivo": "Responder objeção real", "estrutura": ["Print da pergunta", "Resposta direta em até 30 s", "Convite para mandar outra pergunta"], "exemplo": "Aceita parcelar? Sim, em até 10 vezes no cartão."},
+    {"nome": "Bastidor de sábado", "formato": "Reels", "objetivo": "Mostrar cuidado e gente real", "estrutura": ["Cena da rotina", "Quem é a pessoa e o que faz", "Detalhe que o paciente não vê"], "exemplo": "Como a Ana esteriliza os instrumentos."},
+    {"nome": "Faixa de preço sem rodeio", "formato": "Carrossel", "objetivo": "Quebrar a objeção de preço", "estrutura": ["Capa com a pergunta de preço", "O que entra no valor", "Faixa de preço", "Por que varia", "CTA: avaliação gratuita"], "exemplo": "Quanto custa uma lente dental em Goiânia."}
+  ],
+  "series": [
+    {"nome": "Mito ou verdade", "formato": "Reels", "dia": "Segunda 12h", "pilar": "Mitos e cuidados", "descricao": "Uma crença por semana, resposta em 30 s."},
+    {"nome": "Caso da Semana", "formato": "Reels", "dia": "Quinta 12h", "pilar": "Casos e resultados", "descricao": "Paciente real, com autorização, do problema ao resultado."},
+    {"nome": "Bastidor de sábado", "formato": "Reels", "dia": "Sábado 10h", "pilar": "Gente da clínica", "descricao": "Uma pessoa ou processo da clínica por semana."}
+  ],
+  "canais": [
+    {"rede": "Instagram", "papel": "Atrair moradores da região e levar ao WhatsApp", "frequencia": "4 posts por semana + stories todo dia útil", "horarios": "seg e qui 12h, qua 19h, sáb 10h", "formatos": ["Reels", "Carrossel", "Stories"]},
+    {"rede": "Google Meu Negócio", "papel": "Prova social e busca local", "frequencia": "1 foto/novidade por semana", "horarios": "livre", "formatos": ["Foto", "Avaliação"]}
+  ],
+  "grade_semanal": [
+    {"dia": "seg", "hora": "12:00", "rede": "Instagram", "formato": "Reels", "estilo": "Mito ou verdade", "pilar": "Mitos e cuidados", "serie": "Mito ou verdade"},
+    {"dia": "qua", "hora": "19:00", "rede": "Instagram", "formato": "Carrossel", "estilo": "Como é na cadeira", "pilar": "Tratamentos sem medo"},
+    {"dia": "qui", "hora": "12:00", "rede": "Instagram", "formato": "Reels", "estilo": "Caso da Semana", "pilar": "Casos e resultados", "serie": "Caso da Semana"},
+    {"dia": "sab", "hora": "10:00", "rede": "Instagram", "formato": "Reels", "estilo": "Bastidor de sábado", "pilar": "Gente da clínica", "serie": "Bastidor de sábado"}
+  ],
+  "nota_horarios": "Horários iniciais pelo estudo Opinion Box/mLabs (pico das 18h à meia-noite) e pelo almoço do público que trabalha em loja e escritório. Revisar em 15/12/2026 com os Insights do perfil.",
+  "stories": {
+    "frequencia": "3 a 5 por dia, segunda a sábado",
+    "rotina": [
+      {"dia": "Segunda a sexta", "horario": "9h", "conteudo": "Bom dia com a agenda do dia ou a sala sendo preparada"},
+      {"dia": "Segunda a sexta", "horario": "12h30", "conteudo": "Enquete ou quiz sobre o tema do post do dia"},
+      {"dia": "Dia de post", "horario": "19h", "conteudo": "Divulgar o post do feed com figurinha de link"},
+      {"dia": "Quarta", "horario": "19h", "conteudo": "Caixinha de perguntas: as respostas viram Reels"}
+    ],
+    "regras": ["Paciente só aparece com autorização assinada", "Sem foto de boca aberta em procedimento"]
+  },
+  "datas_empresa": [{"data": "2026-11-27", "nome": "Black Friday da avaliação + clareamento", "acao": "Campanha de 23 a 30/11"}],
+  "pautas": [
+    {"data": "2026-11-09", "hora": "12:00", "rede": "Instagram", "formato": "Reels", "estilo": "Mito ou verdade", "pilar": "Mitos e cuidados", "funil": "descoberta", "tema": "Clareamento estraga o dente?", "gancho": "Você não clareia o dente porque acha que ele vai ficar fraco? Isso é mito.", "cta": "Manda para aquela amiga que morre de medo de clarear"},
+    {"data": "2026-11-11", "hora": "19:00", "rede": "Instagram", "formato": "Carrossel", "estilo": "Como é na cadeira", "pilar": "Tratamentos sem medo", "funil": "consideracao", "tema": "Canal dói? O que você sente em cada etapa", "gancho": "Canal: o que você sente em cada uma das 4 etapas", "cta": "Salva para quando precisar"},
+    {"data": "2026-11-12", "hora": "12:00", "rede": "Instagram", "formato": "Reels", "estilo": "Caso da Semana", "pilar": "Casos e resultados", "funil": "decisao", "tema": "O paciente que ficou 8 anos sem dentista", "gancho": "O Roberto ficou 8 anos sem pisar num dentista. Resolvemos em 3 consultas.", "cta": "Chama no WhatsApp e marca sua avaliação"},
+    {"data": "2026-11-14", "hora": "10:00", "rede": "Instagram", "formato": "Reels", "estilo": "Bastidor de sábado", "pilar": "Gente da clínica", "funil": "fidelizacao", "tema": "Como esterilizamos os instrumentos", "gancho": "Esse é o caminho de cada instrumento antes de chegar na sua boca.", "cta": "Segue para ver o bastidor de sábado que vem"},
+    {"data": "2026-11-16", "hora": "12:00", "rede": "Instagram", "formato": "Reels", "estilo": "Mito ou verdade", "pilar": "Mitos e cuidados", "funil": "descoberta", "tema": "Escovar com força limpa mais?", "gancho": "Se a sua escova fica toda aberta em um mês, você está machucando a gengiva.", "cta": "Comenta há quanto tempo você não troca a escova"},
+    {"data": "2026-11-18", "hora": "19:00", "rede": "Instagram", "formato": "Carrossel", "estilo": "Faixa de preço sem rodeio", "pilar": "Tratamentos sem medo", "funil": "consideracao", "tema": "Quanto custa uma lente dental em Goiânia e por que varia", "gancho": "Lente dental de R$ 600 ou de R$ 2.500 o dente: qual a diferença?", "cta": "Salva e chama no WhatsApp para saber o seu caso"},
+    {"data": "2026-11-19", "hora": "12:00", "rede": "Instagram", "formato": "Reels", "estilo": "Resposta à caixinha", "pilar": "Casos e resultados", "funil": "decisao", "tema": "Aceita parcelar? Como funciona o pagamento", "gancho": "\"Vocês parcelam?\" é a pergunta que mais chega aqui. A resposta curta: sim.", "cta": "Manda sua dúvida na caixinha de quarta"},
+    {"data": "2026-11-21", "hora": "10:00", "rede": "Instagram", "formato": "Reels", "estilo": "Bastidor de sábado", "pilar": "Gente da clínica", "funil": "fidelizacao", "tema": "Um dia com a recepção", "gancho": "A Júlia atende 60 mensagens por dia. Olha como ela organiza a sua consulta.", "cta": "Salva o número da clínica"},
+    {"data": "2026-11-23", "hora": "12:00", "rede": "Instagram", "formato": "Reels", "estilo": "Oferta / chamada", "pilar": "Casos e resultados", "funil": "decisao", "tema": "Abertura da Black Friday: avaliação gratuita e clareamento com condição especial", "gancho": "Essa semana a avaliação é gratuita e o clareamento sai com 25% de desconto.", "cta": "Chama no WhatsApp com a palavra BLACK", "observacao": "Hero: campanha de 23 a 30/11"},
+    {"data": "2026-11-25", "hora": "19:00", "rede": "Instagram", "formato": "Carrossel", "estilo": "Como é na cadeira", "pilar": "Tratamentos sem medo", "funil": "consideracao", "tema": "Clareamento de consultório x caseiro: qual escolher", "gancho": "Clareamento em 1 hora ou em 3 semanas: veja qual combina com você", "cta": "Salva e aproveita a condição da Black até 30/11"},
+    {"data": "2026-11-26", "hora": "12:00", "rede": "Instagram", "formato": "Reels", "estilo": "Caso da Semana", "pilar": "Casos e resultados", "funil": "decisao", "tema": "A paciente que escondia o sorriso nas fotos", "gancho": "A Carla cobria a boca em toda foto. Olha a reação dela no espelho.", "cta": "Últimos dias da Black: chama no WhatsApp"},
+    {"data": "2026-11-27", "hora": "18:00", "rede": "Instagram", "formato": "Reels", "estilo": "Oferta / chamada", "pilar": "Casos e resultados", "funil": "decisao", "tema": "Black Friday: o que está incluído e até quando", "gancho": "Hoje é Black Friday e a gente explica a condição em 20 segundos.", "cta": "Manda BLACK no WhatsApp", "observacao": "Post extra da campanha"},
+    {"data": "2026-11-28", "hora": "10:00", "rede": "Instagram", "formato": "Reels", "estilo": "Bastidor de sábado", "pilar": "Gente da clínica", "funil": "fidelizacao", "tema": "Bastidor da semana da Black: quantos sorrisos clareamos", "gancho": "Essa semana a cadeira não parou. Olha o que rolou.", "cta": "Último dia da condição é segunda, 30/11"},
+    {"data": "2026-11-30", "hora": "12:00", "rede": "Instagram", "formato": "Reels", "estilo": "Mito ou verdade", "pilar": "Mitos e cuidados", "funil": "descoberta", "tema": "Fio dental faz a gengiva sangrar: devo parar?", "gancho": "Sua gengiva sangra com fio dental? Parar é a pior coisa que você pode fazer.", "cta": "Manda para quem largou o fio dental"},
+    {"data": "2026-12-02", "hora": "19:00", "rede": "Instagram", "formato": "Carrossel", "estilo": "Faixa de preço sem rodeio", "pilar": "Mitos e cuidados", "funil": "descoberta", "tema": "5 hábitos de fim de ano que mancham o dente", "gancho": "Vinho, café e açaí: o que mais mancha o dente nas festas", "cta": "Salva para lembrar nas festas"},
+    {"data": "2026-12-03", "hora": "12:00", "rede": "Instagram", "formato": "Reels", "estilo": "Caso da Semana", "pilar": "Tratamentos sem medo", "funil": "consideracao", "tema": "Implante x prótese: o caso do seu Antônio", "gancho": "O seu Antônio tinha duas opções e 74 anos. Veja o que ele escolheu.", "cta": "Chama no WhatsApp e tira sua dúvida"},
+    {"data": "2026-12-05", "hora": "10:00", "rede": "Instagram", "formato": "Reels", "estilo": "Bastidor de sábado", "pilar": "Gente da clínica", "funil": "fidelizacao", "tema": "O que tem na sala de espera para as crianças", "gancho": "Criança com medo de dentista? A gente começou pela sala de espera.", "cta": "Marca um pai ou uma mãe que precisa ver isso"}
+  ],
+  "operacao": {
+    "capacidade_semanal": 5,
+    "fluxo": [
+      {"etapa": "Pautas do mês aprovadas", "responsavel": "Dra. Paula", "prazo": "Dia 25 do mês anterior"},
+      {"etapa": "Gravação em lote (8 vídeos)", "responsavel": "Dra. Paula + social media", "prazo": "1 manhã a cada 15 dias"},
+      {"etapa": "Edição e design", "responsavel": "Social media", "prazo": "Até 5 dias antes do post"},
+      {"etapa": "Aprovação final", "responsavel": "Dra. Paula", "prazo": "Até 3 dias antes do post"},
+      {"etapa": "Agendamento", "responsavel": "Social media", "prazo": "Até 2 dias antes do post"}
+    ],
+    "regras": ["Banco de ideias: toda pergunta de paciente vai para a planilha", "Nenhum post sai sem aprovação da Dra. Paula"]
+  },
+  "regras": ["Seguir o Código de Ética do CFO: sem promessa de resultado e sem antes e depois sem autorização", "Preço sempre como faixa, com 'a partir de'"],
+  "metricas": [
+    {"objetivo": "Estamos alcançando gente nova?", "metrica": "Alcance de não seguidores e envios por alcance dos Reels", "meta": "60% de não seguidores", "onde_ver": "Insights de cada Reels"},
+    {"objetivo": "O conteúdo gera confiança?", "metrica": "Salvamentos por alcance dos carrosséis", "meta": "2% ou mais", "onde_ver": "Insights"},
+    {"objetivo": "O Instagram traz paciente?", "metrica": "Conversas no WhatsApp vindas do link e da palavra-chave", "meta": "40 por mês", "onde_ver": "WhatsApp Business (etiqueta Instagram)"}
+  ],
+  "revisao": ["Toda segunda: 3 melhores e 3 piores posts da semana", "Todo dia 20: calendário do mês seguinte", "Trimestral: pilares, percentuais e horários"],
+  "suposicoes": ["Condição da Black Friday (25% no clareamento) precisa ser confirmada pela clínica", "Horários iniciais sem dados do perfil: revisar com os Insights"]
+}
