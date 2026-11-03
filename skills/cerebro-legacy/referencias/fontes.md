@@ -109,6 +109,12 @@ Para saber quem fechou um negócio, use o campo de usuário "Closer" (chave come
 - **Orgânico**: utm_source `organico` ou `instagram` (campanhas `clailton` + medium
   `automacao-novo-seguidor` = automação de novo seguidor do Clailton; `bio_legacy`, `bio_clailton`,
   `Story_legacy`, `Story_clailton`; medium `tiktok` = bio do TikTok).
+- **Social seller** (03/11/2026): utm_source `organico`, utm_campaign `social_seller`, utm_medium `DM_legacy` /
+  `DM_Clailton` (às vezes `manychat_legacy`/`publicacao_legacy`). O SDR cria o negócio à mão no FUNIL LEGADO. A busca
+  `searchDeals` termo `social_seller`, `exact_match`, campo custom_fields acha todos (conferido contra o funil inteiro de
+  setembro). O funil 5 SOCIAL SELLING é outra coisa: conversas criadas pela automação (Petherson/Nina, títulos
+  "— Social Selling · Instagram"), quase todas sem UTM ou de novo seguidor, paradas em "Lead". Setembro/2026: 9 leads →
+  8 reuniões marcadas → 8 realizadas (6 qualificadas) → 1 venda (R$ 25 mil).
 - **Pago**: utm_source `facebook` (anúncios) — só como referência.
 - Cuidado (23/10/2026): utm_source `Instagram` com campanha de anúncio (ex.: `105 - [Legado] - [CAD] ...`, medium
   `Instagram_Feed`) é anúncio pago no Instagram, não orgânico; o script ainda conta como orgânico, então confira à mão.
