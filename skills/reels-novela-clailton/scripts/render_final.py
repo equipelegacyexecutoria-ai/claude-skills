@@ -289,9 +289,20 @@ def main() -> None:
         wb = ("scale=in_color_matrix=bt709:in_range=tv,format=gbrp," + cor_txt.read_text(encoding="utf-8").strip()
               + ",scale=out_color_matrix=bt709:out_range=tv,format=yuv420p,")
         print(f"  balanço de branco: {cor_txt.read_text(encoding='utf-8').strip()}", flush=True)
-    vf = (f"[0:v]setpts=N*{FPS_DEN}/{FPS_NUM}/TB,{wb}pad={W}:{H}:0:{FAIXA_Y0}:black,"
-          f"ass=legenda.ass:fontsdir=fonts,format=yuv420p,{COR}[v]")
-    ff(["-f", "concat", "-safe", "0", "-i", str(tmp / "lista.txt"), "-i", str(audio),
+    # B-roll opcional (broll.json: [{"arquivo": mp4 1080x864 já com o filtro, "inicio": s, "fim": s}]):
+    # entra na faixa, por cima do Clailton e por baixo da legenda (usuário, 04/11/2026)
+    broll_json = trabalho / "broll.json"
+    brolls = ler_json(broll_json) if broll_json.exists() else []
+    extra_in: list[str] = []
+    vf = f"[0:v]setpts=N*{FPS_DEN}/{FPS_NUM}/TB,{wb}pad={W}:{H}:0:{FAIXA_Y0}:black[b0];"
+    for k, b in enumerate(brolls):
+        extra_in += ["-i", str((trabalho / b["arquivo"]).resolve())]
+        ini, fim = float(b["inicio"]), float(b["fim"])
+        vf += (f"[{k + 2}:v]setpts=PTS-STARTPTS+{ini:.4f}/TB[r{k}];"
+               f"[b{k}][r{k}]overlay=0:{FAIXA_Y0}:eof_action=pass:enable='between(t,{ini:.4f},{fim:.4f})'[b{k + 1}];")
+        print(f"  B-roll {k + 1}: {ini:.2f}-{fim:.2f}s {Path(b['arquivo']).name}", flush=True)
+    vf += f"[b{len(brolls)}]ass=legenda.ass:fontsdir=fonts,format=yuv420p,{COR}[v]"
+    ff(["-f", "concat", "-safe", "0", "-i", str(tmp / "lista.txt"), "-i", str(audio), *extra_in,
         "-filter_complex", vf, "-map", "[v]", "-map", "1:a",
         "-c:v", "libx264", "-preset", PRESET, "-crf", str(CRF), "-profile:v", "high", "-pix_fmt", "yuv420p",
         "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709", "-color_range", "tv",
