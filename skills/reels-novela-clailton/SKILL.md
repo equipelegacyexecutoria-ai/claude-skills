@@ -214,6 +214,11 @@ Correções depois de pronto:
   índices; tempos remapeados pelo bruto, a legenda é aproveitada) → `finalizar` (que mede o rosto de novo sozinho).
   Precisa do bruto no PC (`C:\Render\brutos\<slug>`): se foi apagado na limpeza, copie de novo do Drive.
 - **Só legenda**: edite `legenda.txt` → `finalizar`.
+- **B-roll em trechos** (usuário, 04/11/2026, "Pare de agir como uma vaca"): vídeo do **YouTube** (nada de Freepik; `yt-dlp`),
+  na **mesma faixa 1080x864** do vídeo (não vira tela cheia) e com o **filtro película da tela dividida**. Prepare cada
+  cena com `P S\broll_prep.py <saida.mp4> <fonte> <inicio_fonte> <duracao>` (recorte 5:4 +
+  `estilo_td.Estilo`) e liste em `T\broll.json`: `[{"arquivo": "broll/b1.mp4", "inicio": 4.05, "fim": 5.47}]`
+  (tempos do vídeo final, nas palavras). O `render_final.py` põe por cima do Clailton e por baixo da legenda.
 - **Áudio estourado / com ruído**: seção "Tratar o áudio no Adobe Podcast".
 - **Cor puxada (verde, amarela...)**: `P S\balanco_branco.py T "<vídeo editado>"` mede a parede branca e grava `T\cor.txt` (ganhos R/G/B até o branco quente dos aprovados); o render aplica sozinho. Apague `cor.txt` para voltar.
 - **CTA diferente num vídeo** (ex.: "ENVIE PARA QUEM TEM / ESSE TIPO DE BELEZA"): `T\cta.txt` com 1–2 linhas em caixa-alta; o `legenda_novela.py` usa no lugar de "ME SIGA PARA MAIS / CONTEÚDOS COMO ESTE".
