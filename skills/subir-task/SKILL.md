@@ -78,6 +78,8 @@ visão Audiovisual). Busque o esquema (`notion-fetch` na fonte) e use os nomes e
 **Publicação (DATA D/ PUBLICACÃO)**: continue a fila do mesmo perfil e formato depois da última
 publicação já marcada, um por dia, às 13h de Brasília (`T16:00:00.000Z`, `is_datetime` 1),
 qualquer dia da semana, sempre pelo menos 2 dias depois da conclusão. É sugestão: diga no relatório.
+**Editor Claude (`🤖 CLAUDE` / `CLAUDE (Editor)`): DATA D/ PUBLICACÃO fica VAZIA** (regra do usuário, 04/11/2026:
+"para os vídeos que você edita, você não subir data de publicação"). Quem marca a publicação é o time.
 
 **Campos de cada card** (`notion-create-pages`, `parent` = `data_source_id`, `allow_async` false, ícone 📹):
 
@@ -90,7 +92,7 @@ qualquer dia da semana, sempre pelo menos 2 dias depois da conclusão. É sugest
 | PERFIL | `CLAILTON` (0800/Lucas: `LEGACY`; confira com o usuário se não for óbvio) |
 | REDE SOCIAL | `["Instagram / Facebook"]` |
 | DATA D/ CONCLUSÃO | dia útil da agenda (`is_datetime` 0) |
-| DATA D/ PUBLICACÃO | ver acima |
+| DATA D/ PUBLICACÃO | ver acima (editor Claude: **vazia**) |
 | IDEIA | **só** orientação específica que o usuário deu para aquele vídeo ou briefing que veio junto com o roteiro na copy colada (ex.: "máximo 2min59", "sem CTA"). Sem isso, deixe **vazio** — regra do usuário (07/10/2026): nada de observação inventada pelo Claude a partir do bruto |
 | MATERIAL NECESSÁRIO | o link do Drive (quando o upload terminar: `notion-update-page`, `update_properties`) |
 | corpo | `## Roteiro` + o roteiro **exatamente como o usuário colou** (sem corrigir nem resumir) |

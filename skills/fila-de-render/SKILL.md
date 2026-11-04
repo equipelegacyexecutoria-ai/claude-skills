@@ -155,6 +155,9 @@ trabalho em `C:\Render\_trabalho\<slug>\`), seguindo o modo rápido dela, com es
 
 ## Passo 4 — entregar (Sala de Revisão + Drive)
 
+**Data de publicação: nunca preencha nem mude** o campo DATA D/ PUBLICACÃO dos cards que você edita
+(regra do usuário, 04/11/2026). Quem marca a publicação é o time.
+
 **Regra do usuário (11/10/2026):** a revisão é na **Sala de Revisão** (skill `sala-de-revisao`), não no Drive.
 O usuário clica no link do card, assiste em qualquer PC ou celular e deixa as notas presas no tempo do vídeo.
 O arquivo final em alta continua indo para EDITADO no Drive (é ele que vai para a postagem).
