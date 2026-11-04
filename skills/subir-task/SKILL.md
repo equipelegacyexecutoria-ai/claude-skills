@@ -84,11 +84,9 @@ visão Audiovisual). Busque o esquema (`notion-fetch` na fonte) e use os nomes e
   últimos dias, para não colidir com o que acabou de ser entregue.)
 - Ordem dos vídeos: a ordem dos arquivos (gravação), salvo pedido do usuário.
 
-**Publicação (DATA D/ PUBLICACÃO)**: continue a fila do mesmo perfil e formato depois da última
-publicação já marcada, um por dia, às 13h de Brasília (`T16:00:00.000Z`, `is_datetime` 1),
-qualquer dia da semana, sempre pelo menos 2 dias depois da conclusão. É sugestão: diga no relatório.
-**Editor Claude (`🤖 CLAUDE` / `CLAUDE (Editor)`): DATA D/ PUBLICACÃO fica VAZIA** (regra do usuário, 04/11/2026:
-"para os vídeos que você edita, você não subir data de publicação"). Quem marca a publicação é o time.
+**Publicação (DATA D/ PUBLICACÃO): SEMPRE VAZIA, em qualquer card e com qualquer editor** (regra do usuário,
+04/11/2026: "em nenhum card você deve colocar a data de postagem"). Quem marca a publicação é o time.
+Não sugira data de publicação no relatório.
 
 **Campos de cada card** (`notion-create-pages`, `parent` = `data_source_id`, `allow_async` false, ícone 📹):
 
@@ -101,7 +99,7 @@ qualquer dia da semana, sempre pelo menos 2 dias depois da conclusão. É sugest
 | PERFIL | `CLAILTON` (0800/Lucas: `LEGACY`; confira com o usuário se não for óbvio) |
 | REDE SOCIAL | `["Instagram / Facebook"]` |
 | DATA D/ CONCLUSÃO | dia útil da agenda (`is_datetime` 0) |
-| DATA D/ PUBLICACÃO | ver acima (editor Claude: **vazia**) |
+| DATA D/ PUBLICACÃO | **sempre vazia** (nunca preencher) |
 | IDEIA | **só** orientação específica que o usuário deu para aquele vídeo ou briefing que veio junto com o roteiro na copy colada (ex.: "máximo 2min59", "sem CTA"). Sem isso, deixe **vazio** — regra do usuário (07/10/2026): nada de observação inventada pelo Claude a partir do bruto |
 | MATERIAL NECESSÁRIO | o link do Drive (quando o upload terminar: `notion-update-page`, `update_properties`) |
 | corpo | `## Roteiro` + o roteiro **exatamente como o usuário colou** (sem corrigir nem resumir); NV: + `Trilha: <estilo>` (Passo 3b) |
@@ -110,9 +108,9 @@ Depois de pôr os links, faça `notion-fetch` em um card e confira link, datas e
 
 ## Relatório final
 
-1. Tabela: vídeo original → novo nome → entrega do editor → publicação.
+1. Tabela: vídeo original → novo nome → entrega do editor.
 2. Onde ficou no Drive (caminho em palavras) e que os cards estão em "A Editar" com o editor.
-3. Pontos para conferir: datas de publicação sugeridas, CTA gravado diferente do roteiro,
+3. Pontos para conferir: CTA gravado diferente do roteiro,
    vídeo que ficou com dúvida.
 
 ## Cuidados
