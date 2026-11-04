@@ -283,6 +283,7 @@ def aparar(segs: list[dict], trabalho: Path, fonte: str, avisos: list[str], pal:
         # o fim da frase pode passar do corte original se a voz ainda continua ("rot-a" e o "s" final
         # cortados na v3): até FIM_EXTRA, sem chegar na próxima palavra do bruto nem no próximo pedaço
         f1_max = f1
+        teto_t = int(math.ceil((s["ate_t"] + 0.02) * FPS)) if s.get("ate_t") is not None else None
         prox_src = segs[k + 1]["frame_in"] if k + 1 < len(segs) else None
         if prox_src != f1 and k + 1 < len(segs) or k + 1 == len(segs):
             lim = f1 / FPS + FIM_EXTRA
@@ -334,6 +335,8 @@ def aparar(segs: list[dict], trabalho: Path, fonte: str, avisos: list[str], pal:
                 ult["voz_out"] = round(b, 3)
                 cortes -= 1
                 continue
+            if teto_t is not None:
+                n_out = min(n_out, teto_t)
             if k == len(segs) - 1 and j == len(blocos) - 1:
                 n_out = f1                                   # respiro final antes da CTA
             if n_out - n_in < 3:
@@ -384,6 +387,8 @@ def main() -> None:
         if not (0 <= i0 <= i1 < len(pal)):
             raise SystemExit(f"trecho inválido: {tre}")
         ini, fim = acha_fala(en, pal, i0, i1, dur_src, tre.get("desde"))
+        if tre.get("ate_t") is not None:     # PARTE n k@t: tropeço colado na última palavra (som agudo do "ce-")
+            fim = min(fim, float(tre["ate_t"]))
         rs = [r for r in en.falas(ini - 0.001, fim + 0.001) if r[1] > ini and r[0] < fim]
         blocos = [[rs[0][0], rs[0][1], False]] if rs else [[ini, fim, False]]
         for r in rs[1:]:
@@ -396,13 +401,13 @@ def main() -> None:
             cauda = MARGEM_FIM
             if ultimo and tre.get("pausa_depois"):
                 cauda = max(MARGEM_FIM, float(tre["pausa_depois"]))
-            pedacos.append((a, b, i0, i1, cauda, not ultimo, nat))
+            pedacos.append((a, b, i0, i1, cauda, not ultimo, nat, tre.get("ate_t") if ultimo else None))
 
     # 2) pontos de corte: a fronteira de quadro mais silenciosa perto do alvo, sem invadir
     #    a fala que fica nem a fala vizinha (o áudio é cortado exatamente no quadro)
     segs = []
     avisos = []
-    for k, (a, b, i0, i1, cauda, interno, nat) in enumerate(pedacos):
+    for k, (a, b, i0, i1, cauda, interno, nat, ate_t) in enumerate(pedacos):
         cab = MARGEM_INI
         # pausa encurtada (quebrava o ritmo) fica com a pausa típica do vídeo; entre frases seguidas da MESMA tomada a
         # pausa natural fica inteira até o teto (o 2b encurta as maiores)
@@ -431,9 +436,13 @@ def main() -> None:
             n_in = segs[-1]["frame_in"] + segs[-1]["frames"]
         n_in = max(0, n_in)
         n_out = min(int(dur_src * FPS), max(n_out, n_in + 1))
+        if ate_t is not None:       # PARTE n k@t: nada do tropeço colado depois de t
+            n_out = max(n_in + 1, min(n_out, int(math.ceil((ate_t + 0.02) * FPS))))
         s = {"i0": i0, "i1": i1, "frame_in": n_in, "frames": n_out - n_in,
              "src_in": round(n_in / FPS, 4), "src_out": round(n_out / FPS, 4),
              "fala_in": round(a, 3), "fala_out": round(b, 3), "voz_in": round(c_ini, 3), "voz_out": round(c_fim, 3)}
+        if ate_t is not None:
+            s["ate_t"] = ate_t
         segs.append(s)
 
     # 2b) silêncio na emenda medido de VOZ a VOZ (sem o respiro da borda): nenhuma emenda com mais de

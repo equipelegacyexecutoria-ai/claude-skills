@@ -91,6 +91,8 @@ def aplicar(trabalho: Path, ajustes: Path) -> None:
          SAI 2      FICA 7      FIM 29 320
          INICIO 25 290[@156.30]      frase começa na palavra 290 (e a fala não antes de 156,30 s)
          PARTE 12 140 144[@80.12]    falso começo no meio: fica 140 e antes, retoma na 144 (@t)
+         PARTE 12 140@79.40 144@80.12  idem, e a fala do 1º pedaço não passa de 79,40 s (tropeço colado na palavra,
+                                       ex.: "tem ce-... centenas": o "ce" agudo seria tomado como fim do "tem")
     (n = frase da decupagem_proposta.txt; os números são índices de palavra do bruto)."""
     fr = ler_json(trabalho / "decupagem_frases.json")
     for f in fr:
@@ -113,7 +115,8 @@ def aplicar(trabalho: Path, ajustes: Path) -> None:
             fr[n]["i1"] = int(p[2])
         elif cmd == "PARTE":
             j, t = palavra_tempo(p[3])
-            fr[n]["parte"] = {"ate": int(p[2]), "retoma": j, "desde": t}
+            k, t_ate = palavra_tempo(p[2])
+            fr[n]["parte"] = {"ate": k, "retoma": j, "desde": t, "ate_t": t_ate}
         else:
             raise SystemExit(f"ajuste desconhecido: {ln}")
     gravar_json(trabalho / "decupagem_frases.json", fr)
@@ -129,12 +132,18 @@ def trechos_de(fr: list[dict]) -> list[dict]:
         pedacos = [(f["i0"], f["i1"], f.get("desde"))]
         if f.get("parte"):
             pt = f["parte"]
-            pedacos = [(f["i0"], pt["ate"], f.get("desde")), (pt["retoma"], f["i1"], pt["desde"])]
-        for k, (a, b, desde) in enumerate(pedacos):
+            pedacos = [(f["i0"], pt["ate"], f.get("desde"), pt.get("ate_t")), (pt["retoma"], f["i1"], pt["desde"], None)]
+        else:
+            pedacos = [p + (None,) for p in pedacos]
+        for k, (a, b, desde, ate_t) in enumerate(pedacos):
             if k == 0 and desde is None and out and out[-1]["_n"] == n - 1 and out[-1]["ate"] + 1 == a:
                 out[-1]["ate"], out[-1]["_n"] = b, n
+                out[-1].pop("ate_t", None)
+                if ate_t is not None:
+                    out[-1]["ate_t"] = ate_t
             else:
-                out.append({"de": a, "ate": b, "_n": n} | ({"desde": desde} if desde is not None else {}))
+                out.append({"de": a, "ate": b, "_n": n} | ({"desde": desde} if desde is not None else {})
+                           | ({"ate_t": ate_t} if ate_t is not None else {}))
     for t in out:
         t.pop("_n")
     return out
