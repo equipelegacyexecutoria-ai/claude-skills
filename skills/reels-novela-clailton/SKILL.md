@@ -17,7 +17,7 @@ referência: `referencia/telas-referencia.jpg`. Legendas de exemplo no formato c
 | --- | --- |
 | Formato | 1080×1920, 29,97 fps, H.264 High **CRF 18** preset slow (era CRF 10; em 28/09/2026 o usuário achou pesado demais: 1,2 GB em 2:42), yuv420p BT.709, AAC 320k — o usuário pediu **qualidade máxima, sem comprimir** |
 | Imagem | faixa 1080×864 (5:4) centrada, barras pretas; recorte fixo tirado direto do 4K (só redução), **altura cheia do bruto: só as laterais saem** |
-| Corte | tomadas escolhidas, sem tropeço. **Corte colado, ritmo JUSTO** (usuário, 11/10/2026, nas notas da Sala de Revisão: "os cortes no geral estão estranhos, a versão antiga estava melhor"; pausas de 0,46–0,56 s = "demorou a cortar, ficou um gap"; uma de 0,24 s = "ficou certinho"): pausa voz a voz até 0,30 s fica; maior vira **0,22 s** (`RITMO_JUSTO`, o mesmo da tela dividida). As proteções de borda continuam (`borda_voz.cauda`, `estende`, `quieto`): a palavra não é comida, que era o defeito do corte de 28/09 (toda pausa ≥ 0,12 s saía e a borda cortava a soltura da vogal). A regra de 09/10 (pausa natural até 0,55–0,90 s intacta) foi reprovada; só com `--ritmo-natural`. Sem música (entra depois) |
+| Corte | tomadas escolhidas, sem tropeço. **Corte colado, ritmo JUSTO** (usuário, 11/10/2026, nas notas da Sala de Revisão: "os cortes no geral estão estranhos, a versão antiga estava melhor"; pausas de 0,46–0,56 s = "demorou a cortar, ficou um gap"; uma de 0,24 s = "ficou certinho"): pausa voz a voz até 0,30 s fica; maior vira **0,22 s** (`RITMO_JUSTO`, o mesmo da tela dividida). As proteções de borda continuam (`borda_voz.cauda`, `estende`, `quieto`): a palavra não é comida, que era o defeito do corte de 28/09 (toda pausa ≥ 0,12 s saía e a borda cortava a soltura da vogal). A regra de 09/10 (pausa natural até 0,55–0,90 s intacta) foi reprovada; só com `--ritmo-natural`. Música: **já na v1** (regra abaixo, "Trilha na primeira versão") |
 | Legenda | SF Pro Text Black, caixa-alta, telas de 1–3 linhas inteiras, **só o destaque entra sozinho e maior**, sombra v3 |
 | Final | ~0,45 s depois da última palavra, corte seco para CTA preta digitada (2,9 s) com o **som de teclado padrão** (`assets/cta_teclado.mp3`, enviado pelo usuário em 30/09/2026) sincronizado com a digitação: 1º toque no quadro da 1ª letra, último toque na última letra |
 | Voz | −16 LUFS, pico −1 dBTP, limitador suave só nos picos (−14 soava estourado). Ruído externo / gravação "quente" / pedido de "tratar o áudio": **Adobe Podcast** (seção abaixo) |
@@ -219,7 +219,17 @@ Correções depois de pronto:
 - **CTA diferente num vídeo** (ex.: "ENVIE PARA QUEM TEM / ESSE TIPO DE BELEZA"): `T\cta.txt` com 1–2 linhas em caixa-alta; o `legenda_novela.py` usa no lugar de "ME SIGA PARA MAIS / CONTEÚDOS COMO ESTE".
 - **Ver um quadro sem renderizar**: `P S\previa_quadro.py T 12.5,40.2 T\qa\previa.png [--faixa]`.
 
-## Tratar o áudio no Adobe Podcast (ruído externo, gravação quente)
+## Trilha na primeira versão (regra do usuário, 04/11/2026)
+
+Todo NV sai **com música já na v1**. Estilo: a linha `Trilha: ...` da copy (corpo do card ou, se não estiver lá, o bloco
+da copy no documento "2. JÁ GRAVADOS", `1iQPGvM9Ntgwa0Bqws3UyZQPZJi-pzOI5p5WcZ0ouK8Y`); sem sugestão, decida pela copy.
+- Biblioteca: `~/Music/Spotclai/<Emoção>/` (pastas por clima: Melancolia - Saudade, Reflexão - Calma, Inspiração - Esperança,
+  Superação - Resiliência, Energia - Confiança, Tensão - Mistério, Épico - Cinematográfico; lista em `_catalogo.csv`).
+  Escolha a faixa que casa com o estilo descrito e não repita a mesma faixa em reels da mesma semana.
+- Mixagem: música presente, ~12 dB abaixo da voz (regra global), sem sumir sob a voz; fade-out de 2 s no fim da fala, a
+  CTA do teclado fica sem música. Se o estilo pede "crescer no final", use um trecho da faixa que cresce.
+- No comentário de entrega: nome da música e artista.
+
 
 Testado e aprovado no lote de 08/10/2026 (5 vídeos): ruído nas pausas caiu 15–20 dB (de −46/−50 para −65 dB
 abaixo da voz), picos colados no teto caíram pela metade, linha do tempo idêntica (atraso 0 ms, correlação 0,97).

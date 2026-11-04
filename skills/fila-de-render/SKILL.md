@@ -151,6 +151,8 @@ trabalho em `C:\Render\_trabalho\<slug>\`), seguindo o modo rápido dela, com es
 - **Não pare para aprovação** (o portão do 1º vídeo e o teste de fundo claro da regra global): gere
   mesmo assim `qa\fundo_mais_claro.png` e cite no comentário; a aprovação é no Notion.
 - **Não edite skills.** Correção que se repete vira "sugestão para a skill" no comentário.
+- **NV com música já na v1** (regra do usuário, 04/11/2026): estilo pela linha `Trilha:` da copy (card ou documento
+  "2. JÁ GRAVADOS"); detalhes na skill `reels-novela-clailton`, seção "Trilha na primeira versão".
 - Guarde `C:\Render\_trabalho\<slug>\` até o card ser aprovado (as correções partem dele).
 
 ## Passo 4 — entregar (Sala de Revisão + Drive)

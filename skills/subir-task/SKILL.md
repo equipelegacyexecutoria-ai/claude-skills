@@ -56,7 +56,16 @@ Destino: `G:\Meu Drive\02. Captação de Vídeos\<AAAA>\<MM - Mês>\ORGÂNICO\BR
   plano e procure de novo (nada de espera longa em primeiro plano).
 - Link no card: `https://drive.google.com/file/d/<ID>/view?usp=sharing`.
 
-## Passo 4 — cards no Notion
+## Passo 3b — reels NV: copy e trilha vêm do "1. PARA GRAVAR" (regra do usuário, 04/11/2026)
+
+Todo reel **NV** que subir para edição:
+1. Pegue a copy no documento **"1. PARA GRAVAR"** (Google Doc `1RSEoxsUAYKc3t6kFuCStrBrPvLhsST9y_DfkmhoqJNU`), junto com a
+   linha de **estilo musical** escrita acima dela (`*Trilha: ...*`), quando houver.
+2. **Mova** a copy (com a linha da trilha e as observações em itálico dela) para o topo do documento **"2. JÁ GRAVADOS"**
+   (`1iQPGvM9Ntgwa0Bqws3UyZQPZJi-pzOI5p5WcZ0ouK8Y`), no mesmo formato de lá (blocos separados pela linha `—-----...`), e
+   **apague** o bloco do "1. PARA GRAVAR". Edite os dois docs pela API (`requiredRevisionId`, pedidos de baixo para cima).
+3. No corpo do card: `## Roteiro` + a copy e, logo abaixo, `Trilha: <estilo musical>` (é o que a edição usa para escolher a música).
+
 
 Fonte: `collection://f0cc9747-efab-822b-8678-07f92372d6b7` (base "DEMANDAS | TIME DE CRIAÇÃO",
 visão Audiovisual). Busque o esquema (`notion-fetch` na fonte) e use os nomes exatos.
@@ -95,7 +104,7 @@ qualquer dia da semana, sempre pelo menos 2 dias depois da conclusão. É sugest
 | DATA D/ PUBLICACÃO | ver acima (editor Claude: **vazia**) |
 | IDEIA | **só** orientação específica que o usuário deu para aquele vídeo ou briefing que veio junto com o roteiro na copy colada (ex.: "máximo 2min59", "sem CTA"). Sem isso, deixe **vazio** — regra do usuário (07/10/2026): nada de observação inventada pelo Claude a partir do bruto |
 | MATERIAL NECESSÁRIO | o link do Drive (quando o upload terminar: `notion-update-page`, `update_properties`) |
-| corpo | `## Roteiro` + o roteiro **exatamente como o usuário colou** (sem corrigir nem resumir) |
+| corpo | `## Roteiro` + o roteiro **exatamente como o usuário colou** (sem corrigir nem resumir); NV: + `Trilha: <estilo>` (Passo 3b) |
 
 Depois de pôr os links, faça `notion-fetch` em um card e confira link, datas e roteiro.
 
