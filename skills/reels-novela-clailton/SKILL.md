@@ -139,7 +139,8 @@ decupagem (~5 min) e legenda (~5 min). `T = <projeto>\_trabalho\<slug>`.
    - `SAI n` / `FICA n`;
    - `FIM n i`;
    - `INICIO n i[@t]`: a frase começa na palavra i e a fala não antes de t s;
-   - `PARTE n k j[@t]`: falso começo no meio da frase; fica até k e retoma em j.
+   - `PARTE n k j[@t]`: falso começo no meio da frase; fica até k e retoma em j. Pode repetir `PARTE` na mesma frase
+     (vários falsos começos; desde 05/11/2026).
    - `PARTE n k@t1 j@t2`: idem, e o 1º pedaço não passa de t1 s do bruto. Use quando o tropeço vem colado na
      palavra k ("Você tem ce-... centenas", Pokémon 04/11/2026): o "ce" agudo é tomado como fim do "tem" e fica
      no vídeo. t1 = fim da voz da palavra k (meça a onda: o agudo > 4 kHz começa logo depois).
