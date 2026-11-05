@@ -214,6 +214,13 @@ Correções depois de pronto:
   índices; tempos remapeados pelo bruto, a legenda é aproveitada) → `finalizar` (que mede o rosto de novo sozinho).
   Precisa do bruto no PC (`C:\Render\brutos\<slug>`): se foi apagado na limpeza, copie de novo do Drive.
 - **Só legenda**: edite `legenda.txt` → `finalizar`.
+- **NV_CTA: novela com CTA em motion no final** (usuário, 05/11/2026; modelo aprovado: Flamengo v5). O nome do card/arquivo
+  leva `NV_CTA` (ex.: `Reels_Clailton_NV_CTA_Dois_Cavalos_Puxam_Tres_Vezes_Mais`). Novela normal até o ponto da CTA
+  (`[CORTE PARA O CTA]`, a pergunta final ou depois da última frase); dali em diante flash branco ~0,2 s, só a voz do
+  Clailton com animação em tela cheia (visual dos stories VMLM: fundo azul com grade, cards azuis) e o vídeo **termina no
+  card final parado ~1 s, sem o "Me siga"**. Scripts em `C:\Render\_trabalho\_lote_nov04\`: `motion_cta.py <slug> --render`
+  (cenas: pergunta/caixa, link da bio tocado, o caminho + Venda Mais, Lucre Mais; deixas = índices do palavras_corte.json)
+  e `compor_cta.py <slug> <musica> <saida>` (sobrepõe, corta o "Me siga", efeitos e música até o fim).
 - **B-roll em trechos** (usuário, 04/11/2026, "Pare de agir como uma vaca"): vídeo do **YouTube** (nada de Freepik; `yt-dlp`),
   na **mesma faixa 1080x864** do vídeo (não vira tela cheia) e com o **filtro película da tela dividida**. Prepare cada
   cena com `P S\broll_prep.py <saida.mp4> <fonte> <inicio_fonte> <duracao>` (recorte 5:4 +
