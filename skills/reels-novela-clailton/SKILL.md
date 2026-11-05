@@ -20,7 +20,7 @@ referência: `referencia/telas-referencia.jpg`. Legendas de exemplo no formato c
 | Corte | tomadas escolhidas, sem tropeço. **Corte colado, ritmo JUSTO** (usuário, 11/10/2026, nas notas da Sala de Revisão: "os cortes no geral estão estranhos, a versão antiga estava melhor"; pausas de 0,46–0,56 s = "demorou a cortar, ficou um gap"; uma de 0,24 s = "ficou certinho"): pausa voz a voz até 0,30 s fica; maior vira **0,22 s** (`RITMO_JUSTO`, o mesmo da tela dividida). As proteções de borda continuam (`borda_voz.cauda`, `estende`, `quieto`): a palavra não é comida, que era o defeito do corte de 28/09 (toda pausa ≥ 0,12 s saía e a borda cortava a soltura da vogal). A regra de 09/10 (pausa natural até 0,55–0,90 s intacta) foi reprovada; só com `--ritmo-natural`. Música: **já na v1** (regra abaixo, "Trilha na primeira versão") |
 | Legenda | SF Pro Text Black, caixa-alta, telas de 1–3 linhas inteiras, **só o destaque entra sozinho e maior**, sombra v3 |
 | Final | ~0,45 s depois da última palavra, corte seco para CTA preta digitada (2,9 s) com o **som de teclado padrão** (`assets/cta_teclado.mp3`, enviado pelo usuário em 30/09/2026) sincronizado com a digitação: 1º toque no quadro da 1ª letra, último toque na última letra |
-| Voz | −16 LUFS, pico −1 dBTP, limitador suave só nos picos (−14 soava estourado). Ruído externo / gravação "quente" / pedido de "tratar o áudio": **Adobe Podcast** (seção abaixo) |
+| Voz | render da voz em −16 LUFS, pico −1 dBTP, limitador suave só nos picos; **na mixagem com a música a voz sobe por ganho até o pico −0,1 dBTP** (05/11/2026, ver "Trilha na primeira versão"). Ruído externo / gravação "quente" / pedido de "tratar o áudio": **Adobe Podcast** (seção abaixo) |
 | Pasta | `Reels Editados/` na raiz do projeto, `<nome do bruto> - EDITADO.mp4` |
 | Trabalho | `_trabalho/<slug>/` na raiz do projeto (transcrição, decupagem, legenda, QA) |
 
@@ -240,7 +240,11 @@ da copy no documento "2. JÁ GRAVADOS", `1iQPGvM9Ntgwa0Bqws3UyZQPZJi-pzOI5p5WcZ0
 - Biblioteca: `~/Music/Spotclai/<Emoção>/` (pastas por clima: Melancolia - Saudade, Reflexão - Calma, Inspiração - Esperança,
   Superação - Resiliência, Energia - Confiança, Tensão - Mistério, Épico - Cinematográfico; lista em `_catalogo.csv`).
   Escolha a faixa que casa com o estilo descrito e não repita a mesma faixa em reels da mesma semana.
-- Mixagem: música presente, ~12 dB abaixo da voz (regra global), sem sumir sob a voz; fade-out de 2 s no fim da fala, a
+- **Volume (usuário, 05/11/2026: "voz muito baixa, no limite de não estourar no -0,1")**: a mixagem final sobe a voz só por
+  ganho (sem compressor) até o pico real do vídeo chegar a ~-0,1 dBTP (fica -0,1 a -0,4 depois do AAC; dá ~-14,5 LUFS) e a
+  música fica **10 dB abaixo da voz** (antes 12). Script: `C:/Render/_trabalho/_trilhas/trilha.py` (chama `mixar_alto.py`;
+  a versão antiga é `trilha_antiga_16lufs.py`). NV_CTA: passe o início da animação como 7º argumento do `mixar_alto.py`
+  (os efeitos da animação têm picos maiores e travavam o ganho). Confira no fim: pico real ≤ -0,1. Fade-out de 2 s no fim da fala, a
   CTA do teclado fica sem música. Se o estilo pede "crescer no final", use um trecho da faixa que cresce.
 - No comentário de entrega: nome da música e artista.
 
