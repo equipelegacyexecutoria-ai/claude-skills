@@ -100,6 +100,7 @@ def aplicar(trabalho: Path, ajustes: Path) -> None:
         f["i0"], f["i1"] = f.setdefault("i0_prop", f["i0"]), f.setdefault("i1_prop", f["i1"])
         f.pop("desde", None)
         f.pop("parte", None)
+        f.pop("partes", None)
     for ln in ajustes.read_text(encoding="utf-8").splitlines():
         p = ln.split("#")[0].split()
         if not p:
@@ -116,7 +117,7 @@ def aplicar(trabalho: Path, ajustes: Path) -> None:
         elif cmd == "PARTE":
             j, t = palavra_tempo(p[3])
             k, t_ate = palavra_tempo(p[2])
-            fr[n]["parte"] = {"ate": k, "retoma": j, "desde": t, "ate_t": t_ate}
+            fr[n].setdefault("partes", []).append({"ate": k, "retoma": j, "desde": t, "ate_t": t_ate})
         else:
             raise SystemExit(f"ajuste desconhecido: {ln}")
     gravar_json(trabalho / "decupagem_frases.json", fr)
@@ -130,9 +131,13 @@ def trechos_de(fr: list[dict]) -> list[dict]:
         if f["estado"] != "FICA":
             continue
         pedacos = [(f["i0"], f["i1"], f.get("desde"))]
-        if f.get("parte"):
-            pt = f["parte"]
-            pedacos = [(f["i0"], pt["ate"], f.get("desde"), pt.get("ate_t")), (pt["retoma"], f["i1"], pt["desde"], None)]
+        partes = sorted(f.get("partes") or ([f["parte"]] if f.get("parte") else []), key=lambda x: x["ate"])
+        if partes:  # vários PARTE na mesma frase (falsos começos em pontos diferentes)
+            pedacos, ini, desde0 = [], f["i0"], f.get("desde")
+            for pt in partes:
+                pedacos.append((ini, pt["ate"], desde0, pt.get("ate_t")))
+                ini, desde0 = pt["retoma"], pt["desde"]
+            pedacos.append((ini, f["i1"], desde0, None))
         else:
             pedacos = [p + (None,) for p in pedacos]
         for k, (a, b, desde, ate_t) in enumerate(pedacos):
