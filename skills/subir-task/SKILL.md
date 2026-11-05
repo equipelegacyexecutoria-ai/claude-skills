@@ -76,7 +76,11 @@ Todo reel **NV** que subir para edição:
 Fonte: `collection://f0cc9747-efab-822b-8678-07f92372d6b7` (base "DEMANDAS | TIME DE CRIAÇÃO",
 visão Audiovisual). Busque o esquema (`notion-fetch` na fonte) e use os nomes exatos.
 
-**Agenda do editor (DATA D/ CONCLUSÃO)** — regra do usuário (07/10/2026):
+**Editor Claude: DATA D/ CONCLUSÃO sempre vazia** (regra do usuário, 05/11/2026: "não é pra colocar data de
+entrega"). Card que vai para a coluna `CLAUDE (Editor)` sobe sem data de entrega e sem data de publicação; a agenda
+abaixo vale só para editor humano (Alex, Mac etc.).
+
+**Agenda do editor humano (DATA D/ CONCLUSÃO)** — regra do usuário (07/10/2026):
 - Um vídeo do formato por **dia útil** (segunda a sexta). **Nunca sábado nem domingo.**
 - Começa no dia útil seguinte ao último card do mesmo formato que o editor já tem (ou no dia que
   o usuário disser). Para achar o último:
@@ -104,7 +108,7 @@ Não sugira data de publicação no relatório.
 | FORMATO | `["📹 Reels (Video Curto)"]` |
 | PERFIL | `CLAILTON` (0800/Lucas: `LEGACY`; confira com o usuário se não for óbvio) |
 | REDE SOCIAL | `["Instagram / Facebook"]` |
-| DATA D/ CONCLUSÃO | dia útil da agenda (`is_datetime` 0) |
+| DATA D/ CONCLUSÃO | editor humano: dia útil da agenda (`is_datetime` 0); editor Claude: **vazia** |
 | DATA D/ PUBLICACÃO | **sempre vazia** (nunca preencher) |
 | IDEIA | **só** orientação específica que o usuário deu para aquele vídeo ou briefing que veio junto com o roteiro na copy colada (ex.: "máximo 2min59", "sem CTA"). Sem isso, deixe **vazio** — regra do usuário (07/10/2026): nada de observação inventada pelo Claude a partir do bruto |
 | MATERIAL NECESSÁRIO | o link do Drive (quando o upload terminar: `notion-update-page`, `update_properties`) |
