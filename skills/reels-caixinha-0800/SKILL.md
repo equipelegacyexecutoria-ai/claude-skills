@@ -45,6 +45,7 @@ Referências (2 vídeos, Drive): `G:\Meu Drive\EXECUTORIA 0800\Modelo prontos (r
   tempo de b-rolls"): enquanto ele lê a pergunta, a caixinha fica sobre ele (sem imagem por baixo) e nos primeiros
   ~20 s no máximo 1 imagem curta; nada de imagens em sequência no início.
 - Olhe cada escolhida em tamanho real (`qa/folha_imagens.jpg` depois do render) antes de entregar.
+- **Imagem e corte da decupagem** (usuário, 05/11/2026): a imagem entra e sai junto com um corte da decupagem (no quadro da emenda) ou longe de corte (≥ 1 s de qualquer emenda); nunca 0,1–1 s antes ou depois de um corte. Entre duas imagens seguidas, nenhum quadro do Lucas.
 
 ## Modo rápido (~10 min)
 

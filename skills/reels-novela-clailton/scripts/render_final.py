@@ -295,11 +295,25 @@ def main() -> None:
     brolls = ler_json(broll_json) if broll_json.exists() else []
     extra_in: list[str] = []
     vf = f"[0:v]setpts=N*{FPS_DEN}/{FPS_NUM}/TB,{wb}pad={W}:{H}:0:{FAIXA_Y0}:black[b0];"
+    # Sem "piscada" (usuário, 05/11/2026): o clipe que ficava 1 quadro mais curto que a janela deixava aparecer
+    # 1 quadro do Clailton entre duas imagens seguidas. Agora a janela é casada com a grade de quadros, o clipe
+    # curto é esticado (até 1,25x) e o último quadro se repete até o fim da janela.
+    def _q(t: float) -> float:
+        return round(t * FPS_NUM / FPS_DEN) * FPS_DEN / FPS_NUM
     for k, b in enumerate(brolls):
-        extra_in += ["-i", str((trabalho / b["arquivo"]).resolve())]
-        ini, fim = float(b["inicio"]), float(b["fim"])
-        vf += (f"[{k + 2}:v]setpts=PTS-STARTPTS+{ini:.4f}/TB[r{k}];"
-               f"[b{k}][r{k}]overlay=0:{FAIXA_Y0}:eof_action=pass:enable='between(t,{ini:.4f},{fim:.4f})'[b{k + 1}];")
+        arq = (trabalho / b["arquivo"]).resolve()
+        extra_in += ["-i", str(arq)]
+        ini, fim = _q(float(b["inicio"])), _q(float(b["fim"]))
+        try:
+            dclip = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of",
+                                          "csv=p=0", str(arq)], capture_output=True, text=True).stdout)
+        except ValueError:
+            dclip = fim - ini
+        fator = min(1.25, max(1.0, (fim - ini) / dclip)) if dclip > 0 else 1.0
+        vf += (f"[{k + 2}:v]setpts={fator:.4f}*(PTS-STARTPTS),fps={FPS_NUM}/{FPS_DEN},"
+               f"tpad=stop_mode=clone:stop_duration=1,setpts=PTS+{max(0.0, ini - 0.01):.4f}/TB[r{k}];"
+               f"[b{k}][r{k}]overlay=0:{FAIXA_Y0}:eof_action=repeat:"
+               f"enable='gte(t,{ini - 0.005:.4f})*lt(t,{fim - 0.005:.4f})'[b{k + 1}];")
         print(f"  B-roll {k + 1}: {ini:.2f}-{fim:.2f}s {Path(b['arquivo']).name}", flush=True)
     vf += f"[b{len(brolls)}]ass=legenda.ass:fontsdir=fonts,format=yuv420p,{COR}[v]"
     ff(["-f", "concat", "-safe", "0", "-i", str(tmp / "lista.txt"), "-i", str(audio), *extra_in,

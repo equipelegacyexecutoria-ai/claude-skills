@@ -144,6 +144,10 @@ refazer o plano (os índices mudam).
 | camada película (textura, retícula, grão, poeira, cor, vinheta) | `estilo_td.py` (constantes no topo); força geral `ESTILO_FORCA` em `td_comum.py`; por vídeo `ESTILO 0.7` no plano ou `--estilo` no render |
 | corte/ritmo/áudio/CTA | skill novela (`comum.py`, `montar_corte.py`, `legenda_novela.py`) |
 
+## Imagem e corte da decupagem (05/11/2026)
+
+**Imagem e corte da decupagem** (usuário, 05/11/2026, Louis Vuitton v2): a imagem/vídeo de apoio **entra e sai junto com um corte** da decupagem (no quadro exato da emenda) **ou longe de corte** (≥ 1 s de qualquer emenda). Imagem que sai 0,1–1 s antes ou depois de um corte dá a sensação de pulo duplo ("saiu um segundo antes do corte, ficou estranho"). Tempos das emendas: soma dos `frames` dos `segmentos` do `corte.json` ÷ 29,97. Antes do render, confira cada `inicio`/`fim` contra essa lista e encoste no corte quando estiver perto. Duas imagens seguidas não podem deixar aparecer nem 1 quadro do Clailton entre elas ("piscada"): o `render_final.py` já casa a janela com a grade de quadros e repete o último quadro do clipe. Vale para cenas, fotos e cartões em tela cheia ou em cima.
+
 ## Acervo local de B-roll (cenas já baixadas)
 
 Pasta com 158 vídeos (620 cenas com ficha no `mapa_situacoes.md`) (Succession, The Office, Breaking Bad, Better Call Saul, O Lobo de Wall Street,
