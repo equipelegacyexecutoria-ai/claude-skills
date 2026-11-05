@@ -65,6 +65,12 @@ Todo reel **NV** que subir para edição:
    (`1iQPGvM9Ntgwa0Bqws3UyZQPZJi-pzOI5p5WcZ0ouK8Y`), no mesmo formato de lá (blocos separados pela linha `—-----...`), e
    **apague** o bloco do "1. PARA GRAVAR". Edite os dois docs pela API (`requiredRevisionId`, pedidos de baixo para cima).
 3. No corpo do card: `## Roteiro` + a copy e, logo abaixo, `Trilha: <estilo musical>` (é o que a edição usa para escolher a música).
+4. **Tudo o que foi gravado vai para o "2. JÁ GRAVADOS"** (regra do usuário, 05/11/2026), seja NV, TD, ES ou criativo, e
+   venha a copy de onde vier ("1. PARA GRAVAR", "Roteiros de Reels" `1a5qaPqC_aL9QBLnpNinuKKReiO1OgoZyR6PskSCxv_I`, outro doc
+   ou texto colado na conversa). Copy que estava num documento sai de lá depois de entrar no "JÁ GRAVADOS"; nunca apague
+   antes de conferir que ela chegou.
+5. O "JÁ GRAVADOS" e o "PARA GRAVAR" são do Clailton. Se a conta não tiver permissão de edição (`canEdit: false` no
+   `search_files`), não apague nada da origem: liste no resumo final quais copys ainda faltam mover, para o usuário resolver.
 
 
 Fonte: `collection://f0cc9747-efab-822b-8678-07f92372d6b7` (base "DEMANDAS | TIME DE CRIAÇÃO",
