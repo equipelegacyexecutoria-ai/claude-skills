@@ -39,6 +39,7 @@ from comum import (FIM_RESPIRO, FPS, PAUSA_ALVO, PAUSA_MAX, PAUSA_TETO_MAX, PAUS
 HOP = 0.01
 MARGEM_INI = 0.10        # usuário (28/09): "mais próximo nos inícios"; 09/10: sem comer a palavra -> folga natural
 MARGEM_FIM = 0.12        # e nos fins
+RETOMA_CAB = 0.03        # retomada de PARTE no meio da frase: quase colada na voz
 SIL_MIN = 0.10          # silêncio mínimo que separa fala (fechamento de oclusiva é mais curto)
 BUSCA_ANTES = 0.35      # quanto antes da marca do Whisper a fala pode começar
 BUSCA_DEPOIS = 0.70     # quanto depois da marca do Whisper a fala pode começar (ele adianta)
@@ -432,13 +433,14 @@ def main() -> None:
             cauda = MARGEM_FIM
             if ultimo and tre.get("pausa_depois"):
                 cauda = max(MARGEM_FIM, float(tre["pausa_depois"]))
-            pedacos.append((a, b, i0, i1, cauda, not ultimo, nat, tre.get("ate_t") if ultimo else None))
+            pedacos.append((a, b, i0, i1, cauda, not ultimo, nat, tre.get("ate_t") if ultimo else None,
+                            bool(tre.get("retoma")) and k == 0))
 
     # 2) pontos de corte: a fronteira de quadro mais silenciosa perto do alvo, sem invadir
     #    a fala que fica nem a fala vizinha (o áudio é cortado exatamente no quadro)
     segs = []
     avisos = []
-    for k, (a, b, i0, i1, cauda, interno, nat, ate_t) in enumerate(pedacos):
+    for k, (a, b, i0, i1, cauda, interno, nat, ate_t, retoma) in enumerate(pedacos):
         cab = MARGEM_INI
         # pausa encurtada (quebrava o ritmo) fica com a pausa típica do vídeo; entre frases seguidas da MESMA tomada a
         # pausa natural fica inteira até o teto (o 2b encurta as maiores)
@@ -452,6 +454,8 @@ def main() -> None:
             cab = RITMO["tipica"] / 2
         elif ant_seguido:
             cab = RITMO["teto"] / 2
+        if retoma:   # PARTE: a fala retomada continua a MESMA frase ("Você | tem centenas"): emenda colada, sem pausa
+            cab = RETOMA_CAB          # (06/11/2026, Pokémon: 0,17 s entre "Você" e "tem" soava como erro)
         if k == len(pedacos) - 1:
             cauda = max(cauda, FIM_RESPIRO)  # a imagem segue ~0,45 s e corta seco para a CTA
         nucleo = [r for r in en.falas(a - 0.001, b + 0.001) if r[1] > a and r[0] < b]

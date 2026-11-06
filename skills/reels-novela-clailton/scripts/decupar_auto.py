@@ -144,14 +144,17 @@ def trechos_de(fr: list[dict]) -> list[dict]:
         else:
             pedacos = [p + (f.get("ate_t"),) for p in pedacos]
         for k, (a, b, desde, ate_t) in enumerate(pedacos):
-            if k == 0 and desde is None and out and out[-1]["_n"] == n - 1 and out[-1]["ate"] + 1 == a:
+            # não junta com a frase anterior quando ela tem limite de fim (FIM n i@t / PARTE k@t): a junção apagava o
+            # limite (06/11/2026, Pokémon: a expiração depois de "Pokémon?" voltava)
+            if k == 0 and desde is None and out and out[-1]["_n"] == n - 1 and out[-1]["ate"] + 1 == a                     and out[-1].get("ate_t") is None:
                 out[-1]["ate"], out[-1]["_n"] = b, n
                 out[-1].pop("ate_t", None)
                 if ate_t is not None:
                     out[-1]["ate_t"] = ate_t
             else:
                 out.append({"de": a, "ate": b, "_n": n} | ({"desde": desde} if desde is not None else {})
-                           | ({"ate_t": ate_t} if ate_t is not None else {}))
+                           | ({"ate_t": ate_t} if ate_t is not None else {})
+                           | ({"retoma": True} if k > 0 else {}))   # retomada no meio da frase (PARTE): emenda colada
     for t in out:
         t.pop("_n")
     return out
