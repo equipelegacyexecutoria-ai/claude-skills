@@ -248,8 +248,12 @@ da copy no documento "2. JÁ GRAVADOS", `1iQPGvM9Ntgwa0Bqws3UyZQPZJi-pzOI5p5WcZ0
   ganho (sem compressor) até o pico real do vídeo chegar a ~-0,1 dBTP (fica -0,1 a -0,4 depois do AAC; dá ~-14,5 LUFS) e a
   música fica **10 dB abaixo da voz** (antes 12). Script: `C:/Render/_trabalho/_trilhas/trilha.py` (chama `mixar_alto.py`;
   a versão antiga é `trilha_antiga_16lufs.py`). NV_CTA: passe o início da animação como 7º argumento do `mixar_alto.py`
-  (os efeitos da animação têm picos maiores e travavam o ganho). Confira no fim: pico real ≤ -0,1. Fade-out de 2 s no fim da fala, a
-  CTA do teclado fica sem música. Se o estilo pede "crescer no final", use um trecho da faixa que cresce.
+  (os efeitos da animação têm picos maiores e travavam o ganho). Confira no fim: pico real ≤ -0,1. Se o estilo pede "crescer no
+  final", use um trecho da faixa que cresce.
+- **A música continua na CTA "ME SIGA PARA MAIS CONTEÚDOS"** (usuário, 06/11/2026): segue no mesmo volume por baixo do
+  teclado até o fim do vídeo e só some num fade-out de 1,5 s no final (antes acabava junto com a fala e a CTA ficava muda).
+  O `mixar_alto.py` já faz sempre (`ate_fim = True`, `FADE_FIM`); a versão anterior ficou em `mixar_alto_antes_cta_com_musica.py`.
+  Confira: nos 2,9 s da CTA a música tem que estar presente (~-23 dB), não silêncio.
 - No comentário de entrega: nome da música e artista.
 
 
