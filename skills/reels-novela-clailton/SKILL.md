@@ -226,6 +226,10 @@ Correções depois de pronto:
   card final parado ~1 s, sem o "Me siga"**. Scripts em `C:\Render\_trabalho\_lote_nov04\`: `motion_cta.py <slug> --render`
   (cenas: pergunta/caixa, link da bio tocado, o caminho + Venda Mais, Lucre Mais; deixas = índices do palavras_corte.json)
   e `compor_cta.py <slug> <musica> <saida>` (sobrepõe, corta o "Me siga", efeitos e música até o fim).
+  **Corte da decupagem pouco antes do flash** (06/11/2026, "Pior do que treinar": "esse frame não era para aparecer"): 3
+  quadros do plano seguinte apareciam antes da animação. O `compor_cta.py` agora congela o último quadro antes do corte até
+  o início da animação (corte até 0,6 s antes). Com `-` no lugar da música ele só monta o composto; mixe depois com
+  `mixar_alto.py <composto> <musica> <saida> <ini> 10 cta <inicio da animação>`.
 - **B-roll em trechos** (usuário, 04/11/2026, "Pare de agir como uma vaca"): vídeo do **YouTube** (nada de Freepik; `yt-dlp`),
   na **mesma faixa 1080x864** do vídeo (não vira tela cheia) e com o **filtro película da tela dividida**. Prepare cada
   cena com `P S\broll_prep.py <saida.mp4> <fonte> <inicio_fonte> <duracao>` (recorte 5:4 +
