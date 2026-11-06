@@ -237,6 +237,64 @@ def main() -> None:
         if antes > 2.0 and depois > 2.0:
             estado[i] = ["DÚVIDA", "frase curta isolada: conversa com a equipe?"]
 
+    # RECOMEÇO (05/11/2026): ele erra, para e fala de novo a mesma sequência. Nas notas da Sala foram ~20 casos
+    # ("a viagem... a viagem com a família", "Mas o que eles não sabem Mas o que eles não sabem é que", "e o mais
+    # cruel é que alguns acabam sendo estrangeiro e o mais cruel é que..."). Sequência de 3+ palavras (com pelo menos
+    # uma de conteúdo) que volta em até 12 palavras, dentro da frase ou do fim de uma frase para o começo da seguinte.
+    recomeco: dict[int, list[tuple[str, str]]] = {}
+
+    def _ws(f):
+        return [(norm(w["texto"]), w) for w in f if norm(w["texto"])]
+
+    def _gram_ok(g: list[str]) -> bool:
+        return any(x not in FUNCAO and x not in MULETAS for x in g)
+
+    for i, f in enumerate(fs):
+        if estado[i][0] == "SAI":
+            continue
+        ws = _ws(f)
+        tt = [t for t, _ in ws]
+        achou = None
+        for L in range(8, 2, -1):
+            for k in range(len(tt) - 2 * L + 1):
+                g = tt[k:k + L]
+                if not _gram_ok(g):
+                    continue
+                for m in range(k + L, min(len(tt) - L, k + L + 12) + 1):
+                    if tt[m:m + L] == g and sum(t == g[0] for t in tt) < 3:   # 3x a mesma palavra = anáfora
+                        achou = (k, m, L)
+                        break
+                if achou:
+                    break
+            if achou:
+                break
+        if achou:
+            k, m, L = achou
+            gtxt = " ".join(tt[k:k + L])
+            # a tentativa refeita costuma começar antes da sequência repetida, pelas mesmas 2 palavras ("E hoje, o
+            # quarto ao lado, e hoje quando você retorna... o quarto ao lado"): recua para o começo da ÚLTIMA tentativa
+            for p in range(max(0, k - 6), k):
+                rs = [r for r in range(p + 1, m + 1) if tt[r:r + 2] == tt[p:p + 2]]
+                if rs:
+                    k, m = p, rs[-1]
+                    break
+            iw_m = ws[m][1]["i"]
+            sug = f"INICIO {i} {iw_m}" if k == 0 else f"PARTE {i} {ws[k][1]['i'] - 1} {iw_m}"
+            recomeco.setdefault(i, []).append((gtxt, sug))
+        # do fim desta frase para o começo da seguinte ("...a viagem com a" | "A viagem com a família")
+        j = i + 1
+        if j < len(fs) and estado[j][0] != "SAI" and fs[j][0]["inicio"] - f[-1]["fim"] < 3.0:
+            wj = _ws(fs[j])
+            tj = [t for t, _ in wj]
+            for L in range(8, 2, -1):
+                cauda = tt[-(L + 9):]
+                pos = next((p for p in range(len(cauda) - L + 1) if cauda[p:p + L] == tj[:L] and _gram_ok(tj[:L])), None)
+                if pos is not None:
+                    q = len(tt) - len(cauda) + pos
+                    if q > 0:
+                        recomeco.setdefault(i, []).append((" ".join(tj[:L]), f"FIM {i} {ws[q][1]['i'] - 1}"))
+                    break
+
     # passada LITERAL no bruto (GPU): o Whisper normal esconde repetição dentro de uma palavra
     # esticada ("dá aquela... dá aquela impressão"); aqui ela aparece e vira aviso
     literal, escondido = {}, {}
@@ -254,7 +312,7 @@ def main() -> None:
             sg, _ = model.transcribe(aud[a_:b_], language="pt", condition_on_previous_text=False,
                                      initial_prompt=PROMPT_LITERAL)
             lt = [norm(x) for s in sg for x in s.text.split() if norm(x)]
-            reps = [" ".join(lt[k:k + n]) for n in (1, 2, 3) for k in range(len(lt) - 2 * n + 1)
+            reps = [" ".join(lt[k:k + n]) for n in range(1, 9) for k in range(len(lt) - 2 * n + 1)
                     if lt[k:k + n] == lt[k + n:k + 2 * n]]
             if reps or len(lt) > len(tk[i]) + 1:
                 literal[i] = (" ".join(lt), sorted(set(reps)))
@@ -339,6 +397,9 @@ def main() -> None:
         if i in literal:
             lt, reps = literal[i]
             linhas.append(f"      ⚠ bruto literal: \"{lt}\"" + (f"  — repetição: {', '.join(reps)}" if reps else ""))
+        for g, sug in recomeco.get(i, []):
+            linhas.append(f"      ⚠ recomeço: \"{g}\" falado 2x (errou e falou de novo) — provável: {sug}"
+                          f" (o montar tira sozinho a sobra do começo errado)")
         for t_s, t_e, antes, depois, sug, palavra, n_rep in escondido.get(i, []):
             if sug is None:
                 linhas.append(f"      ⚠ repetição com pausa: \"...{antes}\" | silêncio {t_s:.2f}-{t_e:.2f}s | "

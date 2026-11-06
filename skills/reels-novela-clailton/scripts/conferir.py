@@ -252,8 +252,10 @@ def main() -> None:
             fim_sg = sg["dst_in"] + sg["frames"] / FPS
             if sg["frames"] / FPS >= 0.2 and not any(sg["dst_in"] - 0.02 <= float(w["inicio"]) < fim_sg - 0.05
                                                      for w in pal_c):
-                problemas.append(f"trecho sem palavra de {sg['dst_in']:.2f}s a {fim_sg:.2f}s (ruído ou começo "
-                                 f"errado?): tire com INICIO/FIM na decupagem")
+                problemas.append(f"trecho sem palavra de {sg['dst_in']:.2f}s a {fim_sg:.2f}s: quase sempre SOBRA DE "
+                                 f"TOMADA ERRADA (começo de frase que ele parou e refez), não pausa natural. Ouça só "
+                                 f"o pedaço; se não for palavra que a legenda perdeu, tire (montar_corte grava "
+                                 f"sobras.json sozinho; ou INICIO/FIM na decupagem)")
 
     # ---- fundo mais claro por baixo da legenda
     fundos = fundo_sob_legenda(trabalho, lay, corte)

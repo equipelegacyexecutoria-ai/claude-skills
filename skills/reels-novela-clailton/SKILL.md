@@ -150,6 +150,9 @@ decupagem (~5 min) e legenda (~5 min). `T = <projeto>\_trabalho\<slug>`.
    - Falso começo escondido → o ajuste `provável` da proposta, se "depois" repete "antes".
    - "Parece anáfora" → não corte.
    - `⚠ repetição` no começo → `INICIO` depois das palavras repetidas.
+   - `⚠ recomeço` (05/11/2026) → aplique o `provável` (fica a ÚLTIMA tentativa). É o erro mais reclamado nas notas da
+     Sala: ele erra, para e repete 3+ palavras ("a viagem... a viagem com a família", "Mas o que eles não sabem Mas o
+     que eles não sabem é que"). Exceção: paralelismo de propósito ("não é sobre a tua pele, é sobre a tua maneira").
    - Com roteiro: aplique as regras da seção "Entrada: bruto + roteiro".
    - Não encurtar a mensagem; nada de pausa dramática.
 
@@ -172,7 +175,8 @@ decupagem (~5 min) e legenda (~5 min). `T = <projeto>\_trabalho\<slug>`.
      e os destaques sugeridos.
 
    Leia `roteiro_corte.txt`: nada de repetição, falso começo ou fala para a equipe. Leia também
-   os avisos.
+   os avisos. "sobra de tomada errada ... sai" = o montar achou e tirou um começo de frase errado (vira
+   `T\sobras.json` e ele monta de novo sozinho; ver "Erro de gravação que fica no vídeo").
 4. **Legenda** — **escreva você mesmo** (o orquestrador), em uma passada, seguindo
    `~/.claude/agents/novela-legendista-rapido.md`. Leia `palavras_legenda.txt` e o tempo alinhado de
    cada palavra (`palavras_corte.json`), para planejar telas de 0,6–3 s. Grave `legenda.txt` no
@@ -415,6 +419,23 @@ se existir, senão `legenda.json`).
 - **Pausa natural de até 0,9 s = "gap estranho"** (11/10/2026): a correção de 09/10 deixou pausas de 0,5–0,75 s e o reel de 1:07 foi para 1:17; o usuário reprovou nos 11 vídeos. Ficou o meio-termo: ritmo justo (até 0,30 s fica, maior vira 0,22 s) + as proteções de borda. Não volte nem ao corte de 28/09 nem ao ritmo natural.
 - **Corte em cima de estalo/respiro soa como palavra cortada** ("feito" do Palhaço, 09/10/2026: a palavra acabava limpa, mas a borda caía no meio de um estalo de boca 150 ms depois). A borda agora vai para o quadro mais silencioso entre o fim da voz e a borda calculada (`borda_voz.nivel/quieto`, em `aparar`).
 - **Trecho sem palavra** (0,5 s de vento antes de "Elas"; "vo-" antes de "Você tenta"): a conferência reprova "trecho sem palavra". Corrija com `INICIO n i@t` (t = começo da palavra certa).
+- **Erro de gravação que fica no vídeo = SOBRA DE TOMADA ERRADA** (05/11/2026; padrão de ~20 notas da Sala: "aqui
+  ficou um erro de gravação", "repetiu duas vezes", "engasgou", "você manteve a versão do erro"). Ele começa a frase,
+  erra, para e fala de novo. Dois jeitos de sobrar:
+  1. **frase inteira dita 2x**: a decupagem agora avisa `⚠ recomeço` (sequência de 3+ palavras que volta em até 12
+     palavras, dentro da frase ou na passagem para a seguinte) com o ajuste provável;
+  2. **pedacinho do começo errado (0,2–0,7 s) colado antes da tomada boa** ("Mas... Mas o que eles não sabem", "pode
+     até. Pode até aumentar", "E... E mesmo assim"): o Whisper estica a 1ª palavra da tomada boa por cima do erro, o
+     `INICIO`/`PARTE` sem `@t` começa no tempo esticado e o corte leva o erro junto. Depois do alinhamento o pedaço
+     fica sem nenhuma palavra. O `montar_corte.py` agora acha esses pedaços (`achar_sobras`), grava `T\sobras.json` e
+     monta de novo sem eles, mantendo as palavras (só com o alinhamento forçado feito). Fica só o pedaço em que o bruto
+     tem uma palavra inteira que não se repete logo depois (palavra que a legenda perdeu: "Assustadora." no Tome
+     Cuidado), com aviso. Calibrado em 21 pedaços de 16 reels: todos os começos errados saem.
+  - **Nunca aceite "trecho sem palavra" como pausa natural.** No lote de 05/11 os 5 avisos que deixei passar eram
+    sobra de tomada (Feijão 2, Jogo da Vida 2, Deu Ruim 1) e o usuário achou o do Feijão. Ouça só o pedaço isolado:
+    som de voz ali = sobra, sai.
+  - Para desfazer uma sobra tirada por engano: apague a linha dela em `sobras.json` e rode `montar` de novo com
+    `--sem-sobras`.
 - **Tirar palavra de apoio no meio da frase quebra a emenda** ("acostumou, [então,] a se abandonar" soou estranho): se a palavra está colada na mesma tomada, deixe no áudio e só tire da legenda.
 - **Palavra "cortada" antes da emenda** (09/10/2026: "circo", "manda", "escuta", "grupo"): o corte parava ~37 dB
   abaixo do pico, no meio da soltura da vogal, com saída de 8 ms. Agora `borda_voz.cauda` segue a vogal até o

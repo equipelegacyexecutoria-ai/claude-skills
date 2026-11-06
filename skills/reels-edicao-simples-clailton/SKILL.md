@@ -92,6 +92,9 @@ As mesmas venvs da novela/tela dividida: `P = %LOCALAPPDATA%\corte-viral\venv\Sc
    - "⚠ falso começo escondido" nem sempre é tropeço: "Não crescer, não faturar mais" e "O estado
      atual, o estado desejado" são enumerações — não corte;
    - na dúvida, escute o trecho com Whisper literal (janela curta) e olhe a energia antes de decidir.
+   **Erro de gravação (05/11/2026):** `⚠ recomeço` na proposta = frase dita 2x, aplique o provável; o pedacinho do
+   começo errado colado antes da tomada boa o `montar_corte.py` tira sozinho (`sobras.json`). Nunca aceite "trecho
+   sem palavra" como pausa natural. Detalhes: SKILL da novela, "Erro de gravação que fica no vídeo".
 3. **Montar** — `P S\es.py montar T` (corte na voz + alinhamento + rotação + aberto/fechado +
    **checagem literal das emendas**). "REPETIÇÃO NA EMENDA" = gaguejo colado no corte ("E... e você
    sabe"): junte o ajuste sugerido de `T\emendas_literal.txt` ao `decupagem_ajustes.txt`, `--aplicar`

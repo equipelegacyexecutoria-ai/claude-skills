@@ -242,6 +242,10 @@ Correções que já têm caminho pronto (lote de 08/10/2026):
   a regra vale para ele também (09/10/2026: pausas naturais em todos os 11; 11/10/2026: revertido para o corte justo
   em todas as novelas, pedido numa nota da Sala de Revisão).
 - Erro de fala que ficou ("populi... popularidade"): `INICIO n i@t` na decupagem + `--manter-palavras`.
+- "Erro de gravação", "repetiu duas vezes", "engasgou", "manteve a versão do erro" (o erro mais comum nas notas,
+  05/11/2026): é sobra de tomada errada. Frase dita 2x: `⚠ recomeço` da decupagem. Pedacinho do começo errado colado
+  antes da tomada boa: o `montar_corte.py` tira sozinho (`sobras.json`). Skill da novela, "Erro de gravação que fica
+  no vídeo". Nunca entregue com "trecho sem palavra" na conferência.
 - "Diagramação quebrada": rode a legenda de novo (escada com linha curta vira esquerda sozinha) e confira o quadro.
 
 ## Relatório final (para o usuário)

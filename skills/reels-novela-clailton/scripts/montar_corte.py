@@ -353,6 +353,37 @@ def aparar(segs: list[dict], trabalho: Path, fonte: str, avisos: list[str], pal:
     return novos
 
 
+def _norm(t: str) -> str:
+    import re
+    import unicodedata
+    t = "".join(c for c in unicodedata.normalize("NFD", t.lower()) if unicodedata.category(c) != "Mn")
+    return re.sub(r"[^a-z0-9%]", "", t)
+
+
+def achar_sobras(corte: dict, pal_c, pal: list[dict]) -> list[dict]:
+    """Pedaços do corte (>= 0,12 s, menos o último) sem nenhuma palavra alinhada começando dentro deles.
+    tirar=False só quando o bruto tem ali uma palavra quase inteira (>= 60 %) que não se repete nas 4 palavras
+    seguintes do corte e que não se estica para o pedaço seguinte (palavra que a legenda perdeu).
+    Calibrado em 21 pedaços de 16 reels (05/11/2026): todos os começos errados saem, "Assustadora." fica."""
+    pal_c = pal_c["palavras"] if isinstance(pal_c, dict) else pal_c
+    segs = corte["segmentos"]
+    out = []
+    for k, sg in enumerate(segs[:-1]):
+        d = sg["frames"] / FPS
+        t0 = sg["dst_in"]
+        t1 = t0 + d
+        if d < 0.12 or any(t0 - 0.02 <= float(w["inicio"]) < t1 - 0.05 for w in pal_c):
+            continue
+        a, b, prox = sg["src_in"], sg["src_out"], segs[k + 1]["src_in"]
+        depois = [_norm(w["texto"]) for w in pal_c if float(w["inicio"]) >= t1 - 0.05][:4]
+        no_bruto = [w for w in pal if w["fim"] > a and w["inicio"] < b]
+        reais = [w for w in no_bruto if min(b, w["fim"]) - max(a, w["inicio"]) >= 0.6 * (w["fim"] - w["inicio"])
+                 and w["fim"] <= prox + 0.05 and _norm(w["texto"]) not in depois]
+        out.append({"k": k, "t": t0, "a": a, "b": b, "tirar": not reais,
+                    "bruto": " ".join(w["texto"] for w in (reais or no_bruto))})
+    return out
+
+
 # ---------------------------------------------------------------- principal
 def main() -> None:
     trabalho = Path(sys.argv[1])
@@ -475,6 +506,16 @@ def main() -> None:
     if "--sem-aparar" not in sys.argv:
         segs = aparar(segs, trabalho, tr["arquivo"], avisos, pal)
 
+    # 2d) SOBRAS de tomada errada achadas numa montagem anterior (sobras.json, tempos do bruto): o pedaço sai
+    sobras = ler_json(trabalho / "sobras.json") if (trabalho / "sobras.json").exists() else []
+    if sobras:
+        antes_n = len(segs)
+        segs = [s for k, s in enumerate(segs) if k == len(segs) - 1 or not any(
+            min(s["src_out"], b) - max(s["src_in"], a) >= 0.5 * (s["src_out"] - s["src_in"]) for a, b, *_ in sobras)]
+        if len(segs) < antes_n:
+            avisos.append(f"sobras de tomada errada tiradas: {antes_n - len(segs)} (sobras.json)")
+            print(f"  sobras de tomada errada tiradas: {antes_n - len(segs)}", flush=True)
+
     for k, s in enumerate(segs):
         n_in, n_out = s["frame_in"], s["frame_in"] + s["frames"]
         for nome, t in (("entrada", n_in / FPS), ("saída", n_out / FPS)):
@@ -572,6 +613,34 @@ def main() -> None:
                            capture_output=True, text=True, env={**os.environ, "PYTHONUTF8": "1"})
         ult = (r.stdout.strip().splitlines() or [""])[-1]
         print("  alinhamento:", ult if r.returncode == 0 else f"falhou: {r.stderr.strip()[-400:]}")
+
+    # 8) SOBRA DE TOMADA ERRADA (05/11/2026). Ele começa a frase, erra, para e fala de novo; o Whisper "estica" a 1ª
+    #    palavra da tomada boa por cima do começo errado e o corte levava junto um pedaço de 0,2-0,7 s ("Mas... Mas o
+    #    que eles não sabem", "pode até. Pode até aumentar", "E... E mesmo assim"). Depois do alinhamento esse pedaço
+    #    fica sem nenhuma palavra: sai sozinho (grava sobras.json e monta de novo mantendo as palavras).
+    #    Exceção: o bruto tem ali uma palavra inteira que NÃO se repete logo depois = palavra que a legenda perdeu
+    #    ("Assustadora." no Tome Cuidado): fica e vira aviso.
+    #    Só com o alinhamento forçado feito: no tempo do Whisper a palavra fica até 0,3 s fora do lugar e um "mas" de
+    #    verdade parecia sobra (Falhar é risco, 29/09).
+    pc_al = ler_json(trabalho / "palavras_corte.json") if (trabalho / "palavras_corte.json").exists() else {}
+    if "--sem-sobras" not in sys.argv and isinstance(pc_al, dict) and pc_al.get("alinhado"):
+        achadas = achar_sobras(ler_json(trabalho / "corte.json"), pc_al, pal)
+        novas_sobras = [s for s in achadas if s["tirar"]]
+        for s in achadas:
+            if not s["tirar"]:
+                print(f"  aviso: pedaço sem legenda em {s['t']:.2f}s do corte tem a palavra '{s['bruto']}' no bruto:"
+                      f" a legenda perdeu a palavra? (confira)", flush=True)
+        if novas_sobras and not os.environ.get("MONTAR_SOBRAS_FEITO"):
+            for s in novas_sobras:
+                print(f"  sobra de tomada errada em {s['t']:.2f}s do corte (bruto {s['a']:.2f}-{s['b']:.2f}s, "
+                      f"{s['b'] - s['a']:.2f}s, '{s['bruto'] or 'sem texto'}'): sai", flush=True)
+            gravar_json(trabalho / "sobras.json", sobras + [[s["a"], s["b"], s["bruto"]] for s in novas_sobras])
+            args = [a for a in sys.argv[2:] if a != "--manter-palavras"] + ["--manter-palavras"]
+            r = subprocess.run([sys.executable, str(Path(__file__).resolve()), str(trabalho), *args],
+                               env={**os.environ, "MONTAR_SOBRAS_FEITO": "1"})
+            if r.returncode:
+                raise SystemExit(r.returncode)
+            return
     # lista compacta para o legendista (formato plano_texto)
     from plano_texto import palavras_legenda
     palavras_legenda(trabalho)

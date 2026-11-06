@@ -59,6 +59,9 @@ palavra faltando no áudio — confira isso a olho na revisão.
 1. **Preparar** — `P S\td.py preparar "<bruto>" T` (~15 s–1 min). Igual à novela.
 2. **Revisar a decupagem** — como na novela (`decupagem_proposta.txt` → `decupagem_ajustes.txt` →
    `P <novela>\scripts\decupar_auto.py T --aplicar T\decupagem_ajustes.txt`). Regras: SKILL da novela.
+   **Erro de gravação (05/11/2026):** `⚠ recomeço` na proposta = frase dita 2x, aplique o provável; o pedacinho do
+   começo errado colado antes da tomada boa o `montar_corte.py` tira sozinho (`sobras.json`). Nunca aceite "trecho
+   sem palavra" como pausa natural. Detalhes: SKILL da novela, "Erro de gravação que fica no vídeo".
 3. **Montar** — `P S\td.py montar T` (~20 s–1 min): corte colado na voz + alinhamento e, junto,
    **rotação automática** (câmera deitada) + recortes aberto/fechado/dividida por tomada.
    Aviso "bruto fechado" = rosto já grande no quadro: o aberto fica o mais aberto possível.

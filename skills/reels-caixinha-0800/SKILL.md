@@ -56,6 +56,9 @@ Referências (2 vídeos, Drive): `G:\Meu Drive\EXECUTORIA 0800\Modelo prontos (r
    (sem isso o enquadramento não acha o rosto) + transcrição + decupagem automática.
 2. Revisar `T\decupagem_proposta.txt` (regras da novela) → `T\decupagem_ajustes.txt` (`SAI 0` etc.) →
    `P <novela>\scripts\decupar_auto.py T --aplicar T\decupagem_ajustes.txt`.
+   **Erro de gravação (05/11/2026):** `⚠ recomeço` na proposta = frase dita 2x, aplique o provável; o pedacinho do
+   começo errado colado antes da tomada boa o `montar_corte.py` tira sozinho (`sobras.json`). Nunca aceite "trecho
+   sem palavra" como pausa natural. Detalhes: SKILL da novela, "Erro de gravação que fica no vídeo".
 3. `P S\cx.py montar T`.
 4. Escrever, a partir de `T\palavras_legenda.txt`:
    - `T\legenda.txt` (formato compacto da novela; `**0800` no "Executoria 0800" da abertura);
