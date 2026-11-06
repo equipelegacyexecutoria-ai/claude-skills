@@ -88,7 +88,7 @@ def palavra_tempo(v: str) -> tuple[int, float | None]:
 
 def aplicar(trabalho: Path, ajustes: Path) -> None:
     """Aplica a revisão (curta) sobre a proposta ORIGINAL (reaplicar não acumula). Linhas:
-         SAI 2      FICA 7      FIM 29 320
+         SAI 2      FICA 7      FIM 29 320[@181.40]  (a fala da frase não passa de 181,40 s)
          INICIO 25 290[@156.30]      frase começa na palavra 290 (e a fala não antes de 156,30 s)
          PARTE 12 140 144[@80.12]    falso começo no meio: fica 140 e antes, retoma na 144 (@t)
          PARTE 12 140@79.40 144@80.12  idem, e a fala do 1º pedaço não passa de 79,40 s (tropeço colado na palavra,
@@ -101,6 +101,7 @@ def aplicar(trabalho: Path, ajustes: Path) -> None:
         f.pop("desde", None)
         f.pop("parte", None)
         f.pop("partes", None)
+        f.pop("ate_t", None)
     for ln in ajustes.read_text(encoding="utf-8").splitlines():
         p = ln.split("#")[0].split()
         if not p:
@@ -112,8 +113,10 @@ def aplicar(trabalho: Path, ajustes: Path) -> None:
             fr[n]["i0"], t = palavra_tempo(p[2])
             if t is not None:
                 fr[n]["desde"] = t
-        elif cmd == "FIM":
-            fr[n]["i1"] = int(p[2])
+        elif cmd == "FIM":          # FIM n i[@t]: termina na palavra i e a fala não passa de t s do bruto
+            fr[n]["i1"], t = palavra_tempo(p[2])   # (05/11/2026: "dólares... mas" — começo errado colado no fim)
+            if t is not None:
+                fr[n]["ate_t"] = t
         elif cmd == "PARTE":
             j, t = palavra_tempo(p[3])
             k, t_ate = palavra_tempo(p[2])
@@ -137,9 +140,9 @@ def trechos_de(fr: list[dict]) -> list[dict]:
             for pt in partes:
                 pedacos.append((ini, pt["ate"], desde0, pt.get("ate_t")))
                 ini, desde0 = pt["retoma"], pt["desde"]
-            pedacos.append((ini, f["i1"], desde0, None))
+            pedacos.append((ini, f["i1"], desde0, f.get("ate_t")))
         else:
-            pedacos = [p + (None,) for p in pedacos]
+            pedacos = [p + (f.get("ate_t"),) for p in pedacos]
         for k, (a, b, desde, ate_t) in enumerate(pedacos):
             if k == 0 and desde is None and out and out[-1]["_n"] == n - 1 and out[-1]["ate"] + 1 == a:
                 out[-1]["ate"], out[-1]["_n"] = b, n

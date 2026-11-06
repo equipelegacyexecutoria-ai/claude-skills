@@ -256,6 +256,16 @@ def main() -> None:
                                  f"TOMADA ERRADA (começo de frase que ele parou e refez), não pausa natural. Ouça só "
                                  f"o pedaço; se não for palavra que a legenda perdeu, tire (montar_corte grava "
                                  f"sobras.json sozinho; ou INICIO/FIM na decupagem)")
+        # TENTATIVA ESCONDIDA dentro do pedaço (06/11/2026, Saudades: "Hoje você... Hoje você pode até voltar" saiu
+        # como uma tentativa só na transcrição; o alinhador pôs o 1º "Hoje você" na tentativa errada e deixou 1,1 s
+        # entre "você" e "pode"). Duas palavras seguidas no MESMO pedaço com mais de 0,7 s entre elas = fala sem legenda
+        # (0,85 s: em 102 reels aprovados só 1 passa disso fora números; a v4 do Saudades tinha 0,93 s)
+        for a_, b_ in zip(pal_c, pal_c[1:]):
+            vao = float(b_["inicio"]) - float(a_["fim"])
+            if vao > 0.85 and not any(ch.isdigit() for ch in a_["texto"] + b_["texto"]) and not any(float(a_["fim"]) - 0.05 <= e <= float(b_["inicio"]) + 0.05 for e in t_em) \
+                    and float(b_["inicio"]) < fim_imagem - 0.1:
+                problemas.append(f"{vao:.2f}s entre '{a_['texto']}' e '{b_['texto']}' em {float(a_['fim']):.2f}s sem "
+                                 f"corte no meio: tentativa repetida escondida? ouça e corte com INICIO/PARTE @t")
 
     # ---- fundo mais claro por baixo da legenda
     fundos = fundo_sob_legenda(trabalho, lay, corte)

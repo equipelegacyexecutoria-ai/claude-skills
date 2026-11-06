@@ -137,7 +137,7 @@ decupagem (~5 min) e legenda (~5 min). `T = <projeto>\_trabalho\<slug>`.
    `P S\decupar_auto.py T --aplicar T\decupagem_ajustes.txt`. Reaplicar sempre parte da
    proposta original. Ajustes possíveis:
    - `SAI n` / `FICA n`;
-   - `FIM n i`;
+   - `FIM n i[@t]`: a frase termina na palavra i (e a fala não passa de t s do bruto);
    - `INICIO n i[@t]`: a frase começa na palavra i e a fala não antes de t s;
    - `PARTE n k j[@t]`: falso começo no meio da frase; fica até k e retoma em j. Pode repetir `PARTE` na mesma frase
      (vários falsos começos; desde 05/11/2026).
@@ -254,6 +254,19 @@ da copy no documento "2. JÁ GRAVADOS", `1iQPGvM9Ntgwa0Bqws3UyZQPZJi-pzOI5p5WcZ0
   teclado até o fim do vídeo e só some num fade-out de 1,5 s no final (antes acabava junto com a fala e a CTA ficava muda).
   O `mixar_alto.py` já faz sempre (`ate_fim = True`, `FADE_FIM`); a versão anterior ficou em `mixar_alto_antes_cta_com_musica.py`.
   Confira: nos 2,9 s da CTA a música tem que estar presente (~-23 dB), não silêncio.
+- **Onde a música entra** (notas de 06/11/2026 em 5 reels: "música com mais energia", "começo muito parado", "aqui tem
+  que vir a virada", "não quero essa parte da música"). Antes de mixar, meça a faixa (energia a cada 0,25–4 s,
+  `librosa` para batidas e viradas) e decida o `inicio_musica` de propósito, nunca 0 por padrão:
+  - **comece na parte que já tem corpo** (ou logo antes dela), não na introdução parada. Ex.: Una Mattina em 82 s
+    (parte forte) no "A Vida Não É um Livro"; em 53 s (frase de piano) no "Avós";
+  - **virada (drop) no ponto de virada da fala**: a 1ª pergunta, revelação ou "mas" forte do roteiro. Calcule
+    `inicio = t_virada_na_faixa - t_fim_da_frase_no_vídeo` (Urso: virada da faixa 24,85 s logo depois de "mesma
+    coisa?" em 16,7 s → início 8,15; ONG: 16,70 s logo depois de "ainda nem percebeu" em 3,3 s → 13,35);
+  - **trecho que não pode entrar** (quebra, parte calma depois do drop): faça a parte boa repetir em loop, emendando
+    numa batida onde o que vem DEPOIS dos dois pontos é igual (semelhança de acordes ≥ 0,99, ajuste fino por
+    correlação, cruzamento de 40 ms). Script de exemplo: ONG, 06/11/2026 (`_lote_nov05/ong_trilha_loop.wav`,
+    loop 20,90 → 41,61 s da Blade Runner 2049);
+  - card que pede "mais energia" e a faixa é calma: troque a faixa (Feijão: The Night We Met → ICARUS, Tony Ann).
 - No comentário de entrega: nome da música e artista.
 
 
@@ -438,6 +451,11 @@ se existir, senão `legenda.json`).
   - **Nunca aceite "trecho sem palavra" como pausa natural.** No lote de 05/11 os 5 avisos que deixei passar eram
     sobra de tomada (Feijão 2, Jogo da Vida 2, Deu Ruim 1) e o usuário achou o do Feijão. Ouça só o pedaço isolado:
     som de voz ali = sobra, sai.
+  3. **tentativa escondida dentro do pedaço** (06/11/2026, Saudades voltou 3 vezes): "Hoje você... Hoje você pode até
+     voltar" saiu na transcrição como uma tentativa só, sem palavra repetida e sem pedaço órfão. Sinal: depois do
+     alinhamento, duas palavras seguidas no mesmo pedaço com mais de 0,85 s entre elas; a conferência agora reprova.
+     Corrija com `INICIO`/`PARTE` com `@t` no silêncio entre as tentativas (meça a energia em passos de 0,1 s).
+  - Fim de frase com começo errado colado ("dólares... mas | Mas não existe"): `FIM n i@t` (novo, 06/11/2026).
   - Para desfazer uma sobra tirada por engano: apague a linha dela em `sobras.json` e rode `montar` de novo com
     `--sem-sobras`.
 - **Tirar palavra de apoio no meio da frase quebra a emenda** ("acostumou, [então,] a se abandonar" soou estranho): se a palavra está colada na mesma tomada, deixe no áudio e só tire da legenda.
