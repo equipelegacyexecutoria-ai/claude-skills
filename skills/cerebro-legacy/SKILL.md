@@ -54,6 +54,10 @@ escrever o relatório sobre o assunto:
 - `conhecimento/seo-site.md` — **SEO do site** (Google e ChatGPT, 30/10/2026): situação do legacyexecutoria.com.br (sem blog,
   sitemap/robots apontando para endereço de modelo), quem aparece nas buscas do cliente e o plano de 24 artigos em 6 grupos.
   Leia antes de falar de site, blog, Google, SEO ou de aparecer no ChatGPT.
+- `conhecimento/marca-legacy.md` — **marca da Legacy** (levantado em 10/11/2026): onde estão o Manual de Marca (fev/2026),
+  o Brand Discovery do Allan, o ICP de 10/11, a Narrativa (arquétipos), o manual do Legado e as pastas de logo; o que cada
+  um diz; o que não bate entre eles (nome, cores, fontes, valores, inimigo, faixa do ICP) e o que ainda não existe
+  (governança, métricas de marca). Leia antes de falar de posicionamento, público, tom de voz, identidade visual ou valores.
 - `conhecimento/referencia-alfredo-soares.md` — **referência de mercado**: o que o Alfredo Soares (G4) ensina em 17
   vídeos (20/10/2026) sobre conteúdo que vende e **posicionamento**: seguidor é a última métrica, hierarquia de métricas
   (venda, MQL, lead, encaminhamento, alcance, engajamento, seguidores), identidade x posicionamento, grade de posts,
