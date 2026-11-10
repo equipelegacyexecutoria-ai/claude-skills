@@ -4,6 +4,14 @@ Levantado em 10/11/2026 (Notion + Google Drive da conta equipelegacyexecutoria),
 Renaissance (Vinci Society; notas no Google Docs "Branding Renaissance - notas das aulas").
 Leia antes de falar de posicionamento, público, tom de voz, identidade visual, valores ou manual da marca.
 
+## Definições do Igor (10/11/2026, valem acima dos documentos)
+- **Grande visão:** o empresário viver sem medo (meta de 1 milhão de empresários até 2030 continua como número).
+- **Governo como obstáculo:** a Legacy vê o governo e o cenário como obstáculo; para sobreviver e prosperar nele, a
+  empresa precisa sair do amadorismo, e é por isso que precisa da Legacy. (Regra do V4 continua: vilão externo, nunca partidário.)
+- **Personalidade:** porto seguro para o empresário e, ao mesmo tempo, ousada, criativa e inovadora, com espírito
+  empreendedor; cuida muito do produto e da entrega e quer de verdade ajudar o empresário.
+- Resumo da marca em uma página: rascunho em revisão com o Igor (10/11/2026), seguindo os 6 eixos do curso.
+
 ## Documentos que existem
 | Documento | Data | O que tem | Link |
 |---|---|---|---|
