@@ -51,6 +51,8 @@ Para testar sem sujar painel e Pixel: `?interno` (ou `?debug`) no fim do endere�
 | **Produto** (vai para a Nina) | até R$ 25 mil · R$ 26 a 50 mil · R$ 51 a 70 mil |
 | **MQL** (vai para o SDR) | R$ 71 a 100 mil · R$ 101 a 400 mil · R$ 401 mil a 1 milhão · R$ 1 a 4 milhões · acima de R$ 4 milhões |
 
+- **ATUALIZADO pelo Igor em 10/11/2026: MQL do quiz e da Black = faturamento a partir de R$ 51 mil por mês.**
+  O que vem abaixo (R$ 71 mil) é o histórico até então.
 - **MQL = faturamento a partir de R$ 71 mil por mês.** O corte é fixo, **inclusive durante a Black**
   (confirmado pelo Igor em 13/10: o corte de R$ 50 mil vale **só nas campanhas da Black** e não afeta o quiz
   nem o orgânico). A campanha da Black é separada do quiz (documento v5 e card

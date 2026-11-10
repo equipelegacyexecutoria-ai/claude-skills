@@ -143,6 +143,7 @@ o leilão encarece (Brainstorm); migração gradual de 15% → 25% → ~50% da v
 
 ## Regra de contato, pré-vendas e closer
 
+- **ATUALIZADO pelo Igor em 10/11/2026: MQL da Black e do quiz = a partir de R$ 51 mil por mês** (vale para os dois).
 - **MQL na Black:** roteamento de MQL para os SDRs **funcionando** (13/10). **Corte de MQL da Black: R$ 50 mil
   ou mais** (reunião 13/10, confirmado pelo Igor em 13/10: vale **só nas campanhas da Black**; o quiz e o
   orgânico seguem em R$ 71 mil ou mais). MQL recebe aviso de contato da equipe e acesso ao Academy; não MQL vai só
