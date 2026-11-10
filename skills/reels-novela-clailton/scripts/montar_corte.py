@@ -234,8 +234,8 @@ def acha_fala(en: Energia, pal, i0, i1, dur, desde: float | None = None):
     hi_lim = dur                    # limite duro: a próxima palavra do bruto (descartada ou não)
     if i0 > 0:                      # não invadir a palavra anterior (descartada)
         lo = max(lo, min(pal[i0 - 1]["fim"], w0) + 0.02)
-    if desde is not None:
-        lo, w0 = max(lo, desde), max(w0, desde)
+    if desde is not None:   # INICIO n i@t manda: t abaixo da busca automática puxa o começo para trás (10/11/2026,
+        lo, w0 = desde, max(w0, desde)   # "Você sonhava": o "Você" começava 0,4 s antes do Whisper e ficava de fora)
     if i1 + 1 < len(pal):
         hi_lim = min(hi_lim, max(pal[i1 + 1]["inicio"], w1) - 0.02)
     hi = min(hi_lim, w1 + 0.45)
