@@ -1,6 +1,6 @@
 ---
 name: reels-case-legacy
-description: Escreve roteiros de REELS DE CASE para o perfil da Legacy (@legacyexecutoria), no molde do caso do pastelão (anúncio 037, o seguidor mais barato da campanha 121 - Legacy). Recebe o nome da empresa (e às vezes um direcionamento), lê as reuniões do executor com o cliente no Legacy Meet pelo Chrome e transforma o caso em fala de ~80 s com gancho de contraste, o erro escondido explicado com um exemplo do ramo, a virada com a executoria só depois dos 35 s, resultado com números por mês, lição para quem assiste e CTA da Sessão Estratégica; entrega no formato do card do Notion (fala + texto na tela + imagens + capa + legenda). Use quando o usuário pedir "reels case legacy", "case da Legacy", "faz um case igual ao do pastelão", "copy de case de cliente", "roteiro de caso de sucesso", "transforma esse case em reels", ou mandar dados de um cliente da executoria para virar vídeo ou anúncio. Não serve para reels do Clailton (roteirista-reels-clailton), depoimento gravado de aluno nem caixinha 0800.
+description: Escreve roteiros de REELS DE CASE para o perfil da Legacy (@legacyexecutoria), no molde do caso do pastelão (anúncio 037, o seguidor mais barato da campanha 121 - Legacy). Recebe o nome da empresa (e às vezes um direcionamento), lê as reuniões do executor com o cliente no Legacy Meet pelo Chrome e transforma o caso em fala de ~80 s com gancho de contraste, o erro escondido explicado com um exemplo do ramo, a virada com a executoria só depois dos 35 s, resultado com números por mês, lição para quem assiste e CTA da Sessão Estratégica; entrega no formato do card do Notion (fala por bloco + capa + legenda + ganchos alternativos), sem camada visual para o editor. Use quando o usuário pedir "reels case legacy", "case da Legacy", "faz um case igual ao do pastelão", "copy de case de cliente", "roteiro de caso de sucesso", "transforma esse case em reels", ou mandar dados de um cliente da executoria para virar vídeo ou anúncio. Não serve para reels do Clailton (roteirista-reels-clailton), depoimento gravado de aluno nem caixinha 0800.
 ---
 
 # Reels Case Legacy (molde do pastelão)
@@ -19,7 +19,8 @@ O segredo: até os 35 segundos é só a história de uma dona de negócio com um
 ensina uma coisa útil (a perda da carne moída). A Legacy entra depois disso.
 
 Histórico completo dos ads, se o projeto estiver aberto: `cerebro-legacy/historico-ads/` (padroes.md e os CSVs).
-Roteiro de referência na íntegra: [references/exemplo-pastelao.md](references/exemplo-pastelao.md).
+Roteiro de referência na íntegra: [references/exemplo-pastelao.md](references/exemplo-pastelao.md)
+(serve só pela fala; as linhas "Texto na tela" e "Imagem" dele não entram mais na entrega).
 
 ## Passo 1: juntar o caso no Legacy Meet
 
@@ -65,7 +66,7 @@ O caso precisa ter (pergunte só o que faltar e mudar o roteiro):
 5. O que a executoria fez: 2 ou 3 ações concretas.
 6. Um medo ou objeção do dono que a conta desfez (no pastelão: entrar no delivery por causa da taxa).
 7. Números de antes e depois **com o mês** de cada um, e o ganho que importa mais que vender (margem, reserva, tempo).
-8. Fotos reais do negócio (dono, fachada, produto, operação) e autorização para usar.
+8. Autorização do cliente para usar o caso (nome e números).
 
 **Nunca inventar número, mês, ramo ou detalhe.** Faltou dado: marcar `[CONFIRMAR: ...]` no roteiro e avisar.
 Caso sem número de antes e depois não serve para este molde; dizer isso ao usuário.
@@ -98,26 +99,17 @@ fica melhor sem data.
 
 Entregar também **3 ganchos alternativos** no mesmo padrão (contraste número x dor), para teste.
 
-## Passo 3: camada visual (para o editor)
+## Passo 3: entregar
 
-Formato do pastelão (o editor monta em tela dividida, skill `reels-tela-dividida-clailton` serve de base de edição):
-- Gancho em tela dividida: foto real do dono no negócio em cima, apresentador embaixo.
-- Cada coisa concreta da fala entra com foto real do negócio na palavra (fachada, salão, produto, ingrediente, operação).
-- Números escritos sobre fotos do negócio, um por vez (R$ 231.000 / EM JULHO, R$ 278.000 / R$ 47.000 / EM TRÊS MESES).
-- Legenda palavra a palavra com a palavra-chave maior; corte para um executor trabalhando em "executa junto"; fecha com "link na bio".
+Regra do Igor (10/11/2026): **não entregar camada visual para o editor** (nada de tela dividida, imagem por trecho,
+texto na tela ou indicação de foto entre colchetes). O editor decide a parte visual. A entrega é só a fala.
 
-Indicar no roteiro, entre colchetes, a imagem de cada trecho.
-
-## Passo 4: entregar
-
-No formato do card do Notion (igual ao card do pastelão):
+No formato do card do Notion:
 
 ```
-🎥 ROTEIRO (fala + indicação de tela)
+🎥 ROTEIRO (fala)
 [0:00 a 0:07] GANCHO
 Fala: "..."
-Texto na tela: ...
-Imagem: ...
 (um bloco por parte, até o CTA)
 
 🖼 CAPA DO REEL: fundo, quem aparece, texto curto com a palavra da dor em destaque.
