@@ -239,6 +239,10 @@ Correções depois de pronto:
 - **Áudio estourado / com ruído**: seção "Tratar o áudio no Adobe Podcast".
 - **Cor puxada (verde, amarela...)**: `P S\balanco_branco.py T "<vídeo editado>"` mede a parede branca e grava `T\cor.txt` (ganhos R/G/B até o branco quente dos aprovados); o render aplica sozinho. Apague `cor.txt` para voltar.
 - **CTA diferente num vídeo** (ex.: "ENVIE PARA QUEM TEM / ESSE TIPO DE BELEZA"): `T\cta.txt` com 1–2 linhas em caixa-alta; o `legenda_novela.py` usa no lugar de "ME SIGA PARA MAIS / CONTEÚDOS COMO ESTE".
+- **Legendas separadas em fundo verde** (pedido do usuário para o editor montar por cima, 06/11 e 11/11/2026): depois do
+  `finalizar`, `P S\legenda_verde.py T "<Reels Editados>\<PAUTA> - LEGENDAS FUNDO VERDE.mov"` (mesmo legenda.ass do vídeo,
+  verde #00FF00, codec Animation, .mov). NV_CTA: `--ate <início da animação> --sem-cta`. Vai para o Drive ao lado do EDITADO
+  e o link entra em MATERIAL FINALIZADO.
 - **Ver um quadro sem renderizar**: `P S\previa_quadro.py T 12.5,40.2 T\qa\previa.png [--faixa]`.
 
 ## Trilha na primeira versão (regra do usuário, 04/11/2026)
