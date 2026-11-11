@@ -39,6 +39,7 @@ FOLGA_TOPO = 0.03
 FOLGA_LADO = 0.05
 ZOOM_MIN = 1.12
 OLHO_DESCE = 0.06    # quanto os olhos podem descer no fechado (fração da faixa) para caber o topo da cabeça
+OLHO_DESCE_ENCOSTA = 0.08   # idem quando a cabeça já encosta no topo do bruto (o fechado mantém a borda de cima)
 
 
 def par(v):
@@ -117,6 +118,7 @@ def main():
         fx, fy, fw, fh = np.median(fs, axis=0)
         topo = float(np.min(fs[:, 1] - TOPO * fs[:, 3]))        # cabeça mais alta do plano
         esq, dir_ = float(np.min(fs[:, 0])), float(np.max(fs[:, 0] + fs[:, 2]))
+        encosta = (topo - y0) / ch < FOLGA_TOPO
         escolhido = None
         z = a.zoom
         while z >= ZOOM_MIN - 1e-9:
@@ -125,12 +127,19 @@ def main():
             # olhos na linha do aberto; se a cabeça não couber, sobe o recorte até o topo ter a folga e os olhos
             # descem um pouco (até OLHO_DESCE da faixa: imperceptível no corte, a cabeça nunca é cortada)
             y_olho = (fy + OLHO * fh) - olho_frac * chz
-            yz = min(y_olho, topo - FOLGA_TOPO * chz)
-            yz = min(max(yz, 0), SH - chz)
-            desce = ((fy + OLHO * fh) - yz) / chz - olho_frac
+            if encosta:
+                # no aberto a cabeça já encosta/passa do topo do bruto (Cliente e Pior, 11/11/2026): o fechado
+                # mantém a MESMA borda de cima do aberto (não corta nada a mais) e os olhos descem um pouco mais
+                yz = min(max(min(y_olho, y0), 0), SH - chz)
+                desce = ((fy + OLHO * fh) - yz) / chz - olho_frac
+                ok_topo = desce <= OLHO_DESCE_ENCOSTA
+            else:
+                yz = min(y_olho, topo - FOLGA_TOPO * chz)
+                yz = min(max(yz, 0), SH - chz)
+                desce = ((fy + OLHO * fh) - yz) / chz - olho_frac
+                ok_topo = (topo - yz) / chz >= FOLGA_TOPO - 1e-6 and desce <= OLHO_DESCE
             xz = (fx + fw / 2) - cx_frac * cwz
             xz = min(max(xz, 0), SW - cwz)
-            ok_topo = (topo - yz) / chz >= FOLGA_TOPO - 1e-6 and desce <= OLHO_DESCE
             ok_lado = (esq - xz) / cwz >= FOLGA_LADO and (xz + cwz - dir_) / cwz >= FOLGA_LADO
             if ok_topo and ok_lado:
                 escolhido = (cwz, chz, int(round(xz)), int(round(yz)), z, desce)
