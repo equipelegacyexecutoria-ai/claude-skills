@@ -71,6 +71,7 @@ PASSO_ESCADA = 100.0
 ESCADA_LINHA_MIN = 200.0               # px: linha mais estreita que isso na escada fica solta -> vira esquerda
 X_ANCORA, Y_ANCORA = 97.0, 852.0       # tinta esquerda e topo da maiúscula da âncora
 RECUO_SOB_ANCORA = 20.0
+X_DESLOC = 0.0                         # px para a direita em todos os blocos (legenda_desloc_x.txt no trabalho)
 
 # ---------------- sombra v3 (aprovada) ----------------
 # Camadas (medido na referência): linha de cima é branco chapado; a de baixo escurece ~25% no
@@ -374,6 +375,13 @@ def layout_bloco(b: Bloco, queixo: float | None) -> list[str]:
                 ln.x = (W - w) / 2
     else:
         raise ValueError(f"bloco {b.idx+1}: layout desconhecido {modo!r}")
+    if X_DESLOC and not b.sob_ancora:
+        # vídeo com o Clailton deslocado no quadro (Te Amou, 11/11/2026: recorte para a direita escondeu a lixeira;
+        # "ajuste as legendas para ficarem mais à direita do Clailton"): o bloco inteiro anda X_DESLOC px, sem passar
+        # da margem direita
+        d = min(X_DESLOC, X_MAX - max(ln.x + ln.largura for ln in b.linhas))
+        for ln in b.linhas:
+            ln.x += max(d, 0.0)
     b.layout = modo
     for ln in b.linhas:
         if ln.x < X_MIN - 1 or ln.x + ln.largura > X_MAX + 1:
@@ -545,7 +553,7 @@ def gerar(plano: dict, palavras: list[dict], rosto: list[dict] | None = None, co
 
 
 def main() -> None:
-    global Y_CENTRO, TOPO_MIN, BASE_MAX, COR_DESTAQUE, CTA_LINHAS
+    global Y_CENTRO, TOPO_MIN, BASE_MAX, COR_DESTAQUE, CTA_LINHAS, X_DESLOC
     ap = argparse.ArgumentParser()
     ap.add_argument("--cor-destaque", help="RRGGBB dos destaques (padrão branco)")
     ap.add_argument("--plano", required=True)
@@ -566,6 +574,10 @@ def main() -> None:
     COR_DESTAQUE = (a.cor_destaque or COR_DESTAQUE).lstrip("#").upper()
     # CTA própria do vídeo (usuário, 09/10/2026: "altere a CTA para Envie para quem tem esse tipo de beleza"):
     # <trabalho>/cta.txt com 1 ou 2 linhas em caixa-alta, de tamanho parecido (~17-20 letras cada)
+    # legenda deslocada para a direita (px) neste vídeo: <trabalho>/legenda_desloc_x.txt com um número
+    dx_txt = Path(a.plano).resolve().parent / "legenda_desloc_x.txt"
+    if dx_txt.exists() and dx_txt.read_text(encoding="utf-8").strip():
+        X_DESLOC = float(dx_txt.read_text(encoding="utf-8").strip())
     cta_txt = Path(a.plano).resolve().parent / "cta.txt"
     if cta_txt.exists():
         linhas = [l.strip().upper() for l in cta_txt.read_text(encoding="utf-8").splitlines() if l.strip()]
