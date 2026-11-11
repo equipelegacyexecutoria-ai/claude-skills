@@ -269,6 +269,9 @@ da copy no documento "2. JÁ GRAVADOS", `1iQPGvM9Ntgwa0Bqws3UyZQPZJi-pzOI5p5WcZ0
 - Biblioteca: `~/Music/Spotclai/<Emoção>/` (pastas por clima: Melancolia - Saudade, Reflexão - Calma, Inspiração - Esperança,
   Superação - Resiliência, Energia - Confiança, Tensão - Mistério, Épico - Cinematográfico; lista em `_catalogo.csv`).
   Escolha a faixa que casa com o estilo descrito e não repita a mesma faixa em reels da mesma semana.
+  **Só dessa pasta** (usuário, 11/11/2026: "você está escolhendo as músicas daquela pasta lá?"): o lote de 10/11 baixou
+  faixas do YouTube (`_trabalho/_musicas_yt`) e uma saiu numa versão ruim. Nunca baixar trilha de fora; se a faixa
+  existir na Spotclai, use o arquivo de lá (mesmo nome de música = use o da pasta).
 - **Volume (usuário, 05/11/2026: "voz muito baixa, no limite de não estourar no -0,1")**: a mixagem final sobe a voz só por
   ganho (sem compressor) até o pico real do vídeo chegar a ~-0,1 dBTP (fica -0,1 a -0,4 depois do AAC; dá ~-14,5 LUFS) e a
   música fica **10 dB abaixo da voz** (antes 12). Script: `C:/Render/_trabalho/_trilhas/trilha.py` (chama `mixar_alto.py`;
