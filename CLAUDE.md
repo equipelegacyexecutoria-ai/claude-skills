@@ -30,6 +30,8 @@ Regra do usuário (01/10/2026): nunca imagem com marca d'água (Freepik, banco c
 inglês; texto só em português. Sempre alta resolução e casando com a emoção do que está sendo falado.
 Buscar além da busca automática (Pexels pelo navegador, Unsplash, Pinterest, TikTok, YouTube) e conferir
 cada imagem escolhida em tamanho real. Passo a passo: skill `reels-caixinha-0800`, seção "B-roll".
+Regra do usuário (11/11/2026): vídeo com o Clailton (ou outro apresentador) **sempre abre com ele aparecendo**; o B-roll só
+entra depois dos primeiros ~2 s, nunca no quadro 0. Detalhes: skill `reels-novela-clailton`, item "B-roll em trechos".
 
 ## Créditos da Freepik/Magnific: só com autorização
 

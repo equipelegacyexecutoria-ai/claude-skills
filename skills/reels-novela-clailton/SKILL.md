@@ -235,6 +235,12 @@ Correções depois de pronto:
   cena com `P S\broll_prep.py <saida.mp4> <fonte> <inicio_fonte> <duracao>` (recorte 5:4 +
   `estilo_td.Estilo`) e liste em `T\broll.json`: `[{"arquivo": "broll/b1.mp4", "inicio": 4.05, "fim": 5.47}]`
   (tempos do vídeo final, nas palavras). O `render_final.py` põe por cima do Clailton e por baixo da legenda.
+  **Sempre abrir com o Clailton** (usuário, 11/11/2026, "Dois cavalos" v3: "começar com o Clailton aparecendo"): o 1º B-roll
+  nunca começa em 0 s. O vídeo abre com o Clailton falando por ~2 s (a 1ª frase ou o pedaço dela até o 1º corte depois de
+  ~1,5 s) e só então entra o B-roll, no quadro de uma emenda. Vale para qualquer B-roll em vídeo com o Clailton (NV, ES).
+  **B-roll mostra literalmente a fala** (mesmo vídeo: "formigas carregando um pedaço de nada"): se a frase fala de carregar
+  algo muito maior/pesado, a cena tem que mostrar isso na hora (formiga com folha/inseto bem maior que ela), não o grupo
+  parado em volta de um pedacinho. Confira o quadro do meio de cada B-roll antes do render.
   **Imagem e corte da decupagem** (usuário, 05/11/2026, Louis Vuitton v2): a imagem/vídeo de apoio **entra e sai junto com um corte** da decupagem (no quadro exato da emenda) **ou longe de corte** (≥ 1 s de qualquer emenda). Imagem que sai 0,1–1 s antes ou depois de um corte dá a sensação de pulo duplo ("saiu um segundo antes do corte, ficou estranho"). Tempos das emendas: soma dos `frames` dos `segmentos` do `corte.json` ÷ 29,97. Antes do render, confira cada `inicio`/`fim` contra essa lista e encoste no corte quando estiver perto. Duas imagens seguidas não podem deixar aparecer nem 1 quadro do Clailton entre elas ("piscada"): o `render_final.py` já casa a janela com a grade de quadros e repete o último quadro do clipe.
 - **Áudio estourado / com ruído**: seção "Tratar o áudio no Adobe Podcast".
 - **Cor puxada (verde, amarela...)**: `P S\balanco_branco.py T "<vídeo editado>"` mede a parede branca e grava `T\cor.txt` (ganhos R/G/B até o branco quente dos aprovados); o render aplica sozinho. Apague `cor.txt` para voltar.
