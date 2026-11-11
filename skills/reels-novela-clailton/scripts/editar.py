@@ -14,6 +14,7 @@ Roteiro: salve o texto em <trabalho>/roteiro.txt (ou .docx / .md) ANTES do prepa
 """
 from __future__ import annotations
 
+import json
 import os
 import subprocess
 import sys
@@ -75,6 +76,18 @@ def main() -> None:
         # corte refeito depois da última medição do rosto (montar_corte --manter-palavras numa correção): mede o
         # queixo de novo no corte atual, mantendo o recorte aprovado — senão a legenda pode subir no rosto (13/10/2026)
         rosto, corte = trabalho / "rosto_corte.json", trabalho / "corte.json"
+        # zoom nos cortes (NV_CTA, 11/11/2026): corte refeito depois do zoom -> os índices dos trechos mudaram;
+        # refaz com os mesmos parâmetros (o zoom_cortes.py também refaz o rosto_corte.json)
+        enq_p = trabalho / "enquadramento.json"
+        zc = json.loads(enq_p.read_text(encoding="utf-8")).get("zoom_cortes") if enq_p.exists() else None
+        if zc and enq_p.stat().st_mtime < corte.stat().st_mtime:
+            args = [str(trabalho), "--zoom", str(zc.get("zoom", 1.22))]
+            if zc.get("ate") is not None:
+                args += ["--ate", str(zc["ate"])]
+            if zc.get("desligar"):
+                args.append("--desligar")
+            if etapa("zoom_cortes.py", args):
+                sys.exit(1)
         if not rosto.exists() or rosto.stat().st_mtime < corte.stat().st_mtime:
             if etapa("enquadrar.py", [str(trabalho), "--so-rosto"]):
                 sys.exit(1)

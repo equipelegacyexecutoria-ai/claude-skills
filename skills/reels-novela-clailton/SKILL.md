@@ -173,6 +173,17 @@ decupagem (~5 min) e legenda (~5 min). `T = <projeto>\_trabalho\<slug>`.
      tempo, com resultado idêntico ao da CPU.
    - Com roteiro, `roteiro_x_fala.txt` ganha a parte 2: TROCOU / FALTOU / A MAIS com o `@índice`
      e os destaques sugeridos.
+   - **Card com `_CTA_` na PAUTA (ex.: `Reels_Clailton_NV_CTA_*`): zoom nos cortes de fala é padrão**
+     (usuário, 11/11/2026: "cortes com zoom entre os cortes das falas, mas tem que parecer natural"), a não ser que o
+     card diga outra coisa. Depois do montar (e da animação da CTA, se já existir): `P S\zoom_cortes.py T`.
+     Ele alterna aberto/fechado a cada corte visível (pulo ≥ 0,35 s no bruto), começando aberto; fechado de 1,22x
+     (reduz até a cabeça caber com 3 % de folga; os olhos podem descer até 6 % da faixa; abaixo de 1,12x fica aberto),
+     parado o plano inteiro e trocando no quadro da emenda; da CTA em motion em diante fica aberto
+     (`motion_cta/motion.json` ou `--ate <s>`). Grava `crops_segmento` no enquadramento.json e refaz o queixo
+     (`rosto_corte.json`) com o recorte de cada trecho; o `finalizar` refaz sozinho se o corte mudar numa correção.
+     Confira a lista de planos que ele imprime e uma folha com o quadro antes/depois de cada troca. Testado no
+     "Empresário que montou uma ONG" v4: 6 fechados de 1,18–1,22x em 69 s, conferência aprovada.
+     Isso é exceção à regra "nunca cortar em cima nem embaixo": só nos NV_CTA (ou quando o card pedir zoom).
 
    Leia `roteiro_corte.txt`: nada de repetição, falso começo ou fala para a equipe. Leia também
    os avisos. "sobra de tomada errada ... sai" = o montar achou e tirou um começo de frase errado (vira

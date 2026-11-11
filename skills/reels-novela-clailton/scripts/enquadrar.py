@@ -147,10 +147,14 @@ def main() -> None:
         gravar_json(enq, {"fonte_wh": [SW, SH], "crop": [cw, ch, x, y], "zoom": round(zoom, 3),
                           "crops_segmento": por_seg, "rosto": rosto, "rosto_na_faixa": real, "avisos": avisos})
     # queixo no quadro final (para a legenda não subir no rosto)
+    # recorte de cada trecho (deslize lateral e, nos NV_CTA, o fechado do zoom_cortes.py): no fechado o queixo
+    # desce na faixa e a legenda precisa saber (11/11/2026)
+    crops_k = ler_json(enq).get("crops_segmento", {}) if (a.so_rosto and enq.exists()) else por_seg
     queixos = []
-    for t, f, _ in amostras:
+    for t, f, k in amostras:
         if f:
-            q = FAIXA_Y0 + (f[1] + f[3] - y) / ch * FAIXA_H
+            _, c_h, _, c_y = crops_k.get(str(k), [cw, ch, x, y])
+            q = FAIXA_Y0 + (f[1] + f[3] - c_y) / c_h * FAIXA_H
             queixos.append({"t": round(t, 3), "queixo": round(float(q), 1)})
     gravar_json(trabalho / "rosto_corte.json", queixos)
     print(f"ok: crop {cw}x{ch}+{x}+{y} (zoom {zoom:.2f}); rosto na faixa: {real}")
