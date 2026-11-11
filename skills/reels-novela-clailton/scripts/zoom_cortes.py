@@ -96,10 +96,25 @@ def main():
         t += d
     planos.append(atual)
 
+    # trechos cobertos por B-roll (broll.json): o Clailton não aparece; o plano não conta na alternância
+    brolls = []
+    if (T / "broll.json").exists():
+        brolls = [(float(b["inicio"]), float(b["fim"])) for b in ler_json(T / "broll.json")]
+
+    def coberto(a0, a1):
+        t0 = a0
+        for b0, b1 in sorted(brolls):
+            if b0 <= t0 + 0.08 and b1 > t0:
+                t0 = b1
+        return t0 >= a1 - 0.08
+
     crops = dict(por_seg_base)
     plano_txt, estado = [], "A"
     for i, p in enumerate(planos):
         ini, dur = p[0][1], sum(d for _, _, d in p)
+        if brolls and coberto(ini, ini + dur):
+            plano_txt.append(f"{ini:6.2f}s +{dur:4.1f}s  B-roll")
+            continue
         if i == 0:
             estado = "A"
         elif dur >= PLANO_MIN:
