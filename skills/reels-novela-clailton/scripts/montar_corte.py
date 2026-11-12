@@ -152,7 +152,7 @@ class Energia:
 
 def energia_em(en: Energia, t: float) -> float:
     """Maior nível (dB) em +-10 ms do instante t."""
-    k = int(round(t / HOP))
+    k = min(int(round(t / HOP)), len(en.db) - 1)   # corte no fim do arquivo (fala até o último quadro)
     return float(en.db[max(0, k - 1):min(len(en.db), k + 2)].max())
 
 
