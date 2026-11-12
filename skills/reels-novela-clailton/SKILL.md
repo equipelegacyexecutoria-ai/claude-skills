@@ -216,10 +216,12 @@ decupagem (~5 min) e legenda (~5 min). `T = <projeto>\_trabalho\<slug>`.
    (`trilha.py`), troque a CTA digitada pela nova:
    `P S\trocar_cta.py "<final com música>.mp4" "<saida>.mp4" [--musica "<faixa da trilha>"]`.
    Ele acha o quadro do corte para a tela preta, acha a música e o ponto exato dela (correlação com a biblioteca
-   Spotclai, confirmada nos 12 s antes da CTA; com `--musica` vai direto), emenda a CTA nova (tira os 0,2 s de fundo vazio
-   do começo dela), continua a música no mesmo volume por baixo da voz da CTA com fade de 1,5 s no fim, deixa a voz da
+   Spotclai, confirmada nos 12 s antes da CTA; com `--musica` vai direto), emenda a CTA nova com a **transição clean** (aprovada pelo usuário em 12/11/2026 depois de reprovar o corte seco: "a
+   transição ficou muito brusca"): 0,5 s (15 quadros) de fusão em que o reel desfoca e escurece de leve e a CTA nasce do
+   desfoque, quase sem zoom, sobre o começo vazio da CTA (`--estilo clean`, padrão; `zoom` = a variação com rastro que ele
+   achou menos limpa; `--transicao 0` = corte seco). Para mostrar só a transição: `--so-trecho 2.5`. Também continua a música no mesmo volume por baixo da voz da CTA com fade de 1,5 s no fim, deixa a voz da
    CTA no volume da voz do vídeo e limita em -0,1 dBTP. Reencoda em CRF 17. Imprime um JSON: confira `confirmacao_12s`
-   (≥ 0,08; abaixo disso ele trata como sem música) e o pico final. Testado em 12/11/2026 nos 15 NV em Aprovação/Correções.
+   (≥ 0,08; abaixo disso ele trata como sem música) e o pico final. Aplicado em 12/11/2026 nos 17 NV em Aprovação/Correções/Publicar. Regra do usuário: mudança de edição em lote primeiro em UM vídeo (só o trecho), aprovação, depois em todos.
    A conferência do `conferir.py` (CTA/teclado) vale para o vídeo ANTES da troca; depois da troca, confira a folha de
    quadros da emenda e transcreva o fim (a CTA tem que sair inteira: "...evoluir a cada dia, me segue").
    O vídeo final que vai para o Drive e para a Sala é o da saída do `trocar_cta.py`.
