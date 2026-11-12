@@ -37,7 +37,8 @@ BIBLIOTECA = Path(os.path.expanduser("~")) / "Music" / "Spotclai"
 # lotes antigos (até 10/11/2026) usaram faixas baixadas do YouTube; ficam como 2a fonte da busca
 EXTRAS = [Path(r"C:\Render\_trabalho\_musicas_yt")]
 CACHE = Path(os.environ.get("TROCAR_CTA_CACHE", r"C:\Render\_trabalho\_trilhas\cache8k"))
-CORTE_INI = 0.20      # s de fundo vazio tirados do começo da CTA (a 1a palavra entra em ~0,43 s)
+CORTE_INI = 0.20      # corte seco (--transicao 0): s de fundo vazio tirados do começo da CTA (1a palavra em ~0,43 s)
+TRANS_Q = 13          # quadros da transição (0,43 s): sobrepõe o fim do reel com o começo vazio da CTA
 FADE_FIM = 1.5        # fade-out da música no fim (igual ao mixar_alto.py)
 TETO = -0.1           # dBTP
 SR = 48000
@@ -133,6 +134,57 @@ def correlacao(trecho: np.ndarray, faixa: np.ndarray) -> tuple[float, int]:
     return float(r[k]), k
 
 
+def ler_quadros(video, ini: int, n: int, fps_conv=False) -> np.ndarray:
+    """n quadros RGB a partir do quadro ini (contados em 29,97 fps)."""
+    # -ss antes do -i = busca exata (decodifica do keyframe anterior); -frames:v para logo depois dos n quadros
+    vf = (f"fps={FPS_NUM}/{FPS_DEN}," if fps_conv else "") + "scale=1080:1920"
+    ss = ["-ss", f"{(ini - 0.5) * FPS_DEN / FPS_NUM:.4f}"] if ini else []
+    raw = subprocess.run(["ffmpeg", "-v", "error", *ss, "-i", str(video), "-vf", vf, "-frames:v", str(n),
+                          "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], capture_output=True, check=True).stdout
+    return np.frombuffer(raw, np.uint8).reshape(-1, 1920, 1080, 3)
+
+
+def _zoom(img, s):
+    import cv2
+    if s <= 1.0001:
+        return img
+    h, w = img.shape[:2]
+    big = cv2.resize(img, (int(round(w * s)), int(round(h * s))), interpolation=cv2.INTER_LINEAR)
+    y0, x0 = (big.shape[0] - h) // 2, (big.shape[1] - w) // 2
+    return big[y0:y0 + h, x0:x0 + w]
+
+
+def _zoom_blur(img, s, rastro, sigma):
+    """zoom com rastro radial (média de vários zooms) + desfoque."""
+    import cv2
+    if rastro > 0.002:
+        acc = np.zeros(img.shape, np.float32)
+        for i in range(6):
+            acc += _zoom(img, s * (1 + rastro * i / 5)).astype(np.float32)
+        out = acc / 6
+    else:
+        out = _zoom(img, s).astype(np.float32)
+    if sigma > 0.3:
+        out = cv2.GaussianBlur(out, (0, 0), sigma)
+    return out
+
+
+def transicao(A: np.ndarray, B: np.ndarray) -> np.ndarray:
+    """A = últimos quadros do reel, B = primeiros da CTA. A câmera "entra" no reel (zoom com rastro e desfoque,
+    escurecendo) e a CTA nasce do desfoque, vindo de um zoom maior até o tamanho normal."""
+    n = len(A)
+    out = np.empty_like(A)
+    for k in range(n):
+        p = (k + 1) / (n + 1)
+        e = p * p * (3 - 2 * p)
+        a = _zoom_blur(A[k], 1 + 0.28 * e, 0.10 * e, 16 * e) * (1 - 0.45 * e)
+        b = _zoom_blur(B[k], 1.30 - 0.30 * e, 0.10 * (1 - e), 16 * (1 - e))
+        q = min(max((p - 0.2) / 0.6, 0), 1)
+        alfa = q * q * (3 - 2 * q)
+        out[k] = np.clip(a * (1 - alfa) + b * alfa, 0, 255).astype(np.uint8)
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("final")
@@ -140,6 +192,10 @@ def main():
     ap.add_argument("--musica", help="arquivo da música (pula a busca na biblioteca)")
     ap.add_argument("--cta-inicio", type=float, help="tempo (s) em que começa a CTA antiga")
     ap.add_argument("--sem-musica", action="store_true")
+    ap.add_argument("--transicao", type=int, default=TRANS_Q,
+                    help="quadros da transição reel -> CTA (zoom com desfoque e fusão); 0 = corte seco")
+    ap.add_argument("--so-trecho", type=float, default=0.0,
+                    help="só para ver a transição: entrega N s antes da transição até o fim")
     a = ap.parse_args()
     final, saida = Path(a.final), Path(a.saida)
     info: dict = {"final": str(final)}
@@ -149,7 +205,11 @@ def main():
     dur_old = duracao(final)
     info.update(quadro_cta=q_c, t_cta=round(t_c, 3), cta_antiga_s=round(dur_old - t_c, 2))
 
-    dur_cta = duracao(CTA) - CORTE_INI
+    n_t = max(0, a.transicao)
+    ini_cta = 0.0 if n_t else CORTE_INI
+    T_t = n_t * FPS_DEN / FPS_NUM                 # duração da transição (sobreposição)
+    info["transicao_quadros"] = n_t
+    dur_cta = duracao(CTA) - ini_cta
     n_tail = int(round(dur_cta * SR))
 
     # ---- música: qual é e onde está ----
@@ -214,7 +274,7 @@ def main():
                               "ganho_db": [round(20 * np.log10(max(x, 1e-6)), 2) for x in g],
                               "rampa_no_inicio": bool(g0 < 0.7 * np.mean(g))}
             dur_m = duracao(musica)
-            pos = p_c % dur_m
+            pos = (p_c - T_t) % dur_m                  # a parte nova começa T_t antes do quadro da CTA antiga
             mt = ler_audio(musica, SR, ss=pos, t=dur_cta + 0.1)
             while len(mt) < n_tail:        # faixa acabou: volta ao começo (o mixar_alto usa -stream_loop -1)
                 mt = np.vstack([mt, ler_audio(musica, SR, t=dur_cta + 0.1)])
@@ -233,10 +293,10 @@ def main():
 
     # ---- voz da CTA no mesmo volume da voz do vídeo ----
     I_fala, _ = medir(final, ["-t", f"{t_c:.3f}"])
-    I_cta, _ = medir(CTA, ["-ss", f"{CORTE_INI:.3f}"])
+    I_cta, _ = medir(CTA, ["-ss", f"{ini_cta:.3f}"])
     alvo = I_fala - (0.4 if musica is not None else 0.0)   # a música 10 dB abaixo soma ~0,4 dB no vídeo
     g_cta = 10 ** ((alvo - I_cta) / 20)
-    voz = ler_audio(CTA, SR, ss=CORTE_INI)[:n_tail]
+    voz = ler_audio(CTA, SR, ss=ini_cta)[:n_tail]
     if len(voz) < n_tail:
         voz = np.vstack([voz, np.zeros((n_tail - len(voz), 2), np.float32)])
     tail = voz * g_cta + musica_tail
@@ -250,7 +310,11 @@ def main():
     with tempfile.TemporaryDirectory() as td:
         td = Path(td)
         bruto = td / "audio_bruto.wav"
-        gravar_wav(bruto, np.vstack([head, tail]))
+        n0 = int(round((t_c - T_t) * SR))
+        n_ov = n_head - n0
+        w = np.linspace(0, 1, n_ov, dtype=np.float32)[:, None]      # fusão do som na transição
+        mix = np.vstack([head[:n0], head[n0:] * (1 - w) + tail[:n_ov] * w, tail[n_ov:]])
+        gravar_wav(bruto, mix)
         audio = td / "audio.wav"
         lim = TETO - 0.1
         for _ in range(4):
@@ -261,15 +325,39 @@ def main():
             if tp <= TETO - 0.1:
                 break
             lim -= (tp - (TETO - 0.1)) + 0.1
-        # ---- vídeo: até o quadro da CTA antiga + CTA nova ----
-        fc = (f"[0:v]trim=end_frame={q_c},setpts=N*{FPS_DEN}/{FPS_NUM}/TB,format=yuv420p,setsar=1[a];"
-              f"[1:v]trim=start={CORTE_INI},fps={FPS_NUM}/{FPS_DEN},setpts=N*{FPS_DEN}/{FPS_NUM}/TB,"
-              f"scale=1080:1920,format=yuv420p,setsar=1[b];[a][b]concat=n=2:v=1:a=0,"
-              f"setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709:range=tv[v]")
+        # ---- vídeo: reel até a transição + transição + CTA nova ----
+        q_ini_cta = int(round(ini_cta * FPS_NUM / FPS_DEN))
+        extra = []
+        if n_t:
+            A = ler_quadros(final, q_c - n_t, n_t)
+            B = ler_quadros(CTA, 0, n_t, fps_conv=True)
+            tr = transicao(A, B)
+            trans = td / "trans.mkv"
+            subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", "1080x1920",
+                            "-r", f"{FPS_NUM}/{FPS_DEN}", "-i", "-", "-c:v", "ffv1", str(trans)],
+                           input=tr.tobytes(), check=True)
+            extra = ["-i", str(trans)]
+            fc = (f"[0:v]trim=end_frame={q_c - n_t},setpts=N*{FPS_DEN}/{FPS_NUM}/TB,format=yuv420p,setsar=1[a];"
+                  f"[3:v]scale=out_color_matrix=bt709:out_range=tv,format=yuv420p,setsar=1,"
+                  f"setpts=N*{FPS_DEN}/{FPS_NUM}/TB[t];"
+                  f"[1:v]fps={FPS_NUM}/{FPS_DEN},trim=start_frame={n_t},setpts=N*{FPS_DEN}/{FPS_NUM}/TB,"
+                  f"scale=1080:1920,format=yuv420p,setsar=1[b];[a][t][b]concat=n=3:v=1:a=0,"
+                  f"setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709:range=tv[v]")
+        else:
+            fc = (f"[0:v]trim=end_frame={q_c},setpts=N*{FPS_DEN}/{FPS_NUM}/TB,format=yuv420p,setsar=1[a];"
+                  f"[1:v]fps={FPS_NUM}/{FPS_DEN},trim=start_frame={q_ini_cta},setpts=N*{FPS_DEN}/{FPS_NUM}/TB,"
+                  f"scale=1080:1920,format=yuv420p,setsar=1[b];[a][b]concat=n=2:v=1:a=0,"
+                  f"setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709:range=tv[v]")
+        mapas = ["-map", "[v]", "-map", "2:a"]
+        if a.so_trecho > 0:
+            ini_t = max(0.0, t_c - T_t - a.so_trecho)
+            fc += (f";[v]trim=start={ini_t:.4f},setpts=PTS-STARTPTS[v2];"
+                   f"[2:a]atrim=start={ini_t:.4f},asetpts=PTS-STARTPTS[a2]")
+            mapas = ["-map", "[v2]", "-map", "[a2]"]
         tmp_out = saida.with_name(saida.stem + ".tmp.mp4")
         saida.parent.mkdir(parents=True, exist_ok=True)
-        run(["ffmpeg", "-hide_banner", "-v", "error", "-y", "-i", str(final), "-i", str(CTA), "-i", str(audio),
-             "-filter_complex", fc, "-map", "[v]", "-map", "2:a", "-c:v", "libx264", "-preset", "slow", "-crf", str(CRF),
+        run(["ffmpeg", "-hide_banner", "-v", "error", "-y", "-i", str(final), "-i", str(CTA), "-i", str(audio), *extra,
+             "-filter_complex", fc, *mapas, "-c:v", "libx264", "-preset", "slow", "-crf", str(CRF),
              "-profile:v", "high", "-pix_fmt", "yuv420p", "-color_primaries", "bt709", "-color_trc", "bt709",
              "-colorspace", "bt709", "-color_range", "tv", "-r", f"{FPS_NUM}/{FPS_DEN}", "-c:a", "aac", "-b:a", "320k",
              "-ar", str(SR), "-movflags", "+faststart", "-shortest", str(tmp_out)])
