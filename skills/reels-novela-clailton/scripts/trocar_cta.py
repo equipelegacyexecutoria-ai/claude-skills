@@ -169,17 +169,26 @@ def _zoom_blur(img, s, rastro, sigma):
     return out
 
 
-def transicao(A: np.ndarray, B: np.ndarray) -> np.ndarray:
-    """A = últimos quadros do reel, B = primeiros da CTA. A câmera "entra" no reel (zoom com rastro e desfoque,
-    escurecendo) e a CTA nasce do desfoque, vindo de um zoom maior até o tamanho normal."""
+ESTILOS = {
+    # zoom: o reel aproxima com rastro radial e escurece; a CTA nasce de um zoom maior (v1, 12/11/2026)
+    "zoom": dict(za=0.28, zb=0.30, rastro=0.10, sigma=16, escurece=0.45, fusao=(0.2, 0.6)),
+    # clean: fusão suave com desfoque leve e quase sem movimento (pedido "mais clean", 12/11/2026)
+    "clean": dict(za=0.04, zb=0.04, rastro=0.0, sigma=9, escurece=0.15, fusao=(0.0, 1.0)),
+}
+
+
+def transicao(A: np.ndarray, B: np.ndarray, estilo: str = "clean") -> np.ndarray:
+    """A = últimos quadros do reel, B = primeiros da CTA. O reel sai desfocando (e aproximando) e a CTA nasce
+    do desfoque; parâmetros em ESTILOS."""
+    c = ESTILOS[estilo]
     n = len(A)
     out = np.empty_like(A)
     for k in range(n):
         p = (k + 1) / (n + 1)
         e = p * p * (3 - 2 * p)
-        a = _zoom_blur(A[k], 1 + 0.28 * e, 0.10 * e, 16 * e) * (1 - 0.45 * e)
-        b = _zoom_blur(B[k], 1.30 - 0.30 * e, 0.10 * (1 - e), 16 * (1 - e))
-        q = min(max((p - 0.2) / 0.6, 0), 1)
+        a = _zoom_blur(A[k], 1 + c["za"] * e, c["rastro"] * e, c["sigma"] * e) * (1 - c["escurece"] * e)
+        b = _zoom_blur(B[k], 1 + c["zb"] * (1 - e), c["rastro"] * (1 - e), c["sigma"] * (1 - e))
+        q = min(max((p - c["fusao"][0]) / c["fusao"][1], 0), 1)
         alfa = q * q * (3 - 2 * q)
         out[k] = np.clip(a * (1 - alfa) + b * alfa, 0, 255).astype(np.uint8)
     return out
@@ -194,6 +203,7 @@ def main():
     ap.add_argument("--sem-musica", action="store_true")
     ap.add_argument("--transicao", type=int, default=TRANS_Q,
                     help="quadros da transição reel -> CTA (zoom com desfoque e fusão); 0 = corte seco")
+    ap.add_argument("--estilo", choices=sorted(ESTILOS), default="clean", help="desenho da transição")
     ap.add_argument("--so-trecho", type=float, default=0.0,
                     help="só para ver a transição: entrega N s antes da transição até o fim")
     a = ap.parse_args()
@@ -209,6 +219,7 @@ def main():
     ini_cta = 0.0 if n_t else CORTE_INI
     T_t = n_t * FPS_DEN / FPS_NUM                 # duração da transição (sobreposição)
     info["transicao_quadros"] = n_t
+    info["transicao_estilo"] = a.estilo if n_t else None
     dur_cta = duracao(CTA) - ini_cta
     n_tail = int(round(dur_cta * SR))
 
@@ -331,7 +342,7 @@ def main():
         if n_t:
             A = ler_quadros(final, q_c - n_t, n_t)
             B = ler_quadros(CTA, 0, n_t, fps_conv=True)
-            tr = transicao(A, B)
+            tr = transicao(A, B, a.estilo)
             trans = td / "trans.mkv"
             subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", "1080x1920",
                             "-r", f"{FPS_NUM}/{FPS_DEN}", "-i", "-", "-c:v", "ffv1", str(trans)],
