@@ -34,6 +34,8 @@ import numpy as np
 AQUI = Path(__file__).resolve().parent
 CTA = AQUI.parent / "assets" / "cta_me_segue.mp4"
 BIBLIOTECA = Path(os.path.expanduser("~")) / "Music" / "Spotclai"
+# lotes antigos (até 10/11/2026) usaram faixas baixadas do YouTube; ficam como 2a fonte da busca
+EXTRAS = [Path(r"C:\Render\_trabalho\_musicas_yt")]
 CACHE = Path(os.environ.get("TROCAR_CTA_CACHE", r"C:\Render\_trabalho\_trilhas\cache8k"))
 CORTE_INI = 0.20      # s de fundo vazio tirados do começo da CTA (a 1a palavra entra em ~0,43 s)
 FADE_FIM = 1.5        # fade-out da música no fim (igual ao mixar_alto.py)
@@ -157,7 +159,8 @@ def main():
         a0, a1 = t_c + 0.05, min(t_c + 1.30, dur_old - FADE_FIM - 0.1)
         trecho = ler_audio(final, SR_BUSCA, mono=True, ss=a0, t=a1 - a0)
         candidatos = [Path(a.musica)] if a.musica else sorted(
-            p for p in BIBLIOTECA.rglob("*") if p.suffix.lower() in (".mp3", ".wav", ".m4a", ".flac"))
+            p for raiz in [BIBLIOTECA, *EXTRAS] if raiz.exists() for p in raiz.rglob("*")
+            if p.suffix.lower() in (".mp3", ".wav", ".m4a", ".flac", ".opus", ".webm"))
         ranking = []
         for m in candidatos:
             r, k = correlacao(trecho, faixa_8k(m))

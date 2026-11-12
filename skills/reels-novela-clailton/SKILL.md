@@ -1,6 +1,6 @@
 ---
 name: reels-novela-clailton
-description: Edita reels no estilo NOVELA do Instagram do Clailton (Legacy Educação) a partir do bruto 4K horizontal e do roteiro — decupagem das tomadas, faixa de imagem 5:4 com barras pretas, legenda SF Pro Text Black em telas com destaque maior entrando sozinho (desfoque + queda, sombra v3 em camadas, layouts centro/esquerda/escada), âncora em enumerações e CTA final "ME SIGA PARA MAIS CONTEÚDOS COMO ESTE" em máquina de escrever com o som de teclado padrão sincronizado. Modo rápido — scripts fazem transcrição (GPU), decupagem, corte, alinhamento de palavras, comparação fala x roteiro, render e conferência; o próprio orquestrador revisa a decupagem e escreve a legenda (agentes só em lote e com prazo). Entrega 1080x1920 em qualidade máxima. Use sempre que o pedido for editar/legendar um reel "NV"/"novela" do Clailton, arquivos Reels_Clailton_NV_*, "edita igual ao reel do PHD", "estilo novela", "legenda com barra preta em cima e embaixo", ou refazer um reel nesse formato.
+description: Edita reels no estilo NOVELA do Instagram do Clailton (Legacy Educação) a partir do bruto 4K horizontal e do roteiro — decupagem das tomadas, faixa de imagem 5:4 com barras pretas, legenda SF Pro Text Black em telas com destaque maior entrando sozinho (desfoque + queda, sombra v3 em camadas, layouts centro/esquerda/escada), âncora em enumerações e CTA final em motion "me segue" (voz gravada do Clailton, lettering com câmera, botão Seguir com mouse e clique; aprovada em 12/11/2026, `assets/cta_me_segue.mp4`) no lugar da antiga CTA digitada. Modo rápido — scripts fazem transcrição (GPU), decupagem, corte, alinhamento de palavras, comparação fala x roteiro, render e conferência; o próprio orquestrador revisa a decupagem e escreve a legenda (agentes só em lote e com prazo). Entrega 1080x1920 em qualidade máxima. Use sempre que o pedido for editar/legendar um reel "NV"/"novela" do Clailton, arquivos Reels_Clailton_NV_*, "edita igual ao reel do PHD", "estilo novela", "legenda com barra preta em cima e embaixo", ou refazer um reel nesse formato.
 ---
 
 # Reels NOVELA — Clailton
@@ -19,7 +19,7 @@ referência: `referencia/telas-referencia.jpg`. Legendas de exemplo no formato c
 | Imagem | faixa 1080×864 (5:4) centrada, barras pretas; recorte fixo tirado direto do 4K (só redução), **altura cheia do bruto: só as laterais saem** |
 | Corte | tomadas escolhidas, sem tropeço. **Corte colado, ritmo JUSTO** (usuário, 11/10/2026, nas notas da Sala de Revisão: "os cortes no geral estão estranhos, a versão antiga estava melhor"; pausas de 0,46–0,56 s = "demorou a cortar, ficou um gap"; uma de 0,24 s = "ficou certinho"): pausa voz a voz até 0,30 s fica; maior vira **0,22 s** (`RITMO_JUSTO`, o mesmo da tela dividida). As proteções de borda continuam (`borda_voz.cauda`, `estende`, `quieto`): a palavra não é comida, que era o defeito do corte de 28/09 (toda pausa ≥ 0,12 s saía e a borda cortava a soltura da vogal). A regra de 09/10 (pausa natural até 0,55–0,90 s intacta) foi reprovada; só com `--ritmo-natural`. Música: **já na v1** (regra abaixo, "Trilha na primeira versão") |
 | Legenda | SF Pro Text Black, caixa-alta, telas de 1–3 linhas inteiras, **só o destaque entra sozinho e maior**, sombra v3 |
-| Final | ~0,45 s depois da última palavra, corte seco para CTA preta digitada (2,9 s) com o **som de teclado padrão** (`assets/cta_teclado.mp3`, enviado pelo usuário em 30/09/2026) sincronizado com a digitação: 1º toque no quadro da 1ª letra, último toque na última letra |
+| Final | **CTA nova "me segue" (usuário, 12/11/2026, aprovada como `cta-me-segue-v3`)**: ~0,45 s depois da última palavra, corte seco para a CTA em motion `assets/cta_me_segue.mp4` (5,35 s usados; cópia em `Desktop\RENDER\CTA Me Segue (aprovada)`; projeto em `Motion Designer/videos/cta-me-segue-v3`). Voz gravada do Clailton "Talvez você nunca mais me veja por aqui, mas se você deseja evoluir a cada dia, me segue", lettering palavra a palavra com câmera, botão Seguir + mouse + clique. A música continua por baixo da voz da CTA e some no fim. Entra pelo `trocar_cta.py` (passo 5b). A CTA digitada antiga (tela preta + teclado) só se o card pedir |
 | Voz | render da voz em −16 LUFS, pico −1 dBTP, limitador suave só nos picos; **na mixagem com a música a voz sobe por ganho até o pico −0,1 dBTP** (05/11/2026, ver "Trilha na primeira versão"). Ruído externo / gravação "quente" / pedido de "tratar o áudio": **Adobe Podcast** (seção abaixo) |
 | Pasta | `Reels Editados/` na raiz do projeto, `<nome do bruto> - EDITADO.mp4` |
 | Trabalho | `_trabalho/<slug>/` na raiz do projeto (transcrição, decupagem, legenda, QA) |
@@ -212,6 +212,17 @@ decupagem (~5 min) e legenda (~5 min). `T = <projeto>\_trabalho\<slug>`.
    Código 0 = aprovado, 3 = reprovado (não entregue assim). Repetição **intencional** que a
    revisão manteve (anáfora "continue... continue") vai em `T\repeticoes_ok.txt`, uma palavra
    por linha: a conferência lista, mas não reprova.
+5b. **CTA "me segue"** (regra do usuário, 12/11/2026; vale para todo NV que não é NV_CTA): depois da música
+   (`trilha.py`), troque a CTA digitada pela nova:
+   `P S\trocar_cta.py "<final com música>.mp4" "<saida>.mp4" [--musica "<faixa da trilha>"]`.
+   Ele acha o quadro do corte para a tela preta, acha a música e o ponto exato dela (correlação com a biblioteca
+   Spotclai, confirmada nos 12 s antes da CTA; com `--musica` vai direto), emenda a CTA nova (tira os 0,2 s de fundo vazio
+   do começo dela), continua a música no mesmo volume por baixo da voz da CTA com fade de 1,5 s no fim, deixa a voz da
+   CTA no volume da voz do vídeo e limita em -0,1 dBTP. Reencoda em CRF 17. Imprime um JSON: confira `confirmacao_12s`
+   (≥ 0,08; abaixo disso ele trata como sem música) e o pico final. Testado em 12/11/2026 nos 15 NV em Aprovação/Correções.
+   A conferência do `conferir.py` (CTA/teclado) vale para o vídeo ANTES da troca; depois da troca, confira a folha de
+   quadros da emenda e transcreva o fim (a CTA tem que sair inteira: "...evoluir a cada dia, me segue").
+   O vídeo final que vai para o Drive e para a Sala é o da saída do `trocar_cta.py`.
 6. **Olhar** — você mesmo: `qa/folha_blocos_*.jpg`, `qa/folha_cta.jpg`,
    `qa/fundo_mais_claro.png`, `qa/emendas_literal.txt`. Chame o **novela-revisor** só se a
    conferência reprovar por algo real, se algo parecer errado nas folhas ou no 1º vídeo de um lote.
@@ -278,7 +289,7 @@ da copy no documento "2. JÁ GRAVADOS", `1iQPGvM9Ntgwa0Bqws3UyZQPZJi-pzOI5p5WcZ0
   a versão antiga é `trilha_antiga_16lufs.py`). NV_CTA: passe o início da animação como 7º argumento do `mixar_alto.py`
   (os efeitos da animação têm picos maiores e travavam o ganho). Confira no fim: pico real ≤ -0,1. Se o estilo pede "crescer no
   final", use um trecho da faixa que cresce.
-- **A música continua na CTA "ME SIGA PARA MAIS CONTEÚDOS"** (usuário, 06/11/2026): segue no mesmo volume por baixo do
+- **A música continua na CTA** (usuário, 06/11/2026; com a CTA "me segue" de 12/11/2026 o `trocar_cta.py` continua a mesma faixa por baixo da voz dela): segue no mesmo volume por baixo do
   teclado até o fim do vídeo e só some num fade-out de 1,5 s no final (antes acabava junto com a fala e a CTA ficava muda).
   O `mixar_alto.py` já faz sempre (`ate_fim = True`, `FADE_FIM`); a versão anterior ficou em `mixar_alto_antes_cta_com_musica.py`.
   Confira: nos 2,9 s da CTA a música tem que estar presente (~-23 dB), não silêncio.
