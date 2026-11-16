@@ -59,6 +59,15 @@ Formato: `- **Regra curta** (vídeo, data, nota original resumida) → o que faz
   10/50/90% do trecho usado; se a ação está depois, mude o início.
 - **Cena que já foi aprovada numa versão não muda na seguinte** ("na v1 estava bem enquadrada, agora você cagou") →
   só mexa no que tem nota.
+- **"Momento icônico" = o quadro exato, não o plano** (Jordan, 3 versões: "mostra a cédula com tudo e olha pra
+  câmera") → faça tira de quadros a cada 0,2 s, AMPLIADA no assunto, e escolha o trecho em que a ação está no auge
+  (WOLF-03: 86,45–87,7 s). Não basta a cena certa: tem que ser o segundo certo.
+- **Cena com duas pessoas que brigam = as duas aparecem** ("eu quero que o cara apareça também") → se elas estão em
+  planos separados, faça DUAS linhas no plano (um recorte para cada um), uma por meia frase.
+- **Vídeo fraco não fica muito tempo na tela** ("corta já aqui, não ficou bom para passar tanto tempo") → cena
+  genérica no máximo ~1,5 s.
+- **Legenda não pode cair no rosto** ("a legenda ficou no rosto do Clailton") → no fechado (zoom) o rosto desce até a
+  altura da legenda; se a frase tem fechado longo, confira o quadro; na dúvida, `ABERTO` ali.
 - **Simpsons = família/Homer reconhecível**, não a usina ("não fez sentido"; "nenhuma imagem com o Homer?").
 
 ## Corte e legenda
@@ -75,8 +84,9 @@ Formato: `- **Regra curta** (vídeo, data, nota original resumida) → o que faz
   música 10 dB abaixo, continua na CTA).
 - **Trilha de TENSÃO/MISTÉRIO/SUSPENSE e DUAS músicas** (Fim do Mundo v2: "a música não casou bem") → 1ª metade com
   uma faixa tensa (ex.: SoLaTiDo - Suspenseful and Tense Orchestra, Bravokod) até a virada que o usuário marcar,
-  transição SONORA logo depois da palavra da virada (whoosh-cinematic do media-use a partir do pico, 2,0 s), e a 2ª
-  faixa segue até o fim. Monte um único wav (cada parte em -20 LUFS, `amix normalize=0`) e passe para `trilha.py`
+  transição logo depois da palavra da virada e a 2ª faixa segue até o fim. **Transição = troca GRADUAL entre as
+  músicas, sem efeito** (v3: o whoosh foi reprovado, "muito forte, faça mais suave e gradual"): 1ª faixa some em
+  ~4 s e a 2ª entra em ~3,5 s, cruzando na palavra. Monte um único wav (cada parte em -20 LUFS, `amix normalize=0`) e passe para `trilha.py`
   com início 0; o `trocar_cta.py --musica` usa o mesmo wav. Modelo: `_trabalho/Reels_Clailton_TD_Fim_Do_Mundo/trilha_duas.wav`.
 - **CTA antiga (digitada) não vale mais** ("aqui está a cta antiga") → depois da trilha, troque pela CTA "me segue"
   (`reels-novela-clailton/scripts/trocar_cta.py`), como nas novelas.
