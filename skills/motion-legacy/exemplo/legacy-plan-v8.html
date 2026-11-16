@@ -1,0 +1,1136 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>Motion Legacy Plan v6</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+@font-face { font-family: "Urbanist"; src: url("assets/fonts/Urbanist-Regular.ttf"); font-weight: 400; }
+@font-face { font-family: "Urbanist"; src: url("assets/fonts/Urbanist-Medium.ttf"); font-weight: 500; }
+@font-face { font-family: "Urbanist"; src: url("assets/fonts/Urbanist-SemiBold.ttf"); font-weight: 600; }
+@font-face { font-family: "Urbanist"; src: url("assets/fonts/Urbanist-Bold.ttf"); font-weight: 700; }
+@font-face { font-family: "Urbanist"; src: url("assets/fonts/Urbanist-ExtraBold.ttf"); font-weight: 800; }
+
+:root { --navy:#0a1a33; --azul:#2f7bff; --azul2:#5aa9ff; --claro:#dcebff; --cinza:#7c8ba3; --side:#111c22; --plan:#195576; --verde:#10b981; --lar:#f59e0b; }
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { width:1080px; height:1920px; overflow:hidden; background:#f3f6fb; }
+#root { position:relative; width:100%; height:100%; overflow:hidden; font-family:"Urbanist", sans-serif; color:var(--navy); }
+.abs { position:absolute; }
+.cena { position:absolute; inset:0; }
+.palco { position:absolute; inset:0; perspective:2200px; perspective-origin:50% 45%; }
+#lente { position:absolute; inset:0; }
+#lente2 { position:absolute; inset:0; perspective:1300px; perspective-origin:50% 40%; }
+#camera { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+#cam-l { position:absolute; inset:0; transform-style:preserve-3d; }
+.fant { position:absolute; left:-400px; width:1880px; text-align:center; white-space:nowrap; font-weight:800; font-size:330px; letter-spacing:-12px; color:rgba(47,123,255,.13); filter:blur(3px); pointer-events:none; }
+.lig { position:absolute; width:8px; border-radius:4px; transform-origin:50% 0; }
+.lig i { position:absolute; inset:0; border-radius:4px; background:linear-gradient(180deg,#2f7bff,#7cc4ff); box-shadow:0 0 18px rgba(47,123,255,.8), 0 0 40px rgba(47,123,255,.4); transform-origin:50% 0; }
+#curT { position:absolute; left:0; top:0; width:84px; height:100px; filter: drop-shadow(0 14px 18px rgba(20,50,110,.35)); }
+
+.p3 { transform-style:preserve-3d; }
+
+/* fundo claro */
+#bg { position:absolute; inset:0; background: radial-gradient(ellipse 85% 60% at 50% 42%, #ffffff 0%, #f3f6fb 55%, #e3ecf8 100%); }
+.blob { position:absolute; border-radius:50%; filter:blur(110px); }
+#blob1 { left:-260px; top:180px; width:760px; height:760px; background:#cfe0ff; opacity:.75; }
+#blob2 { left:560px; top:1150px; width:720px; height:720px; background:#d9e8ff; opacity:.8; }
+#grade { position:absolute; inset:-200px; background-image: radial-gradient(rgba(47,123,255,.20) 1.5px, transparent 1.8px); background-size:46px 46px;
+  -webkit-mask-image: radial-gradient(ellipse 50% 40% at 50% 50%, #000 0%, transparent 100%); mask-image: radial-gradient(ellipse 50% 40% at 50% 50%, #000 0%, transparent 100%); }
+
+/* letreiro */
+#letras { position:absolute; inset:0; pointer-events:none; transform-style:preserve-3d; }
+.grp { position:absolute; left:70px; width:940px; text-align:center; }
+.ln { display:block; white-space:nowrap; line-height:1.1; }
+.w { display:inline-block; position:relative; font-weight:600; font-size:74px; letter-spacing:-1.5px; margin:0 10px; color:var(--navy);
+  text-shadow: 0 14px 34px rgba(10,26,51,.10); }
+.w.sm { font-size:54px; font-weight:500; letter-spacing:-.5px; }
+.w.big { font-size:108px; font-weight:700; letter-spacing:-3px; }
+.w.xl { font-size:156px; font-weight:800; letter-spacing:-5px; line-height:1.05; }
+.w.dim { color:var(--cinza); }
+.w.hl { padding:0 20px; text-shadow:none; }
+.w .tx { position:relative; }
+.marca { position:absolute; left:0; top:9%; width:100%; height:86%; background:linear-gradient(100deg,#2f7bff,#4d93ff); border-radius:16px; transform-origin:0 50%;
+  box-shadow: 0 16px 34px rgba(47,123,255,.35); }
+.marca.cz { background:linear-gradient(100deg,#9aa8bd,#b4c0d1); box-shadow:none; }
+.risco { position:absolute; left:-4%; top:52%; width:108%; height:8px; border-radius:4px; background:var(--azul); transform-origin:0 50%; }
+
+/* vidro claro */
+.vidro { position:absolute; border-radius:30px; background: linear-gradient(155deg, rgba(255,255,255,.97), rgba(236,243,255,.86));
+  border:1.5px solid rgba(255,255,255,.95); box-shadow: 0 46px 100px rgba(20,50,110,.18), 0 0 0 1px rgba(47,123,255,.12), inset 0 2px 0 #fff; }
+.rot { font-weight:700; font-size:20px; letter-spacing:3px; color:var(--cinza); text-transform:uppercase; }
+.num { font-weight:800; letter-spacing:-3px; font-variant-numeric:tabular-nums; color:var(--navy); }
+.chipv { display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border-radius:40px; font-weight:700; font-size:22px; }
+.cursor { position:absolute; width:58px; height:70px; z-index:30; filter: drop-shadow(0 10px 14px rgba(20,50,110,.35)); }
+
+/* S1 */
+#c-receita { left:180px; top:860px; width:720px; height:360px; }
+#c-sobra { left:200px; top:1080px; width:680px; height:250px; }
+
+/* S2 documento */
+#pilha { position:absolute; left:300px; top:600px; width:480px; height:620px; }
+.doc { position:absolute; left:0; top:0; width:480px; height:620px; border-radius:26px; background:linear-gradient(170deg,#ffffff,#f1f6ff);
+  border:1.5px solid #dfe8f6; box-shadow:0 30px 70px rgba(20,50,110,.16); }
+.doc .faixa { position:absolute; left:0; top:0; right:0; height:16px; border-radius:26px 26px 0 0; background:var(--azul); }
+.doc .t1 { position:absolute; left:40px; top:60px; font-weight:800; font-size:30px; letter-spacing:3px; color:var(--navy); }
+.doc .t2 { position:absolute; left:40px; top:102px; font-weight:600; font-size:22px; color:var(--cinza); }
+.doc .l { position:absolute; left:40px; height:12px; border-radius:6px; background:#e4ecf8; }
+.doc .pg { position:absolute; right:34px; bottom:26px; font-weight:700; font-size:20px; color:#9aa8bd; letter-spacing:2px; }
+#gav-fundo { left:220px; top:1110px; width:640px; height:120px; border-radius:24px 24px 0 0; background:linear-gradient(180deg,#dfe7f3,#eef3fa); }
+#gav-frente { left:200px; top:1200px; width:680px; height:250px; border-radius:30px; }
+#gav-frente .puxa { position:absolute; left:250px; top:110px; width:180px; height:22px; border-radius:11px; background:#d5dfee; box-shadow: inset 0 3px 6px rgba(20,50,110,.18); }
+#seta-sai { left:560px; top:1395px; width:440px; height:60px; overflow:visible; }
+
+/* cartão de vídeo */
+#vcard { position:absolute; left:140px; top:480px; width:800px; height:1000px; border-radius:40px; overflow:hidden; background:#cfd9e8;
+  box-shadow: 0 60px 130px rgba(20,50,110,.30), 0 0 0 1px rgba(255,255,255,.7); }
+.vw { position:absolute; inset:0; }
+.vw video { position:absolute; left:0; top:0; width:100%; height:100%; object-fit:cover; }
+#vflash { position:absolute; inset:0; background:#fff; opacity:0; }
+#vselo { position:absolute; left:34px; bottom:34px; padding:14px 24px 14px 20px; border-radius:40px; background:rgba(255,255,255,.92); display:flex; align-items:center; gap:12px;
+  font-weight:700; font-size:24px; color:var(--navy); box-shadow:0 10px 30px rgba(0,0,0,.18); }
+#vselo i { width:14px; height:14px; border-radius:50%; background:var(--azul); box-shadow:0 0 0 6px rgba(47,123,255,.2); }
+
+/* planilha */
+#planilha { left:130px; top:600px; width:820px; height:760px; border-radius:26px; overflow:visible; }
+#pl-topo { position:absolute; left:0; top:0; width:820px; height:76px; border-radius:26px 26px 0 0; background:#e9eef5; border:1.5px solid #d7e0ec; }
+#pl-topo span { position:absolute; left:30px; top:22px; font-weight:700; font-size:24px; color:#5b6b82; }
+.cel { position:absolute; width:162px; height:68px; background:#fff; border:1.5px solid #dbe3ee; font-weight:600; font-size:22px; color:#5b6b82; padding:20px 0 0 14px; }
+
+/* janela do Legacy Plan (fonte e cores da plataforma) */
+.win { position:absolute; border-radius:24px; overflow:hidden; background:#f6f7fb; color:#0f1729;
+  box-shadow: 0 70px 140px rgba(15,40,90,.28), 0 0 0 1px rgba(15,23,41,.07); }
+.side { position:absolute; left:0; top:0; bottom:0; width:78px; background:var(--side); }
+.side img { position:absolute; left:20px; top:20px; width:38px; }
+.side .it { position:absolute; left:25px; width:28px; height:28px; border-radius:7px; border:2px solid rgba(255,255,255,.28); }
+.side .it.on { background:rgba(90,169,255,.25); border-color:#5aa9ff; }
+.topo { position:absolute; left:78px; right:0; top:0; height:60px; background:#fff; border-bottom:1px solid #e7eaf0; }
+.topo .t { position:absolute; left:28px; top:20px; font-weight:700; font-size:17px; letter-spacing:2.5px; color:#475569; }
+.corpo { position:absolute; left:78px; right:0; top:60px; bottom:0; }
+.h1 { position:absolute; left:26px; top:20px; font-weight:700; font-size:30px; }
+.h2 { position:absolute; left:26px; top:58px; font-weight:500; font-size:17px; color:#64748b; }
+.card { position:absolute; background:#fff; border:1px solid #e5e8ef; border-radius:16px; box-shadow:0 2px 6px rgba(15,23,41,.05); }
+.chip { display:inline-block; padding:7px 14px; border-radius:10px; font-weight:600; font-size:15px; color:#475569; background:#eef1f6; margin-left:6px; }
+.chip.on { background:#fff; color:#0f1729; box-shadow:0 1px 3px rgba(15,23,41,.18); }
+.kpi .r { position:absolute; left:20px; top:18px; font-weight:700; font-size:13px; letter-spacing:1.6px; color:#64748b; }
+.kpi .v { position:absolute; left:20px; top:42px; font-weight:800; font-size:34px; font-variant-numeric:tabular-nums; }
+.kpi .d { position:absolute; left:20px; top:84px; font-weight:700; font-size:14px; color:#059669; }
+.barra { position:absolute; bottom:44px; width:44px; border-radius:8px 8px 3px 3px; transform-origin:50% 100%; }
+.barra.p { background:#bcd5ff; }
+.barra.r { background:var(--azul); }
+.mes { position:absolute; bottom:14px; width:120px; text-align:center; font-weight:700; font-size:14px; letter-spacing:1.5px; color:#94a3b8; }
+.leg { position:absolute; top:18px; font-weight:600; font-size:15px; color:#475569; }
+.leg i { display:inline-block; width:13px; height:13px; border-radius:4px; margin-right:7px; vertical-align:-1px; }
+#tip { left:520px; top:20px; width:250px; height:96px; background:var(--navy); color:#fff; border-radius:14px; padding:14px 18px; font-size:16px; font-weight:600; line-height:1.5;
+  box-shadow:0 14px 30px rgba(10,26,51,.35); }
+#tip b { color:#7cc4ff; }
+
+/* metas */
+.meta { left:26px; width:812px; height:150px; }
+.meta .n { position:absolute; left:24px; top:22px; font-weight:700; font-size:24px; }
+.meta .o { position:absolute; left:24px; top:56px; font-weight:500; font-size:16px; color:#64748b; }
+.meta .trilho { position:absolute; left:24px; top:98px; width:400px; height:14px; border-radius:7px; background:#eef1f6; overflow:hidden; }
+.meta .ench { position:absolute; left:0; top:0; height:100%; width:100%; border-radius:7px; background:var(--azul); transform-origin:0 50%; }
+.meta .pct { position:absolute; left:440px; top:84px; font-weight:800; font-size:28px; color:var(--azul); }
+.resp { position:absolute; right:22px; top:30px; height:90px; padding:0 22px 0 10px; border-radius:50px; background:#f1f6ff; border:1.5px solid #c7d9ff; display:flex; align-items:center; }
+.av { position:relative; width:72px; height:72px; border-radius:50%; overflow:hidden; background:#cfd9e8; flex:none; box-shadow:0 0 0 3px #fff, 0 0 0 5px #2f7bff; }
+.av .vw video { width:72px; height:90px; top:-6px; }
+.resp .nm { margin-left:14px; font-weight:700; font-size:19px; color:#1e3a8a; line-height:1.15; }
+.resp .nm small { display:block; font-weight:700; font-size:12px; letter-spacing:1.6px; color:#64748b; }
+
+/* plano de ação */
+#acao { left:150px; top:690px; width:780px; height:420px; border-radius:30px; }
+#acao .ico { position:absolute; left:40px; top:40px; width:64px; height:64px; border-radius:18px; background:linear-gradient(140deg,#2f7bff,#7cc4ff); }
+#acao .tt { position:absolute; left:40px; top:132px; width:640px; font-weight:700; font-size:40px; line-height:1.15; color:var(--navy); }
+#acao .st { position:absolute; right:36px; top:48px; }
+#acao .lin { position:absolute; left:40px; top:300px; display:flex; align-items:center; gap:18px; }
+#acao .av { width:76px; height:76px; }
+#acao .av .vw video { width:76px; height:95px; }
+#prazo { font-size:24px; background:#eef4ff; color:#1e3a8a; border:2px solid #c7d9ff; }
+#toast { left:200px; top:1170px; width:680px; height:130px; border-radius:26px; }
+#toast .sino { position:absolute; left:26px; top:30px; width:70px; height:70px; border-radius:50%; background:#fff4e5; }
+#toast .a { position:absolute; left:116px; top:28px; font-weight:800; font-size:26px; color:#b45309; }
+#toast .b { position:absolute; left:116px; top:70px; font-weight:600; font-size:21px; color:#475569; }
+
+/* jornada */
+#mundo { position:absolute; left:0; top:0; width:1080px; height:2400px; }
+#n30 { position:absolute; left:0; top:440px; width:1080px; text-align:center; font-weight:800; font-size:330px; line-height:1; letter-spacing:-12px;
+  background:linear-gradient(180deg,#2f7bff 0%, #0a1a33 100%); -webkit-background-clip:text; background-clip:text; color:transparent; filter: drop-shadow(0 30px 40px rgba(47,123,255,.25)); }
+.etapa { position:absolute; width:560px; height:190px; border-radius:30px; }
+.etapa .e1 { position:absolute; left:120px; top:40px; font-weight:700; font-size:20px; letter-spacing:3px; color:var(--azul); }
+.etapa .e2 { position:absolute; left:120px; top:76px; font-weight:800; font-size:48px; letter-spacing:-1px; color:var(--navy); }
+.etapa .bol { position:absolute; left:32px; top:55px; width:72px; height:72px; border-radius:22px; background:linear-gradient(140deg,#2f7bff,#7cc4ff); box-shadow:0 12px 24px rgba(47,123,255,.35); }
+.etapa .bol svg { position:absolute; left:16px; top:16px; width:40px; height:40px; }
+.enc { position:absolute; width:190px; height:116px; border-radius:24px; text-align:center; }
+.enc b { display:block; margin-top:18px; font-weight:800; font-size:44px; color:var(--navy); line-height:1; }
+.enc span { display:block; margin-top:8px; font-weight:700; font-size:14px; letter-spacing:2.5px; color:var(--cinza); }
+.enc.on { background:linear-gradient(140deg,#2f7bff,#4d93ff); }
+.enc.on b, .enc.on span { color:#fff; }
+
+/* tudo isso */
+.mini { position:absolute; border-radius:24px; }
+#lockup { position:absolute; left:0; top:790px; width:1080px; height:160px; display:flex; align-items:center; justify-content:center; }
+#lockup img { width:120px; height:128px; margin-right:28px; }
+#lockup span { font-weight:800; font-size:112px; letter-spacing:-3px; color:var(--navy); }
+
+/* final */
+#logo-fim { position:absolute; left:250px; top:800px; width:580px; }
+#linha-fim { position:absolute; left:340px; top:1260px; width:400px; height:6px; border-radius:3px; background:var(--azul); transform-origin:50% 50%; }
+.area { width:430px; height:500px; border-radius:32px; overflow:hidden; }
+.area .vfr { position:absolute; left:14px; top:14px; right:14px; height:330px; border-radius:22px; overflow:hidden; background:#cfd9e8; }
+.area .ar { position:absolute; left:28px; top:366px; font-weight:800; font-size:34px; letter-spacing:4px; color:var(--navy); }
+.area .ok { position:absolute; left:28px; top:422px; display:flex; align-items:center; gap:10px; font-weight:700; font-size:21px; color:#047857; }
+.area .ok i { font-style:normal; width:34px; height:34px; border-radius:50%; background:#10b981; color:#fff; display:flex; align-items:center; justify-content:center; font-size:20px; }
+.mods { position:absolute; left:36px; right:36px; top:96px; display:flex; gap:18px; }
+.mods div { flex:1; height:190px; border-radius:22px; background:#f3f7fd; border:1.5px solid #e1e9f5; font-weight:700; font-size:22px; color:var(--navy); text-align:center; padding-top:120px; position:relative; }
+.mods b { position:absolute; left:50%; top:34px; width:64px; height:64px; margin-left:-32px; border-radius:18px; }
+.alerta { position:absolute; left:190px; width:700px; height:130px; border-radius:28px; }
+.alerta .ic { position:absolute; left:28px; top:30px; width:70px; height:70px; border-radius:50%; background:#fff1e6; display:flex; align-items:center; justify-content:center; font-size:34px; }
+.alerta .tx1 { position:absolute; left:120px; top:28px; font-weight:800; font-size:26px; color:#b45309; }
+.alerta .tx2 { position:absolute; left:120px; top:70px; font-weight:600; font-size:20px; color:#64748b; }
+.alerta .ck { position:absolute; right:30px; top:35px; width:60px; height:60px; border-radius:50%; background:#10b981; color:#fff; font-size:32px; display:flex; align-items:center; justify-content:center; }
+.selo2 { position:absolute; left:28px; bottom:28px; padding:14px 24px 14px 20px; border-radius:40px; background:rgba(255,255,255,.94); display:flex; align-items:center; gap:12px; font-weight:700; font-size:24px; color:var(--navy); }
+.selo2 i { width:14px; height:14px; border-radius:50%; background:#10b981; }
+#selo { position:absolute; left:310px; top:640px; width:460px; height:460px; transform-style:preserve-3d; }
+#selo .face { position:absolute; inset:0; border-radius:50%; backface-visibility:hidden; -webkit-backface-visibility:hidden; text-align:center; }
+#selo .tras { transform:rotateY(180deg); background:linear-gradient(140deg,#2f7bff,#4d93ff); }
+.n6 { position:absolute; left:0; right:0; top:70px; font-weight:800; font-size:190px; line-height:1; color:var(--azul); letter-spacing:-6px; }
+.mz { position:absolute; left:0; right:0; top:262px; font-weight:800; font-size:40px; letter-spacing:8px; color:var(--navy); }
+.gz { position:absolute; left:0; right:0; top:318px; font-weight:700; font-size:22px; letter-spacing:5px; color:var(--cinza); }
+.n100 { position:absolute; left:0; right:0; top:120px; font-weight:800; font-size:140px; line-height:1; color:#fff; letter-spacing:-4px; }
+.mz2 { position:absolute; left:0; right:0; top:280px; font-weight:700; font-size:30px; line-height:1.25; color:#fff; }
+#botao { position:absolute; left:190px; top:760px; width:700px; height:150px; border-radius:80px; background:linear-gradient(110deg,#2f7bff,#4d93ff); box-shadow:0 30px 70px rgba(47,123,255,.4); display:flex; align-items:center; justify-content:center; }
+#bt-tx { font-weight:800; font-size:44px; color:#fff; letter-spacing:-.5px; }
+#tag { position:absolute; left:70px; width:940px; top:1030px; text-align:center; font-weight:600; font-size:48px; color:var(--navy); line-height:1.35; }
+
+/* N1: três planilhas */
+.xls { position:absolute; width:680px; height:400px; border-radius:22px; overflow:hidden; background:#fff; border:1.5px solid #d7e0ec; box-shadow:0 40px 90px rgba(20,50,110,.18); }
+.xt { position:absolute; left:0; top:0; right:0; height:64px; background:#e9eef5; border-bottom:1.5px solid #d7e0ec; }
+.xt i { position:absolute; left:22px; top:18px; width:28px; height:28px; border-radius:7px; background:#1f9d55; }
+.xt span { position:absolute; left:64px; top:17px; font-weight:700; font-size:24px; color:#5b6b82; }
+.xg { position:absolute; left:0; top:64px; right:0; bottom:0; }
+.xc { position:absolute; width:170px; height:84px; border-right:1.5px solid #e3e9f2; border-bottom:1.5px solid #e3e9f2; font-weight:600; font-size:24px; color:#5b6b82; padding:28px 0 0 16px; white-space:nowrap; overflow:hidden; }
+.xc.h { background:#f4f7fb; font-weight:700; color:#334155; }
+/* N2: caixa, vendas, metas */
+.kk { left:150px; width:720px; height:200px; border-radius:30px; }
+.kic { position:absolute; left:34px; top:50px; width:100px; height:100px; border-radius:26px; color:#fff; font-size:46px; display:flex; align-items:center; justify-content:center; }
+.kt { position:absolute; left:164px; top:46px; font-weight:800; font-size:46px; letter-spacing:4px; color:var(--navy); }
+.ks { position:absolute; left:164px; top:110px; font-weight:600; font-size:26px; color:#64748b; }
+.kerr { position:absolute; right:34px; top:72px; padding:10px 18px; border-radius:14px; background:#fdecef; color:#e11d48; font-weight:800; font-size:26px; }
+#k-q { position:absolute; right:40px; top:40px; width:120px; height:120px; border-radius:50%; background:#f1f5f9; color:#94a3b8; font-weight:800; font-size:80px; display:flex; align-items:center; justify-content:center; }
+/* N3: tarefa sem dono */
+.qav { width:72px; height:72px; border-radius:50%; background:#e2e8f0; color:#94a3b8; font-weight:800; font-size:36px; display:flex; align-items:center; justify-content:center; box-shadow:0 0 0 3px #fff; }
+.marca.fg { background:linear-gradient(100deg,#f97316,#f59e0b); box-shadow:0 16px 34px rgba(249,115,22,.35); }
+
+/* variações do foco */
+.foco { position:absolute; border-radius:32px; }
+#fA { left:190px; top:600px; width:700px; height:540px; }
+.slot { position:absolute; left:40px; width:620px; height:110px; border-radius:22px; display:flex; align-items:center; padding-left:30px; font-weight:800; font-size:34px; }
+.slot.ruim { background:#fff4ec; border:2px solid #fed7aa; color:#c2410c; }
+.slot.bom { background:linear-gradient(110deg,#2f7bff,#4d93ff); color:#fff; box-shadow:0 16px 34px rgba(47,123,255,.3); }
+.slot small { margin-left:auto; margin-right:28px; font-weight:700; font-size:20px; opacity:.8; }
+#fB { left:150px; top:600px; width:780px; height:620px; }
+.col { position:absolute; top:96px; width:340px; height:490px; border-radius:24px; background:#f3f7fd; border:1.5px dashed #c9d8ee; }
+.colt { position:absolute; top:40px; font-weight:800; font-size:22px; letter-spacing:4px; }
+.tar { position:absolute; left:50px; width:300px; height:96px; border-radius:20px; background:#fff; border:1.5px solid #e1e9f5; box-shadow:0 8px 20px rgba(20,50,110,.08); font-weight:800; font-size:30px; color:var(--navy); padding:30px 0 0 26px; }
+.tar b { position:absolute; right:18px; top:28px; width:40px; height:40px; border-radius:50%; background:#10b981; color:#fff; font-size:22px; display:flex; align-items:center; justify-content:center; }
+.seu { position:absolute; left:50px; width:300px; height:250px; border-radius:24px; background:linear-gradient(140deg,#2f7bff,#4d93ff); color:#fff; text-align:center; padding-top:40px; box-shadow:0 20px 44px rgba(47,123,255,.35); }
+.seu .st { font-size:64px; line-height:1; }
+.seu .s1 { margin-top:16px; font-weight:800; font-size:32px; line-height:1.15; }
+#fC { left:170px; top:660px; width:740px; height:420px; }
+.barra2 { position:absolute; left:40px; top:120px; width:660px; height:110px; border-radius:26px; background:#eef3fb; overflow:hidden; display:flex; gap:10px; padding:10px; }
+.barra2 .lar { height:90px; border-radius:18px; background:linear-gradient(110deg,#f97316,#f59e0b); }
+.barra2 .az { height:90px; border-radius:18px; background:linear-gradient(110deg,#2f7bff,#4d93ff); }
+.lg { position:absolute; top:268px; display:flex; align-items:center; gap:12px; font-weight:700; font-size:28px; }
+.lg i { width:22px; height:22px; border-radius:7px; }
+#flash { position:absolute; inset:0; background:#fff; opacity:0; pointer-events:none; }
+#azul { position:absolute; inset:0; background:linear-gradient(120deg,#2f7bff,#7cc4ff); opacity:0; pointer-events:none; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="73.58" data-width="1080" data-height="1920">
+
+  <div id="fundo" class="cena"><div id="bg"></div><div id="blob1" class="blob"></div><div id="blob2" class="blob"></div><div id="grade"></div></div>
+
+  <div id="lente"><div id="camera">
+
+  <!-- S1: gancho -->
+  <div id="s1" class="cena palco">
+    <div id="c-receita" class="vidro p3">
+      <div class="abs rot" style="left:44px; top:40px;">Receita · Outubro</div>
+      <div id="rec-v" class="abs num" style="left:42px; top:76px; font-size:110px;">R$ 0</div>
+      <div class="abs chipv" style="right:40px; top:34px; background:#e8f7ef; color:#047857;">▲ 12,4%</div>
+      <svg class="abs" style="left:40px; top:220px; width:640px; height:110px; overflow:visible;" viewBox="0 0 640 110">
+        <defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f7bff" stop-opacity=".35"/><stop offset="1" stop-color="#2f7bff" stop-opacity="0"/></linearGradient></defs>
+        <path id="rec-area" d="M0 96 C 60 90, 90 70, 150 74 S 250 52, 320 58 S 430 30, 500 34 S 600 8, 640 6 L 640 110 L 0 110 Z" fill="url(#ga)"/>
+        <path id="rec-linha" pathLength="1" d="M0 96 C 60 90, 90 70, 150 74 S 250 52, 320 58 S 430 30, 500 34 S 600 8, 640 6" fill="none" stroke="#2f7bff" stroke-width="6" stroke-linecap="round" style="stroke-dasharray:1; stroke-dashoffset:1;"/>
+      </svg>
+    </div>
+    <div id="c-sobra" class="vidro p3">
+      <div class="abs rot" style="left:44px; top:40px;">Sobra do mês</div>
+      <div id="sobra-v" class="abs num" style="left:42px; top:80px; font-size:110px; color:#9aa8bd;">R$ ?.???</div>
+    </div>
+  </div>
+
+  <!-- N1: três planilhas -->
+  <div id="n1" class="cena palco">
+    <div id="xl1" class="xls p3" style="left:110px; top:560px;"><div class="xt"><i></i><span>caixa_v7_FINAL.xlsx</span></div><div class="xg"></div></div>
+    <div id="xl2" class="xls p3" style="left:200px; top:740px;"><div class="xt"><i></i><span>vendas_out (2).xlsx</span></div><div class="xg"></div></div>
+    <div id="xl3" class="xls p3" style="left:150px; top:920px;"><div class="xt"><i></i><span>metas_2026_ok.xlsx</span></div><div class="xg"></div></div>
+  </div>
+
+  <!-- N2: caixa numa planilha, vendas em outra, metas na cabeça do dono -->
+  <div id="n2" class="cena palco">
+    <div id="k-caixa" class="vidro kk p3" style="top:560px;"><div class="kic" style="background:#1f9d55;">$</div><div class="kt">CAIXA</div><div class="ks">caixa_v7_FINAL.xlsx</div><div class="kerr">#REF!</div></div>
+    <div id="k-vendas" class="vidro kk p3" style="top:800px;"><div class="kic" style="background:#1f9d55;">%</div><div class="kt">VENDAS</div><div class="ks">vendas_out (2).xlsx</div><div class="kerr">#N/D</div></div>
+    <div id="k-metas" class="vidro kk p3" style="top:1040px;"><div class="kic" style="background:#f59e0b;">💭</div><div class="kt">METAS</div><div class="ks">só na cabeça do dono</div><div id="k-q">?</div></div>
+  </div>
+
+  <!-- N3: ninguém sabe quem faz, o problema vira incêndio -->
+  <div id="n3" class="cena palco">
+    <div id="fogo" class="abs" style="left:-200px; top:400px; width:1480px; height:1200px; background:radial-gradient(ellipse 50% 45% at 50% 50%, rgba(249,115,22,.28), rgba(249,115,22,0) 70%);"></div>
+    <div id="tarefa" class="vidro p3" style="left:150px; top:600px; width:720px; height:300px;">
+      <div class="abs rot" style="left:40px; top:36px;">Tarefa</div>
+      <div class="abs" style="left:40px; top:76px; font-weight:800; font-size:44px; color:var(--navy);">Ligar para o fornecedor</div>
+      <div class="abs" style="left:40px; top:170px; display:flex; gap:16px; align-items:center;">
+        <div class="qav">?</div><div class="qav">?</div><div class="qav">?</div>
+        <div style="margin-left:10px; font-weight:700; font-size:22px; color:#64748b; line-height:1.2;"><small style="display:block; font-size:13px; letter-spacing:1.6px; color:#94a3b8;">RESPONSÁVEL</small>ninguém definido</div>
+      </div>
+    </div>
+    <div id="alertas0"></div>
+  </div>
+
+  <!-- S2: plano de 80 páginas, vai embora, gaveta -->
+  <div id="s2" class="cena palco">
+    <div id="gav-fundo" class="abs"></div>
+    <div id="pilha" class="p3"></div>
+    <div id="gav-frente" class="vidro"><div class="puxa"></div></div>
+    <svg id="seta-sai" class="abs" viewBox="0 0 440 60">
+      <path id="seta-l" pathLength="1" d="M0 30 L410 30" fill="none" stroke="#2f7bff" stroke-width="6" stroke-linecap="round" stroke-dasharray="0.04 0.03" style="stroke-dashoffset:0;"/>
+      <path id="seta-p" d="M392 12 L420 30 L392 48" fill="none" stroke="#2f7bff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+  <!-- cartão de vídeo (takes reais dos executores) -->
+  <div id="s-vid" class="cena palco">
+    <div id="vcard" class="p3">
+      <div id="vwA" class="vw"><video id="vA1" class="clip" src="assets/video/tA.mp4" muted playsinline data-start="31.95" data-duration="0.55" data-track-index="20"></video></div>
+      <div id="vwC" class="vw"><video id="vC2" class="clip" src="assets/video/tC.mp4" muted playsinline data-start="32.45" data-duration="0.55" data-media-start="0.6" data-track-index="21"></video></div>
+      <div id="vwB" class="vw"><video id="vB3" class="clip" src="assets/video/tB.mp4" muted playsinline data-start="32.95" data-duration="0.55" data-media-start="0.3" data-track-index="22"></video></div>
+      <div id="vwG" class="vw"><video id="vG4" class="clip" src="assets/video/tG.mp4" muted playsinline data-start="33.45" data-duration="0.45" data-media-start="0.4" data-track-index="23"></video></div>
+      <div id="vwE" class="vw"><video id="vE5" class="clip" src="assets/video/tE.mp4" muted playsinline data-start="33.85" data-duration="0.75" data-media-start="0.5" data-track-index="24"></video></div>
+      <div id="vflash"></div>
+      <div id="vselo"><i></i><span>Executor Legacy com o cliente</span></div>
+    </div>
+  </div>
+
+  <!-- S4: planilha -> DRE -> sobrou -->
+  <div id="s4" class="cena palco">
+    <div id="planilha" class="abs p3"><div id="pl-topo"><span>planilha_final_v7.xlsx</span></div><div id="cels"></div></div>
+    <div id="win-dre" class="win p3" style="left:70px; top:640px; width:940px; height:700px;">
+      <div class="side"><img src="assets/img/plan_logo.svg"/><div class="it" style="top:92px"></div><div class="it" style="top:142px"></div><div class="it on" style="top:192px"></div><div class="it" style="top:242px"></div><div class="it" style="top:292px"></div></div>
+      <div class="topo"><div class="t">DRE &amp; CAIXA</div></div>
+      <div class="corpo">
+        <div class="h1">DRE &amp; Caixa</div>
+        <div class="h2">Projeção do executor ao lado do realizado</div>
+        <div class="abs" style="right:26px; top:26px;"><span class="chip">Projetado</span><span class="chip">Realizado</span><span id="chip-comp" class="chip">Comparativo</span></div>
+        <div class="card kpi" style="left:26px; top:100px; width:258px; height:116px;"><div class="r">RECEITA</div><div id="k1" class="v">R$ 0</div><div class="d">▲ 2,7% vs projeção</div></div>
+        <div class="card kpi" style="left:302px; top:100px; width:258px; height:116px;"><div class="r">CUSTOS</div><div id="k2" class="v">R$ 0</div><div class="d" style="color:#64748b;">● dentro do previsto</div></div>
+        <div class="card kpi" style="left:578px; top:100px; width:258px; height:116px;"><div class="r">LUCRO</div><div id="k3" class="v" style="color:#047857;">R$ 0</div><div class="d">▲ 7,4% vs projeção</div></div>
+        <div id="graf" class="card" style="left:26px; top:232px; width:810px; height:300px;">
+          <div class="leg" style="left:22px;"><i style="background:#bcd5ff"></i>Projeção do executor</div>
+          <div class="leg" style="left:262px;"><i style="background:#2f7bff"></i>Realizado</div>
+          <div id="tip" class="abs"><span>Outubro</span><br/>Projetado <b>R$ 17.600</b><br/>Realizado <b>R$ 18.894</b></div>
+        </div>
+        <div class="card" style="left:26px; top:548px; width:810px; height:80px; background:#f0fdf6; border-color:#bbf0d3;">
+          <div class="abs" style="left:24px; top:24px; font-weight:800; font-size:24px; color:#065f46;">Lucro líquido · Outubro</div>
+          <div class="abs" style="right:220px; top:26px; font-weight:700; font-size:22px; color:#195576;">Proj. 17.600</div>
+          <div class="abs" style="right:28px; top:22px; font-weight:800; font-size:28px; color:#047857;">18.894</div>
+        </div>
+      </div>
+      <svg id="cur1" class="cursor" viewBox="0 0 58 70"><path d="M4 4 L4 56 L18 44 L28 66 L38 61 L28 40 L50 40 Z" fill="#2f7bff" stroke="#fff" stroke-width="4" stroke-linejoin="round"/></svg>
+    </div>
+    <div id="lucro-pop" class="vidro p3" style="left:130px; top:1170px; width:740px; height:300px;">
+      <div class="abs rot" style="left:44px; top:40px;">Sobrou em outubro</div>
+      <div id="luc-v" class="abs num" style="left:42px; top:78px; font-size:120px; color:#047857;">R$ 0</div>
+      <div class="abs chipv" style="left:44px; top:222px; background:#e8f7ef; color:#047857;">▲ 7,4% acima do projetado</div>
+    </div>
+  </div>
+
+  <!-- S5: metas com responsável + plano de ação -->
+  <div id="s5" class="cena palco">
+    <div id="win-metas" class="win p3" style="left:70px; top:640px; width:940px; height:640px;">
+      <div class="side"><img src="assets/img/plan_logo.svg"/><div class="it" style="top:92px"></div><div class="it" style="top:142px"></div><div class="it" style="top:192px"></div><div class="it on" style="top:242px"></div><div class="it" style="top:292px"></div></div>
+      <div class="topo"><div class="t">PAINEL DE METAS</div></div>
+      <div class="corpo">
+        <div class="h1">Painel de Controle de Metas</div>
+        <div class="h2">Cada indicador com meta, realizado e responsável</div>
+        <div class="card meta" style="top:100px;"><div class="n">Receita recorrente</div><div class="o">Meta R$ 80.000 · Out R$ 82.150</div><div class="trilho"><div class="ench"></div></div><div class="pct" data-v="103">0%</div>
+          <div class="resp"><div class="av"><div class="vw"><video id="vC9" class="clip" src="assets/video/tC.mp4" muted playsinline data-start="40.7" data-duration="1.93" data-media-start="0.2" data-track-index="30"></video></div></div><div class="nm"><small>RESPONSÁVEL</small>Comercial</div></div></div>
+        <div class="card meta" style="top:264px;"><div class="n">Margem líquida</div><div class="o">Meta 22% · Out 23%</div><div class="trilho"><div class="ench"></div></div><div class="pct" data-v="95">0%</div>
+          <div class="resp"><div class="av"><div class="vw"><video id="vO10" class="clip" src="assets/video/tO.mp4" muted playsinline data-start="40.7" data-duration="1.93" data-media-start="0.2" data-track-index="31"></video></div></div><div class="nm"><small>RESPONSÁVEL</small>Financeiro</div></div></div>
+        <div class="card meta" style="top:428px;"><div class="n">Inadimplência</div><div class="o">Meta até 3% · Out 2,2%</div><div class="trilho"><div class="ench"></div></div><div class="pct" data-v="100">0%</div>
+          <div class="resp"><div class="av"><div class="vw"><video id="vH11" class="clip" src="assets/video/tH.mp4" muted playsinline data-start="40.7" data-duration="1.93" data-media-start="0.2" data-track-index="32"></video></div></div><div class="nm"><small>RESPONSÁVEL</small>Cobrança</div></div></div>
+      </div>
+    </div>
+  </div>
+  <div id="s5b" class="cena palco">
+    <div id="acao" class="vidro p3">
+      <div class="ico"></div>
+      <div class="st"><span id="st-pill" class="chipv" style="background:#e8f0ff; color:#1d4ed8;">● Em andamento</span></div>
+      <div class="tt">Revisar tabela de preços e pacotes</div>
+      <div class="lin">
+        <div class="av"><div class="vw"><video id="vL12" class="clip" src="assets/video/tL.mp4" muted playsinline data-start="41.45" data-duration="3.35" data-media-start="0" data-track-index="33"></video></div></div>
+        <div style="font-weight:700; font-size:22px; color:#475569; line-height:1.2;"><small style="display:block; font-size:13px; letter-spacing:1.6px; color:#94a3b8;">RESPONSÁVEL</small>Comercial</div>
+        <span id="prazo" class="chipv">📅 Prazo 20/11</span>
+      </div>
+    </div>
+    <div id="toast" class="vidro">
+      <div class="sino"><svg viewBox="0 0 70 70" style="width:70px;height:70px;"><path d="M35 18 C 26 18 22 25 22 33 L22 42 L17 48 L53 48 L48 42 L48 33 C 48 25 44 18 35 18 Z M30 52 C 31 56 39 56 40 52" fill="none" stroke="#f59e0b" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg></div>
+      <div class="a">Plano travado</div>
+      <div class="b">Revisar tabela de preços · aguarda o sócio</div>
+    </div>
+  </div>
+
+  <!-- S6: jornada -->
+  <div id="s6" class="cena">
+    <div id="mundo">
+      <div id="n30">0</div>
+      <svg id="trilha" class="abs" style="left:0; top:0; width:1080px; height:2400px; overflow:visible;" viewBox="0 0 1080 2400">
+        <path id="tr1" pathLength="1" d="M410 1060 L410 1180 Q410 1210 440 1210 L640 1210 Q670 1210 670 1240 L670 1330" fill="none" stroke="#2f7bff" stroke-width="5" stroke-dasharray="0.02 0.015" style="stroke-dashoffset:0;"/>
+        <path id="tr2" pathLength="1" d="M670 1520 L670 1600 Q670 1630 640 1630 L440 1630 Q410 1630 410 1660 L410 1750" fill="none" stroke="#2f7bff" stroke-width="5" stroke-dasharray="0.02 0.015" style="stroke-dashoffset:0;"/>
+      </svg>
+      <div id="et1" class="etapa vidro" style="left:130px; top:870px;"><div class="bol"><svg viewBox="0 0 40 40"><circle cx="17" cy="17" r="11" fill="none" stroke="#fff" stroke-width="4"/><path d="M25 25 L35 35" stroke="#fff" stroke-width="4" stroke-linecap="round"/></svg></div><div class="e1">ETAPA 01</div><div class="e2">Diagnóstico</div></div>
+      <div id="et2" class="etapa vidro" style="left:390px; top:1330px; opacity:.85;"><div class="bol"><svg viewBox="0 0 40 40"><path d="M6 30 L16 18 L24 24 L34 10" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="e1">ETAPA 15</div><div class="e2">Plano de voo</div></div>
+      <div id="et3" class="etapa vidro" style="left:130px; top:1750px;"><div class="bol"><svg viewBox="0 0 40 40"><path d="M4 22 L36 8 L26 36 L20 24 Z" fill="none" stroke="#fff" stroke-width="4" stroke-linejoin="round"/></svg></div><div class="e1">ETAPA 30</div><div class="e2">Decolagem</div></div>
+    </div>
+    <svg id="cur2" class="cursor" viewBox="0 0 58 70"><path d="M4 4 L4 56 L18 44 L28 66 L38 61 L28 40 L50 40 Z" fill="#2f7bff" stroke="#fff" stroke-width="4" stroke-linejoin="round"/></svg>
+  </div>
+
+  <!-- S7: tudo isso no Legacy Plan -->
+  <div id="s7" class="cena palco">
+    <div id="orbita" class="abs p3" style="left:0; top:0; width:1080px; height:1920px;">
+      <div class="mini vidro" id="m1" style="left:110px; top:560px; width:400px; height:250px;">
+        <div class="abs rot" style="left:30px; top:28px; font-size:16px;">DRE · Proj × Real</div>
+        <div class="abs" style="left:34px; top:90px; width:40px; height:110px; border-radius:8px; background:#bcd5ff;"></div><div class="abs" style="left:80px; top:70px; width:40px; height:130px; border-radius:8px; background:#2f7bff;"></div>
+        <div class="abs" style="left:150px; top:80px; width:40px; height:120px; border-radius:8px; background:#bcd5ff;"></div><div class="abs" style="left:196px; top:55px; width:40px; height:145px; border-radius:8px; background:#2f7bff;"></div>
+        <div class="abs" style="left:266px; top:70px; width:40px; height:130px; border-radius:8px; background:#bcd5ff;"></div><div class="abs" style="left:312px; top:40px; width:40px; height:160px; border-radius:8px; background:#2f7bff;"></div>
+      </div>
+      <div class="mini vidro" id="m2" style="left:560px; top:520px; width:400px; height:200px;">
+        <div class="abs rot" style="left:30px; top:28px; font-size:16px;">Sobrou</div>
+        <div class="abs num" style="left:28px; top:62px; font-size:72px; color:#047857;">R$ 18.894</div>
+      </div>
+      <div class="mini vidro" id="m3" style="left:150px; top:1180px; width:420px; height:170px;">
+        <div class="abs" style="left:28px; top:26px; font-weight:700; font-size:24px;">Receita recorrente</div>
+        <div class="abs" style="left:28px; top:80px; width:250px; height:14px; border-radius:7px; background:#e4ecf8;"><div style="width:100%; height:100%; border-radius:7px; background:#2f7bff;"></div></div>
+        <div class="abs" style="left:296px; top:66px; font-weight:800; font-size:30px; color:#2f7bff;">103%</div>
+      </div>
+      <div class="mini vidro" id="m4" style="left:600px; top:1110px; width:360px; height:210px;">
+        <div class="abs chipv" style="left:26px; top:26px; background:#fff4e5; color:#b45309; font-size:18px;">● Travado</div>
+        <div class="abs" style="left:28px; top:90px; width:300px; font-weight:700; font-size:26px; line-height:1.15;">Revisar tabela de preços</div>
+      </div>
+      <div class="mini vidro" id="m5" style="left:400px; top:860px; width:280px; height:220px;">
+        <div class="abs num" style="left:0; top:24px; width:280px; text-align:center; font-size:110px; color:#2f7bff;">30</div>
+        <div class="abs rot" style="left:0; top:160px; width:280px; text-align:center; font-size:16px;">etapas</div>
+      </div>
+    </div>
+    <div id="lockup"><img src="assets/img/plan_logo.svg"/><span>Legacy Plan</span></div>
+  </div>
+
+  <!-- CTA -->
+  <div id="c1" class="cena palco">
+    <div id="c1doc" class="doc p3" style="left:300px; top:620px;"><div class="faixa"></div><div class="t1">PLANO ESTRATÉGICO</div><div class="t2">Consultoria · 2026</div>
+      <div class="l" style="top:170px; width:380px;"></div><div class="l" style="top:210px; width:340px;"></div><div class="l" style="top:250px; width:240px;"></div><div class="l" style="top:310px; width:360px;"></div><div class="l" style="top:350px; width:300px;"></div><div class="l" style="top:390px; width:240px;"></div><div class="pg">PÁG. 80 / 80</div></div>
+  </div>
+  <div id="c2" class="cena palco">
+    <svg id="c2lig" class="abs" style="left:0; top:0; width:1080px; height:1920px; overflow:visible;" viewBox="0 0 1080 1920">
+      <path id="c2l1" d="M300 1000 L300 1060 Q300 1090 330 1090 L540 1090 L540 1130" fill="none" stroke="#2f7bff" stroke-width="5" stroke-dasharray="12 9"/>
+      <path id="c2l2" d="M780 1000 L780 1060 Q780 1090 750 1090 L540 1090" fill="none" stroke="#2f7bff" stroke-width="5" stroke-dasharray="12 9"/>
+    </svg>
+    <div id="cardF" class="vidro area p3" style="left:90px; top:600px;">
+      <div class="vfr"><div class="vw"><video id="cO101" class="clip" src="assets/video/tO.mp4" muted playsinline data-start="34.5" data-duration="1.85" data-track-index="50"></video></div><div class="vw"><video id="cM102" class="clip" src="assets/video/tM.mp4" muted playsinline data-start="36.3" data-duration="2.15" data-track-index="51"></video></div><div class="vw"><video id="cG110" class="clip" src="assets/video/tG.mp4" muted playsinline data-start="38.45" data-duration="1.35" data-media-start="0.3" data-track-index="55"></video></div></div>
+      <div class="ar">FINANCEIRO</div><div class="ok"><i>✓</i>Assumido pela Legacy</div></div>
+    <div id="cardC" class="vidro area p3" style="left:560px; top:600px;">
+      <div class="vfr"><div class="vw"><video id="cC103" class="clip" src="assets/video/tC.mp4" muted playsinline data-start="35.4" data-duration="1.95" data-track-index="52"></video></div><div class="vw"><video id="cJ104" class="clip" src="assets/video/tJ.mp4" muted playsinline data-start="37.3" data-duration="2.13" data-track-index="53"></video></div></div>
+      <div class="ar">COMERCIAL</div><div class="ok"><i>✓</i>Assumido pela Legacy</div></div>
+    <div id="cardG" class="vidro p3" style="left:200px; top:1130px; width:680px; height:330px;">
+      <div class="abs rot" style="left:40px; top:34px;">Gestão completa</div>
+      <div class="mods"><div><b style="background:#2f7bff"></b>Caixa</div><div><b style="background:#5aa9ff"></b>DRE</div><div><b style="background:#195576"></b>Metas</div><div><b style="background:#10b981"></b>Vendas</div></div>
+    </div>
+  </div>
+  <div id="c3" class="cena palco">
+    <div id="alertas"></div>
+    <div id="lucroC" class="vidro p3" style="left:190px; top:640px; width:700px; height:440px;">
+      <div class="abs rot" style="left:44px; top:40px;">Lucro do mês</div>
+      <div class="abs chipv" style="right:40px; top:30px; background:#e8f7ef; color:#047857;">▲ crescendo</div>
+      <svg class="abs" style="left:40px; top:110px; width:620px; height:290px; overflow:visible;" viewBox="0 0 620 290">
+        <defs><linearGradient id="gl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#10b981" stop-opacity=".35"/><stop offset="1" stop-color="#10b981" stop-opacity="0"/></linearGradient></defs>
+        <path id="luc-area" d="M0 260 C 80 255, 120 230, 190 220 S 300 170, 370 150 S 500 70, 620 20 L 620 290 L 0 290 Z" fill="url(#gl)"/>
+        <path id="luc-linha" pathLength="1" d="M0 260 C 80 255, 120 230, 190 220 S 300 170, 370 150 S 500 70, 620 20" fill="none" stroke="#10b981" stroke-width="8" stroke-linecap="round" style="stroke-dasharray:1; stroke-dashoffset:1;"/>
+        <circle id="luc-pt" cx="620" cy="20" r="14" fill="#10b981"/>
+      </svg>
+    </div>
+    <div id="relogio" class="vidro p3" style="left:340px; top:640px; width:400px; height:400px; border-radius:50%;">
+      <svg viewBox="0 0 400 400" style="position:absolute; inset:0;">
+        <circle cx="200" cy="200" r="150" fill="none" stroke="#dce8fb" stroke-width="10"/>
+        <path id="rel-arco" pathLength="1" d="M200 50 A150 150 0 1 1 199.9 50" fill="none" stroke="#2f7bff" stroke-width="10" stroke-linecap="round" style="stroke-dasharray:1; stroke-dashoffset:1;"/>
+        <g id="rel-h"><line x1="200" y1="200" x2="200" y2="120" stroke="#0a1a33" stroke-width="12" stroke-linecap="round"/></g>
+        <g id="rel-m"><line x1="200" y1="200" x2="200" y2="80" stroke="#2f7bff" stroke-width="8" stroke-linecap="round"/></g>
+        <circle cx="200" cy="200" r="12" fill="#0a1a33"/>
+      </svg>
+    </div>
+    <div id="fA" class="foco vidro p3"><div class="abs rot" style="left:44px; top:38px;">Sua semana</div>
+      <div class="slot ruim" style="top:100px;">🔥 Apagar incêndio<small>seg</small></div><div class="slot bom um" style="top:100px;">Seu produto<small>seg</small></div>
+      <div class="slot ruim" style="top:240px;">📄 Conferir planilha<small>qua</small></div><div class="slot bom" style="top:240px;">Seus clientes<small>qua</small></div>
+      <div class="slot ruim" style="top:380px;">📞 Cobrar vendedor<small>sex</small></div><div class="slot bom" style="top:380px;">Fazer a empresa crescer<small>sex</small></div></div>
+    <div id="fB" class="foco vidro p3">
+      <div class="col" style="left:30px;"></div><div class="col" style="left:410px; background:#eaf2ff; border-color:#9cc1ff;"></div>
+      <div class="colt" style="left:60px; color:var(--cinza);">VOCÊ</div><div class="colt" style="left:440px; color:var(--azul);">LEGACY</div>
+      <div class="tar" style="top:126px;">Financeiro<b>✓</b></div><div class="tar" style="top:240px;">Comercial<b>✓</b></div><div class="tar" style="top:354px;">Cobrança<b>✓</b></div>
+      <div class="seu" style="top:300px;"><div class="st">★</div><div class="s1">O que você<br/>domina</div></div></div>
+    <div id="fC" class="foco vidro p3"><div class="abs rot" style="left:44px; top:44px;">Seu tempo</div>
+      <div class="barra2"><div class="lar"></div><div class="az"></div></div>
+      <div class="lg" style="left:44px; color:#c2410c;"><i style="background:#f97316"></i>Apagando incêndio</div>
+      <div class="lg lg2" style="left:44px; top:330px; color:#1d4ed8;"><i style="background:#2f7bff"></i>No que você domina</div></div>
+    <div id="vfoco" class="p3" style="position:absolute; left:195px; top:600px; width:690px; height:560px; border-radius:36px; overflow:hidden; box-shadow:0 50px 110px rgba(20,50,110,.28);">
+      <div class="vw"><video id="cA105" class="clip" src="assets/video/tA.mp4" muted playsinline data-start="59.94" data-duration="2.0" data-track-index="54"></video></div>
+      <div class="selo2"><i></i>Você no que faz de melhor</div>
+    </div>
+  </div>
+  <div id="c4" class="cena palco">
+    <div id="selo" class="p3">
+      <div id="selo-f" class="face vidro">
+        <svg viewBox="0 0 460 460" style="position:absolute; inset:0;"><g id="arcos"></g></svg>
+        <div class="n6">6</div><div class="mz">MESES</div><div class="gz">DE GARANTIA</div>
+      </div>
+      <div id="selo-v" class="face vidro tras">
+        <div class="n100">100%</div><div class="mz2">do seu investimento<br/>de volta</div>
+      </div>
+    </div>
+  </div>
+  <div id="c5" class="cena palco">
+    <div id="bio" class="abs chipv" style="left:390px; top:640px; background:#fff; color:#0a1a33; font-size:24px; box-shadow:0 14px 34px rgba(20,50,110,.18);">🔗 link na bio</div>
+    <div id="botao" class="p3"><span id="bt-tx">📅 Agendar minha sessão</span></div>
+    <svg id="cur3" class="cursor" viewBox="0 0 58 70"><path d="M4 4 L4 56 L18 44 L28 66 L38 61 L28 40 L50 40 Z" fill="#2f7bff" stroke="#fff" stroke-width="4" stroke-linejoin="round"/></svg>
+    <img id="logo-fim" src="assets/img/logo_navy.svg" />
+    <div id="tag"><span>Enquanto todo mundo ensina,</span><br/><span>a gente </span><span class="w hl" style="font-size:64px; margin:0;"><span class="marca"></span><span class="tx">executa.</span></span></div>
+  </div>
+
+  </div></div>
+
+  <div id="lente2"><div id="cam-l"><div id="letras"></div></div></div>
+  <div id="azul"></div>
+  <div id="flash"></div>
+
+  <audio id="mix" src="assets/audio/mix_v8.wav" data-start="0" data-duration="73.58" data-track-index="40"></audio>
+</div>
+
+<script>
+(function () {
+  const tlr = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["main"] = tlr;
+  // voz antiga (v4) -> voz F; cada bloco antigo ainda leva o tempo da voz F para a voz G (mapaG)
+  const ANC = [[0.25, 0.25], [0.47, 0.51], [0.75, 0.81], [1.57, 1.61], [1.97, 1.97], [2.19, 2.23], [2.55, 2.55], [2.99, 2.83], [3.43, 3.29], [3.55, 3.45], [3.67, 3.57], [3.77, 3.69], [4.37, 4.27], [4.79, 4.77], [5.39, 5.37], [5.79, 5.77], [5.89, 5.87], [6.11, 6.09], [6.27, 6.23], [6.73, 6.69], [7.49, 7.37], [7.87, 7.49], [7.99, 7.59], [8.65, 8.23], [8.85, 8.47], [9.07, 8.77], [9.29, 9.05], [9.41, 9.19], [10.29, 9.99], [10.41, 10.25], [11.05, 10.89], [11.21, 10.99], [11.65, 11.43], [12.07, 11.87], [12.17, 11.97], [12.33, 12.15], [12.63, 12.47], [12.89, 12.67], [13.43, 13.23], [14.11, 13.95], [14.47, 14.31], [14.59, 14.43], [15.27, 15.19], [15.47, 15.39], [16.15, 16.17], [16.33, 16.29], [16.81, 16.77], [16.93, 16.89], [17.43, 17.39], [17.69, 17.65], [17.87, 17.83], [18.09, 18.11], [18.23, 18.25], [18.83, 18.91], [19.17, 19.11], [19.41, 19.33], [19.69, 19.61], [19.93, 19.87], [20.53, 20.51], [20.91, 20.87], [21.27, 21.25], [21.59, 21.45], [21.71, 21.55], [22.73, 22.51], [22.91, 22.87], [23.25, 23.19], [23.51, 23.45], [23.99, 23.95], [24.33, 24.17], [24.43, 24.27], [24.49, 24.35], [24.93, 24.81], [25.41, 25.33], [25.65, 25.61], [25.95, 26.23], [26.47, 26.55], [26.87, 26.87], [27.57, 27.55], [27.69, 27.65], [28.43, 28.43], [28.57, 28.61], [30.55, 29.19], [30.87, 29.71], [31.17, 30.03], [31.43, 30.29], [31.59, 30.45], [31.89, 30.77], [32.35, 31.25], [32.67, 31.43], [32.77, 31.53], [33.23, 31.99], [33.57, 32.25], [33.81, 32.43]];
+  const TTF = [0.25,0.51,0.81,1.61,1.97,2.23,2.55,2.83,3.29,3.45,3.57,3.69,4.27,4.77,5.37,5.77,5.87,6.09,6.23,6.69,7.37,7.49,7.59,8.23,8.47,8.77,9.05,9.19,9.99,10.25,10.89,10.99,11.43,11.87,11.97,12.15,12.47,12.67,13.23,13.95,14.31,14.43,15.19,15.39,16.17,16.29,16.77,16.89,17.39,17.65,17.83,18.11,18.25,18.91,19.11,19.33,19.61,19.87,20.51,20.87,21.25,21.45,21.55,22.51,22.87,23.19,23.45,23.95,24.17,24.27,24.35,24.81,25.33,25.61,26.23,26.55,26.87,27.55,27.65,28.43,28.61,29.19,29.71,30.03,30.29,30.45,30.77,31.25,31.43,31.53,31.99,32.25,32.43,33.07,33.55,33.65,34.17,34.47,34.89,35.39,35.47,35.81,36.03,36.17,36.89,37.05,37.69,37.81,37.93,38.29,38.41,39.05,39.21,39.29,39.77,40.03,40.19,40.61,40.85,41.25,41.39,41.79,42.73,43.09,43.47,43.61,43.91,44.65,44.81,44.93,45.07,45.35,45.87,46.13,46.69,46.77,46.87,47.17,47.35,47.71,47.85,47.95,48.33,48.99,49.31,49.45,49.59,49.83,50.23,50.49,50.73,50.99,51.77,52.31,52.75,52.87,52.99,53.85,54.23,54.37,54.57,54.75,55.01,55.23,55.55,55.73,56.13,56.51];
+  function interp(A, x) {
+    if (x <= A[0][0]) return x + A[0][1] - A[0][0];
+    const u = A[A.length - 1];
+    if (x >= u[0]) return x + u[1] - u[0];
+    for (let i = 1; i < A.length; i++) {
+      const a = A[i - 1], b = A[i];
+      if (x <= b[0]) return b[0] > a[0] ? a[1] + (x - a[0]) * (b[1] - a[1]) / (b[0] - a[0]) : a[1];
+    }
+    return x;
+  }
+  let mapaF = false, mapaG = null;
+  function bloco(f, g) { mapaF = f; mapaG = g; }
+  function M(x) {
+    if (typeof x !== "number") return x;
+    if (x <= 0) return 0;
+    let y = mapaF ? interp(ANC, x) : x;
+    if (mapaG) y = interp(mapaG, y);
+    return y;
+  }
+  const tl = { to: (a, b, q) => tlr.to(a, b, M(q)), fromTo: (a, b, c, q) => tlr.fromTo(a, b, c, M(q)), set: (a, b, q) => tlr.set(a, b, M(q)) };
+  const DUR = 73.58;
+  const VAR = "C";
+  const $ = (s) => document.querySelector(s);
+  const $$ = (s) => Array.from(document.querySelectorAll(s));
+
+  // tempos de cada palavra da voz nova (já com a voz começando em 0,25 s)
+  const TX = ["Sua", "empresa", "fatura,", "mas", "você", "sabe", "quanto", "sobra", "no", "fim", "do", "mês?", "Se", "para", "responder", "você", "precisa", "abrir", "três", "planilhas,", "você", "não", "tem", "o", "controle", "da", "sua", "empresa.", "O", "caixa", "fica", "numa", "planilha,", "as", "vendas", "em", "outra", "e", "as", "metas", "na", "cabeça", "do", "dono.", "Ninguém", "sabe", "quem", "ficou", "de", "fazer", "o", "quê", "e", "o", "problema", "só", "aparece", "quando", "já", "virou", "incêndio.", "Muita", "consultoria", "entrega", "um", "plano", "de", "80", "páginas", "e", "vai", "embora.", "O", "plano", "fica", "na", "gaveta", "e", "o", "seu", "problema", "continua", "sem", "solução.", "Na", "Legacy", "é", "diferente.", "O", "executor", "entra", "na", "sua", "empresa,", "assume", "o", "financeiro", "e", "o", "comercial,", "arruma", "a", "casa", "e", "toca", "a", "gestão", "por", "você.", "Cada", "meta", "tem", "um", "responsável,", "cada", "ação", "tem", "prazo", "e", "o", "que", "travou", "aparece", "na", "hora.", "E", "no", "Legacy", "Plan", "você", "passa", "a", "acompanhar", "todos", "os", "números", "em", "um", "só", "lugar.", "O", "que", "planejou,", "o", "que", "faturou", "de", "verdade", "e", "quanto", "sobrou", "no", "fim", "do", "mês.", "Você", "para", "de", "apagar", "incêndio,", "vê", "o", "seu", "lucro", "crescer", "e", "recupera", "o", "seu", "tempo", "para", "focar", "no", "que", "você", "domina.", "E", "se", "em", "seis", "meses", "você", "não", "tiver", "resultado,", "devolvemos", "todo", "o", "seu", "investimento.", "Clique", "no", "link", "da", "bio", "e", "agende", "sua", "sessão", "agora", "mesmo."];
+  const TT = [0.25, 0.43, 0.71, 1.49, 2.07, 2.39, 2.69, 3.05, 3.67, 3.77, 3.89, 4.03, 4.51, 5.01, 5.13, 5.59, 5.89, 6.27, 6.53, 6.93, 7.77, 8.19, 8.53, 8.85, 9.01, 9.41, 9.59, 9.75, 10.37, 10.71, 11.13, 11.31, 11.51, 12.19, 12.47, 12.91, 13.05, 13.39, 13.75, 13.93, 14.39, 14.53, 14.83, 15.07, 15.57, 16.17, 16.57, 16.93, 17.23, 17.45, 17.63, 17.83, 18.01, 18.39, 18.55, 18.87, 19.23, 19.67, 20.05, 20.35, 20.71, 21.41, 21.99, 22.57, 23.07, 23.11, 23.35, 23.53, 23.79, 24.73, 24.89, 25.03, 25.53, 25.95, 26.25, 26.47, 26.67, 27.21, 27.43, 27.55, 27.75, 28.17, 28.63, 29.13, 30.25, 30.35, 30.75, 31.09, 32.03, 32.41, 32.97, 33.29, 33.51, 33.65, 34.25, 34.67, 34.81, 35.49, 35.57, 35.61, 36.39, 37.01, 37.09, 37.51, 37.73, 38.03, 38.19, 38.59, 38.83, 39.43, 39.89, 40.33, 40.69, 40.85, 41.73, 42.13, 42.61, 42.75, 43.33, 43.59, 43.79, 43.87, 44.31, 44.69, 45.19, 45.73, 46.13, 46.25, 46.55, 46.85, 47.27, 47.61, 47.75, 48.21, 48.57, 48.89, 49.17, 49.47, 49.61, 49.85, 50.35, 50.77, 50.83, 51.59, 51.79, 51.87, 52.39, 52.55, 52.85, 53.39, 53.77, 54.27, 54.39, 54.53, 54.63, 55.13, 55.65, 56.09, 56.25, 56.53, 57.19, 57.53, 57.67, 57.83, 58.13, 58.67, 59.01, 59.65, 59.67, 59.79, 60.09, 60.29, 60.63, 60.73, 60.83, 61.19, 61.7, 61.89, 62.39, 62.53, 62.85, 63.21, 63.55, 63.81, 64.11, 64.85, 65.55, 65.93, 66.11, 66.25, 67.03, 67.67, 67.75, 67.97, 68.13, 68.39, 68.65, 69.09, 69.25, 69.69, 70.09];
+  // pares de âncoras: palavra i da voz F -> palavra j da voz G (mesmo texto)
+  const par = (a0, a1, b0) => { const r = []; for (let i = a0; i <= a1; i++) r.push([TTF[i], TT[b0 + i - a0]]); return r; };
+
+  // gerador fixo (mesmo resultado em todo render)
+  let semente = 7;
+  const rnd = () => { semente = (semente * 16807) % 2147483647; return (semente - 1) / 2147483646; };
+  const br = (n) => Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  function contar(el, de, ate, t, dur, fmt, ease) {
+    const o = { v: de };
+    el.textContent = fmt(de);
+    tl.fromTo(o, { v: de }, { v: ate, duration: dur, ease: ease || "power2.out", onUpdate: () => { el.textContent = fmt(o.v); } }, t);
+  }
+  function mostra(el, t, de, dur) {
+    tl.fromTo(el, Object.assign({ autoAlpha: 0 }, de || {}), { autoAlpha: 1, x: 0, y: 0, z: 0, scale: 1, rotationX: 0, rotationY: 0, rotation: 0, filter: "blur(0px)", duration: dur || 0.6, ease: "expo.out" }, t);
+  }
+  function some(el, t, para, dur) {
+    tl.to(el, Object.assign({ autoAlpha: 0, filter: "blur(16px)", duration: dur || 0.3, ease: "power2.in" }, para || {}), t);
+  }
+
+  // ---------- letreiro (palavra a palavra, no tempo da voz) ----------
+  // saida/fim/risco já no tempo da voz nova (sem mapa)
+  const letras = $("#letras");
+  let nG = 0;
+  function grupo(top, linhas, saida, opt) {
+    opt = opt || {};
+    const g = document.createElement("div");
+    g.className = "grp";
+    g.style.top = top + "px";
+    letras.appendChild(g);
+    let ini = 99, k = 0;
+    linhas.forEach((ln) => {
+      const L = document.createElement("span");
+      L.className = "ln";
+      g.appendChild(L);
+      ln.forEach((p) => {
+        const i = p[0], cls = p[1] || "";
+        const w = document.createElement("span");
+        w.className = "w " + cls;
+        const tx = document.createElement("span");
+        tx.className = "tx";
+        tx.textContent = p[2] || TX[i];
+        let marca = null, risco = null;
+        if (cls.indexOf("hl") >= 0) { marca = document.createElement("span"); marca.className = "marca" + (cls.indexOf("cz") >= 0 ? " cz" : "") + (cls.indexOf("fg") >= 0 ? " fg" : ""); w.appendChild(marca); }
+        w.appendChild(tx);
+        if (cls.indexOf("rs") >= 0) { risco = document.createElement("span"); risco.className = "risco"; w.appendChild(risco); }
+        L.appendChild(w);
+        const t = TT[i];
+        ini = Math.min(ini, t);
+        const grande = cls.indexOf("big") >= 0 || cls.indexOf("xl") >= 0;
+        tlr.fromTo(w, { opacity: 0, filter: "blur(18px)", y: grande ? 50 : 34, x: (k % 2 ? 1 : -1) * (grande ? 30 : 16), scale: grande ? 1.6 : 1.35 },
+          { opacity: 1, filter: "blur(0px)", y: 0, x: 0, scale: 1, duration: 0.5, ease: "expo.out" }, t - 0.06);
+        if (marca) {
+          tlr.fromTo(marca, { scaleX: 0 }, { scaleX: 1, duration: 0.32, ease: "power3.out" }, t + 0.06);
+          tlr.fromTo(tx, { color: "#0a1a33" }, { color: "#ffffff", duration: 0.2 }, t + 0.12);
+        }
+        if (risco) tlr.fromTo(risco, { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power3.inOut" }, opt.risco || t + 0.4);
+        k++;
+      });
+    });
+    const fim = opt.fim || saida;
+    nG++;
+    const lado = nG % 2 ? 1 : -1;
+    // câmera orbita a frase na chegada e vai chegando perto enquanto ela fica na tela
+    tlr.fromTo(g, { rotationY: lado * 22, rotationX: 8, z: -260 }, { rotationY: 0, rotationX: 0, z: 0, duration: 0.7, ease: "expo.out" }, ini - 0.06);
+    tlr.fromTo(g, { scale: 1 }, { scale: 1.08, duration: Math.max(0.3, fim - ini), ease: "none" }, ini);
+    tlr.to(g, { rotationY: -lado * 5, duration: Math.max(0.3, fim - ini - 0.7), ease: "sine.inOut" }, ini + 0.64);
+    // palavra de destaque gigante e borrada lá atrás (profundidade)
+    const hl = linhas.flat().find((p) => (p[1] || "").indexOf("hl") >= 0 && (p[1] || "").indexOf("cz") < 0);
+    if (hl && !opt.semFantasma) {
+      const f = document.createElement("div");
+      f.className = "fant";
+      f.textContent = (hl[2] || TX[hl[0]]).replace(/[.,?!]/g, "");
+      f.style.top = (top - 40) + "px";
+      letras.insertBefore(f, letras.firstChild);
+      const t0 = TT[hl[0]];
+      tlr.fromTo(f, { x: lado * 160, z: -300, scale: 0.9 }, { x: -lado * 120, z: -300, scale: 1.05, duration: Math.max(0.5, fim - t0), ease: "none" }, t0);
+      tlr.fromTo(f, { opacity: 0 }, { opacity: 1, duration: 0.35 }, t0);
+      tlr.to(f, { opacity: 0, duration: 0.25 }, Math.max(t0 + 0.4, fim - 0.14));
+    }
+    // saída: a câmera atravessa a frase
+    if (saida < DUR) tlr.to(g, { opacity: 0, filter: "blur(16px)", scale: 1.7, z: 240, duration: 0.22, ease: "power2.in" }, saida - 0.14);
+    return g;
+  }
+  // letreiro com a saída escrita no tempo da voz F (blocos do fim)
+  const gF = (top, linhas, saida, opt) => grupo(top, linhas, M(saida), opt);
+
+  // ======== S1 (0 a 4,45): gancho ========
+  bloco(true, par(0, 11, 0).concat([[4.12, 4.45], [5.0, 4.9]]));
+  grupo(560, [[[0, "sm dim"], [1, "sm dim"]], [[2, "xl"]]], 1.4);
+  mostra("#c-receita", 0.68, { y: 260, z: -500, rotationX: 48, scale: 0.8, filter: "blur(20px)" }, 0.8);
+  contar($("#rec-v"), 0, 82150, 0.8, 0.75, (v) => "R$ " + br(v));
+  tl.fromTo("#rec-linha", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.8, ease: "power2.out" }, 0.85);
+  tl.fromTo("#rec-area", { opacity: 0 }, { opacity: 1, duration: 0.6 }, 1.0);
+  tl.to("#c-receita", { rotationY: -8, rotationX: 6, duration: 0.8, ease: "sine.inOut" }, 0.9);
+  some("#c-receita", 1.48, { y: -420, z: -300, rotationX: -40, scale: 0.7 }, 0.32);
+  grupo(600, [[[3, "sm"], [4, "sm"], [5, "sm"]], [[6, "big hl"], [7, "big hl"]], [[8], [9], [10], [11]]], 4.5);
+  tl.set("#c-sobra", { autoAlpha: 0 }, 0);
+  mostra("#c-sobra", 2.95, { y: 200, z: -400, rotationX: 40, filter: "blur(18px)" }, 0.6);
+  (function () { const o = { v: 0 }; const el = $("#sobra-v"); const D = "0123456789?";
+    tl.fromTo(o, { v: 0 }, { v: 30, duration: 1.2, ease: "none", onUpdate: () => {
+      const f = Math.floor(o.v); let s = "R$ ";
+      for (let j = 0; j < 4; j++) { s += D[(f * 7 + j * 3 + f * j) % D.length]; if (j === 0) s += "."; }
+      el.textContent = f >= 29 ? "R$ ?.???" : s; } }, 3.0); })();
+  tl.to("#c-sobra", { rotationY: 10, rotationX: -6, y: -20, duration: 1.2, ease: "sine.inOut" }, 3.0);
+  some("#c-sobra", 5.0, {}, 0.2);
+
+  // ======== N1 (4,45 a 10,3): três planilhas, sem controle ========
+  bloco(false, null);
+  const XLS = [
+    ["Data", "Entrada", "Saída", "Saldo", "01/10", "12.400", "9.870", "#REF!", "08/10", "8.150", "???", "#N/D", "15/10", "=SOMA(", "11.230", "conferir"],
+    ["Vendedor", "Out", "Meta", "%", "Ana", "32.100", "?", "#DIV/0!", "Bruno", "—", "40.000", "#REF!", "Carla", "18.900", "??", "rever"],
+    ["Meta", "Dono", "Prazo", "Status", "Receita", "?", "?", "—", "Margem", "—", "dez?", "#N/D", "Clientes", "?", "—", "???"]];
+  ["#xl1", "#xl2", "#xl3"].forEach((s, k) => {
+    const g = $(s).querySelector(".xg");
+    XLS[k].forEach((tx, j) => {
+      const c = document.createElement("div");
+      c.className = "xc" + (j < 4 ? " h" : "");
+      c.style.left = (j % 4) * 170 + "px";
+      c.style.top = Math.floor(j / 4) * 84 + "px";
+      c.textContent = tx;
+      if (j >= 4 && /^#|\?/.test(tx)) c.style.color = "#e11d48";
+      g.appendChild(c);
+    });
+  });
+  tl.set(["#xl1", "#xl2", "#xl3"], { autoAlpha: 0 }, 0);
+  grupo(300, [[[12, "sm", "Se"], [13, "sm", "pra"], [14, "sm"]], [[15], [16], [17]]], 6.45);
+  [["#xl1", 6.22, -1], ["#xl2", 6.5, 1], ["#xl3", 6.86, -1]].forEach((a) => {
+    tlr.fromTo(a[0], { autoAlpha: 0, z: -900, y: 300, rotationX: 50, rotationY: a[2] * 25, rotation: 0, filter: "blur(18px)" },
+      { autoAlpha: 1, z: 0, y: 0, rotationX: 8, rotationY: a[2] * -8, rotation: a[2] * -3, filter: "blur(0px)", duration: 0.7, ease: "expo.out" }, a[1]);
+  });
+  grupo(300, [[[18, "big hl"], [19, "big"]]], 7.72);
+  tlr.to(["#xl1", "#xl2", "#xl3"], { z: -450, opacity: 0.3, filter: "blur(7px)", duration: 0.6, ease: "power3.out" }, 7.62);
+  grupo(700, [[[20, "sm"], [21, "sm"], [22, "sm"], [23, "sm"]], [[24, "xl hl"]], [[25, "sm"], [26, "sm"], [27, "sm"]]], 10.3);
+
+  // ======== N2 (10,3 a 15,4): caixa, vendas, metas na cabeça ========
+  tl.set(["#k-caixa", "#k-vendas", "#k-metas"], { autoAlpha: 0 }, 0);
+  [["#k-caixa", 10.58], ["#k-vendas", 12.34], ["#k-metas", 13.8]].forEach((a, i) => {
+    const l = i % 2 ? 1 : -1;
+    tlr.fromTo(a[0], { autoAlpha: 0, z: -700, x: l * 300, rotationY: -l * 40, filter: "blur(16px)" },
+      { autoAlpha: 1, z: 0, x: 0, rotationY: l * 6, filter: "blur(0px)", duration: 0.7, ease: "expo.out" }, a[1]);
+  });
+  tlr.to("#k-caixa", { opacity: 0.5, duration: 0.3 }, 12.34);
+  tlr.to("#k-vendas", { opacity: 0.5, duration: 0.3 }, 13.8);
+  tlr.fromTo("#k-q", { scale: 0, rotation: -30 }, { scale: 1, rotation: 0, duration: 0.5, ease: "back.out(2.4)" }, 14.5);
+  tlr.fromTo("#k-metas", { x: 0 }, { x: 10, duration: 0.05, repeat: 3, yoyo: true, ease: "none", immediateRender: false }, 15.05);
+  grupo(300, [[[28, "sm"], [29, "big hl"]], [[30, "sm"], [31, "sm"], [32, "sm"]]], 12.15);
+  grupo(300, [[[33, "sm"], [34, "big hl"]], [[35, "sm"], [36, "big"]]], 13.65);
+  grupo(1290, [[[37, "sm"], [38, "sm"], [39, "big hl"]], [[40, "sm"], [41], [42, "sm"], [43]]], 15.42);
+
+  // ======== N3 (15,4 a 21,1): ninguém sabe quem faz, vira incêndio ========
+  tl.set(["#tarefa", "#fogo"], { autoAlpha: 0 }, 0);
+  mostra("#tarefa", 15.55, { z: -600, y: 200, rotationX: 40, filter: "blur(16px)" }, 0.7);
+  $$("#tarefa .qav").forEach((q, i) => tlr.fromTo(q, { scale: 0 }, { scale: 1, duration: 0.4, ease: "back.out(2.4)" }, 16.5 + i * 0.12));
+  tlr.fromTo("#tarefa .qav", { y: 0 }, { y: -14, duration: 0.16, yoyo: true, repeat: 3, ease: "power1.inOut", immediateRender: false }, 17.8);
+  grupo(300, [[[44, "big"]], [[45, "sm"], [46, "sm"], [47, "sm"]], [[48, "sm"], [49, "sm"], [50, "sm"], [51, "hl"]]], 18.3);
+  tlr.to("#tarefa", { z: -500, y: -120, opacity: 0.25, filter: "blur(8px)", duration: 0.6, ease: "power3.out" }, 18.2);
+  [["🔔", "Boleto vencido hoje", "Fornecedor ligando de novo"], ["🔔", "Cliente cobrando entrega", "Pedido parado desde segunda"], ["🔔", "Vendedor sem meta", "Ninguém sabe quanto vendeu"]].forEach((a, i) => {
+    const e = document.createElement("div");
+    e.className = "alerta vidro p3";
+    e.style.top = (700 + i * 160) + "px";
+    e.innerHTML = '<div class="ic">' + a[0] + '</div><div class="tx1">' + a[1] + '</div><div class="tx2">' + a[2] + '</div>';
+    $("#alertas0").appendChild(e);
+    tlr.fromTo(e, { autoAlpha: 0, y: 80, scale: 0.85, filter: "blur(10px)" }, { autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.45, ease: "back.out(1.6)" }, [18.5, 19.18, 19.62][i]);
+    tlr.fromTo(e, { x: 0 }, { x: 10, duration: 0.05, repeat: 5, yoyo: true, ease: "none", immediateRender: false }, 20.62 + i * 0.04);
+  });
+  tlr.fromTo("#fogo", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5, immediateRender: false }, 20.55);
+  grupo(1290, [[[52, "sm"], [53, "sm"], [54, "sm"], [55, "sm"], [56, "sm"]]], 19.62);
+  grupo(1290, [[[57, "sm"], [58, "sm"], [59, "sm"]], [[60, "big hl fg"]]], 21.15);
+
+  // ======== S2 (21,1 a 29,8): consultoria, 80 páginas, gaveta, problema sem solução ========
+  bloco(true, [[4.0, 21.15]].concat(par(12, 27, 61), [[9.80, 27.28], [9.82, 29.62], [9.99, 29.95]]));
+  const pilha = $("#pilha");
+  const docs = [];
+  for (let i = 0; i < 7; i++) {
+    const d = document.createElement("div");
+    d.className = "doc";
+    d.innerHTML = '<div class="faixa"></div><div class="t1">PLANO ESTRATÉGICO</div><div class="t2">Consultoria · 2026</div>' +
+      [170, 210, 250, 290, 350, 390, 430, 470].map((y, j) => '<div class="l" style="top:' + y + 'px; width:' + (j % 3 === 2 ? 240 : 380 - j * 8) + 'px;"></div>').join("") +
+      '<div class="pg">PÁG. ' + (80 - (6 - i) * 13 > 0 ? String(Math.max(1, 80 - (6 - i) * 13)).padStart(2, "0") : "01") + ' / 80</div>';
+    pilha.appendChild(d);
+    docs.push(d);
+  }
+  grupo(300, [[[61, "sm dim"], [62, "sm dim"]], [[63], [64], [65]]], 23.45);
+  tl.set(docs, { autoAlpha: 0 }, 0);
+  docs.forEach((d, i) => {
+    tl.fromTo(d, { autoAlpha: 0, y: 700, z: -200, rotationX: 60, rotation: -6 },
+      { autoAlpha: 1, y: -i * 4, z: i * 6, rotationX: 0, rotation: (i - 3) * 0.6, duration: 0.8, ease: "expo.out" }, 4.55 + i * 0.03);
+  });
+  // abre em leque nas 80 páginas
+  grupo(300, [[[66, "sm"], [67, "big hl"], [68, "big"]]], 24.62);
+  docs.forEach((d, i) => {
+    tl.to(d, { x: (i - 3) * 62, y: Math.abs(i - 3) * 22, rotation: (i - 3) * 7, rotationY: (i - 3) * -6, z: -Math.abs(i - 3) * 40, duration: 0.6, ease: "expo.out" }, 6.3 + i * 0.02);
+  });
+  tl.to(pilha, { rotationX: 14, rotationY: -12, duration: 1.4, ease: "sine.inOut" }, 6.3);
+  // e vai embora
+  grupo(1290, [[[69, "sm dim"], [70], [71, "big"]]], 25.45);
+  tl.fromTo("#seta-sai", { autoAlpha: 0, x: -200 }, { autoAlpha: 1, x: 0, duration: 0.3, ease: "power2.out" }, 8.0);
+  tl.fromTo("#seta-l", { strokeDashoffset: 0 }, { strokeDashoffset: -0.35, duration: 0.6, ease: "none" }, 8.0);
+  tl.to("#seta-sai", { x: 700, autoAlpha: 0, filter: "blur(8px)", duration: 0.35, ease: "power3.in" }, 8.3);
+  // fecha o leque e vai pra gaveta
+  docs.forEach((d, i) => {
+    tl.to(d, { x: 0, y: -i * 3, rotation: 0, rotationY: 0, z: i * 4, duration: 0.45, ease: "power3.inOut" }, 8.55);
+  });
+  tl.to(pilha, { rotationX: 0, rotationY: 0, scale: 0.86, duration: 0.45, ease: "power3.inOut" }, 8.55);
+  grupo(300, [[[72, "sm"], [73, "sm"], [74, "sm"]], [[75, "big"], [76, "big hl cz"]]], 27.15);
+  tl.set(["#gav-fundo", "#gav-frente"], { autoAlpha: 0 }, 0);
+  mostra("#gav-fundo", 9.0, { y: 160 }, 0.5);
+  mostra("#gav-frente", 9.0, { y: 200, rotationX: 30 }, 0.5);
+  tl.to(pilha, { y: 640, scale: 0.8, duration: 0.5, ease: "power3.in" }, 9.42);
+  tl.to(["#gav-frente", "#gav-fundo"], { y: -40, duration: 0.18, ease: "power2.out" }, 9.9);
+  tl.to(["#gav-frente", "#gav-fundo"], { y: 0, duration: 0.25, ease: "power2.in" }, 10.08);
+  tl.fromTo(["#gav-fundo", "#gav-frente", "#pilha"], { x: 0 }, { x: 8, duration: 0.05, repeat: 3, yoyo: true, ease: "none", immediateRender: false }, 9.9);
+  some(["#pilha", "#gav-fundo", "#gav-frente"], 10.12, { scale: 0.9, y: 80 }, 0.25);
+  tl.set(pilha, { autoAlpha: 0 }, 10.4);
+  // e o seu problema continua sem solução (gaveta fechada, frase sobre ela)
+  tlr.to(pilha, { autoAlpha: 0, duration: 0.1 }, 27.12);
+  grupo(300, [[[77, "sm"], [78, "sm"], [79, "sm"], [80, "sm"]], [[81, "big"]], [[82, "big"], [83, "big hl"]]], 29.72);
+
+  // ======== S3 (29,6 a 34,2): Na Legacy é diferente + executor entra ========
+  bloco(true, [[9.77, 29.62], [9.95, 29.84], [10.74, 31.95], [11.38, 32.45], [11.80, 32.95], [12.37, 33.45], [13.15, 33.85], [13.9, 34.2]]);
+  tl.fromTo("#azul", { opacity: 0, scaleY: 0, transformOrigin: "50% 100%" }, { opacity: 1, scaleY: 1, duration: 0.18, ease: "power3.in" }, 10.05);
+  tl.to("#azul", { scaleY: 0, transformOrigin: "50% 0%", duration: 0.28, ease: "power3.out" }, 10.25);
+  grupo(760, [[[84, "big"], [85, "big hl"]], [[86, "sm"], [87, "big"]]], 31.98);
+  tl.set("#vcard", { autoAlpha: 0 }, 0);
+  mostra("#vcard", 10.9, { scale: 0.55, y: 300, rotationX: 24, filter: "blur(20px)" }, 0.7);
+  tl.to("#vcard", { rotationY: -6, rotationX: 4, duration: 2.4, ease: "sine.inOut" }, 11.0);
+  const cortes = [["#vwA", 10.9], ["#vwC", 11.6], ["#vwB", 12.0], ["#vwG", 12.55], ["#vwE", 13.35]];
+  $$("#vcard .vw").forEach((v) => tl.set(v, { autoAlpha: 0 }, 0));
+  cortes.forEach((c, i) => {
+    tl.set(c[0], { autoAlpha: 1 }, c[1]);
+    if (i) { tl.set(cortes[i - 1][0], { autoAlpha: 0 }, c[1] + 0.02); tl.fromTo("#vflash", { opacity: 0.35 }, { opacity: 0, duration: 0.2, immediateRender: false }, c[1]); }
+    tl.fromTo(c[0], { scale: 1.14 }, { scale: 1.02, duration: 0.9, ease: "expo.out" }, c[1]);
+  });
+  tl.fromTo("#vselo", { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "expo.out" }, 11.3);
+  grupo(280, [[[88, "sm"], [89, "hl"]], [[90, "sm"], [91, "sm"], [92, "sm"], [93, "sm"]]], 34.22);
+  some("#vcard", 14.05, { scale: 0.85, rotationX: -20, y: 120 }, 0.3);
+  tl.set("#vwE", { autoAlpha: 0 }, 14.4);
+
+  // ======== C2 (34,2 a 39,3): assume o financeiro e o comercial, arruma a casa, toca a gestão ========
+  bloco(false, null);
+  grupo(290, [[[94, "big hl"]], [[95, "sm"], [96, "big"]]], 35.47);
+  grupo(290, [[[97, "sm"], [98, "sm"], [99, "big"]]], 36.32);
+  grupo(290, [[[100, "big"], [101, "sm"], [102, "big hl"]]], 37.62);
+  grupo(290, [[[103, "sm"], [104, "sm"], [105, "sm"], [106, "hl"]], [[107, "sm"], [108, "big"]]], 39.27);
+  tl.set(["#cardF", "#cardC", "#cardG"], { autoAlpha: 0 }, 0);
+  mostra("#cardF", 34.5, { z: -500, x: -200, rotationY: 40, filter: "blur(16px)" }, 0.7);
+  mostra("#cardC", 35.4, { z: -500, x: 200, rotationY: -40, filter: "blur(16px)" }, 0.7);
+  [["#cardF", [34.5, 36.3, 38.45]], ["#cardC", [35.4, 37.3]]].forEach((c) => {
+    const vs = $(c[0]).querySelectorAll(".vw");
+    vs.forEach((v, j) => {
+      tl.set(v, { autoAlpha: j ? 0 : 1 }, 0);
+      if (j) {
+        tl.set(v, { autoAlpha: 1 }, c[1][j]);
+        tl.fromTo(v, { scale: 1.12 }, { scale: 1.02, duration: 0.8, ease: "expo.out", immediateRender: false }, c[1][j]);
+      }
+    });
+    tl.fromTo($(c[0]).querySelector(".ok"), { autoAlpha: 0, x: -30 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: "back.out(2)" }, c[1][0] + 0.6);
+  });
+  tl.to("#cardF", { scale: 0.8, y: -60, x: 20, rotationY: 8, duration: 0.6, ease: "power3.inOut" }, 36.32);
+  tl.to("#cardC", { scale: 0.8, y: -60, x: -20, rotationY: -8, duration: 0.6, ease: "power3.inOut" }, 36.32);
+  tl.set("#c2lig", { autoAlpha: 0 }, 0);
+  tl.to("#c2lig", { autoAlpha: 1, duration: 0.3 }, 36.55);
+  tl.fromTo(["#c2l1", "#c2l2"], { strokeDashoffset: 0 }, { strokeDashoffset: -84, duration: 1.6, ease: "none" }, 36.55);
+  mostra("#cardG", 36.55, { z: -500, y: 200, rotationX: 40, filter: "blur(16px)" }, 0.7);
+  $$("#cardG .mods div").forEach((m, i) => tl.fromTo(m, { autoAlpha: 0, y: 40, scale: 0.8 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(2)" }, 36.98 + i * 0.12));
+
+  // ======== S5 (39,2 a 45,7): metas com responsável + plano de ação ========
+  bloco(true, par(58, 73, 109).concat([[26.23, 45.73]]));
+  tl.set("#win-metas", { autoAlpha: 0 }, 0);
+  tl.fromTo("#win-metas", { autoAlpha: 0, rotationY: -30, z: -300, filter: "blur(10px)" },
+    { autoAlpha: 1, rotationY: 12, rotationX: 10, z: 0, filter: "blur(0px)", duration: 0.9, ease: "expo.out" }, 20.3);
+  tl.to("#win-metas", { rotationY: 4, rotationX: 4, duration: 1.4, ease: "sine.inOut" }, 21.18);
+  $$("#win-metas .meta").forEach((m, i) => {
+    tl.fromTo(m, { opacity: 0, x: 120 }, { opacity: 1, x: 0, duration: 0.45, ease: "expo.out" }, 20.75 + i * 0.12);
+    tl.fromTo(m.querySelector(".ench"), { scaleX: 0 }, { scaleX: [1, 0.95, 1][i], duration: 0.8, ease: "power2.out" }, 20.95 + i * 0.12);
+    const pc = m.querySelector(".pct");
+    contar(pc, 0, +pc.dataset.v, 20.95 + i * 0.12, 0.8, (v) => Math.round(v) + "%");
+    const rs = m.querySelector(".resp");
+    tl.fromTo(rs, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(2)" }, 21.68 + i * 0.1);
+  });
+  grupo(300, [[[109, "sm"], [110, "sm"]], [[111], [112], [113, "hl"]]], 41.65);
+  some("#win-metas", 23.4, {}, 0.2);
+  // plano de ação
+  tl.set(["#acao", "#toast"], { autoAlpha: 0 }, 0);
+  tl.fromTo("#acao", { autoAlpha: 0, rotationX: 30, z: -300, filter: "blur(10px)" },
+    { autoAlpha: 1, rotationY: -10, rotationX: 8, z: 0, filter: "blur(0px)", duration: 0.9, ease: "expo.out" }, 22.45);
+  tl.to("#acao", { rotationY: 6, rotationX: 4, duration: 2.4, ease: "sine.inOut" }, 23.37);
+  grupo(300, [[[114, "sm"], [115, "sm"]], [[116, "big"], [117, "big hl"]]], 43.22);
+  tl.fromTo("#prazo", { scale: 1 }, { scale: 1.18, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false }, 23.5);
+  tl.to("#prazo", { backgroundColor: "#2f7bff", color: "#ffffff", borderColor: "#2f7bff", duration: 0.2 }, 23.55);
+  grupo(300, [[[118, "sm"], [119, "sm"], [120, "sm"], [121, "sm"]], [[122], [123], [124, "hl"]]], 45.72);
+  tl.to("#st-pill", { backgroundColor: "#fff4e5", color: "#b45309", duration: 0.15 }, 24.5);
+  tl.fromTo("#st-pill", { x: 0 }, { x: 10, duration: 0.05, repeat: 5, yoyo: true, ease: "none", immediateRender: false }, 24.5);
+  (function () { const p = $("#st-pill"); const o = { v: 0 };
+    tl.fromTo(o, { v: 0 }, { v: 1, duration: 0.01, onUpdate: () => { p.textContent = o.v >= 1 ? "● Travado" : "● Em andamento"; } }, 24.52); })();
+  tl.to("#acao", { boxShadow: "0 46px 100px rgba(245,158,11,.25), 0 0 0 3px rgba(245,158,11,.7)", duration: 0.2 }, 24.52);
+  mostra("#toast", 24.9, { y: 160, scale: 0.85, filter: "blur(12px)" }, 0.55);
+  some("#acao", 26.3, {}, 0.2);
+  some("#toast", 26.3, {}, 0.2);
+
+  // ======== S7 (45,7 a 50,1): no Legacy Plan, todos os números num lugar só ========
+  bloco(false, null);
+  tl.set(["#m1", "#m2", "#m3", "#m4", "#m5", "#lockup"], { autoAlpha: 0 }, 0);
+  grupo(600, [[[125, "sm dim"], [126, "sm dim"]]], 47.1);
+  mostra("#lockup", 46.12, { scale: 1.6, filter: "blur(20px)" }, 0.6);
+  tl.to("#lockup", { scale: 1.05, duration: 0.8, ease: "none" }, 46.5);
+  some("#lockup", 47.3, { scale: 0.6, y: -200 }, 0.25);
+  const minis = ["#m1", "#m2", "#m3", "#m4", "#m5"];
+  const zs = [-200, 150, 120, -180, -350];
+  minis.forEach((m, i) => {
+    tl.fromTo(m, { autoAlpha: 0, z: -1200, scale: 0.5, filter: "blur(18px)" }, { autoAlpha: 1, z: zs[i], scale: 1, filter: "blur(0px)", duration: 0.6, ease: "expo.out" }, 47.55 + i * 0.13);
+  });
+  tl.fromTo("#orbita", { rotationY: -18, rotationX: 10 }, { rotationY: 14, rotationX: 4, duration: 2.0, ease: "sine.inOut" }, 47.55);
+  grupo(290, [[[129, "sm"], [130, "sm"], [131, "sm"], [132, "sm"]]], 48.18);
+  grupo(290, [[[133, "big"], [134, "sm"], [135, "big hl"]]], 49.2);
+  minis.forEach((m, i) => {
+    tl.to(m, { x: 540 - (parseFloat($(m).style.left) + parseFloat($(m).style.width) / 2), y: 870 - (parseFloat($(m).style.top) + parseFloat($(m).style.height) / 2),
+      z: -200, scale: 0.15, autoAlpha: 0, filter: "blur(8px)", duration: 0.45, ease: "power3.in" }, 49.3 + i * 0.03);
+  });
+  tl.fromTo("#lockup", { autoAlpha: 0, scale: 0.4, y: 0, filter: "blur(12px)" }, { autoAlpha: 1, scale: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: "back.out(1.6)", immediateRender: false }, 49.72);
+  grupo(290, [[[136, "sm"], [137, "sm"], [138, "sm"]], [[139, "big hl"]]], 50.22);
+
+  // ======== S4 (50,1 a 55,1): DRE: o que planejou, o que faturou, quanto sobrou ========
+  bloco(true, [[15.0, 50.15], [15.12, 50.3], [16.29, 50.6], [16.56, 50.85], [17.31, 51.55], [17.81, 51.87], [18.47, 52.55], [18.93, 53.15], [19.0, 53.3], [19.24, 53.75], [21.17, 55.1]]);
+  tl.set("#planilha", { autoAlpha: 0 }, 0);
+  const graf = $("#graf");
+  const meses = [["JUL", 110, 122], ["AGO", 132, 140], ["SET", 150, 146], ["OUT", 165, 182]];
+  const barras = [];
+  meses.forEach((m, i) => {
+    const x = 70 + i * 185;
+    const p = document.createElement("div"); p.className = "barra p"; p.style.left = x + "px"; p.style.height = m[1] + "px";
+    const r = document.createElement("div"); r.className = "barra r"; r.style.left = (x + 52) + "px"; r.style.height = m[2] + "px";
+    const l = document.createElement("div"); l.className = "mes"; l.style.left = (x - 22) + "px"; l.textContent = m[0];
+    graf.appendChild(p); graf.appendChild(r); graf.appendChild(l);
+    barras.push([p, r]);
+  });
+  tl.set("#win-dre", { autoAlpha: 0 }, 0);
+  tl.fromTo("#win-dre", { autoAlpha: 0, z: -1400, y: 500, rotationX: 55, rotationY: -35, rotation: 8, filter: "blur(24px)" },
+    { autoAlpha: 1, z: 0, y: 0, rotationX: 16, rotationY: -14, rotation: 2, filter: "blur(0px)", duration: 1.0, ease: "expo.out" }, 15.2);
+  tl.to("#win-dre", { rotationX: 6, rotationY: -4, rotation: 0, duration: 2.6, ease: "sine.inOut" }, 16.2);
+  contar($("#k1"), 0, 82150, 15.55, 0.9, (v) => "R$ " + br(v));
+  contar($("#k2"), 0, 63256, 15.65, 0.9, (v) => "R$ " + br(v));
+  contar($("#k3"), 0, 18894, 15.75, 0.9, (v) => "R$ " + br(v));
+  barras.forEach((b, i) => {
+    tl.fromTo(b[0], { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: "back.out(1.6)" }, 16.33 + i * 0.09);
+    tl.fromTo(b[1], { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: "back.out(1.6)" }, 17.85 + i * 0.09);
+  });
+  grupo(300, [[[140, "sm"], [141, "sm"], [142, "big hl"]]], 51.5);
+  grupo(300, [[[143, "sm"], [144, "sm"], [145, "big hl"]], [[146, "sm"], [147, "big"]]], 52.78);
+  // cursor
+  tl.set("#cur1", { autoAlpha: 0, x: 900, y: 700 }, 0);
+  tl.to("#cur1", { autoAlpha: 1, duration: 0.2 }, 16.5);
+  tl.to("#cur1", { x: 800, y: 70, duration: 0.7, ease: "power3.inOut" }, 16.6);
+  tl.to("#chip-comp", { backgroundColor: "#195576", color: "#ffffff", duration: 0.15 }, 17.35);
+  tl.to("#cur1", { scale: 0.85, duration: 0.08, yoyo: true, repeat: 1 }, 17.3);
+  tl.to("#cur1", { x: 720, y: 520, duration: 0.8, ease: "power3.inOut" }, 17.6);
+  tl.set("#tip", { autoAlpha: 0 }, 0);
+  mostra("#tip", 18.45, { y: 20, scale: 0.9 }, 0.35);
+  // sobrou: o lucro salta para fora da tela
+  grupo(300, [[[148, "sm"], [149, "sm"]], [[150, "big hl"]], [[151, "sm"], [152, "sm"], [153, "sm"], [154, "sm"]]], 55.1);
+  tl.to("#win-dre", { z: -320, y: -60, rotationX: 10, filter: "blur(3px)", duration: 0.8, ease: "power3.out" }, 18.85);
+  tl.set("#lucro-pop", { autoAlpha: 0 }, 0);
+  mostra("#lucro-pop", 19.05, { z: -600, y: -260, scale: 0.6, rotationX: 30, filter: "blur(14px)" }, 0.7);
+  contar($("#luc-v"), 0, 18894, 19.3, 0.75, (v) => "R$ " + br(v));
+  tl.to("#lucro-pop", { rotationY: 8, rotationX: -5, duration: 1.0, ease: "sine.inOut" }, 19.6);
+  some("#win-dre", 21.2, {}, 0.2);
+  some("#lucro-pop", 21.2, {}, 0.2);
+  tl.to("#cur1", { autoAlpha: 0, duration: 0.15 }, 18.6);
+
+  // ======== câmera: parada, só anda com intenção (como no reel de referência) ========
+  bloco(false, null);
+  let CAM = null;
+  (function () {
+    const P = { s1: [0, 0], n1: [0, 2300], n2: [1700, 2300], n3: [1700, 4600], s2: [3400, 4600], s3: [3400, 6900], c2: [5100, 6900],
+      s5: [5100, 9200], s5b: [6800, 9200], s7: [6800, 11500], s4: [8500, 11500], c3: [8500, 13800], c4: [10200, 13800], c5: [10200, 16100] };
+    const lugar = { "#s1": "s1", "#n1": "n1", "#n2": "n2", "#n3": "n3", "#s2": "s2", "#s-vid": "s3", "#c2": "c2", "#s5": "s5", "#s5b": "s5b",
+      "#s7": "s7", "#s4": "s4", "#c3": "c3", "#c4": "c4", "#c5": "c5" };
+    Object.keys(lugar).forEach((sel) => { const q = P[lugar[sel]]; $(sel).style.translate = q[0] + "px " + q[1] + "px"; });
+    ["#s6", "#c1"].forEach((s) => { $(s).style.display = "none"; });
+
+    const cam = $("#camera");
+    const curT = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    curT.setAttribute("id", "curT"); curT.setAttribute("viewBox", "0 0 58 70");
+    curT.innerHTML = '<path d="M4 4 L4 56 L18 44 L28 66 L38 61 L28 40 L50 40 Z" fill="#2f7bff" stroke="#fff" stroke-width="4" stroke-linejoin="round"/>';
+    cam.insertBefore(curT, cam.firstChild);
+    tl.set(curT, { autoAlpha: 0 }, 0);
+
+    const C = (k) => [P[k][0] + 540, P[k][1] + 960];
+    let atual = "s1";
+    gsap.set(cam, { x: 0, y: 0, transformOrigin: "540px 960px" });
+
+    // viagem: a linha nasce na cena atual, a setinha corre por ela e a câmera vai junto
+    function viagem(t, para, dur) {
+      dur = dur || 0.7;
+      const a = C(atual), b = C(para);
+      const dx = b[0] - a[0], dy = b[1] - a[1], L = Math.hypot(dx, dy);
+      const ang = Math.atan2(dy, dx) * 180 / Math.PI - 90;
+      const lig = document.createElement("div");
+      lig.className = "lig";
+      lig.style.left = (a[0] - 4) + "px"; lig.style.top = a[1] + "px"; lig.style.height = L + "px";
+      lig.style.transform = "rotate(" + ang + "deg)";
+      const i = document.createElement("i");
+      lig.appendChild(i);
+      cam.insertBefore(lig, cam.firstChild);
+      tl.fromTo(i, { scaleY: 0 }, { scaleY: 1, duration: dur + 0.15, ease: "power3.inOut" }, t - 0.15);
+      tl.fromTo(lig, { opacity: 1 }, { opacity: 0, duration: 0.25, immediateRender: false }, t + dur - 0.15);
+      // setinha corre na frente da câmera
+      tl.set(curT, { x: a[0] + 30, y: a[1] + 40, rotation: ang + 160, autoAlpha: 0 }, t - 0.2);
+      tl.to(curT, { autoAlpha: 1, duration: 0.12 }, t - 0.2);
+      tl.to(curT, { x: b[0] + 30, y: b[1] + 40, duration: dur, ease: "power3.inOut" }, t - 0.08);
+      tl.to(curT, { autoAlpha: 0, duration: 0.2 }, t + dur + 0.05);
+      // câmera: anda, recua um pouco no meio do caminho e borra com a velocidade
+      tl.to(cam, { x: -P[para][0], y: -P[para][1], duration: dur, ease: "power3.inOut" }, t);
+      tl.set(cam, { transformOrigin: b[0] + "px " + b[1] + "px" }, t);
+      tl.to(cam, { scale: 0.86, filter: "blur(6px)", duration: dur / 2, ease: "power2.in" }, t);
+      tl.to(cam, { scale: 1, filter: "blur(0px)", duration: dur / 2, ease: "power2.out" }, t + dur / 2);
+      atual = para;
+    }
+    // salto escondido (atrás do azul ou de uma passagem)
+    function salto(t, para) {
+      tl.set(cam, { x: -P[para][0], y: -P[para][1], transformOrigin: C(para)[0] + "px " + C(para)[1] + "px" }, t);
+      atual = para;
+    }
+    // aproximação no ponto importante (câmera chega perto e volta devagar)
+    function chega(t, quanto, dur, ox, oy, hold) {
+      const c = C(atual);
+      tl.set(cam, { transformOrigin: (c[0] + (ox || 0)) + "px " + (c[1] + (oy || 0)) + "px" }, t - 0.01);
+      tl.to(cam, { scale: quanto, duration: dur || 0.6, ease: "power3.out" }, t);
+      tl.to(cam, { scale: 1, duration: 0.5, ease: "power2.inOut" }, t + (dur || 0.6) + (hold == null ? 0.5 : hold));
+    }
+
+    chega(2.75, 1.06, 0.6, 0, -300);        // quanto sobra
+    viagem(4.45, "n1", 0.65);               // desce até as planilhas
+    chega(9.0, 1.06, 0.5, 0, 0, 0.2);       // controle
+    viagem(10.22, "n2", 0.6);               // caixa, vendas, metas
+    viagem(15.32, "n3", 0.6);               // ninguém sabe quem faz
+    chega(20.5, 1.06, 0.4, 0, 200, 0.05);   // incêndio
+    viagem(21.1, "s2", 0.65);               // consultoria e o plano de 80 páginas
+    chega(23.45, 1.05, 0.6, 0, -100);       // 80 páginas
+    chega(27.95, 1.04, 0.5, 0, -200, 0.4);  // continua sem solução
+    salto(29.8, "s3");                      // atrás da cortina azul
+    chega(32.95, 1.05, 0.5, 0, 0, 0.2);     // entra na sua empresa
+    viagem(34.08, "c2", 0.55);              // financeiro e comercial
+    chega(38.15, 1.05, 0.5, 0, 260, 0.2);   // toca a gestão
+    viagem(39.12, "s5", 0.6);               // metas
+    chega(40.78, 1.05, 0.4, 300, 0, 0);     // responsável
+    viagem(41.58, "s5b", 0.6);              // plano de ação
+    chega(44.22, 1.05, 0.4, 0, 300, 0);     // travado
+    viagem(45.55, "s7", 0.6);               // Legacy Plan
+    viagem(50.02, "s4", 0.6);               // DRE
+    chega(53.42, 1.06, 0.4, -40, 360, 0.2); // quanto sobrou
+    viagem(55.0, "c3", 0.6);                // para de apagar incêndio
+    CAM = { viagem, chega };
+  })();
+
+  // ======== CTA (texto igual ao da voz F: leva da voz F para a G pelas palavras) ========
+  bloco(false, [[42.38, 54.95]].concat(par(122, 167, 155), [[57.32, 70.9], [60, 73.58]]));
+
+  // Você para de apagar incêndio, vê o seu lucro crescer e recupera o seu tempo para focar no que você domina.
+  const ALS = [["🔔", "Boleto vencido hoje", "Fornecedor ligando de novo"], ["🔔", "Cliente cobrando entrega", "Pedido parado desde segunda"], ["🔔", "Vendedor sem meta", "Ninguém sabe quanto vendeu"]];
+  ALS.forEach((a, i) => {
+    const e = document.createElement("div");
+    e.className = "alerta vidro p3";
+    e.style.top = (640 + i * 160) + "px";
+    e.innerHTML = '<div class="ic">' + a[0] + '</div><div class="tx1">' + a[1] + '</div><div class="tx2">' + a[2] + '</div><div class="ck">✓</div>';
+    $("#alertas").appendChild(e);
+    tl.fromTo(e, { autoAlpha: 0, y: 80, scale: 0.85, filter: "blur(10px)" }, { autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.45, ease: "back.out(1.6)" }, 42.73 + i * 0.18);
+    tl.fromTo(e, { x: 0 }, { x: 10, duration: 0.05, repeat: 3, yoyo: true, ease: "none", immediateRender: false }, 43.61 + i * 0.05);
+    tl.fromTo(e.querySelector(".ck"), { scale: 0, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.3, ease: "back.out(2.5)" }, 43.91 + 0.25 + i * 0.15);
+    tl.to(e, { x: 900, autoAlpha: 0, filter: "blur(8px)", duration: 0.4, ease: "power3.in" }, 43.91 + 0.65 + i * 0.12);
+  });
+  gF(290, [[[155, "sm"], [156, "sm"], [157, "sm"]], [[158], [159, "hl"]]], 44.57);
+  tl.set(["#lucroC", "#relogio", "#vfoco"], { autoAlpha: 0 }, 0);
+  mostra("#lucroC", 44.65, { z: -500, y: 200, rotationX: 35, filter: "blur(16px)" }, 0.6);
+  tl.fromTo("#luc-linha", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.0, ease: "power2.inOut" }, 45.07 - 0.1);
+  tl.fromTo("#luc-area", { opacity: 0 }, { opacity: 1, duration: 0.8 }, 45.07);
+  tl.fromTo("#luc-pt", { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.4, ease: "back.out(3)" }, 45.35 + 0.4);
+  gF(290, [[[160, "sm"], [161, "sm"], [162, "sm"]], [[163], [164, "hl"]]], 45.79);
+  tl.to("#lucroC", { y: -500, z: -400, scale: 0.7, autoAlpha: 0, filter: "blur(12px)", duration: 0.45, ease: "power3.in" }, 45.87);
+  mostra("#relogio", 45.87 + 0.1, { z: -500, scale: 0.6, filter: "blur(14px)" }, 0.6);
+  tl.fromTo("#rel-m", { rotation: 0, svgOrigin: "200 200" }, { rotation: -1080, svgOrigin: "200 200", duration: 1.4, ease: "power2.inOut" }, 46.13);
+  tl.fromTo("#rel-h", { rotation: 0, svgOrigin: "200 200" }, { rotation: -90, svgOrigin: "200 200", duration: 1.4, ease: "power2.inOut" }, 46.13);
+  tl.fromTo("#rel-arco", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.4, ease: "power2.inOut" }, 46.13);
+  gF(290, [[[165, "sm"], [166, "sm"], [167, "sm"], [168, "sm"]], [[169, "big hl"]]], 47.09);
+  CAM.chega(46.87, 1.06, 0.4, 0, 0, 0);
+  tl.to("#relogio", { scale: 2.2, autoAlpha: 0, filter: "blur(16px)", duration: 0.35, ease: "power2.in" }, 47.17 - 0.25);
+  tl.set(["#fA", "#fB", "#fC"], { autoAlpha: 0 }, 0);
+  if (VAR === "atual") {
+    mostra("#vfoco", 47.17 - 0.15, { scale: 0.7, z: -300, filter: "blur(16px)" }, 0.6);
+    tl.fromTo("#vfoco .vw", { scale: 1.15 }, { scale: 1.02, duration: 1.6, ease: "power2.out" }, 47.17 - 0.15);
+  }
+  // variações do "recupera o seu tempo para focar no que você domina" (tempos da voz nova, sem mapa)
+  const t0 = M(47.17 - 0.15);
+  const entra = (el, t) => tlr.fromTo(el, { autoAlpha: 0, z: -500, scale: 0.7, filter: "blur(16px)" }, { autoAlpha: 1, z: 0, scale: 1, filter: "blur(0px)", duration: 0.6, ease: "expo.out" }, t);
+  const brilha = (el, t) => tlr.to(el, { boxShadow: "0 30px 70px rgba(47,123,255,.45), 0 0 0 5px #2f7bff", scale: 1.04, duration: 0.3, ease: "back.out(2)" }, t);
+  if (VAR === "A") {   // agenda: sai o incêndio, entra o que você domina
+    entra("#fA", t0);
+    $$("#fA .ruim").forEach((e, i) => tlr.to(e, { x: 620, autoAlpha: 0, filter: "blur(8px)", duration: 0.35, ease: "power3.in" }, t0 + 0.25 + i * 0.1));
+    $$("#fA .bom").forEach((e, i) => tlr.fromTo(e, { autoAlpha: 0, x: -200, scale: 0.85 }, { autoAlpha: 1, x: 0, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, t0 + 0.55 + i * 0.12));
+    brilha("#fA .bom.um", TT[175] - 0.05);
+  }
+  if (VAR === "B") {   // quadro: a operação vai para a Legacy, fica com você o que você domina
+    entra("#fB", t0);
+    $$("#fB .tar").forEach((e, i) => {
+      tlr.to(e, { x: 380, duration: 0.5, ease: "power3.inOut" }, t0 + 0.3 + i * 0.12);
+      tlr.fromTo(e.querySelector("b"), { autoAlpha: 0, scale: 0 }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "back.out(2.5)" }, t0 + 0.75 + i * 0.12);
+    });
+    tlr.fromTo("#fB .seu", { autoAlpha: 0, y: 60, scale: 0.8 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, t0 + 0.95);
+    brilha("#fB .seu", TT[175] - 0.05);
+  }
+  if (VAR === "C") {   // barra do seu tempo: o laranja do incêndio vira azul do que você domina
+    entra("#fC", t0);
+    tlr.fromTo("#fC .lar", { width: 520 }, { width: 90, duration: 0.9, ease: "power3.inOut" }, t0 + 0.35);
+    tlr.fromTo("#fC .az", { width: 90 }, { width: 520, duration: 0.9, ease: "power3.inOut" }, t0 + 0.35);
+    tlr.fromTo("#fC .lg2", { scale: 1 }, { scale: 1.12, transformOrigin: "0% 50%", duration: 0.3, ease: "back.out(2)" }, TT[175] - 0.05);
+    brilha("#fC .barra2", TT[175] - 0.05);
+  }
+  gF(290, [[[170, "sm"], [171, "sm"], [172, "sm"], [173, "sm"]], [[174], [175, "hl"]]], 48.59);
+
+  // E se em seis meses você não tiver resultado, devolvemos todo o seu investimento.
+  CAM.viagem(48.64, "c4", 0.6);
+  (function () {
+    const g = $("#arcos");
+    for (let i = 0; i < 6; i++) {
+      const a0 = (-90 + i * 60 + 4) * Math.PI / 180, a1 = (-90 + (i + 1) * 60 - 4) * Math.PI / 180, r = 205;
+      const pth = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      pth.setAttribute("d", "M" + (230 + r * Math.cos(a0)).toFixed(1) + " " + (230 + r * Math.sin(a0)).toFixed(1) + " A" + r + " " + r + " 0 0 1 " + (230 + r * Math.cos(a1)).toFixed(1) + " " + (230 + r * Math.sin(a1)).toFixed(1));
+      pth.setAttribute("fill", "none"); pth.setAttribute("stroke-width", "16"); pth.setAttribute("stroke-linecap", "round");
+      pth.setAttribute("stroke", "#dce8fb");
+      g.appendChild(pth);
+      tl.to(pth, { attr: { stroke: "#2f7bff" }, duration: 0.12 }, 49.59 + i * 0.12);
+    }
+  })();
+  tl.set("#selo", { autoAlpha: 0 }, 0);
+  tl.fromTo("#selo", { autoAlpha: 0, z: -700, scale: 0.6, rotationY: -60 }, { autoAlpha: 1, z: 0, scale: 1, rotationY: 0, duration: 0.8, ease: "expo.out" }, 48.99);
+  gF(290, [[[176, "sm"], [177, "sm"], [178, "sm"]], [[179, "big hl", "6"], [180, "big"]]], 50.15);
+  gF(290, [[[181, "sm"], [182, "sm"], [183, "sm"]], [[184, "big"]]], 51.69);
+  tl.to("#selo", { rotationY: 180, duration: 0.8, ease: "power3.inOut" }, 51.77);
+  gF(290, [[[185]], [[186, "sm"], [187, "sm"], [188, "sm"]], [[189, "big hl"]]], 53.45);
+  CAM.chega(52.99, 1.06, 0.5, 0, 0, 0.2);
+
+  // Clique no link da bio e agende sua sessão agora mesmo.
+  CAM.viagem(53.50, "c5", 0.6);
+  tl.set(["#bio", "#botao", "#cur3", "#logo-fim", "#tag"], { autoAlpha: 0 }, 0);
+  mostra("#bio", 54.37, { y: 40, scale: 0.8 }, 0.5);
+  mostra("#botao", 53.85, { z: -600, y: 200, rotationX: 40, filter: "blur(16px)" }, 0.7);
+  tl.set("#cur3", { x: 880, y: 1150 }, 0);
+  tl.to("#cur3", { autoAlpha: 1, duration: 0.2 }, 55.01 - 0.4);
+  tl.to("#cur3", { x: 640, y: 860, duration: 0.45, ease: "power3.out" }, 55.01 - 0.4);
+  tl.to("#cur3", { scale: 0.82, duration: 0.08, yoyo: true, repeat: 1 }, 55.23);
+  tl.to("#botao", { scale: 0.94, duration: 0.08, yoyo: true, repeat: 1 }, 55.23);
+  (function () { const b = $("#bt-tx"); const o = { v: 0 };
+    tl.fromTo(o, { v: 0 }, { v: 1, duration: 0.01, onUpdate: () => { b.textContent = o.v >= 1 ? "✓ Sessão agendada" : "📅 Agendar minha sessão"; } }, 55.73); })();
+  tl.to("#botao", { background: "linear-gradient(110deg,#10b981,#34d399)", boxShadow: "0 30px 70px rgba(16,185,129,.4)", duration: 0.25 }, 55.73);
+  gF(290, [[[190, "sm"], [191, "sm"]], [[192], [193], [194, "hl"]]], 54.93);
+  gF(290, [[[195, "sm"], [196], [197, "sm"]], [[198, "big hl"]], [[199, "sm"], [200, "sm"]]], 57.32);
+  tl.to(["#bio", "#botao", "#cur3"], { autoAlpha: 0, y: -60, filter: "blur(10px)", duration: 0.35, ease: "power2.in" }, 57.32);
+  mostra("#logo-fim", 57.32 + 0.25, { y: 60, scale: 0.9, filter: "blur(14px)" }, 0.8);
+  mostra("#tag", 57.32 + 0.7, { y: 40, filter: "blur(10px)" }, 0.7);
+  tl.fromTo("#tag .marca", { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power3.out" }, 57.32 + 1.1);
+  tl.fromTo("#tag .tx", { color: "#0a1a33" }, { color: "#ffffff", duration: 0.2 }, 57.32 + 1.15);
+  CAM.chega(57.32 + 0.2, 1.04, 1.2, 0, 0, 0);
+
+  bloco(false, null);
+  // fundo respira o tempo todo
+  tl.fromTo("#grade", { y: 0 }, { y: -300, duration: DUR, ease: "none" }, 0);
+  tl.fromTo("#blob1", { x: 0, y: 0 }, { x: 260, y: 300, duration: DUR, ease: "sine.inOut" }, 0);
+  tl.fromTo("#blob2", { x: 0, y: 0 }, { x: -300, y: -260, duration: DUR, ease: "sine.inOut" }, 0);
+  tlr.set({}, {}, DUR);
+})();
+</script>
+</body>
+</html>

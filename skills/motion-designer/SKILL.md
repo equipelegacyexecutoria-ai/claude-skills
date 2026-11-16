@@ -23,6 +23,7 @@ Instalar programa novo, baixar arquivo ou gastar crédito: pedir o "sim" do usu�
 
 | Pedido / trecho | Ferramenta | Observação |
 | --- | --- | --- |
+| Motion narrado da Legacy em fundo claro com azul: letreiro palavra a palavra, plataforma em 3D, câmera que viaja pela linha azul, takes dos executores ("igual ao Motion Legacy Plan") | **skill `motion-legacy`** | Estilo aprovado em 12/11/2026 (v8 do Motion Legacy Plan); tem molde, scripts e as lições de cada versão |
 | Fala de especialista (Clailton etc.) ilustrada palavra a palavra, especialista ~10% na tela, visual moderno escuro com brilho | **skill `motion-dinamico`** (Motion Dinâmico) | Estilo nomeado pelo usuário em 21/10/2026; tem gerador e molde próprios |
 | Montagem do vídeo inteiro: anúncio, demonstração, Reels animado, vinheta, texto animado | **HyperFrames** | Base sempre. HTML + GSAP, grátis. Catálogo com 446 efeitos: `npx hyperframes catalog --query "<efeito em inglês>"` antes de desenhar à mão |
 | Gráfico, curva, juros, crescimento, fórmula, dado "matemático" | **Manim** | Gera um MP4 da cena que entra no HyperFrames. Modelo: `templates/manim_grafico.py` |

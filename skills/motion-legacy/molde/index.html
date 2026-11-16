@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>Motion Legacy</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+@font-face { font-family: "Urbanist"; src: url("assets/fonts/Urbanist-Regular.ttf"); font-weight: 400; }
+@font-face { font-family: "Urbanist"; src: url("assets/fonts/Urbanist-Medium.ttf"); font-weight: 500; }
+@font-face { font-family: "Urbanist"; src: url("assets/fonts/Urbanist-SemiBold.ttf"); font-weight: 600; }
+@font-face { font-family: "Urbanist"; src: url("assets/fonts/Urbanist-Bold.ttf"); font-weight: 700; }
+@font-face { font-family: "Urbanist"; src: url("assets/fonts/Urbanist-ExtraBold.ttf"); font-weight: 800; }
+
+:root { --navy:#0a1a33; --azul:#2f7bff; --azul2:#5aa9ff; --claro:#dcebff; --cinza:#7c8ba3; --side:#111c22; --plan:#195576; --verde:#10b981; --lar:#f59e0b; }
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { width:1080px; height:1920px; overflow:hidden; background:#f3f6fb; }
+#root { position:relative; width:100%; height:100%; overflow:hidden; font-family:"Urbanist", sans-serif; color:var(--navy); }
+.abs { position:absolute; }
+.cena { position:absolute; inset:0; }
+.palco { position:absolute; inset:0; perspective:2200px; perspective-origin:50% 45%; }
+#lente { position:absolute; inset:0; }
+#lente2 { position:absolute; inset:0; perspective:1300px; perspective-origin:50% 40%; }
+#camera { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+#cam-l { position:absolute; inset:0; transform-style:preserve-3d; }
+.fant { position:absolute; left:-400px; width:1880px; text-align:center; white-space:nowrap; font-weight:800; font-size:330px; letter-spacing:-12px; color:rgba(47,123,255,.13); filter:blur(3px); pointer-events:none; }
+.lig { position:absolute; width:8px; border-radius:4px; transform-origin:50% 0; }
+.lig i { position:absolute; inset:0; border-radius:4px; background:linear-gradient(180deg,#2f7bff,#7cc4ff); box-shadow:0 0 18px rgba(47,123,255,.8), 0 0 40px rgba(47,123,255,.4); transform-origin:50% 0; }
+#curT { position:absolute; left:0; top:0; width:84px; height:100px; filter: drop-shadow(0 14px 18px rgba(20,50,110,.35)); }
+
+.p3 { transform-style:preserve-3d; }
+
+/* fundo claro */
+#bg { position:absolute; inset:0; background: radial-gradient(ellipse 85% 60% at 50% 42%, #ffffff 0%, #f3f6fb 55%, #e3ecf8 100%); }
+.blob { position:absolute; border-radius:50%; filter:blur(110px); }
+#blob1 { left:-260px; top:180px; width:760px; height:760px; background:#cfe0ff; opacity:.75; }
+#blob2 { left:560px; top:1150px; width:720px; height:720px; background:#d9e8ff; opacity:.8; }
+#grade { position:absolute; inset:-200px; background-image: radial-gradient(rgba(47,123,255,.20) 1.5px, transparent 1.8px); background-size:46px 46px;
+  -webkit-mask-image: radial-gradient(ellipse 50% 40% at 50% 50%, #000 0%, transparent 100%); mask-image: radial-gradient(ellipse 50% 40% at 50% 50%, #000 0%, transparent 100%); }
+
+/* letreiro */
+#letras { position:absolute; inset:0; pointer-events:none; transform-style:preserve-3d; }
+.grp { position:absolute; left:70px; width:940px; text-align:center; }
+.ln { display:block; white-space:nowrap; line-height:1.1; }
+.w { display:inline-block; position:relative; font-weight:600; font-size:74px; letter-spacing:-1.5px; margin:0 10px; color:var(--navy);
+  text-shadow: 0 14px 34px rgba(10,26,51,.10); }
+.w.sm { font-size:54px; font-weight:500; letter-spacing:-.5px; }
+.w.big { font-size:108px; font-weight:700; letter-spacing:-3px; }
+.w.xl { font-size:156px; font-weight:800; letter-spacing:-5px; line-height:1.05; }
+.w.dim { color:var(--cinza); }
+.w.hl { padding:0 20px; text-shadow:none; }
+.w .tx { position:relative; }
+.marca { position:absolute; left:0; top:9%; width:100%; height:86%; background:linear-gradient(100deg,#2f7bff,#4d93ff); border-radius:16px; transform-origin:0 50%;
+  box-shadow: 0 16px 34px rgba(47,123,255,.35); }
+.marca.cz { background:linear-gradient(100deg,#9aa8bd,#b4c0d1); box-shadow:none; }
+.risco { position:absolute; left:-4%; top:52%; width:108%; height:8px; border-radius:4px; background:var(--azul); transform-origin:0 50%; }
+
+/* vidro claro */
+.vidro { position:absolute; border-radius:30px; background: linear-gradient(155deg, rgba(255,255,255,.97), rgba(236,243,255,.86));
+  border:1.5px solid rgba(255,255,255,.95); box-shadow: 0 46px 100px rgba(20,50,110,.18), 0 0 0 1px rgba(47,123,255,.12), inset 0 2px 0 #fff; }
+.rot { font-weight:700; font-size:20px; letter-spacing:3px; color:var(--cinza); text-transform:uppercase; }
+.num { font-weight:800; letter-spacing:-3px; font-variant-numeric:tabular-nums; color:var(--navy); }
+.chipv { display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border-radius:40px; font-weight:700; font-size:22px; }
+.cursor { position:absolute; width:58px; height:70px; z-index:30; filter: drop-shadow(0 10px 14px rgba(20,50,110,.35)); }
+
+/* S1 */
+#c-receita { left:180px; top:860px; width:720px; height:360px; }
+#c-sobra { left:200px; top:1080px; width:680px; height:250px; }
+
+/* S2 documento */
+#pilha { position:absolute; left:300px; top:600px; width:480px; height:620px; }
+.doc { position:absolute; left:0; top:0; width:480px; height:620px; border-radius:26px; background:linear-gradient(170deg,#ffffff,#f1f6ff);
+  border:1.5px solid #dfe8f6; box-shadow:0 30px 70px rgba(20,50,110,.16); }
+.doc .faixa { position:absolute; left:0; top:0; right:0; height:16px; border-radius:26px 26px 0 0; background:var(--azul); }
+.doc .t1 { position:absolute; left:40px; top:60px; font-weight:800; font-size:30px; letter-spacing:3px; color:var(--navy); }
+.doc .t2 { position:absolute; left:40px; top:102px; font-weight:600; font-size:22px; color:var(--cinza); }
+.doc .l { position:absolute; left:40px; height:12px; border-radius:6px; background:#e4ecf8; }
+.doc .pg { position:absolute; right:34px; bottom:26px; font-weight:700; font-size:20px; color:#9aa8bd; letter-spacing:2px; }
+#gav-fundo { left:220px; top:1110px; width:640px; height:120px; border-radius:24px 24px 0 0; background:linear-gradient(180deg,#dfe7f3,#eef3fa); }
+#gav-frente { left:200px; top:1200px; width:680px; height:250px; border-radius:30px; }
+#gav-frente .puxa { position:absolute; left:250px; top:110px; width:180px; height:22px; border-radius:11px; background:#d5dfee; box-shadow: inset 0 3px 6px rgba(20,50,110,.18); }
+#seta-sai { left:560px; top:1395px; width:440px; height:60px; overflow:visible; }
+
+/* cartão de vídeo */
+#vcard { position:absolute; left:140px; top:480px; width:800px; height:1000px; border-radius:40px; overflow:hidden; background:#cfd9e8;
+  box-shadow: 0 60px 130px rgba(20,50,110,.30), 0 0 0 1px rgba(255,255,255,.7); }
+.vw { position:absolute; inset:0; }
+.vw video { position:absolute; left:0; top:0; width:100%; height:100%; object-fit:cover; }
+#vflash { position:absolute; inset:0; background:#fff; opacity:0; }
+#vselo { position:absolute; left:34px; bottom:34px; padding:14px 24px 14px 20px; border-radius:40px; background:rgba(255,255,255,.92); display:flex; align-items:center; gap:12px;
+  font-weight:700; font-size:24px; color:var(--navy); box-shadow:0 10px 30px rgba(0,0,0,.18); }
+#vselo i { width:14px; height:14px; border-radius:50%; background:var(--azul); box-shadow:0 0 0 6px rgba(47,123,255,.2); }
+
+/* planilha */
+#planilha { left:130px; top:600px; width:820px; height:760px; border-radius:26px; overflow:visible; }
+#pl-topo { position:absolute; left:0; top:0; width:820px; height:76px; border-radius:26px 26px 0 0; background:#e9eef5; border:1.5px solid #d7e0ec; }
+#pl-topo span { position:absolute; left:30px; top:22px; font-weight:700; font-size:24px; color:#5b6b82; }
+.cel { position:absolute; width:162px; height:68px; background:#fff; border:1.5px solid #dbe3ee; font-weight:600; font-size:22px; color:#5b6b82; padding:20px 0 0 14px; }
+
+/* janela do Legacy Plan (fonte e cores da plataforma) */
+.win { position:absolute; border-radius:24px; overflow:hidden; background:#f6f7fb; color:#0f1729;
+  box-shadow: 0 70px 140px rgba(15,40,90,.28), 0 0 0 1px rgba(15,23,41,.07); }
+.side { position:absolute; left:0; top:0; bottom:0; width:78px; background:var(--side); }
+.side img { position:absolute; left:20px; top:20px; width:38px; }
+.side .it { position:absolute; left:25px; width:28px; height:28px; border-radius:7px; border:2px solid rgba(255,255,255,.28); }
+.side .it.on { background:rgba(90,169,255,.25); border-color:#5aa9ff; }
+.topo { position:absolute; left:78px; right:0; top:0; height:60px; background:#fff; border-bottom:1px solid #e7eaf0; }
+.topo .t { position:absolute; left:28px; top:20px; font-weight:700; font-size:17px; letter-spacing:2.5px; color:#475569; }
+.corpo { position:absolute; left:78px; right:0; top:60px; bottom:0; }
+.h1 { position:absolute; left:26px; top:20px; font-weight:700; font-size:30px; }
+.h2 { position:absolute; left:26px; top:58px; font-weight:500; font-size:17px; color:#64748b; }
+.card { position:absolute; background:#fff; border:1px solid #e5e8ef; border-radius:16px; box-shadow:0 2px 6px rgba(15,23,41,.05); }
+.chip { display:inline-block; padding:7px 14px; border-radius:10px; font-weight:600; font-size:15px; color:#475569; background:#eef1f6; margin-left:6px; }
+.chip.on { background:#fff; color:#0f1729; box-shadow:0 1px 3px rgba(15,23,41,.18); }
+.kpi .r { position:absolute; left:20px; top:18px; font-weight:700; font-size:13px; letter-spacing:1.6px; color:#64748b; }
+.kpi .v { position:absolute; left:20px; top:42px; font-weight:800; font-size:34px; font-variant-numeric:tabular-nums; }
+.kpi .d { position:absolute; left:20px; top:84px; font-weight:700; font-size:14px; color:#059669; }
+.barra { position:absolute; bottom:44px; width:44px; border-radius:8px 8px 3px 3px; transform-origin:50% 100%; }
+.barra.p { background:#bcd5ff; }
+.barra.r { background:var(--azul); }
+.mes { position:absolute; bottom:14px; width:120px; text-align:center; font-weight:700; font-size:14px; letter-spacing:1.5px; color:#94a3b8; }
+.leg { position:absolute; top:18px; font-weight:600; font-size:15px; color:#475569; }
+.leg i { display:inline-block; width:13px; height:13px; border-radius:4px; margin-right:7px; vertical-align:-1px; }
+#tip { left:520px; top:20px; width:250px; height:96px; background:var(--navy); color:#fff; border-radius:14px; padding:14px 18px; font-size:16px; font-weight:600; line-height:1.5;
+  box-shadow:0 14px 30px rgba(10,26,51,.35); }
+#tip b { color:#7cc4ff; }
+
+/* metas */
+.meta { left:26px; width:812px; height:150px; }
+.meta .n { position:absolute; left:24px; top:22px; font-weight:700; font-size:24px; }
+.meta .o { position:absolute; left:24px; top:56px; font-weight:500; font-size:16px; color:#64748b; }
+.meta .trilho { position:absolute; left:24px; top:98px; width:400px; height:14px; border-radius:7px; background:#eef1f6; overflow:hidden; }
+.meta .ench { position:absolute; left:0; top:0; height:100%; width:100%; border-radius:7px; background:var(--azul); transform-origin:0 50%; }
+.meta .pct { position:absolute; left:440px; top:84px; font-weight:800; font-size:28px; color:var(--azul); }
+.resp { position:absolute; right:22px; top:30px; height:90px; padding:0 22px 0 10px; border-radius:50px; background:#f1f6ff; border:1.5px solid #c7d9ff; display:flex; align-items:center; }
+.av { position:relative; width:72px; height:72px; border-radius:50%; overflow:hidden; background:#cfd9e8; flex:none; box-shadow:0 0 0 3px #fff, 0 0 0 5px #2f7bff; }
+.av .vw video { width:72px; height:90px; top:-6px; }
+.resp .nm { margin-left:14px; font-weight:700; font-size:19px; color:#1e3a8a; line-height:1.15; }
+.resp .nm small { display:block; font-weight:700; font-size:12px; letter-spacing:1.6px; color:#64748b; }
+
+/* plano de ação */
+#acao { left:150px; top:690px; width:780px; height:420px; border-radius:30px; }
+#acao .ico { position:absolute; left:40px; top:40px; width:64px; height:64px; border-radius:18px; background:linear-gradient(140deg,#2f7bff,#7cc4ff); }
+#acao .tt { position:absolute; left:40px; top:132px; width:640px; font-weight:700; font-size:40px; line-height:1.15; color:var(--navy); }
+#acao .st { position:absolute; right:36px; top:48px; }
+#acao .lin { position:absolute; left:40px; top:300px; display:flex; align-items:center; gap:18px; }
+#acao .av { width:76px; height:76px; }
+#acao .av .vw video { width:76px; height:95px; }
+#prazo { font-size:24px; background:#eef4ff; color:#1e3a8a; border:2px solid #c7d9ff; }
+#toast { left:200px; top:1170px; width:680px; height:130px; border-radius:26px; }
+#toast .sino { position:absolute; left:26px; top:30px; width:70px; height:70px; border-radius:50%; background:#fff4e5; }
+#toast .a { position:absolute; left:116px; top:28px; font-weight:800; font-size:26px; color:#b45309; }
+#toast .b { position:absolute; left:116px; top:70px; font-weight:600; font-size:21px; color:#475569; }
+
+/* jornada */
+#mundo { position:absolute; left:0; top:0; width:1080px; height:2400px; }
+#n30 { position:absolute; left:0; top:440px; width:1080px; text-align:center; font-weight:800; font-size:330px; line-height:1; letter-spacing:-12px;
+  background:linear-gradient(180deg,#2f7bff 0%, #0a1a33 100%); -webkit-background-clip:text; background-clip:text; color:transparent; filter: drop-shadow(0 30px 40px rgba(47,123,255,.25)); }
+.etapa { position:absolute; width:560px; height:190px; border-radius:30px; }
+.etapa .e1 { position:absolute; left:120px; top:40px; font-weight:700; font-size:20px; letter-spacing:3px; color:var(--azul); }
+.etapa .e2 { position:absolute; left:120px; top:76px; font-weight:800; font-size:48px; letter-spacing:-1px; color:var(--navy); }
+.etapa .bol { position:absolute; left:32px; top:55px; width:72px; height:72px; border-radius:22px; background:linear-gradient(140deg,#2f7bff,#7cc4ff); box-shadow:0 12px 24px rgba(47,123,255,.35); }
+.etapa .bol svg { position:absolute; left:16px; top:16px; width:40px; height:40px; }
+.enc { position:absolute; width:190px; height:116px; border-radius:24px; text-align:center; }
+.enc b { display:block; margin-top:18px; font-weight:800; font-size:44px; color:var(--navy); line-height:1; }
+.enc span { display:block; margin-top:8px; font-weight:700; font-size:14px; letter-spacing:2.5px; color:var(--cinza); }
+.enc.on { background:linear-gradient(140deg,#2f7bff,#4d93ff); }
+.enc.on b, .enc.on span { color:#fff; }
+
+/* tudo isso */
+.mini { position:absolute; border-radius:24px; }
+#lockup { position:absolute; left:0; top:790px; width:1080px; height:160px; display:flex; align-items:center; justify-content:center; }
+#lockup img { width:120px; height:128px; margin-right:28px; }
+#lockup span { font-weight:800; font-size:112px; letter-spacing:-3px; color:var(--navy); }
+
+/* final */
+#logo-fim { position:absolute; left:250px; top:800px; width:580px; }
+#linha-fim { position:absolute; left:340px; top:1260px; width:400px; height:6px; border-radius:3px; background:var(--azul); transform-origin:50% 50%; }
+.area { width:430px; height:500px; border-radius:32px; overflow:hidden; }
+.area .vfr { position:absolute; left:14px; top:14px; right:14px; height:330px; border-radius:22px; overflow:hidden; background:#cfd9e8; }
+.area .ar { position:absolute; left:28px; top:366px; font-weight:800; font-size:34px; letter-spacing:4px; color:var(--navy); }
+.area .ok { position:absolute; left:28px; top:422px; display:flex; align-items:center; gap:10px; font-weight:700; font-size:21px; color:#047857; }
+.area .ok i { font-style:normal; width:34px; height:34px; border-radius:50%; background:#10b981; color:#fff; display:flex; align-items:center; justify-content:center; font-size:20px; }
+.mods { position:absolute; left:36px; right:36px; top:96px; display:flex; gap:18px; }
+.mods div { flex:1; height:190px; border-radius:22px; background:#f3f7fd; border:1.5px solid #e1e9f5; font-weight:700; font-size:22px; color:var(--navy); text-align:center; padding-top:120px; position:relative; }
+.mods b { position:absolute; left:50%; top:34px; width:64px; height:64px; margin-left:-32px; border-radius:18px; }
+.alerta { position:absolute; left:190px; width:700px; height:130px; border-radius:28px; }
+.alerta .ic { position:absolute; left:28px; top:30px; width:70px; height:70px; border-radius:50%; background:#fff1e6; display:flex; align-items:center; justify-content:center; font-size:34px; }
+.alerta .tx1 { position:absolute; left:120px; top:28px; font-weight:800; font-size:26px; color:#b45309; }
+.alerta .tx2 { position:absolute; left:120px; top:70px; font-weight:600; font-size:20px; color:#64748b; }
+.alerta .ck { position:absolute; right:30px; top:35px; width:60px; height:60px; border-radius:50%; background:#10b981; color:#fff; font-size:32px; display:flex; align-items:center; justify-content:center; }
+.selo2 { position:absolute; left:28px; bottom:28px; padding:14px 24px 14px 20px; border-radius:40px; background:rgba(255,255,255,.94); display:flex; align-items:center; gap:12px; font-weight:700; font-size:24px; color:var(--navy); }
+.selo2 i { width:14px; height:14px; border-radius:50%; background:#10b981; }
+#selo { position:absolute; left:310px; top:640px; width:460px; height:460px; transform-style:preserve-3d; }
+#selo .face { position:absolute; inset:0; border-radius:50%; backface-visibility:hidden; -webkit-backface-visibility:hidden; text-align:center; }
+#selo .tras { transform:rotateY(180deg); background:linear-gradient(140deg,#2f7bff,#4d93ff); }
+.n6 { position:absolute; left:0; right:0; top:70px; font-weight:800; font-size:190px; line-height:1; color:var(--azul); letter-spacing:-6px; }
+.mz { position:absolute; left:0; right:0; top:262px; font-weight:800; font-size:40px; letter-spacing:8px; color:var(--navy); }
+.gz { position:absolute; left:0; right:0; top:318px; font-weight:700; font-size:22px; letter-spacing:5px; color:var(--cinza); }
+.n100 { position:absolute; left:0; right:0; top:120px; font-weight:800; font-size:140px; line-height:1; color:#fff; letter-spacing:-4px; }
+.mz2 { position:absolute; left:0; right:0; top:280px; font-weight:700; font-size:30px; line-height:1.25; color:#fff; }
+#botao { position:absolute; left:190px; top:760px; width:700px; height:150px; border-radius:80px; background:linear-gradient(110deg,#2f7bff,#4d93ff); box-shadow:0 30px 70px rgba(47,123,255,.4); display:flex; align-items:center; justify-content:center; }
+#bt-tx { font-weight:800; font-size:44px; color:#fff; letter-spacing:-.5px; }
+#tag { position:absolute; left:70px; width:940px; top:1030px; text-align:center; font-weight:600; font-size:48px; color:var(--navy); line-height:1.35; }
+
+/* N1: três planilhas */
+.xls { position:absolute; width:680px; height:400px; border-radius:22px; overflow:hidden; background:#fff; border:1.5px solid #d7e0ec; box-shadow:0 40px 90px rgba(20,50,110,.18); }
+.xt { position:absolute; left:0; top:0; right:0; height:64px; background:#e9eef5; border-bottom:1.5px solid #d7e0ec; }
+.xt i { position:absolute; left:22px; top:18px; width:28px; height:28px; border-radius:7px; background:#1f9d55; }
+.xt span { position:absolute; left:64px; top:17px; font-weight:700; font-size:24px; color:#5b6b82; }
+.xg { position:absolute; left:0; top:64px; right:0; bottom:0; }
+.xc { position:absolute; width:170px; height:84px; border-right:1.5px solid #e3e9f2; border-bottom:1.5px solid #e3e9f2; font-weight:600; font-size:24px; color:#5b6b82; padding:28px 0 0 16px; white-space:nowrap; overflow:hidden; }
+.xc.h { background:#f4f7fb; font-weight:700; color:#334155; }
+/* N2: caixa, vendas, metas */
+.kk { left:150px; width:720px; height:200px; border-radius:30px; }
+.kic { position:absolute; left:34px; top:50px; width:100px; height:100px; border-radius:26px; color:#fff; font-size:46px; display:flex; align-items:center; justify-content:center; }
+.kt { position:absolute; left:164px; top:46px; font-weight:800; font-size:46px; letter-spacing:4px; color:var(--navy); }
+.ks { position:absolute; left:164px; top:110px; font-weight:600; font-size:26px; color:#64748b; }
+.kerr { position:absolute; right:34px; top:72px; padding:10px 18px; border-radius:14px; background:#fdecef; color:#e11d48; font-weight:800; font-size:26px; }
+#k-q { position:absolute; right:40px; top:40px; width:120px; height:120px; border-radius:50%; background:#f1f5f9; color:#94a3b8; font-weight:800; font-size:80px; display:flex; align-items:center; justify-content:center; }
+/* N3: tarefa sem dono */
+.qav { width:72px; height:72px; border-radius:50%; background:#e2e8f0; color:#94a3b8; font-weight:800; font-size:36px; display:flex; align-items:center; justify-content:center; box-shadow:0 0 0 3px #fff; }
+.marca.fg { background:linear-gradient(100deg,#f97316,#f59e0b); box-shadow:0 16px 34px rgba(249,115,22,.35); }
+
+/* variações do foco */
+.foco { position:absolute; border-radius:32px; }
+#fA { left:190px; top:600px; width:700px; height:540px; }
+.slot { position:absolute; left:40px; width:620px; height:110px; border-radius:22px; display:flex; align-items:center; padding-left:30px; font-weight:800; font-size:34px; }
+.slot.ruim { background:#fff4ec; border:2px solid #fed7aa; color:#c2410c; }
+.slot.bom { background:linear-gradient(110deg,#2f7bff,#4d93ff); color:#fff; box-shadow:0 16px 34px rgba(47,123,255,.3); }
+.slot small { margin-left:auto; margin-right:28px; font-weight:700; font-size:20px; opacity:.8; }
+#fB { left:150px; top:600px; width:780px; height:620px; }
+.col { position:absolute; top:96px; width:340px; height:490px; border-radius:24px; background:#f3f7fd; border:1.5px dashed #c9d8ee; }
+.colt { position:absolute; top:40px; font-weight:800; font-size:22px; letter-spacing:4px; }
+.tar { position:absolute; left:50px; width:300px; height:96px; border-radius:20px; background:#fff; border:1.5px solid #e1e9f5; box-shadow:0 8px 20px rgba(20,50,110,.08); font-weight:800; font-size:30px; color:var(--navy); padding:30px 0 0 26px; }
+.tar b { position:absolute; right:18px; top:28px; width:40px; height:40px; border-radius:50%; background:#10b981; color:#fff; font-size:22px; display:flex; align-items:center; justify-content:center; }
+.seu { position:absolute; left:50px; width:300px; height:250px; border-radius:24px; background:linear-gradient(140deg,#2f7bff,#4d93ff); color:#fff; text-align:center; padding-top:40px; box-shadow:0 20px 44px rgba(47,123,255,.35); }
+.seu .st { font-size:64px; line-height:1; }
+.seu .s1 { margin-top:16px; font-weight:800; font-size:32px; line-height:1.15; }
+#fC { left:170px; top:660px; width:740px; height:420px; }
+.barra2 { position:absolute; left:40px; top:120px; width:660px; height:110px; border-radius:26px; background:#eef3fb; overflow:hidden; display:flex; gap:10px; padding:10px; }
+.barra2 .lar { height:90px; border-radius:18px; background:linear-gradient(110deg,#f97316,#f59e0b); }
+.barra2 .az { height:90px; border-radius:18px; background:linear-gradient(110deg,#2f7bff,#4d93ff); }
+.lg { position:absolute; top:268px; display:flex; align-items:center; gap:12px; font-weight:700; font-size:28px; }
+.lg i { width:22px; height:22px; border-radius:7px; }
+#flash { position:absolute; inset:0; background:#fff; opacity:0; pointer-events:none; }
+#azul { position:absolute; inset:0; background:linear-gradient(120deg,#2f7bff,#7cc4ff); opacity:0; pointer-events:none; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="8" data-width="1080" data-height="1920">
+
+  <div id="fundo" class="cena"><div id="bg"></div><div id="blob1" class="blob"></div><div id="blob2" class="blob"></div><div id="grade"></div></div>
+
+  <div id="lente"><div id="camera">
+
+  <!-- CENA 1 (exemplo): cartão de vidro com número que conta -->
+  <div id="s1" class="cena palco">
+    <div id="c-receita" class="vidro p3">
+      <div class="abs rot" style="left:44px; top:40px;">Receita · Outubro</div>
+      <div id="rec-v" class="abs num" style="left:42px; top:76px; font-size:110px;">R$ 0</div>
+      <div class="abs chipv" style="right:40px; top:34px; background:#e8f7ef; color:#047857;">▲ 12,4%</div>
+    </div>
+  </div>
+
+  <!-- CENA 2 (exemplo): tela da plataforma em 3D (janela com barra lateral, fonte Urbanist) -->
+  <div id="s2" class="cena palco">
+    <div id="win1" class="win p3" style="left:90px; top:560px; width:900px; height:700px;">
+      <div class="side"><img src="assets/img/plan_logo.svg"/><div class="it on" style="top:110px"></div><div class="it" style="top:160px"></div><div class="it" style="top:210px"></div></div>
+      <div class="topo"><div class="t">PAINEL DE METAS</div></div>
+      <div class="corpo"><div class="h1">Metas de novembro</div><div class="h2">Cada meta com um responsável</div>
+        <div class="card kpi" style="left:26px; top:100px; width:250px; height:120px;"><div class="r">MRR</div><div class="v" id="kpi1">R$ 0</div><div class="d">▲ 4,2%</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENA 3 (exemplo): fecho com logo -->
+  <div id="s3" class="cena palco">
+    <img id="logo-fim" src="assets/img/logo_navy.svg" />
+  </div>
+
+  </div></div>
+
+  <div id="lente2"><div id="cam-l"><div id="letras"></div></div></div>
+  <div id="azul"></div>
+  <div id="flash"></div>
+
+  <audio id="mix" src="assets/audio/mix.wav" data-start="0" data-duration="8" data-track-index="40"></audio>
+</div>
+
+<script>
+(function () {
+  const tlr = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["main"] = tlr;
+  const M = (x) => x;   // tempos já na voz final (no Legacy Plan havia mapas de voz antiga -> nova; aqui não precisa)
+  const tl = { to: (a, b, q) => tlr.to(a, b, M(q)), fromTo: (a, b, c, q) => tlr.fromTo(a, b, c, M(q)), set: (a, b, q) => tlr.set(a, b, M(q)) };
+  const DUR = 8;
+  const $ = (s) => document.querySelector(s);
+  const $$ = (s) => Array.from(document.querySelectorAll(s));
+
+  // palavras da narração e o início de cada uma em segundos do vídeo (gerado por scripts/palavras_js.py)
+  const TX = ["Sua","empresa","fatura,"];
+  const TT = [0.25,0.43,0.71];
+
+  // gerador fixo (mesmo resultado em todo render)
+  let semente = 7;
+  const rnd = () => { semente = (semente * 16807) % 2147483647; return (semente - 1) / 2147483646; };
+  const br = (n) => Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  function contar(el, de, ate, t, dur, fmt, ease) {
+    const o = { v: de };
+    el.textContent = fmt(de);
+    tl.fromTo(o, { v: de }, { v: ate, duration: dur, ease: ease || "power2.out", onUpdate: () => { el.textContent = fmt(o.v); } }, t);
+  }
+  function mostra(el, t, de, dur) {
+    tl.fromTo(el, Object.assign({ autoAlpha: 0 }, de || {}), { autoAlpha: 1, x: 0, y: 0, z: 0, scale: 1, rotationX: 0, rotationY: 0, rotation: 0, filter: "blur(0px)", duration: dur || 0.6, ease: "expo.out" }, t);
+  }
+  function some(el, t, para, dur) {
+    tl.to(el, Object.assign({ autoAlpha: 0, filter: "blur(16px)", duration: dur || 0.3, ease: "power2.in" }, para || {}), t);
+  }
+
+  // ---------- letreiro (palavra a palavra, no tempo da voz) ----------
+  // saida/fim/risco já no tempo da voz nova (sem mapa)
+  const letras = $("#letras");
+  let nG = 0;
+  function grupo(top, linhas, saida, opt) {
+    opt = opt || {};
+    const g = document.createElement("div");
+    g.className = "grp";
+    g.style.top = top + "px";
+    letras.appendChild(g);
+    let ini = 99, k = 0;
+    linhas.forEach((ln) => {
+      const L = document.createElement("span");
+      L.className = "ln";
+      g.appendChild(L);
+      ln.forEach((p) => {
+        const i = p[0], cls = p[1] || "";
+        const w = document.createElement("span");
+        w.className = "w " + cls;
+        const tx = document.createElement("span");
+        tx.className = "tx";
+        tx.textContent = p[2] || TX[i];
+        let marca = null, risco = null;
+        if (cls.indexOf("hl") >= 0) { marca = document.createElement("span"); marca.className = "marca" + (cls.indexOf("cz") >= 0 ? " cz" : "") + (cls.indexOf("fg") >= 0 ? " fg" : ""); w.appendChild(marca); }
+        w.appendChild(tx);
+        if (cls.indexOf("rs") >= 0) { risco = document.createElement("span"); risco.className = "risco"; w.appendChild(risco); }
+        L.appendChild(w);
+        const t = TT[i];
+        ini = Math.min(ini, t);
+        const grande = cls.indexOf("big") >= 0 || cls.indexOf("xl") >= 0;
+        tlr.fromTo(w, { opacity: 0, filter: "blur(18px)", y: grande ? 50 : 34, x: (k % 2 ? 1 : -1) * (grande ? 30 : 16), scale: grande ? 1.6 : 1.35 },
+          { opacity: 1, filter: "blur(0px)", y: 0, x: 0, scale: 1, duration: 0.5, ease: "expo.out" }, t - 0.06);
+        if (marca) {
+          tlr.fromTo(marca, { scaleX: 0 }, { scaleX: 1, duration: 0.32, ease: "power3.out" }, t + 0.06);
+          tlr.fromTo(tx, { color: "#0a1a33" }, { color: "#ffffff", duration: 0.2 }, t + 0.12);
+        }
+        if (risco) tlr.fromTo(risco, { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power3.inOut" }, opt.risco || t + 0.4);
+        k++;
+      });
+    });
+    const fim = opt.fim || saida;
+    nG++;
+    const lado = nG % 2 ? 1 : -1;
+    // câmera orbita a frase na chegada e vai chegando perto enquanto ela fica na tela
+    tlr.fromTo(g, { rotationY: lado * 22, rotationX: 8, z: -260 }, { rotationY: 0, rotationX: 0, z: 0, duration: 0.7, ease: "expo.out" }, ini - 0.06);
+    tlr.fromTo(g, { scale: 1 }, { scale: 1.08, duration: Math.max(0.3, fim - ini), ease: "none" }, ini);
+    tlr.to(g, { rotationY: -lado * 5, duration: Math.max(0.3, fim - ini - 0.7), ease: "sine.inOut" }, ini + 0.64);
+    // palavra de destaque gigante e borrada lá atrás (profundidade)
+    const hl = linhas.flat().find((p) => (p[1] || "").indexOf("hl") >= 0 && (p[1] || "").indexOf("cz") < 0);
+    if (hl && !opt.semFantasma) {
+      const f = document.createElement("div");
+      f.className = "fant";
+      f.textContent = (hl[2] || TX[hl[0]]).replace(/[.,?!]/g, "");
+      f.style.top = (top - 40) + "px";
+      letras.insertBefore(f, letras.firstChild);
+      const t0 = TT[hl[0]];
+      tlr.fromTo(f, { x: lado * 160, z: -300, scale: 0.9 }, { x: -lado * 120, z: -300, scale: 1.05, duration: Math.max(0.5, fim - t0), ease: "none" }, t0);
+      tlr.fromTo(f, { opacity: 0 }, { opacity: 1, duration: 0.35 }, t0);
+      tlr.to(f, { opacity: 0, duration: 0.25 }, Math.max(t0 + 0.4, fim - 0.14));
+    }
+    // saída: a câmera atravessa a frase
+    if (saida < DUR) tlr.to(g, { opacity: 0, filter: "blur(16px)", scale: 1.7, z: 240, duration: 0.22, ease: "power2.in" }, saida - 0.14);
+    return g;
+  }
+
+
+  // ======== CENAS (exemplo: troque pelos blocos do seu roteiro) ========
+  // letreiro: grupo(top_px, [[ [índice_da_palavra, "classes"], ... ], ...linha2], saida_s)
+  //   classes: sm (pequena), big, xl (gigante), dim (cinza), hl (marca azul atrás), hl cz (marca cinza), hl fg (marca laranja), rs (risco)
+  grupo(560, [[[0, "sm dim"], [1, "sm dim"]], [[2, "xl"]]], 1.4);
+  mostra("#c-receita", 0.7, { y: 260, z: -500, rotationX: 48, scale: 0.8, filter: "blur(20px)" }, 0.8);
+  contar($("#rec-v"), 0, 82150, 0.8, 0.75, (v) => "R$ " + br(v));
+  some("#c-receita", 2.6, { y: -420, z: -300, rotationX: -40, scale: 0.7 }, 0.32);
+  mostra("#win1", 3.4, { z: -900, rotationX: 38, rotationY: -18, filter: "blur(18px)" }, 0.9);
+  tl.to("#win1", { rotationY: 8, rotationX: 6, duration: 2.2, ease: "sine.inOut" }, 4.3);
+  contar($("#kpi1"), 0, 82150, 3.9, 0.8, (v) => "R$ " + br(v));
+  mostra("#logo-fim", 6.6, { y: 60, scale: 0.9, filter: "blur(14px)" }, 0.8);
+
+  // ======== câmera: parada, só anda com intenção ========
+  let CAM = null;
+  (function () {
+    // cada cena mora num ponto do mundo; a câmera viaja de uma para outra
+    const P = { s1: [0, 0], s2: [0, 2300], s3: [1700, 2300] };
+    const lugar = { "#s1": "s1", "#s2": "s2", "#s3": "s3" };
+    Object.keys(lugar).forEach((sel) => { const q = P[lugar[sel]]; $(sel).style.translate = q[0] + "px " + q[1] + "px"; });
+
+    const cam = $("#camera");
+    const curT = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    curT.setAttribute("id", "curT"); curT.setAttribute("viewBox", "0 0 58 70");
+    curT.innerHTML = '<path d="M4 4 L4 56 L18 44 L28 66 L38 61 L28 40 L50 40 Z" fill="#2f7bff" stroke="#fff" stroke-width="4" stroke-linejoin="round"/>';
+    cam.insertBefore(curT, cam.firstChild);
+    tl.set(curT, { autoAlpha: 0 }, 0);
+
+    const C = (k) => [P[k][0] + 540, P[k][1] + 960];
+    let atual = "s1";
+    gsap.set(cam, { x: 0, y: 0, transformOrigin: "540px 960px" });
+
+    // viagem: a linha nasce na cena atual, a setinha corre por ela e a câmera vai junto
+    function viagem(t, para, dur) {
+      dur = dur || 0.7;
+      const a = C(atual), b = C(para);
+      const dx = b[0] - a[0], dy = b[1] - a[1], L = Math.hypot(dx, dy);
+      const ang = Math.atan2(dy, dx) * 180 / Math.PI - 90;
+      const lig = document.createElement("div");
+      lig.className = "lig";
+      lig.style.left = (a[0] - 4) + "px"; lig.style.top = a[1] + "px"; lig.style.height = L + "px";
+      lig.style.transform = "rotate(" + ang + "deg)";
+      const i = document.createElement("i");
+      lig.appendChild(i);
+      cam.insertBefore(lig, cam.firstChild);
+      tl.fromTo(i, { scaleY: 0 }, { scaleY: 1, duration: dur + 0.15, ease: "power3.inOut" }, t - 0.15);
+      tl.fromTo(lig, { opacity: 1 }, { opacity: 0, duration: 0.25, immediateRender: false }, t + dur - 0.15);
+      // setinha corre na frente da câmera
+      tl.set(curT, { x: a[0] + 30, y: a[1] + 40, rotation: ang + 160, autoAlpha: 0 }, t - 0.2);
+      tl.to(curT, { autoAlpha: 1, duration: 0.12 }, t - 0.2);
+      tl.to(curT, { x: b[0] + 30, y: b[1] + 40, duration: dur, ease: "power3.inOut" }, t - 0.08);
+      tl.to(curT, { autoAlpha: 0, duration: 0.2 }, t + dur + 0.05);
+      // câmera: anda, recua um pouco no meio do caminho e borra com a velocidade
+      tl.to(cam, { x: -P[para][0], y: -P[para][1], duration: dur, ease: "power3.inOut" }, t);
+      tl.set(cam, { transformOrigin: b[0] + "px " + b[1] + "px" }, t);
+      tl.to(cam, { scale: 0.86, filter: "blur(6px)", duration: dur / 2, ease: "power2.in" }, t);
+      tl.to(cam, { scale: 1, filter: "blur(0px)", duration: dur / 2, ease: "power2.out" }, t + dur / 2);
+      atual = para;
+    }
+    // salto escondido (atrás do azul ou de uma passagem)
+    function salto(t, para) {
+      tl.set(cam, { x: -P[para][0], y: -P[para][1], transformOrigin: C(para)[0] + "px " + C(para)[1] + "px" }, t);
+      atual = para;
+    }
+    // aproximação no ponto importante (câmera chega perto e volta devagar)
+    function chega(t, quanto, dur, ox, oy, hold) {
+      const c = C(atual);
+      tl.set(cam, { transformOrigin: (c[0] + (ox || 0)) + "px " + (c[1] + (oy || 0)) + "px" }, t - 0.01);
+      tl.to(cam, { scale: quanto, duration: dur || 0.6, ease: "power3.out" }, t);
+      tl.to(cam, { scale: 1, duration: 0.5, ease: "power2.inOut" }, t + (dur || 0.6) + (hold == null ? 0.5 : hold));
+    }
+
+    chega(0.9, 1.06, 0.6, 0, -200);   // aproxima no número
+    viagem(3.1, "s2", 0.65);          // desce até a plataforma
+    viagem(6.2, "s3", 0.6);           // vai para o fecho
+    CAM = { viagem, chega };
+  })();
+
+  // fundo respira o tempo todo
+  tl.fromTo("#grade", { y: 0 }, { y: -300, duration: DUR, ease: "none" }, 0);
+  tl.fromTo("#blob1", { x: 0, y: 0 }, { x: 260, y: 300, duration: DUR, ease: "sine.inOut" }, 0);
+  tl.fromTo("#blob2", { x: 0, y: 0 }, { x: -300, y: -260, duration: DUR, ease: "sine.inOut" }, 0);
+  tlr.set({}, {}, DUR);
+})();
+</script>
+</body>
+</html>

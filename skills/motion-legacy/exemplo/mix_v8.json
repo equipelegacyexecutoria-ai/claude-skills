@@ -1,0 +1,95 @@
+{
+ "duracao": 73.58,
+ "saida": "mix_v8.wav",
+ "voz": {
+  "arquivo": "voz_G.mp3",
+  "atempo": 1.0,
+  "inicio": 0.25,
+  "volume": 1.0
+ },
+ "trilhas": [
+  {
+   "arquivo": "solatido/solatido.mp3",
+   "inicio_no_arquivo": 30.83,
+   "entra": 0,
+   "sai": 29.85,
+   "volume": 0.43,
+   "fade_saida": 0.35,
+   "fade_entrada": 0.3
+  },
+  {
+   "arquivo": "pulso.mp3",
+   "inicio_no_arquivo": 4.35,
+   "entra": 29.62,
+   "sai": 73.58,
+   "volume": 0.125,
+   "fade_saida": 1.8
+  }
+ ],
+ "abaixar_musica_sob_voz": {
+  "threshold": 0.05,
+  "ratio": 1.6
+ },
+ "efeitos": [
+  {
+   "arquivo": "../projeto_v2/assets/audio/artlist/air_motion_whoosh.wav",
+   "momento": 4.8,
+   "pico": 0.813,
+   "volume": 0.09
+  },
+  {
+   "arquivo": "../projeto_v2/assets/audio/artlist/soft_ui_click.wav",
+   "momento": 6.53,
+   "pico": 0.072,
+   "volume": 0.1
+  },
+  {
+   "arquivo": "../projeto_v2/assets/audio/artlist/deep_impact.wav",
+   "momento": 21.2,
+   "pico": 0.09,
+   "volume": 0.13
+  },
+  {
+   "arquivo": "sfx/gaveta.wav",
+   "momento": 27.12,
+   "pico": 0,
+   "volume": 0.16
+  },
+  {
+   "arquivo": "../projeto_v2/assets/audio/artlist/tonal_rise.wav",
+   "momento": 29.62,
+   "pico": 2.757,
+   "volume": 0.13
+  },
+  {
+   "arquivo": "../projeto_v2/assets/audio/artlist/data_point_click.wav",
+   "momento": 44.3,
+   "pico": 0.062,
+   "volume": 0.1
+  },
+  {
+   "arquivo": "../projeto_v2/assets/audio/artlist/soft_ui_click.wav",
+   "momento": 51.55,
+   "pico": 0.072,
+   "volume": 0.1
+  },
+  {
+   "arquivo": "../projeto_v2/assets/audio/artlist/air_motion_whoosh.wav",
+   "momento": 65.25,
+   "pico": 0.813,
+   "volume": 0.07
+  },
+  {
+   "arquivo": "../projeto_v2/assets/audio/artlist/data_point_click.wav",
+   "momento": 68.65,
+   "pico": 0.062,
+   "volume": 0.12
+  },
+  {
+   "arquivo": "sfx/logo.wav",
+   "momento": 71.45,
+   "pico": 0,
+   "volume": 0.22
+  }
+ ]
+}
