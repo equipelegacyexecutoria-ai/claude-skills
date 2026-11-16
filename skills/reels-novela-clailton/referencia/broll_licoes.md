@@ -64,3 +64,19 @@ B-rolls de qualquer reel com o Clailton (NV, ES, TD). Toda nota nova de B-roll e
   palavra, emendadas entre si. "Faltou aqui uma cena da churrasqueira" → cada item da lista ("a piscina ficou verde e a
   churrasqueira coberta de poeira") tem a sua imagem. "Não gostei dessa cena" (família à mesa em "sacrificando o tempo
   com a família") → trocada por pai no notebook com o filho brincando sozinho (o sacrifício tem que aparecer).
+- 16/11/2026, Estúpido Antes das Redes Sociais v2: quando ele cita TV brasileira, usar o programa REAL e reconhecível
+  (YouTube): "programa de fofoca" → Programa do Ratinho (ou outro famoso); "programas policiais sensacionalistas" →
+  Datena no Brasil Urgente; "novela de 270 capítulos" → congelamento do fim de capítulo de Avenida Brasil (Carminha,
+  vídeo Al4fhLu1nVA, tirar a tarja preta com crop 1440x818+0+130); "reality show" → abertura do BBB (logo). "Centenas
+  de canais" = alguém passando canal na TV (zapping de TV aberta brasileira, cortes de 0,3 s), não um controle remoto.
+  "E tinha gente que começava o dia assistindo" → deixar o Clailton (frase de transição não precisa de imagem).
+  TV antiga em retrato (Pexels 6976215) recortada na faixa 5:4 ficou "horrível": usar TV inteira no quadro.
+  "Alguém deslizando o Instagram" = tela do Instagram reconhecível (post com ícones), não feed genérico.
+- 16/11/2026, As Abelhas Trabalham Até Morrer v2 (13 notas): cada verbo de uma enumeração tem sua cena ("acorda,
+  trabalha, ganha dinheiro" → "trabalha" pede alguém trabalhando, não a cena do "acorda" esticada); exemplo de consumo
+  com mulher pede também um homem com um bem (carro) → equilibrar gênero; "ficou muito feminino" (relógio rosa, só
+  meninas na escola) → objetos neutros e crianças dos dois gêneros; foto parada ("calculadora estática, nem parece um
+  vídeo") → sempre cena com movimento (mão digitando); objeto-símbolo inteiro no quadro (ampulheta inteira com a areia
+  caindo; relógio com o ponteiro andando entre os números, não close sem números); "escolha sempre que possível imagens
+  da pasta broll" → acervo primeiro de verdade (Walter Mitty no corredor do escritório; cena curta demais = leve câmera
+  lenta 1,2x); take de 4 s no mesmo plano = dividir pela fala; "saindo para trabalhar" = terno/maleta, não lazer (skate).
