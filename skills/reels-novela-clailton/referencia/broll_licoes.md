@@ -30,7 +30,8 @@ B-rolls de qualquer reel com o Clailton (NV, ES, TD). Toda nota nova de B-roll e
 - "Centralize esse vídeo, corta metade da imagem" (Vida luxuosa): o assunto tem que estar no centro do recorte.
 
 ## 4. Tempo e ritmo
-- O vídeo abre com o Clailton (~2 s), B-roll nunca no quadro 0 (regra global).
+- O vídeo abre com o Clailton (~2 s), B-roll nunca no quadro 0 (regra global). Exceção só quando a nota pede:
+  "aqui começar com um take das abelhas trabalhando" (As Abelhas v1, 16/11/2026) = abre com o B-roll até o 1º corte.
 - Entra e sai junto com um corte da decupagem, ou a ≥ 1 s dele (nunca 0,1–1 s: "pulo duplo").
 - 1,5 a 4 s por cena. Fala longa sobre o mesmo tema = 2 cenas ("divide esse take em 2", "não deixe tão longo").
 - Não repetir cena no mesmo vídeo ("não repita os b-roll, sempre use novos").
