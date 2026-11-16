@@ -162,11 +162,17 @@ def main():
         fala = " ".join(w["texto"] for w in pal if ini - 0.05 <= w["inicio"] < fim)
         if ini < INICIO_MIN:
             av.append(("G", f"entra em {ini:.2f}s: o vídeo abre com o Clailton (B-roll só depois de {INICIO_MIN:.0f} s)"))
+        cola_antes = k > 1 and abs(float(B[k - 2]["fim"]) - ini) < 0.02      # B-roll emendado em outro B-roll
+        cola_depois = k < len(B) and abs(float(B[k]["inicio"]) - fim) < 0.02
         if dur < DUR_MIN:
-            av.append(("G", f"dura {dur:.2f}s (curto demais, vira piscada)"))
+            # sequência rápida de propósito (ex.: "outro, e mais outro" com um cartão a cada palavra) = aviso leve
+            av.append(("L" if (cola_antes or cola_depois) and dur >= 0.5 else "G",
+                       f"dura {dur:.2f}s (curto: só vale em sequência rápida de propósito)"))
         elif dur > DUR_MAX:
             av.append(("L", f"dura {dur:.1f}s (longo: divida em 2 cenas que ilustrem a mesma fala)"))
-        for nome, t in (("entra", ini), ("sai", fim)):
+        for nome, t, cola in (("entra", ini, cola_antes), ("sai", fim, cola_depois)):
+            if cola:              # troca de B-roll para B-roll: o Clailton não aparece, não há pulo duplo
+                continue
             d = min((abs(t - e) for e in emendas), default=9)
             if PERTO_CORTE[0] < d < PERTO_CORTE[1]:
                 av.append(("G", f"{nome} a {d:.2f}s de um corte da decupagem (encoste no corte ou afaste >= 1 s)"))
