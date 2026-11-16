@@ -73,3 +73,15 @@ pergunta"), nunca por código. Base de ferramentas e regras gerais (área segura
   (o render leva ~13 min). Mudou só um trecho visual: renderize e confira esse trecho antes do vídeo inteiro.
 - Variações de um trecho (ex.: 3 jeitos de ilustrar uma frase): mostre os quadros lado a lado numa imagem e só
   renderize o vídeo depois da escolha.
+
+## CTA final dos reels NV_CTA do Clailton (aprovada em 16/11/2026)
+
+A CTA em motion no fim das novelas NV_CTA agora é neste estilo (Igor aprovou o Metas e mandou aplicar nos outros).
+Voz é a do próprio Clailton (sem Lívia, sem crédito). Scripts em `scripts/cta_nv/` (no PC de render rodam de `C:\Render\_trabalho\_cta_legacy`):
+- `gerar.py <slug> [--render]`: SPEC por vídeo com os grupos do letreiro (índices de `palavras_corte.json`), a cena do tema
+  (`metas` painel batendo 100%, `caixa` linhas de vendas/lucro/ticket subindo, `crescer` faturamento e barras dos meses),
+  palavra da viagem (fecho), do clique e, se a fala depois do clique for longa, a palavra em que entra o logo.
+  Fecho: chip "link na bio", botão clicado vira "✓ Vamos juntos", logo Legacy Executoria e "Enquanto todo mundo ensina, a gente executa."
+- `compor.py <slug>`: flash branco na passagem, animação por cima da novela (`sem_motion.mp4` ou `v1_sem_musica.mp4`), voz + 5 efeitos baixos.
+- Música: `mixar_alto.py <cta_legacy/composto_sem_musica.mov> <musica> <saida> <ini> 10 cta <inicio_cta>`.
+- Drive: sobrescrever o EDITADO no mesmo nome (link do card não muda).
