@@ -76,6 +76,11 @@ CORTE_VISIVEL = 0.35         # s de pulo no bruto: só corte assim (ou troca de 
 CABECA_K = 0.85              # topo da cabeça ~ olhos - 0,85 x largura do rosto NO MOMENTO (YuNet; medido: 0,71-0,76)
 CABECA_FOLGA = 0.03          # fração da altura: folga mínima acima da cabeça no fechado
 ZOOM_MIN = 1.10              # fechado menor que isso não vale o corte: o trecho fica no aberto
+# 16/11/2026 (Fim do Mundo, notas "zoom entre os cortes sempre", 6 pontos): com bruto já fechado (careca encostando
+# no topo) a regra da cabeça desligava TODOS os zooms (fechado_do_clailton 0%). O usuário quer o zoom nas emendas
+# mesmo assim: quando a cabeça não cabe, o fechado usa ZOOM_SEM_FOLGA com os olhos na linha (corta só o alto da
+# careca, como num close de cinema). 0 = volta ao comportamento antigo (trecho fica aberto).
+ZOOM_SEM_FOLGA = 1.25
 
 # ---------------- transições ----------------
 FLASH_ANTES = [1.35, 1.6, 1.75]   # ganho de brilho nos 3 quadros antes do corte (saída da abertura)

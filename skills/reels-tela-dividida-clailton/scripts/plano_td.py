@@ -38,7 +38,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from td_comum import (ABERTO_MAX, CORTE_VISIVEL, FECHADO_MAX, FPS, LEAD, LEG_MAX_CHARS, LEG_MAX_PALAVRAS,  # noqa: E402
-                      CABECA_FOLGA, CABECA_K, PLANO_MIN, ZOOM_MIN,
+                      CABECA_FOLGA, CABECA_K, PLANO_MIN, ZOOM_MIN, ZOOM_SEM_FOLGA,
                       ZOOM_SUAVE, ZOOM_SUAVE_INTERVALO, ZOOM_SUAVE_RAMPA, gravar_json, ler_json, suave)
 from td_comum import H as H_SAIDA, W as W_SAIDA  # noqa: E402
 
@@ -744,6 +744,10 @@ def olhos_na_linha(planos: list[dict], enq: dict, medir=None) -> tuple[list[str]
         den = linha / H_SAIDA - CABECA_FOLGA
         if ey - topo > 0 and den > 0:
             fator = min(fator, ab[3] * den / (ey - topo))
+        if fator < ZOOM_MIN and ZOOM_SEM_FOLGA >= ZOOM_MIN:
+            avisos.append(f"cabeça: fechado em {p0['f0'] / FPS:.2f}s com {ZOOM_SEM_FOLGA:.2f}x (bruto fechado: "
+                          f"corta o alto da cabeça; sem cortar só caberia {fator:.2f}x)")
+            fator = min(p0.get("fator") or ab[2] / s0["fechado"][2], ZOOM_SEM_FOLGA)
         if fator < ZOOM_MIN:
             for p in tr:
                 p["zoom"] = "aberto"

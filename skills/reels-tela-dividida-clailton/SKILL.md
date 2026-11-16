@@ -9,13 +9,18 @@ Padrão medido nos 6 reels da equipe (Não confie no ser humano 1,81 mi · Me mo
 Fórmula 316 mil · Duty Free · STF · 6 tipos). **Números e regras: `referencia/estilo-tela-dividida.md`.
 Como decidir as imagens: `referencia/regras-plano-visual.md`** (leia antes de escrever o plano).
 
+**A skill aprende com cada revisão (regra do usuário, 16/11/2026):** antes do plano, leia
+`referencia/licoes_revisao.md` (o que o usuário já corrigiu: zoom, imagem certa, enquadramento, corte, som). Ao
+fazer uma v2, v3..., para cada nota pergunte "isso vale para os próximos vídeos?"; se sim, escreva a regra lá (ou no
+código, e registre lá) ANTES de entregar. O objetivo é cada vídeo novo chegar com menos notas que o anterior.
+
 ## O entregável
 
 | Item | Padrão |
 |---|---|
 | Formato | 1080×1920, 29,97 fps, H.264 High CRF 18 slow, BT.709, AAC 320k (era CRF 10, ~75 Mb/s: pesado demais para o usuário); voz −16 LUFS / −1 dBTP (limitador suave) |
 | Gancho (0–3/8 s) | tela dividida: imagem em y 0–768, Clailton embaixo; legenda vira **tarja preta** na emenda; saída com **flash** |
-| Clailton | parado; **aberto** (rosto 30% da largura) e **fechado** (1,5×) por corte seco; fechado nos fechos de frase e depois de emenda de tomada (automático). **Regras de zoom do usuário (28/09/2026), padrão:** zoom seco (aberto ↔ fechado) **só na emenda**; fora da emenda só **zoom animado** (keyframes, entrada/saída suaves, ~18% em 0,55 s no rabo da frase, segura até a emenda); **olhos na linha padrão no corte**: enquadramento padrão = aberto; no 1º quadro depois do corte que entra no zoom, o fechado é posicionado só na altura para os olhos caírem na linha padrão do aberto (lateral centrada, fechado parado). Zoom só em corte visível (≥ 0,35 s de pulo) e nunca cortando a cabeça (topo medido pela pele). Detalhes e lições na skill da edição simples, seção "Zoom" |
+| Clailton | parado; **aberto** (rosto 30% da largura) e **fechado** (1,5×) por corte seco; fechado nos fechos de frase e depois de emenda de tomada (automático). **Regras de zoom do usuário (28/09/2026), padrão:** zoom seco (aberto ↔ fechado) **só na emenda**; fora da emenda só **zoom animado** (keyframes, entrada/saída suaves, ~18% em 0,55 s no rabo da frase, segura até a emenda); **olhos na linha padrão no corte**: enquadramento padrão = aberto; no 1º quadro depois do corte que entra no zoom, o fechado é posicionado só na altura para os olhos caírem na linha padrão do aberto (lateral centrada, fechado parado). Zoom só em corte visível (≥ 0,35 s de pulo) e, quando dá, sem cortar a cabeça (topo medido pela pele); **com bruto fechado o zoom NÃO é desligado** (16/11/2026: "zoom entre os cortes sempre"): `ZOOM_SEM_FOLGA` 1,25x, corta só o alto da careca. Detalhes e lições na skill da edição simples, seção "Zoom" |
 | Imagem | ~30–40% do tempo, entra no início da palavra que ilustra; **padrão = cena de cultura pop em vídeo** (filme, série, desenho) que mostra o que ele fala; foto só para fato (pessoa, marca, livro, notícia), com zoom-out ~5%/s; vídeo sem zoom e sem som; cartão para print; `dividida` quando ele comenta a imagem |
 | Emenda da tela dividida | **degradê de desfoque** entre o B-roll e o Clailton, sem linha seca (`costura` no `render_td.py`, `COSTURA_ALT`/`COSTURA_BLUR` no `td_comum.py`; usuário 26/10/2026) |
 | B-roll (usuário, 26/10/2026) | **nada de vídeo de banco gerado por IA** (no Freepik, filtro `ai=excluded`; imagem de IA só quando ele pedir, ex.: Google Flow), **nenhum B-roll repetido** no mesmo vídeo e estética **mais sombria/escura**, mas legível no celular; trecho mais curto que o uso congela: confira a duração |
@@ -23,14 +28,14 @@ Como decidir as imagens: `referencia/regras-plano-visual.md`** (leia antes de es
 | Enquadramento do B-roll | recorte no ASSUNTO, por plano da cena: o reenquadramento testa 9 posições do 9:16 (e 5 da faixa de cima) e fica com a que mostra a ação E o personagem, sem cortar rosto ao meio; entrada do trecho sem pedaço de outra cena nas pontas |
 | Estilo "película" | **só no B-roll** (tela cheia de imagem: o quadro todo; tela dividida: só a faixa de cima; o Clailton fica limpo), antes da legenda: textura de papel + retícula de pontinhos (4,43 px, 14°) FIXAS na tela, grão animado leve, poeira de 1–2 quadros, saturação 0,85, curva em S leve, vinheta. Medido na referência do usuário (instagram.com/p/Dc1tvV3sTO-) e calibrado para sobreviver à recompressão do Instagram. Força por vídeo: `ESTILO 0.7` no plano (0 desliga) |
 | Legenda | 1–4 palavras, SF Pro Text Black maiúscula 34 px, y=1175, sombra v3, troca seca na palavra |
-| Final | CTA preta digitada (a da novela) com o **som de teclado padrão** da novela (`reels-novela-clailton/assets/cta_teclado.mp3`, usuário 30/09/2026) sincronizado com a digitação (1º toque na 1ª letra; `conferir_td.py` reprova se sair mais de 1 quadro); `SEMCTA` no reel de salvamento |
+| Final | **desde 16/11/2026: música + CTA "me segue"** (depois do `finalizar`: `trilha.py` e `trocar_cta.py`, ver `referencia/licoes_revisao.md`, "Som e final"). O render ainda gera a CTA preta digitada (a da novela) com o **som de teclado padrão** da novela (`reels-novela-clailton/assets/cta_teclado.mp3`, usuário 30/09/2026) sincronizado com a digitação (1º toque na 1ª letra; `conferir_td.py` reprova se sair mais de 1 quadro); `SEMCTA` no reel de salvamento |
 | Pasta | `Reels Editados/<nome> - EDITADO.mp4` na raiz do projeto; trabalho em `_trabalho/<slug>/` |
 | Premiere (opcional) | `Reels Editados/<nome> - PREMIERE/` (XML + mídia + legenda_alpha.mov + legenda.srt) |
 
 **Portão:** o 1º vídeo de um lote é mostrado ao usuário antes dos outros (com `--geral`), incluindo
 `qa/fundo_mais_claro.png` (regra global: legenda testada no fundo mais claro).
 
-**Sem música e nada na nuvem:** música entra depois, pelo usuário. Gemini (plugin /watch)
+**Música já na v1 (16/11/2026; antes a música entrava depois, pelo usuário). Nada na nuvem:** Gemini (plugin /watch)
 foi testado em 27/09 e descartado "por enquanto" (lento, falhou com 503, e manda o vídeo
 para fora); não propor de novo sem ele pedir. Lacuna que o teste mostrou e as folhas de
 revisão não pegam: imagem que contradiz a fala, legenda branca sobre imagem branca e
