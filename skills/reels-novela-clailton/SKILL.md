@@ -195,6 +195,8 @@ decupagem (~5 min) e legenda (~5 min). `T = <projeto>\_trabalho\<slug>`.
      `compor_v8.py`). Plano onde a cabeça encosta no topo do bruto continua aberto (o fechado cortaria a cabeça).
      **Nota "não use zoom in nesse vídeo"** (usuário, 16/11/2026, Deus que cobra juros v1): a nota do vídeo manda sobre o
      padrão. `P S\zoom_cortes.py T --desligar` (volta tudo ao aberto e refaz o queixo) e `finalizar`; enquadramento fixo.
+     Mesma nota em "Pessoas Educadas" e "Estúpido" (16/11). Objeto da fala na borda do bruto ("tem como aparecer mais o
+     celular?"): desloque em X só os trechos dele (`crops_segmento`, altura cheia), nunca zoom.
 
    Leia `roteiro_corte.txt`: nada de repetição, falso começo ou fala para a equipe. Leia também
    os avisos. "sobra de tomada errada ... sai" = o montar achou e tirou um começo de frase errado (vira
@@ -254,6 +256,12 @@ Correções depois de pronto:
   índices; tempos remapeados pelo bruto, a legenda é aproveitada) → `finalizar` (que mede o rosto de novo sozinho).
   Precisa do bruto no PC (`C:\Render\brutos\<slug>`): se foi apagado na limpeza, copie de novo do Drive.
 - **Só legenda**: edite `legenda.txt` → `finalizar`.
+- **Fala de outra pessoa na legenda vai entre aspas curvas “ ”, não entre parênteses** (usuário, 16/11/2026, "Não Seja
+  Amigo": “EU NÃO GOSTO DE VOCÊ”). Aspas retas " parecem dois tracinhos na SF Pro Black.
+- **Fim de palavra comido pelo Adobe** ("cortou a voz dele na palavra feito", Não Seja Amigo v5): a soltura fraca do "o"
+  existia no bruto e o Adobe apagou. Devolva ao `audio_tratado.wav` o som do bruto nesse trecho (mesmo nível, fusão de
+  15 ms) e estenda o fim do segmento alguns quadros no `corte.json` (palavras com `montar_corte.remapear`). Exemplo:
+  `C:\Render\_trabalho\Reels_Clailton_NV_Nao_Seja_Amigo_Do_Teu_Filho\v5\estender_feito.py`.
 - **NV_CTA: novela com CTA em motion no final** (usuário, 05/11/2026; modelo aprovado: Flamengo v5). O nome do card/arquivo
   leva `NV_CTA` (ex.: `Reels_Clailton_NV_CTA_Dois_Cavalos_Puxam_Tres_Vezes_Mais`). Novela normal até o ponto da CTA
   (`[CORTE PARA O CTA]`, a pergunta final ou depois da última frase); dali em diante flash branco ~0,2 s, só a voz do

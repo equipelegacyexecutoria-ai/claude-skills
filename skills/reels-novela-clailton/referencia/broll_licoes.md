@@ -49,3 +49,11 @@ B-rolls de qualquer reel com o Clailton (NV, ES, TD). Toda nota nova de B-roll e
 - Humanizado: pessoas reais em situações reais ("algo mais humano, pessoas entrando no avião com suas malas").
 - Tema pesado (morte, solidão, dinheiro faltando) = cenas mais escuras/sombrias; tema de conquista = luz.
 - Imagem bonita: "coloca um cemitério mais bonito"; cena feia ou genérica é trocada.
+
+## Notas novas
+- 16/11/2026, Estúpido Antes das Redes Sociais v1 (vídeo sem imagem): "aqui tem que usar alguma animação para ilustrar
+  isso, tem várias na internet" (redes sociais deixando a humanidade estúpida → animação do Steve Cutts, clipe do Moby
+  "Are You Lost In The World Like Me?", YouTube VASywEuqFd8: 0:40 pessoas-zumbi no celular, 2:03 multidão filmando e
+  rindo; evitar 0:39 e 2:05+, têm placa/tela em inglês); "a partir daqui tem que ilustrar com broll também" e "esse
+  trecho aqui também é muito importante ilustrar" (lembrança de TV de 12 canais). Fala que lista coisas (cachorrinhos,
+  gatinhos, elefantes dançando; fofoca, policial, novela) pede uma imagem por item.
