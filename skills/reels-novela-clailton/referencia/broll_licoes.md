@@ -59,3 +59,8 @@ B-rolls de qualquer reel com o Clailton (NV, ES, TD). Toda nota nova de B-roll e
   rindo; evitar 0:39 e 2:05+, têm placa/tela em inglês); "a partir daqui tem que ilustrar com broll também" e "esse
   trecho aqui também é muito importante ilustrar" (lembrança de TV de 12 canais). Fala que lista coisas (cachorrinhos,
   gatinhos, elefantes dançando; fofoca, policial, novela) pede uma imagem por item.
+- 16/11/2026, O Deus que Cobra Juros v2: "nessa fala dos cartões cortes mais dinâmicos, outro e outro, vai aparecendo
+  mais cartões" → fala que enumera/repete ("um cartão... outro... e mais outro") = uma cena curta (0,6-1,4 s) por
+  palavra, emendadas entre si. "Faltou aqui uma cena da churrasqueira" → cada item da lista ("a piscina ficou verde e a
+  churrasqueira coberta de poeira") tem a sua imagem. "Não gostei dessa cena" (família à mesa em "sacrificando o tempo
+  com a família") → trocada por pai no notebook com o filho brincando sozinho (o sacrifício tem que aparecer).
