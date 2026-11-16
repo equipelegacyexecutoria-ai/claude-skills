@@ -180,6 +180,12 @@ Na raiz: `acervo.json` (catálogo: obra, cenas com tempo/descrição/temas, prob
   emocao, forca 1–5, vertical sim|dividida|nao; folhas renomeadas para `_catalogo\folhas\<código>_pN.jpg`)
   → `acervo_td.py catalogo` (refaz CATALOGO.md e o mapa de situações) → `"<venv-align>" S\acervo_td.py indexar`.
   Marca d'água, texto em inglês ou resolução baixa → pasta `7 NAO USAR` e `"evitar": true`.
+- **Cópia no Drive (usuário, 16/11/2026: "coloca esse banco de broll no drive e vai atualizando por lá também"):**
+  `G:\Meu Drive\02. Captação de Vídeos\B-ROLLS (ACERVO)` é a cópia do acervo. Depois de catalogar vídeo novo (ou
+  baixar cena nova para o acervo), atualize no PowerShell (só acrescenta/atualiza, nunca apaga no Drive):
+  `robocopy "<acervo local>" "G:\Meu Drive\02. Captação de Vídeos\B-ROLLS (ACERVO)" /E /J /R:3 /W:10 /NP /NFL /NDL`
+  (no Git Bash o robocopy entende `/E` como caminho: rode pelo PowerShell). PC sem acervo local e com o G::
+  `acervo_td.py definir` na pasta local copiada do Drive (o Drive baixa sob demanda; copie antes de usar).
 - Não mover/renomear à mão: o catálogo guarda o caminho. Montagens "Visuals" abrem com cartão em inglês
   ("This video is available in 4K"): o catálogo marca o trecho; o filtro de texto também pega.
 
