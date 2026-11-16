@@ -184,6 +184,15 @@ decupagem (~5 min) e legenda (~5 min). `T = <projeto>\_trabalho\<slug>`.
      Confira a lista de planos que ele imprime e uma folha com o quadro antes/depois de cada troca. Testado no
      "Empresário que montou uma ONG" v4: 6 fechados de 1,18–1,22x em 69 s, conferência aprovada.
      Isso é exceção à regra "nunca cortar em cima nem embaixo": só nos NV_CTA (ou quando o card pedir zoom).
+     **Pedido de novo pelo usuário em 16/11/2026** (Porco e o Urso v7, nota na Sala: "Adiciona em todo vídeo entre os
+     cortes zoom in"): vale para NV_CTA mesmo quando a versão final é a montagem do editor (Frame.io, com B-rolls e
+     legenda já queimados). Como foi feito na v8: `zoom_cortes.py` + `finalizar` no nosso corte (legenda refeita com o
+     queixo do zoom), depois cada quadro do vídeo do editor foi casado com o nosso render antigo (diferença média
+     < 4 numa miniatura da faixa = quadro do Clailton; offset fixo por trecho, ele encurta/alonga dentro das imagens);
+     nos quadros do Clailton entra o render novo, nos de imagem e na CTA fica o do editor. Plano fechado que sobraria
+     < 0,5 s colado numa imagem do editor fica aberto (quadro do editor), para não pular duas vezes. Scripts de
+     exemplo: `C:\Render\_trabalho\Reels_Clailton_NV_O_Porco_E_O_Urso\scripts_v8\` (`mapear.py`, `plano_mapa.py`,
+     `compor_v8.py`). Plano onde a cabeça encosta no topo do bruto continua aberto (o fechado cortaria a cabeça).
 
    Leia `roteiro_corte.txt`: nada de repetição, falso começo ou fala para a equipe. Leia também
    os avisos. "sobra de tomada errada ... sai" = o montar achou e tirou um começo de frase errado (vira
