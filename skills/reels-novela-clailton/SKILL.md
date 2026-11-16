@@ -193,6 +193,8 @@ decupagem (~5 min) e legenda (~5 min). `T = <projeto>\_trabalho\<slug>`.
      < 0,5 s colado numa imagem do editor fica aberto (quadro do editor), para não pular duas vezes. Scripts de
      exemplo: `C:\Render\_trabalho\Reels_Clailton_NV_O_Porco_E_O_Urso\scripts_v8\` (`mapear.py`, `plano_mapa.py`,
      `compor_v8.py`). Plano onde a cabeça encosta no topo do bruto continua aberto (o fechado cortaria a cabeça).
+     **Nota "não use zoom in nesse vídeo"** (usuário, 16/11/2026, Deus que cobra juros v1): a nota do vídeo manda sobre o
+     padrão. `P S\zoom_cortes.py T --desligar` (volta tudo ao aberto e refaz o queixo) e `finalizar`; enquadramento fixo.
 
    Leia `roteiro_corte.txt`: nada de repetição, falso começo ou fala para a equipe. Leia também
    os avisos. "sobra de tomada errada ... sai" = o montar achou e tirou um começo de frase errado (vira
@@ -263,6 +265,23 @@ Correções depois de pronto:
   quadros do plano seguinte apareciam antes da animação. O `compor_cta.py` agora congela o último quadro antes do corte até
   o início da animação (corte até 0,6 s antes). Com `-` no lugar da música ele só monta o composto; mixe depois com
   `mixar_alto.py <composto> <musica> <saida> <ini> 10 cta <inicio da animação>`.
+- **Processo de B-roll (usuário, 16/11/2026: "a grande maioria dos reels NV devem começar a ter brolls" e
+  diminuir as correções; 27% das notas da Sala eram de imagem).** Entrega direto a v1 completa na Sala (sem etapa de
+  aprovação de imagens antes: ele preferiu anotar o vídeo todo de uma vez). Antes de escolher, leia
+  `referencia/broll_licoes.md` (o que ele já reprovou). Para cada frase:
+  1. **Escolha pelo sentido e pelo literal:** primeiro o acervo (`Desktop\B-ROLLS\MAPA DE SITUACOES.md`, depois
+     `CATALOGO.md`; cena de filme/série que traduz a frase), depois cena específica no YouTube, depois banco (Pexels)
+     para o literal simples. Nada de Freepik nem IA sem pedido. O que a frase diz tem que aparecer na tela.
+  2. **Prepare** com `broll_prep.py <saida> <fonte> <ini> <dur> [forca] [cx] [cy]` (cx/cy movem o recorte até o
+     sujeito) e grave no `broll.json` também `"origem"` (ex.: `"acervo BB-02 t=10"`, `"Pexels 8201570"`), `"fonte"` e
+     `"fonte_t"` (para a conferência pegar repetição).
+  3. **Confira antes do render:** `P S\broll_conferir.py T` (código 3 = tem ✗) e olhe `T\qa\folha_broll.jpg`
+     (1º/meio/último quadro de cada B-roll com a fala daquele trecho; amarelo = texto, vermelho = rosto na borda).
+     Acusa: entra antes de 2 s, curto/longo, perto de corte, sobreposição/piscada, congelado, troca de cena dentro,
+     rosto cortado, texto parado, repetição e trechos longos sem imagem. Zere os ✗ e, na folha, confira você mesmo
+     se cada imagem mostra literalmente a fala, com o sujeito e o momento-chave dentro do quadro.
+  4. **Aprenda:** toda nota de B-roll que ele deixar na Sala vira linha em `referencia/broll_licoes.md`; cena que ele
+     pedir pelo nome (filme/série) vai para o acervo e é catalogada ("cataloga os vídeos novos do acervo").
 - **B-roll em trechos** (usuário, 04/11/2026, "Pare de agir como uma vaca"): vídeo do **YouTube** (nada de Freepik; `yt-dlp`),
   na **mesma faixa 1080x864** do vídeo (não vira tela cheia) e com o **filtro película da tela dividida**. Prepare cada
   cena com `P S\broll_prep.py <saida.mp4> <fonte> <inicio_fonte> <duracao>` (recorte 5:4 +
