@@ -61,7 +61,11 @@ Formato: `- **Regra curta** (vídeo, data, nota original resumida) → o que faz
   só mexa no que tem nota.
 - **"Momento icônico" = o quadro exato, não o plano** (Jordan, 3 versões: "mostra a cédula com tudo e olha pra
   câmera") → faça tira de quadros a cada 0,2 s, AMPLIADA no assunto, e escolha o trecho em que a ação está no auge
-  (WOLF-03: 86,45–87,7 s). Não basta a cena certa: tem que ser o segundo certo.
+  Não basta a cena certa: tem que ser o segundo certo. **Montagem "Visuals" (acervo) corta as cenas antes do auge**
+  (Fim do Mundo, 5 versões: o WOLF-03 termina o plano do Jordan ANTES de ele mostrar a nota; tentar ajustar o tempo
+  só congelou a imagem) → quando o usuário pede um momento específico, use a cena ORIGINAL do filme (YouTube,
+  "<filme> <cena> scene"), não a montagem. Jordan com a nota: `VXi7kwaXA3w` 29,6–31,0 s (mesa + close da cédula),
+  em `dividida`. Clipe mais curto que o trecho da fala CONGELA: confira a duração.
 - **Cena com duas pessoas que brigam = as duas aparecem** ("eu quero que o cara apareça também") → se elas estão em
   planos separados, faça DUAS linhas no plano (um recorte para cada um), uma por meia frase.
 - **Vídeo fraco não fica muito tempo na tela** ("corta já aqui, não ficou bom para passar tanto tempo") → cena
