@@ -113,6 +113,8 @@ palavra faltando no áudio — confira isso a olho na revisão.
    Item sem candidato bom: melhore a busca no plano, `td.py plano T` e `td.py buscar T --so b05`.
    Ilustração gerada: salve em `T\midia\<id>.png` (tipo `ia`).
 6. **Prévia (opcional)** — `P S\td.py previa T 20` (render rápido dos 20 s iniciais).
+6b. **Legenda no rosto** — `P S\legenda_no_rosto.py T` (16/11/2026): nenhuma tela de legenda pode atravessar o fim
+   de uma `dividida`; se acusar, ajuste a linha no plano e rode `td.py plano` de novo.
 7. **Finalizar** — `P S\td.py finalizar T "<projeto>\Reels Editados\<nome> - EDITADO.mp4" [--premiere] [--geral]`
    (medido no teste de 1:44: legenda 1 s, render com estilo 153 s, conferência ~50 s, Premiere 30 s).
    Código 0 = aprovado. `--estilo 0` no render = sem a camada película (render ~95 s).

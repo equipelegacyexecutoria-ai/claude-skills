@@ -66,8 +66,10 @@ Formato: `- **Regra curta** (vídeo, data, nota original resumida) → o que faz
   planos separados, faça DUAS linhas no plano (um recorte para cada um), uma por meia frase.
 - **Vídeo fraco não fica muito tempo na tela** ("corta já aqui, não ficou bom para passar tanto tempo") → cena
   genérica no máximo ~1,5 s.
-- **Legenda não pode cair no rosto** ("a legenda ficou no rosto do Clailton") → no fechado (zoom) o rosto desce até a
-  altura da legenda; se a frase tem fechado longo, confira o quadro; na dúvida, `ABERTO` ali.
+- **Legenda não pode cair no rosto** ("a legenda ficou no rosto do Clailton", v3 e v4) → a causa REAL foi a tela de
+  legenda que começa na `dividida` (posição alta, na emenda) e continua depois que a dividida acaba. Antes de
+  renderizar rode `scripts/legenda_no_rosto.py T` (sai 1 se achar) e termine a linha da dividida antes da 1ª palavra
+  da tela (ex.: `@240-244` → `@240-243`). Fechado (zoom) também desce o rosto: confira o quadro.
 - **Simpsons = família/Homer reconhecível**, não a usina ("não fez sentido"; "nenhuma imagem com o Homer?").
 
 ## Corte e legenda
