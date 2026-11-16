@@ -194,6 +194,16 @@ si ainda não foi aberta no Premiere (confira o 1º projeto).
 
 ## Armadilhas já resolvidas (não repetir)
 
+- **Cenas guardadas pela POSIÇÃO (b01, b02...)** (16/11/2026, Fim do Mundo v2): `midia/candidatos.json` e
+  `escolhas.json` são por id. Tirar ou pôr uma linha de imagem no plano renumera tudo depois dela e o `buscar` acha que
+  já está pronto (folha com cena velha na legenda nova). Na correção: anote o 1º id que mudou e rode
+  `td.py buscar T --so bNN,...,bFIM` de lá até o fim (ou mova os dois arquivos para outra pasta e busque tudo).
+  Prefira trocar a linha no mesmo lugar a apagar/inserir. `escolhas.txt` também tem que ser refeito.
+- **Trecho do YouTube com 403** ("trecho ... falhou: ...%3D%3D"): baixe o vídeo inteiro em HD com
+  `python -m yt_dlp --js-runtimes node -f "bv*[height<=1080]"`, recorte com ffmpeg e use `arquivo "...mp4"`.
+- **Desenho infantil no YouTube ("This video is not available")**: vídeo marcado "para crianças" não baixa; procure
+  outro upload da mesma história (ex.: canal de animação antiga).
+
 - **Bing sem navegador devolve lixo** depois de algumas buscas ("balde furado" → jogador Balde do
   Barcelona; "leaking bucket" → streamer preso). Busca principal = DuckDuckGo (`ddgs`), PT + EN.
 - **Marca d'água**: prévia de banco (Freepik premium = mosaico "Magnific", Unsplash+, Designi, pngtree,
