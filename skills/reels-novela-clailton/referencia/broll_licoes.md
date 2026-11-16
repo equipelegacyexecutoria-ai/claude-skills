@@ -9,6 +9,8 @@ B-rolls de qualquer reel com o Clailton (NV, ES, TD). Toda nota nova de B-roll e
 - Formigas que "carregam 50 vezes o peso": formiga carregando algo muito maior que ela, não grupo parado (Dois Cavalos).
 - "Cliente que não volta mais": nada de cadeiras vazias (Pior do que treinar). "Paz": cena que remete a paz (Vida luxuosa).
 - "Família": foto de família, não de rua. "Estranhos entrando na casa nova": tem que ficar claro que entram (Daqui a 100).
+- Marca ou produto citado aparece com a marca (16/11/2026, Phelps: "quando ele fala do iPhone, celulares mais baratos e do
+  Starbucks"): iPhone de verdade, celular barato na caixa, copo do Starbucks, cafezinho comum.
 - Começo de cena = palavra que ela ilustra. "Quando ele fala 'história do porco e do urso' já aparece a imagem" (Porco).
 - Sanguessuga literal ficou ruim: prefira cena de filme que traga o sentido (Cliente v5). Obra de construção:
   "alguém entregando uma obra grande", algo que se conecte com o nosso cliente (Cliente v7).

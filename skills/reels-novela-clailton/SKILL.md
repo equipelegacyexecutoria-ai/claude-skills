@@ -271,7 +271,8 @@ Correções depois de pronto:
   e `compor_cta.py <slug> <musica> <saida>` (sobrepõe, corta o "Me siga", efeitos e música até o fim).
   **Corte da decupagem pouco antes do flash** (06/11/2026, "Pior do que treinar": "esse frame não era para aparecer"): 3
   quadros do plano seguinte apareciam antes da animação. O `compor_cta.py` agora congela o último quadro antes do corte até
-  o início da animação (corte até 0,6 s antes). Com `-` no lugar da música ele só monta o composto; mixe depois com
+  o início da animação (corte até 0,6 s antes). O `compor.py` da CTA Motion Legacy (`_cta_legacy`) também pega corte **colado** no flash (até
+  +1 quadro): no Preço v2 o corte caiu 0,004 s antes da animação e 1 quadro do plano seguinte apareceu (nota de 16/11/2026). Com `-` no lugar da música ele só monta o composto; mixe depois com
   `mixar_alto.py <composto> <musica> <saida> <ini> 10 cta <inicio da animação>`.
 - **Processo de B-roll (usuário, 16/11/2026: "a grande maioria dos reels NV devem começar a ter brolls" e
   diminuir as correções; 27% das notas da Sala eram de imagem).** Entrega direto a v1 completa na Sala (sem etapa de
@@ -345,6 +346,11 @@ da copy no documento "2. JÁ GRAVADOS", `1iQPGvM9Ntgwa0Bqws3UyZQPZJi-pzOI5p5WcZ0
     loop 20,90 → 41,61 s da Blade Runner 2049);
   - card que pede "mais energia" e a faixa é calma: troque a faixa (Feijão: The Night We Met → ICARUS, Tony Ann).
 - No comentário de entrega: nome da música e artista.
+- **Faixa que cresce muito** (notas de 16/11/2026 no Phelps e no Fé: "no final a música ficou muito alta"; No Time for
+  Caution e Experience crescem 11-13 dB do trecho usado até o fim): meça o volume de curto prazo da faixa (`ebur128`, S a
+  cada 5 s) no trecho que vai entrar. Se subir mais de ~6 dB, nivele antes de mixar:
+  `nivelar_musica.py <musica> <ini> <dur> <saida.wav> -20 0.9` (em `_trabalho\Reels_Clailton_NV_Pior_Do_Que_Treinar_E_Ver_Sair`)
+  e mixe o wav com `ini 0` e 12 dB abaixo da voz.
 
 
 Testado e aprovado no lote de 08/10/2026 (5 vídeos): ruído nas pausas caiu 15–20 dB (de −46/−50 para −65 dB
