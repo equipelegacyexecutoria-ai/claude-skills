@@ -339,3 +339,12 @@ Todos os posts (reel, carrossel, estático), dias 1–16 de cada mês (e 17–31
   ainda vai ser seu?" 81 por mil; "jogo da vida" 122 por mil). Tese de 17/11 para meio e fundo de funil da Legacy (a testar): ponte entre
   essa reflexão e "a empresa que depende do dono" (Legado: "Menos de você. Mais do negócio."), sempre com história, metáfora ou número;
   o post de dor do dono sem fato (9h30) não funcionou.
+
+### Novembro antes × depois de quinta 12/11 (17/11/2026)
+Posts comparados na mesma idade (fotografia de 1 dia depois de publicar): 01–12/11 = 64 posts (5,3/dia), alcance típico 1.548,
+2,9 compart. por mil, 7 seguidores, 50% com pergunta "🤔" na legenda × 13–15/11 = 19 posts (6,3/dia), 1.368, 1,3 por mil, 1 seguidor,
+18 de 19 com pergunta. Salvos e visitas por mil subiram um pouco (1,1 → 1,4; 1,3 → 1,6).
+Perfil, média por dia (01–12 × 13–16): visitas 2.484 × 3.298; seguiram 3.843 × 5.454 (13–15); cliques no site 21 × 40; alcance de anúncio
+25.118 × 48.205 (quase dobrou a partir de 13/11); feed 14.320 × 16.365. Clailton: reel dos cavalos (12/11, 4,7 mi) → alcance dele 2,1 mi (12/11)
+e 2,6 mi (13/11). Leads das portas da Legacy (corte R$ 70 mil): 108 leads, 45 MQL (3,8 MQL/dia) × 72 leads, 41 MQL (10,3/dia); bio_legacy
+26 × 33 MQL. Leitura: o salto de leads coincide com o viral do Clailton e com o anúncio dobrando, não com os posts da Legacy (que pioraram).
