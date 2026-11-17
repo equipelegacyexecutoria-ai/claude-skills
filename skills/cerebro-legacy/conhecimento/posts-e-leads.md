@@ -348,3 +348,14 @@ Perfil, média por dia (01–12 × 13–16): visitas 2.484 × 3.298; seguiram 3.
 25.118 × 48.205 (quase dobrou a partir de 13/11); feed 14.320 × 16.365. Clailton: reel dos cavalos (12/11, 4,7 mi) → alcance dele 2,1 mi (12/11)
 e 2,6 mi (13/11). Leads das portas da Legacy (corte R$ 70 mil): 108 leads, 45 MQL (3,8 MQL/dia) × 72 leads, 41 MQL (10,3/dia); bio_legacy
 26 × 33 MQL. Leitura: o salto de leads coincide com o viral do Clailton e com o anúncio dobrando, não com os posts da Legacy (que pioraram).
+
+### Orgânico × pago no perfil da Legacy (17/11/2026, banco + Gerenciador lido pelo Chrome, só leitura)
+Datas do Gerenciador pela URL: o fim é exclusivo (date=2026-10-01_2026-10-31 mostra 1 a 30/10).
+- Visitas ao perfil: out 1–30 = 84.421, das quais 29.051 da campanha 121 (34%, R$ 0,21 por visita); nov 1–15 = 40.535, 4.308 da 121
+  (11%, R$ 0,95 por visita; alcance da 121 160.559 × 301.913 em out). A 121 entregou ~970 visitas/dia em out e ~290/dia em nov.
+  As campanhas de lead (105 Legado, 125 Black, 126 Quiz) não medem visita ao perfil: o pago real pode ser um pouco maior.
+- Alcance da conta: 68% de anúncio em out (884.807 de 1.290.261, soma diária) e 63% em nov 1–15 (440.833 de 701.394). Em nov o alcance
+  pago vem mais das campanhas de lead (105: 184.797; 125: 74.079) que da 121.
+- Views: 27,7 mi em out e 26,5 mi em nov 1–15; impressões de anúncio estimadas (alcance × frequência ~1,4 a 2) ≈ 0,7 a 1,3 mi = 3% a 5%.
+  As views da Legacy são quase todas dos reels do Clailton em colab.
+- A 119 (Clailton) está desativada desde ~nov: 3.319 visitas ao perfil do Clailton em nov 1–15 (25.301 em out).
