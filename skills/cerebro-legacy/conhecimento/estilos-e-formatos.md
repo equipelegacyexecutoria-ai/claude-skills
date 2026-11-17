@@ -107,3 +107,10 @@ RECALCULANDO A ROTA, notícia de uma empresa caem em Cenário/Análise/Reflexão
 | Reel Corte de podcast Metal Glass (só início de out) | 7 → 0 | 1.122 | 4,2 | — |
 Destaques: Cenário fez os 3 virais de out (R$ 1 tri 116 mil, varejo 75 mil, FMI 36 mil); Tela dividida de montadoras 29.255 e 67 seguidores;
 Pão de Açúcar × Assaí saiu 2 vezes em nov (10/11 e 15/11). Reel de cenário tem o maior compart. por mil de todos os estilos da Legacy.
+Visitas ao perfil e cliques no link por estilo (carrossel e estático; reel não tem esses números na Meta), out → nov 1–16:
+Cenário 18,8 → 6,3 visitas por post (1,70 → 1,68 por mil), cliques 6 → 5 · Notícia de uma empresa 4,7 → 8,5, cliques 1 → 7 (o que
+mais deu clique em nov: Ferraris 2, fábrica de móveis 2, Assaí, Vale, Guanabara) · Tela dividida 13,9 → 3,5 (2,55 → 1,32 por mil),
+cliques 5 → 0 · Twitter 1,2 visita por post e 0 clique em 13 posts · Estático de notícia 5,2 → 3,2 (0,87 por mil, a menor taxa) e
+0 clique em 43 posts · Reflexão out 30 visitas por post ("Todo ano eleitoral é igual para quem não tem gestão" 9 por mil;
+"As eleições terminaram..." 79 visitas, 5,3 por mil). Peso dos posts no perfil: visitas vindas de post ≈ 1,2% (out) e 0,9% (nov)
+das visitas da conta; cliques de post em nov = 12 dos 416 cliques no site da bio.
