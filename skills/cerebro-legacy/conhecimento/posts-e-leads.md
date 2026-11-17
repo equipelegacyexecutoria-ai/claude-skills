@@ -312,3 +312,16 @@ leads_legacy), 01–16/10 × 01–16/11, números da Meta de 16/11 23h. MQL com 
   Clailton: alcance dele 19,2 mi × 3,3 mi; views da Legacy = views do Clailton (colab).
 - Leads das portas da Legacy (sem Quiz em nov): bio_legacy 101·59 MQL × 27·12; boas_vindas 73·24 × 5·2; Story_legacy 6·3 × 13·9.
   Total 180·86 × 49·26 (out com Quiz boas-vindas Legacy 3·3).
+
+### Por que caiu o engajamento dos carrosséis e estáticos da Legacy (17/11/2026)
+Carrossel + estático, por período (set · 01–16/10 · 17–31/10 · 01–16/11): posts 67 · 41 · 53 · 83; compart. por mil de alcance
+40 · 30 · 13 · 7; curtidas por mil 38 · 44 · 18 · 12; salvos por mil 3,9 · 3,2 · 2,5 · 1,4; seguidores vindos dos posts 596 · 169 · 195 · 27;
+alcance mediano ÷ seguidores 2,2% (out) → 1,2% (nov). Seguidores da Legacy 104 mil (média 01–16/10) → 193 mil (nov), quase todos dos virais do Clailton.
+- Hipótese 1 (mais forte): a base mudou. A queda de engajamento começa em 17–31/10, junto com o salto de seguidores (114 mil → 160 mil), e
+  aparece até nos posts "Você sabia" de cenário (compart. por mil 35 → 12,5). Seguidor novo veio pelo Clailton e reage pouco a notícia de negócio.
+- Hipótese 2: volume. 2,6 → 5,2 posts/dia (08/11 teve 9) e o alcance do feed por dia foi 10 mil → 14,8 mil (set, com 2,2/dia, já dava 14,6 mil).
+  Os horários novos rendem pouco: 9h30 (tweet branco "dor do dono", sem fato) 12 posts, mediana 848; posts de nicho (Dono de farmácia,
+  oficina, construtor, restaurante) 6 posts, mediana 956, 0 seguidor.
+- Hipótese 3: mistura. 42 dos 83 posts de nov abrem a legenda com pergunta "Você...? 🤔": 1,9 compart./mil, 6 seguidores no total.
+  Continua funcionando fato novo + número grande + empresa/foto real na capa: juros R$ 1,2 tri (22.713, 1.143 compart.), Assaí banheiro
+  (15.509), Itaú (13.111). Estáticos subiram de alcance (mediana 3.095) mas quase sem compartilhamento (alcance de seguidor, não de envio).
