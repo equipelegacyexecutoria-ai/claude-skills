@@ -370,3 +370,16 @@ reels acima de 500 mil: 4 · 3 · 8 · 7. Carrossel do Clailton nov 1–15 media
   10.454, "vende o mês inteiro e o dinheiro não aparece" 13.569, "quem paga o salário" 15.539.
 - Para levar o público do Clailton à Legacy: pendurar a Legacy nos reels de equipe/liderança (legenda, comentário fixado, story), não
   na fala (a rubrica do roteirista reprova CTA de perfil em reel de alcance).
+
+### MQL da Legacy × alcance, Clailton, cliques, 16 semanas (17/11/2026)
+Semanas de segunda a domingo, 27/07 a 15/11 (16 semanas). MQL do perfil Legacy = bio_legacy + Story_legacy + boas_vindas +
+boasvindas_legacy + Manychat_legacy, corte R$ 70 mil. Alcance próprio = alcance da conta − alcance de anúncio.
+Ligação com o MQL semanal: alcance próprio −0,09 · alcance do Clailton 0,79 · cliques no link da bio (website_clicks) 0,91 ·
+visitas 0,52 (caiu de 0,81: em nov as visitas baixaram e o MQL subiu) · alcance de anúncio 0,45 · cliques vindos de posts 0,16 ·
+visitas vindas de posts −0,07. Seguidores ganhos × alcance do Clailton 0,97; × alcance próprio −0,27. Leads da bio × cliques na bio 0,92.
+Semana 09–15/11: 59 MQL (recorde), 257 cliques na bio, Clailton 9,39 mi.
+Clique de post → MQL: o `cliques_link` do post é o BIO_LINK_CLICKED da Meta (quem veio do post e tocou no link da bio). Todos os
+cliques caem no mesmo link (utm bio_legacy), então não dá para separar o lead que veio de post. Taxa da bio no período: 308 leads e
+180 MQL em 1.333 cliques (23 leads e 13,5 MQL a cada 100 cliques). Posts deram 68 dos 1.333 cliques (5%) → estimativa de ~16 leads e
+~9 MQL em 16 semanas. Para medir de verdade: link com utm por post (palavra-chave no comentário com ManyChat; o canal
+Manychat_legacy já existe, 1 lead em 28/07).
