@@ -1,6 +1,6 @@
 # Estilos e formatos de conteúdo (taxonomia da janela Resultados)
 
-Atualizado em 14/10/2026. Fontes: as PAUTAS do calendário do Notion (fonte `collection://f0cc9747-efab-822b-8678-07f92372d6b7`,
+Atualizado em 17/11/2026 (estilos out × nov no fim); antes em 14/10/2026. Fontes: as PAUTAS do calendário do Notion (fonte `collection://f0cc9747-efab-822b-8678-07f92372d6b7`,
 cards com DATA D/ PUBLICACÃO de 01/09 a 14/10, só leitura), a Bibliografia do perfil Legacy (card 3f8c9747efab80148173fc3e07d8fbbd,
 ver `testes-e-aprendizados-perfis.md`) e os 202 posts do Instagram de 01/09 a 13/10 que o Cérebro tem (janela Posts).
 A regra de reconhecimento é a mesma do site (tabela `ESTILOS` em `public/janelas/resultados.js`, projeto cerebro-legacy).
@@ -86,3 +86,24 @@ Leitura rápida (para o Igor):
 - Com o prefixo, o site reconhece o estilo sem adivinhar por palavras (as palavras continuam valendo para os cards antigos).
 - O site já entende as siglas atuais (NV, TD, ES, CX, B-ROLL); as novas (AE, CB, TF, DC, RC, RF, IN, NT, FR, AV, CP, DP, BR)
   entram na tabela `ESTILOS` quando o Igor aprovar.
+
+## Estilos da Legacy, outubro × novembro (1–16) de 2026 (17/11/2026)
+
+Os nomes de card mudaram em outubro e a tabela `ESTILOS` do site não reconhece os novos (TELA DIVIDIDA em carrossel, TWITTER,
+RECALCULANDO A ROTA, notícia de uma empresa caem em Cenário/Análise/Reflexão). Classificação feita à mão pela PAUTA do card
+(`cerebro_posts`), 199 posts; alcance típico = mediana atual (posts de nov são mais novos). Out → nov:
+| Estilo | Posts | Alcance típico | Compart. por mil | Seguidores |
+|---|---|---|---|---|
+| Carrossel Cenário Brasil | 30 → 25 | 2.131 → 2.623 | 31,9 → 14,4 | 269 → 19 |
+| Carrossel Tela dividida (quem afunda × quem cresce, desde 17/10) | 12 → 6 | 2.573 → 1.887 | 12,4 → 0,9 | 70 → 0 |
+| Carrossel Notícia de uma empresa | 3 → 15 | 2.745 → 1.930 (2.538 com 2 dias, o melhor de nov) | 6,0 → 3,4 | 0 → 4 |
+| Carrossel Recalculando a rota (só out) | 4 → 0 | 4.859 | 2,5 | 0 |
+| Carrossel Do topo à falência/crise (parou em 21/10) | 8 → 0 | 1.069 | 3,5 | 1 |
+| Carrossel Twitter (dor do dono, 9h30, desde 27/10) | 2 → 11 | 1.850 → 829 | 4,9 → 0,5 | 1 → 1 |
+| Carrossel Reflexão/opinião | 2 → 3 | 8.248 → 2.392 | 1,8 → 1,2 | 7 → 1 |
+| Estático Notícia | 23 → 20 | 2.219 → 3.384 | 2,7 → 3,6 | 11 → 2 |
+| Reel Depoimento/case de cliente | 6 → 4 | 2.312 → 1.914 | 2,7 → 0,6 | — |
+| Reel Notícia/cenário (só out) | 3 → 0 | 3.085 | 30,5 | — |
+| Reel Corte de podcast Metal Glass (só início de out) | 7 → 0 | 1.122 | 4,2 | — |
+Destaques: Cenário fez os 3 virais de out (R$ 1 tri 116 mil, varejo 75 mil, FMI 36 mil); Tela dividida de montadoras 29.255 e 67 seguidores;
+Pão de Açúcar × Assaí saiu 2 vezes em nov (10/11 e 15/11). Reel de cenário tem o maior compart. por mil de todos os estilos da Legacy.
