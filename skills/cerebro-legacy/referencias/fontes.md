@@ -116,6 +116,15 @@ Para saber quem fechou um negócio, use o campo de usuário "Closer" (chave come
   setembro). O funil 5 SOCIAL SELLING é outra coisa: conversas criadas pela automação (Petherson/Nina, títulos
   "— Social Selling · Instagram"), quase todas sem UTM ou de novo seguidor, paradas em "Lead". Setembro/2026: 9 leads →
   8 reuniões marcadas → 8 realizadas (6 qualificadas) → 1 venda (R$ 25 mil).
+- **UTMs no Pipe conferidas em 17/11/2026** (negócios de 13/11 22h a 17/11, funis 2 e 4):
+  - Quiz: só utm_source `QUIZ_LEGACY` + etiqueta QUIZ, medium e campaign vazios (a UTM de entrada do quiz, ex.
+    `boasvindas_clailton` / `bio_clailton`, não chega ao Pipe; ela só existe na planilha do Quiz).
+  - Sinergia: utm_source `Link_bio Clailton`, utm_campaign `Sinergia`, medium vazio, sem etiqueta. Cuidado: o source
+    parece bio do Clailton, mas é o Sinergia (na planilha o Sinergia vem com as UTMs vazias, origem `sinergia`).
+  - Black orgânica: etiquetas BLACK FRIDAY + Orgânico, utm_source `organico`, medium `legacy`, campaign `boas_vindas`
+    (mensagem de boas-vindas) ou medium `live_instagram`, campaign = data da live (`16_11_26`).
+  - Formulário padrão (link na bio da Legacy): `organico` / `instagram` / `bio_legacy`, sem etiqueta (story:
+    campaign `Story_legacy`).
 - **Pago**: utm_source `facebook` (anúncios) — só como referência.
 - Cuidado (23/10/2026): utm_source `Instagram` com campanha de anúncio (ex.: `105 - [Legado] - [CAD] ...`, medium
   `Instagram_Feed`) é anúncio pago no Instagram, não orgânico; o script ainda conta como orgânico, então confira à mão.
