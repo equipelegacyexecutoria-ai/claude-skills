@@ -325,3 +325,17 @@ alcance mediano ÷ seguidores 2,2% (out) → 1,2% (nov). Seguidores da Legacy 10
 - Hipótese 3: mistura. 42 dos 83 posts de nov abrem a legenda com pergunta "Você...? 🤔": 1,9 compart./mil, 6 seguidores no total.
   Continua funcionando fato novo + número grande + empresa/foto real na capa: juros R$ 1,2 tri (22.713, 1.143 compart.), Assaí banheiro
   (15.509), Itaú (13.111). Estáticos subiram de alcance (mediana 3.095) mas quase sem compartilhamento (alcance de seguidor, não de envio).
+
+### Compartilhamentos da Legacy, janelas de 16 dias (17/11/2026)
+Todos os posts (reel, carrossel, estático), dias 1–16 de cada mês (e 17–31/10):
+- set 1–16: 49 posts, 16.931 compart., 44,7 por mil de alcance, 10 posts com 100+ · out 1–16: 50, 7.563, 29,2, 3 ·
+  out 17–31: 60, 4.786, 13,2, 4 · nov 1–16: 89, 1.888, 6,8, 2. Posts com 0 a 2 compart.: 36% em out 1–16, 57% em nov 1–16.
+- Por tipo, out 1–16 → nov 1–16: carrossel 7.396 → 1.606 (33,8 → 8,4 por mil); estático 48 → 268 (1,7 → 3,4); reel 119 → 14.
+- Concentração: o post "R$ 1 trilhão de juros" (12/10) teve 72% dos compart. de out 1–16. Sem o maior post de cada janela: out 2.127
+  em 49 posts (14,9 por mil) × nov 745 em 88 (2,9 por mil).
+- Mais compartilhados de nov: juros R$ 1,2 tri (1.143), Imposto Seletivo estático (167), Itaú (64), Ferraris de Balneário (52), Vale (37).
+- O que o público do Clailton compartilha em nov (top 12 reels, 13 mil a 169 mil compart.): metáfora de equipe e gestão (cavalos que
+  puxam juntos 168.954; palhaço no palácio 20.439; reunião 18.592), reflexão de vida, família, tempo e legado ("Daqui a 100 anos, o que
+  ainda vai ser seu?" 81 por mil; "jogo da vida" 122 por mil). Tese de 17/11 para meio e fundo de funil da Legacy (a testar): ponte entre
+  essa reflexão e "a empresa que depende do dono" (Legado: "Menos de você. Mais do negócio."), sempre com história, metáfora ou número;
+  o post de dor do dono sem fato (9h30) não funcionou.
