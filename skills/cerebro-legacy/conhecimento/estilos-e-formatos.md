@@ -114,3 +114,11 @@ cliques 5 → 0 · Twitter 1,2 visita por post e 0 clique em 13 posts · Estáti
 0 clique em 43 posts · Reflexão out 30 visitas por post ("Todo ano eleitoral é igual para quem não tem gestão" 9 por mil;
 "As eleições terminaram..." 79 visitas, 5,3 por mil). Peso dos posts no perfil: visitas vindas de post ≈ 1,2% (out) e 0,9% (nov)
 das visitas da conta; cliques de post em nov = 12 dos 416 cliques no site da bio.
+Conversão (visita e clique), carrossel + estático com 300+ de alcance, 01/10 a 16/11 (177 posts, 28 cliques, 1.448 visitas):
+visitas a cada mil de alcance · cliques a cada 10 mil · % dos posts com clique:
+Reflexão 3,01 · 0,44 · 20% (5 posts) | Tela dividida 2,31 · 0,61 · 17% | Topo à falência 1,89 · 1,80 · 13% (alcance baixo) |
+Notícia de uma empresa 1,86 · 1,05 · 33% (o melhor em clique) | Cenário 1,70 · 0,26 · 15% (mas 5,2 seguidores por post, o maior) |
+Twitter 1,21 · 0 · 0% | Estático notícia 1,04 · 0 · 0% | Recalculando a rota 0,87 · 0 · 0% (alcance alto, não converte) | Aviso/live 6,46 (100k e lives).
+Horário: 18h+ = 20 dos 28 cliques e 21% dos posts com clique; 12–14h = 0 clique em 40 posts (quase todos estáticos); manhã 3,2 visitas por post.
+Abertura da legenda: afirmação sem "Você sabia" nem pergunta 2,75 visitas por mil × "Você sabia" 1,63 × pergunta 🤔 1,57.
+Carrossel 1,82 visitas por mil e 27 dos 28 cliques; estático 1,24 e 1 clique. Clique é número pequeno: ler como sinal.
