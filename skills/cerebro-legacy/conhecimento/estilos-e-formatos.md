@@ -122,3 +122,9 @@ Twitter 1,21 · 0 · 0% | Estático notícia 1,04 · 0 · 0% | Recalculando a ro
 Horário: 18h+ = 20 dos 28 cliques e 21% dos posts com clique; 12–14h = 0 clique em 40 posts (quase todos estáticos); manhã 3,2 visitas por post.
 Abertura da legenda: afirmação sem "Você sabia" nem pergunta 2,75 visitas por mil × "Você sabia" 1,63 × pergunta 🤔 1,57.
 Carrossel 1,82 visitas por mil e 27 dos 28 cliques; estático 1,24 e 1 clique. Clique é número pequeno: ler como sinal.
+Série maior, dias 1–16 de ago, set, out e nov (carrossel + estático; ago e set classificados à mão pela legenda, out e nov pelo card):
+posts ago/set/out/nov: Cenário 10/7/12/25 · Notícia de uma empresa 8/4/2/15 · Tela dividida 1/2/3/6 · Do topo à falência 0/3/7/0 ·
+Reflexão 6/3/2/3 · Dicas e dor do dono (Twitter em nov) 6/4/0/12 · Estático Notícia 2/12/12/20 · Aviso, frase e datas 2/3/3/2 · total 35/38/41/83.
+Alcance: Cenário 450.230/122.193/187.482/94.198 · Empresa 578.685/15.572/3.442/64.417 · Tela 44.442/26.981/7.570/15.877 · Estático
+138.662/158.287/25.281/73.834 · Dicas 10.348/12.894/0/11.151 · total 1.230.555/368.532/246.513/269.870. Seguidores total 1.398/557/169/27;
+compartilhamentos 66.047/16.870/7.444/1.874; visitas 1.217/592/434/402; cliques 15/15/4/12. Ago 1–16 coincide com o viral do Clailton de 07/08.

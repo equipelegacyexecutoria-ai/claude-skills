@@ -1,6 +1,6 @@
 # Testes e aprendizados dos perfis (Bibliografia do social media)
 
-Atualizado em 22/10/2026 (grade de teste de 13/10, ver `grade-semanal.md`); antes, em 14/10/2026, a partir do card 📌 BIBLIOGRAFIA PERFIL LEGACY
+Atualizado em 17/11/2026 (Bibliografia até 12/11, no fim); antes em 22/10/2026 (grade de teste de 13/10, ver `grade-semanal.md`); antes, em 14/10/2026, a partir do card 📌 BIBLIOGRAFIA PERFIL LEGACY
 (https://app.notion.com/p/3f8c9747efab80148173fc3e07d8fbbd, no MURAL do quadro de tarefas). O Mac (social media) anota
 ali, todo dia, o que mudou ou começou a testar; os registros de 16/09 a 13/10 vieram do caderno dele (fotos de 14/10).
 
@@ -78,3 +78,13 @@ este arquivo (o que entrou de novo vai no topo de "Linha do tempo"; resultado no
   responde a pergunta, ex.: leads do link da bio por semana antes × depois).
 - Quadros e formatos citados: "Do topo à falência", carrossel de análise de grandes empresas, B-roll, tela dividida
   (TD), novela (NV), carrossel de roteiro antigo.
+
+## Atualização da Bibliografia lida em 17/11/2026 (card editado em 12/11)
+- 21/09 → 27/10: roteiros dos reels do Clailton reescritos como carrossel no formato Twitter "funcionando super bem", alcance e engajamento, resultado pequeno nos leads da bio.
+- 23/09 → 27/10: análise de grandes empresas crescendo ficou abaixo do histórico; o que performa é empresa quebrando pelo cenário com o contraponto de quem vai bem.
+- 23/10 → 03/11: conteúdo das 9h30 sobre comportamento do consumidor descartado. Posts formato X às terças e quintas (desde 26/10) "funcionaram"; cenário e tela dividida "99% validados".
+- 06/11 e 09/11 → 12/11: copy mais longa em 5 a 7 páginas e página pré-CTA dividida em duas viraram padrão.
+- 10/11: teste de fundo de funil em formato de cenário com case Legacy e CTA agressivo (a preencher).
+- 12/11: teste de narrativas por ICP (Acerto, Erro, Prático), bloco ALVO em todo briefing, cerca de metade nichada em rodízio (alimentação, construção, automotivo, varejo, indústria); leitura em ~12/12.
+- 12/11: análise do Twitter das 9h30 (27/10 a 11/11): vida do dono 1.833 de alcance, 7,6 salvos+compart. por mil, 0,6 visita por mil; margem e preço 662; datas de fim de ano 1,4 visita por mil. Desde 16/11 o Twitter das 9h30 é só vida do dono, fechando com convite ao perfil; avaliar em 23/11.
+- Stories com vídeos da Executoria 0800 (antes de 21/10): "ótima performance".
