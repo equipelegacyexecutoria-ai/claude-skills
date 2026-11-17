@@ -383,3 +383,6 @@ cliques caem no mesmo link (utm bio_legacy), então não dá para separar o lead
 180 MQL em 1.333 cliques (23 leads e 13,5 MQL a cada 100 cliques). Posts deram 68 dos 1.333 cliques (5%) → estimativa de ~16 leads e
 ~9 MQL em 16 semanas. Para medir de verdade: link com utm por post (palavra-chave no comentário com ManyChat; o canal
 Manychat_legacy já existe, 1 lead em 28/07).
+O que anda junto com os cliques na bio (mesmas 16 semanas): alcance do Clailton 0,91 · seguidores ganhos 0,88 · visitas 0,66 ·
+anúncio 0,49 · alcance de stories da Legacy 0,29 · cliques vindos de posts 0,13 · alcance próprio −0,16. Cliques a cada mil visitas:
+5,9 em ago–set e 10,2 em 02–15/11 (quase o dobro; causa ainda não identificada: bio, tela pré-CTA, Black ou perfil de quem chega).
