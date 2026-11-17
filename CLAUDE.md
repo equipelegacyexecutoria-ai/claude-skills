@@ -87,6 +87,11 @@ Regra do usuário (19/10/2026): copy, anúncio, legenda, roteiro, e-mail e mensa
   negrito e dois-pontos, quase sem negrito;
 - sem abertura e fecho de atendente ("Claro!", "Espero que ajude", "Fico à disposição").
 
+Regra do usuário (17/11/2026): **sempre que for escrever** qualquer texto (copy, roteiro, anúncio, legenda,
+e-mail, mensagem), usar também a skill `humanizer-pt-br` (chamar pela ferramenta Skill), junto com a
+`escrita-sem-cara-de-ia`. Em copy de anúncio da Legacy: tom profissional, português correto, sem "tá/pra/clica"
+(o usuário reprovou texto coloquial demais: "somos uma empresa séria").
+
 ## Como falar com o usuário
 
 **Sempre responder em português do Brasil**, inclusive resumos finais, perguntas e as frases curtas
