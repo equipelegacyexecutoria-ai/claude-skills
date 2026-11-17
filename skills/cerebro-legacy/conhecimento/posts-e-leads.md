@@ -1,6 +1,6 @@
 # Posts e Leads no painel do Cérebro (trazidos do Legacy Insights Hub)
 
-Atualizado em 30/10/2026 (melhores semanas de MQL × alcance, com 19/10 a 29/10); em 28/10/2026 (capas e headlines set–out); antes em 21/10/2026 (mídia paga × visitas × MQL; melhores semanas de MQL × alcance; raio-x de seguidores, alcance e cliques; carrosséis jun–out por esqueleto, formato e capa). Pedido do Igor (13/10): abandonar o Legacy Insights Hub e deixar o Cérebro como o único
+Atualizado em 17/11/2026 (novembro × outubro, dias 1–16); em 30/10/2026 (melhores semanas de MQL × alcance, com 19/10 a 29/10); em 28/10/2026 (capas e headlines set–out); antes em 21/10/2026 (mídia paga × visitas × MQL; melhores semanas de MQL × alcance; raio-x de seguidores, alcance e cliques; carrosséis jun–out por esqueleto, formato e capa). Pedido do Igor (13/10): abandonar o Legacy Insights Hub e deixar o Cérebro como o único
 painel de gestão do time. As telas de **Posts** e de **Leads** do Hub viraram janelas do site do Cérebro
 (https://cerebro-legacy-organico.vercel.app), publicadas em 14/10/2026. O Hub não é mais fonte: só foi lido e copiado.
 
@@ -297,3 +297,18 @@ Página: https://claude.ai/artifact/DuTQJ6F3By2yBJTsAJt5RJ. 2,2 mi de alcance; 1
   com checklist da capa, números, exemplos e o HTML. Pedido do Igor (20/10): as análises novas ficam no MURAL, uma por card, e
   cada atualização entra no topo de "Atualizações" com a data.
 
+
+## Novembro × outubro, dias 1 a 16 (17/11/2026)
+
+Pergunta do Igor: performance dos conteúdos da Legacy no mês × mês passado. Banco do Cérebro (cerebro_ig_posts, cerebro_ig_conta_dia,
+leads_legacy), 01–16/10 × 01–16/11, números da Meta de 16/11 23h. MQL com o corte de R$ 70 mil nos dois meses.
+- Posts próprios: 89 × 50 (5,6/dia × 3,1). Alcance somado 279.540 × 258.753 (+8%); mediana por post 2.127 × 1.594 (+33%); média
+  3.141 × 5.175 (out tinha o viral "R$ 1 trilhão de juros", 116 mil). 3 posts acima de 10 mil nos dois meses.
+- Por tipo (mediana): estático 3.095 × 1.351 (23 × 15 posts, o que mais melhorou); carrossel 1.730 × 1.924 (60 × 26); reel 1.428 × 1.364 (6 × 9).
+- Seguidores vindos de post 27 × 169; compartilhamentos 1.888 × 7.563; visitas vindas de post 402 × 434 (4,5 × 8,7 por post).
+- Top de nov: juros R$ 1,2 tri (04/11, 22.713, 1.143 compart.), ida ao banheiro vira processo (14/11, 15.509), lucro recorde do Itaú (09/11, 13.111).
+  Carrossel com legenda "Você sabia" mediana 2.767 (24 posts) × 22 carrosséis de outros temas 1.244. Posts das 9h: 12, mediana 848 (o pior horário).
+- Perfil inteiro: visitas 43.002 × 25.930 (+66%), seguiram 62.472 × 12.815, cliques no site 416 × 114, views 28,0 mi × 5,3 mi. Puxado pelo
+  Clailton: alcance dele 19,2 mi × 3,3 mi; views da Legacy = views do Clailton (colab).
+- Leads das portas da Legacy (sem Quiz em nov): bio_legacy 101·59 MQL × 27·12; boas_vindas 73·24 × 5·2; Story_legacy 6·3 × 13·9.
+  Total 180·86 × 49·26 (out com Quiz boas-vindas Legacy 3·3).
