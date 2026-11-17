@@ -359,3 +359,14 @@ Datas do Gerenciador pela URL: o fim é exclusivo (date=2026-10-01_2026-10-31 mo
 - Views: 27,7 mi em out e 26,5 mi em nov 1–15; impressões de anúncio estimadas (alcance × frequência ~1,4 a 2) ≈ 0,7 a 1,3 mi = 3% a 5%.
   As views da Legacy são quase todas dos reels do Clailton em colab.
 - A 119 (Clailton) está desativada desde ~nov: 3.319 visitas ao perfil do Clailton em nov 1–15 (25.301 em out).
+
+### Reels do Clailton, 17/10 a 15/11/2026: o que alcança (17/11/2026)
+99 reels lidos (alcance, compart., legenda). Mediana por reel: set 16.714 · out 1–16 20.778 · out 17–31 61.224 · nov 1–15 42.748;
+reels acima de 500 mil: 4 · 3 · 8 · 7. Carrossel do Clailton nov 1–15 mediana 9.231 (Legacy 1.730).
+- No topo, tema universal de vida com imagem concreta: cavalos/equipe 4,68 mi, amigo que não posta 3,32 mi, política 3,28 mi, sacolas
+  embaixo da pia 2,61 mi, dinheiro × liberdade 1,36 mi.
+- Empresa funciona quando vem por equipe/liderança com metáfora: cavalos 4,68 mi, palhaço no palácio 554 mil, reunião 371 mil, "amigo dos
+  funcionários" 288 mil. Dor de dinheiro do dono vai mal: "sua empresa paga todo mundo menos você" 10.574 e 7.175, "vende, vende e não sobra"
+  10.454, "vende o mês inteiro e o dinheiro não aparece" 13.569, "quem paga o salário" 15.539.
+- Para levar o público do Clailton à Legacy: pendurar a Legacy nos reels de equipe/liderança (legenda, comentário fixado, story), não
+  na fala (a rubrica do roteirista reprova CTA de perfil em reel de alcance).
