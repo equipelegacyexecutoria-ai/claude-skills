@@ -123,3 +123,5 @@ B-rolls de qualquer reel com o Clailton (NV, ES, TD). Toda nota nova de B-roll e
   ("COFFEE" em O Diabo Veste Prada) também reprova: troque o take.
 - Referência de densidade aprovada pela lógica nova (Paz Interior v2): ~1 cena a cada 1-2 s nos trechos com imagem,
   frases fortes e a pergunta ao público só com o Clailton.
+- História sem registro ("segundo essa história", Cafeteria v2): use reportagem real do caso mais próximo (Panera
+  dando café grátis em Nova York, cafeteria de Manhattan com assinatura) e diga isso na entrega.
