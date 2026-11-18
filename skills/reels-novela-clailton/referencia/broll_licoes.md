@@ -132,3 +132,8 @@ B-rolls de qualquer reel com o Clailton (NV, ES, TD). Toda nota nova de B-roll e
 - (Não é B-roll, mas apareceu no mesmo lote) "Palavra levemente cortada" no fim de uma emenda pode ser o Adobe
   Podcast apagando a soltura da vogal (Vence Indo Embora v2, "respeito"): compare a energia do bruto com a do
   `audio_tratado.wav` e devolva aquele pedacinho do bruto.
+- 18/11/2026, Irmãos v2 (14,7 s): "essa imagem não fez sentido nenhum" → álbum de fotos de família (Pexels) em "são
+  pessoas com quem você compartilha uma história que não escolheu". Na v3 entrou Succession (acervo SUC-07 t=210.9,
+  irmãos Roy caminhando juntos nas montanhas, sério). Objeto-símbolo genérico (álbum) não traduz "irmãos": mostre os
+  irmãos, de preferência de série/filme famoso no tom da fala. Download do YouTube travou no "Sign in to confirm
+  you're not a bot" nesse dia: acervo resolveu.
