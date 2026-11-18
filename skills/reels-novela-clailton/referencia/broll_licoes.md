@@ -125,3 +125,7 @@ B-rolls de qualquer reel com o Clailton (NV, ES, TD). Toda nota nova de B-roll e
   frases fortes e a pergunta ao público só com o Clailton.
 - História sem registro ("segundo essa história", Cafeteria v2): use reportagem real do caso mais próximo (Panera
   dando café grátis em Nova York, cafeteria de Manhattan com assinatura) e diga isso na entrega.
+- Nota que cai num trecho do Clailton costuma falar da imagem que entra logo depois (Abelhas v3: a nota em 1:37
+  era do take da maleta que entrava 0,3 s depois).
+- Tom de conflito familiar (Irmãos v2): Guerreiro (irmãos no ringue), Succession, Família Soprano funcionaram.
+  Close de duas pessoas frente a frente quase nunca cabe no 5:4; prefira o plano em que uma fica atrás da outra.
