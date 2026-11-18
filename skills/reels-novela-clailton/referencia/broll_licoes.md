@@ -129,3 +129,6 @@ B-rolls de qualquer reel com o Clailton (NV, ES, TD). Toda nota nova de B-roll e
   era do take da maleta que entrava 0,3 s depois).
 - Tom de conflito familiar (Irmãos v2): Guerreiro (irmãos no ringue), Succession, Família Soprano funcionaram.
   Close de duas pessoas frente a frente quase nunca cabe no 5:4; prefira o plano em que uma fica atrás da outra.
+- (Não é B-roll, mas apareceu no mesmo lote) "Palavra levemente cortada" no fim de uma emenda pode ser o Adobe
+  Podcast apagando a soltura da vogal (Vence Indo Embora v2, "respeito"): compare a energia do bruto com a do
+  `audio_tratado.wav` e devolva aquele pedacinho do bruto.
