@@ -116,3 +116,5 @@ B-rolls de qualquer reel com o Clailton (NV, ES, TD). Toda nota nova de B-roll e
 - Música por pedido: Cafeteria → SoLaTiDo, Suspenseful and Tense Orchestra; Vence Indo Embora → parte INICIAL da
   Cinematic Pulse. Irmãos: ele marcou onde quer as viradas da música (0:04 e 0:12 da v1) → virada no tempo da nota.
 - Legenda: palavra de destaque em cima do rosto ("joga o participar mais pra baixo, ficou na cara dele").
+- Canais de cena de filme no YouTube costumam ter selo ou marca o vídeo inteiro ("Furacão da Folha" em Fome de Poder,
+  "Property of Columbia Pictures" em A Rede Social): olhe a folha de quadros do vídeo inteiro antes de usar.
