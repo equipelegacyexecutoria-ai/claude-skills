@@ -80,3 +80,39 @@ B-rolls de qualquer reel com o Clailton (NV, ES, TD). Toda nota nova de B-roll e
   caindo; relógio com o ponteiro andando entre os números, não close sem números); "escolha sempre que possível imagens
   da pasta broll" → acervo primeiro de verdade (Walter Mitty no corredor do escritório; cena curta demais = leve câmera
   lenta 1,2x); take de 4 s no mesmo plano = dividir pela fala; "saindo para trabalhar" = terno/maleta, não lazer (skate).
+
+## Lote de notas de 18/11/2026 (7 reels) — o jeito de pensar que ele ensinou
+- **Do conceito ao exemplo mais desejado** (A Paz Interior v1, 0:18): "VIAGENS LUXUOSAS — como eu posso representar
+  isso? Quais são os destinos mais luxuosos e cobiçados do mundo? Vou procurar pessoas viajando por esses destinos."
+  Antes de buscar, escreva para cada frase: conceito → o exemplo concreto mais cobiçado/reconhecível → busca por ele
+  (viagem de luxo = Maldivas/Bora Bora/Santorini/Dubai/1ª classe; relógio de luxo = **Rolex**, com a marca à vista).
+- **Filme famoso primeiro, banco por último** (Paz Interior, Mais Fé, Cuidado ao Salvar): "o ideal é ser de filmes
+  conhecidos". "Pode conquistar todas as coisas" / estresse → **Sem Limites** (Limitless). Empreendedor trabalhando,
+  criando → cenas famosas de filmes de empreendedores (Fome de Poder, A Rede Social, Jobs, À Procura da Felicidade,
+  O Lobo de Wall Street), nunca "um cara na rua entregando um cartão". "Resultados não aparecem" → alguém frustrado
+  num filme famoso do mesmo contexto. Usou um filme? Procure no filme a cena que mais ilustra ("tem cenas dele
+  realmente virando noites").
+- **Subjetivo vale mais que literal fraco** (Cuidado ao Salvar, 0:09): "salvar quem se afoga" (ajudar quem te puxa
+  para baixo) → cena de filme de alguém oferecendo drogas para alguém que parece certinho. Imagem que não conversa com
+  a ideia é reprovada mesmo sendo bonita ("não fez sentido essa imagem").
+- **Montagem rápida, nunca um take só** (Paz Interior 0:34, Cafeteria 0:49 e 1:31, Mais Fé 0:49, Vence Indo Embora
+  0:18, Irmãos 0:39): trecho que fala de um tema por mais de ~2 s = 2 a 4 takes curtos (0,8–1,5 s) de pessoas
+  diversas; "mais vídeos isso prende mais a atenção". Fila = 2, 3 pessoas fazendo fila; café da manhã = take da
+  torrada, do café sendo servido etc. Boa cena isolada também pede continuação ("só poderiam ter mais cenas").
+- **Caso real = imagem real do caso** (Cafeteria, 0:13): história verídica (empresa, pessoa, notícia) → procure
+  vídeo/foto real daquele caso (reportagem, site da empresa, YouTube) antes de ilustrar com banco.
+- **Lugar da frase literal** (Cafeteria, 1:58): "clientes entrando" na história da cafeteria = pessoas entrando numa
+  cafeteria/padaria, não qualquer porta.
+- **O tom da cena = o tom da frase** (Irmãos, 0:39): falando de como você trata seus irmãos (conflito/descaso),
+  irmãos brincando felizes "não fez o menor sentido". Confira na folha se a emoção da cena é a da fala.
+- **Generalizar para o público** (Abelhas v3, 0:05): rotina de trabalho → plano aberto com que muita gente se
+  identifique: pessoas bem vestidas indo trabalhar na Avenida Paulista ou em Nova York.
+- **Na dúvida, Clailton** (Abelhas v3, 1:28 e 1:37): imagem que "não casou" sai e fica o Clailton falando.
+- Enquadramento ainda aparece (Mais Fé 0:33, Cuidado ao Salvar 0:05): conferir sujeito inteiro e centrado na faixa.
+
+## Outras notas do mesmo lote (não são de imagem)
+- Música reprovada para sempre: **Hidden Between Heartbeats (ORGAVSM)** ("está horrível, nunca mais use ela").
+  Saiu da biblioteca (movida para `~/Music/Spotclai/_reprovadas`, fora do `_catalogo.csv`).
+- Música por pedido: Cafeteria → SoLaTiDo, Suspenseful and Tense Orchestra; Vence Indo Embora → parte INICIAL da
+  Cinematic Pulse. Irmãos: ele marcou onde quer as viradas da música (0:04 e 0:12 da v1) → virada no tempo da nota.
+- Legenda: palavra de destaque em cima do rosto ("joga o participar mais pra baixo, ficou na cara dele").
