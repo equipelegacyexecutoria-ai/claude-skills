@@ -297,6 +297,26 @@ os negócios do MQL do quiz passam a ter também as etiquetas "Quiz Clailton · 
   respondeu) e em 28/10 o discador ligou 8 vezes para o Luiz (7 falharam); no número da Nina o SDR escreve "Meu nome é
   Luan" 20 min depois de "Aqui é a Nina" (Allan); a ligação da Raislana para o Juliano fala em "Ayrton", "Edson" e
   "Maceió" (conferir se ligou com a ficha de outro lead).
+- **18/11, jornada de 30/10 a 18/11 (planilha Quiz 2 + FUNIL LEGADO + Conversas pela base, lidas como igor.oliveira,
+  sem marcar lida):** 597 cadastros (485 Produto, 112 MQL), **22 compras do VMLM** (6 MQL) e **16 negócios do quiz em
+  Agendamento ou além** (7 sessões realizadas, 1 venda: Psicokids, Impulsão 1 R$ 5 mil em 12x, 10/11). 34 conversas lidas:
+  670 mensagens nossas, 124 escritas pela Nina IA, 12 barradas por "limite de engajamento" (6 pessoas).
+  - **Vendas com a Nina: 2 de 22** (Williames 05/11 e Sérvulo 06/11, os dois vindos do formulário/comunidade: a Nina
+    perguntou faturamento, segmento e gargalo, mandou o link do quiz e, no Williames, explicou o VMLM e mandou o checkout;
+    compraram 11 e 28 min depois). As outras 20 compraram 2 a 26 min depois do quiz, antes ou sem conversa com a Nina.
+    Jossan pediu o link "por aqui" em 17/10, a Nina não mandou, e ele só comprou em 17/11.
+  - **Agendados:** em todos os 16 quem agenda é o SDR (ligação + WhatsApp); a Nina só manda o M1/M2 e, quando o lead
+    responde, passa rápido (Portugal: "Quero a sessão" → Nina passa em 1 min → sessão marcada em 2h50). Na Emporium a Nina
+    mandou o quiz de R$ 97 para um lead que o SDR já estava agendando (ele foi ao checkout).
+  - **Pós-venda:** boas-vindas chega a todos; quem responde "Já entrei" recebe bom roteiro (Módulo 1, balde furado), mas a
+    Nina **inventa conteúdo** (oferta-piloto, mapa do cliente, prospecção na Etapa 1, precificação na Etapa 2, exercício do
+    Plano de 30 dias: nada disso existe no curso). "Não recebi o e-mail" (Ana, Denys, Wallker): a Nina promete o time às
+    8h, o SDR chega falando da sessão e ninguém resolve o acesso no WhatsApp.
+  - **MQL que compra deixou de receber o "PARABÉNS, você ganhou uma sessão"**: saiu para o Emerson (02/11) e não saiu para
+    Igor (07/11), Denys e Aldo (13/11), Marisa (15/11) e Wallker (17/11). Conferir com o Petherson se foi de propósito.
+  - A reativação de quem faltou à sessão manda 1 mensagem por dia assinada "Rodrigo" ("qual prejuízo você aceita...?"),
+    inclusive para lead que avisou que a cidade foi atingida por chuva e ia remarcar (CP Comunicação, 9 mensagens em 9 dias;
+    ele queria orçamento de palestra, não sessão).
 
 ## Nina com leads NÃO-MQL de Legado (anúncio), Black e orgânico (lido em 27/10/2026)
 
