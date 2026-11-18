@@ -118,3 +118,8 @@ B-rolls de qualquer reel com o Clailton (NV, ES, TD). Toda nota nova de B-roll e
 - Legenda: palavra de destaque em cima do rosto ("joga o participar mais pra baixo, ficou na cara dele").
 - Canais de cena de filme no YouTube costumam ter selo ou marca o vídeo inteiro ("Furacão da Folha" em Fome de Poder,
   "Property of Columbia Pictures" em A Rede Social): olhe a folha de quadros do vídeo inteiro antes de usar.
+- Montagens do YouTube (canais "Visuals") e trechos de Movieclips vêm com tarja preta e às vezes a marca do canal
+  embaixo: corte a tarja antes do `broll_prep.py` (`cropdetect`, ou à mão). Letreiro em inglês em cena de rua
+  ("COFFEE" em O Diabo Veste Prada) também reprova: troque o take.
+- Referência de densidade aprovada pela lógica nova (Paz Interior v2): ~1 cena a cada 1-2 s nos trechos com imagem,
+  frases fortes e a pergunta ao público só com o Clailton.
