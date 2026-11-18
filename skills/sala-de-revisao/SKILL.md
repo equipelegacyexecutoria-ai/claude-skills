@@ -91,6 +91,9 @@ a régua e os atalhos usam o tempo total; no fim de uma parte a próxima começa
    `file_paths` (até 25 por chamada; arquivo fora da pasta de trabalho vai um por chamada). Cada um volta com `/_blob/<id>`.
 3. Na versão do documento `videos/<id>`: `partes: [{arquivo: "/_blob/<id>", dur: <s>}, ...]`, `arquivo` = a 1ª parte,
    `duracao` = soma. Apague as cópias locais depois.
+   **Cuidado no Git Bash** (erro de 17/11/2026, 18 vídeos sem tocar): passar `/_blob/<id>` como argumento de script vira
+   `C:/Program Files/Git/_blob/<id>`. Rode com `MSYS_NO_PATHCONV=1` (ou passe só o id) e confira com `grep "Program Files"`
+   no JSON antes de gravar.
 4. Espaço: `Artifact` `action: "list"`, `scope: "assets"` mostra o uso (1 GB). Versão antiga de episódio: apague as partes
    dela (`action: "delete"` com `path` = id) só quando o card estiver Publicado, e marque `removido: true`.
 
