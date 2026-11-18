@@ -137,3 +137,8 @@ B-rolls de qualquer reel com o Clailton (NV, ES, TD). Toda nota nova de B-roll e
   irmãos Roy caminhando juntos nas montanhas, sério). Objeto-símbolo genérico (álbum) não traduz "irmãos": mostre os
   irmãos, de preferência de série/filme famoso no tom da fala. Download do YouTube travou no "Sign in to confirm
   you're not a bot" nesse dia: acervo resolveu.
+- 18/11/2026, Cafeteria v2 (3 notas): "enquadra melhor o nome da padaria" (letreiro PANERA BREAD cortado no 5:4: mover
+  cx até o nome inteiro caber; fonte larga 2,37:1 só mostra 53% da largura); "aqui tem que aparecer o vale-presente ou a
+  caixa bem enquadrada da Amazon" (caixas genéricas não servem: caixa com o sorriso ocupando a cena, Pexels 6868104
+  t=3); "tu colocou uma imagem noturna" em "das 7 às 10 da manhã" (fala de manhã = cena de dia, com sol; confira a
+  hora do dia na folha). Música: "deve começar aqui já" (1 s) = trilha desde o começo da fala, não só no 1º B-roll.
