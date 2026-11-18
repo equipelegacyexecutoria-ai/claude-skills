@@ -147,7 +147,7 @@ e sincronizam sozinhos (ao abrir a conversa e ao fim de cada resposta).
   2. Só começa quando o usuário pedir ("edita os vídeos do Claude"), de qualquer PC ou do celular.
   3. Todo card da coluna CLAUDE é editado **no PC de render** (testes avulsos podem ser em outro PC).
   4. Pronto: subir a prévia na **Sala de Revisão** (Artifact, skill `sala-de-revisao`) e o final em alta em
-     EDITADO no Drive; em MATERIAL FINALIZADO vai o link da Sala (primeiro) e o do Drive; card para **Aprovação**.
+     EDITADO no Drive; em MATERIAL FINALIZADO vai o link da Sala (primeiro) e o do Drive; card para **Aprovação (Claude)** (coluna própria desde 18/11/2026).
   5. Correções (desde 11/10/2026): o usuário abre o link da Sala, deixa as notas presas no tempo do vídeo
      (ou escreve no campo **CORREÇÕES (Claude)**) e move o card para **Correções (Claude)**; o PC de render
      lê as notas, faz a v2, v3 e responde cada nota na própria Sala.

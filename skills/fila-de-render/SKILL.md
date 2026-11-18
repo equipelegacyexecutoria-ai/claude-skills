@@ -1,6 +1,6 @@
 ---
 name: fila-de-render
-description: Processa a fila de vídeos do Notion no PC de render — lê os cards das colunas CLAUDE e "Correções (Claude)" do Calendário Editorial | Legacy (visão Audiovisual), pega o bruto no Google Drive (disco G:), edita com a skill certa pelo nome da pauta (TD = tela dividida, NV/Novela = novela, ES = edição simples, CX = caixinha de perguntas da Executoria 0800), sobe a prévia na Sala de Revisão (Artifact, skill sala-de-revisao) e o arquivo final em EDITADO do mês, cola o link da Sala (e o do Drive) em MATERIAL FINALIZADO, comenta o que fez e move o card para Aprovação; nas correções lê as notas presas na minutagem da Sala de Revisão (e o campo CORREÇÕES) e faz a v2, v3. Use quando o usuário pedir "edita os vídeos do Claude", "processa a fila", "roda a fila do Notion", "faz as correções do Claude", ou mandar editar um card específico do quadro.
+description: Processa a fila de vídeos do Notion no PC de render — lê os cards das colunas CLAUDE e "Correções (Claude)" do Calendário Editorial | Legacy (visão Audiovisual), pega o bruto no Google Drive (disco G:), edita com a skill certa pelo nome da pauta (TD = tela dividida, NV/Novela = novela, ES = edição simples, CX = caixinha de perguntas da Executoria 0800), sobe a prévia na Sala de Revisão (Artifact, skill sala-de-revisao) e o arquivo final em EDITADO do mês, cola o link da Sala (e o do Drive) em MATERIAL FINALIZADO, comenta o que fez e move o card para Aprovação (Claude); nas correções lê as notas presas na minutagem da Sala de Revisão (e o campo CORREÇÕES) e faz a v2, v3. Use quando o usuário pedir "edita os vídeos do Claude", "processa a fila", "roda a fila do Notion", "faz as correções do Claude", ou mandar editar um card específico do quadro.
 ---
 
 # Fila de render (Notion → edição → Drive → Notion)
@@ -17,7 +17,7 @@ conversa do PC de render (Controle Remoto, no celular ou em claude.ai/code).
 - A pasta de trabalho da versão anterior ficou no PC de render: na correção, refaça do bruto já com
   as correções (decupagem revisada à mão, não a proposta automática).
 - Entrega: suba na Sala de Revisão normalmente (Passo 4, itens 1–2): com o link da Sala o card já pode ir
-  para Aprovação. Sem Google Drive para computador neste PC, o arquivo final fica em `C:\Render\Reels Editados\`;
+  para Aprovação (Claude). Sem Google Drive para computador neste PC, o arquivo final fica em `C:\Render\Reels Editados\`;
   avise o usuário para arrastar para a pasta EDITADO do mês e, depois, acrescente o link do Drive no card
   e na Sala (Passo 4, item 6). Não mova o card sem o link da Sala.
 - Traga as correções aplicadas na conversa (o usuário pede "me traga por aqui") além do comentário no card.
@@ -56,7 +56,7 @@ A conversa de recepção no PC de render se chama **"Render central"** (ou "Cent
   "Render central"; **não** a "Central de Render Motion", que é só para motion) e mande com `SendMessage` o pedido do usuário (ex.: "edita os vídeos do Claude",
   ou "edita só o card <PAUTA>"; se o usuário pediu outra conversa, diga qual). Mande só o pedido,
   sem instruções técnicas (nada de "dispare a tarefa"). Responda ao usuário que o pedido foi entregue
-  e que o resultado aparece no Notion (cards em Aprovação) e na própria Central de Render.
+  e que o resultado aparece no Notion (cards em Aprovação (Claude)) e na própria Central de Render.
   Se a Central não aparecer na lista: o PC de render está desligado, o app está fechado ou o
   Controle Remoto caiu. Diga isso ao usuário e peça para alguém abrir o app lá (o Claude abre sozinho
   quando o PC liga) e reabrir a conversa "Central de Render".
@@ -67,7 +67,7 @@ A conversa de recepção no PC de render se chama **"Render central"** (ou "Cent
 | Item | Onde |
 | --- | --- |
 | Quadro | "CALENDÁRIO EDITORIAL \| Legacy", visão Audiovisual: https://app.notion.com/p/73ac9747efab8374a5b5812011259272?v=c7bc9747efab821ea98b88388c677927 · fonte `collection://f0cc9747-efab-822b-8678-07f92372d6b7` |
-| Colunas (status ANDAMENTO) | entrada: **CLAUDE** (novo) e **Correções (Claude)** (ajuste); saída: a coluna de aprovação (confira o nome exato no esquema, ex.: "Aprovação") |
+| Colunas (status ANDAMENTO) | entrada: **CLAUDE** (novo) e **Correções (Claude)** (ajuste); saída: **Aprovação (Claude)** (coluna criada em 18/11/2026 só para o que o Claude edita; nunca a "Aprovação" comum, que é do time) |
 | Campos do card | PAUTA (título), IDEIA (instruções extras), MATERIAL NECESSÁRIO (link do bruto no Drive, às vezes arquivo), MATERIAL FINALIZADO (arquivo/link do editado), CORREÇÕES (Claude) (texto das correções), roteiro/briefing no **corpo** do card |
 | Drive (conta equipelegacyexecutoria@gmail.com) | `G:\Meu Drive\02. Captação de Vídeos\<AAAA>\<MM - Mês>\ORGÂNICO\BRUTO` e `\EDITADO` (ex.: `2026\09 - Setembro`) |
 | Trabalho local | `C:\Render` (brutos copiados, `_trabalho\<slug>`, `Reels Editados\`) |
@@ -87,7 +87,7 @@ das colunas e campos. Se a coluna "Correções (Claude)" não existir, avise o u
 4. Diga ao usuário em 2–4 linhas o que vai fazer (quantos cards, quais, em que ordem) e comece; não espere resposta.
 
 **Andamento do card (regra do usuário, 22/10/2026, vale também para pedido direto com link de card):** ao começar a
-editar, mova o card para **CLAUDE (Editor)** com RESPONSÁVEL = **🤖 CLAUDE** (também na v2, v3...); ao entregar (v1, v2...), mova para **Aprovação** com RESPONSÁVEL = **Mac**.
+editar, mova o card para **CLAUDE (Editor)** com RESPONSÁVEL = **🤖 CLAUDE** (também na v2, v3...); ao entregar (v1, v2...), mova para **Aprovação (Claude)** com RESPONSÁVEL = **Mac** (regra do usuário, 18/11/2026: o que o Claude edita vai para essa coluna, não para a "Aprovação" comum).
 
 Um card por vez, do começo ao fim. Leia o **card inteiro** (`notion-fetch` na página: campos, corpo e
 comentários com `notion-get-comments`) — às vezes há mais informação, às vezes menos.
@@ -178,7 +178,7 @@ O arquivo final em alta continua indo para EDITADO no Drive (é ele que vai para
 4. Espere o upload do Drive para computador: repita `search_files` (`title = '<arquivo>' and parentId = '<ID do EDITADO>'`)
    a cada ~30 s (até 20 min). Link: `https://drive.google.com/file/d/<ID>/view`. Enquanto espera, siga para o próximo card.
 5. No card (`notion-update-page`): MATERIAL FINALIZADO = `["<link_revisao>", "<link do Drive>"]` (o da Sala **primeiro**:
-   é o que o usuário clica); ANDAMENTO = **Aprovação**. Na v2, v3...: troque os dois links pelos da versão nova
+   é o que o usuário clica); ANDAMENTO = **Aprovação (Claude)**. Na v2, v3...: troque os dois links pelos da versão nova
    (o da Sala é o mesmo endereço; ele abre na versão mais nova). Drive ainda não apareceu: ponha só o da Sala e acrescente o do Drive depois.
    **Correção (v2, v3...) — regra do usuário, 11/10/2026:** a versão antiga em alta sai do Drive e do card, e entra a nova.
    Depois que o link da nova estiver no card, mande o arquivo antigo de EDITADO para a **lixeira do Drive**
@@ -207,7 +207,7 @@ O arquivo final em alta continua indo para EDITADO no Drive (é ele que vai para
    O tempo da nota é o da versão em que ela foi escrita (v1, v2...): ache o trecho no corte daquela versão.
 3. Correção ambígua: **não chute**. Na nota da Sala, `resposta: "DÚVIDA: ..."` (fica aberta); no campo/comentário, comente
    "DÚVIDA: ...". Se a dúvida trava o vídeo, deixe o card em Correções (Claude) e siga para o próximo.
-4. Entregue como `v2`, `v3`... (Passo 4: Sala primeiro, depois Drive) e mova para Aprovação.
+4. Entregue como `v2`, `v3`... (Passo 4: Sala primeiro, depois Drive) e mova para Aprovação (Claude).
 5. Marque na Sala as notas aplicadas como resolvidas, com 1 linha do que foi feito (`sala-de-revisao`, item 5) —
    o usuário vê a resposta embaixo de cada nota.
 6. Comente no card **neste formato (padrão do usuário, 09/10/2026)**:
@@ -250,7 +250,7 @@ Correções que já têm caminho pronto (lote de 08/10/2026):
 
 ## Relatório final (para o usuário)
 
-Uma linha por card: título → resultado (Aprovação v1 / v2, pulado e por quê, dúvida) e o tempo gasto.
+Uma linha por card: título → resultado (Aprovação (Claude) v1 / v2, pulado e por quê, dúvida) e o tempo gasto.
 
 ## Limpeza (só local)
 

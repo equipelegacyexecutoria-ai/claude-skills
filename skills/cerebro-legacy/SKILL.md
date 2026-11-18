@@ -156,8 +156,8 @@ os 10 mais antigos) e as **taxas do funil** etapa a etapa. Não abra o arquivo c
 - **Pronto para ir ao ar**: `Publicar` ou `Publicado`. Qualquer outro andamento com publicação
   hoje = **ALERTA** (post de hoje não está pronto).
 - **Atrasada**: data de conclusão < hoje e não concluída (nos quadros de demandas: ≠ `Concluído`).
-- **Decisão do Igor**: card em `Aprovação` (calendário) ou `Revisão` (demandas) cujo responsável
-  é Igor ou 🤖 CLAUDE, e qualquer card em `Aprovação` com publicação nos próximos 3 dias.
+- **Decisão do Igor**: card em `Aprovação` ou `Aprovação (Claude)` (calendário; a segunda, desde 18/11/2026, guarda o que o Claude editou) ou `Revisão` (demandas) cujo responsável
+  é Igor ou 🤖 CLAUDE, e qualquer card em `Aprovação`/`Aprovação (Claude)` com publicação nos próximos 3 dias.
 - Versões repetidas do mesmo reel (`_V2`, `_V3`) em Aprovação: agrupe numa linha.
 
 ### 3. Escrever

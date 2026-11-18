@@ -78,12 +78,12 @@ Melhor 1–2 cortes ótimos por aula do que 4–5 fracos.
 Cortes do YouTube vão para o quadro **Audiovisual Claude** (mesma base do Calendário Editorial, aba YouTube),
 um card por episódio com: tema, nota do crivo e opinião, título recomendado + 2, texto da thumb, thumbs anexadas,
 descrição pronta (convite para a sessão estratégica com link, redes do Clailton e da Legacy), capítulos, tags,
-link da prévia (Sala de Revisão) e do Drive. Andamento: Claude editou → Aprovação (usuário) → Correções (Claude)
+link da prévia (Sala de Revisão) e do Drive. Andamento: Claude editou → Aprovação (Claude) (usuário) → Correções (Claude)
 (notas no tempo do vídeo na Sala de Revisão) → Aprovado → Agendado/Publicado.
 **Nunca publicar nada no YouTube** sem o usuário pedir explicitamente; postagem automática é etapa futura.
 Como montar (T14 A06, 14/10/2026): `scripts/cards_notion.py <trabalho> <cards_cfg.json>` gera o texto de cada card
 (`notion_card_epNN.md`, a partir do `- YOUTUBE.txt` e do `crivo.json`); crie os cards na base
-(`collection://f0cc9747-efab-822b-8678-07f92372d6b7`: ANDAMENTO "Aprovação", RESPONSÁVEL "🤖 CLAUDE", REDE SOCIAL
+(`collection://f0cc9747-efab-822b-8678-07f92372d6b7`: ANDAMENTO "Aprovação (Claude)", RESPONSÁVEL "🤖 CLAUDE", REDE SOCIAL
 ["Youtube"], FORMATO ["🎥 Film (Video Longo)"], NOTA DO CRIVO), anexe as thumbs A e B `_1280.jpg` em MATERIAL
 FINALIZADO (`notion-create-file-upload` + `curl -F file=@...` + `update_properties` com `file_upload`), suba o
 episódio inteiro na Sala de Revisão em partes (skill `sala-de-revisao`, "Vídeo longo") e grave `videos/<id>` com o

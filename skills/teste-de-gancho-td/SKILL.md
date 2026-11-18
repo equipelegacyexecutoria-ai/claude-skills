@@ -1,6 +1,6 @@
 ---
 name: teste-de-gancho-td
-description: Teste de gancho em reels TELA DIVIDIDA (TD) do Clailton já publicados — troca só os primeiros segundos do reel editado por um gancho novo (V2, V3...) e mantém o resto idêntico. Escreve as variações (ou usa as que o usuário trouxer prontas), gera a fala na voz clonada do Clailton no HeyGen (Chrome), faz o Clailton falando no próprio HeyGen com um look criado a partir do bruto daquele reel (mesma roupa e lugar; NUNCA Freepik/Magnific), monta a tela dividida igual à do original (imagem em cima, legenda medida, sombra v3, flash), casa voz, ambiente e cor, emenda no quadro exato e entrega no Drive (VARIAÇÕES TELA DIVIDIDA), na Sala de Revisão e em cards Reels_Clailton_TD_TESTE_*_V2 em Aprovação. Também põe CTA falada nova no FIM de reels publicados (cta_final.py). Use para "teste de gancho", "CTA nova no fim", "variação de gancho", "faz V2 e V3 desse reel", "troca o começo do reel", "teste A/B de abertura", "refaz o gancho dos reels que menos performaram" ou ganchos prontos para um reel TD já editado. Só tela dividida por enquanto.
+description: Teste de gancho em reels TELA DIVIDIDA (TD) do Clailton já publicados — troca só os primeiros segundos do reel editado por um gancho novo (V2, V3...) e mantém o resto idêntico. Escreve as variações (ou usa as que o usuário trouxer prontas), gera a fala na voz clonada do Clailton no HeyGen (Chrome), faz o Clailton falando no próprio HeyGen com um look criado a partir do bruto daquele reel (mesma roupa e lugar; NUNCA Freepik/Magnific), monta a tela dividida igual à do original (imagem em cima, legenda medida, sombra v3, flash), casa voz, ambiente e cor, emenda no quadro exato e entrega no Drive (VARIAÇÕES TELA DIVIDIDA), na Sala de Revisão e em cards Reels_Clailton_TD_TESTE_*_V2 em Aprovação (Claude). Também põe CTA falada nova no FIM de reels publicados (cta_final.py). Use para "teste de gancho", "CTA nova no fim", "variação de gancho", "faz V2 e V3 desse reel", "troca o começo do reel", "teste A/B de abertura", "refaz o gancho dos reels que menos performaram" ou ganchos prontos para um reel TD já editado. Só tela dividida por enquanto.
 ---
 
 # Teste de gancho — reels TELA DIVIDIDA do Clailton
@@ -19,7 +19,7 @@ diante é o reel publicado, sem mudar nada. Arquivo 1080×1920, H.264 CRF 18, AA
 - **Drive:** `G:\Meu Drive\02. Captação de Vídeos\<AAAA>\<MM - Mês>\ORGÂNICO\EDITADO\VARIAÇÕES TELA DIVIDIDA\<Título do reel>\`
   (uma subpasta por reel, com as variações dentro; o mês é o da entrega).
 - **Sala de Revisão:** cada variação sobe como um vídeo (skill `sala-de-revisao`).
-- **Notion:** um card por variação em **Aprovação** (modelo no passo 10).
+- **Notion:** um card por variação em **Aprovação (Claude)** (modelo no passo 10).
 
 ## Antes de começar
 
@@ -169,7 +169,7 @@ pontos para ele olhar (boca nas primeiras palavras, voz). Só depois do ok faça
 
 ### 10. Notion (Calendário Editorial, fonte `collection://f0cc9747-efab-822b-8678-07f92372d6b7`)
 Um card por variação (`notion-create-pages`, ícone 📹):
-- PAUTA `Reels_Clailton_TD_TESTE_<resto>_V2` · ANDAMENTO `Aprovação` · FORMATO `["📹 Reels (Video Curto)"]` ·
+- PAUTA `Reels_Clailton_TD_TESTE_<resto>_V2` · ANDAMENTO `Aprovação (Claude)` · FORMATO `["📹 Reels (Video Curto)"]` ·
   PERFIL `CLAILTON` · RESPONSÁVEL `🤖 CLAUDE` · REDE SOCIAL `["Instagram / Facebook"]` · DATA D/ CONCLUSÃO hoje ·
   IDEIA "Variação de gancho (teste A/B) do reel publicado em DD/MM. Só o gancho mudou; o resto do vídeo é o original."
 - MATERIAL FINALIZADO: link da Sala (primeiro) e o do Drive.

@@ -52,7 +52,7 @@ quem tem acesso de **Colaborador** escreve notas; **Visualizador** só assiste.
 2. **Primeira vez nesta conversa:** `Artifact` `action: "read"` com a `url` da Sala (sem isso a publicação é recusada).
 3. **Espaço:** `Artifact` `action: "list"`, `scope: "files"`. Se as prévias somadas + a nova passarem de
    200 MB, libere as mais antigas: primeiro de vídeos cujo card está Publicado/Publicar/Finalizado, depois
-   as com mais de 21 dias; nunca a última versão de card em Aprovação ou Correções (Claude). Para cada uma:
+   as com mais de 21 dias; nunca a última versão de card em Aprovação, Aprovação (Claude) ou Correções (Claude). Para cada uma:
    `null` em `files` na publicação do passo 4 e, no documento do vídeo, `arquivo: null, removido: true` naquela versão.
 4. **Publicar:** `Artifact` publish com `url` = Sala, `file_path` = `<pasta>\index.html`, `root` = `<pasta>`,
    `files` = `{"media/<id>_<v>.mp4": "media/<id>_<v>.mp4"}` (+ os `null` do passo 3). **Sem** `capabilities`
