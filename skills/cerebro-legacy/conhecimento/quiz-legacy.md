@@ -317,6 +317,22 @@ os negócios do MQL do quiz passam a ter também as etiquetas "Quiz Clailton · 
   - A reativação de quem faltou à sessão manda 1 mensagem por dia assinada "Rodrigo" ("qual prejuízo você aceita...?"),
     inclusive para lead que avisou que a cidade foi atingida por chuva e ia remarcar (CP Comunicação, 9 mensagens em 9 dias;
     ele queria orçamento de palestra, não sessão).
+- **18/11, os outros 557 cadastros de 30/10 a 18/11 (não compraram nem agendaram; 462 Produto, 95 MQL), Conversas pela
+  base sem marcar lida:** recebeu pelo menos 1 mensagem: Produto 392 (85%), MQL 88 (93%); 77 não receberam nada (65
+  números sem WhatsApp, 55 bloqueios por limite de engajamento, 14 "experimento", 5 fora da janela de 24h). Responderam
+  por escrito: Produto 84 de 392 (21%), MQL 22 de 88 (25%); só botão: 26. **Desde 13/11 a validação do telefone parou**
+  (os 176 cadastros desde então estão "Não verificado"; entraram números com 10 e com 17 dígitos).
+  - A Nina conversou com 101 pessoas (877 mensagens) e nenhuma comprou. **10 conversas levaram 435 mensagens (metade)**:
+    copy de legenda, DM e anúncio para o negócio do lead (uma lead de quadros recebeu 123 mensagens, inclusive "vou enviar
+    agora as fotos"); outra ofereceu o ConectaZap junto com o VMLM (conferir se ela deve). Mandou o checkout para 18 e o
+    link do quiz para 30 (leads de formulário, comunidade e Black que depois fizeram o quiz).
+  - MQL que pediu "15 minutos pra conversar comigo e com meu gerente comercial, agora" recebeu o quiz e depois o checkout
+    de R$ 97 ("Estão me vendendo um curso de 97... não é isso que preciso").
+  - Passagem para o time ("vou chamar alguém do time"): 17 casos; 7 atendidos em até 4 h, 7 só depois de 24 a 78 h (quase
+    sempre só ligação) e 3 sem ninguém. Em 1 deles o lead tinha dito "não precisa por enquanto".
+  - Perguntada "Estou falando com IA?", respondeu "Sou a Nina, do time da Legacy" (não confirma nem nega).
+  - Objeção que volta: anúncio da Black "dizia que era de graça" e lead que acha que a página de venda é o resultado do quiz
+    ("Esse não é o resultado do quiz?", "Não sei onde vejo o resultado"); mesma queixa do Williames em 05/11.
 
 ## Nina com leads NÃO-MQL de Legado (anúncio), Black e orgânico (lido em 27/10/2026)
 
