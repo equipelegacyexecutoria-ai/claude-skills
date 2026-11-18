@@ -328,8 +328,9 @@ os negócios do MQL do quiz passam a ter também as etiquetas "Quiz Clailton · 
     link do quiz para 30 (leads de formulário, comunidade e Black que depois fizeram o quiz).
   - MQL que pediu "15 minutos pra conversar comigo e com meu gerente comercial, agora" recebeu o quiz e depois o checkout
     de R$ 97 ("Estão me vendendo um curso de 97... não é isso que preciso").
-  - Passagem para o time ("vou chamar alguém do time"): 17 casos; 7 atendidos em até 4 h, 7 só depois de 24 a 78 h (quase
-    sempre só ligação) e 3 sem ninguém. Em 1 deles o lead tinha dito "não precisa por enquanto".
+  - Passagem para o time ("vou chamar alguém do time"): 16 leads (12 MQL); 6 atendidos em até 4 h, 2 em 10 a 16 h, 5 só
+    depois de 25 a 78 h e 3 sem ninguém. Dos 5 atrasados, 3 são MQL de R$ 401 mil para cima. Em 1 deles o lead tinha dito
+    "não precisa por enquanto".
   - Perguntada "Estou falando com IA?", respondeu "Sou a Nina, do time da Legacy" (não confirma nem nega).
   - Objeção que volta: anúncio da Black "dizia que era de graça" e lead que acha que a página de venda é o resultado do quiz
     ("Esse não é o resultado do quiz?", "Não sei onde vejo o resultado"); mesma queixa do Williames em 05/11.
