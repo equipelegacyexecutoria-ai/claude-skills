@@ -28,3 +28,4 @@ desktop.ini
 /skills/reels-tela-dividida-clailton/models/*ppocrv3*.onnx
 /skills/roteirista-reels-clailton/scripts/raiz-do-projeto.txt
 !/skills/*/assets/*.mp3
+!/skills/*/assets/*.mp4
