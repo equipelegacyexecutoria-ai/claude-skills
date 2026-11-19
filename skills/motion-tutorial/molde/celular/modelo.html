@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>Tutorial Aulas Legado - Celular</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+@font-face { font-family: "Urbanist"; src: url("assets/fonts/Urbanist-Regular.ttf"); font-weight: 400; }
+@font-face { font-family: "Urbanist"; src: url("assets/fonts/Urbanist-Medium.ttf"); font-weight: 500; }
+@font-face { font-family: "Urbanist"; src: url("assets/fonts/Urbanist-SemiBold.ttf"); font-weight: 600; }
+@font-face { font-family: "Urbanist"; src: url("assets/fonts/Urbanist-Bold.ttf"); font-weight: 700; }
+@font-face { font-family: "Urbanist"; src: url("assets/fonts/Urbanist-ExtraBold.ttf"); font-weight: 800; }
+
+:root { --navy:#0a1a33; --azul:#2f7bff; --cinza:#7c8ba3; --side:#111c22; --plan:#195576; }
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { width:1080px; height:1920px; overflow:hidden; background:#f3f6fb; }
+#root { position:relative; width:100%; height:100%; overflow:hidden; font-family:"Urbanist", sans-serif; color:var(--navy); }
+.abs { position:absolute; }
+.cena { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+.palco { perspective:2400px; perspective-origin:50% 45%; }
+.p3 { transform-style:preserve-3d; }
+.oculto { visibility:hidden; opacity:0; }
+#lente { position:absolute; inset:0; }
+#camera { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+#lente2 { position:absolute; inset:0; perspective:1300px; perspective-origin:50% 40%; }
+#cam-l { position:absolute; inset:0; transform-style:preserve-3d; }
+.lig { position:absolute; width:8px; border-radius:4px; transform-origin:50% 0; }
+.lig i { position:absolute; inset:0; border-radius:4px; background:linear-gradient(180deg,#2f7bff,#7cc4ff); box-shadow:0 0 18px rgba(47,123,255,.8), 0 0 40px rgba(47,123,255,.4); transform-origin:50% 0; }
+#curT { position:absolute; left:0; top:0; width:84px; height:100px; filter: drop-shadow(0 14px 18px rgba(20,50,110,.35)); }
+
+#bg { position:absolute; inset:0; background: radial-gradient(ellipse 85% 60% at 50% 42%, #ffffff 0%, #f3f6fb 55%, #e3ecf8 100%); }
+.blob { position:absolute; border-radius:50%; filter:blur(110px); }
+#blob1 { left:-260px; top:180px; width:760px; height:760px; background:#cfe0ff; opacity:.75; }
+#blob2 { left:560px; top:1150px; width:720px; height:720px; background:#d9e8ff; opacity:.8; }
+#grade { position:absolute; inset:-200px; background-image: radial-gradient(rgba(47,123,255,.20) 1.5px, transparent 1.8px); background-size:46px 46px;
+  -webkit-mask-image: radial-gradient(ellipse 50% 40% at 50% 50%, #000 0%, transparent 100%); mask-image: radial-gradient(ellipse 50% 40% at 50% 50%, #000 0%, transparent 100%); }
+
+#letras { position:absolute; inset:0; pointer-events:none; transform-style:preserve-3d; }
+.grp { position:absolute; left:70px; width:955px; text-align:center; }
+.ln { display:block; white-space:nowrap; line-height:1.12; }
+.w { display:inline-block; position:relative; font-weight:600; font-size:74px; letter-spacing:-1.5px; margin:0 9px; color:var(--navy); text-shadow: 0 14px 34px rgba(10,26,51,.10); }
+.w.sm { font-size:56px; font-weight:500; letter-spacing:-.5px; }
+.w.big { font-size:108px; font-weight:700; letter-spacing:-3px; }
+.w.xl { font-size:150px; font-weight:800; letter-spacing:-5px; line-height:1.05; }
+.w.dim { color:var(--cinza); }
+.w.hl { padding:0 20px; text-shadow:none; }
+.w .tx { position:relative; }
+.marca { position:absolute; left:0; top:9%; width:100%; height:86%; background:linear-gradient(100deg,#2f7bff,#4d93ff); border-radius:16px; transform-origin:0 50%; box-shadow: 0 16px 34px rgba(47,123,255,.35); }
+.risco { position:absolute; left:-4%; top:52%; width:108%; height:8px; border-radius:4px; background:var(--azul); transform-origin:0 50%; }
+.fant { position:absolute; left:-400px; width:1880px; text-align:center; white-space:nowrap; font-weight:800; font-size:300px; letter-spacing:-12px; color:rgba(47,123,255,.12); filter:blur(3px); pointer-events:none; }
+.vidro { position:absolute; border-radius:30px; background: linear-gradient(155deg, rgba(255,255,255,.97), rgba(236,243,255,.86));
+  border:1.5px solid rgba(255,255,255,.95); box-shadow: 0 46px 100px rgba(20,50,110,.18), 0 0 0 1px rgba(47,123,255,.12), inset 0 2px 0 #fff; }
+
+/* ANTES */
+#antes-chip { left:400px; top:560px; width:280px; height:64px; border-radius:40px; background:#e9edf3; color:#64748b; font-weight:800; font-size:26px; letter-spacing:6px; display:flex; align-items:center; justify-content:center; }
+#msg { left:140px; top:670px; width:800px; height:330px; }
+#msg .top { position:absolute; left:40px; top:34px; display:flex; align-items:center; gap:18px; }
+#msg .avm { width:64px; height:64px; border-radius:50%; background:#dfe6f0; }
+#msg .nm { font-weight:700; font-size:28px; color:#334155; }
+#msg .hr { font-weight:600; font-size:20px; color:#94a3b8; margin-top:4px; }
+#msg .bal { position:absolute; left:40px; top:128px; width:720px; padding:26px 30px; border-radius:6px 24px 24px 24px; background:#f1f5f9; font-weight:600; font-size:30px; line-height:1.45; color:#334155; }
+#msg .lk { color:#2563eb; text-decoration:underline; font-weight:700; border-radius:6px; }
+#zjan { left:190px; top:1060px; width:700px; height:440px; border-radius:24px; background:#fff; box-shadow:0 46px 100px rgba(20,50,110,.18), 0 0 0 1px rgba(15,23,41,.07); overflow:hidden; }
+#zjan .zb { position:absolute; left:0; top:0; right:0; height:70px; background:#0b5cff; color:#fff; font-weight:800; font-size:30px; padding:16px 32px; }
+#zjan .zt { position:absolute; left:44px; top:106px; font-weight:800; font-size:34px; color:#1f2937; }
+#zjan .zi, #zjan .zp { position:absolute; left:44px; width:612px; height:68px; border-radius:12px; border:2px solid #cbd5e1; font-weight:600; font-size:26px; color:#94a3b8; padding:18px 22px; }
+#zjan .zi { top:170px; } #zjan .zp { top:258px; }
+#zjan .zbt { position:absolute; left:44px; top:350px; width:612px; height:62px; border-radius:12px; background:#e2e8f0; color:#94a3b8; font-weight:800; font-size:26px; text-align:center; padding-top:15px; }
+#interr { left:840px; top:1000px; width:120px; height:120px; border-radius:50%; background:#fff4e5; color:#f59e0b; font-weight:800; font-size:76px; display:flex; align-items:center; justify-content:center; box-shadow:0 20px 40px rgba(245,158,11,.25); }
+
+/* AGORA */
+#agora-chip { left:410px; top:560px; width:260px; height:64px; border-radius:40px; background:linear-gradient(110deg,#2f7bff,#4d93ff); color:#fff; font-weight:800; font-size:26px; letter-spacing:6px; display:flex; align-items:center; justify-content:center; box-shadow:0 16px 34px rgba(47,123,255,.35); }
+#lock { left:0; top:700px; width:1080px; height:420px; text-align:center; }
+#lock img { width:200px; height:213px; }
+#lock span { display:block; margin-top:20px; font-weight:800; font-size:130px; letter-spacing:-4px; color:var(--navy); }
+
+/* celular */
+#fone { left:280px; top:400px; width:520px; height:1080px; border-radius:72px; background:#0d1117; box-shadow: 0 80px 150px rgba(15,40,90,.32), 0 0 0 2px #2a313b, inset 0 0 0 3px #1c222b; }
+#tela { position:absolute; left:20px; top:20px; width:480px; height:1040px; border-radius:54px; overflow:hidden; background:#f6f7fb; }
+#ilha { position:absolute; left:180px; top:12px; width:120px; height:34px; border-radius:20px; background:#000; z-index:60; }
+.sb { position:absolute; left:0; right:0; top:0; height:56px; z-index:55; }
+.sb .h { position:absolute; left:40px; top:16px; font-weight:700; font-size:18px; }
+.sb .ic { position:absolute; right:36px; top:20px; width:60px; height:14px; border-radius:4px; }
+.scr { position:absolute; inset:0; }
+/* tela inicial do celular */
+#home { background:linear-gradient(170deg,#c9d8f2,#e9eef8 55%,#d6e2f5); }
+#home .app { position:absolute; width:84px; height:84px; border-radius:22px; background:rgba(255,255,255,.55); }
+#home .nm { position:absolute; width:110px; text-align:center; font-weight:600; font-size:14px; color:#1e293b; }
+#ic-plan { background:#111c22 !important; box-shadow:0 10px 24px rgba(17,28,34,.35); }
+#ic-plan img { position:absolute; left:20px; top:18px; width:44px; height:47px; }
+#splash { background:#111c22; }
+#splash img { position:absolute; left:190px; top:470px; width:100px; height:106px; }
+/* app */
+#app { background:#f6f7fb; }
+#app .topo { position:absolute; left:0; right:0; top:0; height:112px; background:var(--side); }
+#app .topo .lg { position:absolute; left:22px; top:58px; width:40px; height:42px; }
+#app .topo .sel { position:absolute; left:140px; top:60px; width:200px; height:42px; border-radius:12px; background:#fff; font-weight:600; font-size:16px; color:#334155; padding:11px 0 0 46px; }
+#app .topo .sel::before { content:""; position:absolute; left:16px; top:13px; width:15px; height:14px; border:1.8px solid #64748b; border-radius:2px; }
+#app .topo .sino { position:absolute; right:22px; top:60px; width:42px; height:42px; border-radius:12px; border:1.5px solid #3b4a55; }
+#prox { position:absolute; left:16px; top:130px; width:448px; height:210px; border-radius:18px; background:#fff; border:1px solid #e5e8ef; overflow:hidden; box-shadow:0 2px 6px rgba(15,23,41,.05); }
+#prox::before { content:""; position:absolute; left:0; top:0; bottom:0; width:5px; background:#10b981; }
+#prox .k { position:absolute; left:24px; top:20px; font-weight:600; font-size:14px; letter-spacing:.6px; color:#047857; }
+#prox .n { position:absolute; left:24px; top:42px; font-weight:700; font-size:21px; color:#0f1729; }
+#prox .s { position:absolute; left:24px; top:76px; font-weight:400; font-size:15px; color:#65758b; }
+#prox .o { position:absolute; left:24px; top:100px; font-weight:400; font-size:15px; color:#65758b; display:flex; align-items:center; gap:7px; }
+#vd { position:absolute; left:20px; top:140px; width:408px; height:50px; border-radius:12px; border:1px solid #e2e8f0; background:#fff; font-weight:500; font-size:17px; color:#0f1729; display:flex; align-items:center; justify-content:center; box-shadow:0 1px 2px rgba(15,23,41,.06); }
+#anel { position:absolute; left:140px; top:380px; width:200px; height:200px; border-radius:50%; border:16px solid #e2e8f0; border-top-color:#195576; border-right-color:#195576; border-bottom-color:#195576; }
+#anel b { position:absolute; left:0; right:0; top:44px; text-align:center; font-weight:800; font-size:46px; }
+#anel small { position:absolute; left:0; right:0; top:104px; text-align:center; font-weight:700; font-size:12px; letter-spacing:2px; color:#64748b; }
+.jt { position:absolute; left:0; right:0; text-align:center; }
+.chips { position:absolute; left:16px; top:700px; display:flex; gap:10px; }
+.chips div { padding:12px 18px; border-radius:14px; background:#fff; border:1px solid #e5e8ef; font-weight:700; font-size:16px; color:#0f1729; }
+#vfm { position:absolute; left:16px; top:780px; width:448px; height:200px; border-radius:18px; background:#fff; border:1px solid #e5e8ef; }
+#vfm .k { position:absolute; left:24px; top:22px; font-weight:700; font-size:13px; letter-spacing:1.8px; color:#64748b; }
+#vfm .q { position:absolute; left:24px; top:48px; width:400px; font-weight:700; font-size:22px; line-height:1.3; color:#0f1729; }
+.tabs { position:absolute; left:0; right:0; bottom:0; height:92px; background:#111c22; display:flex; justify-content:space-around; padding-top:14px; }
+.tabs div { width:70px; text-align:center; font-weight:600; font-size:11px; color:#8a9aa6; }
+.tabs div i { display:block; margin:0 auto 6px; width:24px; height:24px; border-radius:6px; border:2px solid #64748b; }
+.tabs div.on { color:#5aa9ff; } .tabs div.on i { border-color:#5aa9ff; }
+.tabs div.sair { color:#ef4444; } .tabs div.sair i { border-color:#ef4444; }
+#fab { position:absolute; left:396px; top:860px; width:60px; height:60px; border-radius:50%; background:linear-gradient(140deg,#3b82a6,#195576); box-shadow:0 10px 24px rgba(25,85,118,.4); }
+
+.veu { position:absolute; inset:0; background:rgba(15,23,41,.45); }
+.modal { position:absolute; background:#fff; border-radius:22px; box-shadow:0 30px 80px rgba(15,23,41,.35); overflow:hidden; }
+.modal .x { position:absolute; right:22px; top:22px; color:#64748b; font-size:28px; line-height:22px; }
+.btn { position:absolute; left:24px; right:24px; height:54px; border-radius:13px; font-weight:700; font-size:18px; text-align:center; padding-top:16px; white-space:nowrap; }
+.btn.pri { background:#195576; color:#fff; }
+.btn.out { background:#fff; border:1px solid #d9dee8; color:#0f1729; }
+.btn.txt { color:#334155; }
+.xx { position:absolute; right:20px; top:22px; color:#0f1729; opacity:.7; }
+.bti { display:flex; align-items:center; justify-content:center; gap:10px; padding:0 !important; font-weight:500 !important; }
+#m1 { left:24px; top:236px; width:432px; height:580px; }
+#m1 .mt { position:absolute; left:34px; right:34px; top:34px; text-align:center; font-weight:600; font-size:26px; line-height:1.25; color:#0f1729; }
+#m1 .ch { position:absolute; left:24px; top:124px; display:flex; gap:12px; align-items:center; }
+#m1 .ch span { padding:3px 13px; border-radius:99px; background:rgba(16,185,129,.15); color:#047857; font-weight:600; font-size:14px; }
+#m1 .ch em { font-style:normal; font-weight:400; font-size:14px; color:#65758b; display:flex; align-items:center; gap:6px; }
+#m1 .d { position:absolute; left:24px; right:24px; top:166px; font-weight:400; font-size:17px; line-height:1.5; color:#1e2a3b; }
+#m1 .sep { position:absolute; left:24px; right:24px; height:1px; background:#e5e7eb; }
+#m1 .dt { position:absolute; left:24px; right:24px; top:280px; font-weight:400; font-size:17px; line-height:1.4; color:#0f1729; display:flex; align-items:flex-start; gap:10px; }
+#m1 .dt svg { margin-top:2px; }
+#m1 .nt { position:absolute; left:24px; right:24px; top:346px; font-style:italic; font-weight:400; font-size:14.5px; line-height:1.5; color:#65758b; }
+#b-fechar { top:438px; border:1px solid #195576 !important; }
+#b-check { top:502px; }
+#b-check span { position:absolute; left:0; right:0; top:0; height:54px; display:flex; align-items:center; justify-content:center; gap:10px; }
+#toast1 { left:20px; top:860px; width:440px; height:70px; border-radius:16px; background:#fff; box-shadow:0 20px 50px rgba(15,23,41,.3); border-left:5px solid #10b981; font-weight:700; font-size:15.5px; line-height:1.3; color:#0f1729; padding:16px 0 0 64px; }
+#toast1::before { content:"✓"; position:absolute; left:18px; top:20px; width:30px; height:30px; border-radius:50%; background:#10b981; color:#fff; font-size:17px; text-align:center; line-height:30px; }
+#m2 { left:20px; top:72px; width:440px; height:732px; }
+#m2 .mt { position:absolute; left:0; right:0; top:30px; text-align:center; font-weight:600; font-size:26px; color:#0f1729; }
+#m2 .ms { position:absolute; left:0; right:0; top:68px; text-align:center; font-weight:500; font-size:16px; color:#64748b; }
+#m2 .emp { position:absolute; left:20px; right:20px; top:110px; height:54px; border-radius:12px; background:#f8fafc; border:1px solid #e5e7eb; font-weight:600; font-size:17px; color:#0f1729; padding:0 0 0 16px; display:flex; align-items:center; gap:12px; }
+#m2 .emp svg { color:#65758b; }
+#m2 .emp em { position:absolute; right:16px; top:18px; font-style:normal; font-weight:600; font-size:14px; color:#94a3b8; }
+#m2 .lab { position:absolute; left:20px; top:182px; font-weight:600; font-size:15px; color:#334155; }
+#m2 .sel { position:absolute; left:20px; right:20px; top:208px; height:54px; border-radius:12px; border:1px solid #d9dee8; font-weight:600; font-size:17px; color:#0f1729; padding:16px 0 0 18px; }
+#m2 .sel svg { position:absolute; right:16px; top:17px; color:#94a3b8; }
+#mais { position:absolute; left:20px; top:282px; width:400px; height:96px; border-radius:14px; border:1px solid #e3e7ee; overflow:hidden; }
+#mais .q { position:absolute; left:18px; top:20px; width:290px; font-weight:700; font-size:17px; line-height:1.35; color:#0f1729; }
+#tog { position:absolute; left:332px; top:32px; width:52px; height:28px; border-radius:14px; background:#e2e8f0; }
+#tog i { position:absolute; left:3px; top:3px; width:22px; height:22px; border-radius:50%; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.25); }
+.ck { position:absolute; left:18px; font-weight:600; font-size:17px; color:#334155; padding-left:34px; }
+.ck i { position:absolute; left:0; top:0; width:22px; height:22px; border-radius:5px; border:1.6px solid #cbd5e1; background:#fff; }
+.ck i b { position:absolute; left:-1.6px; top:-1.6px; width:22px; height:22px; border-radius:5px; background:#195576; color:#fff; font-size:15px; text-align:center; line-height:22px; }
+#inp { position:absolute; left:18px; top:184px; width:240px; height:50px; border-radius:11px; border:1px solid #d9dee8; font-weight:500; font-size:16px; color:#94a3b8; }
+#inp > span { position:absolute; left:14px; top:15px; white-space:nowrap; }
+#inp .val { color:#0f1729; font-weight:600; }
+#inp .car { display:inline-block; width:2px; height:18px; background:#195576; vertical-align:-3px; }
+#b-add { left:268px; right:auto; top:184px; width:116px; height:50px; padding-top:14px; font-size:16px; }
+#chip-p { position:absolute; left:18px; top:250px; padding:7px 14px; border-radius:16px; background:#eef1f6; font-weight:600; font-size:15px; color:#334155; }
+#m2-info { position:absolute; left:20px; right:20px; top:394px; height:126px; font-weight:400; font-size:13.5px; line-height:1.5; color:#65758b; }
+#m2-info .l1 { position:absolute; left:24px; top:0; width:376px; }
+#m2-info svg.u { position:absolute; left:0; top:2px; color:#65758b; }
+#m2-info .l2 { position:absolute; left:0; top:64px; width:400px; }
+#m2-info b { color:#334155; font-weight:700; }
+#bts2 { position:absolute; left:0; top:534px; width:440px; height:180px; }
+#b-entrar2 { left:20px; right:20px; top:0; }
+#b-app { left:20px; right:20px; top:64px; height:44px; padding-top:11px; }
+#b-canc { left:20px; right:20px; top:116px; height:50px; padding-top:14px; border:1px solid #e2e8f0 !important; }
+.anelfoco { position:absolute; border-radius:16px; border:3px solid #2f7bff; box-shadow:0 0 0 8px rgba(47,123,255,.18); }
+#ent { background:#1c1f24; }
+#ent .c { position:absolute; left:0; right:0; top:540px; text-align:center; color:#e5e7eb; font-weight:600; font-size:20px; }
+#spin { position:absolute; left:216px; top:460px; width:48px; height:48px; border-radius:50%; border:4px solid rgba(255,255,255,.18); border-top-color:#9ec5ff; }
+#zoomapp { background:#111214; }
+#zoomapp .zt { position:absolute; left:0; right:0; top:58px; height:50px; text-align:center; color:#fff; font-weight:700; font-size:18px; padding-top:14px; }
+#zoomapp .zs { position:absolute; right:20px; top:64px; padding:6px 14px; border-radius:10px; background:#e11d48; color:#fff; font-weight:700; font-size:14px; }
+.zt2 { position:absolute; width:214px; height:250px; border-radius:14px; background:#2d3035; overflow:hidden; }
+.zt2 .av2 { position:absolute; left:62px; top:70px; width:90px; height:90px; border-radius:50%; font-weight:800; font-size:36px; color:#fff; text-align:center; line-height:90px; }
+.zt2 .lb { position:absolute; left:8px; right:8px; bottom:8px; padding:4px 8px; border-radius:6px; background:rgba(0,0,0,.55); color:#fff; font-weight:600; font-size:12.5px; white-space:nowrap; overflow:hidden; }
+.zt2.eu { box-shadow:inset 0 0 0 3px #22c55e; }
+#zbar { position:absolute; left:0; right:0; bottom:0; height:96px; background:#1c1d20; display:flex; justify-content:space-around; padding-top:16px; color:#d1d5db; font-weight:600; font-size:12px; }
+#zbar div { text-align:center; } #zbar i { display:block; margin:0 auto 6px; width:22px; height:24px; border-radius:11px; border:2px solid #22c55e; background:#22c55e; }
+#naaula { left:200px; top:1510px; width:680px; height:96px; border-radius:48px; background:#fff; box-shadow:0 20px 50px rgba(20,50,110,.25); display:flex; align-items:center; justify-content:center; gap:18px; font-weight:800; font-size:34px; color:#0f1729; }
+#naaula i { font-style:normal; width:52px; height:52px; border-radius:50%; background:#10b981; color:#fff; font-size:30px; text-align:center; line-height:52px; }
+
+#dedo { position:absolute; left:0; top:0; width:58px; height:58px; margin:-29px 0 0 -29px; border-radius:50%; background:rgba(120,130,145,.45); border:2px solid rgba(255,255,255,.85); z-index:70; box-shadow:0 6px 16px rgba(15,23,41,.25); }
+.rip { position:absolute; width:80px; height:80px; margin:-40px 0 0 -40px; border-radius:50%; border:3px solid #2f7bff; background:rgba(47,123,255,.15); z-index:69; }
+
+#passo { position:absolute; left:0; top:262px; width:1080px; height:110px; }
+.pill { position:absolute; left:540px; top:0; height:96px; border-radius:48px; display:flex; align-items:center; padding:0 40px 0 16px; white-space:nowrap; }
+.pill .nb { width:64px; height:64px; border-radius:50%; background:linear-gradient(140deg,#2f7bff,#4d93ff); color:#fff; font-weight:800; font-size:30px; text-align:center; line-height:64px; box-shadow:0 10px 22px rgba(47,123,255,.35); flex:none; }
+.pill .pc { margin-left:20px; }
+.pill .ps { font-weight:700; font-size:15px; letter-spacing:2.6px; color:var(--cinza); }
+.pill .pt { margin-top:2px; font-weight:700; font-size:34px; letter-spacing:-.5px; color:var(--navy); }
+.pill .pt b { color:var(--azul); font-weight:800; }
+
+#logo-fim { position:absolute; left:250px; top:700px; width:580px; }
+#linha-fim { position:absolute; left:340px; top:900px; width:400px; height:6px; border-radius:3px; background:var(--azul); transform-origin:50% 50%; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="__DUR__" data-width="1080" data-height="1920">
+
+  <div id="fundo" class="cena"><div id="bg"></div><div id="blob1" class="blob"></div><div id="blob2" class="blob"></div><div id="grade"></div></div>
+
+  <div id="lente"><div id="camera">
+
+  <div id="s-antes" class="cena palco">
+    <div id="antes-chip" class="abs oculto">ANTES</div>
+    <div id="msg" class="vidro p3 oculto">
+      <div class="top"><div class="avm"></div><div><div class="nm">Turma do Legado</div><div class="hr">hoje, 13:52</div></div></div>
+      <div class="bal">Pessoal, segue o link da aula de hoje:<br><span class="lk">zoom.us/j/8•••••••••</span></div>
+    </div>
+    <div id="zjan" class="abs p3 oculto">
+      <div class="zb">zoom</div>
+      <div class="zt">Entrar em uma reunião</div>
+      <div class="zi">ID da reunião</div>
+      <div class="zp">Senha da reunião</div>
+      <div class="zbt">Entrar</div>
+    </div>
+    <div id="interr" class="abs oculto">?</div>
+  </div>
+
+  <div id="s-agora" class="cena palco">
+    <div id="agora-chip" class="abs oculto">AGORA</div>
+    <div id="lock" class="abs oculto"><img src="assets/img/plan_logo.svg"/><span>Legacy Plan</span></div>
+  </div>
+
+  <div id="s-tut" class="cena palco">
+    <div id="fone" class="abs p3 oculto">
+      <div id="tela">
+        <div id="ilha"></div>
+        <div id="home" class="scr">
+          <div class="sb"><div class="h">9:41</div><div class="ic" style="background:#1e293b"></div></div>
+        </div>
+        <div id="splash" class="scr oculto"><img src="assets/img/plan_logo.svg"/></div>
+        <div id="app" class="scr oculto">
+          <div class="topo"><div class="sb"><div class="h" style="color:#fff">9:41</div><div class="ic" style="background:#fff"></div></div>
+            <img class="lg" src="assets/img/plan_logo.svg"/><div class="sel">Planejamento</div><div class="sino"></div></div>
+          <div id="prox"><div class="k">PRÓXIMA AULA</div><div class="n">Encontro 5 — Decolagem Parte I</div><div class="s">Quarta-feira, 18 de novembro · 14:20 às 18:00</div><div class="o"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg>Online</div><div id="vd">Ver detalhes</div></div>
+          <div id="anel"><b>93%</b><small>DA JORNADA</small></div>
+          <div class="jt" style="top:606px; font-weight:700; font-size:18px;">Experiência dos Passageiros</div>
+          <div class="jt" style="top:634px; font-weight:500; font-size:14px; color:#64748b;">Etapa 29 de 30</div>
+          <div class="chips"><div>Jornada</div><div>Metas</div><div>Cronograma</div></div>
+          <div id="vfm"><div class="k">VISÃO DE FUTURO</div><div class="q">"Ser referência no nosso mercado até 2030."</div></div>
+          <div id="fab"></div>
+          <div class="tabs"><div class="on"><i></i>Cockpit</div><div><i></i>Jornada</div><div><i></i>Cronograma</div><div><i></i>Metas</div><div><i></i>Ajustes</div><div class="sair"><i></i>Sair</div></div>
+          <div id="veu1" class="veu oculto"></div>
+          <div id="m1" class="modal oculto">
+            <div class="xx"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></div>
+            <div class="mt">Encontro 5 — Decolagem<br>Parte I</div>
+            <div class="ch"><span>Próximo</span><em><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg>Online</em></div>
+            <div class="d">Estrutura comercial com metas, Funil de Vendas e métricas. Direção, Caminho e Controle.</div>
+            <div class="sep" style="top:262px"></div>
+            <div class="dt"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg><span>Quarta-Feira, 18 De Novembro De 2026 Às 14:20</span></div>
+            <div class="nt">Faça check-in para entrar na aula. Seu nome e sua empresa entram automaticamente no Zoom.</div>
+            <div class="sep" style="top:420px"></div>
+            <div id="b-fechar" class="btn out bti">Fechar</div>
+            <div id="b-check" class="btn pri bti"><span id="bc1"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><path d="m9 10 2 2 4-4"/></svg>Fazer check-in</span><span id="bc2" class="oculto"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>Entrar na aula</span></div>
+          </div>
+          <div id="toast1" class="abs oculto">Check-in registrado!<br>Link da reunião liberado.</div>
+          <div id="veu2" class="veu oculto"></div>
+          <div id="m2" class="modal oculto">
+            <div class="xx"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></div>
+            <div class="mt">Quem está assistindo?</div>
+            <div class="ms">Confirme antes de entrar na aula.</div>
+            <div class="emp"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>Sua Empresa<em>#A7C3F2</em></div>
+            <div class="lab">Participante principal</div>
+            <div class="sel">Marcos Lima (responsável)<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="m6 9 6 6 6-6"/></svg></div>
+            <div id="mais">
+              <div class="q">Mais alguém está assistindo por este dispositivo?</div>
+              <div id="tog"><i></i></div>
+              <div class="ck" style="top:104px"><i><b id="ck-ana" class="oculto">✓</b></i>Ana Souza</div>
+              <div class="ck" style="top:142px"><i></i>Pedro Lima</div>
+              <div id="inp"><span id="inp-ph">Pessoa não cadastrada</span><span id="inp-v" class="oculto"><span class="val" id="inp-tx"></span><span class="car" id="inp-car"></span></span></div>
+              <div id="b-add" class="btn out bti" style="gap:6px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Adicionar</div>
+              <div id="chip-p" class="oculto">Carla ×</div>
+            </div>
+            <div id="m2-info"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="u"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="l1" id="info1">1 pessoa neste dispositivo. Acompanhantes ficam registrados no Plan; o Zoom conta uma conexão por dispositivo.</span><span class="l1 oculto" id="info2">2 pessoas neste dispositivo. Acompanhantes ficam registrados no Plan; o Zoom conta uma conexão por dispositivo.</span><span class="l1 oculto" id="info3">3 pessoas neste dispositivo. Acompanhantes ficam registrados no Plan; o Zoom conta uma conexão por dispositivo.</span><span class="l2" id="pz1">Pelo app do Zoom, este acesso aparece como <b>Marcos Lima | Sua Empresa #A7C3F2</b>.</span><span class="l2 oculto" id="pz2">Pelo app do Zoom, este acesso aparece como <b>Marcos Lima + Ana Souza | Sua Empresa #A7C3F2</b>.</span><span class="l2 oculto" id="pz3">Pelo app do Zoom, este acesso aparece como <b>Marcos Lima + Ana Souza + Carla | Sua Empresa #A7C3F2</b>.</span></div>
+            <div id="bts2">
+              <div id="b-entrar2" class="btn pri bti"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>Entrar na aula</div>
+              <div id="b-app" class="btn txt bti">Abrir no app do Zoom</div>
+              <div id="b-canc" class="btn out bti">Cancelar</div>
+            </div>
+          </div>
+        </div>
+        <div id="ent" class="scr oculto"><div id="spin"></div><div class="c">Entrando na reunião...</div></div>
+        <div id="zoomapp" class="scr oculto">
+          <div class="sb"><div class="h" style="color:#fff">9:41</div><div class="ic" style="background:#fff"></div></div>
+          <div class="zt">Zoom</div><div class="zs">Sair</div>
+          <div class="zt2" style="left:18px; top:120px;"><div class="av2" style="background:#2f7bff">L</div><div class="lb">Legacy · Encontro 5</div></div>
+          <div class="zt2" style="left:248px; top:120px;"><div class="av2" style="background:#7c3aed">R</div><div class="lb">Rafael | Empresa</div></div>
+          <div class="zt2 eu" style="left:18px; top:384px;"><div class="av2" style="background:#10b981">M</div><div class="lb">Marcos Lima | Sua Empresa</div></div>
+          <div class="zt2" style="left:248px; top:384px;"><div class="av2" style="background:#0ea5e9">J</div><div class="lb">Juliana | Empresa</div></div>
+          <div class="zt2" style="left:18px; top:648px;"><div class="av2" style="background:#f97316">T</div><div class="lb">Tiago | Empresa</div></div>
+          <div class="zt2" style="left:248px; top:648px;"><div class="av2" style="background:#e11d48">B</div><div class="lb">Bruna | Empresa</div></div>
+          <div id="zbar"><div><i></i>Áudio</div><div><i></i>Vídeo</div><div><i style="background:none;border-color:#d1d5db"></i>Participantes</div><div><i style="background:none;border-color:#d1d5db"></i>Mais</div></div>
+        </div>
+      </div>
+      <div id="dedo" class="oculto"></div>
+    </div>
+    <div id="naaula" class="abs oculto"><i>✓</i>Você está na aula</div>
+  </div>
+
+  <div id="s-fim" class="cena palco">
+    <img id="logo-fim" class="oculto" src="assets/img/logo_navy.svg" />
+    <div id="linha-fim" class="oculto"></div>
+  </div>
+
+  </div></div>
+
+  <div id="lente2"><div id="cam-l"><div id="letras"></div></div></div>
+  <div id="passo"></div>
+
+  <audio id="mix" src="assets/audio/mix.wav" data-start="0" data-duration="__DUR__" data-track-index="40"></audio>
+</div>
+
+<script>
+(function () {
+  const tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["main"] = tl;
+  const DUR = __DUR__;
+  const W = 1080, H = 1920;
+  const $ = (s) => document.querySelector(s);
+
+  const TX = __TX__;
+  const TT = __TT__;
+  const K = __K__;
+  const T = (k) => { if (K[k] == null) throw new Error("sem palavra " + k); return TT[K[k]]; };
+
+  function mostra(el, t, de, dur) {
+    tl.fromTo(el, Object.assign({ autoAlpha: 0 }, de || {}), { autoAlpha: 1, x: 0, y: 0, z: 0, scale: 1, rotationX: 0, rotationY: 0, rotation: 0, filter: "blur(0px)", duration: dur || 0.7, ease: "expo.out", immediateRender: false }, t);
+  }
+  function some(el, t, para, dur) { tl.to(el, Object.assign({ autoAlpha: 0, filter: "blur(14px)", duration: dur || 0.35, ease: "power2.in" }, para || {}), t); }
+  function aparece(el, t, dur) { tl.to(el, { autoAlpha: 1, duration: dur || 0.3, ease: "power1.out" }, t); }
+  function esconde(el, t, dur) { tl.to(el, { autoAlpha: 0, duration: dur || 0.25, ease: "power1.in" }, t); }
+  function digita(el, txt, t, dur) {
+    const o = { v: 0 };
+    el.textContent = "";
+    tl.to(o, { v: txt.length, duration: dur, ease: "none", onUpdate: () => { el.textContent = txt.slice(0, Math.round(o.v)); } }, t);
+  }
+
+  const letras = $("#letras");
+  let nG = 0;
+  function grupo(top, linhas, saida, opt) {
+    opt = opt || {};
+    const g = document.createElement("div"); g.className = "grp"; g.style.top = top + "px"; letras.appendChild(g);
+    let ini = 999, k = 0;
+    linhas.forEach((ln) => {
+      const L = document.createElement("span"); L.className = "ln"; g.appendChild(L);
+      ln.forEach((p) => {
+        const i = p[0], cls = p[1] || "";
+        const w = document.createElement("span"); w.className = "w " + cls;
+        const tx = document.createElement("span"); tx.className = "tx"; tx.textContent = p[2] || TX[i];
+        let marca = null, risco = null;
+        if (cls.indexOf("hl") >= 0) { marca = document.createElement("span"); marca.className = "marca"; w.appendChild(marca); }
+        w.appendChild(tx);
+        if (cls.indexOf("rs") >= 0) { risco = document.createElement("span"); risco.className = "risco"; w.appendChild(risco); }
+        L.appendChild(w);
+        const t = p[3] != null ? p[3] : TT[i];
+        ini = Math.min(ini, t);
+        const grande = cls.indexOf("big") >= 0 || cls.indexOf("xl") >= 0;
+        tl.fromTo(w, { opacity: 0, filter: "blur(18px)", y: grande ? 50 : 34, x: (k % 2 ? 1 : -1) * (grande ? 30 : 16), scale: grande ? 1.6 : 1.35 },
+          { opacity: 1, filter: "blur(0px)", y: 0, x: 0, scale: 1, duration: 0.55, ease: "expo.out" }, t - 0.06);
+        if (marca) { tl.fromTo(marca, { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power3.out" }, t + 0.08); tl.fromTo(tx, { color: "#0a1a33" }, { color: "#ffffff", duration: 0.2 }, t + 0.14); }
+        if (risco) tl.fromTo(risco, { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power3.inOut" }, opt.risco || t + 0.4);
+        k++;
+      });
+    });
+    nG++;
+    const lado = nG % 2 ? 1 : -1;
+    tl.fromTo(g, { rotationY: lado * 22, rotationX: 8, z: -260 }, { rotationY: 0, rotationX: 0, z: 0, duration: 0.8, ease: "expo.out" }, ini - 0.06);
+    tl.fromTo(g, { scale: 1 }, { scale: 1.05, duration: Math.max(0.3, Math.min(saida, DUR) - ini), ease: "none" }, ini);
+    const hl = linhas.flat().find((p) => (p[1] || "").indexOf("hl") >= 0);
+    if (hl && !opt.semFantasma) {
+      const f = document.createElement("div"); f.className = "fant";
+      f.textContent = (hl[2] || TX[hl[0]]).replace(/[.,?!]/g, "");
+      f.style.top = (top - 40) + "px";
+      letras.insertBefore(f, letras.firstChild);
+      const t0 = hl[3] != null ? hl[3] : TT[hl[0]];
+      const fim = Math.min(saida, DUR);
+      tl.fromTo(f, { x: lado * 160, z: -300, scale: 0.9 }, { x: -lado * 120, z: -300, scale: 1.05, duration: Math.max(0.5, fim - t0), ease: "none" }, t0);
+      tl.fromTo(f, { opacity: 0 }, { opacity: 1, duration: 0.4 }, t0);
+      if (saida < DUR) tl.to(f, { opacity: 0, duration: 0.3 }, Math.max(t0 + 0.4, fim - 0.2));
+    }
+    if (saida < DUR) tl.to(g, { opacity: 0, filter: "blur(16px)", scale: 1.5, z: 240, duration: 0.3, ease: "power2.in" }, saida - 0.2);
+    return g;
+  }
+
+  // ---------- dedo (toque) dentro do celular: coordenadas da tela + (20,20) ----------
+  const dedo = $("#dedo"), fone = $("#fone");
+  const SX = 20, SY = 20;
+  gsap.set(dedo, { x: SX + 380, y: SY + 900 });
+  const CLIQUES = [];
+  function vai(t, x, y, dur) { tl.to(dedo, { x: SX + x, y: SY + y, duration: dur || 0.9, ease: "power2.inOut" }, t); }
+  function toca(t, x, y) {
+    tl.to(dedo, { scale: 0.78, backgroundColor: "rgba(47,123,255,.55)", duration: 0.1, ease: "power1.in" }, t);
+    tl.to(dedo, { scale: 1, backgroundColor: "rgba(120,130,145,.45)", duration: 0.25, ease: "power1.out" }, t + 0.12);
+    const r = document.createElement("div"); r.className = "rip"; r.style.left = (SX + x) + "px"; r.style.top = (SY + y) + "px";
+    fone.appendChild(r);
+    gsap.set(r, { autoAlpha: 0 });
+    tl.fromTo(r, { autoAlpha: 1, scale: 0.3 }, { scale: 1.5, autoAlpha: 0, duration: 0.7, ease: "power2.out", immediateRender: false }, t);
+    CLIQUES.push(t);
+  }
+  function aneis(t, x, y, w, h, fim) {
+    const a = document.createElement("div"); a.className = "anelfoco";
+    a.style.left = (SX + x - 7) + "px"; a.style.top = (SY + y - 7) + "px"; a.style.width = (w + 14) + "px"; a.style.height = (h + 14) + "px";
+    fone.appendChild(a);
+    gsap.set(a, { autoAlpha: 0 });
+    tl.fromTo(a, { autoAlpha: 0, scale: 1.12 }, { autoAlpha: 1, scale: 1, duration: 0.45, ease: "back.out(2)", immediateRender: false }, t);
+    const n = Math.max(1, Math.floor((fim - t - 0.8) / 1.2));
+    tl.to(a, { scale: 1.035, duration: 0.6, ease: "sine.inOut", yoyo: true, repeat: n * 2 - 1 }, t + 0.45);
+    tl.to(a, { autoAlpha: 0, duration: 0.3 }, fim);
+  }
+
+  const PASSO = $("#passo"), NP = 6;
+  let pillAnt = null;
+  function passo(t, n, html) {
+    const p = document.createElement("div"); p.className = "pill vidro";
+    p.innerHTML = '<div class="nb">' + n + '</div><div class="pc"><div class="ps">PASSO ' + n + ' DE ' + NP + '</div><div class="pt">' + html + '</div></div>';
+    PASSO.appendChild(p);
+    gsap.set(p, { xPercent: -50, autoAlpha: 0 });
+    if (pillAnt) tl.to(pillAnt, { autoAlpha: 0, y: -20, duration: 0.25, ease: "power2.in" }, t - 0.25);
+    tl.fromTo(p, { autoAlpha: 0, y: 30, scale: 0.96 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.55, ease: "expo.out", immediateRender: false }, t);
+    pillAnt = p;
+  }
+
+  // ======================= ROTEIRO =======================
+  grupo(760, [[[K.tem, "big"], [K.tem + 1, "big hl"]], [[K.tem + 2, "big"], [K.tem + 3, "big"]]], T("mudou") - 0.05);
+  grupo(700, [[[K.mudou, "dim sm"], [K.mudou + 1, "dim sm"], [K.mudou + 2, "dim sm"], [K.mudou + 3, "dim sm"], [K.mudou + 4, "dim sm"]], [[K.mudou + 5, "dim sm"], [K.mudou + 6, "dim sm"], [K.legado - 1, "sm"]], [[K.legado, "xl hl"]]], T("antes") - 0.1);
+
+  // antes
+  grupo(330, [[[K.antes, "sm dim"], [K.antes + 1, "sm dim"], [K.antes + 2, "sm dim"]], [[K.antes + 3, "sm"], [K.antes + 4, "sm"], [K.link, "sm"]], [[K.link + 1, "sm dim"], [K.link + 2, "sm dim"], [K.link + 3, "sm dim"], [K.zoom1, "sm rs"]]], T("agora") + 0.55, { risco: T("agora") - 0.15 });
+  mostra("#antes-chip", T("antes") - 0.1, { y: 30, filter: "blur(10px)" }, 0.5);
+  mostra("#msg", T("antes") + 0.25, { z: -600, rotationX: 24, y: -150, filter: "blur(18px)" }, 0.9);
+  tl.to("#msg .lk", { backgroundColor: "rgba(47,123,255,.16)", duration: 0.25 }, T("link"));
+  mostra("#zjan", T("entrar_z") - 0.1, { z: -600, rotationX: -24, y: 150, filter: "blur(18px)" }, 0.9);
+  mostra("#interr", T("zoom1") + 0.35, { scale: 0.3, rotation: -20 }, 0.6);
+  tl.to(["#msg", "#zjan"], { filter: "grayscale(1) blur(3px)", opacity: 0.45, duration: 0.5 }, T("agora") - 0.15);
+  esconde("#interr", T("agora") - 0.15);
+  esconde("#antes-chip", T("agora") - 0.15);
+
+  // agora
+  mostra("#agora-chip", T("agora") + 0.6, { y: 30, filter: "blur(10px)" }, 0.5);
+  const lG1 = [[K.agora, "sm dim", null, T("agora") + 0.55], [K.agora + 1, "sm"], [K.agora + 2, "sm"]], lG2 = [];
+  for (let i = K.agora + 3; i < K.legacy; i++) lG2.push([i, "sm"]);
+  grupo(1200, [lG1, lG2], T("vou") - 0.1);
+  mostra("#lock", T("legacy") - 0.1, { z: -700, scale: 0.7, filter: "blur(22px)" }, 1.0);
+  tl.fromTo("#lock img", { rotationY: -90 }, { rotationY: 0, duration: 1.1, ease: "expo.out", immediateRender: false }, T("legacy") - 0.1);
+  some("#lock", T("vou") - 0.35, { z: 300, scale: 1.3 });
+  esconde("#agora-chip", T("vou") - 0.35);
+
+  // dispositivo
+  grupo(700, [[[K.vou, "sm dim"], [K.vou + 1, "sm dim"], [K.vou + 2, "sm dim"], [K.vou + 3, "sm dim"]], [[K.passo, "big hl"], [K.passo + 1, "big"], [K.passo + 2, "big"]], [[K.device - 1, "sm"], [K.device, "sm"]]], T("abra") - 0.45);
+  mostra("#fone", T("abra") - 0.4, { z: -1200, rotationX: 28, rotationY: -16, y: 160, filter: "blur(20px)" }, 1.3);
+
+  // tela inicial com ícones genéricos e o Legacy Plan
+  const home = $("#home");
+  for (let r = 0; r < 4; r++) for (let c = 0; c < 4; c++) {
+    const a = document.createElement("div"); a.className = "app";
+    const x = 34 + c * 108, y = 110 + r * 128;
+    a.style.left = x + "px"; a.style.top = y + "px";
+    if (r === 1 && c === 1) { a.id = "ic-plan"; a.innerHTML = '<img src="assets/img/plan_logo.svg"/>'; const n = document.createElement("div"); n.className = "nm"; n.textContent = "Legacy Plan"; n.style.left = (x - 13) + "px"; n.style.top = (y + 90) + "px"; home.appendChild(n); }
+    home.appendChild(a);
+  }
+  const ICP = { x: 142 + 42, y: 238 + 42 };
+
+  // PASSO 1
+  passo(T("abra"), 1, "Abra o app do <b>Legacy Plan</b>");
+  aparece(dedo, T("abra") + 0.4, 0.3);
+  vai(T("abra") + 0.5, ICP.x, ICP.y, 1.0);
+  aneis(T("legacy") - 0.3 + 0, 142, 238, 84, 84, T("conta") - 0.3);
+  toca(T("conta") - 0.4, ICP.x, ICP.y);
+  aparece("#splash", T("conta") - 0.15, 0.3);
+  tl.fromTo("#splash img", { scale: 0.7 }, { scale: 1, duration: 0.8, ease: "expo.out", immediateRender: false }, T("conta") - 0.15);
+  aparece("#app", T("conta") + 0.55, 0.4);
+  esconde("#splash", T("conta") + 1.0, 0.1);
+  tl.fromTo("#prox", { y: 20, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, ease: "expo.out", immediateRender: false }, T("conta") + 0.75);
+
+  // PASSO 2
+  const PR = { x: 16, y: 130, w: 448, h: 210 }, VD = { x: 16 + 20, y: 130 + 140, w: 408, h: 50 };
+  aneis(T("card"), PR.x, PR.y, PR.w, PR.h, T("clique1") - 0.1);
+  passo(T("clique1"), 2, "Toque em <b>Ver detalhes</b>");
+  vai(T("clique1") - 0.3, VD.x + 204, VD.y + 25, 1.1);
+  toca(T("detalhes") + 0.05, VD.x + 204, VD.y + 25);
+  tl.to("#vd", { backgroundColor: "#eef4ff", borderColor: "#2f7bff", duration: 0.15 }, T("detalhes") + 0.05);
+  const M1 = { x: 24, y: 236 };
+  aparece("#veu1", T("detalhes") + 0.35, 0.35);
+  mostra("#m1", T("detalhes") + 0.4, { y: 40, scale: 0.94 }, 0.6);
+  vai(T("detalhes") + 0.7, 450, 700, 0.9);
+  aneis(T("tema") - 0.1, M1.x + 16, M1.y + 158, 400, 92, T("dia") - 0.15);
+  aneis(T("dia") - 0.05, M1.x + 16, M1.y + 274, 400, 58, T("horario") + 0.9);
+
+  // PASSO 3
+  passo(T("clique2"), 3, "Toque em <b>Fazer check-in</b>");
+  const BC = { x: M1.x + 24, y: M1.y + 502, w: 384, h: 54 };
+  vai(T("agora2"), BC.x + 192, BC.y + 27, 1.1);
+  toca(T("checkin") + 0.05, BC.x + 192, BC.y + 27);
+  aneis(T("registra"), BC.x, BC.y, BC.w, BC.h, T("presenca") + 0.8);
+  mostra("#toast1", T("pronto1") - 0.15, { y: 40, scale: 0.95 }, 0.5);
+  esconde("#toast1", T("nele") + 0.3, 0.3);
+  tl.to("#bc1", { autoAlpha: 0, duration: 0.2 }, T("pronto1") + 0.2);
+  tl.to("#bc2", { autoAlpha: 1, duration: 0.3 }, T("pronto1") + 0.35);
+  aneis(T("botao") - 0.05, BC.x, BC.y, BC.w, BC.h, T("nele") + 0.2);
+  vai(T("pronto1") + 0.3, 400, 680, 0.8);
+
+  // PASSO 4
+  passo(T("clique3"), 4, "Toque em <b>Entrar na aula</b>");
+  vai(T("entrar1") - 0.1, BC.x + 192, BC.y + 27, 0.8);
+  toca(T("nele") + 0.05, BC.x + 192, BC.y + 27);
+  esconde("#m1", T("nele") + 0.45, 0.25);
+  esconde("#veu1", T("nele") + 0.45, 0.25);
+
+  // PASSO 5
+  const M2 = { x: 20, y: 72 }, MA = { x: M2.x + 20, y: M2.y + 282 };
+  aparece("#veu2", T("vai") - 0.25, 0.3);
+  mostra("#m2", T("vai") - 0.15, { y: 40, scale: 0.94 }, 0.6);
+  passo(T("quem"), 5, "Confirme <b>quem está assistindo</b>");
+  vai(T("vai") + 0.2, 450, 760, 0.9);
+  aneis(T("empresa") - 0.1, M2.x + 20, M2.y + 110, 400, 54, T("nome1") - 0.1);
+  aneis(T("nome1") - 0.05, M2.x + 20, M2.y + 208, 400, 54, T("preenchidos") + 0.9);
+  aneis(T("alguem"), MA.x, MA.y, 400, 96, T("ligue") - 0.1);
+  const TOG = { x: MA.x + 332 + 26, y: MA.y + 32 + 14 };
+  vai(T("mesmo") - 0.2, TOG.x, TOG.y, 1.0);
+  toca(T("opcao") - 0.05, TOG.x, TOG.y);
+  tl.to("#tog", { backgroundColor: "#195576", duration: 0.2 }, T("opcao"));
+  tl.to("#tog i", { x: 24, duration: 0.25, ease: "power2.out" }, T("opcao"));
+  const CRESCE = 210;
+  tl.to("#mais", { height: 96 + CRESCE, duration: 0.6, ease: "power3.inOut" }, T("opcao") + 0.2);
+  tl.to(["#m2-info", "#bts2"], { y: CRESCE, duration: 0.6, ease: "power3.inOut" }, T("opcao") + 0.2);
+  tl.to("#m2", { height: 732 + CRESCE, duration: 0.6, ease: "power3.inOut" }, T("opcao") + 0.2);
+  const CKA = { x: MA.x + 18 + 11, y: MA.y + 104 + 11 };
+  vai(T("marque") - 0.1, CKA.x, CKA.y, 0.9);
+  toca(T("tripulacao") - 0.1, CKA.x, CKA.y);
+  aparece("#ck-ana", T("tripulacao") - 0.05, 0.15);
+  esconde("#pz1", T("tripulacao"), 0.1);
+  aparece("#pz2", T("tripulacao"), 0.1);
+  esconde("#info1", T("tripulacao"), 0.1);
+  aparece("#info2", T("tripulacao"), 0.1);
+  const INP = { x: MA.x + 18 + 120, y: MA.y + 184 + 25 };
+  vai(T("ou") - 0.1, INP.x, INP.y, 0.8);
+  toca(T("digite"), INP.x, INP.y);
+  esconde("#inp-ph", T("digite") + 0.2, 0.05);
+  aparece("#inp-v", T("digite") + 0.2, 0.05);
+  digita($("#inp-tx"), "Carla", T("digite") + 0.35, 0.8);
+  tl.to("#inp-car", { autoAlpha: 0, duration: 0.01, repeat: 5, yoyo: true, repeatDelay: 0.35 }, T("digite") + 1.2);
+  const ADD = { x: MA.x + 268 + 58, y: MA.y + 184 + 25 };
+  vai(T("clique4") - 0.3, ADD.x, ADD.y, 0.9);
+  toca(T("adicionar") + 0.05, ADD.x, ADD.y);
+  esconde("#inp-v", T("adicionar") + 0.25, 0.05);
+  aparece("#inp-ph", T("adicionar") + 0.25, 0.05);
+  mostra("#chip-p", T("adicionar") + 0.25, { scale: 0.6 }, 0.45);
+  esconde("#info2", T("adicionar") + 0.3, 0.1);
+  aparece("#info3", T("adicionar") + 0.3, 0.1);
+  esconde("#pz2", T("adicionar") + 0.3, 0.1);
+  aparece("#pz3", T("adicionar") + 0.3, 0.1);
+
+  // PASSO 6
+  const BE = { x: M2.x + 20, y: M2.y + 534 + CRESCE, w: 400, h: 54 }, BA = { x: M2.x + 20, y: M2.y + 534 + CRESCE + 64, w: 400, h: 44 };
+  passo(T("agora3"), 6, "Toque em <b>Entrar na aula</b>");
+  vai(T("agora3"), BE.x + 200, BE.y + 27, 1.1);
+  aneis(T("entrar2") - 0.05, BE.x, BE.y, BE.w, BE.h, T("se2") - 0.1);
+  aneis(T("se2") + 0.1, BA.x, BA.y, BA.w, BA.h, T("zoom2") + 0.5);
+  toca(T("zoom2") + 0.35, BE.x + 200, BE.y + 27);
+  esconde(dedo, T("zoom2") + 0.65, 0.2);
+  aparece("#ent", T("zoom2") + 0.65, 0.25);
+  tl.fromTo("#spin", { rotation: 0 }, { rotation: 900, duration: 2.6, ease: "none", immediateRender: false }, T("zoom2") + 0.65);
+  aparece("#zoomapp", Math.max(T("abre") - 0.3, T("zoom2") + 1.5), 0.4);
+  aneis(T("nome3") - 0.3, 18, 384, 214, 250, T("empresa2") + 0.8);
+  mostra("#naaula", T("dentro") - 0.2, { y: 40, scale: 0.9 }, 0.6);
+  tl.to("#passo", { autoAlpha: 0, y: -30, duration: 0.4 }, T("dentro") - 0.4);
+
+  // fecho
+  some("#fone", T("nos") - 0.3, { z: -500, scale: 0.8 }, 0.5);
+  some("#naaula", T("nos") - 0.3, { z: -500, scale: 0.8 }, 0.5);
+  grupo(1010, [[[K.nos, "sm dim", null, T("nos")], [K.nos + 1, "sm dim"], [K.nos + 2, "sm"]], [[K.proximo, "big hl"]], [[K.encontro, "big"]]], DUR + 1);
+  mostra("#logo-fim", T("nos") + 0.3, { y: 40, scale: 0.9, filter: "blur(16px)" }, 0.9);
+  tl.fromTo("#linha-fim", { autoAlpha: 1, scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power3.out", immediateRender: false }, T("nos") + 0.8);
+
+  // ======== câmera ========
+  (function () {
+    const P = { ini: [0, 0], antes: [1700, 0], agora: [1700, 2300], tut: [3400, 2300], fim: [3400, 4600] };
+    const lugar = { "#s-antes": "antes", "#s-agora": "agora", "#s-tut": "tut", "#s-fim": "fim" };
+    Object.keys(lugar).forEach((sel) => { const q = P[lugar[sel]]; $(sel).style.translate = q[0] + "px " + q[1] + "px"; });
+    const cam = $("#camera");
+    const curT = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    curT.setAttribute("id", "curT"); curT.setAttribute("viewBox", "0 0 58 70");
+    curT.innerHTML = '<path d="M4 4 L4 56 L18 44 L28 66 L38 61 L28 40 L50 40 Z" fill="#2f7bff" stroke="#fff" stroke-width="4" stroke-linejoin="round"/>';
+    cam.insertBefore(curT, cam.firstChild);
+    gsap.set(curT, { autoAlpha: 0 });
+    const C = (k) => [P[k][0] + W / 2, P[k][1] + H / 2];
+    let atual = "ini";
+    gsap.set(cam, { x: 0, y: 0, transformOrigin: (W / 2) + "px " + (H / 2) + "px" });
+    function viagem(t, para, dur) {
+      dur = dur || 0.9;
+      const a = C(atual), b = C(para);
+      const dx = b[0] - a[0], dy = b[1] - a[1], L = Math.hypot(dx, dy);
+      const ang = Math.atan2(dy, dx) * 180 / Math.PI - 90;
+      const lig = document.createElement("div"); lig.className = "lig";
+      lig.style.left = (a[0] - 4) + "px"; lig.style.top = a[1] + "px"; lig.style.height = L + "px"; lig.style.transform = "rotate(" + ang + "deg)";
+      const i = document.createElement("i"); lig.appendChild(i); cam.insertBefore(lig, cam.firstChild);
+      tl.fromTo(i, { scaleY: 0 }, { scaleY: 1, duration: dur + 0.15, ease: "power3.inOut" }, t - 0.15);
+      tl.fromTo(lig, { opacity: 1 }, { opacity: 0, duration: 0.3, immediateRender: false }, t + dur - 0.15);
+      tl.set(curT, { x: a[0] + 30, y: a[1] + 40, rotation: ang + 160, autoAlpha: 0 }, t - 0.2);
+      tl.to(curT, { autoAlpha: 1, duration: 0.12 }, t - 0.2);
+      tl.to(curT, { x: b[0] + 30, y: b[1] + 40, duration: dur, ease: "power3.inOut" }, t - 0.08);
+      tl.to(curT, { autoAlpha: 0, duration: 0.2 }, t + dur + 0.05);
+      tl.set(cam, { transformOrigin: b[0] + "px " + b[1] + "px" }, t);
+      tl.to(cam, { x: -P[para][0], y: -P[para][1], duration: dur, ease: "power3.inOut" }, t);
+      tl.to(cam, { scale: 0.86, filter: "blur(6px)", duration: dur / 2, ease: "power2.in" }, t);
+      tl.to(cam, { scale: 1, filter: "blur(0px)", duration: dur / 2, ease: "power2.out" }, t + dur / 2);
+      atual = para;
+    }
+    function foco(t, s, px, py, dur, ax, ay) {
+      const c = C(atual);
+      ax = ax == null ? W / 2 : ax; ay = ay == null ? 980 : ay;
+      const bx = -P[atual][0] + (ax - W / 2 - s * (px - W / 2));
+      const by = -P[atual][1] + (ay - H / 2 - s * (py - H / 2));
+      tl.set(cam, { transformOrigin: c[0] + "px " + c[1] + "px" }, t - 0.01);
+      tl.to(cam, { x: bx, y: by, scale: s, duration: dur || 1.2, ease: "power2.inOut" }, t);
+    }
+    const geral = (t, dur) => foco(t, 1, W / 2, H / 2, dur || 1.0, W / 2, H / 2);
+
+    viagem(T("antes") - 0.3, "antes", 1.0);
+    viagem(T("agora") + 0.05, "agora", 1.0);
+    viagem(T("vou") - 0.3, "tut", 1.0);
+    // tela do celular: x 300, y 420 na cena
+    const FX = 300, FY = 420;
+    foco(T("abra") + 0.4, 1.35, FX + 240, FY + 300, 1.3, W / 2, 900);
+    geral(T("conta") + 0.5, 1.2);
+    foco(T("card") - 0.35, 1.45, FX + 240, FY + 235, 1.3, W / 2, 900);
+    foco(T("detalhes") + 0.5, 1.2, FX + 240, FY + 526, 1.2, W / 2, 1000);
+    foco(T("aqui") - 0.1, 1.5, FX + 240, FY + 500, 1.2, W / 2, 960);
+    foco(T("agora2") - 0.2, 1.4, FX + 240, FY + 600, 1.2, W / 2, 1000);
+    foco(T("pronto1") - 0.45, 1.25, FX + 240, FY + 700, 1.1, W / 2, 1000);
+    foco(T("botao") - 0.25, 1.4, FX + 240, FY + 620, 1.1, W / 2, 1000);
+    foco(T("vai") - 0.2, 1.15, FX + 240, FY + 430, 1.2, W / 2, 1000);
+    foco(T("a_") - 0.25, 1.45, FX + 240, FY + 260, 1.2, W / 2, 900);
+    foco(T("se1") - 0.1, 1.5, FX + 240, FY + 400, 1.2, W / 2, 970);
+    foco(T("opcao") + 0.25, 1.3, FX + 240, FY + 530, 1.2, W / 2, 1000);
+    foco(T("agora3") - 0.2, 1.3, FX + 240, FY + 846, 1.2, W / 2, 1120);
+    geral(T("zoom2") + 0.6, 1.0);
+    foco(T("abre") - 0.1, 1.2, FX + 240, FY + 520, 1.3, W / 2, 940);
+    geral(T("dentro") - 0.3, 1.0);
+    viagem(T("nos") - 0.25, "fim", 1.0);
+  })();
+
+  window.__CLIQUES = CLIQUES;
+  tl.fromTo("#grade", { y: 0 }, { y: -300, duration: DUR, ease: "none" }, 0);
+  tl.fromTo("#blob1", { x: 0, y: 0 }, { x: 260, y: 300, duration: DUR, ease: "sine.inOut" }, 0);
+  tl.fromTo("#blob2", { x: 0, y: 0 }, { x: -300, y: -260, duration: DUR, ease: "sine.inOut" }, 0);
+  tl.set({}, {}, DUR);
+})();
+</script>
+</body>
+</html>
