@@ -39,6 +39,17 @@ for s in ["hyperframes", "hyperframes-core", "hyperframes-animation", "product-l
     checa(f"skill {s}", os.path.isdir(os.path.join(skills, s)),
           "chega pela sincronia (abrir conversa nova); se faltar: npx hyperframes skills update product-launch-video")
 
+for s in ["reanimate", "motion-design", "motionmaxxing"]:
+    checa(f"skill {s}", os.path.isdir(os.path.join(skills, s)), "chega pela sincronia (abrir conversa nova)", False)
+
+# reanimate: Bun + pacotes da pasta scripts (node_modules não sincroniza; cada PC prepara uma vez)
+bun = shutil.which("bun") or next(iter(glob.glob(os.path.join(os.environ.get("LOCALAPPDATA", ""), "Microsoft", "WinGet",
+                                                              "Packages", "Oven-sh.Bun_*", "bun-windows-x64", "bun.exe"))), None)
+checa("Bun (para a skill reanimate)", bun, "winget install --id Oven-sh.Bun -e", False)
+rea = os.path.join(skills, "reanimate", "scripts")
+checa("reanimate preparado", os.path.isdir(os.path.join(rea, "node_modules", "playwright")),
+      f'cd "{rea}" ; bun install --frozen-lockfile ; bun x playwright install chromium', False)
+
 dif = glob.glob(os.path.join(os.environ.get("LOCALAPPDATA", ""), "DiffusionStudio", "app-*", "resources", "cli", "bin", "dapi.cmd"))
 checa("Diffusion Studio (opcional)", dif[-1] if dif else None,
       "baixar Diffusion-Studio-x64-Setup.exe da release mais nova em github.com/diffusionstudio/editor (pedir o sim)", False)

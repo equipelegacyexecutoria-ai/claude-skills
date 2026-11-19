@@ -33,6 +33,9 @@ Instalar programa novo, baixar arquivo ou gastar crédito: pedir o "sim" do usu�
 | Ícone animado, check, confete, seta | **LottieFiles** (conector) → `<lottie>` no HyperFrames | Conectar com o usuário: `claude mcp add --transport http lottiefiles https://mcp.lottiefiles.com/mcp` |
 | Logo 3D, objeto 3D com câmera | Three.js no HyperFrames, ou **Blender** (MCP) se instalado | — |
 | Cena realista (pessoa, lugar, objeto filmado) | **Magnific** `video_generate` / `images_generate` | Gasta créditos: avisar antes |
+| "Faz igual a essa animação": refazer uma animação de site, vídeo, gif ou Lottie quadro a quadro e conferir lado a lado até bater | **skill `reanimate`** (instalada em 19/11/2026) | Usa Bun. Primeira vez no PC: `winget install --id Oven-sh.Bun -e`, depois `bun install --frozen-lockfile` e `bun x playwright install chromium` dentro de `~/.claude/skills/reanimate/scripts`. O resultado vira cena no HyperFrames |
+| Tempo e suavidade dos movimentos (quanto dura cada entrada, qual curva, ordem dos elementos) | **skill `motion-design`** (LottieFiles) | Consulta, não monta nada: ler `reference/timing-easing-tables.md` e `director/choreography.md` ao desenhar as cenas |
+| Revisão de acabamento: o motion ficou com cara de IA (slide, HUD, tudo entrando igual) | **skill `motionmaxxing`** | Usar as checagens dela no rascunho: `python scripts/look.py <video.mp4>` e `node scripts/lint.mjs <index.html>`; ler `references/` para a ideia da marca e o mundo da cena. Narração dela é ElevenLabs: aqui a voz continua pela Magnific/Adobe Podcast |
 | Narração | **Magnific** `audio_tts` (ElevenLabs, vozes BR) | Detalhes em `references/audio.md` |
 | Música e efeitos | **Artlist** pelo Chrome logado do usuário | Sem conector; detalhes em `references/audio.md` |
 
