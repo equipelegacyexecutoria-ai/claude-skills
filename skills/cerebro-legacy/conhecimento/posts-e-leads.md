@@ -386,3 +386,17 @@ Manychat_legacy já existe, 1 lead em 28/07).
 O que anda junto com os cliques na bio (mesmas 16 semanas): alcance do Clailton 0,91 · seguidores ganhos 0,88 · visitas 0,66 ·
 anúncio 0,49 · alcance de stories da Legacy 0,29 · cliques vindos de posts 0,13 · alcance próprio −0,16. Cliques a cada mil visitas:
 5,9 em ago–set e 10,2 em 02–15/11 (quase o dobro; causa ainda não identificada: bio, tela pré-CTA, Black ou perfil de quem chega).
+
+## Semana 16–22/11 × 09–15/11 (23/11/2026)
+Pergunta do Igor: análise dos posts da Legacy da semana passada. Banco do Cérebro, Meta de 22/11 23h; comparação na mesma idade = fotografia de 1 dia depois de publicar.
+- Posts: 38 × 42 (27 carrosséis, 7 estáticos, 4 reels). Alcance típico (1 dia) 1.306 × 1.400; compart. por mil 1,2 × 2,0; posts com 5 mil+ 3 × 5.
+  Seguidores vindos de post 2, cliques vindos de post 2 (semana inteira).
+- Perfil Legacy: cliques no site 138 × 257 (−46%); visitas 19.053 × 19.724; seguiram 15.710 × 32.278; alcance de anúncio 355.590 × 257.627 (+38%).
+  Clailton: alcance 5,04 mi × 9,39 mi; nenhum reel acima de 500 mil (maior 261 mil) × cavalos 5,3 mi; mediana por reel igual (47,7 mil).
+- Leads das portas da Legacy (bio_legacy + boas_vindas + Story_legacy, corte R$ 70 mil): 53 leads · 27 MQL × 113 · 59. bio_legacy 28·17 × 75·45.
+  MQL a cada 100 cliques na bio ~20 × 23: a queda veio do volume de cliques (sem viral do Clailton), não da qualidade. Anúncio +38% não segurou.
+- Top: fábrica de móveis perdeu R$ 500 mil em incêndio (21/11 18h, 10.134), carne subiu no restaurante (17/11 15h, 9.631, 38 compart., 34 salvos),
+  Habib's/Ragazzo em recuperação judicial (20/11 19h30, 8.161), Magalu estático (4.469), Aeris (4.211), pequena indústria estático (3.913).
+  Empresa conhecida em crise/recuperação judicial (Habib's, Aeris, Chilli Beans, Tok&Stok, móveis): mediana 4.211.
+- Horários: 12h estático mediana 3.309 (melhor); 15h 1.882; 18h 1.562; extras 19h30/20h30 (19–21/11) 1.915; 09h30 ~900 (6 posts, pior de novo).
+  Nicho com pergunta "🤔" (restaurante, construtor, oficina, fábrica): mediana ~1.500; exceção a carne do restaurante, que trazia número concreto.
