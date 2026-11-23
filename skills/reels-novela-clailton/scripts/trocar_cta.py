@@ -262,6 +262,11 @@ def main():
         info["busca"] = {"faixa": str(melhor[2]) if melhor[2] else None, "score_cta": round(melhor[0], 3),
                          "confirmacao_12s": round(melhor[3], 3),
                          "top3": [(round(r, 3), m.name) for r, _, m in ranking[:3]]}
+        # música desligada antes da CTA de propósito (MUS_ATE, ex.: "Cala a Boca"): sem música nos 12 s antes não há
+        # como confirmar; com --musica dado e a faixa batendo forte no trecho da própria CTA, aceita (23/11/2026)
+        if a.musica and (melhor[2] is None or melhor[3] < 0.08) and ranking and ranking[0][0] >= 0.3:
+            melhor = (ranking[0][0], ranking[0][1], ranking[0][2], 0.08)
+            info["busca"]["aceita_pela_cta"] = True
         if melhor[2] is not None and melhor[3] >= 0.08:
             musica = melhor[2]
             # ponto fino em 48 kHz: correlação em +-30 ms em volta do achado

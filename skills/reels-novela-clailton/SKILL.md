@@ -311,6 +311,12 @@ Correções depois de pronto:
   verde #00FF00, codec Animation, .mov). NV_CTA: `--ate <início da animação> --sem-cta`. Vai para o Drive ao lado do EDITADO
   e o link entra em MATERIAL FINALIZADO.
 - **Ver um quadro sem renderizar**: `P S\previa_quadro.py T 12.5,40.2 T\qa\previa.png [--faixa]`.
+- **Correção pontual de corte num NV já entregue** (23/11/2026, "cortou o final do filhos", "não corta o estalar de
+  dedos"): sem refazer decupagem/legenda/B-roll, `P S\ajustar_corte.py T estender <k> <quadros>` (fim do trecho k avança
+  no bruto; meça antes onde a cauda da voz chega a ~-70 dB) ou `juntar <k>` (k e k+1 viram um trecho só, sem o corte).
+  Empurra legenda.ass, broll.json, palavras_corte.json e layout.json; depois `render_final.py T <sem música>` e música/CTA.
+  Bruto apagado do PC: copie de novo da pasta BRUTO do mês no G: antes do render. "Bug" numa emenda costuma ser emenda
+  entre duas tentativas da mesma frase: confira com `ctc_candidatos.py` qual trecho tem a frase inteira e use só ela.
 
 ## Trilha na primeira versão (regra do usuário, 04/11/2026)
 
@@ -324,7 +330,9 @@ da copy no documento "2. JÁ GRAVADOS", `1iQPGvM9Ntgwa0Bqws3UyZQPZJi-pzOI5p5WcZ0
   Mosseri "Jacob and the Stone", M83/Felsmann + Tiley "Solitude", Gibran Alcocer "Solas (Slowed + Reverb)", ViOLiNiA
   "Lovely (Instrumental)", noel.smt "Experience (Slowed)", Danilo Stankovic "Stories 2"; e 3 com letra cantada
   ("Je te laisserai des mots", "Beanie", "The Night We Met"), que só entram em versão instrumental. Com poucas
-  favoritas, a regra de não repetir na mesma semana vira: espalhar, sem a mesma faixa em dois reels seguidos.
+  favoritas, **pode repetir** (usuário, 23/11/2026: "não existe problema em repetir músicas contanto que seja a melhor
+  escolha"): escolha a que melhor encaixa na narrativa de cada reel, mesmo que outro da semana use a mesma.
+  Aprovado na troca de 23/11/2026: "Como Você Trata Seus Irmãos" com "Lovely" ("ficou muito bom").
 - Biblioteca: `~/Music/Spotclai/<Emoção>/` (pastas por clima: Melancolia - Saudade, Reflexão - Calma, Inspiração - Esperança,
   Superação - Resiliência, Energia - Confiança, Tensão - Mistério, Épico - Cinematográfico; lista em `_catalogo.csv`).
   Escolha a faixa que casa com o estilo descrito e não repita a mesma faixa em reels da mesma semana.
