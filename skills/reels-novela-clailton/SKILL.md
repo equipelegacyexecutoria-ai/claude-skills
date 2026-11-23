@@ -316,6 +316,15 @@ Correções depois de pronto:
 
 Todo NV sai **com música já na v1**. Estilo: a linha `Trilha: ...` da copy (corpo do card ou, se não estiver lá, o bloco
 da copy no documento "2. JÁ GRAVADOS", `1iQPGvM9Ntgwa0Bqws3UyZQPZJi-pzOI5p5WcZ0ouK8Y`); sem sugestão, decida pela copy.
+- **Favoritas do Clailton primeiro** (pedido do usuário, 23/11/2026: o Clailton marcou no Spotclai as músicas preferidas
+  dele): antes de escolher a trilha, rode `P S\favoritas.py` (lê a lista na hora; ela muda quando ele marca ou desmarca)
+  e escolha **entre as favoritas instrumentais** a que casa com o estilo do vídeo. Só vá para o resto da biblioteca se
+  nenhuma favorita combinar (ex.: card pede energia/rock e as favoritas são todas calmas) e diga no comentário por quê.
+  Em 23/11/2026 eram 8 instrumentais: Max Richter "On The Nature Of Daylight", Sparky Deathcap "September", Emile
+  Mosseri "Jacob and the Stone", M83/Felsmann + Tiley "Solitude", Gibran Alcocer "Solas (Slowed + Reverb)", ViOLiNiA
+  "Lovely (Instrumental)", noel.smt "Experience (Slowed)", Danilo Stankovic "Stories 2"; e 3 com letra cantada
+  ("Je te laisserai des mots", "Beanie", "The Night We Met"), que só entram em versão instrumental. Com poucas
+  favoritas, a regra de não repetir na mesma semana vira: espalhar, sem a mesma faixa em dois reels seguidos.
 - Biblioteca: `~/Music/Spotclai/<Emoção>/` (pastas por clima: Melancolia - Saudade, Reflexão - Calma, Inspiração - Esperança,
   Superação - Resiliência, Energia - Confiança, Tensão - Mistério, Épico - Cinematográfico; lista em `_catalogo.csv`).
   Escolha a faixa que casa com o estilo descrito e não repita a mesma faixa em reels da mesma semana.

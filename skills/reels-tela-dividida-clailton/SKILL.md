@@ -35,7 +35,9 @@ código, e registre lá) ANTES de entregar. O objetivo é cada vídeo novo chega
 **Portão:** o 1º vídeo de um lote é mostrado ao usuário antes dos outros (com `--geral`), incluindo
 `qa/fundo_mais_claro.png` (regra global: legenda testada no fundo mais claro).
 
-**Música já na v1 (16/11/2026; antes a música entrava depois, pelo usuário). Nada na nuvem:** Gemini (plugin /watch)
+**Música já na v1 (16/11/2026; antes a música entrava depois, pelo usuário)**, escolhida **primeiro entre as favoritas
+do Clailton no Spotclai** (23/11/2026; `reels-novela-clailton/scripts/favoritas.py`, regra completa na skill
+`reels-novela-clailton`, "Trilha na primeira versão"). **Nada na nuvem:** Gemini (plugin /watch)
 foi testado em 27/09 e descartado "por enquanto" (lento, falhou com 503, e manda o vídeo
 para fora); não propor de novo sem ele pedir. Lacuna que o teste mostrou e as folhas de
 revisão não pegam: imagem que contradiz a fala, legenda branca sobre imagem branca e
