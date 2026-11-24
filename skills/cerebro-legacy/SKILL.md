@@ -235,6 +235,11 @@ não saiu e o que cada pessoa entregou; `Claude · Atrasados` para o que ficou p
 - leads orgânicos e do Quiz por dia;
 - decisões tomadas nas reuniões;
 - a semana que vem: o que está marcado, o que ainda não está pronto, o que precisa do Igor.
+- **meta do Alex (desde 30/11/2026): 2 depoimentos por semana** para o Instagram da Legacy. Conte os cards
+  `Reels_Legacy_Depoimento_*` (ou com "DEPOIMENTO" na PAUTA) com RESPONSÁVEL Alex que chegaram em Aprovação ou
+  além até sexta 18h. Diga "n de 2" e quais. Card criado por ele mas parado em A Editar/Stand-by não conta.
+  Na sexta, o relatório diário avisa se ele está abaixo de 2. Regra completa no card do MURAL
+  "META SEMANAL | Alex | 2 depoimentos para o Instagram da Legacy".
 Título: `Resumo da semana — dd/mm a dd/mm`. Grave `memoria/diario/AAAA-MM-DD-semana.md`.
 
 ## Ainda não faz (próximas etapas combinadas)

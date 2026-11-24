@@ -9,7 +9,7 @@
 | Mac | Social media | Posta, faz design de carrossel/estático/story, cuida do calendário. |
 | Paim | Gestor de tráfego | Anúncios, e-mail marketing. |
 | Lucas | Designer e web designer | Páginas, pop-ups, artes. (Também aparece "Lucas" como aluno em vídeos das turmas LEGADO — não confundir.) |
-| Alex | Editor de vídeo | Edita reels (TD, ES, B-roll). |
+| Alex | Editor de vídeo | Edita reels (TD, ES, B-roll). Meta desde 30/11/2026: 2 depoimentos editados por semana (tira das aulas do Legado que ele transmite e cria os próprios cards). |
 | João | Programador | Checkout, Academy. Também chamado de "John" nos cards. |
 | Peterson | Programador | Automações (Nina, Pipedrive, Discord, WhatsApp). Também chamado de "Pet". |
 | 🤖 CLAUDE | Editor/designer automático | Cards na coluna CLAUDE são editados pelo PC de render (skill `fila-de-render`). |
