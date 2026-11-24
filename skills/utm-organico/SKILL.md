@@ -29,7 +29,7 @@ Modelo, sempre nesta ordem:
 ENDEREÇO?utm_source=organico&utm_medium=REDE&utm_campaign=PERFIL&utm_content=CAMINHO&utm_term=PECA
 ```
 
-Se o endereço já tiver `?`, troque o `?` do modelo por `&`.
+Se o endereço já tiver `?`, troque o `?` do modelo por `&`. Na bio, apague o `&utm_term=PECA` do fim.
 
 ### utm_medium (rede)
 
@@ -69,8 +69,7 @@ Story que sai no dia é `story`, mesmo que depois vá para os destaques.
 | story, live, post, direct | data e assunto | `2026-11-24_lucro-caixa` |
 | comente | data do post ou da live e a palavra comentada | `2026-11-18_lucro` |
 | boasvindas | versão e tema da mensagem | `versao-a_vendas` (só uma versão no ar: `versao-a`) |
-| bio com um link só (ex.: bio da Legacy) | nada: não leva `utm_term` | |
-| bio que abre uma página de links com vários botões | qual botão | `botao-sessao`, `botao-quiz`, `botao-palestra` |
+| bio (link único ou botões de uma página de links) | nada: a bio não leva `utm_term`, porque a página de destino já diz qual botão foi | |
 | destaque | nome do destaque | `venda-mais-lucre-mais` |
 | email, disparo, grupo | data do envio e assunto | `2026-11-22_convite-live` |
 
@@ -82,8 +81,9 @@ Dois links na mesma peça (ex.: dois links no mesmo story): cada um com assunto 
 - `_` separa as partes; `-` junta as palavras dentro de uma parte.
 - Data sempre `aaaa-mm-dd` (ex.: `2026-11-24`).
 - Assunto com 1 a 3 palavras.
-- Nunca deixar etiqueta vazia nem usar valor fora das tabelas. Única exceção: bio com um link só não leva
-  `utm_term` (regra do Igor, 24/11/2026: é o padrão, não precisa marcar). Valor novo só com aprovação do Igor.
+- Nunca deixar etiqueta vazia nem usar valor fora das tabelas. Única exceção: a bio não leva `utm_term`
+  (regra do Igor, 24/11/2026: é o padrão, não precisa marcar). Se dois botões da mesma página de links
+  levarem ao mesmo endereço, aí sim use `utm_term=botao-nome` para separar. Valor novo só com aprovação do Igor.
 
 ## Páginas de destino (endereço sem nada depois)
 
@@ -117,7 +117,7 @@ avise que a página não está na lista e que vale testar se ela guarda as etiqu
 3. Entregue o link corrigido. Se não der para saber a peça ou o caminho, pergunte.
 
 **Página de links / bio (legalinks, linktree)**
-Monte um link por botão e entregue as duas versões quando o perfil estiver nas duas redes: uma com
+Monte um link por botão, sem `utm_term`, e entregue as duas versões quando o perfil estiver nas duas redes: uma com
 `utm_medium=instagram` e outra com `utm_medium=tiktok`. Avise que, para o TikTok ser contado separado,
 ele precisa de uma página de links própria; se os dois perfis abrirem a mesma página, tudo conta como
 a rede que estiver nos botões. O `utm_source=ig&utm_medium=social` que o Instagram coloca sozinho no
@@ -135,9 +135,9 @@ Os botões Instagram e YouTube do rodapé só abrem o perfil e não levam etique
 
 Versão Instagram:
 ```
-https://quiz.legacyexecutoria.com.br/?utm_source=organico&utm_medium=instagram&utm_campaign=clailton&utm_content=bio&utm_term=botao-quiz
-https://legado.legacyexecutoria.com.br/sinergia?utm_source=organico&utm_medium=instagram&utm_campaign=clailton&utm_content=bio&utm_term=botao-sessao
-https://legalinks.legacyexecutoria.com.br/clailton/palestras?utm_source=organico&utm_medium=instagram&utm_campaign=clailton&utm_content=bio&utm_term=botao-palestra
+https://quiz.legacyexecutoria.com.br/?utm_source=organico&utm_medium=instagram&utm_campaign=clailton&utm_content=bio
+https://legado.legacyexecutoria.com.br/sinergia?utm_source=organico&utm_medium=instagram&utm_campaign=clailton&utm_content=bio
+https://legalinks.legacyexecutoria.com.br/clailton/palestras?utm_source=organico&utm_medium=instagram&utm_campaign=clailton&utm_content=bio
 ```
 
 Versão TikTok: os mesmos três, com `utm_medium=tiktok`.
@@ -154,7 +154,7 @@ Versão TikTok: os mesmos três, com `utm_medium=tiktok`.
 | perfil no medium (`facebook_clailton`, `reels_clailton`, `stories_clailton`, `legacy`) | só a rede no medium e o perfil na campanha |
 | `organic`, `ig`, `Instagram`, `Tiktok` | `organico`, `instagram`, `tiktok` |
 | datas `17_11_26`, `05-11-2026`, `28_07_2026` | `2026-11-17`, `2026-11-05`, `2026-07-28` |
-| `bio_clailton_vmlm`, `bio_clailton_legado`, `bio_clailton_palestras` | `bio` + `botao-quiz`, `botao-sessao` ou `botao-palestra` |
+| `bio_clailton_vmlm`, `bio_clailton_legado`, `bio_clailton_palestras`, `botao-sessao`, `botao-quiz` | `bio`, sem `utm_term` |
 
 ## Exemplos prontos
 
