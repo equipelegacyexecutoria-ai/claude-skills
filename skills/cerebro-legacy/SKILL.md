@@ -186,6 +186,8 @@ card (`<mention-page url="...">`). Ordem:
 10. **💡 O que pode estar escapando** — no máximo 3 observações com número por trás (ex.: "129
     leads orgânicos parados em Social Selling › Lead há 3+ dias; 0% virou Lead Qualificado em 15
     dias — alguém está qualificando?"). Só o que os dados mostram; sem opinião genérica.
+    Na sexta, se o Alex tiver menos de 2 depoimentos em Aprovação na semana (meta, ver "Resumo da semana"),
+    isso entra aqui com o número ("Alex: 1 de 2 depoimentos da semana").
 
 Se existir `~/.claude/sync-local/discord-relatorio.txt` (webhook do canal privado do Igor), mande
 também um resumo de até 10 linhas + o link da página, com `curl -X POST -H "Content-Type:
