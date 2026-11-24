@@ -69,7 +69,8 @@ Story que sai no dia é `story`, mesmo que depois vá para os destaques.
 | story, live, post, direct | data e assunto | `2026-11-24_lucro-caixa` |
 | comente | data do post ou da live e a palavra comentada | `2026-11-18_lucro` |
 | boasvindas | versão e tema da mensagem | `versao-a_vendas` (só uma versão no ar: `versao-a`) |
-| bio | qual botão | `botao-sessao`, `botao-quiz`, `botao-palestra` |
+| bio com um link só (ex.: bio da Legacy) | nada: não leva `utm_term` | |
+| bio que abre uma página de links com vários botões | qual botão | `botao-sessao`, `botao-quiz`, `botao-palestra` |
 | destaque | nome do destaque | `venda-mais-lucre-mais` |
 | email, disparo, grupo | data do envio e assunto | `2026-11-22_convite-live` |
 
@@ -81,7 +82,8 @@ Dois links na mesma peça (ex.: dois links no mesmo story): cada um com assunto 
 - `_` separa as partes; `-` junta as palavras dentro de uma parte.
 - Data sempre `aaaa-mm-dd` (ex.: `2026-11-24`).
 - Assunto com 1 a 3 palavras.
-- Nunca deixar etiqueta vazia nem usar valor fora das tabelas. Valor novo só com aprovação do Igor.
+- Nunca deixar etiqueta vazia nem usar valor fora das tabelas. Única exceção: bio com um link só não leva
+  `utm_term` (regra do Igor, 24/11/2026: é o padrão, não precisa marcar). Valor novo só com aprovação do Igor.
 
 ## Páginas de destino (endereço sem nada depois)
 
@@ -168,7 +170,7 @@ https://academy.legacyexecutoria.com.br/lp/captacao?utm_source=organico&utm_medi
 
 Bio da Legacy, levando para a sessão estratégica:
 ```
-https://formulario.legacyexecutoria.com.br/?utm_source=organico&utm_medium=instagram&utm_campaign=legacy&utm_content=bio&utm_term=botao-sessao
+https://formulario.legacyexecutoria.com.br/?utm_source=organico&utm_medium=instagram&utm_campaign=legacy&utm_content=bio
 ```
 
 Reels do Clailton de 18/11 com "comente LUCRO", levando para o quiz:
