@@ -33,9 +33,10 @@
   - Banco e login próprios: projeto Supabase **"Cérebro Legacy"** (`usgbaixvzdpletkwbnlb`, org
     "Igor Oliveirs", plano grátis), já com as tabelas (acessos, notificações, tarefas + eventos +
     fotografia diária por pessoa, posts do Instagram, fotografias do dia, coletas) e o Igor como admin.
-  - Instagram direto na API da Meta (`api/_instagram.js`, variável `INSTAGRAM_TOKEN`). O token atual é
-    de usuário e **vence em 06/12/2026**; o site avisa o admin 20 dias antes. Trocar por token de
-    usuário do sistema (não vence).
+  - Instagram direto na API da Meta (`api/_instagram.js`, variável `INSTAGRAM_TOKEN`). Token trocado
+    em 25/11/2026 (app "APP - Clailton", enxerga os 3 perfis): **não vence**, mas o acesso a dados
+    da Meta precisa ser renovado até **23/02/2027**. Trocado na Vercel do Cérebro e no `.env` do JARVIS;
+    o Insights Hub (segredos `INSTAGRAM_ACCESS_TOKEN_*` no Supabase) ficou com o token antigo.
   - **Histórico de tarefas por pessoa** (pedido do Igor: concluídas, atrasadas, quem atrasa, com que
     frequência) fica no **painel do site** (aba Tarefas), não no Notion. Quem grava é `api/coletar.js`,
     chamado pelo cron da Vercel às 00h05; a rotina da meia-noite na nuvem
