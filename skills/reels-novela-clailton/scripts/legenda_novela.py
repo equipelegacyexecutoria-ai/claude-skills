@@ -297,6 +297,16 @@ def montar(plano: dict, palavras: list[dict], fim_fala: float | None = None):
         for b in blocos:
             if b.t_in >= t0 - 1e-3 and b.t_in < fim - 1e-3:
                 b.sob_ancora = True
+    # troca de âncora (NÍVEL 1 -> NÍVEL 2): a âncora anterior e a tela que veio antes saem quando a nova
+    # entra; senão o número novo aparece sobre a frase do nível anterior e os dois números se cruzam
+    # (erro reprovado em 25/11/2026: "NÍVEL 2" com a frase do nível 1, "3" e "4" juntos virando "8").
+    for k in range(len(ancoras)):
+        ln, t0, fim = ancoras[k]
+        if k + 1 < len(ancoras) and fim > ancoras[k + 1][1]:
+            ancoras[k] = (ln, t0, ancoras[k + 1][1])
+        for b in blocos:
+            if b.t_in < t0 - 1e-3 and b.t_out > t0 + 1e-3:
+                b.t_out = t0
     return blocos, ancoras, avisos
 
 
