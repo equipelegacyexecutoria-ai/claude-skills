@@ -8,7 +8,7 @@
 | DEMANDAS \| TIME DE CRIAÇÃO (calendário editorial, visão Audiovisual) | `collection://f0cc9747-efab-822b-8678-07f92372d6b7` |
 | DEMANDAS \| BLACK FRIDAY | `collection://3f3c9747-efab-80c5-94c6-000b908a6dd3` |
 | DEMANDAS \| QUIZ CLAILTON | `collection://c56a8868-6e9a-4d60-b6c7-1402069a1e8f` |
-| 🚀 DEMANDAS \| LANÇAMENTO CLAILTON (live 16/12/2026; base própria, fora da TASKS; abas BIBLIOGRAFIA, Quadro geral, Igor, Mac, Lucas, Paim, Linha do tempo, Atrasados) | `collection://424c9747-efab-81cf-8abd-000be87b46c3` · https://app.notion.com/p/424c9747efab81539942c19bce88ad3b |
+| 🚀 DEMANDAS \| LANÇAMENTO CLAILTON (live 16/12/2026; base própria, fora da TASKS; uma aba só, "Quadro geral", com colunas Bibliografia, A fazer, Fazendo, Revisão, Ajustes, Concluído) | `collection://424c9747-efab-81cf-8abd-000be87b46c3` · https://app.notion.com/p/424c9747efab81539942c19bce88ad3b |
 | Página LEGACY (raiz) — **NÃO ABRIR: contém o bloco SENHAS** | `a23c9747efab82fcb3e28109c981c60a` |
 
 Quadros novos "DEMANDAS | ..." entram sozinhos: ache pelo `notion-search`, busque o esquema e
